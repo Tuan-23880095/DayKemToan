@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ôn tập Dãy số & Cấp số — Bản có tick & tính điểm</title>
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- KaTeX -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css" crossorigin="anonymous" />
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js" crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js" crossorigin="anonymous"></script>
+  <style>
+    body { font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, sans-serif; background-color: #f8f7f4; color: #1f2937; }
+    .katex { font-size: 1.05em !important; }
+    .sticky-footer { position: sticky; bottom: 0; background: #0ea5e9; color: white; }
+    .qcard { background: white; border: 1px solid #e5e7eb; border-radius: 0.75rem; padding: 1.25rem; box-shadow: 0 4px 10px rgba(0,0,0,.04); }
+    .solution { background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 0.75rem; padding: 1rem; margin-top: .75rem; }
+    .opt { display: grid; grid-template-columns: auto 1fr auto; gap: .75rem; align-items: center; padding: .5rem .75rem; border-radius: .5rem; border: 1px solid transparent; }
+    .opt:hover { background: #f8fafc; border-color: #e5e7eb; }
+    .badge { display:inline-flex; align-items:center; gap:.35rem; font-weight:600; padding:.15rem .5rem; border-radius:.5rem; }
+    .badge-good { background:#dcfce7; color:#166534; }
+    .badge-bad { background:#fee2e2; color:#991b1b; }
+    .badge-na { background:#e5e7eb; color:#374151; }
+    .tf-grid { display:grid; grid-template-columns: 1fr auto auto; gap:.75rem; align-items:center; }
+    .short-grid { display:grid; grid-template-columns: 1fr auto; gap:.75rem; align-items:center; }
+  </style>
+</head>
+<body class="antialiased">
+
+  <header class="bg-white shadow">
+    <div class="max-w-6xl mx-auto px-4 py-5">
+      <h1 class="text-3xl font-bold text-sky-700">Ôn tập: Dãy số, Cấp số cộng & Cấp số nhân</h1>
+      <p class="text-gray-600">Bản tương tác: tick lựa chọn/đúng–sai/điền ngắn + tự tính điểm</p>
+    </div>
+  </header>
+
+  <nav class="bg-white border-b sticky top-0 z-20">
+    <div class="max-w-6xl mx-auto px-4">
+      <div id="nav-tabs" class="flex flex-wrap items-center gap-2 py-3">
+        <button class="tab px-4 py-2 font-semibold text-gray-600 border-b-4 border-transparent data-[active=true]:text-sky-700 data-[active=true]:border-sky-600" data-tab="overview" data-active="true">Tổng quan</button>
+        <button class="tab px-4 py-2 font-semibold text-gray-600 border-b-4 border-transparent" data-tab="part1">Phần 1: Nhiều lựa chọn</button>
+        <button class="tab px-4 py-2 font-semibold text-gray-600 border-b-4 border-transparent" data-tab="part2">Phần 2: Đúng / Sai</button>
+        <button class="tab px-4 py-2 font-semibold text-gray-600 border-b-4 border-transparent" data-tab="part3">Phần 3: Điền ngắn</button>
+        <div class="ml-auto flex items-center gap-2 text-sm text-gray-600">
+          <label class="inline-flex items-center gap-2"><input id="show-sol" type="checkbox" class="accent-sky-600"> Hiện lời giải</label>
+          <button id="clear-answers" class="px-3 py-1.5 rounded-md border bg-white hover:bg-gray-50">Xoá bài làm</button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <main class="max-w-6xl mx-auto p-4 md:p-6">
+    <div id="content"></div>
+  </main>
+
+  <footer class="sticky-footer">
+    <div class="max-w-6xl mx-auto px-4 py-3 flex items-center gap-3">
+      <span class="font-semibold">Điểm:</span>
+      <span id="score-text" class="text-white/90">0 / 0 (0%)</span>
+      <span id="score-detail" class="text-white/80 text-sm"></span>
+      <div class="ml-auto flex items-center gap-2">
+        <span class="badge badge-na">Câu chưa chấm không tính vào mẫu số</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // ====== DỮ LIỆU NGUYÊN GỐC (rút gọn ví dụ) ======
+    // 👉 Thay bằng appData đầy đủ của thầy/cô. Giữ nguyên các trường question/options/items/solution như file gốc.
+    const appData = {
+      part1: [
+        { id: 'p1q1', type: 'mcq', question: `**Câu 1:** Khẳng định nào sau đây là **sai**?`, options: [
+          `A. Một dãy số tăng thì bị chặn dưới.`,
+          `B. Một dãy số giảm thì bị chặn trên.`,
+          `C. Một dãy số bị chặn thì phải tăng hoặc giảm.`,
+          `D. Một dãy số không đổi thì bị chặn.`
+        ], solution: `<p class='font-semibold'>Chọn C</p>` },
+        { id: 'p1q2', type: 'mcq', question: `**Câu 2:** Cho dãy số $u_n$ ...`, options: [
+          `A. $u_n = \\frac{1}{2^n}$`, `B. $u_n = \\frac{1}{2^{n+1}}$`, `C. $u_n = \\frac{1}{2^{n-2}}$`, `D. $u_n = \\frac{1}{2^{n-1}}$`
+        ], solution: `<p class='font-semibold'>Chọn D</p>` },
+        { id: 'p1q3', type: 'mcq', question: `**Câu 3:** ... $u_n = 3n - 1$ ...`, options: [
+          `A. ... d = 3.`, `B. ... d = 2.`, `C. ... q = 3.`, `D. ... q = 2.`
+        ], solution: `<p class='font-semibold'>Chọn A</p>` },
+      ],
+      part2: [
+        { id: 'p2q1', type: 'tf', question: `**Câu 1:** (chuỗi chẵn/lẻ)`, items: [
+            `a) d = 2 là công sai`,
+            `b) u1 = 3`,
+            `c) u_n = 2n + 1`,
+            `d) S_n = n^2 + 2n`
+          ], solution: `<p class='font-semibold'>a) Đúng, b) Đúng, c) Sai, d) Sai</p>`
+        },
+        { id: 'p2q2', type: 'tf', question: `**Câu 2:** Đặt $u_n = 1/v_n$`, items: [
+            `a) (u_n) là CSNhân, u1=1`,
+            `b) (u_n) là CSNhân, q=1`,
+            `c) (u_n) là CSNhân, q=2`,
+            `d) S = n(n+1)/2`
+          ], solution: `<p class='font-semibold'>a) Sai, b) Sai, c) Sai, d) Sai</p>`
+        },
+      ],
+      part3: [
+        { id: 'p3q1', type: 'short', question: `**Câu 1:** $u_n = \\frac{n^2-1}{n^2+1}$. Tìm $u_3$`, solution: `<p class='font-semibold'>Đáp số: 4/5</p>` },
+        { id: 'p3q4', type: 'short', question: `**Câu 4:** $u_n = 2n + \\sqrt{n^2+1}$. Số $500+\\sqrt{250000+1}$ là số hạng thứ mấy?`, solution: `<p class='font-semibold'>Đáp số: 250</p>` },
+        { id: 'p3q6', type: 'short', question: `**Câu 6:** Tần số La khi Sol=392 Hz, Si=494 Hz`, solution: `<p class='font-semibold'>Đáp số: 440</p>` },
+      ]
+    };
+
+    // ====== SUY DIỄN ĐÁP ÁN TỰ ĐỘNG TỪ LỜI GIẢI (không bịa thêm) ======
+    // Trích "Chọn X" cho MCQ; trích chuỗi "a) Đúng/Sai, ..." cho Đúng/Sai; trích "Đáp số: ..." cho điền ngắn.
+    function computeAnswerKey(data){
+      const key = {};
+      const mcqRegex = /Chọn\s*([ABCD])/i;
+      const tfRegex = /([a-d])\)\s*(Đúng|Sai)/gi;
+      const shortRegex = /Đáp\s*số\s*:\s*([^<\n]+)/i;
+
+      const scan = (arr)=>{
+        for(const q of arr){
+          if(q.type === 'mcq'){
+            const m = q.solution?.match(mcqRegex);
+            if(m){ key[q.id] = { kind:'mcq', answer: m[1].toUpperCase() }; }
+          } else if(q.type === 'tf'){
+            const ans = {};
+            let m; const sol = q.solution || '';
+            while((m = tfRegex.exec(sol))!==null){
+              ans[m[1].toLowerCase()] = m[2] === 'Đúng';
+            }
+            if(Object.keys(ans).length){ key[q.id] = { kind:'tf', answer: ans }; }
+          } else if(q.type === 'short'){
+            const m = q.solution?.match(shortRegex);
+            if(m){ key[q.id] = { kind:'short', answer: m[1].trim() }; }
+          }
+        }
+      }
+      scan(data.part1||[]); scan(data.part2||[]); scan(data.part3||[]);
+      return key;
+    }
+
+    const answerKey = computeAnswerKey(appData);
+
+    // ====== STATE ======
+    const state = {
+      activeTab: 'overview',
+      answers: {}, // { qid: 'A' | {a:true,b:false,...} | 'user text' }
+    };
+
+    // ====== UTILS: so khớp điền ngắn linh hoạt ======
+    function normalizeText(s){ return (s||'').toString().trim().toLowerCase().replace(/\s+/g,' '); }
+    function shortEqual(expected, received){
+      if(!expected) return false;
+      const e = normalizeText(expected).replace(/,/g,'.');
+      const r = normalizeText(received).replace(/,/g,'.');
+      if(e === r) return true;
+      // chấp nhận dạng số gần đúng (vd 0.8 == 4/5)
+      const tryNum = (t)=>{ if(/^[+-]?(\d+([.]\d+)?|\d+\/\d+)$/.test(t)){
+          if(t.includes('/')){ const [a,b]=t.split('/').map(Number); if(b!==0) return a/b; }
+          return Number(t);
+        } return NaN; };
+      const ne = tryNum(e), nr = tryNum(r);
+      if(!Number.isNaN(ne) && !Number.isNaN(nr)){
+        return Math.abs(ne-nr) < 1e-6; // sai số nhỏ
+      }
+      return false;
+    }
+
+    // ====== CHẤM ĐIỂM ======
+    function grade(){
+      let correct = 0, total = 0, pending = 0, detail = [];
+      for(const [qid, keyObj] of Object.entries(answerKey)){
+        const userAns = state.answers[qid];
+        if(!keyObj){ pending++; continue; }
+        if(keyObj.kind === 'mcq'){
+          if(userAns == null){ pending++; continue; }
+          total++;
+          const ok = (userAns === keyObj.answer);
+          if(ok) correct++; detail.push(`${qid}:${ok?'✓':'✗'}`);
+        } else if(keyObj.kind === 'tf'){
+          // cần đủ tick cho mọi mệnh đề có trong đáp án
+          const expect = keyObj.answer; // {a:true,...}
+          const got = userAns || {};
+          const haveAll = Object.keys(expect).every(k => typeof got[k] === 'boolean');
+          if(!haveAll){ pending++; continue; }
+          total++;
+          const ok = Object.keys(expect).every(k => got[k] === expect[k]);
+          if(ok) correct++; detail.push(`${qid}:${ok?'✓':'✗'}`);
+        } else if(keyObj.kind === 'short'){
+          if(userAns == null || userAns === ''){ pending++; continue; }
+          total++;
+          const ok = shortEqual(keyObj.answer, userAns);
+          if(ok) correct++; detail.push(`${qid}:${ok?'✓':'✗'}`);
+        }
+      }
+      const pct = total>0 ? Math.round((correct/total)*100) : 0;
+      document.getElementById('score-text').textContent = `${correct} / ${total} (${pct}%)`;
+      document.getElementById('score-detail').textContent = detail.join(' · ');
+    }
+
+    // ====== RENDER ======
+    const content = document.getElementById('content');
+
+    function renderOverview(){
+      content.innerHTML = `
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div class="qcard">
+            <h2 class="text-2xl font-semibold text-sky-800 mb-3">Hướng dẫn làm bài</h2>
+            <ol class="list-decimal ml-5 space-y-2 text-gray-700">
+              <li>Phần 1: tick chọn A/B/C/D (mỗi câu 1 lựa chọn).</li>
+              <li>Phần 2: tick "Đúng" hoặc "Sai" cho từng mệnh đề a), b), c), d).</li>
+              <li>Phần 3: điền đáp án ngắn (số, phân số, hoặc giá trị tương đương).</li>
+              <li>Điểm ở thanh cuối trang tự cập nhật. Những câu chưa có đáp án suy diễn từ lời giải sẽ <span class="badge badge-na">không tính</span> vào tổng.</li>
+            </ol>
+            <div class="mt-3 text-sm text-gray-600">Lưu ý: đáp án được <em>suy diễn tự động</em> từ phần "Lời giải" của từng câu (chuẩn “Chọn X”, “a) Đúng/Sai…”, hoặc “Đáp số: …”).</div>
+          </div>
+          <div class="qcard">
+            <h2 class="text-2xl font-semibold text-sky-800 mb-3 text-center">Phân bổ câu hỏi</h2>
+            <div class="mx-auto" style="max-width:420px;height:360px"><canvas id="typeChart"></canvas></div>
+          </div>
+        </div>
+      `;
+      // Chart
+      const ctx = document.getElementById('typeChart').getContext('2d');
+      new Chart(ctx, { type:'doughnut', data:{
+        labels:['Phần 1 (Trắc nghiệm)','Phần 2 (Đ/Sai)','Phần 3 (Điền ngắn)'],
+        datasets:[{ label:'Phân bổ', data:[appData.part1.length, appData.part2.length, appData.part3.length] }]
+      }, options:{ responsive:true, maintainAspectRatio:false }});
+    }
+
+    function renderMCQ(item){
+      const selected = state.answers[item.id] || null;
+      const solBadge = answerKey[item.id]?.answer ? `<span class="badge badge-good">Đáp án: ${answerKey[item.id].answer}</span>` : `<span class="badge badge-na">Chưa có đáp án suy diễn</span>`;
+      return `
+        <div class="qcard" data-qid="${item.id}">
+          <div class="flex items-start gap-2">
+            <div class="flex-1 prose prose-sm max-w-none">${item.question}</div>
+            <div class="hidden sm:block">${solBadge}</div>
+          </div>
+          <div class="mt-3 space-y-2">
+            ${item.options.map((opt, idx)=>{
+              const label = ['A','B','C','D'][idx] || String.fromCharCode(65+idx);
+              const checked = selected === label ? 'checked' : '';
+              const tick = checked ? '✓' : '';
+              return `
+                <label class="opt">
+                  <input type="radio" name="${item.id}" value="${label}" class="accent-sky-600" ${checked} />
+                  <div class="text-gray-800">${opt}</div>
+                  <div class="text-xl w-6 text-right">${tick}</div>
+                </label>`
+            }).join('')}
+          </div>
+          <button class="mt-3 px-3 py-1.5 rounded-md bg-sky-600 text-white hover:bg-sky-700" data-toggle-solution="${item.id}">Xem lời giải</button>
+          <div id="sol-${item.id}" class="solution hidden">${item.solution||''}</div>
+        </div>
+      `;
+    }
+
+    function renderTF(item){
+      const got = state.answers[item.id] || {}; // {a:true/false,...}
+      const solBadge = answerKey[item.id]?.answer ? `<span class=\"badge badge-good\">Có đáp án</span>` : `<span class=\"badge badge-na\">Chưa có đáp án suy diễn</span>`;
+      const letters = ['a','b','c','d'];
+      return `
+        <div class="qcard" data-qid="${item.id}">
+          <div class="flex items-start gap-2">
+            <div class="flex-1 prose prose-sm max-w-none">${item.question}</div>
+            <div class="hidden sm:block">${solBadge}</div>
+          </div>
+          <div class="mt-3 space-y-2">
+            ${item.items.map((txt, i)=>{
+              const k = letters[i] || `m${i+1}`;
+              const val = got[k];
+              return `
+                <div class="tf-grid">
+                  <div class="text-gray-800">${txt}</div>
+                  <label class="inline-flex items-center gap-2">
+                    <input type="radio" name="${item.id}-${k}" value="true" class="accent-sky-600" ${val===true?'checked':''} /> Đúng
+                  </label>
+                  <label class="inline-flex items-center gap-2">
+                    <input type="radio" name="${item.id}-${k}" value="false" class="accent-rose-600" ${val===false?'checked':''} /> Sai
+                  </label>
+                </div>`
+            }).join('')}
+          </div>
+          <button class="mt-3 px-3 py-1.5 rounded-md bg-sky-600 text-white hover:bg-sky-700" data-toggle-solution="${item.id}">Xem lời giải</button>
+          <div id="sol-${item.id}" class="solution hidden">${item.solution||''}</div>
+        </div>
+      `;
+    }
+
+    function renderShort(item){
+      const val = state.answers[item.id] || '';
+      const sol = answerKey[item.id]?.answer;
+      const badge = sol ? `<span class=\"badge badge-good\">Đáp số: ${sol}</span>` : `<span class=\"badge badge-na\">Chưa có đáp án suy diễn</span>`;
+      return `
+        <div class="qcard" data-qid="${item.id}">
+          <div class="flex items-start gap-2">
+            <div class="flex-1 prose prose-sm max-w-none">${item.question}</div>
+            <div class="hidden sm:block">${badge}</div>
+          </div>
+          <div class="short-grid mt-3">
+            <input type="text" placeholder="Nhập đáp án..." value="${val.replaceAll('"','&quot;')}" class="border rounded-md px-3 py-2 w-full focus:outline-none focus:ring-2 focus:ring-sky-500" />
+            <div class="text-sm text-gray-600">(chấp nhận số/thập phân/phân số tương đương)</div>
+          </div>
+          <button class="mt-3 px-3 py-1.5 rounded-md bg-sky-600 text-white hover:bg-sky-700" data-toggle-solution="${item.id}">Xem lời giải</button>
+          <div id="sol-${item.id}" class="solution hidden">${item.solution||''}</div>
+        </div>
+      `;
+    }
+
+    function renderPart(arr){
+      content.innerHTML = `
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+          ${arr.map(item=>{
+            if(item.type==='mcq') return renderMCQ(item);
+            if(item.type==='tf') return renderTF(item);
+            return renderShort(item);
+          }).join('')}
+        </div>
+      `;
+      // render math in the section just created
+      renderMathInElement(content, { delimiters:[{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}] });
+    }
+
+    function render(){
+      if(state.activeTab==='overview') renderOverview();
+      else if(state.activeTab==='part1') renderPart(appData.part1);
+      else if(state.activeTab==='part2') renderPart(appData.part2);
+      else if(state.activeTab==='part3') renderPart(appData.part3);
+      // sync show-solution toggle
+      const show = document.getElementById('show-sol')?.checked;
+      toggleAllSolutions(show);
+    }
+
+    // ====== EVENTS ======
+    document.getElementById('nav-tabs').addEventListener('click', (e)=>{
+      const btn = e.target.closest('.tab');
+      if(!btn) return;
+      const tab = btn.dataset.tab;
+      if(!tab) return;
+      document.querySelectorAll('.tab').forEach(b=>b.dataset.active = (b===btn ? 'true':'false'));
+      state.activeTab = tab; render();
+    });
+
+    document.getElementById('show-sol').addEventListener('change', (e)=>{
+      toggleAllSolutions(e.target.checked);
+    });
+
+    function toggleAllSolutions(show){
+      document.querySelectorAll('[id^="sol-"]').forEach(el=>{
+        el.classList.toggle('hidden', !show);
+      })
+    }
+
+    document.getElementById('clear-answers').addEventListener('click', ()=>{
+      state.answers = {}; grade(); render();
+    });
+
+    // delegate events from content area
+    content.addEventListener('change', (e)=>{
+      const t = e.target;
+      const card = t.closest('.qcard');
+      if(!card) return;
+      const qid = card.dataset.qid;
+      // MCQ radio
+      if(t.type==='radio' && t.name===qid){
+        state.answers[qid] = t.value; grade(); return;
+      }
+      // True/False radio groups
+      if(t.type==='radio' && t.name.startsWith(qid+'-')){
+        const key = t.name.split('-').pop();
+        if(!state.answers[qid]) state.answers[qid] = {};
+        state.answers[qid][key] = (t.value==='true');
+        grade(); return;
+      }
+      // Short input
+      if(t.tagName==='INPUT' && t.type==='text'){
+        state.answers[qid] = t.value; grade(); return;
+      }
+    });
+
+    content.addEventListener('click', (e)=>{
+      const btn = e.target.closest('[data-toggle-solution]');
+      if(!btn) return;
+      const id = btn.dataset.toggleSolution;
+      const el = document.getElementById('sol-'+id);
+      if(el){ el.classList.toggle('hidden'); }
+    });
+
+    // ====== INIT ======
+    document.addEventListener('DOMContentLoaded', ()=>{
+      render(); grade();
+      // overview chart math render handled after renderOverview
+    });
+  </script>
+</body>
+</html>
