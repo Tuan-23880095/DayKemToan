@@ -3,912 +3,358 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ôn tập Dãy số & Cấp số</title>
+    <title>Ôn tập KHTN 6 - Bài 15 & 16</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js" crossorigin="anonymous"></script>
-
-    <!-- 
-    Chosen Palette: Academic Calm (Beige/White neutrals with dark blue/teal accents)
-    Application Structure Plan: Designed a 4-tab SPA. 'Overview' tab introduces the app, visualizes question distribution (Donut chart), and lists key formulas. The other 3 tabs ('Phần 1', 'Phần 2', 'Phần 3') correspond to the source report's sections. This structure aids exploration by content type. The primary interaction is 'click-to-reveal' accordion cards for each question, separating the problem from its solution for active review. This is more user-friendly for studying than a static, linear document.
-    Visualization & Content Choices: [Phần 1-3 Q&A -> Goal: Active Review -> Presentation: HTML/Tailwind Accordion (Q/A) -> Interaction: JS onClick toggle 'hidden' class to reveal solution -> Justification: Separates problem/solution for effective study.] [Report Structure -> Goal: Inform -> Viz: Donut Chart (Chart.js) -> Interaction: Tooltip on hover -> Justification: Visualizes question type distribution (12, 4, 6) from the source; fulfills Chart.js requirement.] [Math Formulas -> Goal: Reference -> Presentation: HTML + KaTeX rendering -> Interaction: Read -> Justification: KaTeX CDN added to properly render LaTeX from source, crucial for readability.]
-    CONFIRMATION: NO SVG graphics used. NO Mermaid JS used.
-    -->
-
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #f8f7f4; 
-            color: #333;
-            padding-bottom: 80px; 
-        }
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-        
-        .katex { font-size: 1.1em !important; }
-
-        .chart-container {
-            position: relative;
-            width: 100%;
-            max-width: 450px; 
-            margin-left: auto;
-            margin-right: auto;
-            height: 350px; 
-            max-height: 400px; 
-        }
-        @media (min-width: 768px) {
-            .chart-container {
-                height: 400px;
-            }
-        }
-
-        .tab-button {
-            @apply px-4 py-3 font-semibold text-gray-600 border-b-4 border-transparent transition-all duration-300 rounded-t-lg;
-        }
-        .tab-button.active {
-            @apply text-blue-800 border-blue-600 bg-blue-100 font-bold;
-        }
-        .tab-button:hover:not(.active) {
-            @apply text-gray-900 border-gray-300 bg-gray-50;
-        }
-        
-        .check-button {
-            @apply px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg shadow-sm hover:bg-blue-700 transition-colors duration-200 cursor-pointer;
-        }
-        .check-button:disabled {
-            @apply bg-gray-400 cursor-not-allowed hover:bg-gray-400;
-        }
-        
-        .solution-content {
-            @apply mt-4 p-4 bg-gray-50 border border-gray-200 rounded-lg;
-        }
-
-        .question-card {
-            @apply bg-white p-6 rounded-xl shadow-lg border border-gray-100 transition-all duration-300;
-        }
-        
-        .formula-card {
-            @apply bg-white p-6 rounded-xl shadow-lg border border-gray-100;
-        }
-        .formula-card h3 {
-            @apply text-xl font-semibold text-blue-800 mb-3;
-        }
-        .formula-card ul {
-            @apply list-none space-y-2;
-        }
-        .formula-card li {
-            @apply text-base;
-        }
-
-        .correct-answer {
-            @apply bg-green-50 border-green-300;
-        }
-        .incorrect-answer {
-            @apply bg-red-50 border-red-300;
-        }
-        .correct-answer label, .correct-answer span {
-            @apply font-semibold text-green-700;
-        }
-        .incorrect-answer label, .incorrect-answer span {
-             @apply font-semibold text-red-700;
-        }
-
-        #score-display {
-            @apply fixed bottom-0 left-0 w-full bg-blue-800 text-white p-4 text-xl font-bold shadow-lg text-center z-20;
         }
     </style>
 </head>
-<body class="antialiased">
+<body class="bg-gray-100">
 
-    <header class="bg-white shadow-md">
-        <div class="container mx-auto px-4 py-5">
-            <h1 class="text-3xl font-bold text-blue-800">Ôn tập: Dãy số, Cấp số cộng & Cấp số nhân</h1>
-            <p class="text-lg text-gray-600 mt-1">Đề ❶ - Phân tích & Luyện tập tương tác</p>
+    <div class="max-w-4xl mx-auto p-4 sm:p-6 lg:p-8 bg-white shadow-lg rounded-lg mt-10">
+        
+        <h1 class="text-3xl font-bold text-center text-blue-700 mb-6">
+            Ôn tập Khoa học Tự nhiên 6
+        </h1>
+        <h2 class="text-xl font-semibold text-center text-gray-800 mb-8">
+            Chủ đề 5: Chất tinh khiết - Hỗn hợp & Phương pháp tách chất (Bài 15 - 16)
+        </h2>
+
+        <!-- Tab Navigation -->
+        <div class="mb-6 border-b border-gray-200">
+            <ul class="flex flex-wrap -mb-px" id="myTab" role="tablist">
+                <li role="presentation">
+                    <button class="tab-btn inline-block p-4 border-b-2 rounded-t-lg" data-target="ly-thuyet">Lý thuyết</button>
+                </li>
+                <li role="presentation">
+                    <button class="tab-btn inline-block p-4 border-b-2 rounded-t-lg" data-target="bai15-trac-nghiem">Bài 15: Trắc nghiệm</button>
+                </li>
+                <li role="presentation">
+                    <button class="tab-btn inline-block p-4 border-b-2 rounded-t-lg" data-target="bai15-tu-luan">Bài 15: Tự luận</button>
+                </li>
+                <li role="presentation">
+                    <button class="tab-btn inline-block p-4 border-b-2 rounded-t-lg" data-target="bai16-trac-nghiem">Bài 16: Trắc nghiệm</button>
+                </li>
+                <li role="presentation">
+                    <button class="tab-btn inline-block p-4 border-b-2 rounded-t-lg" data-target="bai16-tu-luan">Bài 16: Tự luận</button>
+                </li>
+            </ul>
         </div>
-    </header>
 
-    <nav class="bg-white border-b border-gray-200 sticky top-0 z-10">
-        <div class="container mx-auto px-4">
-            <div id="nav-tabs" class="flex space-x-4 py-2">
-                <button class="tab-button active border border-blue-500 text-blue-600 font-semibold rounded-lg px-4 py-2 transition-colors duration-200" data-tab="overview">Tổng quan</button>
-                <button class="tab-button border border-gray-300 text-gray-700 hover:text-blue-600 hover:border-blue-400 rounded-lg px-4 py-2 transition-colors duration-200" data-tab="part1">Phần 1: Nhiều lựa chọn</button>
-                <button class="tab-button border border-gray-300 text-gray-700 hover:text-blue-600 hover:border-blue-400 rounded-lg px-4 py-2 transition-colors duration-200" data-tab="part2">Phần 2: Đúng/Sai</button>
-                <button class="tab-button border border-gray-300 text-gray-700 hover:text-blue-600 hover:border-blue-400 rounded-lg px-4 py-2 transition-colors duration-200" data-tab="part3">Phần 3: Bài toán</button>
+        <!-- Tab Content -->
+        <div id="tabContent">
+
+            <!-- Lý thuyết (Theory) Panel -->
+            <div class="tab-panel" id="ly-thuyet">
+                <h3 class="text-2xl font-semibold mb-4 text-blue-600">Bài 15: Chất tinh khiết - Hỗn hợp</h3>
+                <ul class="list-disc list-inside space-y-2 mb-6">
+                    <li><strong>Chất tinh khiết:</strong> Chỉ chứa một chất duy nhất, có tính chất vật lý và hóa học cố định. (Ví dụ: Nước cất,
+                        Sodium chloride).</li>
+                    <li><strong>Hỗn hợp:</strong> Chứa từ hai chất trở lên trộn lẫn với nhau, tính chất thay đổi phụ thuộc vào thành
+                        phần.</li>
+                    <li><strong>Hỗn hợp đồng nhất (Dung dịch):</strong> Các chất phân bố đều, không phân biệt được các thành phần bằng mắt
+                        thường. (Ví dụ: Nước đường, nước muối).</li>
+                    <li><strong>Hỗn hợp không đồng nhất:</strong> Các chất phân bố không đều, có thể phân biệt bằng mắt thường.
+                        <ul class="list-inside list-['-_'] ml-6 mt-1">
+                            <li><strong>Huyền phù:</strong> Chất rắn lơ lửng trong chất lỏng. (Ví dụ: Bột mì khuấy trong nước, nước phù sa).</li>
+                            <li><strong>Nhũ tương:</strong> Chất lỏng lơ lửng trong chất lỏng khác (không tan vào nhau). (Ví dụ: Dầu giấm, sữa
+                                tươi).</li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <h3 class="text-2xl font-semibold mb-4 text-green-600">Bài 16: Phương pháp tách chất</h3>
+                <ul class="list-disc list-inside space-y-2">
+                    <li><strong>Lọc:</strong> Tách chất rắn không tan ra khỏi chất lỏng. (Ví dụ: Lọc cát ra khỏi nước).</li>
+                    <li><strong>Chiết:</strong> Tách các chất lỏng không tan vào nhau. (Ví dụ: Tách dầu ăn ra khỏi nước).</li>
+                    <li><strong>Cô cạn:</strong> Tách chất rắn tan ra khỏi dung dịch (làm bay hơi dung môi). (Ví dụ: Thu hoạch muối
+                        biển).</li>
+                    <li><strong>Chưng cất:</strong> Tách các chất lỏng tan vào nhau, dựa trên nhiệt độ sôi khác nhau. (Ví dụ: Tách rượu
+                        ra khỏi nước).</li>
+                </ul>
+            </div>
+
+            <!-- Bài 15: Trắc nghiệm Panel -->
+            <div class="tab-panel hidden" id="bai15-trac-nghiem">
+                <h3 class="text-2xl font-semibold mb-4">Bài 15: Câu hỏi trắc nghiệm</h3>
+                
+                <!-- Question 1 -->
+                <div class="mb-6 p-4 border rounded-lg bg-gray-50">
+                    <p class="font-semibold mb-3">Câu 1: Trường hợp nào sau đây là chất tinh khiết?</p>
+                    <div class="space-y-2" id="q15_1">
+                        <label class="block p-2 rounded-lg border border-gray-300 hover:bg-gray-100 cursor-pointer">
+                            <input type="radio" name="q15_1" value="A" class="mr-2"> A. Gỗ
+                        </label>
+                        <label class="block p-2 rounded-lg border border-gray-300 hover:bg-gray-100 cursor-pointer">
+                            <input type="radio" name="q15_1" value="B" class="mr-2"> B. Nước khoáng
+                        </label>
+                        <label class="block p-2 rounded-lg border border-gray-300 hover:bg-gray-100 cursor-pointer">
+                            <input type="radio" name="q15_1" value="C" class="mr-2"> C. Sodium chloride
+                        </label>
+                        <label class="block p-2 rounded-lg border border-gray-300 hover:bg-gray-100 cursor-pointer">
+                            <input type="radio" name="q15_1" value="D" class="mr-2"> D. Nước biển
+                        </label>
+                    </div>
+                    <button onclick="checkMcq('q15_1', 'C')" class="mt-3 bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">Kiểm tra</button>
+                    <div id="feedback-q15_1" class="mt-2 font-medium"></div>
+                </div>
+
+                <!-- Question 2 -->
+                <div class="mb-6 p-4 border rounded-lg bg-gray-50">
+                    <p class="font-semibold mb-3">Câu 2: Hỗn hợp nào sau đây không được xem là dung dịch?</p>
+                    <div class="space-y-2" id="q15_2">
+                        <label class="block p-2 rounded-lg border border-gray-300 hover:bg-gray-100 cursor-pointer">
+                            <input type="radio" name="q15_2" value="A" class="mr-2"> A. Hỗn hợp nước đường
+                        </label>
+                        <label class="block p-2 rounded-lg border border-gray-300 hover:bg-gray-100 cursor-pointer">
+                            <input type="radio" name="q15_2" value="B" class="mr-2"> B. Hỗn hợp nước muối
+                        </label>
+                        <label class="block p-2 rounded-lg border border-gray-300 hover:bg-gray-100 cursor-pointer">
+                            <input type="radio" name="q15_2" value="C" class="mr-2"> C. Hỗn hợp bột mì và nước khuấy đều
+                        </label>
+                        <label class="block p-2 rounded-lg border border-gray-300 hover:bg-gray-100 cursor-pointer">
+                            <input type="radio" name="q15_2" value="D" class="mr-2"> D. Hỗn hợp nước và rượu
+                        </label>
+                    </div>
+                    <button onclick="checkMcq('q15_2', 'C')" class="mt-3 bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">Kiểm tra</button>
+                    <div id="feedback-q15_2" class="mt-2 font-medium"></div>
+                </div>
+
+                <!-- Question 3 -->
+                <div class="mb-6 p-4 border rounded-lg bg-gray-50">
+                    <p class="font-semibold mb-3">Câu 3: Khi hoà tan bột đá vôi vào nước, chỉ một lượng chất này tan trong nước; phần còn lại làm cho nước bị đục. Hỗn hợp này được coi là:</p>
+                    <div class="space-y-2" id="q15_3">
+                        <label class="block p-2 rounded-lg border border-gray-300 hover:bg-gray-100 cursor-pointer">
+                            <input type="radio" name="q15_3" value="A" class="mr-2"> A. Dung dịch
+                        </label>
+                        <label class="block p-2 rounded-lg border border-gray-300 hover:bg-gray-100 cursor-pointer">
+                            <input type="radio" name="q15_3" value="B" class="mr-2"> B. Chất tan
+                        </label>
+                        <label class="block p-2 rounded-lg border border-gray-300 hover:bg-gray-100 cursor-pointer">
+                            <input type="radio" name="q15_3" value="C" class="mr-2"> C. Nhũ tương
+                        </label>
+                        <label class_content="block p-2 rounded-lg border border-gray-300 hover:bg-gray-100 cursor-pointer">
+                            <input type="radio" name="q15_3" value="D" class="mr-2"> D. Huyền phù
+                        </label>
+                    </div>
+                    <button onclick="checkMcq('q15_3', 'D')" class="mt-3 bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">Kiểm tra</button>
+                    <div id="feedback-q15_3" class="mt-2 font-medium"></div>
+                </div>
+            </div>
+
+            <!-- Bài 15: Tự luận Panel -->
+            <div class="tab-panel hidden" id="bai15-tu-luan">
+                <h3 class="text-2xl font-semibold mb-4">Bài 15: Câu hỏi tự luận</h3>
+                
+                <!-- Question 1 -->
+                <div class="mb-6 p-4 border rounded-lg bg-gray-50">
+                    <p class="font-semibold mb-3">Câu 1: Theo em nước tinh khiết là chất hay hỗn hợp? Tại sao?</p>
+                    <button onclick="toggleAnswer('ans15_1', this)" class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600">Xem đáp án</button>
+                    <div id="ans15_1" class="mt-3 p-3 bg-green-50 rounded-lg border border-green-200 hidden">
+                        <strong>Đáp án:</strong> Nước tinh khiết là <strong>chất</strong> (chất tinh khiết) vì chỉ chứa một loại chất duy nhất là nước (H₂O), không lẫn chất khác.
+                    </div>
+                </div>
+
+                <!-- Question 2 -->
+                <div class="mb-6 p-4 border rounded-lg bg-gray-50">
+                    <p class="font-semibold mb-3">Câu 2: Nước khoáng là chất tinh khiết hay hỗn hợp? Tại sao?</p>
+                    <button onclick="toggleAnswer('ans15_2', this)" class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600">Xem đáp án</button>
+                    <div id="ans15_2" class="mt-3 p-3 bg-green-50 rounded-lg border border-green-200 hidden">
+                        <strong>Đáp án:</strong> Nước khoáng là <strong>hỗn hợp</strong> vì ngoài nước còn có chứa nhiều loại muối khoáng và chất khác tan vào.
+                    </div>
+                </div>
+
+                <!-- Question 3 -->
+                <div class="mb-6 p-4 border rounded-lg bg-gray-50">
+                    <p class="font-semibold mb-3">Câu 3: Phù sa ở sông có phải là một dạng huyền phù không? Giải thích.</p>
+                    <button onclick="toggleAnswer('ans15_3', this)" class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600">Xem đáp án</button>
+                    <div id="ans15_3" class="mt-3 p-3 bg-green-50 rounded-lg border border-green-200 hidden">
+                        <strong>Đáp án:</strong> Phải. Phù sa là một dạng <strong>huyền phù</strong>. Vì phù sa bao gồm các chất rắn (hạt đất, sét, chất hữu cơ) không tan, lơ lửng trong nước sông.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bài 16: Trắc nghiệm Panel -->
+            <div class="tab-panel hidden" id="bai16-trac-nghiem">
+                <h3 class="text-2xl font-semibold mb-4">Bài 16: Câu hỏi trắc nghiệm</h3>
+
+                <!-- Question 1 -->
+                <div class="mb-6 p-4 border rounded-lg bg-gray-50">
+                    <p class="font-semibold mb-3">Câu 1: Phương pháp nào dưới đây là đơn giản nhất để tách cát lẫn trong nước?</p>
+                    <div class="space-y-2" id="q16_1">
+                        <label class="block p-2 rounded-lg border border-gray-300 hover:bg-gray-100 cursor-pointer">
+                            <input type="radio" name="q16_1" value="A" class="mr-2"> A. Lọc
+                        </label>
+                        <label class="block p-2 rounded-lg border border-gray-300 hover:bg-gray-100 cursor-pointer">
+                            <input type="radio" name="q16_1" value="B" class="mr-2"> B. Dùng máy li tâm
+                        </label>
+                        <label class="block p-2 rounded-lg border border-gray-300 hover:bg-gray-100 cursor-pointer">
+                            <input type="radio" name="q16_1" value="C" class="mr-2"> C. Chiết
+                        </label>
+                        <label class="block p-2 rounded-lg border border-gray-300 hover:bg-gray-100 cursor-pointer">
+                            <input type="radio" name="q16_1" value="D" class="mr-2"> D. Cô cạn
+                        </label>
+                    </div>
+                    <button onclick="checkMcq('q16_1', 'A')" class="mt-3 bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">Kiểm tra</button>
+                    <div id="feedback-q16_1" class="mt-2 font-medium"></div>
+                </div>
+
+                <!-- Question 2 -->
+                <div class="mb-6 p-4 border rounded-lg bg-gray-50">
+                    <p class="font-semibold mb-3">Câu 2: Nếu không may làm đổ dầu ăn vào nước, ta dùng phương pháp nào để tách riêng dầu ăn ra khỏi nước?</p>
+                    <div class="space-y-2" id="q16_2">
+                        <label class="block p-2 rounded-lg border border-gray-300 hover:bg-gray-100 cursor-pointer">
+                            <input type="radio" name="q16_2" value="A" class="mr-2"> A. Lọc
+                        </label>
+                        <label class="block p-2 rounded-lg border border-gray-300 hover:bg-gray-100 cursor-pointer">
+                            <input type="radio" name="q16_2" value="B" class="mr-2"> B. Dùng máy li tâm
+                        </label>
+                        <label class="block p-2 rounded-lg border border-gray-300 hover:bg-gray-100 cursor-pointer">
+                            <input type="radio" name="q16_2" value="C" class="mr-2"> C. Chiết
+                        </label>
+                        <label class="block p-2 rounded-lg border border-gray-300 hover:bg-gray-100 cursor-pointer">
+                            <input type="radio" name="q16_2" value="D" class="mr-2"> D. Cô cạn
+                        </label>
+                    </div>
+                    <button onclick="checkMcq('q16_2', 'C')" class="mt-3 bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">Kiểm tra</button>
+                    <div id="feedback-q16_2" class="mt-2 font-medium"></div>
+                </div>
+
+                <!-- Question 3 -->
+                <div class="mb-6 p-4 border rounded-lg bg-gray-50">
+                    <p class="font-semibold mb-3">Câu 3: Người dân làm muối đã sử dụng phương pháp nào để thu được muối từ nước biển?</p>
+                    <div class="space-y-2" id="q16_3">
+                        <label class="block p-2 rounded-lg border border-gray-300 hover:bg-gray-100 cursor-pointer">
+                            <input type="radio" name="q16_3" value="A" class="mr-2"> A. Làm lắng đọng muối
+                        </label>
+                        <label class="block p-2 rounded-lg border border-gray-300 hover:bg-gray-100 cursor-pointer">
+                            <input type="radio" name="q16_3" value="B" class="mr-2"> B. Lọc lấy muối
+                        </label>
+                        <label class="block p-2 rounded-lg border border-gray-300 hover:bg-gray-100 cursor-pointer">
+                            <input type="radio" name="q16_3" value="C" class="mr-2"> C. Làm bay hơi nước (Cô cạn)
+                        </label>
+                        <label class="block p-2 rounded-lg border border-gray-300 hover:bg-gray-100 cursor-pointer">
+                            <input type="radio" name="q16_3" value="D" class="mr-2"> D. Chiết lấy muối
+                        </label>
+                    </div>
+                    <button onclick="checkMcq('q16_3', 'C')" class="mt-3 bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">Kiểm tra</button>
+                    <div id="feedback-q16_3" class="mt-2 font-medium"></div>
+                </div>
+            </div>
+
+            <!-- Bài 16: Tự luận Panel -->
+            <div class="tab-panel hidden" id="bai16-tu-luan">
+                <h3 class="text-2xl font-semibold mb-4">Bài 16: Câu hỏi tự luận</h3>
+
+                <!-- Question 1 -->
+                <div class="mb-6 p-4 border rounded-lg bg-gray-50">
+                    <p class="font-semibold mb-3">Câu 1: Làm thế nào để tách riêng hỗn hợp đường và bột mì?</p>
+                    <button onclick="toggleAnswer('ans16_1', this)" class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600">Xem đáp án</button>
+                    <div id="ans16_1" class="mt-3 p-3 bg-green-50 rounded-lg border border-green-200 hidden">
+                        <strong>Cách làm:</strong>
+                        <ol class="list-decimal list-inside ml-4">
+                            <li><strong>Bước 1:</strong> Hoà tan hỗn hợp vào nước. Đường tan trong nước tạo dung dịch, bột mì không tan.</li>
+                            <li><strong>Bước 2:</strong> Dùng phương pháp <strong>lọc</strong> để tách bột mì (chất rắn) ra khỏi dung dịch nước đường.</li>
+                            <li><strong>Bước 3:</strong> Dùng phương pháp <strong>cô cạn</strong> (đun nóng) dung dịch nước đường để nước bay hơi, ta thu được đường ở dạng rắn.</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <!-- Question 2 -->
+                <div class="mb-6 p-4 border rounded-lg bg-gray-50">
+                    <p class="font-semibold mb-3">Câu 2: Trình bày cách tách riêng các chất ra khỏi hỗn hợp gồm bột sắt, đồng và muối ăn.</p>
+                    <button onclick="toggleAnswer('ans16_2', this)" class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600">Xem đáp án</button>
+                    <div id="ans16_2" class="mt-3 p-3 bg-green-50 rounded-lg border border-green-200 hidden">
+                        <strong>Cách làm:</strong>
+                        <ol class="list-decimal list-inside ml-4">
+                            <li><strong>Bước 1:</strong> Dùng <strong>nam châm</strong> để hút riêng bột sắt ra khỏi hỗn hợp.</li>
+                            <li><strong>Bước 2:</strong> Hoà tan hỗn hợp còn lại (đồng và muối ăn) vào nước. Muối ăn tan, đồng không tan.</li>
+                            <li><strong>Bước 3:</strong> Dùng phương pháp <strong>lọc</strong> để tách đồng (chất rắn) ra khỏi dung dịch muối ăn.</li>
+                            <li><strong>Bước 4:</strong> Dùng phương pháp <strong>cô cạn</strong> dung dịch muối ăn để thu muối ở dạng rắn.</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <!-- Question 3 -->
+                <div class="mb-6 p-4 border rounded-lg bg-gray-50">
+                    <p class="font-semibold mb-3">Câu 3: Cho biết nhiệt độ sôi của rượu (ethanol) là 78°C, của nước là 100°C. Đề xuất giải pháp để tách rượu ra khỏi nước.</p>
+                    <button onclick="toggleAnswer('ans16_3', this)" class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600">Xem đáp án</button>
+                    <div id="ans16_3" class="mt-3 p-3 bg-green-50 rounded-lg border border-green-200 hidden">
+                        <strong>Giải pháp:</strong> Dùng phương pháp <strong>chưng cất</strong>.
+                        <br>
+                        <strong>Mô tả:</strong> Đun nóng hỗn hợp rượu và nước. Vì rượu có nhiệt độ sôi thấp hơn (78°C) nên sẽ bay hơi trước. Dẫn hơi rượu đi qua hệ thống làm lạnh (ống sinh hàn) để ngưng tụ, ta sẽ thu được rượu ở dạng lỏng. Nước (sôi ở 100°C) sẽ còn lại trong bình.
+                    </div>
+                </div>
+
             </div>
         </div>
-    </nav>
-    <script>
-    // Xử lý chuyển tab và đổi màu khi click
-        document.querySelectorAll('.tab-button').forEach(btn => {
-            btn.addEventListener('click', () => {
-                document.querySelectorAll('.tab-button').forEach(b => {
-                    b.classList.remove('active', 'text-red-600', 'border-red-500', 'font-bold');
-                    b.classList.add('border-gray-300', 'text-gray-700');
-                });
-                btn.classList.remove('border-gray-300', 'text-gray-700');
-                btn.classList.add('active', 'text-red-600', 'border-red-500', 'font-bold');
-            });
-        });
-    </script>
-
-
-<style>
-/* Màu mặc định của nút */
-.tab-button {
-background-color: white;
-}
-/* Nút đang chọn */
-.tab-button.active {
-background-color: #dfb6af;
-}
-</style>
-    <main class="container mx-auto p-4 md:p-8">
-        <div id="content-area">
-        </div>
-    </main>
-
-    <footer class="text-center py-6 mt-8">
-        <p class="text-sm text-gray-500">Ứng dụng được tạo tự động để ôn tập tài liệu.</p>
-    </footer>
-
-    <div id="score-display">
-        Điểm số: 0 / 34
     </div>
 
     <script>
-        const TOTAL_POINTS = 34;
-        let userScore = {
-            part1: {},
-            part2: {},
-            part3: {}
-        };
+        const tabButtons = document.querySelectorAll('.tab-btn');
+        const tabPanels = document.querySelectorAll('.tab-panel');
 
-        const appData = {
-            part1: [
-                {
-                    id: 'p1q1',
-                    question: `**Câu 1:** Khẳng định nào sau đây là **sai**?
-                    <br />
-<img src="https://drive.google.com/uc?export=view&id=1JPwO_JVWHAoSEmEZkEPpP6LHgajfxESu" alt="Minh họa dãy số" class="w-1/2 mx-auto my-3 rounded-lg shadow-md border border-gray-300" />
-`,
-                    options: [
-                        `Một dãy số tăng thì bị chặn dưới.`,
-                        `Một dãy số giảm thì bị chặn trên.`,
-                        `Một dãy số bị chặn thì phải tăng hoặc giảm.`,
-                        `Một dãy số không đổi thì bị chặn.`
-                    ],
-                    correctAnswer: 'C',
-                    solution: `
-                        <p class="font-semibold text-lg">Chọn C</p>
-                        <p class="mt-2"><b>Giải thích:</b></p>
-                        <ul class="list-disc list-inside ml-2 space-y-1">
-                            <li><b>A. Đúng:</b> Dãy số tăng $(u_n)$ có $u_{n+1} \ge u_n$. Mọi số hạng đều $\ge u_1$. Vậy dãy bị chặn dưới bởi $u_1$.</li>
-                            <li><b>B. Đúng:</b> Dãy số giảm $(v_n)$ có $v_{n+1} \le v_n$. Mọi số hạng đều $\le v_1$. Vậy dãy bị chặn trên bởi $v_1$.</li>
-                            <li><b>C. Sai:</b> Một dãy số bị chặn có thể không tăng cũng không giảm. Ví dụ: dãy $u_n = (-1)^n$ (các số hạng là -1, 1, -1, 1...) bị chặn (bởi -1 và 1) nhưng không tăng cũng không giảm.</li>
-                            <li><b>D. Đúng:</b> Dãy số không đổi $u_n = c$. Dãy bị chặn trên và chặn dưới bởi chính $c$.</li>
-                        </ul>
-                    `
-                },
-                {
-                    id: 'p1q2',
-                    question: `**Câu 2:** Cho dãy số $u_n$ (số hạng sau bằng một nửa số hạng liền trước nó). Công thức tồng quát của dãy số đã cho là:`,
-                    options: [
-                        `$u_n = \\frac{1}{2^n}$`,
-                        `$u_n = \\frac{1}{2^{n+1}}$`,
-                        `$u_n = \\frac{1}{2^{n-2}}$`,
-                        `$u_n = \\frac{1}{2^{n-1}}$`
-                    ],
-                    correctAnswer: 'D',
-                    solution: `
-                        <p class="font-semibold text-lg">Chọn D</p>
-                        <p class="mt-2"><b>Giải thích:</b> "Số hạng sau bằng một nửa số hạng liền trước nó" nghĩa là $u_{n+1} = \\frac{1}{2} u_n$. Đây là một cấp số nhân với công bội $q = \\frac{1}{2}$.</p>
-                        <p>Tuy nhiên, đề không cho $u_1$. Giả sử $u_1 = 1$.</p>
-                        <p>Khi đó, công thức tổng quát là $u_n = u_1 \cdot q^{n-1} = 1 \cdot (\\frac{1}{2})^{n-1} = \\frac{1}{2^{n-1}}$.</p>
-                    `
-                },
-                {
-                    id: 'p1q3',
-                    question: `**Câu 3:** Cho dãy số $(u_n)$ với $u_n = 3n - 1$. Khẳng định nào sau đây là đúng?`,
-                    options: [
-                        `Dãy số $(u_n)$ là cấp số cộng với công sai $d = 3$.`,
-                        `Dãy số $(u_n)$ là cấp số cộng với công sai $d = 2$.`,
-                        `Dãy số $(u_n)$ là cấp số nhân với công bội $q = 3$.`,
-                        `Dãy số $(u_n)$ là cấp số nhân với cộng bội $q = 2$.`
-                    ],
-                    correctAnswer: 'A',
-                    solution: `
-                        <p class="font-semibold text-lg">Chọn A</p>
-                        <p class="mt-2"><b>Giải thích:</b></p>
-                        <p>Để kiểm tra có phải cấp số cộng không, ta xét hiệu $u_{n+1} - u_n$:</p>
-                        <p>$u_{n+1} = 3(n+1) - 1 = 3n + 3 - 1 = 3n + 2$</p>
-                        <p>$u_{n+1} - u_n = (3n + 2) - (3n - 1) = 3n + 2 - 3n + 1 = 3$</p>
-                        <p>Vì $u_{n+1} - u_n = 3$ (là một hằng số) với mọi $n$, nên đây là cấp số cộng với công sai $d = 3$.</p>
-                    `
-                },
-                {
-                    id: 'p1q4',
-                    question: `**Câu 4:** Trong các dãy số cho bởi công thức truy hồi sau, dãy số nào là cấp số nhân?`,
-                    options: [
-                        `$u_1 = 2, u_{n+1} = u_n + 3$`,
-                        `$u_1 = 2, u_{n+1} = 2u_n$`,
-                        `$u_1 = 2, u_{n+1} = u_n^2$`,
-                        `$u_1 = 2, u_{n+1} = u_n - 1$`
-                    ],
-                    correctAnswer: 'B',
-                    solution: `
-                        <p class="font-semibold text-lg">Chọn B</p>
-                        <p class="mt-2"><b>Giải thích:</b></p>
-                        <p>Cấp số nhân là dãy số có $u_{n+1} = u_n \cdot q$, với $q$ là hằng số (công bội).</p>
-                        <ul class="list-disc list-inside ml-2 space-y-1">
-                            <li>A: $u_{n+1} = u_n + 3$. Đây là Cấp số cộng, $d=3$.</li>
-                            <li>B: $u_{n+1} = 2u_n$. Đây là Cấp số nhân, $q=2$.</li>
-                            <li>C: $u_{n+1} = u_n^2$. Đây không phải CSN. (2, 4, 16, ...)</li>
-                            <li>D: $u_{n+1} = u_n - 1$. Đây là Cấp số cộng, $d=-1$.</li>
-                        </ul>
-                    `
-                },
-                {
-                    id: 'p1q5',
-                    question: `**Câu 5:** Tổng 100 số hạng đầu của dãy số $(u_n)$ với $u_n = 2n - 1$ là`,
-                    options: [
-                        `199.`,
-                        `$\\frac{100(2 + 199)}{2}$.`,
-                        `10000.`,
-                        `9999.`
-                    ],
-                    correctAnswer: 'C',
-                    solution: `
-                        <p class="font-semibold text-lg">Chọn C</p>
-                        <p class="mt-2"><b>Giải thích:</b></p>
-                        <p>Đây là cấp số cộng với $u_1 = 1$ và công sai $d = 2$.</p>
-                        <p>Cách 1: $S_{100} = \\frac{100}{2} [2(1) + (100-1)2] = 50 [2 + 198] = 50 \cdot 200 = 10000$.</p>
-                        <p>Cách 2: $u_{100} = 2(100) - 1 = 199$. $S_{100} = \\frac{100}{2} (u_1 + u_{100}) = 50 (1 + 199) = 10000$.</p>
-                    `
-                },
-                {
-                    id: 'p1q6',
-                    question: `**Câu 6:** Khẳng định nào sau đây là **sai**?`,
-                    options: [
-                        `Dãy số có $u_n = \\frac{1}{n}$.`,
-                        `Hiệu số $u_{n+1} - u_n < 0, \\forall n \\in \\mathbb{N}^*$.`,
-                        `Với $u_n = 2n$ thì dãy số tăng.`,
-                        `Với $u_n = \\frac{1}{n}$ thì dãy số giảm.`
-                    ],
-                    correctAnswer: 'B',
-                    solution: `
-                        <p class="font-semibold text-lg">Chọn B</p>
-                        <p class="mt-2"><b>Giải thích:</b></p>
-                        <p>Câu hỏi này có vẻ bị diễn đạt thiếu. Giả sử A, B, D đều nói về dãy $u_n = 1/n$.</p>
-                        <p>Xét $u_n = 1/n$: $u_{n+1} - u_n = \\frac{-1}{n(n+1)} < 0$. Vậy dãy giảm (D đúng). Phép tính $u_{n+1} - u_n < 0$ là đúng (B đúng).</p>
-                        <p>Xét $u_n = 2n$: $u_{n+1} - u_n = 2 > 0$. Dãy tăng (C đúng).</p>
-                        <p><i>(Ghi chú: Lời giải gốc chọn B. Có thể B là một khẳng định chung "Mọi dãy số đều có $u_{n+1} - u_n < 0$". Hoặc có lỗi trong đề/đáp án gốc, vì B là đúng nếu xét cho dãy $u_n = 1/n$.)</i></p>
-                    `
-                },
-                {
-                    id: 'p1q7',
-                    question: `**Câu 7:** Cho dãy số $(u_n)$ với $u_n = \\frac{n-1}{n+1}$. Dãy số $(u_n)$ là dãy số`,
-                    options: [
-                        `Bị chặn trên bởi 1.`,
-                        `Giảm.`,
-                        `Bị chặn dưới bởi 2.`,
-                        `Tăng.`
-                    ],
-                    correctAnswer: 'D',
-                    solution: `
-                        <p class="font-semibold text-lg">Chọn D (A cũng đúng)</p>
-                        <p class="mt-2"><b>Giải thích:</b></p>
-                        <p>$u_{n+1} - u_n = \\frac{n}{n+2} - \\frac{n-1}{n+1} = \\frac{2}{(n+2)(n+1)} > 0$. Vậy dãy số tăng (D đúng).</p>
-                        <p>Đồng thời, $u_n = 1 - \\frac{2}{n+1} < 1$. Vậy dãy bị chặn trên bởi 1 (A cũng đúng).</p>
-                        <p><i>(Ghi chú: Cả A và D đều đúng. Lời giải gốc chọn D.)</i></p>
-                    `
-                },
-                {
-                    id: 'p1q8',
-                    question: `**Câu 8:** Cho cấp số cộng $(u_n)$ có $u_1 = -5$ và công sai $d = 3$. Hỏi kể từ số hạng thứ mấy trở đi thì các số hạng của $(u_n)$ đều lớn hơn $100$?`,
-                    options: [
-                        `$n \\ge 35$.`,
-                        `$n \\ge 36$.`,
-                        `$n \\ge 37$.`,
-                        `$n \\ge 34$.`
-                    ],
-                    correctAnswer: 'C',
-                    solution: `
-                        <p class="font-semibold text-lg">Chọn C (Lời giải gốc chọn B sai)</p>
-                        <p class="mt-2"><b>Giải thích:</b></p>
-                        <p>$u_n = u_1 + (n-1)d = -5 + (n-1)3 = 3n - 8$.</p>
-                        <p>$u_n > 100 \Rightarrow 3n - 8 > 100 \Rightarrow 3n > 108 \Rightarrow n > 36$.</p>
-                        <p>Vì $n$ là số nguyên và $n > 36$, nên $n$ phải $\ge 37$.</p>
-                        <p>$u_{36} = 3(36) - 8 = 100$. $u_{37} = 3(37) - 8 = 103$.</p>
-                        <p>Vậy kể từ số hạng thứ 37. <b>Đáp án đúng là C.</b></p>
-                    `
-                },
-                {
-                    id: 'p1q9',
-                    question: `**Câu 9:** Xác định số hàng đầu $u_1$ và công sai $d$ của cấp số cộng $(u_n)$ có $u_9 = 5u_2$ và $u_{13} = 2u_6 + 5$.`,
-                    options: [
-                        `$u_1 = 3$ và $d = 4$.`,
-                        `$u_1 = 3$ và $d = 5$.`,
-                        `$u_1 = 4$ và $d = 3$.`,
-                        `$u_1 = 5$ và $d = 3$.`
-                    ],
-                    correctAnswer: 'A',
-                    solution: `
-                        <p class="font-semibold text-lg">Chọn A</p>
-                        <p class="mt-2"><b>Giải thích:</b></p>
-                        <p>Ta có hệ:</p>
-                        <p>$\\begin{cases} u_1 + 8d = 5(u_1 + d) \\\\ u_1 + 12d = 2(u_1 + 5d) + 5 \\end{cases} \Rightarrow \\begin{cases} 4u_1 - 3d = 0 \\\\ -u_1 + 2d = 5 \\end{cases}$</p>
-                        <p>Giải hệ ta được $d = 4$ và $u_1 = 3$.</p>
-                    `
-                },
-                {
-                    id: 'p1q10',
-                    question: `**Câu 10:** Cho cấp số cộng $(u_n)$ có $u_1 = 1$, $u_3 = 5$. Tính tổng $S_{10}$ số hạng đầu tiên của cấp số cộng này.`,
-                    options: [
-                        `$S_{10} = 100$.`,
-                        `$S_{10} = 110$.`,
-                        `$S_{10} = 120$.`,
-                        `$S_{10} = 190$.`
-                    ],
-                    correctAnswer: 'A',
-                    solution: `
-                        <p class="font-semibold text-lg">Chọn A (Lời giải gốc chọn D sai)</p>
-                        <p class="mt-2"><b>Giải thích:</b></p>
-                        <p>$u_3 = u_1 + 2d \\Rightarrow 5 = 1 + 2d \\Rightarrow d = 2$.</p>
-                        <p>$S_{10} = \\frac{10}{2} [2u_1 + (10-1)d] = 5 [2(1) + 9(2)] = 5 [2 + 18] = 5 \\cdot 20 = 100$.</p>
-                        <p><b>Kết quả là 100. Đáp án đúng là A.</b></p>
-                    `
-                },
-                {
-                    id: 'p1q11',
-                    question: `**Câu 11:** Cho cấp số cộng biết $u_5 + u_{11} = 26$ và $u_8 = 13$. Tìm số hạng đầu tiên và công sai của cấp số cộng.`,
-                    options: [
-                        `$u_1 = -1 ; d = 2$.`,
-                        `$u_1 = 1 ; d = 2$.`,
-                        `$u_1 = -1 ; d = -2$.`,
-                        `$u_1 = 1 ; d = -2$.`
-                    ],
-                    correctAnswer: 'A',
-                    solution: `
-                        <p class="font-semibold text-lg">Chọn A (Dựa trên lời giải gốc, dù đề bài mâu thuẫn)</p>
-                        <p class="mt-2"><b>Phân tích mâu thuẫn:</b></p>
-                        <p>$u_5 + u_{11} = 20 \\Rightarrow (u_1 + 4d) + (u_1 + 10d) = 20 \\Rightarrow 2u_1 + 14d = 20 \\Rightarrow u_1 + 7d = 10$. (1)</p>
-                        <p>$u_8 = 13 \\Rightarrow u_1 + 7d = 13$. (2)</p>
-                        <p>Hai phương trình (1) và (2) mâu thuẫn ($10 \\ne 13$). Đề bài gốc bị sai.</p>
-                        <p><b>Kiểm tra đáp án A:</b> $u_1 = -1, d = 2$.</p>
-                        <p>$u_1 + 7d = -1 + 7(2) = 13$. (Thỏa mãn $u_8 = 13$).</p>
-                        <p>$u_5 + u_{11} = (-1 + 4(2)) + (-1 + 10(2)) = 7 + 19 = 26$. (Không thỏa mãn $u_5 + u_{11} = 20$).</p>
-                        <p><i>(Ghi chú: Lời giải gốc chọn A, có lẽ đề muốn $u_8 = 13$ và $u_5 + u_{11} = 26$.)</i></p>
-                    `
-                },
-                {
-                    id: 'p1q12',
-                    question: `**Câu 12:** Bốn số tạo thành một cấp số cộng có tổng bằng $20$ và tổng các bình phương của chúng bằng $120$. Tích của bốn số đó là:`,
-                    options: [
-                        `$384$.`,
-                        `$120$.`,
-                        `$400$.`,
-                        `$100$.`
-                    ],
-                    correctAnswer: 'A',
-                    solution: `
-                        <p class="font-semibold text-lg">Chọn A</p>
-                        <p class="mt-2"><b>Giải thích:</b></p>
-                        <p>Gọi 4 số là $a-3d, a-d, a+d, a+3d$.</p>
-                        <p>Tổng: $4a = 20 \\Rightarrow a = 5$.</p>
-                        <p>Tổng bình phương: $(5-3d)^2 + (5-d)^2 + (5+d)^2 + (5+3d)^2 = 120$.</p>
-                        <p>$100 + 20d^2 = 120 \\Rightarrow 20d^2 = 20 \\Rightarrow d = \\pm 1$.</p>
-                        <p>Bốn số là 2, 4, 6, 8. Tích $2 \\cdot 4 \\cdot 6 \\cdot 8 = 384$.</p>
-                    `
-                }
-            ],
-            part2: [
-                {
-                    id: 'p2q1',
-                    question: `**Câu 1:** Cho cấp số cộng $u_n$ thỏa : $u_2 + u_4 + ... + u_{2n} = 126$ và $u_3 + u_5 + ... + u_{2n-1} = 117$.`,
-                    items: [
-                        { id: 'a', text: `$d = 2$ là công sai của cấp số`, correct: true },
-                        { id: 'b', text: `$u_1 = 3$ là số hạng đầu của dãy số`, correct: true },
-                        { id: 'c', text: `Công thức tổng quát của cấp số cộng là $u_n = 2n + 1$`, correct: false },
-                        { id: 'd', text: `Tổng $S_n = u_1 + u_2 + ... + u_n = n^2 + 2n$.`, correct: false }
-                    ],
-                    solution: `
-                        <p class="font-semibold text-lg">Đáp án gốc: a) Đúng, b) Đúng, c) Sai, d) Sai</p>
-                        <p class="mt-2"><b>Phân tích:</b></p>
-                        <p>$S_{chẵn} = n(u_1 + nd) = 126$. (1)</p>
-                        <p>$S_{lẻ} = (n-1)(u_1 + nd) = 117$. (2)</p>
-                        <p>Giải hệ $\\Rightarrow n=14$ và $u_1 + 14d = 9$.</p>
-                        <p><b>Phân tích Lời giải gốc:</b></p>
-                        <p>Lời giải gốc chọn a) $d=2$ và b) $u_1=3$ là Đúng. Nhưng $u_1 + 14d = 3 + 14(2) = 31 \\ne 9$. <b>Đề bài hoặc đáp án gốc có mâu thuẫn.</b></p>
-                        <p><b>Giả sử a) và b) là đúng:</b></p>
-                        <p>c) $u_n = 3 + (n-1)2 = 2n + 1$. Mệnh đề (c) là $u_n = 2n + 1$. Phép tính này Đúng. (Lời giải gốc chọn Sai).</p>
-                        <p>d) $S_n = \\frac{n}{2} [2(3) + (n-1)2] = n(n+2) = n^2 + 2n$. Mệnh đề (d) là $S_n = n^2 + 2n$. Phép tính này Đúng. (Lời giải gốc chọn Sai).</p>
-                        <p><i>(Ghi chú: Toàn bộ câu này trong tài liệu gốc có vấn đề. Chúng tôi giữ nguyên đáp án gốc.)</i></p>
-                    `
-                },
-                {
-                    id: 'p2q2',
-                    question: `**Câu 2:** Cho dãy số $(v_n)$ xác định bởi $v_1 = 1$ và $v_{n+1} = \\frac{v_n}{1 + v_n}$. Đặt $u_n = \\frac{1}{v_n}$.`,
-                    items: [
-                        { id: 'a', text: `Dãy số $(u_n)$ là một cấp số nhân có số hạng đầu bằng 1.`, correct: false },
-                        { id: 'b', text: `Dãy số $(u_n)$ là một cấp số nhân có công bội $q = 1$.`, correct: false },
-                        { id: 'c', text: `Dãy số $(u_n)$ là một cấp số nhân có công bội $q = 2$.`, correct: false },
-                        { id: 'd', text: `T ổng $S = v_1 + v_2 + ... + v_n = \\frac{n(n+1)}{2}$.`, correct: false }
-                    ],
-                    solution: `
-                        <p class="font-semibold text-lg">Đáp án: a) Sai, b) Sai, c) Sai, d) Sai</p>
-                        <p class="mt-2"><b>Phân tích:</b></p>
-                        <p>$u_{n+1} = \\frac{1}{v_{n+1}} = \\frac{1 + v_n}{v_n} = \\frac{1}{v_n} + 1 = u_n + 1$.</p>
-                        <p>Đây là <b>Cấp số cộng</b> có $d = 1$ và $u_1 = 1/v_1 = 1$.</p>
-                        <p>a, b, c đều Sai vì $(u_n)$ là CSC, không phải CSN.</p>
-                        <p><i>(Ghi chú: Lời giải gốc chọn a) Đúng, b) Đúng là sai kiến thức cơ bản.)</i></p>
-                        <p>d) $u_n = u_1 + (n-1)d = 1 + (n-1)1 = n$.</p>
-                        <p>$v_n = 1/u_n = 1/n$.</p>
-                        <p>$S = 1 + \\frac{1}{2} + ... + \\frac{1}{n}$. Tổng này KHÔNG bằng $\\frac{n(n+1)}{2}$. Vậy d) Sai.</p>
-                    `
-                },
-                {
-                    id: 'p2q3',
-                    question: `**Câu 3:** Cho cấp số cộng (un) thỏa mãn $u_2 + u_{2018} = 100$.`,
-                    items: [
-                        { id: 'a', text: `Số hạng đầu của dãy số là $u_1 = 50$.`, correct: false },
-                        { id: 'b', text: `Công sai của cấp số cộng là $d = 0$.`, correct: false },
-                        { id: 'c', text: `Số hạng thứ 5 của dãy số là $u_5 = 50$.`, correct: false },
-                        { id: 'd', text: `Tổng $S = u_1 + u_2 + ... + u_{2019} = 100950$.`, correct: true }
-                    ],
-                    solution: `
-                        <p class="font-semibold text-lg">Đáp án: a) Sai, b) Sai, c) Sai, d) Đúng</p>
-                        <p class="mt-2"><b>Phân tích:</b></p>
-                        <p>$u_2 + u_{2018} = (u_1 + d) + (u_1 + 2017d) = 2u_1 + 2018d = 100$.</p>
-                        <p>a, b, c: Không thể kết luận $u_1=50$ hay $d=0$ hay $u_5=50$ chỉ từ thông tin trên.</p>
-                        <p>d) $S_{2019} = \\frac{2019}{2} (u_1 + u_{2019}) = \\frac{2019}{2} (u_1 + u_1 + 2018d) = \\frac{2019}{2} (2u_1 + 2018d)$</p>
-                        <p>Vì $2u_1 + 2018d = 100$, nên $S_{2019} = \\frac{2019}{2} (100) = 2019 \\cdot 50 = 100950$.</p>
-                        <p>Mệnh đề d) là Đúng.</p>
-                        <p><i>(Ghi chú: Lời giải gốc chọn a, c Đúng và d Sai, hoàn toàn ngược lại với phép tính.)</i></p>
-                    `
-                },
-                {
-                    id: 'p2q4',
-                    question: `**Câu 4:** Cho dãy số $(u_n)$ được xác định bởi $u_1 = 2$ và $u_{n+1} = 3u_n + 2n + 1$.`,
-                    items: [
-                        { id: 'a', text: `Số hạng thứ 3 của dãy là 17`, correct: false },
-                        { id: 'b', text: `Tổng 6 số hạng đầu của dãy là 297`, correct: false },
-                        { id: 'c', text: `Ta có $u_n = 3^n - n - 1$ với $n \\ge 1$;`, correct: false },
-                        { id: 'd', text: `Số hạng có 3 chữ số lớn nhất của dãy là $u_7 = 2179$`, correct: false }
-                    ],
-                    solution: `
-                        <p class="font-semibold text-lg">Đáp án: a) Sai, b) Sai, c) Sai, d) Sai</p>
-                        <p class="mt-2"><b>Phân tích:</b></p>
-                        <p>a) $u_1 = 2$. $u_2 = 3(2) + 2(1) + 1 = 9$. $u_3 = 3(9) + 2(2) + 1 = 32$. Mệnh đề a) Sai.</p>
-                        <p>c) $u_n = 3^n - n - 1$. Thử $n=1$: $u_1 = 3^1 - 1 - 1 = 1$. Không khớp $u_1 = 2$. Mệnh đề c) Sai.</p>
-                        <p>b) $u_1=2, u_2=9, u_3=32, u_4=103, u_5=318, u_6=965$. $S_6 = 1429$. Mệnh đề b) Sai.</p>
-                        <p>d) $u_6 = 965$. $u_7 = 2908$. Số hạng 3 chữ số lớn nhất là $u_6 = 965$. Mệnh đề d) Sai.</p>
-                        <p><i>(Ghi chú: Lời giải gốc chọn a, b, c là Đúng, d là Sai. Toàn bộ câu này trong tệp gốc đều sai.)</i></p>
-                    `
-                }
-            ],
-            part3: [
-                {
-                    id: 'p3q1',
-                    question: `**Câu 1:** Cho dãy số $(u_n)$ biết $u_n = \\frac{n^2 - 1}{n^2 + 1}$. Tìm số hạng $u_3$.`,
-                    correctAnswer: ["4/5", "0.8"],
-                    solution: `
-                        <p>Thế trực tiếp $n = 3$ vào công thức:</p>
-                        <p>$u_3 = \\frac{3^2 - 1}{3^2 + 1} = \\frac{9 - 1}{9 + 1} = \\frac{8}{10} = \\frac{4}{5}$.</p>
-                        <p class="font-semibold text-lg mt-2">Đáp số: 4/5 (hoặc 0.8)</p>
-                    `
-                },
-                {
-                    id: 'p3q2',
-                    question: `**Câu 2:** Số đo ba góc của một tam giác vuông lập thành cấp số cộng. Tìm số đo ba góc đó. (Nhập dạng: 30, 60, 90)`,
-                    correctAnswer: ["30, 60, 90", "30,60,90", "30 60 90"],
-                    solution: `
-                        <p>Gọi 3 góc là $a-d, a, a+d$.</p>
-                        <p>Tổng 3 góc $3a = 180^\\circ \\Rightarrow a = 60^\\circ$.</p>
-                        <p>Tam giác vuông nên góc lớn nhất $a+d = 90^\\circ \\Rightarrow 60^\\circ + d = 90^\\circ \\Rightarrow d = 30^\\circ$.</p>
-                        <p>Ba góc là $30^\\circ, 60^\\circ, 90^\\circ$.</p>
-                        <p class="font-semibold text-lg mt-2">Đáp số: $30, 60, 90$</p>
-                    `
-                },
-                {
-                    id: 'p3q3',
-                    question: `**Câu 3:** Cho ba số tự nhiên $x, y, z$ theo thứ tự lập thành cấp số cộng. Chứng minh ba số $2^x, 2^y, 2^z$ theo thứ tự lập thành cấp số nhân. (Nhập 'OK' để xác nhận đã đọc)`,
-                    correctAnswer: ["OK", "ok", "Ok", "oK"],
-                    solution: `
-                        <p>Vì $x, y, z$ lập thành CSC, nên $x + z = 2y$. (1)</p>
-                        <p>Để $2^x, 2^y, 2^z$ lập thành CSN, ta cần chứng minh $2^x \\cdot 2^z = (2^y)^2$.</p>
-                        <p>$VT = 2^x \\cdot 2^z = 2^{x+z}$.</p>
-                        <p>$VP = (2^y)^2 = 2^{2y}$.</p>
-                        <p>Từ (1), $x+z = 2y \\Rightarrow VT = VP$. (ĐPCM)</p>
-                    `
-                },
-                {
-                    id: 'p3q4',
-                    question: `**Câu 4:** Cho dãy số $(u_n)$ có số hạng tổng quát $u_n = 2n + \\sqrt{n^2 + 1}$. Số $500 + \\sqrt{250000 + 1}$ là số hạng thứ mấy?`,
-                    correctAnswer: ["250"],
-                    solution: `
-                        <p>Ta tìm $n$ sao cho $u_n = 500 + \\sqrt{250000 + 1}$.</p>
-                        <p>Ta viết lại vế phải: $500 + \\sqrt{250000 + 1} = 2(250) + \\sqrt{(250)^2 + 1}$.</p>
-                        <p>So sánh với $u_n = 2n + \\sqrt{n^2 + 1}$, ta đồng nhất $n = 250$.</p>
-                        <p class="font-semibold text-lg mt-2">Đáp số: 250</p>
-                    `
-                },
-                {
-                    id: 'p3q5',
-                    question: `**Câu 5:** ...Số ô trên các vòng theo thứ tự có tạo thành cấp số cộng không? Nếu có, tìm công sai. (Nhập công sai)`,
-                    correctAnswer: ["6"],
-                    solution: `
-                        <div class="w-full bg-gray-200 h-40 flex items-center justify-center rounded-lg text-gray-500 italic my-4">Hình 2: Minh hoạ các vòng tổ ong</div>
-                        <p>Dãy số là $6, 12, 18, ...$</p>
-                        <p>$u_2 - u_1 = 6$</p>
-                        <p>$u_3 - u_2 = 6$</p>
-                        <p>Đây là cấp số cộng với công sai $d = 6$.</p>
-                        <p class="font-semibold text-lg mt-2">Đáp số: 6</p>
-                    `
-                },
-                {
-                    id: 'p3q6',
-                    question: `**Câu 6:** ...Biết tần số của hai phím Sol và Si lần lượt là $392 \\text{ Hz}$ và $494 \\text{ Hz}$. Tính tần số của phím La (làm tròn đến hàng đơn vị).`,
-                    correctAnswer: ["440"],
-                    solution: `
-                        <div class="w-full bg-gray-200 h-24 flex items-center justify-center rounded-lg text-gray-500 italic my-4">Hình 1: Minh hoạ bàn phím organ</div>
-                        <p>Gọi tần số 3 phím là $u_1, u_2, u_3$.</p>
-                        <p>Ta có $u_1 \\cdot u_3 = u_2^2$ (tính chất CSN).</p>
-                        <p>$u_2^2 = 392 \\cdot 494 = 193648$</p>
-                        <p>$u_2 = \\sqrt{193648} \\approx 440.0545...$</p>
-                        <p class="font-semibold text-lg mt-2">Đáp số: 440 (Hz)</p>
-                    `
-                }
-            ]
-        };
-
-        const state = {
-            activeTab: 'overview'
-        };
-
-        const contentArea = document.getElementById('content-area');
-        const navTabs = document.getElementById('nav-tabs');
-        const scoreDisplay = document.getElementById('score-display');
-
-        function renderFormulasCard() {
-            return `
-                <div class="formula-card">
-                    <h3 class="text-2xl font-semibold text-blue-800 mb-4">Các công thức chính</h3>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div>
-                            <h4 class="text-xl font-semibold text-gray-700 mb-2">Cấp số cộng (CSC)</h4>
-                            <ul class="list-none space-y-2 text-gray-800">
-                                <li><b>Định nghĩa:</b> $u_{n+1} = u_n + d$</li>
-                                <li><b>Số hạng TQ:</b> $u_n = u_1 + (n-1)d$</li>
-                                <li><b>Tính chất:</b> $u_k = \\frac{u_{k-1} + u_{k+1}}{2}$</li>
-                                <li><b>Tổng $n$ số hạng:</b> $S_n = \\frac{n}{2} (u_1 + u_n)$</li>
-                                <li><b>Tổng (dạng 2):</b> $S_n = \\frac{n}{2} [2u_1 + (n-1)d]$</li>
-                            </ul>
-                        </div>
-                        <div>
-                            <h4 class="text-xl font-semibold text-gray-700 mb-2">Cấp số nhân (CSN)</h4>
-                            <ul class="list-none space-y-2 text-gray-800">
-                                <li><b>Định nghĩa:</b> $u_{n+1} = u_n \\cdot q$</li>
-                                <li><b>Số hạng TQ:</b> $u_n = u_1 \\cdot q^{n-1}$</li>
-                                <li><b>Tính chất:</b> $u_k^2 = u_{k-1} \\cdot u_{k+1}$</li>
-                                <li><b>Tổng $n$ số hạng:</b> $S_n = \\frac{u_1(1 - q^n)}{1 - q}$ (với $q \\ne 1$)</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            `;
-        }
-        
-        function renderTypeChart() {
-            const ctx = document.getElementById('typeChart').getContext('2d');
-            new Chart(ctx, {
-                type: 'doughnut',
-                data: {
-                    labels: ['Nhiều lựa chọn (Phần 1)', 'Đúng/Sai (Phần 2)', 'Bài toán (Phần 3)'],
-                    datasets: [{
-                        label: 'Phân bổ câu hỏi',
-                        data: [appData.part1.length, appData.part2.length, appData.part3.length],
-                        backgroundColor: [
-                            'rgba(59, 130, 246, 0.7)', 
-                            'rgba(16, 185, 129, 0.7)',
-                            'rgba(239, 68, 68, 0.7)'  
-                        ],
-                        borderColor: [
-                            'rgba(59, 130, 246, 1)',
-                            'rgba(16, 185, 129, 1)',
-                            'rgba(239, 68, 68, 1)'
-                        ],
-                        borderWidth: 1.5,
-                        hoverOffset: 10
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            position: 'bottom',
-                            labels: {
-                                font: {
-                                    size: 14,
-                                    family: 'Inter'
-                                },
-                                padding: 20
-                            }
-                        },
-                        tooltip: {
-                            callbacks: {
-                                label: function(context) {
-                                    let label = context.label || '';
-                                    if (label) {
-                                        label += ': ';
-                                    }
-                                    if (context.parsed !== null) {
-                                        label += context.parsed + ' câu';
-                                    }
-                                    return label;
-                                }
-                            }
-                        }
-                    },
-                    cutout: '60%'
-                }
+        function showTab(targetId) {
+            tabPanels.forEach(panel => {
+                panel.classList.add('hidden');
             });
-        }
-
-        function renderOverview() {
-            contentArea.innerHTML = `
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                    <div class="bg-white p-6 rounded-xl shadow-lg border border-gray-100">
-                        <h2 class="text-2xl font-semibold text-blue-800 mb-4">Chào mừng bạn đến với Buổi ôn tập</h2>
-                        <p class="text-base text-gray-700 leading-relaxed mb-4">
-                            Đây là ứng dụng tương tác giúp bạn ôn luyện các kiến thức về Dãy số, Cấp số cộng và Cấp số nhân từ "Đề ❶".
-                        </p>
-                        <p class="text-base text-gray-700 leading-relaxed mb-4">
-                            Đề kiểm tra này bao gồm 3 phần với tổng cộng 34 điểm. Sử dụng các tab điều hướng ở trên để chuyển qua lại giữa các phần.
-                        </p>
-                        <p class="text-base text-gray-700 leading-relaxed">
-                            Với mỗi câu hỏi, hãy chọn đáp án hoặc điền kết quả, sau đó nhấn nút "Kiểm tra" để xem đáp án và lời giải chi tiết. Điểm số sẽ được cập nhật tự động.
-                        </p>
-                    </div>
-                    <div class="bg-white p-6 rounded-xl shadow-lg border border-gray-100">
-                        <h2 class="text-2xl font-semibold text-blue-800 mb-4 text-center">Phân bổ câu hỏi</h2>
-                        <div class="chart-container">
-                            <canvas id="typeChart"></canvas>
-                        </div>
-                    </div>
-                    <div class="lg:col-span-2">
-                        ${renderFormulasCard()}
-                    </div>
-                </div>
-            `;
-            renderTypeChart();
-        }
-
-        function createQuestionCard(item, part) {
-            let optionsHtml = '';
-            
-            if (part === 'part1') {
-                optionsHtml = `<div class="list-none space-y-2 mt-4" id="options-${item.id}">` + 
-                    item.options.map((opt, index) => {
-                        const value = String.fromCharCode(65 + index); // A, B, C, D
-                        return `
-                        <label class="flex items-center p-3 rounded-lg border border-gray-200 hover:bg-gray-50 transition-all cursor-pointer">
-                            <input type="radio" name="${item.id}" value="${value}" class="mr-3 text-blue-600 focus:ring-blue-500" data-label-id="label-${item.id}-${value}">
-                            <span class="text-gray-700" id="label-${item.id}-${value}">${value}. ${opt}</span>
-                        </label>
-                        `;
-                    }).join('') + `</div>`;
-            } 
-            else if (part === 'part2') {
-                 optionsHtml = `<div class="list-none space-y-4 mt-4" id="options-${item.id}">` + 
-                    item.items.map(subItem => `
-                        <div class="p-3 rounded-lg border border-gray-200" id="sub-item-${item.id}-${subItem.id}">
-                            <p class="text-gray-700 mb-2">${subItem.id}) ${subItem.text}</p>
-                            <div class="flex space-x-4">
-                                <label class="flex items-center cursor-pointer">
-                                    <input type="radio" name="${item.id}-${subItem.id}" value="true" class="mr-2 text-green-600 focus:ring-green-500">
-                                    <span>Đúng</span>
-                                </label>
-                                <label class="flex items-center cursor-pointer">
-                                    <input type="radio" name="${item.id}-${subItem.id}" value="false" class="mr-2 text-red-600 focus:ring-red-500">
-                                    <span>Sai</span>
-                                </label>
-                            </div>
-                        </div>
-                    `).join('') + `</div>`;
-            }
-            else if (part === 'part3') {
-                optionsHtml = `
-                <div class="mt-4">
-                    <input type="text" id="${item.id}-input" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" placeholder="Nhập câu trả lời của bạn...">
-                </div>`;
-            }
-
-            return `
-                <div class="question-card">
-                    <div class="font-medium text-lg text-gray-900">${item.question}</div>
-                    ${optionsHtml}
-                    <div class="mt-6">
-                        <button class="check-button" data-check-id="${item.id}" data-part="${part}">Kiểm tra</button>
-                        <div id="${item.id}" class="solution-content hidden">
-                            ${item.solution}
-                        </div>
-                    </div>
-                </div>
-            `;
-        }
-
-        function renderPart(partData, partName) {
-            const html = `
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    ${partData.map(item => createQuestionCard(item, partName)).join('')}
-                </div>
-            `;
-            contentArea.innerHTML = html;
-        }
-
-        function renderContent() {
-            switch (state.activeTab) {
-                case 'overview':
-                    renderOverview();
-                    break;
-                case 'part1':
-                    renderPart(appData.part1, 'part1');
-                    break;
-                case 'part2':
-                    renderPart(appData.part2, 'part2');
-                    break;
-                case 'part3':
-                    renderPart(appData.part3, 'part3');
-                    break;
-            }
-            
-            renderMathInElement(contentArea, {
-                delimiters: [
-                    {left: "$$", right: "$$", display: true},
-                    {left: "$", right: "$", display: false},
-                    {left: "\\(", right: "\\)", display: false},
-                    {left: "\\[", right: "\\]", display: true}
-                ]
-            });
-        }
-
-        function setupNav() {
-            navTabs.addEventListener('click', (e) => {
-                if (e.target.matches('.tab-button')) {
-                    const tab = e.target.dataset.tab;
-                    if (tab !== state.activeTab) {
-                        navTabs.querySelector('.active').classList.remove('active');
-                        e.target.classList.add('active');
-                        state.activeTab = tab;
-                        renderContent();
-                    }
-                }
-            });
-        }
-
-        function updateScoreDisplay() {
-            let totalCorrect = 0;
-            
-            Object.values(userScore.part1).forEach(answer => {
-                if (answer.isCorrect) totalCorrect++;
+            tabButtons.forEach(button => {
+                button.classList.remove('border-blue-500', 'text-blue-600', 'font-semibold');
+                button.classList.add('border-transparent');
             });
 
-            Object.values(userScore.part2).forEach(question => {
-                Object.values(question).forEach(subAnswer => {
-                    if (subAnswer.isCorrect) totalCorrect++;
-                });
-            });
-
-            Object.values(userScore.part3).forEach(answer => {
-                if (answer.isCorrect) totalCorrect++;
-            });
-
-            scoreDisplay.textContent = `Điểm số: ${totalCorrect} / ${TOTAL_POINTS}`;
+            document.getElementById(targetId).classList.remove('hidden');
+            const activeButton = document.querySelector(`.tab-btn[data-target="${targetId}"]`);
+            activeButton.classList.add('border-blue-500', 'text-blue-600', 'font-semibold');
+            activeButton.classList.remove('border-transparent');
         }
 
-        function handlePart1Check(itemId, itemData, button) {
-            const selectedRadio = contentArea.querySelector(`input[name="${itemId}"]:checked`);
-            const selectedValue = selectedRadio ? selectedRadio.value : null;
-            const isCorrect = selectedValue === itemData.correctAnswer;
-            
-            userScore.part1[itemId] = { selected: selectedValue, correct: itemData.correctAnswer, isCorrect: isCorrect };
-
-            const optionsLabels = contentArea.querySelectorAll(`#options-${itemId} label`);
-            optionsLabels.forEach(label => {
-                const radio = label.querySelector('input');
-                label.classList.remove('correct-answer', 'incorrect-answer');
-                if (radio.value === itemData.correctAnswer) {
-                    label.classList.add('correct-answer');
-                } else if (radio.value === selectedValue) {
-                    label.classList.add('incorrect-answer');
-                }
-                radio.disabled = true;
+        tabButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const targetId = button.getAttribute('data-target');
+                showTab(targetId);
             });
-        }
-
-        function handlePart2Check(itemId, itemData, button) {
-            userScore.part2[itemId] = {};
-            itemData.items.forEach(subItem => {
-                const selectedRadio = contentArea.querySelector(`input[name="${itemId}-${subItem.id}"]:checked`);
-                const selectedValue = selectedRadio ? selectedRadio.value : null;
-                const isCorrect = String(selectedValue) === String(subItem.correct);
-
-                userScore.part2[itemId][subItem.id] = { selected: selectedValue, correct: subItem.correct, isCorrect: isCorrect };
-                
-                const subItemDiv = contentArea.querySelector(`#sub-item-${itemId}-${subItem.id}`);
-                subItemDiv.classList.remove('correct-answer', 'incorrect-answer');
-                if (isCorrect) {
-                    subItemDiv.classList.add('correct-answer');
-                } else {
-                    subItemDiv.classList.add('incorrect-answer');
-                }
-                
-                const radios = subItemDiv.querySelectorAll('input[type="radio"]');
-                radios.forEach(radio => radio.disabled = true);
-            });
-        }
-
-        function handlePart3Check(itemId, itemData, button) {
-            const inputField = contentArea.querySelector(`#${itemId}-input`);
-            const inputValue = inputField.value.trim();
-            const isCorrect = itemData.correctAnswer.includes(inputValue);
-            
-            userScore.part3[itemId] = { input: inputValue, correct: itemData.correctAnswer, isCorrect: isCorrect };
-
-            inputField.classList.remove('correct-answer', 'incorrect-answer');
-            if (isCorrect) {
-                inputField.classList.add('correct-answer');
-            } else {
-                inputField.classList.add('incorrect-answer');
-            }
-            inputField.disabled = true;
-        }
-
-        function setupCheckButtons() {
-            contentArea.addEventListener('click', (e) => {
-                if (e.target.matches('.check-button:not(:disabled)')) {
-                    const button = e.target;
-                    const itemId = button.dataset.checkId;
-                    const part = button.dataset.part;
-                    
-                    const itemData = appData[part].find(item => item.id === itemId);
-                    
-                    if (!itemData) return;
-
-                    if (part === 'part1') {
-                        handlePart1Check(itemId, itemData, button);
-                    } else if (part === 'part2') {
-                        handlePart2Check(itemId, itemData, button);
-                    } else if (part === 'part3') {
-                        handlePart3Check(itemId, itemData, button);
-                    }
-                    
-                    const solutionContent = document.getElementById(itemId);
-                    if (solutionContent) {
-                        solutionContent.classList.remove('hidden');
-                    }
-                    
-                    button.disabled = true;
-                    button.textContent = 'Đã kiểm tra';
-                    
-                    updateScoreDisplay();
-                }
-            });
-        }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            setupNav();
-            setupCheckButtons();
-            renderContent(); 
         });
+
+        // Show the first tab by default
+        showTab('ly-thuyet');
+
+        // Function to check multiple choice questions
+        function checkMcq(questionId, correctAnswer) {
+            const selected = document.querySelector(`input[name="${questionId}"]:checked`);
+            const feedbackEl = document.getElementById(`feedback-${questionId}`);
+            
+            if (!selected) {
+                feedbackEl.textContent = 'Bạn chưa chọn đáp án!';
+                feedbackEl.className = 'mt-2 font-medium text-yellow-600';
+                return;
+            }
+
+            if (selected.value === correctAnswer) {
+                feedbackEl.textContent = 'Chính xác! 🎉';
+                feedbackEl.className = 'mt-2 font-medium text-green-700';
+            } else {
+                feedbackEl.textContent = `Sai rồi. Đáp án đúng là ${correctAnswer}.`;
+                feedbackEl.className = 'mt-2 font-medium text-red-700';
+            }
+        }
+
+        // Function to toggle (show/hide) answers for self-assessment
+        function toggleAnswer(answerId, button) {
+            const answerEl = document.getElementById(answerId);
+            const isHidden = answerEl.classList.contains('hidden');
+            
+            if (isHidden) {
+                answerEl.classList.remove('hidden');
+                button.textContent = 'Ẩn đáp án';
+            } else {
+                answerEl.classList.add('hidden');
+                button.textContent = 'Xem đáp án';
+            }
+        }
     </script>
 
 </body>
 </html>
-
-
-
-
-
