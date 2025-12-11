@@ -1,863 +1,1121 @@
-<!DOCTYPE html>
-<html lang="vi">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ôn tập KHTN 6 - Bài 15 & 16</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
-        }
-    </style>
-</head>
-<body class="bg-gray-100">
+import React, { useState, useEffect } from 'react';
+import { BookOpen, Award, RefreshCw, Beaker, Zap, Microscope, Brain, ArrowRight, Menu, X, Check, AlertCircle } from 'lucide-react';
 
-    <div class="max-w-4xl mx-auto p-4 sm:p-6 lg:p-8 bg-white shadow-lg rounded-lg mt-10">
-        
-        <h1 class="text-3xl font-bold text-center text-blue-700 mb-6">
-            Ôn tập Khoa học Tự nhiên 6
+// --- DỮ LIỆU CÂU HỎI TRẮC NGHIỆM (Đầy đủ từ 5 đề) ---
+const examData = [
+  {
+    id: 1,
+    title: "Đề ôn tập số 1",
+    description: "An toàn thực hành, đo lường, tế bào, hỗn hợp, chất tinh khiết.",
+    questions: [
+      {
+        id: 1,
+        question: "Để đảm bảo an toàn trong phòng thực hành cần thực hiện nguyên tắc nào dưới đây?",
+        options: [
+          "A. Làm thí nghiệm theo sự hướng dẫn của bạn bè trong lớp.",
+          "B. Có thể nhận biết hóa chất bằng cách ngửi hóa chất.",
+          "C. Mang đồ ăn vào phòng thực hành.",
+          "D. Đọc kĩ nội quy và thực hiện theo nội quy phòng thực hành."
+        ],
+        correct: 3,
+        explanation: "Cần tuân thủ tuyệt đối nội quy và hướng dẫn của giáo viên/phòng thực hành."
+      },
+      {
+        id: 2,
+        question: "Trong Hệ đơn vị đo lường hợp pháp của nước ta, đơn vị độ dài là:",
+        options: ["A. dm", "B. m", "C. cm", "D. km"],
+        correct: 1,
+        explanation: "Mét (m) là đơn vị đo độ dài cơ bản trong hệ SI và hệ đo lường VN."
+      },
+      {
+        id: 3,
+        question: "Đổi đơn vị: 750g = ..... kg",
+        options: ["A. 0,75kg", "B. 7,5kg", "C. 0,075kg", "D. 75kg"],
+        correct: 0,
+        explanation: "1 kg = 1000 g => 750 g = 0.75 kg."
+      },
+      {
+        id: 4,
+        question: "Quá trình nào sau đây cần oxygen?",
+        options: ["A. Hô hấp.", "B. Quang hợp.", "C. Hoà tan.", "D. Nóng chảy."],
+        correct: 0,
+        explanation: "Hô hấp tế bào tiêu thụ oxygen để tạo năng lượng."
+      },
+      {
+        id: 5,
+        question: "Thép dùng trong xây dựng nhà cửa, cầu, cống được sản suất từ loại nguyên liệu nào sau đây?",
+        options: ["A. Quặng bauxite.", "B. Quặng đồng.", "C. Quặng chứa phosphorus.", "D. Quặng sắt."],
+        correct: 3,
+        explanation: "Thép là hợp kim của sắt, được sản xuất từ quặng sắt."
+      },
+      {
+        id: 6,
+        question: "Vật liệu nào dưới đây, ngoài mục đích sử dụng trong xây dựng còn hướng tới bảo vệ môi trường và đảm bảo sự phát triển bền vững?",
+        options: ["A. Gỗ tự nhiên.", "B. Kim loại.", "C. Đá vôi.", "D. Gạch không nung."],
+        correct: 3,
+        explanation: "Gạch không nung giảm ô nhiễm khói bụi từ lò nung."
+      },
+      {
+        id: 7,
+        question: "Ví dụ nào sau đây không phải là hỗn hợp?",
+        options: ["A. Nước cất.", "B. Nước suối.", "C. Nước mưa.", "D. Nước biển."],
+        correct: 0,
+        explanation: "Nước cất là chất tinh khiết (chỉ chứa H2O)."
+      },
+      {
+        id: 8,
+        question: "Chất tinh khiết là:",
+        options: ["A. chất không lẫn chất nào khác.", "B. chất có lẫn 1 chất khác.", "C. chất có lẫn 2 chất khác.", "D. chất có lẫn 3 chất khác."],
+        correct: 0,
+        explanation: "Chất tinh khiết không bị lẫn tạp chất."
+      },
+      {
+        id: 9,
+        question: "Việc làm nào sau đây là quá trình tách chất dựa theo sự khác nhau về kích thước hạt?",
+        options: ["A. Giặt giẻ lau.", "B. Dùng nam châm hút bột sắt.", "C. Lọc nước bị vẫn đục bằng giấy lọc.", "D. Ngâm quả dâu."],
+        correct: 2,
+        explanation: "Phương pháp lọc dựa trên sự khác nhau về kích thước hạt."
+      },
+      {
+        id: 10,
+        question: "Tế bào là:",
+        options: ["A. đơn vị cấu tạo cơ bản của tất cả các cơ thể sống.", "B. đơn vị cấu tạo cơ bản của vật thể.", "C. đơn vị cấu tạo nguyên liệu.", "D. đơn vị cấu tạo vật liệu."],
+        correct: 0,
+        explanation: "Mọi sinh vật đều được cấu tạo từ tế bào."
+      },
+      {
+        id: 11,
+        question: "Màng sinh chất có chức năng:",
+        options: ["A. bao bọc ngoài chất tế bào.", "B. làm cho tế bào có hình dạng nhất định.", "C. điều khiển hoạt động sống.", "D. chứa dịch tế bào."],
+        correct: 0, // Đáp án A theo đề. (Thực tế màng kiểm soát chất ra vào và bao bọc)
+        explanation: "Màng sinh chất bao bọc và bảo vệ các thành phần bên trong tế bào."
+      },
+      {
+        id: 12,
+        question: "Các tế bào vảy hành thường có hình lục giác, thành phần nào của chúng đã quy định điều đó?",
+        options: ["A. Không bào.", "B. Nhân.", "C. Vách tế bào (Thành tế bào).", "D. Màng sinh chất."],
+        correct: 2,
+        explanation: "Vách tế bào (thành tế bào) ở thực vật quy định hình dạng tế bào."
+      },
+      {
+        id: 13,
+        question: "Tế bào thực vật gồm những thành phần chính như sau:",
+        options: ["A. Nhân, không bào, lục lạp.", "B. Vách tế bào, màng sinh chất, chất tế bào, nhân.", "C. Vách tế bào, chất tế bào, nhân, không bào.", "D. Màng sinh chất, chất tế bào, nhân, lục lạp."],
+        correct: 1,
+        explanation: "Thành phần cơ bản và đặc trưng: Vách, màng, chất tế bào, nhân."
+      },
+      {
+        id: 14,
+        question: "Cơ thể lớn lên được là nhờ đâu?",
+        options: ["A. Sự sinh trưởng của tế bào.", "B. Sự lớn lên của tế bào.", "C. Sự lớn lên và phân chia của tế bào.", "D. Sự sinh trưởng và lớn lên của tế bào."],
+        correct: 2,
+        explanation: "Sự phân chia làm tăng số lượng và sự lớn lên làm tăng kích thước tế bào."
+      },
+      {
+        id: 15,
+        question: "Tập hợp các mô cùng thực hiện một hoạt động sống nhất định tạo thành:",
+        options: ["A. Cơ quan.", "B. Mô.", "C. Tế bào.", "D. Hệ cơ quan."],
+        correct: 0,
+        explanation: "Mô -> Cơ quan -> Hệ cơ quan."
+      },
+      {
+        id: 16,
+        question: "Đặc điểm nào KHÔNG phải là đặc điểm của cơ thể đa bào? (1) Cấu tạo nhiều TB, (2) Chức năng khác nhau, (3) Một TB thực hiện mọi chức năng, (4) Cấu tạo phức tạp, (5) Kích thước nhỏ.",
+        options: ["A. (1)", "B. (2), (4)", "C. (3), (5)", "D. (1), (4)"],
+        correct: 2,
+        explanation: "Cơ thể đa bào không phải chỉ có 1 tế bào thực hiện mọi chức năng và thường có kích thước lớn."
+      },
+      {
+        id: 17,
+        question: "Vì sao nhân tế bào là nơi lưu giữ các thông tin di truyền?",
+        options: ["A. Vì nhân tế bào chứa vật chất di truyền.", "B. Vì nhân là trung tâm điều khiển.", "C. Vì nhân là nơi diễn ra hoạt động sống.", "D. Vì nhân kiểm soát chất đi vào/ra."],
+        correct: 0,
+        explanation: "Nhân chứa DNA (vật chất di truyền)."
+      },
+      {
+        id: 18,
+        question: "Cơ thể đơn bào và cơ thể đa bào khác nhau chủ yếu ở điểm nào?",
+        options: ["A. Màu sắc.", "B. Số lượng tế bào tạo thành.", "C. Kích thước.", "D. Hình dạng."],
+        correct: 1,
+        explanation: "Đơn bào (1 tế bào) vs Đa bào (nhiều tế bào)."
+      },
+      {
+        id: 19,
+        question: "Tên phổ thông của các loài được hiểu là?",
+        options: ["A. Cách gọi phổ biến của loài có trong danh mục tra cứu.", "B. Tên giống + tên loài.", "C. Tên địa phương.", "D. Tên khoa học."],
+        correct: 0,
+        explanation: "Tên phổ thông là tên gọi chính thức, phổ biến."
+      },
+      {
+        id: 20,
+        question: "Vì sao cần phải phân loại thế giới sống?",
+        options: ["A. Xác định số lượng.", "B. Đặt tên.", "C. Thấy sự khác nhau.", "D. Xác định vị trí, tìm ra chúng dễ dàng hơn."],
+        correct: 3,
+        explanation: "Phân loại giúp trật tự hóa và dễ dàng nghiên cứu, tìm kiếm."
+      },
+      {
+        id: 21,
+        question: "Nhóm các bệnh nào dưới đây do virus gây ra?",
+        options: ["A. Viêm gan B, AIDS, sởi.", "B. Tả, sởi, viêm gan A.", "C. Quai bị, lao phổi, viêm gan B.", "D. Viêm não NB, thủy đậu, viêm da."],
+        correct: 0,
+        explanation: "Tả, Lao phổi thường do vi khuẩn."
+      },
+      {
+        id: 22,
+        question: "Bệnh nào sau đây KHÔNG phải bệnh do vi khuẩn gây nên?",
+        options: ["A. Kiết lị.", "B. Tiêu chảy.", "C. Vàng da.", "D. Đậu mùa."],
+        correct: 3,
+        explanation: "Đậu mùa do virus gây ra."
+      },
+      {
+        id: 23,
+        question: "Điều nào sau đây là KHÔNG đúng khi nói về virus?",
+        options: ["A. Chỉ hoạt động trong tế bào chủ.", "B. Chưa có cấu tạo tế bào.", "C. Kích thước siêu nhỏ.", "D. Ở bên ngoài tế bào, virus vẫn hoạt động bình thường."],
+        correct: 3,
+        explanation: "Ngoài tế bào chủ, virus tồn tại ở dạng tinh thể, không hoạt động sống."
+      },
+      {
+        id: 24,
+        question: "Đặc điểm cơ bản để xếp vi khuẩn vào giới Khởi sinh?",
+        options: ["A. Kích thước nhỏ.", "B. Cơ thể đơn bào, nhân sơ.", "C. Sống kí sinh.", "D. Môi trường sống đa dạng."],
+        correct: 1,
+        explanation: "Giới Khởi sinh đặc trưng bởi cấu tạo nhân sơ (Prokaryote)."
+      }
+    ]
+  },
+  {
+    id: 2,
+    title: "Đề ôn tập số 2",
+    description: "KHTN đại cương, đo lường, tính chất chất, oxygen, lực, sinh học cơ bản.",
+    questions: [
+      {
+        id: 1,
+        question: "Khoa học tự nhiên nghiên cứu về lĩnh vực nào dưới đây?",
+        options: ["A. Các sự vật, hiện tượng tự nhiên, các quy luật tự nhiên.", "B. Quy luật xã hội.", "C. Văn hóa – nghệ thuật.", "D. Văn học."],
+        correct: 0,
+        explanation: "KHTN nghiên cứu thế giới tự nhiên."
+      },
+      {
+        id: 2,
+        question: "Lĩnh vực chuyên nghiên cứu về thực vật thuộc lĩnh vực nào?",
+        options: ["A. Vật lý.", "B. Hóa học.", "C. Sinh học.", "D. Khoa học Trái Đất."],
+        correct: 2,
+        explanation: "Thực vật học là một nhánh của Sinh học."
+      },
+      {
+        id: 3,
+        question: "Giới hạn đo của một thước là chiều dài:",
+        options: ["A. lớn nhất ghi trên thước.", "B. nhỏ nhất ghi trên thước.", "C. giữa hai vạch liên tiếp.", "D. giữa hai vạch chia nhỏ nhất."],
+        correct: 0,
+        explanation: "GHĐ là giá trị lớn nhất ghi trên dụng cụ đo."
+      },
+      {
+        id: 4,
+        question: "Sắp xếp các bước đo thời gian: (1) Đọc, (2) Chọn đồng hồ, (3) Đo, (4) Ước lượng, (5) Hiệu chỉnh.",
+        options: ["A. 2,4,3,1,5", "B. 1,4,2,5,3", "C. 5,2,1,4,3", "D. 4,2,5,3,1"],
+        correct: 3, // Theo logic chuẩn: Ước lượng -> Chọn -> Hiệu chỉnh -> Đo -> Đọc
+        explanation: "Quy trình: Ước lượng để chọn dụng cụ -> Hiệu chỉnh -> Đo -> Đọc."
+      },
+      {
+        id: 5,
+        question: "Quá trình nào sau đây thể hiện tính chất hóa học?",
+        options: ["A. Hòa tan đường.", "B. Cô cạn nước đường.", "C. Đun nóng đường tới lúc xuất hiện chất màu đen.", "D. Đun nóng đường nóng chảy."],
+        correct: 2,
+        explanation: "Đường chuyển thành than (màu đen) là chất mới -> tính chất hóa học."
+      },
+      {
+        id: 6,
+        question: "Oxygen có tính chất nào?",
+        options: ["A. Nặng hơn KK, không duy trì cháy.", "B. Nặng hơn KK, duy trì sự cháy và sống.", "C. Nhẹ hơn KK.", "D. Tan nhiều trong nước."],
+        correct: 1,
+        explanation: "Oxygen nặng hơn không khí một chút và duy trì sự cháy."
+      },
+      {
+        id: 7,
+        question: "Đơn vị chức năng cơ bản của cơ thể là:",
+        options: ["A. Tế bào", "B. Bào quan", "C. Cơ quan", "D. Hệ cơ quan"],
+        correct: 0,
+        explanation: "Tế bào là đơn vị cơ sở của sự sống."
+      },
+      {
+        id: 8,
+        question: "Từ một tế bào mẹ sau khi phân chia một lần tạo ra bao nhiêu tế bào con?",
+        options: ["A. 8", "B. 1", "C. 4", "D. 2"],
+        correct: 3,
+        explanation: "Mỗi lần phân chia tạo ra 2 tế bào con."
+      },
+      {
+        id: 9,
+        question: "Lá cây thuộc cấp độ tổ chức nào?",
+        options: ["A. Tế bào.", "B. Mô.", "C. Cơ quan.", "D. Hệ cơ quan."],
+        correct: 2,
+        explanation: "Lá là một cơ quan sinh dưỡng của cây."
+      },
+      {
+        id: 10,
+        question: "Vật sống nào sau đây thuộc nhóm cơ thể đơn bào?",
+        options: ["A. Trùng roi, trùng giày, trùng biến hình, trùng kiết lỵ.", "B. Trùng giày, rêu.", "C. Trùng roi, tảo silic, rêu.", "D. Trùng giày, trùng chỉ, rêu."],
+        correct: 0,
+        explanation: "Rêu và trùng chỉ là đa bào."
+      },
+      {
+        id: 11,
+        question: "Nhiệt độ nước đá đang tan theo thang Celsius là:",
+        options: ["A. 0°C", "B. 100°C", "C. 37°C", "D. 42°C"],
+        correct: 0,
+        explanation: "Điểm đông đặc/nóng chảy của nước là 0 độ C."
+      },
+      {
+        id: 12,
+        question: "Đơn vị của lực là:",
+        options: ["A. kg", "B. Newton (N)", "C. cm", "D. Lít"],
+        correct: 1,
+        explanation: "Newton (N) là đơn vị đo lực."
+      },
+      {
+        id: 13,
+        question: "Treo vật vào lò xo, lò xo dãn ra. Khi đó:",
+        options: ["A. Lò xo đẩy vật.", "B. Vật nén lò xo.", "C. Lò xo nén vật.", "D. Vật tác dụng vào lò xo một lực kéo."],
+        correct: 3,
+        explanation: "Trọng lượng của vật kéo lò xo xuống."
+      },
+      {
+        id: 14,
+        question: "Vật liệu là:",
+        options: ["A. Thức ăn.", "B. Sắt, cát.", "C. Chất/hỗn hợp dùng làm nguyên liệu sản xuất.", "D. Chất trộn lẫn."],
+        correct: 2,
+        explanation: "Định nghĩa rộng của vật liệu là nguyên liệu đầu vào cho sản xuất."
+      },
+      {
+        id: 15,
+        question: "Vật liệu xây dựng bảo vệ môi trường?",
+        options: ["A. Gỗ.", "B. Kim loại.", "C. Gạch không nung.", "D. Gạch chịu lửa."],
+        correct: 2,
+        explanation: "Gạch không nung thân thiện với môi trường hơn gạch nung."
+      },
+      {
+        id: 16,
+        question: "Vật liệu nào sau đây khó tái chế nhất trong nhóm?",
+        options: ["A. Thủy tinh.", "B. Thép.", "C. Nhựa composite.", "D. Xi măng (bê tông)."],
+        correct: 3, // Theo đáp án đề là D (Xi măng đã đông cứng khó tái chế lại nguyên trạng).
+        explanation: "Xi măng sau khi kết dính thành bê tông rất khó tái chế lại thành xi măng."
+      },
+      {
+        id: 17,
+        question: "Tên phổ thông của loài là:",
+        options: ["A. Tên truyền thống.", "B. Tên giống + tên loài.", "C. Cách gọi phổ biến trong danh mục tra cứu.", "D. Tên loài + tên giống."],
+        correct: 2, // Đề 1 câu 19 chọn A (Cách gọi phổ biến). Đề 2 câu 17 chọn C (Cách gọi phổ biến).
+        explanation: "Tên phổ thông là tên gọi phổ biến, chính thức trong danh mục."
+      },
+      {
+        id: 18,
+        question: "Bệnh nào do virus gây nên?",
+        options: ["A. Kiết lị.", "B. Dại.", "C. Vàng da (do virus viêm gan).", "D. Tả."],
+        correct: 2, // Đáp án đề chọn C. (Dại cũng do virus, nhưng Vàng da/Viêm gan phổ biến trong bài học).
+        explanation: "Bệnh vàng da (thường do virus viêm gan) và Dại đều do virus. Theo đáp án đề chọn C."
+      },
+      {
+        id: 19,
+        question: "Virus gây đại dịch Covid 19?",
+        options: ["A. HIV.", "B. Corona (SARS-CoV-2).", "C. HP.", "D. Adenovirus."],
+        correct: 1,
+        explanation: "SARS-CoV-2 thuộc họ Corona virus."
+      },
+      {
+        id: 20,
+        question: "Bệnh kiết lị do tác nhân nào?",
+        options: ["A. Trùng kiết lị.", "B. Trùng roi.", "C. Trùng sốt rét.", "D. Trùng biến hình."],
+        correct: 0,
+        explanation: "Trùng kiết lị (Entamoeba histolytica)."
+      },
+      {
+        id: 21,
+        question: "Trùng sốt rét gây bệnh gì?",
+        options: ["A. Kiết lị.", "B. Lao.", "C. Sốt rét.", "D. Sốt xuất huyết."],
+        correct: 2,
+        explanation: "Tên trùng đã gợi ý tên bệnh."
+      },
+      {
+        id: 22,
+        question: "Các bậc phân loại từ thấp đến cao:",
+        options: ["A. Loài -> Chi -> Họ -> Bộ -> Lớp -> Ngành -> Giới.", "B. Chi -> Loài...", "C. Giới -> Ngành...", "D. Loài -> Chi -> Bộ..."],
+        correct: 0,
+        explanation: "Thứ tự: Loài, Chi, Họ, Bộ, Lớp, Ngành, Giới."
+      },
+      {
+        id: 23,
+        question: "Nhận định nào KHÔNG đúng về virus?",
+        options: ["A. Đã có cấu trúc tế bào.", "B. Chưa có cấu trúc tế bào.", "C. Chỉ có vỏ protein và lõi AN.", "D. Ký sinh bắt buộc."],
+        correct: 0,
+        explanation: "Virus CHƯA có cấu tạo tế bào."
+      },
+      {
+        id: 24,
+        question: "Hình ảnh (Trùng có roi dài, điểm mắt) là sinh vật nào?",
+        options: ["A. Trùng giày.", "B. Trùng roi xanh.", "C. Trùng biến hình.", "D. Trùng sốt rét."],
+        correct: 1,
+        explanation: "Trùng roi xanh có roi bơi điển hình."
+      }
+    ]
+  },
+  {
+    id: 3,
+    title: "Đề ôn tập số 3 & 4",
+    description: "Kính lúp, hỗn hợp, trạng thái chất, đa dạng sinh học.",
+    questions: [
+      {
+        id: 1,
+        question: "Kính lúp cầm tay có tác dụng gì?",
+        options: ["A. Nhìn xa.", "B. Làm ảnh nhỏ đi.", "C. Phóng to ảnh của vật.", "D. Không đổi kích thước."],
+        correct: 2,
+        explanation: "Kính lúp tạo ảnh ảo lớn hơn vật để quan sát chi tiết nhỏ."
+      },
+      {
+        id: 2,
+        question: "Việc làm KHÔNG an toàn trong phòng thực hành?",
+        options: ["A. Đeo găng tay.", "B. Tự ý làm thí nghiệm.", "C. Đeo kính bảo vệ.", "D. Rửa tay."],
+        correct: 1,
+        explanation: "Tự ý làm thí nghiệm có thể gây nguy hiểm cháy nổ hoặc độc hại."
+      },
+      {
+        id: 3,
+        question: "Hoạt động nào là nghiên cứu khoa học?",
+        options: ["A. Chơi bóng.", "B. Cây lúa.", "C. Đánh đàn.", "D. Tìm hiểu đặc điểm sinh học tôm."],
+        correct: 3,
+        explanation: "Tìm hiểu, khám phá kiến thức mới là nghiên cứu khoa học."
+      },
+      {
+        id: 4,
+        question: "Lắp ráp pin mặt trời thể hiện vai trò nào của KHTN?",
+        options: ["A. Sức khỏe.", "B. Hiểu biết tự nhiên.", "C. Ứng dụng công nghệ vào đời sống.", "D. Nghiên cứu."],
+        correct: 2,
+        explanation: "Đây là ứng dụng kiến thức vào thực tế sản xuất điện."
+      },
+      {
+        id: 5,
+        question: "Độ chia nhỏ nhất (ĐCNN) của thước là:",
+        options: ["A. Giá trị cuối.", "B. Khoảng cách 2 vạch.", "C. Giá trị lớn nhất.", "D. Độ dài giữa 2 vạch chia liên tiếp."],
+        correct: 3,
+        explanation: "ĐCNN là khoảng cách giữa 2 vạch chia liên tiếp nhau."
+      },
+      {
+        id: 6,
+        question: "Đo bàn dài khoảng 120cm, chọn thước nào?",
+        options: ["A. GHĐ 150cm, ĐCNN 1cm.", "B. GHĐ 120cm.", "C. GHĐ 200cm, ĐCNN 1mm.", "D. GHĐ 100cm."],
+        correct: 0,
+        explanation: "Cần GHĐ lớn hơn vật (>120cm) để đo 1 lần cho chính xác."
+      },
+      {
+        id: 7,
+        question: "Đơn vị và dụng cụ đo chiều dài chuẩn?",
+        options: ["A. Thước mét và kg.", "B. Kí và cân.", "C. Mét và đồng hồ.", "D. Mét (m) và thước mét."],
+        correct: 3,
+        explanation: "Đơn vị: m, Dụng cụ: thước."
+      },
+      {
+        id: 8,
+        question: "Bao gạo ghi 25kg cho biết gì?",
+        options: ["A. Trọng lượng.", "B. Khối lượng gạo trong bao.", "C. Sức nặng.", "D. Thể tích."],
+        correct: 1,
+        explanation: "kg là đơn vị đo khối lượng (lượng chất chứa trong vật)."
+      },
+      {
+        id: 9,
+        question: "Đơn vị đo thời gian chuẩn?",
+        options: ["A. Giây (s).", "B. Ngày.", "C. Tháng.", "D. Giờ."],
+        correct: 0,
+        explanation: "Giây (second) là đơn vị SI."
+      },
+      {
+        id: 10,
+        question: "Nhiệt kế đo cơ thể người?",
+        options: ["A. Nhiệt kế rượu.", "B. Nhiệt kế thủy ngân CN.", "C. Nhiệt kế dầu.", "D. Nhiệt kế y tế."],
+        correct: 3,
+        explanation: "Nhiệt kế y tế chuyên dụng cho dải nhiệt độ cơ thể."
+      },
+      {
+        id: 11,
+        question: "Nước sôi ở nhiệt độ (đktc):",
+        options: ["A. 0°C", "B. 100°C", "C. 50°C", "D. 80°C"],
+        correct: 1,
+        explanation: "100 độ C."
+      },
+      {
+        id: 12,
+        question: "Điểm giống nhau khi đo (bước cuối cùng) là gì?",
+        options: ["A. Đọc kết quả theo vạch chia gần nhất/ĐCNN.", "B. Đặt mắt.", "C. Chọn dụng cụ.", "D. Ước lượng."],
+        correct: 0,
+        explanation: "Bước cuối luôn là đọc và ghi kết quả."
+      },
+      {
+        id: 13,
+        question: "Lục lạp có chức năng gì?",
+        options: ["A. Quang hợp.", "B. Di truyền.", "C. Kiểm soát chất.", "D. Tổng hợp protein."],
+        correct: 0,
+        explanation: "Lục lạp chứa diệp lục giúp cây quang hợp."
+      },
+      {
+        id: 14,
+        question: "Sinh vật kích thước khác nhau chủ yếu do:",
+        options: ["A. Số lượng tế bào.", "B. Kích thước tế bào.", "C. Môi trường.", "D. Thức ăn."],
+        correct: 0,
+        explanation: "Ở sinh vật đa bào, kích thước cơ thể phụ thuộc chủ yếu vào số lượng tế bào."
+      },
+      {
+        id: 15,
+        question: "Trật tự cấp độ tổ chức:",
+        options: ["A. TB-CQ-Mô...", "B. Tế bào -> Mô -> Cơ quan -> Hệ cơ quan -> Cơ thể.", "C. Cơ thể...", "D. Hệ cơ quan..."],
+        correct: 1,
+        explanation: "Trình tự đúng từ nhỏ đến lớn."
+      },
+      {
+        id: 16,
+        question: "1 tế bào sinh sản 3 lần tạo ra bao nhiêu tế bào?",
+        options: ["A. 4", "B. 6", "C. 8", "D. 12"],
+        correct: 2,
+        explanation: "Công thức 2^n. 2^3 = 8."
+      }
+    ]
+  },
+  {
+    id: 5,
+    title: "Đề ôn tập số 5",
+    description: "Chất, Vật lý, Biến dạng, Nấm, Virus, Vi khuẩn.",
+    questions: [
+      {
+        id: 1,
+        question: "Dãy nào gồm các từ chỉ CHẤT?",
+        options: ["A. Đường, muối, con dao.", "B. Dao, đũa, thìa.", "C. Nhôm, muối ăn, đường mía.", "D. Dao, đũa, muối."],
+        correct: 2, // Đáp án đề ghi C (Nhôm, muối, đường). Đề 4 câu 1 cũng tương tự.
+        explanation: "Con dao, đũa là VẬT THỂ. Nhôm, muối, đường là CHẤT."
+      },
+      {
+        id: 2,
+        question: "Thể nào sau đây dễ bị nén?",
+        options: ["A. Thể khí.", "B. Thể lỏng.", "C. Thể rắn.", "D. Không thể nào."],
+        correct: 0,
+        explanation: "Khoảng cách giữa các hạt trong chất khí rất lớn nên dễ bị nén."
+      },
+      {
+        id: 3,
+        question: "Sự ngưng tụ là:",
+        options: ["A. Rắn -> Lỏng.", "B. Khí (hơi) -> Lỏng.", "C. Lỏng -> Khí.", "D. Lỏng -> Rắn."],
+        correct: 1,
+        explanation: "Ngưng tụ là chuyển từ thể hơi sang lỏng."
+      },
+      {
+        id: 4,
+        question: "Khi đẩy tạ, vận động viên tác dụng:",
+        options: ["A. Lực đẩy.", "B. Lực nén.", "C. Lực kéo.", "D. Lực uốn."],
+        correct: 0,
+        explanation: "Tay đẩy quả tạ đi."
+      },
+      {
+        id: 5,
+        question: "Trường hợp nào vật KHÔNG bị biến dạng (hoặc biến dạng không đáng kể)?",
+        options: ["A. Cửa kính vỡ.", "B. Đất xốp được cày.", "C. Cành cây đu đưa trước gió.", "D. Giấy bị vò."],
+        correct: 2, // Theo đáp án đề.
+        explanation: "Cành cây đu đưa là chuyển động, sau đó trở về vị trí cũ (biến dạng đàn hồi hoặc chỉ là chuyển động), các trường hợp khác là biến dạng vĩnh viễn/phá hủy."
+      },
+      {
+        id: 6,
+        question: "Bóng đập vào tường, lực của tường làm bóng:",
+        options: ["A. Chỉ biến dạng.", "B. Chỉ đổi chuyển động.", "C. Vừa biến dạng vừa đổi hướng chuyển động.", "D. Không đổi gì."],
+        correct: 2,
+        explanation: "Bóng bị méo đi (biến dạng) và nảy ra (đổi hướng)."
+      },
+      {
+        id: 7,
+        question: "Vật nào cấu tạo từ tế bào?",
+        options: ["A. Cây bàng.", "B. Quyển sách.", "C. Xe ô tô.", "D. Ngôi nhà."],
+        correct: 0,
+        explanation: "Cây bàng là vật sống."
+      },
+      {
+        id: 8,
+        question: "Cơ thể đơn bào?",
+        options: ["A. Con voi.", "B. Giun đất.", "C. Vi khuẩn E.coli.", "D. Cây hoa hồng."],
+        correct: 2,
+        explanation: "Vi khuẩn là cơ thể đơn bào."
+      },
+      {
+        id: 9,
+        question: "Tác hại KHÔNG phải do nấm?",
+        options: ["A. Nấm da.", "B. Viêm gan B.", "C. Hỏng thực phẩm.", "D. Ngộ độc thực phẩm."],
+        correct: 1,
+        explanation: "Viêm gan B do virus."
+      },
+      {
+        id: 10,
+        question: "Biện pháp hiệu quả nhất phòng bệnh virus?",
+        options: ["A. Khẩu trang.", "B. Bảo vệ môi trường.", "C. Tập thể dục.", "D. Tiêm vaccine."],
+        correct: 3,
+        explanation: "Vaccine tạo miễn dịch chủ động đặc hiệu."
+      },
+      {
+        id: 11,
+        question: "Sinh vật nào KHÔNG thuộc nguyên sinh vật?",
+        options: ["A. Trùng roi.", "B. Trùng kiết lị.", "C. Tảo lục.", "D. Thực khuẩn thể."],
+        correct: 3,
+        explanation: "Thực khuẩn thể (Phage) là virus kí sinh vi khuẩn."
+      },
+      {
+        id: 12,
+        question: "Chế biến rượu vang cần sinh vật nào?",
+        options: ["A. Nấm men.", "B. Vi khuẩn.", "C. Virus.", "D. Nguyên sinh vật."],
+        correct: 0,
+        explanation: "Nấm men (Saccharomyces) lên men đường thành rượu."
+      }
+    ]
+  }
+];
+
+// --- DỮ LIỆU TỰ LUẬN (Đầy đủ từ tất cả các đề) ---
+const theoryData = [
+  // ĐỀ 1
+  {
+    exam: "Đề 1",
+    question: "Câu 25: So sánh tế bào nhân sơ và tế bào nhân thực.",
+    answer: [
+      "Giống nhau: Đều có 3 thành phần chính: Màng tế bào, tế bào chất, vật chất di truyền.",
+      "Khác nhau:",
+      "- Tế bào nhân sơ: Nhân chưa có màng bao bọc (vùng nhân), chưa có hệ thống nội màng, các bào quan chưa có màng.",
+      "- Tế bào nhân thực: Nhân có màng bao bọc, có hệ thống nội màng, các bào quan có màng bao bọc."
+    ]
+  },
+  {
+    exam: "Đề 1",
+    question: "Câu 26: a) Có nên ăn thức ăn ôi thiu không? b) Điều gì xảy ra nếu để sữa chua đang ủ ở ngoài tủ lạnh quá lâu?",
+    answer: [
+      "a) Không nên. Vì thức ăn ôi thiu chứa nhiều vi khuẩn hoại sinh và độc tố, gây hại cho sức khỏe (ngộ độc, tiêu chảy).",
+      "b) Nếu để bên ngoài quá lâu, vi khuẩn lên men quá mức làm sữa chua quá chua, nhanh hỏng, mất mùi vị thơm ngon. Cần bỏ tủ lạnh để hãm sự lên men."
+    ]
+  },
+  {
+    exam: "Đề 1",
+    question: "Câu 27: Gọi 'củ lạc' (đậu phộng) là đúng hay sai? Giải thích.",
+    answer: [
+      "Gọi là 'củ' là theo thói quen nhưng chưa chính xác về mặt khoa học.",
+      "Thực chất đó là QUẢ lạc. Do hoa lạc sau khi thụ phấn, cuống hoa dài ra đâm xuống đất và phát triển thành quả trong đất nên bị nhầm là củ."
+    ]
+  },
+  
+  // ĐỀ 2
+  {
+    exam: "Đề 2",
+    question: "Câu 25: Xác định GHĐ và ĐCNN của nhiệt kế trong hình (Mô tả: 35-42 độ, chia vạch 0.1).",
+    answer: [
+      "Dựa vào hình ảnh nhiệt kế y tế:",
+      "- GHĐ (Giới hạn đo): 42°C (Số lớn nhất).",
+      "- ĐCNN (Độ chia nhỏ nhất): 0,1°C (Khoảng cách giữa 2 vạch nhỏ nhất)."
+    ]
+  },
+  {
+    exam: "Đề 2",
+    question: "Câu 26: Biểu diễn lực kéo 30N theo phương thẳng đứng, chiều từ dưới lên trên (Tỉ xích 1cm ứng với 10N).",
+    answer: [
+      "Vẽ mũi tên:",
+      "- Gốc: Tại vật.",
+      "- Phương: Thẳng đứng.",
+      "- Chiều: Từ dưới lên trên.",
+      "- Độ dài: 3cm (Vì 30N : 10N/cm = 3cm)."
+    ]
+  },
+  {
+    exam: "Đề 2",
+    question: "Câu 27: a) Tại sao đồng, nhôm dùng làm dây điện? b) Tại sao dây cao thế dùng nhôm thay vì đồng?",
+    answer: [
+      "a) Vì đồng và nhôm là kim loại dẫn điện tốt.",
+      "b) Dây cao thế dùng nhôm vì: Nhôm NHẸ hơn đồng giúp giảm trọng lượng lên cột điện (tránh gãy cột) và giá thành RẺ hơn đồng."
+    ]
+  },
+  {
+    exam: "Đề 2",
+    question: "Câu 28: Xây dựng khóa lưỡng phân phân loại: Chim bói cá, bọ ngựa, cá mập, khỉ, rùa.",
+    answer: [
+      "Gợi ý các bước phân loại:",
+      "1. Có chân? -> Không: Cá mập. | Có: Tiếp tục.",
+      "2. Có cánh? -> Có: Chim bói cá, Bọ ngựa (Phân nhánh tiếp: Có xương sống? Chim - Có, Bọ ngựa - Không).",
+      "3. Không cánh? -> Khỉ, Rùa (Phân nhánh tiếp: Có mai? Rùa - Có, Khỉ - Không)."
+    ]
+  },
+  {
+    exam: "Đề 2",
+    question: "Câu 29: Tại sao cần ủ ấm khi làm sữa chua?",
+    answer: [
+      "Cần ủ ấm để tạo nhiệt độ thuận lợi (40-45°C) cho vi khuẩn Lactic sinh trưởng và sinh sản.",
+      "Nếu không ủ, vi khuẩn hoạt động yếu, sữa không đông, không tạo vị chua."
+    ]
+  },
+
+  // ĐỀ 3 & 4
+  {
+    exam: "Đề 3",
+    question: "Câu 17: Lực là gì? Biểu diễn lực kéo 30N phương ngang, chiều trái sang phải.",
+    answer: [
+      "Lực là tác dụng đẩy hoặc kéo của vật này lên vật khác.",
+      "Biểu diễn: Mũi tên nằm ngang, chiều từ trái qua phải, độ dài tỉ lệ với 30N."
+    ]
+  },
+  {
+    exam: "Đề 3",
+    question: "Câu 18: Các bước đo độ dài?",
+    answer: [
+      "B1: Ước lượng độ dài.",
+      "B2: Chọn thước có GHĐ và ĐCNN phù hợp.",
+      "B3: Đặt thước dọc theo vật, một đầu ngang vạch 0.",
+      "B4: Đặt mắt vuông góc.",
+      "B5: Đọc và ghi kết quả."
+    ]
+  },
+  {
+    exam: "Đề 3",
+    question: "Câu 20: Thành phần chính của tế bào và chức năng?",
+    answer: [
+      "1. Màng tế bào: Bảo vệ, kiểm soát chất ra vào.",
+      "2. Chất tế bào: Chứa bào quan, nơi diễn ra hoạt động sống.",
+      "3. Nhân (hoặc vùng nhân): Chứa vật chất di truyền, điều khiển mọi hoạt động."
+    ]
+  },
+  {
+    exam: "Đề 3",
+    question: "Câu 21: Nếu cây cà chua mất hệ rễ thì sao?",
+    answer: [
+      "Cây sẽ chết vì không hấp thụ được nước và muối khoáng.",
+      "Ngoài ra cây không bám được vào đất, dễ bị đổ ngã."
+    ]
+  },
+  {
+    exam: "Đề 4",
+    question: "Câu 13: Tại sao đầm nuôi tôm thường lắp quạt nước?",
+    answer: [
+      "Để sục khí, tăng lượng Oxygen hòa tan trong nước giúp tôm hô hấp tốt hơn, đặc biệt khi mật độ nuôi cao."
+    ]
+  },
+  {
+    exam: "Đề 4",
+    question: "Câu 18: Sinh vật chia thành những giới nào? Ví dụ.",
+    answer: [
+      "5 giới: Khởi sinh (Vi khuẩn), Nguyên sinh (Trùng roi), Nấm (Nấm men), Thực vật (Lúa), Động vật (Lợn)."
+    ]
+  },
+
+  // ĐỀ 5
+  {
+    exam: "Đề 5",
+    question: "Câu 17: Tính chất của oxygen? Ứng dụng?",
+    answer: [
+      "Tính chất: Khí không màu, mùi, vị, nặng hơn KK, tan ít trong nước, duy trì sự cháy và sự sống.",
+      "Ứng dụng: Bình dưỡng khí (y tế, lặn), đốt nhiên liệu (nấu ăn, công nghiệp)."
+    ]
+  },
+  {
+    exam: "Đề 5",
+    question: "Câu 19: Phân loại bệnh do Virus và Nguyên sinh vật.",
+    answer: [
+      "- Do Virus: Cúm, Sốt xuất huyết, Covid-19, Viêm gan B.",
+      "- Do Nguyên sinh vật: Sốt rét, Kiết lị."
+    ]
+  },
+  {
+    exam: "Đề 5",
+    question: "Câu 19b: Lợi ích và tác hại của vi khuẩn?",
+    answer: [
+      "- Lợi ích: Phân hủy xác sinh vật làm sạch môi trường; Ứng dụng thực phẩm (sữa chua, muối dưa).",
+      "- Tác hại: Gây bệnh (tiêu chảy, lao); Làm hỏng thực phẩm."
+    ]
+  }
+];
+
+// --- COMPONENT CHÍNH ---
+export default function KHTN6ReviewApp() {
+  const [activeTab, setActiveTab] = useState('home'); // home, quiz, review
+  const [selectedExam, setSelectedExam] = useState(null);
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  const [userAnswers, setUserAnswers] = useState({});
+  const [showResult, setShowResult] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  // Reset quiz state when switching exams
+  useEffect(() => {
+    setCurrentQuestionIndex(0);
+    setUserAnswers({});
+    setShowResult(false);
+  }, [selectedExam]);
+
+  // Handle answering a question
+  const handleOptionSelect = (optionIndex) => {
+    if (showResult) return;
+    setUserAnswers(prev => ({
+      ...prev,
+      [currentQuestionIndex]: optionIndex
+    }));
+  };
+
+  // Calculate score
+  const calculateScore = () => {
+    if (!selectedExam) return 0;
+    let score = 0;
+    selectedExam.questions.forEach((q, index) => {
+      if (userAnswers[index] === q.correct) {
+        score++;
+      }
+    });
+    return score;
+  };
+
+  // Navigation Logic
+  const startExam = (exam) => {
+    setSelectedExam(exam);
+    setActiveTab('quiz_taking');
+  };
+
+  // Render Functions
+  const renderHome = () => (
+    <div className="flex flex-col items-center justify-center py-10 px-4 space-y-8 animate-fade-in">
+      <div className="text-center space-y-4 max-w-2xl">
+        <h1 className="text-4xl md:text-5xl font-extrabold text-teal-700 leading-tight">
+          Ôn Tập Khoa Học Tự Nhiên 6
         </h1>
-        <h2 class="text-xl font-semibold text-center text-gray-800 mb-8">
-            Chủ đề 5: Chất tinh khiết - Hỗn hợp & Phương pháp tách chất (Bài 15 - 16)
-        </h2>
+        <p className="text-gray-600 text-lg">
+          Hệ thống kiến thức trọng tâm học kỳ 1 - Sách Chân Trời Sáng Tạo.
+          <br/>
+          (Cập nhật đầy đủ 5 đề ôn tập)
+        </p>
+      </div>
 
-        <!-- Tab Navigation -->
-        <div class="mb-6 border-b border-gray-200">
-            <ul class="flex flex-wrap -mb-px" id="myTab" role="tablist">
-                <li role="presentation">
-                    <button class="tab-btn inline-block p-4 border-b-2 rounded-t-lg" data-target="ly-thuyet">Lý thuyết</button>
-                </li>
-                <li role="presentation">
-                    <button class="tab-btn inline-block p-4 border-b-2 rounded-t-lg" data-target="bai15-trac-nghiem">Bài 15: Trắc nghiệm</button>
-                </li>
-                <li role="presentation">
-                    <button class="tab-btn inline-block p-4 border-b-2 rounded-t-lg" data-target="bai15-tu-luan">Bài 15: Tự luận</button>
-                </li>
-                <li role="presentation">
-                    <button class="tab-btn inline-block p-4 border-b-2 rounded-t-lg" data-target="bai16-trac-nghiem">Bài 16: Trắc nghiệm</button>
-                </li>
-                <li role="presentation">
-                    <button class="tab-btn inline-block p-4 border-b-2 rounded-t-lg" data-target="bai16-tu-luan">Bài 16: Tự luận</button>
-                </li>
-                <li role="presentation">
-                    <button class="tab-btn inline-block p-4 border-b-2 rounded-t-lg" data-target="on-tap-toan">Ôn tập Toán (Đề HK1)</button>
-                </li>
-            </ul>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-4xl">
+        <div 
+          onClick={() => setActiveTab('quiz')}
+          className="bg-white p-6 rounded-2xl shadow-lg border-2 border-transparent hover:border-teal-400 cursor-pointer transition-all transform hover:-translate-y-1 flex flex-col items-center text-center group"
+        >
+          <div className="bg-teal-100 p-4 rounded-full mb-4 group-hover:bg-teal-200 transition-colors">
+            <Beaker className="w-10 h-10 text-teal-600" />
+          </div>
+          <h2 className="text-2xl font-bold text-gray-800 mb-2">Luyện Đề Trắc Nghiệm</h2>
+          <p className="text-gray-500">5 đề thi thử bao quát toàn bộ chương trình.</p>
         </div>
 
-        <!-- Tab Content -->
-        <div id="tabContent">
-
-            <!-- Lý thuyết (Theory) Panel -->
-            <div class="tab-panel" id="ly-thuyet">
-                <h3 class="text-2xl font-semibold mb-4 text-blue-600">Bài 15: Chất tinh khiết - Hỗn hợp</h3>
-                <ul class="list-disc list-inside space-y-2 mb-6">
-                    <li><strong>Chất tinh khiết:</strong> Chỉ chứa một chất duy nhất, có tính chất vật lý và hóa học cố định. (Ví dụ: Nước cất,
-                        Sodium chloride).</li>
-                    <li><strong>Hỗn hợp:</strong> Chứa từ hai chất trở lên trộn lẫn với nhau, tính chất thay đổi phụ thuộc vào thành
-                        phần.</li>
-                    <li><strong>Hỗn hợp đồng nhất (Dung dịch):</strong> Các chất phân bố đều, không phân biệt được các thành phần bằng mắt
-                        thường. (Ví dụ: Nước đường, nước muối).</li>
-                    <li><strong>Hỗn hợp không đồng nhất:</strong> Các chất phân bố không đều, có thể phân biệt bằng mắt thường.
-                        <ul class="list-inside list-['-_'] ml-6 mt-1">
-                            <li><strong>Huyền phù:</strong> Chất rắn lơ lửng trong chất lỏng. (Ví dụ: Bột mì khuấy trong nước, nước phù sa).</li>
-                            <li><strong>Nhũ tương:</strong> Chất lỏng lơ lửng trong chất lỏng khác (không tan vào nhau). (Ví dụ: Dầu giấm, sữa
-                                tươi).</li>
-                        </ul>
-                    </li>
-                </ul>
-
-                <h3 class="text-2xl font-semibold mb-4 text-green-600">Bài 16: Phương pháp tách chất</h3>
-                <ul class="list-disc list-inside space-y-2">
-                    <li><strong>Lọc:</strong> Tách chất rắn không tan ra khỏi chất lỏng. (Ví dụ: Lọc cát ra khỏi nước).</li>
-                    <li><strong>Chiết:</strong> Tách các chất lỏng không tan vào nhau. (Ví dụ: Tách dầu ăn ra khỏi nước).</li>
-                    <li><strong>Cô cạn:</strong> Tách chất rắn tan ra khỏi dung dịch (làm bay hơi dung môi). (Ví dụ: Thu hoạch muối
-                        biển).</li>
-                    <li><strong>Chưng cất:</strong> Tách các chất lỏng tan vào nhau, dựa trên nhiệt độ sôi khác nhau. (Ví dụ: Tách rượu
-                        ra khỏi nước).</li>
-                </ul>
-            </div>
-
-            <!-- Bài 15: Trắc nghiệm Panel -->
-            <div class="tab-panel hidden" id="bai15-trac-nghiem">
-                <h3 class="text-2xl font-semibold mb-4">Bài 15: Câu hỏi trắc nghiệm</h3>
-                
-                <!-- Question 1 -->
-                <div class="mb-6 p-4 border rounded-lg bg-gray-50">
-                    <p class="font-semibold mb-3">Câu 1: Trường hợp nào sau đây là chất tinh khiết?</p>
-                    <div class="space-y-2" id="q15_1">
-                        <label class="block p-2 rounded-lg border border-gray-300 hover:bg-gray-100 cursor-pointer">
-                            <input type="radio" name="q15_1" value="A" class="mr-2"> A. Gỗ
-                        </label>
-                        <label class="block p-2 rounded-lg border border-gray-300 hover:bg-gray-100 cursor-pointer">
-                            <input type="radio" name="q15_1" value="B" class="mr-2"> B. Nước khoáng
-                        </label>
-                        <label class="block p-2 rounded-lg border border-gray-300 hover:bg-gray-100 cursor-pointer">
-                            <input type="radio" name="q15_1" value="C" class="mr-2"> C. Sodium chloride
-                        </label>
-                        <label class="block p-2 rounded-lg border border-gray-300 hover:bg-gray-100 cursor-pointer">
-                            <input type="radio" name="q15_1" value="D" class="mr-2"> D. Nước biển
-                        </label>
-                    </div>
-                    <button onclick="checkMcq('q15_1', 'C')" class="mt-3 bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">Kiểm tra</button>
-                    <div id="feedback-q15_1" class="mt-2 font-medium"></div>
-                </div>
-
-                <!-- Question 2 -->
-                <div class="mb-6 p-4 border rounded-lg bg-gray-50">
-                    <p class="font-semibold mb-3">Câu 2: Hỗn hợp nào sau đây không được xem là dung dịch?</p>
-                    <div class="space-y-2" id="q15_2">
-                        <label class="block p-2 rounded-lg border border-gray-300 hover:bg-gray-100 cursor-pointer">
-                            <input type="radio" name="q15_2" value="A" class="mr-2"> A. Hỗn hợp nước đường
-                        </label>
-                        <label class="block p-2 rounded-lg border border-gray-300 hover:bg-gray-100 cursor-pointer">
-                            <input type="radio" name="q15_2" value="B" class="mr-2"> B. Hỗn hợp nước muối
-                        </label>
-                        <label class="block p-2 rounded-lg border border-gray-300 hover:bg-gray-100 cursor-pointer">
-                            <input type="radio" name="q15_2" value="C" class="mr-2"> C. Hỗn hợp bột mì và nước khuấy đều
-                        </label>
-                        <label class="block p-2 rounded-lg border border-gray-300 hover:bg-gray-100 cursor-pointer">
-                            <input type="radio" name="q15_2" value="D" class="mr-2"> D. Hỗn hợp nước và rượu
-                        </label>
-                    </div>
-                    <button onclick="checkMcq('q15_2', 'C')" class="mt-3 bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">Kiểm tra</button>
-                    <div id="feedback-q15_2" class="mt-2 font-medium"></div>
-                </div>
-
-                <!-- Question 3 -->
-                <div class="mb-6 p-4 border rounded-lg bg-gray-50">
-                    <p class="font-semibold mb-3">Câu 3: Khi hoà tan bột đá vôi vào nước, chỉ một lượng chất này tan trong nước; phần còn lại làm cho nước bị đục. Hỗn hợp này được coi là:</p>
-                    <div class="space-y-2" id="q15_3">
-                        <label class="block p-2 rounded-lg border border-gray-300 hover:bg-gray-100 cursor-pointer">
-                            <input type="radio" name="q15_3" value="A" class="mr-2"> A. Dung dịch
-                        </label>
-                        <label class="block p-2 rounded-lg border border-gray-300 hover:bg-gray-100 cursor-pointer">
-                            <input type="radio" name="q15_3" value="B" class="mr-2"> B. Chất tan
-                        </label>
-                        <label class="block p-2 rounded-lg border border-gray-300 hover:bg-gray-100 cursor-pointer">
-                            <input type="radio" name="q15_3" value="C" class="mr-2"> C. Nhũ tương
-                        </label>
-                        <label class_content="block p-2 rounded-lg border border-gray-300 hover:bg-gray-100 cursor-pointer">
-                            <input type="radio" name="q15_3" value="D" class="mr-2"> D. Huyền phù
-                        </label>
-                    </div>
-                    <button onclick="checkMcq('q15_3', 'D')" class="mt-3 bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">Kiểm tra</button>
-                    <div id="feedback-q15_3" class="mt-2 font-medium"></div>
-                </div>
-
-                <!-- Question 4 (New) -->
-                <div class="mb-6 p-4 border rounded-lg bg-gray-50">
-                    <p class="font-semibold mb-3">Câu 4: Muốn hoà tan được nhiều muối ăn vào nước, ta *không nên* sử dụng phương pháp nào dưới đây?</p>
-                    <div class="space-y-2" id="q15_4">
-                        <label class="block p-2 rounded-lg border border-gray-300 hover:bg-gray-100 cursor-pointer">
-                            <input type="radio" name="q15_4" value="A" class="mr-2"> A. Nghiền nhỏ muối ăn
-                        </label>
-                        <label class="block p-2 rounded-lg border border-gray-300 hover:bg-gray-100 cursor-pointer">
-                            <input type="radio" name="q15_4" value="B" class="mr-2"> B. Đun nóng nước
-                        </label>
-                        <label class="block p-2 rounded-lg border border-gray-300 hover:bg-gray-100 cursor-pointer">
-                            <input type="radio" name="q15_4" value="C" class="mr-2"> C. Vừa cho muối ăn vào nước vừa khuấy đều
-                        </label>
-                        <label class="block p-2 rounded-lg border border-gray-300 hover:bg-gray-100 cursor-pointer">
-                            <input type="radio" name="q15_4" value="D" class="mr-2"> D. Bỏ thêm đá lạnh vào
-                        </label>
-                    </div>
-                    <button onclick="checkMcq('q15_4', 'D')" class="mt-3 bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">Kiểm tra</button>
-                    <div id="feedback-q15_4" class="mt-2 font-medium"></div>
-                </div>
-
-                <!-- Question 5 (New) -->
-                <div class="mb-6 p-4 border rounded-lg bg-gray-50">
-                    <p class="font-semibold mb-3">Câu 5: Hai chất lỏng không hoà tan vào nhau nhưng khi chịu tác động, chúng lại phân tán vào nhau thì gọi là:</p>
-                    <div class="space-y-2" id="q15_5">
-                        <label class="block p-2 rounded-lg border border-gray-300 hover:bg-gray-100 cursor-pointer">
-                            <input type="radio" name="q15_5" value="A" class="mr-2"> A. Dung dịch
-                        </label>
-                        <label class="block p-2 rounded-lg border border-gray-300 hover:bg-gray-100 cursor-pointer">
-                            <input type="radio" name="q15_5" value="B" class="mr-2"> B. Huyền phù
-                        </label>
-                        <label class="block p-2 rounded-lg border border-gray-300 hover:bg-gray-100 cursor-pointer">
-                            <input type="radio" name="q15_5" value="C" class="mr-2"> C. Nhũ tương
-                        </label>
-                        <label class_content="block p-2 rounded-lg border border-gray-300 hover:bg-gray-100 cursor-pointer">
-                            <input type="radio" name="q15_5" value="D" class="mr-2"> D. Chất tinh khiết
-                        </label>
-                    </div>
-                    <button onclick="checkMcq('q15_5', 'C')" class="mt-3 bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">Kiểm tra</button>
-                    <div id="feedback-q15_5" class="mt-2 font-medium"></div>
-                </div>
-
-                <!-- Question 6 (New) -->
-                <div class="mb-6 p-4 border rounded-lg bg-gray-50">
-                    <p class="font-semibold mb-3">Câu 6: Khi cho bột mì vào nước và khuấy đều, ta thu được:</p>
-                    <div class="space-y-2" id="q15_6">
-                        <label class="block p-2 rounded-lg border border-gray-300 hover:bg-gray-100 cursor-pointer">
-                            <input type="radio" name="q15_6" value="A" class="mr-2"> A. Nhũ tương
-                        </label>
-                        <label class="block p-2 rounded-lg border border-gray-300 hover:bg-gray-100 cursor-pointer">
-                            <input type="radio" name="q15_6" value="B" class="mr-2"> B. Huyền phù
-                        </label>
-                        <label class="block p-2 rounded-lg border border-gray-300 hover:bg-gray-100 cursor-pointer">
-                            <input type="radio" name="q15_6" value="C" class="mr-2"> C. Dung dịch
-                        </label>
-                        <label class_content="block p-2 rounded-lg border border-gray-300 hover:bg-gray-100 cursor-pointer">
-                            <input type="radio" name="q15_6" value="D" class="mr-2"> D. Dung môi
-                        </label>
-                    </div>
-                    <button onclick="checkMcq('q15_6', 'B')" class="mt-3 bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">Kiểm tra</button>
-                    <div id="feedback-q15_6" class="mt-2 font-medium"></div>
-                </div>
-            </div>
-
-            <!-- Bài 15: Tự luận Panel -->
-            <div class="tab-panel hidden" id="bai15-tu-luan">
-                <h3 class="text-2xl font-semibold mb-4">Bài 15: Câu hỏi tự luận</h3>
-                
-                <!-- Question 1 -->
-                <div class="mb-6 p-4 border rounded-lg bg-gray-50">
-                    <p class="font-semibold mb-3">Câu 1: Theo em nước tinh khiết là chất hay hỗn hợp? Tại sao?</p>
-                    <button onclick="toggleAnswer('ans15_1', this)" class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600">Xem đáp án</button>
-                    <div id="ans15_1" class="mt-3 p-3 bg-green-50 rounded-lg border border-green-200 hidden">
-                        <strong>Đáp án:</strong> Nước tinh khiết là <strong>chất</strong> (chất tinh khiết) vì chỉ chứa một loại chất duy nhất là nước (H₂O), không lẫn chất khác.
-                    </div>
-                </div>
-
-                <!-- Question 2 -->
-                <div class="mb-6 p-4 border rounded-lg bg-gray-50">
-                    <p class="font-semibold mb-3">Câu 2: Nước khoáng là chất tinh khiết hay hỗn hợp? Tại sao?</p>
-                    <button onclick="toggleAnswer('ans15_2', this)" class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600">Xem đáp án</button>
-                    <div id="ans15_2" class="mt-3 p-3 bg-green-50 rounded-lg border border-green-200 hidden">
-                        <strong>Đáp án:</strong> Nước khoáng là <strong>hỗn hợp</strong> vì ngoài nước còn có chứa nhiều loại muối khoáng và chất khác tan vào.
-                    </div>
-                </div>
-
-                <!-- Question 3 -->
-                <div class="mb-6 p-4 border rounded-lg bg-gray-50">
-                    <p class="font-semibold mb-3">Câu 3: Phù sa ở sông có phải là một dạng huyền phù không? Giải thích.</p>
-                    <button onclick="toggleAnswer('ans15_3', this)" class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600">Xem đáp án</button>
-                    <div id="ans15_3" class="mt-3 p-3 bg-green-50 rounded-lg border border-green-200 hidden">
-                        <strong>Đáp án:</strong> Phải. Phù sa là một dạng <strong>huyền phù</strong>. Vì phù sa bao gồm các chất rắn (hạt đất, sét, chất hữu cơ) không tan, lơ lửng trong nước sông.
-                    </div>
-                </div>
-
-                <!-- Question 4 (New) -->
-                <div class="mb-6 p-4 border rounded-lg bg-gray-50">
-                    <p class="font-semibold mb-3">Câu 4: Khi sử dụng ấm để đun sôi nước suối, sau một thời gian sẽ xuất hiện cặn trắng. Nước suối có phải là nước tinh khiết không? Làm thế nào để làm sạch cặn trong ấm?</p>
-                    <button onclick="toggleAnswer('ans15_4', this)" class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600">Xem đáp án</button>
-                    <div id="ans15_4" class="mt-3 p-3 bg-green-50 rounded-lg border border-green-200 hidden">
-                        <strong>Đáp án:</strong>
-                        <ul class="list-disc list-inside ml-4">
-                            <li>Nước suối <strong>không phải là nước tinh khiết</strong>, vì ngoài nước còn có lẫn các chất khác (chất khoáng, tạo cặn).</li>
-                            <li>Để làm sạch cặn, có thể dùng giấm ăn hoặc nước chanh (có tính acid) ngâm trong ấm một thời gian, các chất cặn sẽ tan ra.</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <!-- Question 5 (New) -->
-                <div class="mb-6 p-4 border rounded-lg bg-gray-50">
-                    <p class="font-semibold mb-3">Câu 5: Xác định chất tan, dung môi trong các dung dịch sau:</p>
-                    <p class="ml-4">a) Dung dịch sodium hydroxide.</p>
-                    <p class="ml-4">b) Dung dịch sulfuric acid.</p>
-                    <button onclick="toggleAnswer('ans15_5', this)" class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600">Xem đáp án</button>
-                    <div id="ans15_5" class="mt-3 p-3 bg-green-50 rounded-lg border border-green-200 hidden">
-                        <strong>Đáp án:</strong> (Thông thường, nếu không nói gì thêm, dung môi là nước)
-                        <ul class="list-disc list-inside ml-4">
-                            <li>a) Chất tan: sodium hydroxide, Dung môi: nước.</li>
-                            <li>b) Chất tan: sulfuric acid, Dung môi: nước.</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Bài 16: Trắc nghiệm Panel -->
-            <div class="tab-panel hidden" id="bai16-trac-nghiem">
-                <h3 class="text-2xl font-semibold mb-4">Bài 16: Câu hỏi trắc nghiệm</h3>
-
-                <!-- Question 1 -->
-                <div class="mb-6 p-4 border rounded-lg bg-gray-50">
-                    <p class="font-semibold mb-3">Câu 1: Phương pháp nào dưới đây là đơn giản nhất để tách cát lẫn trong nước?</p>
-                    <div class="space-y-2" id="q16_1">
-                        <label class="block p-2 rounded-lg border border-gray-300 hover:bg-gray-100 cursor-pointer">
-                            <input type="radio" name="q16_1" value="A" class="mr-2"> A. Lọc
-                        </label>
-                        <label class="block p-2 rounded-lg border border-gray-300 hover:bg-gray-100 cursor-pointer">
-                            <input type="radio" name="q16_1" value="B" class="mr-2"> B. Dùng máy li tâm
-                        </label>
-                        <label class="block p-2 rounded-lg border border-gray-300 hover:bg-gray-100 cursor-pointer">
-                            <input type="radio" name="q16_1" value="C" class="mr-2"> C. Chiết
-                        </label>
-                        <label class="block p-2 rounded-lg border border-gray-300 hover:bg-gray-100 cursor-pointer">
-                            <input type="radio" name="q16_1" value="D" class="mr-2"> D. Cô cạn
-                        </label>
-                    </div>
-                    <button onclick="checkMcq('q16_1', 'A')" class="mt-3 bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">Kiểm tra</button>
-                    <div id="feedback-q16_1" class="mt-2 font-medium"></div>
-                </div>
-
-                <!-- Question 2 -->
-                <div class="mb-6 p-4 border rounded-lg bg-gray-50">
-                    <p class="font-semibold mb-3">Câu 2: Nếu không may làm đổ dầu ăn vào nước, ta dùng phương pháp nào để tách riêng dầu ăn ra khỏi nước?</p>
-                    <div class="space-y-2" id="q16_2">
-                        <label class="block p-2 rounded-lg border border-gray-300 hover:bg-gray-100 cursor-pointer">
-                            <input type="radio" name="q16_2" value="A" class="mr-2"> A. Lọc
-                        </label>
-                        <label class="block p-2 rounded-lg border border-gray-300 hover:bg-gray-100 cursor-pointer">
-                            <input type="radio" name="q16_2" value="B" class="mr-2"> B. Dùng máy li tâm
-                        </label>
-                        <label class="block p-2 rounded-lg border border-gray-300 hover:bg-gray-100 cursor-pointer">
-                            <input type="radio" name="q16_2" value="C" class="mr-2"> C. Chiết
-                        </label>
-                        <label class="block p-2 rounded-lg border border-gray-300 hover:bg-gray-100 cursor-pointer">
-                            <input type="radio" name="q16_2" value="D" class="mr-2"> D. Cô cạn
-                        </label>
-                    </div>
-                    <button onclick="checkMcq('q16_2', 'C')" class="mt-3 bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">Kiểm tra</button>
-                    <div id="feedback-q16_2" class="mt-2 font-medium"></div>
-                </div>
-
-                <!-- Question 3 -->
-                <div class="mb-6 p-4 border rounded-lg bg-gray-50">
-                    <p class="font-semibold mb-3">Câu 3: Người dân làm muối đã sử dụng phương pháp nào để thu được muối từ nước biển?</p>
-                    <div class="space-y-2" id="q16_3">
-                        <label class="block p-2 rounded-lg border border-gray-300 hover:bg-gray-100 cursor-pointer">
-                            <input type="radio" name="q16_3" value="A" class="mr-2"> A. Làm lắng đọng muối
-                        </label>
-                        <label class="block p-2 rounded-lg border border-gray-300 hover:bg-gray-100 cursor-pointer">
-                            <input type="radio" name="q16_3" value="B" class="mr-2"> B. Lọc lấy muối
-                        </label>
-                        <label class="block p-2 rounded-lg border border-gray-300 hover:bg-gray-100 cursor-pointer">
-                            <input type="radio" name="q16_3" value="C" class="mr-2"> C. Làm bay hơi nước (Cô cạn)
-                        </label>
-                        <label class="block p-2 rounded-lg border border-gray-300 hover:bg-gray-100 cursor-pointer">
-                            <input type="radio" name="q16_3" value="D" class="mr-2"> D. Chiết lấy muối
-                        </label>
-                    </div>
-                    <button onclick="checkMcq('q16_3', 'C')" class="mt-3 bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">Kiểm tra</button>
-                    <div id="feedback-q16_3" class="mt-2 font-medium"></div>
-                </div>
-
-                <!-- Question 4 (New) -->
-                <div class="mb-6 p-4 border rounded-lg bg-gray-50">
-                    <p class="font-semibold mb-3">Câu 4: Trong máy lọc nước, lõi lọc bằng bông được ép chặt có tác dụng gì?</p>
-                    <div class="space-y-2" id="q16_4">
-                        <label class="block p-2 rounded-lg border border-gray-300 hover:bg-gray-100 cursor-pointer">
-                            <input type="radio" name="q16_4" value="A" class="mr-2"> A. Lọc chất tan trong nước
-                        </label>
-                        <label class="block p-2 rounded-lg border border-gray-300 hover:bg-gray-100 cursor-pointer">
-                            <input type="radio" name="q16_4" value="B" class="mr-2"> B. Lọc chất không tan trong nước
-                        </label>
-                        <label class="block p-2 rounded-lg border border-gray-300 hover:bg-gray-100 cursor-pointer">
-                            <input type="radio" name="q16_4" value="C" class="mr-2"> C. Lọc và giữ lại khoáng chất
-                        </label>
-                        <label class="block p-2 rounded-lg border border-gray-300 hover:bg-gray-100 cursor-pointer">
-                            <input type="radio" name="q16_4" value="D" class="mr-2"> D. Lọc hóa chất độc hại
-                        </label>
-                    </div>
-                    <button onclick="checkMcq('q16_4', 'B')" class="mt-3 bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">Kiểm tra</button>
-                    <div id="feedback-q16_4" class="mt-2 font-medium"></div>
-                </div>
-
-                <!-- Question 5 (New) -->
-                <div class="mb-6 p-4 border rounded-lg bg-gray-50">
-                    <p class="font-semibold mb-3">Câu 5: Tác dụng chủ yếu của việc đeo khẩu trang là gì?</p>
-                    <div class="space-y-2" id="q16_5">
-                        <label class="block p-2 rounded-lg border border-gray-300 hover:bg-gray-100 cursor-pointer">
-                            <input type="radio" name="q16_5" value="A" class="mr-2"> A. Tách hơi nước ra khỏi không khí
-                        </label>
-                        <label class="block p-2 rounded-lg border border-gray-300 hover:bg-gray-100 cursor-pointer">
-                            <input type="radio" name="q16_5" value="B" class="mr-2"> B. Tách oxygen ra khỏi không khí
-                        </label>
-                        <label class="block p-2 rounded-lg border border-gray-300 hover:bg-gray-100 cursor-pointer">
-                            <input type="radio" name="q16_5" value="C" class="mr-2"> C. Tách khí carbon dioxide ra khỏi không khí
-                        </label>
-                        <label class="block p-2 rounded-lg border border-gray-300 hover:bg-gray-100 cursor-pointer">
-                            <input type="radio" name="q16_5" value="D" class="mr-2"> D. Tách khói bụi ra khỏi không khí
-                        </label>
-                    </div>
-                    <button onclick="checkMcq('q16_5', 'D')" class="mt-3 bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">Kiểm tra</button>
-                    <div id="feedback-q16_5" class="mt-2 font-medium"></div>
-                </div>
-
-                <!-- Question 6 (New) -->
-                <div class="mb-6 p-4 border rounded-lg bg-gray-50">
-                    <p class="font-semibold mb-3">Câu 6: Để tách khí nitrogen (sôi ở -196°C) và khí oxygen (sôi ở -183°C) từ không khí lỏng, người ta dùng phương pháp nào?</p>
-                    <div class="space-y-2" id="q16_6">
-                        <label class="block p-2 rounded-lg border border-gray-300 hover:bg-gray-100 cursor-pointer">
-                            <input type="radio" name="q16_6" value="A" class="mr-2"> A. Lọc
-                        </label>
-                        <label class="block p-2 rounded-lg border border-gray-300 hover:bg-gray-100 cursor-pointer">
-                            <input type="radio" name="q16_6" value="B" class="mr-2"> B. Chiết
-                        </label>
-                        <label class="block p-2 rounded-lg border border-gray-300 hover:bg-gray-100 cursor-pointer">
-                            <input type="radio" name="q16_6" value="C" class="mr-2"> C. Cô cạn
-                        </label>
-                        <label class="block p-2 rounded-lg border border-gray-300 hover:bg-gray-100 cursor-pointer">
-                            <input type="radio" name="q16_6" value="D" class="mr-2"> D. Chưng phân đoạn
-                        </label>
-                    </div>
-                    <button onclick="checkMcq('q16_6', 'D')" class="mt-3 bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">Kiểm tra</button>
-                    <div id="feedback-q16_6" class="mt-2 font-medium"></div>
-                </div>
-            </div>
-
-            <!-- Bài 16: Tự luận Panel -->
-            <div class="tab-panel hidden" id="bai16-tu-luan">
-                <h3 class="text-2xl font-semibold mb-4">Bài 16: Câu hỏi tự luận</h3>
-
-                <!-- Question 1 -->
-                <div class="mb-6 p-4 border rounded-lg bg-gray-50">
-                    <p class="font-semibold mb-3">Câu 1: Làm thế nào để tách riêng hỗn hợp đường và bột mì?</p>
-                    <button onclick="toggleAnswer('ans16_1', this)" class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600">Xem đáp án</button>
-                    <div id="ans16_1" class="mt-3 p-3 bg-green-50 rounded-lg border border-green-200 hidden">
-                        <strong>Cách làm:</strong>
-                        <ol class="list-decimal list-inside ml-4">
-                            <li><strong>Bước 1:</strong> Hoà tan hỗn hợp vào nước. Đường tan trong nước tạo dung dịch, bột mì không tan.</li>
-                            <li><strong>Bước 2:</strong> Dùng phương pháp <strong>lọc</strong> để tách bột mì (chất rắn) ra khỏi dung dịch nước đường.</li>
-                            <li><strong>Bước 3:</strong> Dùng phương pháp <strong>cô cạn</strong> (đun nóng) dung dịch nước đường để nước bay hơi, ta thu được đường ở dạng rắn.</li>
-                        </ol>
-                    </div>
-                </div>
-
-                <!-- Question 2 -->
-                <div class="mb-6 p-4 border rounded-lg bg-gray-50">
-                    <p class="font-semibold mb-3">Câu 2: Trình bày cách tách riêng các chất ra khỏi hỗn hợp gồm bột sắt, đồng và muối ăn.</p>
-                    <button onclick="toggleAnswer('ans16_2', this)" class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600">Xem đáp án</button>
-                    <div id="ans16_2" class="mt-3 p-3 bg-green-50 rounded-lg border border-green-200 hidden">
-                        <strong>Cách làm:</strong>
-                        <ol class="list-decimal list-inside ml-4">
-                            <li><strong>Bước 1:</strong> Dùng <strong>nam châm</strong> để hút riêng bột sắt ra khỏi hỗn hợp.</li>
-                            <li><strong>Bước 2:</strong> Hoà tan hỗn hợp còn lại (đồng và muối ăn) vào nước. Muối ăn tan, đồng không tan.</li>
-                            <li><strong>Bước 3:</strong> Dùng phương pháp <strong>lọc</strong> để tách đồng (chất rắn) ra khỏi dung dịch muối ăn.</li>
-                            <li><strong>Bước 4:</strong> Dùng phương pháp <strong>cô cạn</strong> dung dịch muối ăn để thu muối ở dạng rắn.</li>
-                        </ol>
-                    </div>
-                </div>
-
-                <!-- Question 3 -->
-                <div class="mb-6 p-4 border rounded-lg bg-gray-50">
-                    <p class="font-semibold mb-3">Câu 3: Cho biết nhiệt độ sôi của rượu (ethanol) là 78°C, của nước là 100°C. Đề xuất giải pháp để tách rượu ra khỏi nước.</p>
-                    <button onclick="toggleAnswer('ans16_3', this)" class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600">Xem đáp án</button>
-                    <div id="ans16_3" class="mt-3 p-3 bg-green-50 rounded-lg border border-green-200 hidden">
-                        <strong>Giải pháp:</strong> Dùng phương pháp <strong>chưng cất</strong>.
-                        <br>
-                        <strong>Mô tả:</strong> Đun nóng hỗn hợp rượu và nước. Vì rượu có nhiệt độ sôi thấp hơn (78°C) nên sẽ bay hơi trước. Dẫn hơi rượu đi qua hệ thống làm lạnh (ống sinh hàn) để ngưng tụ, ta sẽ thu được rượu ở dạng lỏng. Nước (sôi ở 100°C) sẽ còn lại trong bình.
-                    </div>
-                </div>
-
-                <!-- Question 4 (New) -->
-                <div class="mb-6 p-4 border rounded-lg bg-gray-50">
-                    <p class="font-semibold mb-3">Câu 4: Tại sao khi ở trong phòng có máy điều hoà, ta cảm thấy không khí khô hơn? Máy điều hoà đã tách chất gì ra khỏi không khí?</p>
-                    <button onclick="toggleAnswer('ans16_4', this)" class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600">Xem đáp án</button>
-                    <div id="ans16_4" class="mt-3 p-3 bg-green-50 rounded-lg border border-green-200 hidden">
-                        <strong>Đáp án:</strong>
-                        <ul class="list-disc list-inside ml-4">
-                            <li>Cảm thấy khô hơn vì máy điều hoà đã loại bớt <strong>hơi nước</strong> trong không khí, làm giảm độ ẩm.</li>
-                            <li>Máy điều hoà tách <strong>hơi nước</strong> (làm ngưng tụ thành nước lỏng và xả ra ngoài) và <strong>bụi bẩn</strong> (qua màng lọc) ra khỏi không khí.</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <!-- Question 5 (New) -->
-                <div class="mb-6 p-4 border rounded-lg bg-gray-50">
-                    <p class="font-semibold mb-3">Câu 5: Về nguyên tắc, có thể tách lấy nước ngọt (nước tinh khiết) từ nước biển (nước mặn) được không? Nếu được, có thể dùng phương pháp nào?</p>
-                    <button onclick="toggleAnswer('ans16_5', this)" class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600">Xem đáp án</button>
-                    <div id="ans16_5" class="mt-3 p-3 bg-green-50 rounded-lg border border-green-200 hidden">
-                        <strong>Đáp án:</strong>
-                        <ul class="list-disc list-inside ml-4">
-                            <li>Hoàn toàn có thể tách nước ngọt từ nước biển.</li>
-                            <li>Có thể dùng phương pháp <strong>chưng cất</strong> (đun sôi nước biển, hơi nước bay lên, làm lạnh hơi nước để ngưng tụ lại, thu được nước ngọt) hoặc các phương pháp <strong>cô cạn</strong> (làm bay hơi nước).</li>
-                        </ul>
-                    </div>
-                </div>
-
-            </div>
-
-            <!-- ========= NEW MATH TAB PANEL START ========= -->
-            <div class="tab-panel hidden" id="on-tap-toan">
-                <h3 class="text-2xl font-semibold mb-4 text-purple-600">Ôn tập Toán 6 (Đề HK1 - Mã 603)</h3>
-
-                <!-- PHẦN I: TRẮC NGHIỆM LỰA CHỌN -->
-                <h4 class="text-xl font-semibold mb-3 text-gray-800">Phần I: Trắc nghiệm (Nhiều phương án)</h4>
-                
-                <!-- Q1 -->
-                <div class="mb-6 p-4 border rounded-lg bg-gray-50">
-                    <p class="font-semibold mb-3">Câu 1: Biểu đồ cho biết tổng lượng mưa tại Hà Nội. Lượng mưa năm nào là nhiều nhất?</p>
-                    <div class="space-y-2" id="toan_q1">
-                        <label class="block p-2 rounded-lg border border-gray-300 hover:bg-gray-100 cursor-pointer"><input type="radio" name="toan_q1" value="A" class="mr-2"> A. 2015</label>
-                        <label class="block p-2 rounded-lg border border-gray-300 hover:bg-gray-100 cursor-pointer"><input type="radio" name="toan_q1" value="B" class="mr-2"> B. 2018</label>
-                        <label class="block p-2 rounded-lg border border-gray-300 hover:bg-gray-100 cursor-pointer"><input type="radio" name="toan_q1" value="C" class="mr-2"> C. 2016</label>
-                        <label class="block p-2 rounded-lg border border-gray-300 hover:bg-gray-100 cursor-pointer"><input type="radio" name="toan_q1" value="D" class="mr-2"> D. 2017</label>
-                    </div>
-                    <button onclick="checkMcq('toan_q1', 'D')" class="mt-3 bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">Kiểm tra</button>
-                    <div id="feedback-toan_q1" class="mt-2 font-medium"></div>
-                </div>
-
-                <!-- Q2 -->
-                <div class="mb-6 p-4 border rounded-lg bg-gray-50">
-                    <p class="font-semibold mb-3">Câu 2: Bảng thức ăn sáng. Dữ liệu nào sau đây không là số liệu?</p>
-                    <div class="space-y-2" id="toan_q2">
-                        <label class="block p-2 rounded-lg border border-gray-300 hover:bg-gray-100 cursor-pointer"><input type="radio" name="toan_q2" value="A" class="mr-2"> A. 11</label>
-                        <label class="block p-2 rounded-lg border border-gray-300 hover:bg-gray-100 cursor-pointer"><input type="radio" name="toan_q2" value="B" class="mr-2"> B. 8</label>
-                        <label class="block p-2 rounded-lg border border-gray-300 hover:bg-gray-100 cursor-pointer"><input type="radio" name="toan_q2" value="C" class="mr-2"> C. Xôi</label>
-                        <label class="block p-2 rounded-lg border border-gray-300 hover:bg-gray-100 cursor-pointer"><input type="radio" name="toan_q2" value="D" class="mr-2"> D. 2</label>
-                    </div>
-                    <button onclick="checkMcq('toan_q2', 'C')" class="mt-3 bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">Kiểm tra</button>
-                    <div id="feedback-toan_q2" class="mt-2 font-medium"></div>
-                </div>
-
-                <!-- Q3 -->
-                <div class="mb-6 p-4 border rounded-lg bg-gray-50">
-                    <p class="font-semibold mb-3">Câu 3: Điều tra loại phim yêu thích của lớp 6A. Loại phim nào được yêu thích nhất?</p>
-                    <div class="space-y-2" id="toan_q3">
-                        <label class="block p-2 rounded-lg border border-gray-300 hover:bg-gray-100 cursor-pointer"><input type="radio" name="toan_q3" value="A" class="mr-2"> A. Hoạt hình</label>
-                        <label class="block p-2 rounded-lg border border-gray-300 hover:bg-gray-100 cursor-pointer"><input type="radio" name="toan_q3" value="B" class="mr-2"> B. Khoa học</label>
-                        <label class="block p-2 rounded-lg border border-gray-300 hover:bg-gray-100 cursor-pointer"><input type="radio" name="toan_q3" value="C" class="mr-2"> C. Trinh thám</label>
-                        <label class="block p-2 rounded-lg border border-gray-300 hover:bg-gray-100 cursor-pointer"><input type="radio" name="toan_q3" value="D" class="mr-2"> D. Lịch sử</label>
-                    </div>
-                    <button onclick="checkMcq('toan_q3', 'A')" class="mt-3 bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">Kiểm tra</button>
-                    <div id="feedback-toan_q3" class="mt-2 font-medium"></div>
-                </div>
-
-                <!-- Q4 -->
-                <div class="mb-6 p-4 border rounded-lg bg-gray-50">
-                    <p class="font-semibold mb-3">Câu 4: Bảng thống kê nước uống. Bảng nào lập đúng?</p>
-                    <div class="space-y-2" id="toan_q4">
-                        <label class="block p-2 rounded-lg border border-gray-300 hover:bg-gray-100 cursor-pointer"><input type="radio" name="toan_q4" value="A" class="mr-2"> A. Bảng 2</label>
-                        <label class="block p-2 rounded-lg border border-gray-300 hover:bg-gray-100 cursor-pointer"><input type="radio" name="toan_q4" value="B" class="mr-2"> B. Bảng 1</label>
-                        <label class="block p-2 rounded-lg border border-gray-300 hover:bg-gray-100 cursor-pointer"><input type="radio" name="toan_q4" value="C" class="mr-2"> C. Bảng 3</label>
-                        <label class="block p-2 rounded-lg border border-gray-300 hover:bg-gray-100 cursor-pointer"><input type="radio" name="toan_q4" value="D" class="mr-2"> D. Bảng 4</label>
-                    </div>
-                    <button onclick="checkMcq('toan_q4', 'B')" class="mt-3 bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">Kiểm tra</button>
-                    <div id="feedback-toan_q4" class="mt-2 font-medium"></div>
-                </div>
-
-                <!-- Q5 -->
-                <div class="mb-6 p-4 border rounded-lg bg-gray-50">
-                    <p class="font-semibold mb-3">Câu 5: Nhiệt độ đầu tuần là -25°C. Sau 7 ngày là -39°C. Hỏi trung bình mỗi ngày nhiệt độ thay đổi bao nhiêu?</p>
-                    <div class="space-y-2" id="toan_q5">
-                        <label class="block p-2 rounded-lg border border-gray-300 hover:bg-gray-100 cursor-pointer"><input type="radio" name="toan_q5" value="A" class="mr-2"> A. 2°C</label>
-                        <label class="block p-2 rounded-lg border border-gray-300 hover:bg-gray-100 cursor-pointer"><input type="radio" name="toan_q5" value="B" class="mr-2"> B. -2°C</label>
-                        <label class="block p-2 rounded-lg border border-gray-300 hover:bg-gray-100 cursor-pointer"><input type="radio" name="toan_q5" value="C" class="mr-2"> C. 14°C</label>
-                        <label class="block p-2 rounded-lg border border-gray-300 hover:bg-gray-100 cursor-pointer"><input type="radio" name="toan_q5" value="D" class="mr-2"> D. -14°C</label>
-                    </div>
-                    <button onclick="checkMcq('toan_q5', 'B')" class="mt-3 bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">Kiểm tra</button>
-                    <div id="feedback-toan_q5" class="mt-2 font-medium"></div>
-                </div>
-
-                <!-- Q6 -->
-                <div class="mb-6 p-4 border rounded-lg bg-gray-50">
-                    <p class="font-semibold mb-3">Câu 6: Số nguyên âm lớn hơn -1975 là:</p>
-                    <div class="space-y-2" id="toan_q6">
-                        <label class="block p-2 rounded-lg border border-gray-300 hover:bg-gray-100 cursor-pointer"><input type="radio" name="toan_q6" value="A" class="mr-2"> A. -1979</label>
-                        <label class="block p-2 rounded-lg border border-gray-300 hover:bg-gray-100 cursor-pointer"><input type="radio" name="toan_q6" value="B" class="mr-2"> B. -1995</label>
-                        <label class="block p-2 rounded-lg border border-gray-300 hover:bg-gray-100 cursor-pointer"><input type="radio" name="toan_q6" value="C" class="mr-2"> C. -1945</label>
-                        <label class="block p-2 rounded-lg border border-gray-300 hover:bg-gray-100 cursor-pointer"><input type="radio" name="toan_q6" value="D" class="mr-2"> D. -2010</label>
-                    </div>
-                    <button onclick="checkMcq('toan_q6', 'C')" class="mt-3 bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">Kiểm tra</button>
-                    <div id="feedback-toan_q6" class="mt-2 font-medium"></div>
-                </div>
-
-                <!-- Q7 -->
-                <div class="mb-6 p-4 border rounded-lg bg-gray-50">
-                    <p class="font-semibold mb-3">Câu 7: Hình dưới đây có tất cả bao nhiêu hình vuông?</p>
-                    <div class="space-y-2" id="toan_q7">
-                        <label class="block p-2 rounded-lg border border-gray-300 hover:bg-gray-100 cursor-pointer"><input type="radio" name="toan_q7" value="A" class="mr-2"> A. 7</label>
-                        <label class="block p-2 rounded-lg border border-gray-300 hover:bg-gray-100 cursor-pointer"><input type="radio" name="toan_q7" value="B" class="mr-2"> B. 5</label>
-                        <label class="block p-2 rounded-lg border border-gray-300 hover:bg-gray-100 cursor-pointer"><input type="radio" name="toan_q7" value="C" class="mr-2"> C. 6</label>
-                        <label class="block p-2 rounded-lg border border-gray-300 hover:bg-gray-100 cursor-pointer"><input type="radio" name="toan_q7" value="D" class="mr-2"> D. 4</label>
-                    </div>
-                    <button onclick="checkMcq('toan_q7', 'B')" class="mt-3 bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">Kiểm tra</button>
-                    <div id="feedback-toan_q7" class="mt-2 font-medium"></div>
-                </div>
-
-                <!-- Q8 -->
-                <div class="mb-6 p-4 border rounded-lg bg-gray-50">
-                    <p class="font-semibold mb-3">Câu 8: Số 4 là ước của số:</p>
-                    <div class="space-y-2" id="toan_q8">
-                        <label class="block p-2 rounded-lg border border-gray-300 hover:bg-gray-100 cursor-pointer"><input type="radio" name="toan_q8" value="A" class="mr-2"> A. 36</label>
-                        <label class="block p-2 rounded-lg border border-gray-300 hover:bg-gray-100 cursor-pointer"><input type="radio" name="toan_q8" value="B" class="mr-2"> B. 35</label>
-                        <label class="block p-2 rounded-lg border border-gray-300 hover:bg-gray-100 cursor-pointer"><input type="radio" name="toan_q8" value="C" class="mr-2"> C. 34</label>
-                        <label class="block p-2 rounded-lg border border-gray-300 hover:bg-gray-100 cursor-pointer"><input type="radio" name="toan_q8" value="D" class="mr-2"> D. 37</label>
-                    </div>
-                    <button onclick="checkMcq('toan_q8', 'A')" class="mt-3 bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">Kiểm tra</button>
-                    <div id="feedback-toan_q8" class="mt-2 font-medium"></div>
-                </div>
-
-                <!-- Q9 -->
-                <div class="mb-6 p-4 border rounded-lg bg-gray-50">
-                    <p class="font-semibold mb-3">Câu 9: Cho trục số, điểm N biểu diễn cho số nguyên nào?</p>
-                    <div class="space-y-2" id="toan_q9">
-                        <label class="block p-2 rounded-lg border border-gray-300 hover:bg-gray-100 cursor-pointer"><input type="radio" name="toan_q9" value="A" class="mr-2"> A. 1</label>
-                        <label class="block p-2 rounded-lg border border-gray-300 hover:bg-gray-100 cursor-pointer"><input type="radio" name="toan_q9" value="B" class="mr-2"> B. -2</label>
-                        <label class="block p-2 rounded-lg border border-gray-300 hover:bg-gray-100 cursor-pointer"><input type="radio" name="toan_q9" value="C" class="mr-2"> C. 4</label>
-                        <label class="block p-2 rounded-lg border border-gray-300 hover:bg-gray-100 cursor-pointer"><input type="radio" name="toan_q9" value="D" class="mr-2"> D. -7</label>
-                    </div>
-                    <button onclick="checkMcq('toan_q9', 'D')" class="mt-3 bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">Kiểm tra</button>
-                    <div id="feedback-toan_q9" class="mt-2 font-medium"></div>
-                </div>
-
-                <!-- Q10 -->
-                <div class="mb-6 p-4 border rounded-lg bg-gray-50">
-                    <p class="font-semibold mb-3">Câu 10: Sắp xếp theo thứ tự giảm dần: -66; 78; -48; 0; 23</p>
-                    <div class="space-y-2" id="toan_q10">
-                        <label class="block p-2 rounded-lg border border-gray-300 hover:bg-gray-100 cursor-pointer"><input type="radio" name="toan_q10" value="A" class="mr-2"> A. 78; 23; 0; -48;-66</label>
-                        <label class="block p-2 rounded-lg border border-gray-300 hover:bg-gray-100 cursor-pointer"><input type="radio" name="toan_q10" value="B" class="mr-2"> B. -66; -48; 0; 23; 78</label>
-                        <label class="block p-2 rounded-lg border border-gray-300 hover:bg-gray-100 cursor-pointer"><input type="radio" name="toan_q10" value="C" class="mr-2"> C. -48;-66; 0; 23; 78</label>
-                        <label class="block p-2 rounded-lg border border-gray-300 hover:bg-gray-100 cursor-pointer"><input type="radio" name="toan_q10" value="D" class="mr-2"> D. 78; 23; 0; -66;-48</label>
-                    </div>
-                    <button onclick="checkMcq('toan_q10', 'A')" class="mt-3 bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">Kiểm tra</button>
-                    <div id="feedback-toan_q10" class="mt-2 font-medium"></div>
-                </div>
-
-                <!-- Q11 -->
-                <div class="mb-6 p-4 border rounded-lg bg-gray-50">
-                    <p class="font-semibold mb-3">Câu 11: Hình lục giác đều là hình có:</p>
-                    <div class="space-y-2" id="toan_q11">
-                        <label class="block p-2 rounded-lg border border-gray-300 hover:bg-gray-100 cursor-pointer"><input type="radio" name="toan_q11" value="A" class="mr-2"> A. 6 cạnh bằng nhau</label>
-                        <label class="block p-2 rounded-lg border border-gray-300 hover:bg-gray-100 cursor-pointer"><input type="radio" name="toan_q11" value="B" class="mr-2"> B. 5 đường chéo chính</label>
-                        <label class="block p-2 rounded-lg border border-gray-300 hover:bg-gray-100 cursor-pointer"><input type="radio" name="toan_q11" value="C" class="mr-2"> C. 6 góc ở đỉnh không bằng nhau</label>
-                        <label class="block p-2 rounded-lg border border-gray-300 hover:bg-gray-100 cursor-pointer"><input type="radio" name="toan_q11" value="D" class="mr-2"> D. 6 đường chéo chính</label>
-                    </div>
-                    <button onclick="checkMcq('toan_q11', 'A')" class="mt-3 bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">Kiểm tra</button>
-                    <div id="feedback-toan_q11" class="mt-2 font-medium"></div>
-                </div>
-
-                <!-- Q12 -->
-                <div class="mb-6 p-4 border rounded-lg bg-gray-50">
-                    <p class="font-semibold mb-3">Câu 12: Chỉ ra điểm không hợp lí trong bảng dữ liệu "Danh sách học sinh giỏi":</p>
-                    <div class="space-y-2" id="toan_q12">
-                        <label class="block p-2 rounded-lg border border-gray-300 hover:bg-gray-100 cursor-pointer"><input type="radio" name="toan_q12" value="A" class="mr-2"> A. Nguyễn Huỳnh Lan</label>
-                        <label class="block p-2 rounded-lg border border-gray-300 hover:bg-gray-100 cursor-pointer"><input type="radio" name="toan_q12" value="B" class="mr-2"> B. Ngô Xuân Giang</label>
-                        <label class="block p-2 rounded-lg border border-gray-300 hover:bg-gray-100 cursor-pointer"><input type="radio" name="toan_q12" value="C" class="mr-2"> C. 03456789</label>
-                        <label class="block p-2 rounded-lg border border-gray-300 hover:bg-gray-100 cursor-pointer"><input type="radio" name="toan_q12" value="D" class="mr-2"> D. Trần Văn Hùng</label>
-                    </div>
-                    <button onclick="checkMcq('toan_q12', 'C')" class="mt-3 bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">Kiểm tra</button>
-                    <div id="feedback-toan_q12" class="mt-2 font-medium"></div>
-                </div>
-
-                <!-- Q13 -->
-                <div class="mb-6 p-4 border rounded-lg bg-gray-50">
-                    <p class="font-semibold mb-3">Câu 13: Hình thang cân là hình có:</p>
-                    <div class="space-y-2" id="toan_q13">
-                        <label class="block p-2 rounded-lg border border-gray-300 hover:bg-gray-100 cursor-pointer"><input type="radio" name="toan_q13" value="A" class="mr-2"> A. hai góc đối diện bằng nhau</label>
-                        <label class="block p-2 rounded-lg border border-gray-300 hover:bg-gray-100 cursor-pointer"><input type="radio" name="toan_q13" value="B" class="mr-2"> B. hai cạnh đáy bằng nhau</label>
-                        <label class="block p-2 rounded-lg border border-gray-300 hover:bg-gray-100 cursor-pointer"><input type="radio" name="toan_q13" value="C" class="mr-2"> C. hai đường chéo không bằng nhau</label>
-                        <label class="block p-2 rounded-lg border border-gray-300 hover:bg-gray-100 cursor-pointer"><input type="radio" name="toan_q13" value="D" class="mr-2"> D. hai cạnh bên bằng nhau</label>
-                    </div>
-                    <button onclick="checkMcq('toan_q13', 'D')" class="mt-3 bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">Kiểm tra</button>
-                    <div id="feedback-toan_q13" class="mt-2 font-medium"></div>
-                </div>
-
-                <!-- Q14 -->
-                <div class="mb-6 p-4 border rounded-lg bg-gray-50">
-                    <p class="font-semibold mb-3">Câu 14: Hình bình hành MNPQ có chiều cao 4cm, cạnh PQ là 12cm. Diện tích là:</p>
-                    <div class="space-y-2" id="toan_q14">
-                        <label class="block p-2 rounded-lg border border-gray-300 hover:bg-gray-100 cursor-pointer"><input type="radio" name="toan_q14" value="A" class="mr-2"> A. 24cm²</label>
-                        <label class="block p-2 rounded-lg border border-gray-300 hover:bg-gray-100 cursor-pointer"><input type="radio" name="toan_q14" value="B" class="mr-2"> B. 32cm²</label>
-                        <label class="block p-2 rounded-lg border border-gray-300 hover:bg-gray-100 cursor-pointer"><input type="radio" name="toan_q14" value="C" class="mr-2"> C. 16cm²</label>
-                        <label class="block p-2 rounded-lg border border-gray-300 hover:bg-gray-100 cursor-pointer"><input type="radio" name="toan_q14" value="D" class="mr-2"> D. 48cm²</label>
-                    </div>
-                    <button onclick="checkMcq('toan_q14', 'D')" class="mt-3 bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">Kiểm tra</button>
-                    <div id="feedback-toan_q14" class="mt-2 font-medium"></div>
-                </div>
-
-                <!-- Q15 -->
-                <div class="mb-6 p-4 border rounded-lg bg-gray-50">
-                    <p class="font-semibold mb-3">Câu 15: Biểu đồ tranh (1 hình = 1 đôi giày). Cỡ 38 bán được bao nhiêu đôi?</p>
-                    <div class="space-y-2" id="toan_q15">
-                        <label class="block p-2 rounded-lg border border-gray-300 hover:bg-gray-100 cursor-pointer"><input type="radio" name="toan_q15" value="A" class="mr-2"> A. 14 đôi</label>
-                        <label class="block p-2 rounded-lg border border-gray-300 hover:bg-gray-100 cursor-pointer"><input type="radio" name="toan_q15" value="B" class="mr-2"> B. 12 đôi</label>
-                        <label class="block p-2 rounded-lg border border-gray-300 hover:bg-gray-100 cursor-pointer"><input type="radio" name="toan_q15" value="C" class="mr-2"> C. 6 đôi</label>
-                        <label class="block p-2 rounded-lg border border-gray-300 hover:bg-gray-100 cursor-pointer"><input type="radio" name="toan_q15" value="D" class="mr-2"> D. 5 đôi</label>
-                    </div>
-                    <button onclick="checkMcq('toan_q15', 'C')" class="mt-3 bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">Kiểm tra</button>
-                    <div id="feedback-toan_q15" class="mt-2 font-medium"></div>
-                </div>
-
-                <!-- Q16 -->
-                <div class="mb-6 p-4 border rounded-lg bg-gray-50">
-                    <p class="font-semibold mb-3">Câu 16: Tập hợp các số nguyên được kí hiệu là:</p>
-                    <div class="space-y-2" id="toan_q16">
-                        <label class="block p-2 rounded-lg border border-gray-300 hover:bg-gray-100 cursor-pointer"><input type="radio" name="toan_q16" value="A" class="mr-2"> A. Z*</label>
-                        <label class="block p-2 rounded-lg border border-gray-300 hover:bg-gray-100 cursor-pointer"><input type="radio" name="toan_q16" value="B" class="mr-2"> B. Z</label>
-                        <label class="block p-2 rounded-lg border border-gray-300 hover:bg-gray-100 cursor-pointer"><input type="radio" name="toan_q16" value="C" class="mr-2"> C. N*</label>
-                        <label class="block p-2 rounded-lg border border-gray-300 hover:bg-gray-100 cursor-pointer"><input type="radio" name="toan_q16" value="D" class="mr-2"> D. N</label>
-                    </div>
-                    <button onclick="checkMcq('toan_q16', 'B')" class="mt-3 bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">Kiểm tra</button>
-                    <div id="feedback-toan_q16" class="mt-2 font-medium"></div>
-                </div>
-
-
-                <!-- PHẦN II: ĐÚNG/SAI -->
-                <h4 class="text-xl font-semibold mb-3 mt-8 text-gray-800">Phần II: Trắc nghiệm (Đúng/Sai)</h4>
-                
-                <!-- Q17 -->
-                <div class="mb-6 p-4 border rounded-lg bg-gray-50">
-                    <p class="font-semibold mb-3">Câu 17: Cho các số nguyên sau 12; -3; - 6; 8; 0; -5; 2.</p>
-                    <ul class="list-disc list-inside ml-4 space-y-1">
-                        <li>a. Trong các số trên có 4 số nguyên dương.</li>
-                        <li>b. Số – 6 lớn hơn – 3.</li>
-                        <li>c. Các số trên được sắp xếp theo thứ tự tăng dần là - 6; – 5; -3; 0; 2; 8; 12.</li>
-                        <li>d. Số – 5 là số nguyên âm.</li>
-                    </ul>
-                    <button onclick="toggleAnswer('toan_ans17', this)" class="mt-3 bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600">Xem đáp án</button>
-                    <div id="toan_ans17" class="mt-3 p-3 bg-green-50 rounded-lg border border-green-200 hidden">
-                        <strong>Đáp án:</strong>
-                        <ul class="list-none list-inside ml-4">
-                            <li>a. <strong>Sai</strong> (Có 3 số nguyên dương: 12, 8, 2)</li>
-                            <li>b. <strong>Sai</strong> (– 6 < – 3)</li>
-                            <li>c. <strong>Đúng</strong></li>
-                            <li>d. <strong>Đúng</strong></li>
-                        </ul>
-                    </div>
-                </div>
-                
-                <!-- Q18 -->
-                <div class="mb-6 p-4 border rounded-lg bg-gray-50">
-                    <p class="font-semibold mb-3">Câu 18: Biểu đồ tranh (1 hình = 2 học sinh) số học sinh đi xe đạp.</p>
-                    <ul class="list-disc list-inside ml-4 space-y-1">
-                        <li>a. Tổ 1 có 8 học sinh đi học bằng xe đạp.</li>
-                        <li>b. Tổ 2 có số học sinh đi học bằng xe đạp nhiều nhất.</li>
-                        <li>c. Tổ 3 nhiều học sinh đi học bằng xe đạp hơn tổ 1.</li>
-                        <li>d. Tổng số học sinh đi xe đạp của cả ba tổ là 24 học sinh.</li>
-                    </ul>
-                    <button onclick="toggleAnswer('toan_ans18', this)" class="mt-3 bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600">Xem đáp án</button>
-                    <div id="toan_ans18" class="mt-3 p-3 bg-green-50 rounded-lg border border-green-200 hidden">
-                        <strong>Đáp án:</strong>
-                        <ul class="list-none list-inside ml-4">
-                            <li>a. <strong>Đúng</strong> (4 hình x 2 = 8)</li>
-                            <li>b. <strong>Sai</strong> (Tổ 2 có 6, Tổ 3 có 10. Tổ 3 nhiều nhất)</li>
-                            <li>c. <strong>Đúng</strong> (Tổ 3: 10 > Tổ 1: 8)</li>
-                            <li>d. <strong>Đúng</strong> (8 + 6 + 10 = 24)</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <!-- PHẦN III: TỰ LUẬN -->
-                <h4 class="text-xl font-semibold mb-3 mt-8 text-gray-800">Phần III: Tự luận</h4>
-                
-                <!-- Q19 -->
-                <div class="mb-6 p-4 border rounded-lg bg-gray-50">
-                    <p class="font-semibold mb-3">Câu 19: Cho các số – 4; 5; 35; – 45. Em hãy viết số đối của các số trên.</p>
-                    <button onclick="toggleAnswer('toan_ans19', this)" class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600">Xem đáp án</button>
-                    <div id="toan_ans19" class="mt-3 p-3 bg-green-50 rounded-lg border border-green-200 hidden">
-                        <strong>Đáp án:</strong> Số đối của – 4; 5; 35; – 45 lần lượt là 4; – 5; – 35; 45.
-                    </div>
-                </div>
-
-                <!-- Q20 -->
-                <div class="mb-6 p-4 border rounded-lg bg-gray-50">
-                    <p class="font-semibold mb-3">Câu 20: Thống kê nhiệt độ ở Hà Nội (Bảng 01/01 đến 07/01):</p>
-                    <ul class="list-disc list-inside ml-4 space-y-1">
-                        <li>a. Có bao nhiêu ngày nhiệt độ thấp hơn 21°C?</li>
-                        <li>b. Có bao nhiêu ngày nhiệt độ đạt 22°C?</li>
-                        <li>c. Chênh lệch giữa ngày cao nhất và thấp nhất là bao nhiêu?</li>
-                    </ul>
-                    <button onclick="toggleAnswer('toan_ans20', this)" class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600">Xem đáp án</button>
-                    <div id="toan_ans20" class="mt-3 p-3 bg-green-50 rounded-lg border border-green-200 hidden">
-                        <strong>Đáp án:</strong>
-                        <ul class="list-disc list-inside ml-4">
-                            <li>a. Có 4 ngày thấp hơn 21°C (18°C, 17°C, 17°C, 19°C).</li>
-                            <li>b. Có 2 ngày đạt 22°C.</li>
-                            <li>c. Cao nhất 22°C, thấp nhất 17°C. Chênh lệch là 22 - 17 = 5°C.</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <!-- Q21 -->
-                <div class="mb-6 p-4 border rounded-lg bg-gray-50">
-                    <p class="font-semibold mb-3">Câu 21: Thực hiện các phép tính sau:</p>
-                    <p class="ml-4 font-mono">a) (-125) + 82 + 125 + (-82)</p>
-                    <p class="ml-4 font-mono">b) 25.13 + 25.87</p>
-                    <button onclick="toggleAnswer('toan_ans21', this)" class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600">Xem đáp án</button>
-                    <div id="toan_ans21" class="mt-3 p-3 bg-green-50 rounded-lg border border-green-200 hidden">
-                        <strong>Đáp án:</strong>
-                        <p class="font-mono">a) = [(-125) + 125] + [82 + (-82)] = 0 + 0 = 0</p>
-                        <p class="font-mono">b) = 25 . (13 + 87) = 25 . 100 = 2500</p>
-                    </div>
-                </div>
-
-                <!-- Q22 -->
-                <div class="mb-6 p-4 border rounded-lg bg-gray-50">
-                    <p class="font-semibold mb-3">Câu 22: Tủ cấp đông đang ở 22°C. Khi bật, nhiệt độ giảm 2°C mỗi phút. Hỏi mất bao lâu để tủ đạt -14°C?</p>
-                    <button onclick="toggleAnswer('toan_ans22', this)" class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600">Xem đáp án</button>
-                    <div id="toan_ans22" class="mt-3 p-3 bg-green-50 rounded-lg border border-green-200 hidden">
-                        <strong>Đáp án:</strong>
-                        <p>Độ chênh lệch nhiệt độ là: 22 - (-14) = 22 + 14 = 36°C.</p>
-                        <p>Thời gian để tủ đạt -14°C là: 36 : 2 = 18 (phút).</p>
-                    </div>
-                </div>
-
-            </div>
-            <!-- ========= NEW MATH TAB PANEL END ========= -->
-
+        <div 
+          onClick={() => setActiveTab('review')}
+          className="bg-white p-6 rounded-2xl shadow-lg border-2 border-transparent hover:border-indigo-400 cursor-pointer transition-all transform hover:-translate-y-1 flex flex-col items-center text-center group"
+        >
+          <div className="bg-indigo-100 p-4 rounded-full mb-4 group-hover:bg-indigo-200 transition-colors">
+            <BookOpen className="w-10 h-10 text-indigo-600" />
+          </div>
+          <h2 className="text-2xl font-bold text-gray-800 mb-2">Ôn Tập Tự Luận</h2>
+          <p className="text-gray-500">Tổng hợp câu hỏi và đáp án chi tiết từ các đề.</p>
         </div>
+      </div>
     </div>
+  );
 
-    <script>
-        const tabButtons = document.querySelectorAll('.tab-btn');
-        const tabPanels = document.querySelectorAll('.tab-panel');
+  const renderQuizList = () => (
+    <div className="max-w-4xl mx-auto py-8 px-4">
+      <h2 className="text-3xl font-bold text-teal-800 mb-6 flex items-center">
+        <Brain className="mr-3" /> Danh sách đề ôn tập
+      </h2>
+      <div className="grid gap-4">
+        {examData.map((exam) => (
+          <div key={exam.id} className="bg-white rounded-xl shadow-md p-6 hover:shadow-lg transition-shadow border-l-4 border-teal-500">
+            <div className="flex flex-col md:flex-row justify-between items-start md:items-center">
+              <div>
+                <h3 className="text-xl font-bold text-gray-800">{exam.title}</h3>
+                <p className="text-gray-600 mt-1">{exam.description}</p>
+                <div className="mt-2 text-sm text-teal-600 font-medium">
+                  {exam.questions.length} câu hỏi • Thời gian: ~{Math.ceil(exam.questions.length * 0.75)} phút
+                </div>
+              </div>
+              <button 
+                onClick={() => startExam(exam)}
+                className="mt-4 md:mt-0 bg-teal-600 hover:bg-teal-700 text-white px-6 py-2 rounded-lg font-medium flex items-center transition-colors"
+              >
+                Làm bài ngay <ArrowRight className="ml-2 w-4 h-4" />
+              </button>
+            </div>
+          </div>
+        ))}
+      </div>
+      <button onClick={() => setActiveTab('home')} className="mt-8 text-gray-500 hover:text-teal-600 flex items-center">
+        Quay lại trang chủ
+      </button>
+    </div>
+  );
 
-        function showTab(targetId) {
-            tabPanels.forEach(panel => {
-                panel.classList.add('hidden');
-            });
-            tabButtons.forEach(button => {
-                button.classList.remove('border-blue-500', 'text-blue-600', 'font-semibold');
-                button.classList.add('border-transparent');
-            });
+  const renderQuizTaking = () => {
+    if (!selectedExam) return null;
+    const currentQuestion = selectedExam.questions[currentQuestionIndex];
+    const isLastQuestion = currentQuestionIndex === selectedExam.questions.length - 1;
+    const score = calculateScore();
 
-            document.getElementById(targetId).classList.remove('hidden');
-            const activeButton = document.querySelector(`.tab-btn[data-target="${targetId}"]`);
-            activeButton.classList.add('border-blue-500', 'text-blue-600', 'font-semibold');
-            activeButton.classList.remove('border-transparent');
-        }
-
-        tabButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                const targetId = button.getAttribute('data-target');
-                showTab(targetId);
-            });
-        });
-
-        // Show the first tab by default
-        showTab('ly-thuyet');
-
-        // Function to check multiple choice questions
-        function checkMcq(questionId, correctAnswer) {
-            const selected = document.querySelector(`input[name="${questionId}"]:checked`);
-            const feedbackEl = document.getElementById(`feedback-${questionId}`);
+    if (showResult) {
+      return (
+        <div className="max-w-3xl mx-auto py-10 px-4 text-center animate-fade-in">
+          <div className="bg-white rounded-2xl shadow-xl p-8 border-t-8 border-teal-500">
+            <Award className="w-20 h-20 mx-auto text-yellow-500 mb-4" />
+            <h2 className="text-3xl font-bold text-gray-800 mb-2">Kết quả bài làm</h2>
+            <p className="text-gray-500 mb-6">{selectedExam.title}</p>
             
-            if (!selected) {
-                feedbackEl.textContent = 'Bạn chưa chọn đáp án!';
-                feedbackEl.className = 'mt-2 font-medium text-yellow-600';
-                return;
-            }
+            <div className="text-6xl font-extrabold text-teal-600 mb-2">
+              {score} / {selectedExam.questions.length}
+            </div>
+            <p className="text-lg text-gray-600 mb-8">
+              {score === selectedExam.questions.length ? "Xuất sắc! Bạn đã nắm vững kiến thức." : 
+               score > selectedExam.questions.length / 2 ? "Khá tốt! Hãy ôn lại những câu sai nhé." : 
+               "Cần cố gắng hơn! Hãy xem lại lý thuyết."}
+            </p>
 
-            if (selected.value === correctAnswer) {
-                feedbackEl.textContent = 'Chính xác! 🎉';
-                feedbackEl.className = 'mt-2 font-medium text-green-700';
-            } else {
-                feedbackEl.textContent = `Sai rồi. Đáp án đúng là ${correctAnswer}.`;
-                feedbackEl.className = 'mt-2 font-medium text-red-700';
-            }
-        }
+            <div className="grid gap-4 text-left">
+               <h3 className="font-bold text-lg text-gray-700 border-b pb-2">Chi tiết đáp án:</h3>
+               {selectedExam.questions.map((q, idx) => (
+                 <div key={idx} className={`p-4 rounded-lg border ${userAnswers[idx] === q.correct ? 'bg-green-50 border-green-200' : 'bg-red-50 border-red-200'}`}>
+                   <p className="font-semibold text-gray-800 mb-2">Câu {idx + 1}: {q.question}</p>
+                   <div className="text-sm space-y-1">
+                     <p className={userAnswers[idx] === q.correct ? 'text-green-700 flex items-center' : 'text-red-600 flex items-center'}>
+                       {userAnswers[idx] === q.correct ? <Check size={16} className="mr-1"/> : <X size={16} className="mr-1"/>}
+                       Bạn chọn: {q.options[userAnswers[idx]] || "Chưa chọn"}
+                     </p>
+                     {userAnswers[idx] !== q.correct && (
+                       <p className="text-teal-700 font-medium flex items-center">
+                         <CheckCircleIcon size={16} className="mr-1"/> Đáp án đúng: {q.options[q.correct]}
+                       </p>
+                     )}
+                     <div className="mt-2 text-xs text-gray-500 bg-white p-2 rounded border border-gray-100">
+                       <span className="font-bold">Giải thích:</span> {q.explanation}
+                     </div>
+                   </div>
+                 </div>
+               ))}
+            </div>
 
-        // Function to toggle (show/hide) answers for self-assessment
-        function toggleAnswer(answerId, button) {
-            const answerEl = document.getElementById(answerId);
-            const isHidden = answerEl.classList.contains('hidden');
-            
-            if (isHidden) {
-                answerEl.classList.remove('hidden');
-                button.textContent = 'Ẩn đáp án';
-            } else {
-                answerEl.classList.add('hidden');
-                button.textContent = 'Xem đáp án';
-            }
-        }
-    </script>
+            <div className="flex justify-center gap-4 mt-8">
+              <button 
+                onClick={() => { setShowResult(false); setUserAnswers({}); setCurrentQuestionIndex(0); }}
+                className="flex items-center bg-gray-200 hover:bg-gray-300 text-gray-800 px-6 py-3 rounded-xl font-medium"
+              >
+                <RefreshCw className="mr-2 w-5 h-5" /> Làm lại
+              </button>
+              <button 
+                onClick={() => setActiveTab('quiz')}
+                className="bg-teal-600 hover:bg-teal-700 text-white px-6 py-3 rounded-xl font-medium"
+              >
+                Chọn đề khác
+              </button>
+            </div>
+          </div>
+        </div>
+      );
+    }
 
-</body>
-</html>
+    return (
+      <div className="max-w-3xl mx-auto py-8 px-4 h-full flex flex-col">
+        {/* Progress Bar */}
+        <div className="mb-6">
+          <div className="flex justify-between text-sm text-gray-600 mb-2">
+            <span>Câu hỏi {currentQuestionIndex + 1}/{selectedExam.questions.length}</span>
+            <span>{Math.round(((currentQuestionIndex + 1) / selectedExam.questions.length) * 100)}% hoàn thành</span>
+          </div>
+          <div className="w-full bg-gray-200 rounded-full h-2.5">
+            <div 
+              className="bg-teal-600 h-2.5 rounded-full transition-all duration-300" 
+              style={{ width: `${((currentQuestionIndex + 1) / selectedExam.questions.length) * 100}%` }}
+            ></div>
+          </div>
+        </div>
+
+        {/* Question Card */}
+        <div className="bg-white rounded-2xl shadow-lg p-6 md:p-8 flex-grow">
+          <h3 className="text-xl md:text-2xl font-bold text-gray-800 mb-6 leading-relaxed">
+            {currentQuestion.question}
+          </h3>
+
+          <div className="space-y-3">
+            {currentQuestion.options.map((option, index) => (
+              <div 
+                key={index}
+                onClick={() => handleOptionSelect(index)}
+                className={`p-4 rounded-xl border-2 cursor-pointer transition-all flex items-center
+                  ${userAnswers[currentQuestionIndex] === index 
+                    ? 'border-teal-500 bg-teal-50 text-teal-900 shadow-md' 
+                    : 'border-gray-200 hover:border-teal-300 hover:bg-gray-50'
+                  }`}
+              >
+                <div className={`w-6 h-6 rounded-full border-2 mr-4 flex items-center justify-center
+                  ${userAnswers[currentQuestionIndex] === index ? 'border-teal-600 bg-teal-600' : 'border-gray-400'}`}>
+                  {userAnswers[currentQuestionIndex] === index && <div className="w-2.5 h-2.5 bg-white rounded-full" />}
+                </div>
+                <span className="text-lg">{option}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Navigation Buttons */}
+        <div className="flex justify-between mt-8">
+          <button
+            onClick={() => setCurrentQuestionIndex(prev => Math.max(0, prev - 1))}
+            disabled={currentQuestionIndex === 0}
+            className={`px-6 py-3 rounded-xl font-medium ${currentQuestionIndex === 0 ? 'bg-gray-100 text-gray-400' : 'bg-white text-gray-700 shadow hover:bg-gray-50'}`}
+          >
+            Quay lại
+          </button>
+          
+          {isLastQuestion ? (
+            <button
+              onClick={() => setShowResult(true)}
+              className="px-8 py-3 bg-teal-600 hover:bg-teal-700 text-white rounded-xl font-bold shadow-lg shadow-teal-200 transform hover:-translate-y-0.5 transition-all"
+            >
+              Nộp bài
+            </button>
+          ) : (
+            <button
+              onClick={() => setCurrentQuestionIndex(prev => Math.min(selectedExam.questions.length - 1, prev + 1))}
+              className="px-6 py-3 bg-teal-600 hover:bg-teal-700 text-white rounded-xl font-medium shadow hover:shadow-lg transition-all"
+            >
+              Câu tiếp theo
+            </button>
+          )}
+        </div>
+      </div>
+    );
+  };
+
+  const renderReview = () => (
+    <div className="max-w-4xl mx-auto py-8 px-4">
+      <div className="text-center mb-10">
+        <h2 className="text-3xl font-bold text-indigo-800 flex items-center justify-center gap-3">
+          <BookOpen className="text-indigo-600" /> Ôn Tập Tự Luận
+        </h2>
+        <p className="text-gray-600 mt-2">Tổng hợp câu hỏi tự luận và đáp án từ 5 đề ôn tập.</p>
+      </div>
+      
+      <div className="grid gap-6">
+        {theoryData.map((item, index) => (
+          <div key={index} className="bg-white rounded-xl shadow-md overflow-hidden border border-indigo-100 hover:shadow-lg transition-shadow">
+            <div className="bg-indigo-50 px-6 py-3 border-b border-indigo-100 flex justify-between items-center">
+              <span className="text-indigo-700 font-bold uppercase text-sm tracking-wider">{item.exam}</span>
+              <span className="bg-white text-indigo-600 text-xs font-bold px-2 py-1 rounded border border-indigo-200">Câu hỏi</span>
+            </div>
+            <div className="p-6">
+              <h3 className="text-lg font-bold text-gray-800 mb-4">{item.question}</h3>
+              <div className="bg-gray-50 p-4 rounded-lg text-gray-700 text-sm md:text-base space-y-2 border-l-4 border-indigo-400">
+                {item.answer.map((line, idx) => (
+                  <p key={idx} className="leading-relaxed flex items-start">
+                    <span className="mr-2 text-indigo-400">•</span>
+                    {line}
+                  </p>
+                ))}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+      <div className="mt-8 text-center">
+         <button onClick={() => setActiveTab('home')} className="text-indigo-600 font-medium hover:underline">
+           Quay lại trang chủ
+         </button>
+      </div>
+    </div>
+  );
+
+  return (
+    <div className="min-h-screen bg-slate-50 font-sans text-gray-900 flex flex-col">
+      {/* Header */}
+      <header className="bg-white shadow-sm sticky top-0 z-50">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center h-16">
+            <div 
+              className="flex items-center cursor-pointer" 
+              onClick={() => {setActiveTab('home'); setSelectedExam(null);}}
+            >
+              <div className="bg-teal-600 text-white p-2 rounded-lg mr-3">
+                <Microscope size={24} />
+              </div>
+              <span className="text-xl font-bold text-teal-800 tracking-tight">KHTN 6</span>
+            </div>
+
+            {/* Desktop Menu */}
+            <nav className="hidden md:flex space-x-8">
+              <button 
+                onClick={() => setActiveTab('home')}
+                className={`text-sm font-medium transition-colors ${activeTab === 'home' ? 'text-teal-600 border-b-2 border-teal-600' : 'text-gray-500 hover:text-teal-600'}`}
+              >
+                Trang chủ
+              </button>
+              <button 
+                onClick={() => setActiveTab('quiz')}
+                className={`text-sm font-medium transition-colors ${activeTab === 'quiz' || activeTab === 'quiz_taking' ? 'text-teal-600 border-b-2 border-teal-600' : 'text-gray-500 hover:text-teal-600'}`}
+              >
+                Luyện đề
+              </button>
+              <button 
+                onClick={() => setActiveTab('review')}
+                className={`text-sm font-medium transition-colors ${activeTab === 'review' ? 'text-teal-600 border-b-2 border-teal-600' : 'text-gray-500 hover:text-teal-600'}`}
+              >
+                Ôn lý thuyết
+              </button>
+            </nav>
+
+            {/* Mobile Menu Button */}
+            <div className="md:hidden">
+              <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="text-gray-600 p-2">
+                {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* Mobile Menu Dropdown */}
+        {isMobileMenuOpen && (
+          <div className="md:hidden bg-white border-t border-gray-100 absolute w-full shadow-lg">
+            <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+              <button 
+                onClick={() => { setActiveTab('home'); setIsMobileMenuOpen(false); }}
+                className="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-teal-600 hover:bg-gray-50"
+              >
+                Trang chủ
+              </button>
+              <button 
+                onClick={() => { setActiveTab('quiz'); setIsMobileMenuOpen(false); }}
+                className="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-teal-600 hover:bg-gray-50"
+              >
+                Luyện đề
+              </button>
+              <button 
+                onClick={() => { setActiveTab('review'); setIsMobileMenuOpen(false); }}
+                className="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-teal-600 hover:bg-gray-50"
+              >
+                Ôn lý thuyết
+              </button>
+            </div>
+          </div>
+        )}
+      </header>
+
+      {/* Main Content */}
+      <main className="flex-grow">
+        {activeTab === 'home' && renderHome()}
+        {activeTab === 'quiz' && renderQuizList()}
+        {activeTab === 'quiz_taking' && renderQuizTaking()}
+        {activeTab === 'review' && renderReview()}
+      </main>
+
+      {/* Footer */}
+      <footer className="bg-white border-t border-gray-200 mt-auto">
+        <div className="max-w-6xl mx-auto py-6 px-4 text-center text-gray-500 text-sm">
+          <p>© 2024 Ôn tập Khoa học tự nhiên 6. Sách Chân Trời Sáng Tạo.</p>
+        </div>
+      </footer>
+    </div>
+  );
+}
+
+// Helper component icon
+function CheckCircleIcon({ size, className }) {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+      <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+      <polyline points="22 4 12 14.01 9 11.01"></polyline>
+    </svg>
+  );
+}
