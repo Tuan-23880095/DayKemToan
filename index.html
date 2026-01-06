@@ -3,1148 +3,555 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ôn Tập Khoa Học Tự Nhiên 6 - Chân Trời Sáng Tạo</title>
-    <!-- Tailwind CSS -->
+    <title>Kiểm Tra Sinh Học - Bài 26 & 27</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- React & ReactDOM -->
-    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
-    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
-    <!-- Babel để xử lý JSX -->
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-    
     <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f8fafc; }
-        .animate-fade-in { animation: fadeIn 0.5s ease-out; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        /* Tùy chỉnh thanh cuộn */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #f1f1f1; }
-        ::-webkit-scrollbar-thumb { background: #0d9488; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: #0f766e; }
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+        body { font-family: 'Roboto', sans-serif; background-color: #ecfdf5; }
+        
+        /* Styles cho Kéo Thả / Click Điền */
+        .word-bank-item { 
+            cursor: pointer; user-select: none; transition: all 0.2s; 
+            background-color: white; border: 1px solid #10b981; color: #065f46;
+            padding: 6px 12px; border-radius: 20px; font-weight: 500;
+        }
+        .word-bank-item:hover { background-color: #d1fae5; transform: translateY(-2px); }
+        .word-bank-item.selected { 
+            background-color: #059669 !important; color: white !important; 
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1); 
+        }
+        .word-bank-item.used { opacity: 0.5; cursor: not-allowed; background-color: #e5e7eb; border-color: #9ca3af; color: #6b7280; }
+
+        .fill-blank { 
+            display: inline-block; min-width: 80px; height: 30px; 
+            border-bottom: 2px dashed #059669; margin: 0 4px; 
+            text-align: center; color: #064e3b; font-weight: bold; cursor: pointer;
+            vertical-align: bottom; transition: all 0.2s;
+        }
+        .fill-blank:hover { background-color: #d1fae5; }
+        .fill-blank.filled { border-bottom: 2px solid #059669; background-color: #ecfdf5; }
+
+        /* Loading Spinner */
+        .loading-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); display: none; justify-content: center; align-items: center; z-index: 50; flex-direction: column; color: white; }
+        .spinner { border: 4px solid #f3f3f3; border-top: 4px solid #10b981; border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; margin-bottom: 10px; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
     </style>
 </head>
 <body>
-    <div id="root"></div>
 
-    <script type="text/babel">
-        const { useState, useEffect } = React;
+    <!-- Loading Screen -->
+    <div id="loading" class="loading-overlay">
+        <div class="spinner"></div>
+        <p id="loading-text" class="font-bold">Đang xử lý...</p>
+    </div>
 
-        // --- ICONS (SVG Components thay thế cho lucide-react để chạy trực tiếp) ---
-        const Icon = ({ path, className, size = 24, color = "currentColor" }) => (
-            <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
-                {path}
-            </svg>
-        );
+    <div class="max-w-4xl mx-auto p-4">
+        <!-- Header -->
+        <header class="bg-gradient-to-r from-emerald-600 to-green-700 text-white p-6 rounded-t-xl shadow-lg mb-6 text-center">
+            <h1 class="text-2xl md:text-3xl font-bold uppercase">Kiểm Tra Sinh Học 6</h1>
+            <p class="mt-2 text-emerald-100">Bài 26: Vi khuẩn & Bài 27: Nguyên sinh vật</p>
+        </header>
 
-        const BookOpen = (props) => <Icon {...props} path={<><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></>} />;
-        const Award = (props) => <Icon {...props} path={<><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></>} />;
-        const RefreshCw = (props) => <Icon {...props} path={<><path d="M23 4v6h-6"/><path d="M1 20v-6h6"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></>} />;
-        const Beaker = (props) => <Icon {...props} path={<><path d="M4.5 3h15"/><path d="M6 3v16a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V3"/><path d="M6 14h12"/></>} />;
-        const Zap = (props) => <Icon {...props} path={<polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>} />;
-        const Microscope = (props) => <Icon {...props} path={<><path d="M6 18h8"/><path d="M3 22h18"/><path d="M14 22a7 7 0 1 0 0-14h-1"/><path d="M9 14h2"/><path d="M9 12a2 2 0 0 1-2-2V6h6v4a2 2 0 0 1-2 2Z"/><path d="M12 6V3a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v3"/></>} />;
-        const Brain = (props) => <Icon {...props} path={<><path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 1.98-3A2.5 2.5 0 0 1 9.5 2Z"/><path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-1.98-3A2.5 2.5 0 0 0 14.5 2Z"/></>} />;
-        const ArrowRight = (props) => <Icon {...props} path={<><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></>} />;
-        const Menu = (props) => <Icon {...props} path={<><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="18" x2="20" y2="18"/></>} />;
-        const XIcon = (props) => <Icon {...props} path={<><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></>} />;
-        const Check = (props) => <Icon {...props} path={<polyline points="20 6 9 17 4 12"/>} />;
-        const CheckCircle = (props) => <Icon {...props} path={<><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></>} />;
+        <!-- Student Info -->
+        <div class="bg-white p-6 rounded-lg shadow-md mb-6 border-l-4 border-emerald-500">
+            <h2 class="text-lg font-bold mb-4 text-gray-800 flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>
+                Thông tin học sinh
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-gray-700 text-sm font-bold mb-2">Họ và tên</label>
+                    <input type="text" id="studentName" class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-emerald-500" placeholder="Nhập họ tên...">
+                </div>
+                <div>
+                    <label class="block text-gray-700 text-sm font-bold mb-2">Lớp</label>
+                    <input type="text" id="className" class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-emerald-500" placeholder="Ví dụ: 6A1">
+                </div>
+            </div>
+        </div>
 
-        // --- DỮ LIỆU CÂU HỎI ---
-        const examData = [
-            {
-                id: 1,
-                title: "Đề ôn tập số 1",
-                description: "An toàn thực hành, đo lường, tế bào, hỗn hợp, chất tinh khiết.",
-                questions: [
-                {
-                    id: 1,
-                    question: "Để đảm bảo an toàn trong phòng thực hành cần thực hiện nguyên tắc nào dưới đây?",
-                    options: [
-                    "A. Làm thí nghiệm theo sự hướng dẫn của bạn bè trong lớp.",
-                    "B. Có thể nhận biết hóa chất bằng cách ngửi hóa chất.",
-                    "C. Mang đồ ăn vào phòng thực hành.",
-                    "D. Đọc kĩ nội quy và thực hiện theo nội quy phòng thực hành."
-                    ],
-                    correct: 3,
-                    explanation: "Cần tuân thủ tuyệt đối nội quy và hướng dẫn của giáo viên/phòng thực hành."
-                },
-                {
-                    id: 2,
-                    question: "Trong Hệ đơn vị đo lường hợp pháp của nước ta, đơn vị độ dài là:",
-                    options: ["A. dm", "B. m", "C. cm", "D. km"],
-                    correct: 1,
-                    explanation: "Mét (m) là đơn vị đo độ dài cơ bản trong hệ SI và hệ đo lường VN."
-                },
-                {
-                    id: 3,
-                    question: "Đổi đơn vị: 750g = ..... kg",
-                    options: ["A. 0,75kg", "B. 7,5kg", "C. 0,075kg", "D. 75kg"],
-                    correct: 0,
-                    explanation: "1 kg = 1000 g => 750 g = 0.75 kg."
-                },
-                {
-                    id: 4,
-                    question: "Quá trình nào sau đây cần oxygen?",
-                    options: ["A. Hô hấp.", "B. Quang hợp.", "C. Hoà tan.", "D. Nóng chảy."],
-                    correct: 0,
-                    explanation: "Hô hấp tế bào tiêu thụ oxygen để tạo năng lượng."
-                },
-                {
-                    id: 5,
-                    question: "Thép dùng trong xây dựng nhà cửa, cầu, cống được sản suất từ loại nguyên liệu nào sau đây?",
-                    options: ["A. Quặng bauxite.", "B. Quặng đồng.", "C. Quặng chứa phosphorus.", "D. Quặng sắt."],
-                    correct: 3,
-                    explanation: "Thép là hợp kim của sắt, được sản xuất từ quặng sắt."
-                },
-                {
-                    id: 6,
-                    question: "Vật liệu nào dưới đây, ngoài mục đích sử dụng trong xây dựng còn hướng tới bảo vệ môi trường và đảm bảo sự phát triển bền vững?",
-                    options: ["A. Gỗ tự nhiên.", "B. Kim loại.", "C. Đá vôi.", "D. Gạch không nung."],
-                    correct: 3,
-                    explanation: "Gạch không nung giảm ô nhiễm khói bụi từ lò nung."
-                },
-                {
-                    id: 7,
-                    question: "Ví dụ nào sau đây không phải là hỗn hợp?",
-                    options: ["A. Nước cất.", "B. Nước suối.", "C. Nước mưa.", "D. Nước biển."],
-                    correct: 0,
-                    explanation: "Nước cất là chất tinh khiết (chỉ chứa H2O)."
-                },
-                {
-                    id: 8,
-                    question: "Chất tinh khiết là:",
-                    options: ["A. chất không lẫn chất nào khác.", "B. chất có lẫn 1 chất khác.", "C. chất có lẫn 2 chất khác.", "D. chất có lẫn 3 chất khác."],
-                    correct: 0,
-                    explanation: "Chất tinh khiết không bị lẫn tạp chất."
-                },
-                {
-                    id: 9,
-                    question: "Việc làm nào sau đây là quá trình tách chất dựa theo sự khác nhau về kích thước hạt?",
-                    options: ["A. Giặt giẻ lau.", "B. Dùng nam châm hút bột sắt.", "C. Lọc nước bị vẫn đục bằng giấy lọc.", "D. Ngâm quả dâu."],
-                    correct: 2,
-                    explanation: "Phương pháp lọc dựa trên sự khác nhau về kích thước hạt."
-                },
-                {
-                    id: 10,
-                    question: "Tế bào là:",
-                    options: ["A. đơn vị cấu tạo cơ bản của tất cả các cơ thể sống.", "B. đơn vị cấu tạo cơ bản của vật thể.", "C. đơn vị cấu tạo nguyên liệu.", "D. đơn vị cấu tạo vật liệu."],
-                    correct: 0,
-                    explanation: "Mọi sinh vật đều được cấu tạo từ tế bào."
-                },
-                {
-                    id: 11,
-                    question: "Màng sinh chất có chức năng:",
-                    options: ["A. bao bọc ngoài chất tế bào.", "B. làm cho tế bào có hình dạng nhất định.", "C. điều khiển hoạt động sống.", "D. chứa dịch tế bào."],
-                    correct: 0, // Đáp án A theo đề. (Thực tế màng kiểm soát chất ra vào và bao bọc)
-                    explanation: "Màng sinh chất bao bọc và bảo vệ các thành phần bên trong tế bào."
-                },
-                {
-                    id: 12,
-                    question: "Các tế bào vảy hành thường có hình lục giác, thành phần nào của chúng đã quy định điều đó?",
-                    options: ["A. Không bào.", "B. Nhân.", "C. Vách tế bào (Thành tế bào).", "D. Màng sinh chất."],
-                    correct: 2,
-                    explanation: "Vách tế bào (thành tế bào) ở thực vật quy định hình dạng tế bào."
-                },
-                {
-                    id: 13,
-                    question: "Tế bào thực vật gồm những thành phần chính như sau:",
-                    options: ["A. Nhân, không bào, lục lạp.", "B. Vách tế bào, màng sinh chất, chất tế bào, nhân.", "C. Vách tế bào, chất tế bào, nhân, không bào.", "D. Màng sinh chất, chất tế bào, nhân, lục lạp."],
-                    correct: 1,
-                    explanation: "Thành phần cơ bản và đặc trưng: Vách, màng, chất tế bào, nhân."
-                },
-                {
-                    id: 14,
-                    question: "Cơ thể lớn lên được là nhờ đâu?",
-                    options: ["A. Sự sinh trưởng của tế bào.", "B. Sự lớn lên của tế bào.", "C. Sự lớn lên và phân chia của tế bào.", "D. Sự sinh trưởng và lớn lên của tế bào."],
-                    correct: 2,
-                    explanation: "Sự phân chia làm tăng số lượng và sự lớn lên làm tăng kích thước tế bào."
-                },
-                {
-                    id: 15,
-                    question: "Tập hợp các mô cùng thực hiện một hoạt động sống nhất định tạo thành:",
-                    options: ["A. Cơ quan.", "B. Mô.", "C. Tế bào.", "D. Hệ cơ quan."],
-                    correct: 0,
-                    explanation: "Mô -> Cơ quan -> Hệ cơ quan."
-                },
-                {
-                    id: 16,
-                    question: "Đặc điểm nào KHÔNG phải là đặc điểm của cơ thể đa bào?",
-                    options: ["A. (1)", "B. (2), (4)", "C. (3), (5)", "D. (1), (4)"],
-                    correct: 2,
-                    explanation: "Cơ thể đa bào không phải chỉ có 1 tế bào thực hiện mọi chức năng và thường có kích thước lớn."
-                },
-                {
-                    id: 17,
-                    question: "Vì sao nhân tế bào là nơi lưu giữ các thông tin di truyền?",
-                    options: ["A. Vì nhân tế bào chứa vật chất di truyền.", "B. Vì nhân là trung tâm điều khiển.", "C. Vì nhân là nơi diễn ra hoạt động sống.", "D. Vì nhân kiểm soát chất đi vào/ra."],
-                    correct: 0,
-                    explanation: "Nhân chứa DNA (vật chất di truyền)."
-                },
-                {
-                    id: 18,
-                    question: "Cơ thể đơn bào và cơ thể đa bào khác nhau chủ yếu ở điểm nào?",
-                    options: ["A. Màu sắc.", "B. Số lượng tế bào tạo thành.", "C. Kích thước.", "D. Hình dạng."],
-                    correct: 1,
-                    explanation: "Đơn bào (1 tế bào) vs Đa bào (nhiều tế bào)."
-                },
-                {
-                    id: 19,
-                    question: "Tên phổ thông của các loài được hiểu là?",
-                    options: ["A. Cách gọi phổ biến của loài có trong danh mục tra cứu.", "B. Tên giống + tên loài.", "C. Tên địa phương.", "D. Tên khoa học."],
-                    correct: 0,
-                    explanation: "Tên phổ thông là tên gọi chính thức, phổ biến."
-                },
-                {
-                    id: 20,
-                    question: "Vì sao cần phải phân loại thế giới sống?",
-                    options: ["A. Xác định số lượng.", "B. Đặt tên.", "C. Thấy sự khác nhau.", "D. Xác định vị trí, tìm ra chúng dễ dàng hơn."],
-                    correct: 3,
-                    explanation: "Phân loại giúp trật tự hóa và dễ dàng nghiên cứu, tìm kiếm."
-                },
-                {
-                    id: 21,
-                    question: "Nhóm các bệnh nào dưới đây do virus gây ra?",
-                    options: ["A. Viêm gan B, AIDS, sởi.", "B. Tả, sởi, viêm gan A.", "C. Quai bị, lao phổi, viêm gan B.", "D. Viêm não NB, thủy đậu, viêm da."],
-                    correct: 0,
-                    explanation: "Tả, Lao phổi thường do vi khuẩn."
-                },
-                {
-                    id: 22,
-                    question: "Bệnh nào sau đây KHÔNG phải bệnh do vi khuẩn gây nên?",
-                    options: ["A. Kiết lị.", "B. Tiêu chảy.", "C. Vàng da.", "D. Đậu mùa."],
-                    correct: 3,
-                    explanation: "Đậu mùa do virus gây ra."
-                },
-                {
-                    id: 23,
-                    question: "Điều nào sau đây là KHÔNG đúng khi nói về virus?",
-                    options: ["A. Chỉ hoạt động trong tế bào chủ.", "B. Chưa có cấu tạo tế bào.", "C. Kích thước siêu nhỏ.", "D. Ở bên ngoài tế bào, virus vẫn hoạt động bình thường."],
-                    correct: 3,
-                    explanation: "Ngoài tế bào chủ, virus tồn tại ở dạng tinh thể, không hoạt động sống."
-                },
-                {
-                    id: 24,
-                    question: "Đặc điểm cơ bản để xếp vi khuẩn vào giới Khởi sinh?",
-                    options: ["A. Kích thước nhỏ.", "B. Cơ thể đơn bào, nhân sơ.", "C. Sống kí sinh.", "D. Môi trường sống đa dạng."],
-                    correct: 1,
-                    explanation: "Giới Khởi sinh đặc trưng bởi cấu tạo nhân sơ (Prokaryote)."
-                }
-                ]
-            },
-            {
-                id: 2,
-                title: "Đề ôn tập số 2",
-                description: "KHTN đại cương, đo lường, tính chất chất, oxygen, lực, sinh học cơ bản.",
-                questions: [
-                {
-                    id: 1,
-                    question: "Khoa học tự nhiên nghiên cứu về lĩnh vực nào dưới đây?",
-                    options: ["A. Các sự vật, hiện tượng tự nhiên, các quy luật tự nhiên.", "B. Quy luật xã hội.", "C. Văn hóa – nghệ thuật.", "D. Văn học."],
-                    correct: 0,
-                    explanation: "KHTN nghiên cứu thế giới tự nhiên."
-                },
-                {
-                    id: 2,
-                    question: "Lĩnh vực chuyên nghiên cứu về thực vật thuộc lĩnh vực nào?",
-                    options: ["A. Vật lý.", "B. Hóa học.", "C. Sinh học.", "D. Khoa học Trái Đất."],
-                    correct: 2,
-                    explanation: "Thực vật học là một nhánh của Sinh học."
-                },
-                {
-                    id: 3,
-                    question: "Giới hạn đo của một thước là chiều dài:",
-                    options: ["A. lớn nhất ghi trên thước.", "B. nhỏ nhất ghi trên thước.", "C. giữa hai vạch liên tiếp.", "D. giữa hai vạch chia nhỏ nhất."],
-                    correct: 0,
-                    explanation: "GHĐ là giá trị lớn nhất ghi trên dụng cụ đo."
-                },
-                {
-                    id: 4,
-                    question: "Sắp xếp các bước đo thời gian: (1) Đọc, (2) Chọn đồng hồ, (3) Đo, (4) Ước lượng, (5) Hiệu chỉnh.",
-                    options: ["A. 2,4,3,1,5", "B. 1,4,2,5,3", "C. 5,2,1,4,3", "D. 4,2,5,3,1"],
-                    correct: 3, 
-                    explanation: "Quy trình: Ước lượng để chọn dụng cụ -> Hiệu chỉnh -> Đo -> Đọc."
-                },
-                {
-                    id: 5,
-                    question: "Quá trình nào sau đây thể hiện tính chất hóa học?",
-                    options: ["A. Hòa tan đường.", "B. Cô cạn nước đường.", "C. Đun nóng đường tới lúc xuất hiện chất màu đen.", "D. Đun nóng đường nóng chảy."],
-                    correct: 2,
-                    explanation: "Đường chuyển thành than (màu đen) là chất mới -> tính chất hóa học."
-                },
-                {
-                    id: 6,
-                    question: "Oxygen có tính chất nào?",
-                    options: ["A. Nặng hơn KK, không duy trì cháy.", "B. Nặng hơn KK, duy trì sự cháy và sống.", "C. Nhẹ hơn KK.", "D. Tan nhiều trong nước."],
-                    correct: 1,
-                    explanation: "Oxygen nặng hơn không khí một chút và duy trì sự cháy."
-                },
-                {
-                    id: 7,
-                    question: "Đơn vị chức năng cơ bản của cơ thể là:",
-                    options: ["A. Tế bào", "B. Bào quan", "C. Cơ quan", "D. Hệ cơ quan"],
-                    correct: 0,
-                    explanation: "Tế bào là đơn vị cơ sở của sự sống."
-                },
-                {
-                    id: 8,
-                    question: "Từ một tế bào mẹ sau khi phân chia một lần tạo ra bao nhiêu tế bào con?",
-                    options: ["A. 8", "B. 1", "C. 4", "D. 2"],
-                    correct: 3,
-                    explanation: "Mỗi lần phân chia tạo ra 2 tế bào con."
-                },
-                {
-                    id: 9,
-                    question: "Lá cây thuộc cấp độ tổ chức nào?",
-                    options: ["A. Tế bào.", "B. Mô.", "C. Cơ quan.", "D. Hệ cơ quan."],
-                    correct: 2,
-                    explanation: "Lá là một cơ quan sinh dưỡng của cây."
-                },
-                {
-                    id: 10,
-                    question: "Vật sống nào sau đây thuộc nhóm cơ thể đơn bào?",
-                    options: ["A. Trùng roi, trùng giày, trùng biến hình, trùng kiết lỵ.", "B. Trùng giày, rêu.", "C. Trùng roi, tảo silic, rêu.", "D. Trùng giày, trùng chỉ, rêu."],
-                    correct: 0,
-                    explanation: "Rêu và trùng chỉ là đa bào."
-                },
-                {
-                    id: 11,
-                    question: "Nhiệt độ nước đá đang tan theo thang Celsius là:",
-                    options: ["A. 0°C", "B. 100°C", "C. 37°C", "D. 42°C"],
-                    correct: 0,
-                    explanation: "Điểm đông đặc/nóng chảy của nước là 0 độ C."
-                },
-                {
-                    id: 12,
-                    question: "Đơn vị của lực là:",
-                    options: ["A. kg", "B. Newton (N)", "C. cm", "D. Lít"],
-                    correct: 1,
-                    explanation: "Newton (N) là đơn vị đo lực."
-                },
-                {
-                    id: 13,
-                    question: "Treo vật vào lò xo, lò xo dãn ra. Khi đó:",
-                    options: ["A. Lò xo đẩy vật.", "B. Vật nén lò xo.", "C. Lò xo nén vật.", "D. Vật tác dụng vào lò xo một lực kéo."],
-                    correct: 3,
-                    explanation: "Trọng lượng của vật kéo lò xo xuống."
-                },
-                {
-                    id: 14,
-                    question: "Vật liệu là:",
-                    options: ["A. Thức ăn.", "B. Sắt, cát.", "C. Chất/hỗn hợp dùng làm nguyên liệu sản xuất.", "D. Chất trộn lẫn."],
-                    correct: 2,
-                    explanation: "Định nghĩa rộng của vật liệu là nguyên liệu đầu vào cho sản xuất."
-                },
-                {
-                    id: 15,
-                    question: "Vật liệu xây dựng bảo vệ môi trường?",
-                    options: ["A. Gỗ.", "B. Kim loại.", "C. Gạch không nung.", "D. Gạch chịu lửa."],
-                    correct: 2,
-                    explanation: "Gạch không nung thân thiện với môi trường hơn gạch nung."
-                },
-                {
-                    id: 16,
-                    question: "Vật liệu nào sau đây khó tái chế nhất trong nhóm?",
-                    options: ["A. Thủy tinh.", "B. Thép.", "C. Nhựa composite.", "D. Xi măng (bê tông)."],
-                    correct: 3,
-                    explanation: "Xi măng sau khi kết dính thành bê tông rất khó tái chế lại thành xi măng."
-                },
-                {
-                    id: 17,
-                    question: "Tên phổ thông của loài là:",
-                    options: ["A. Tên truyền thống.", "B. Tên giống + tên loài.", "C. Cách gọi phổ biến trong danh mục tra cứu.", "D. Tên loài + tên giống."],
-                    correct: 2,
-                    explanation: "Tên phổ thông là tên gọi phổ biến, chính thức trong danh mục."
-                },
-                {
-                    id: 18,
-                    question: "Bệnh nào do virus gây nên?",
-                    options: ["A. Kiết lị.", "B. Dại.", "C. Vàng da (do virus viêm gan).", "D. Tả."],
-                    correct: 2,
-                    explanation: "Bệnh vàng da (thường do virus viêm gan) và Dại đều do virus. Theo đáp án đề chọn C."
-                },
-                {
-                    id: 19,
-                    question: "Virus gây đại dịch Covid 19?",
-                    options: ["A. HIV.", "B. Corona (SARS-CoV-2).", "C. HP.", "D. Adenovirus."],
-                    correct: 1,
-                    explanation: "SARS-CoV-2 thuộc họ Corona virus."
-                },
-                {
-                    id: 20,
-                    question: "Bệnh kiết lị do tác nhân nào?",
-                    options: ["A. Trùng kiết lị.", "B. Trùng roi.", "C. Trùng sốt rét.", "D. Trùng biến hình."],
-                    correct: 0,
-                    explanation: "Trùng kiết lị (Entamoeba histolytica)."
-                },
-                {
-                    id: 21,
-                    question: "Trùng sốt rét gây bệnh gì?",
-                    options: ["A. Kiết lị.", "B. Lao.", "C. Sốt rét.", "D. Sốt xuất huyết."],
-                    correct: 2,
-                    explanation: "Tên trùng đã gợi ý tên bệnh."
-                },
-                {
-                    id: 22,
-                    question: "Các bậc phân loại từ thấp đến cao:",
-                    options: ["A. Loài -> Chi -> Họ -> Bộ -> Lớp -> Ngành -> Giới.", "B. Chi -> Loài...", "C. Giới -> Ngành...", "D. Loài -> Chi -> Bộ..."],
-                    correct: 0,
-                    explanation: "Thứ tự: Loài, Chi, Họ, Bộ, Lớp, Ngành, Giới."
-                },
-                {
-                    id: 23,
-                    question: "Nhận định nào KHÔNG đúng về virus?",
-                    options: ["A. Đã có cấu trúc tế bào.", "B. Chưa có cấu trúc tế bào.", "C. Chỉ có vỏ protein và lõi AN.", "D. Ký sinh bắt buộc."],
-                    correct: 0,
-                    explanation: "Virus CHƯA có cấu tạo tế bào."
-                },
-                {
-                    id: 24,
-                    question: "Hình ảnh (Trùng có roi dài, điểm mắt) là sinh vật nào?",
-                    options: ["A. Trùng giày.", "B. Trùng roi xanh.", "C. Trùng biến hình.", "D. Trùng sốt rét."],
-                    correct: 1,
-                    explanation: "Trùng roi xanh có roi bơi điển hình."
-                }
-                ]
-            },
-            {
-                id: 3,
-                title: "Đề ôn tập số 3 & 4",
-                description: "Kính lúp, hỗn hợp, trạng thái chất, đa dạng sinh học.",
-                questions: [
-                {
-                    id: 1,
-                    question: "Kính lúp cầm tay có tác dụng gì?",
-                    options: ["A. Nhìn xa.", "B. Làm ảnh nhỏ đi.", "C. Phóng to ảnh của vật.", "D. Không đổi kích thước."],
-                    correct: 2,
-                    explanation: "Kính lúp tạo ảnh ảo lớn hơn vật để quan sát chi tiết nhỏ."
-                },
-                {
-                    id: 2,
-                    question: "Việc làm KHÔNG an toàn trong phòng thực hành?",
-                    options: ["A. Đeo găng tay.", "B. Tự ý làm thí nghiệm.", "C. Đeo kính bảo vệ.", "D. Rửa tay."],
-                    correct: 1,
-                    explanation: "Tự ý làm thí nghiệm có thể gây nguy hiểm cháy nổ hoặc độc hại."
-                },
-                {
-                    id: 3,
-                    question: "Hoạt động nào là nghiên cứu khoa học?",
-                    options: ["A. Chơi bóng.", "B. Cây lúa.", "C. Đánh đàn.", "D. Tìm hiểu đặc điểm sinh học tôm."],
-                    correct: 3,
-                    explanation: "Tìm hiểu, khám phá kiến thức mới là nghiên cứu khoa học."
-                },
-                {
-                    id: 4,
-                    question: "Lắp ráp pin mặt trời thể hiện vai trò nào của KHTN?",
-                    options: ["A. Sức khỏe.", "B. Hiểu biết tự nhiên.", "C. Ứng dụng công nghệ vào đời sống.", "D. Nghiên cứu."],
-                    correct: 2,
-                    explanation: "Đây là ứng dụng kiến thức vào thực tế sản xuất điện."
-                },
-                {
-                    id: 5,
-                    question: "Độ chia nhỏ nhất (ĐCNN) của thước là:",
-                    options: ["A. Giá trị cuối.", "B. Khoảng cách 2 vạch.", "C. Giá trị lớn nhất.", "D. Độ dài giữa 2 vạch chia liên tiếp."],
-                    correct: 3,
-                    explanation: "ĐCNN là khoảng cách giữa 2 vạch chia liên tiếp nhau."
-                },
-                {
-                    id: 6,
-                    question: "Đo bàn dài khoảng 120cm, chọn thước nào?",
-                    options: ["A. GHĐ 150cm, ĐCNN 1cm.", "B. GHĐ 120cm.", "C. GHĐ 200cm, ĐCNN 1mm.", "D. GHĐ 100cm."],
-                    correct: 0,
-                    explanation: "Cần GHĐ lớn hơn vật (>120cm) để đo 1 lần cho chính xác."
-                },
-                {
-                    id: 7,
-                    question: "Đơn vị và dụng cụ đo chiều dài chuẩn?",
-                    options: ["A. Thước mét và kg.", "B. Kí và cân.", "C. Mét và đồng hồ.", "D. Mét (m) và thước mét."],
-                    correct: 3,
-                    explanation: "Đơn vị: m, Dụng cụ: thước."
-                },
-                {
-                    id: 8,
-                    question: "Bao gạo ghi 25kg cho biết gì?",
-                    options: ["A. Trọng lượng.", "B. Khối lượng gạo trong bao.", "C. Sức nặng.", "D. Thể tích."],
-                    correct: 1,
-                    explanation: "kg là đơn vị đo khối lượng (lượng chất chứa trong vật)."
-                },
-                {
-                    id: 9,
-                    question: "Đơn vị đo thời gian chuẩn?",
-                    options: ["A. Giây (s).", "B. Ngày.", "C. Tháng.", "D. Giờ."],
-                    correct: 0,
-                    explanation: "Giây (second) là đơn vị SI."
-                },
-                {
-                    id: 10,
-                    question: "Nhiệt kế đo cơ thể người?",
-                    options: ["A. Nhiệt kế rượu.", "B. Nhiệt kế thủy ngân CN.", "C. Nhiệt kế dầu.", "D. Nhiệt kế y tế."],
-                    correct: 3,
-                    explanation: "Nhiệt kế y tế chuyên dụng cho dải nhiệt độ cơ thể."
-                },
-                {
-                    id: 11,
-                    question: "Nước sôi ở nhiệt độ (đktc):",
-                    options: ["A. 0°C", "B. 100°C", "C. 50°C", "D. 80°C"],
-                    correct: 1,
-                    explanation: "100 độ C."
-                },
-                {
-                    id: 12,
-                    question: "Điểm giống nhau khi đo (bước cuối cùng) là gì?",
-                    options: ["A. Đọc kết quả theo vạch chia gần nhất/ĐCNN.", "B. Đặt mắt.", "C. Chọn dụng cụ.", "D. Ước lượng."],
-                    correct: 0,
-                    explanation: "Bước cuối luôn là đọc và ghi kết quả."
-                },
-                {
-                    id: 13,
-                    question: "Lục lạp có chức năng gì?",
-                    options: ["A. Quang hợp.", "B. Di truyền.", "C. Kiểm soát chất.", "D. Tổng hợp protein."],
-                    correct: 0,
-                    explanation: "Lục lạp chứa diệp lục giúp cây quang hợp."
-                },
-                {
-                    id: 14,
-                    question: "Sinh vật kích thước khác nhau chủ yếu do:",
-                    options: ["A. Số lượng tế bào.", "B. Kích thước tế bào.", "C. Môi trường.", "D. Thức ăn."],
-                    correct: 0,
-                    explanation: "Ở sinh vật đa bào, kích thước cơ thể phụ thuộc chủ yếu vào số lượng tế bào."
-                },
-                {
-                    id: 15,
-                    question: "Trật tự cấp độ tổ chức:",
-                    options: ["A. TB-CQ-Mô...", "B. Tế bào -> Mô -> Cơ quan -> Hệ cơ quan -> Cơ thể.", "C. Cơ thể...", "D. Hệ cơ quan..."],
-                    correct: 1,
-                    explanation: "Trình tự đúng từ nhỏ đến lớn."
-                },
-                {
-                    id: 16,
-                    question: "1 tế bào sinh sản 3 lần tạo ra bao nhiêu tế bào?",
-                    options: ["A. 4", "B. 6", "C. 8", "D. 12"],
-                    correct: 2,
-                    explanation: "Công thức 2^n. 2^3 = 8."
-                }
-                ]
-            },
-            {
-                id: 5,
-                title: "Đề ôn tập số 5",
-                description: "Chất, Vật lý, Biến dạng, Nấm, Virus, Vi khuẩn.",
-                questions: [
-                {
-                    id: 1,
-                    question: "Dãy nào gồm các từ chỉ CHẤT?",
-                    options: ["A. Đường, muối, con dao.", "B. Dao, đũa, thìa.", "C. Nhôm, muối ăn, đường mía.", "D. Dao, đũa, muối."],
-                    correct: 2, 
-                    explanation: "Con dao, đũa là VẬT THỂ. Nhôm, muối, đường là CHẤT."
-                },
-                {
-                    id: 2,
-                    question: "Thể nào sau đây dễ bị nén?",
-                    options: ["A. Thể khí.", "B. Thể lỏng.", "C. Thể rắn.", "D. Không thể nào."],
-                    correct: 0,
-                    explanation: "Khoảng cách giữa các hạt trong chất khí rất lớn nên dễ bị nén."
-                },
-                {
-                    id: 3,
-                    question: "Sự ngưng tụ là:",
-                    options: ["A. Rắn -> Lỏng.", "B. Khí (hơi) -> Lỏng.", "C. Lỏng -> Khí.", "D. Lỏng -> Rắn."],
-                    correct: 1,
-                    explanation: "Ngưng tụ là chuyển từ thể hơi sang lỏng."
-                },
-                {
-                    id: 4,
-                    question: "Khi đẩy tạ, vận động viên tác dụng:",
-                    options: ["A. Lực đẩy.", "B. Lực nén.", "C. Lực kéo.", "D. Lực uốn."],
-                    correct: 0,
-                    explanation: "Tay đẩy quả tạ đi."
-                },
-                {
-                    id: 5,
-                    question: "Trường hợp nào vật KHÔNG bị biến dạng (hoặc biến dạng không đáng kể)?",
-                    options: ["A. Cửa kính vỡ.", "B. Đất xốp được cày.", "C. Cành cây đu đưa trước gió.", "D. Giấy bị vò."],
-                    correct: 2,
-                    explanation: "Cành cây đu đưa là chuyển động, sau đó trở về vị trí cũ, các trường hợp khác là biến dạng vĩnh viễn/phá hủy."
-                },
-                {
-                    id: 6,
-                    question: "Bóng đập vào tường, lực của tường làm bóng:",
-                    options: ["A. Chỉ biến dạng.", "B. Chỉ đổi chuyển động.", "C. Vừa biến dạng vừa đổi hướng chuyển động.", "D. Không đổi gì."],
-                    correct: 2,
-                    explanation: "Bóng bị méo đi (biến dạng) và nảy ra (đổi hướng)."
-                },
-                {
-                    id: 7,
-                    question: "Vật nào cấu tạo từ tế bào?",
-                    options: ["A. Cây bàng.", "B. Quyển sách.", "C. Xe ô tô.", "D. Ngôi nhà."],
-                    correct: 0,
-                    explanation: "Cây bàng là vật sống."
-                },
-                {
-                    id: 8,
-                    question: "Cơ thể đơn bào?",
-                    options: ["A. Con voi.", "B. Giun đất.", "C. Vi khuẩn E.coli.", "D. Cây hoa hồng."],
-                    correct: 2,
-                    explanation: "Vi khuẩn là cơ thể đơn bào."
-                },
-                {
-                    id: 9,
-                    question: "Tác hại KHÔNG phải do nấm?",
-                    options: ["A. Nấm da.", "B. Viêm gan B.", "C. Hỏng thực phẩm.", "D. Ngộ độc thực phẩm."],
-                    correct: 1,
-                    explanation: "Viêm gan B do virus."
-                },
-                {
-                    id: 10,
-                    question: "Biện pháp hiệu quả nhất phòng bệnh virus?",
-                    options: ["A. Khẩu trang.", "B. Bảo vệ môi trường.", "C. Tập thể dục.", "D. Tiêm vaccine."],
-                    correct: 3,
-                    explanation: "Vaccine tạo miễn dịch chủ động đặc hiệu."
-                },
-                {
-                    id: 11,
-                    question: "Sinh vật nào KHÔNG thuộc nguyên sinh vật?",
-                    options: ["A. Trùng roi.", "B. Trùng kiết lị.", "C. Tảo lục.", "D. Thực khuẩn thể."],
-                    correct: 3,
-                    explanation: "Thực khuẩn thể (Phage) là virus kí sinh vi khuẩn."
-                },
-                {
-                    id: 12,
-                    question: "Chế biến rượu vang cần sinh vật nào?",
-                    options: ["A. Nấm men.", "B. Vi khuẩn.", "C. Virus.", "D. Nguyên sinh vật."],
-                    correct: 0,
-                    explanation: "Nấm men (Saccharomyces) lên men đường thành rượu."
-                }
-                ]
-            }
-        ];
-
-        const theoryData = [
-            // ĐỀ 1
-            {
-                exam: "Đề 1",
-                question: "Câu 25: So sánh tế bào nhân sơ và tế bào nhân thực.",
-                answer: [
-                "Giống nhau: Đều có 3 thành phần chính: Màng tế bào, tế bào chất, vật chất di truyền.",
-                "Khác nhau:",
-                "- Tế bào nhân sơ: Nhân chưa có màng bao bọc (vùng nhân), chưa có hệ thống nội màng, các bào quan chưa có màng.",
-                "- Tế bào nhân thực: Nhân có màng bao bọc, có hệ thống nội màng, các bào quan có màng bao bọc."
-                ]
-            },
-            {
-                exam: "Đề 1",
-                question: "Câu 26: a) Có nên ăn thức ăn ôi thiu không? b) Điều gì xảy ra nếu để sữa chua đang ủ ở ngoài tủ lạnh quá lâu?",
-                answer: [
-                "a) Không nên. Vì thức ăn ôi thiu chứa nhiều vi khuẩn hoại sinh và độc tố, gây hại cho sức khỏe (ngộ độc, tiêu chảy).",
-                "b) Nếu để bên ngoài quá lâu, vi khuẩn lên men quá mức làm sữa chua quá chua, nhanh hỏng, mất mùi vị thơm ngon. Cần bỏ tủ lạnh để hãm sự lên men."
-                ]
-            },
-            {
-                exam: "Đề 1",
-                question: "Câu 27: Gọi 'củ lạc' (đậu phộng) là đúng hay sai? Giải thích.",
-                answer: [
-                "Gọi là 'củ' là theo thói quen nhưng chưa chính xác về mặt khoa học.",
-                "Thực chất đó là QUẢ lạc. Do hoa lạc sau khi thụ phấn, cuống hoa dài ra đâm xuống đất và phát triển thành quả trong đất nên bị nhầm là củ."
-                ]
-            },
+        <form id="quizForm" class="space-y-8">
             
-            // ĐỀ 2
-            {
-                exam: "Đề 2",
-                question: "Câu 25: Xác định GHĐ và ĐCNN của nhiệt kế trong hình (Mô tả: 35-42 độ, chia vạch 0.1).",
-                answer: [
-                "Dựa vào hình ảnh nhiệt kế y tế:",
-                "- GHĐ (Giới hạn đo): 42°C (Số lớn nhất).",
-                "- ĐCNN (Độ chia nhỏ nhất): 0,1°C (Khoảng cách giữa 2 vạch nhỏ nhất)."
-                ]
-            },
-            {
-                exam: "Đề 2",
-                question: "Câu 26: Biểu diễn lực kéo 30N theo phương thẳng đứng, chiều từ dưới lên trên (Tỉ xích 1cm ứng với 10N).",
-                answer: [
-                "Vẽ mũi tên:",
-                "- Gốc: Tại vật.",
-                "- Phương: Thẳng đứng.",
-                "- Chiều: Từ dưới lên trên.",
-                "- Độ dài: 3cm (Vì 30N : 10N/cm = 3cm)."
-                ]
-            },
-            {
-                exam: "Đề 2",
-                question: "Câu 27: a) Tại sao đồng, nhôm dùng làm dây điện? b) Tại sao dây cao thế dùng nhôm thay vì đồng?",
-                answer: [
-                "a) Vì đồng và nhôm là kim loại dẫn điện tốt.",
-                "b) Dây cao thế dùng nhôm vì: Nhôm NHẸ hơn đồng giúp giảm trọng lượng lên cột điện (tránh gãy cột) và giá thành RẺ hơn đồng."
-                ]
-            },
-            {
-                exam: "Đề 2",
-                question: "Câu 28: Xây dựng khóa lưỡng phân phân loại: Chim bói cá, bọ ngựa, cá mập, khỉ, rùa.",
-                answer: [
-                "Gợi ý các bước phân loại:",
-                "1. Có chân? -> Không: Cá mập. | Có: Tiếp tục.",
-                "2. Có cánh? -> Có: Chim bói cá, Bọ ngựa (Phân nhánh tiếp: Có xương sống? Chim - Có, Bọ ngựa - Không).",
-                "3. Không cánh? -> Khỉ, Rùa (Phân nhánh tiếp: Có mai? Rùa - Có, Khỉ - Không)."
-                ]
-            },
-            {
-                exam: "Đề 2",
-                question: "Câu 29: Tại sao cần ủ ấm khi làm sữa chua?",
-                answer: [
-                "Cần ủ ấm để tạo nhiệt độ thuận lợi (40-45°C) cho vi khuẩn Lactic sinh trưởng và sinh sản.",
-                "Nếu không ủ, vi khuẩn hoạt động yếu, sữa không đông, không tạo vị chua."
-                ]
-            },
+            <!-- PHẦN 1: TRẮC NGHIỆM -->
+            <div class="bg-white p-6 rounded-lg shadow-md border-t-4 border-blue-500">
+                <h2 class="text-xl font-bold mb-4 text-blue-700">PHẦN I: TRẮC NGHIỆM (12 Câu - 3.0 điểm)</h2>
+                <div id="mcq-container" class="space-y-6"></div>
+            </div>
 
-            // ĐỀ 3 & 4
-            {
-                exam: "Đề 3",
-                question: "Câu 17: Lực là gì? Biểu diễn lực kéo 30N phương ngang, chiều trái sang phải.",
-                answer: [
-                "Lực là tác dụng đẩy hoặc kéo của vật này lên vật khác.",
-                "Biểu diễn: Mũi tên nằm ngang, chiều từ trái qua phải, độ dài tỉ lệ với 30N."
-                ]
-            },
-            {
-                exam: "Đề 3",
-                question: "Câu 18: Các bước đo độ dài?",
-                answer: [
-                "B1: Ước lượng độ dài.",
-                "B2: Chọn thước có GHĐ và ĐCNN phù hợp.",
-                "B3: Đặt thước dọc theo vật, một đầu ngang vạch 0.",
-                "B4: Đặt mắt vuông góc.",
-                "B5: Đọc và ghi kết quả."
-                ]
-            },
-            {
-                exam: "Đề 3",
-                question: "Câu 20: Thành phần chính của tế bào và chức năng?",
-                answer: [
-                "1. Màng tế bào: Bảo vệ, kiểm soát chất ra vào.",
-                "2. Chất tế bào: Chứa bào quan, nơi diễn ra hoạt động sống.",
-                "3. Nhân (hoặc vùng nhân): Chứa vật chất di truyền, điều khiển mọi hoạt động."
-                ]
-            },
-            {
-                exam: "Đề 3",
-                question: "Câu 21: Nếu cây cà chua mất hệ rễ thì sao?",
-                answer: [
-                "Cây sẽ chết vì không hấp thụ được nước và muối khoáng.",
-                "Ngoài ra cây không bám được vào đất, dễ bị đổ ngã."
-                ]
-            },
-            {
-                exam: "Đề 4",
-                question: "Câu 13: Tại sao đầm nuôi tôm thường lắp quạt nước?",
-                answer: [
-                "Để sục khí, tăng lượng Oxygen hòa tan trong nước giúp tôm hô hấp tốt hơn, đặc biệt khi mật độ nuôi cao."
-                ]
-            },
-            {
-                exam: "Đề 4",
-                question: "Câu 18: Sinh vật chia thành những giới nào? Ví dụ.",
-                answer: [
-                "5 giới: Khởi sinh (Vi khuẩn), Nguyên sinh (Trùng roi), Nấm (Nấm men), Thực vật (Lúa), Động vật (Lợn)."
-                ]
-            },
+            <!-- PHẦN 2: ĐÚNG SAI -->
+            <div class="bg-white p-6 rounded-lg shadow-md border-t-4 border-orange-500">
+                <h2 class="text-xl font-bold mb-4 text-orange-700">PHẦN II: ĐÚNG / SAI (4 Câu - 4.0 điểm)</h2>
+                <p class="text-sm text-gray-600 mb-4 italic">Mỗi câu hỏi có 4 ý nhỏ. Chọn Đúng hoặc Sai cho từng ý.</p>
+                <div id="tf-container" class="space-y-8"></div>
+            </div>
 
-            // ĐỀ 5
-            {
-                exam: "Đề 5",
-                question: "Câu 17: Tính chất của oxygen? Ứng dụng?",
-                answer: [
-                "Tính chất: Khí không màu, mùi, vị, nặng hơn KK, tan ít trong nước, duy trì sự cháy và sự sống.",
-                "Ứng dụng: Bình dưỡng khí (y tế, lặn), đốt nhiên liệu (nấu ăn, công nghiệp)."
-                ]
-            },
-            {
-                exam: "Đề 5",
-                question: "Câu 19: Phân loại bệnh do Virus và Nguyên sinh vật.",
-                answer: [
-                "- Do Virus: Cúm, Sốt xuất huyết, Covid-19, Viêm gan B.",
-                "- Do Nguyên sinh vật: Sốt rét, Kiết lị."
-                ]
-            },
-            {
-                exam: "Đề 5",
-                question: "Câu 19b: Lợi ích và tác hại của vi khuẩn?",
-                answer: [
-                "- Lợi ích: Phân hủy xác sinh vật làm sạch môi trường; Ứng dụng thực phẩm (sữa chua, muối dưa).",
-                "- Tác hại: Gây bệnh (tiêu chảy, lao); Làm hỏng thực phẩm."
-                ]
-            }
-        ];
-
-        // --- MAIN APP COMPONENT ---
-        function KHTN6ReviewApp() {
-            const [activeTab, setActiveTab] = useState('home');
-            const [selectedExam, setSelectedExam] = useState(null);
-            const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-            const [userAnswers, setUserAnswers] = useState({});
-            const [showResult, setShowResult] = useState(false);
-            const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-
-            useEffect(() => {
-                setCurrentQuestionIndex(0);
-                setUserAnswers({});
-                setShowResult(false);
-            }, [selectedExam]);
-
-            const handleOptionSelect = (optionIndex) => {
-                if (showResult) return;
-                setUserAnswers(prev => ({
-                    ...prev,
-                    [currentQuestionIndex]: optionIndex
-                }));
-            };
-
-            const calculateScore = () => {
-                if (!selectedExam) return 0;
-                let score = 0;
-                selectedExam.questions.forEach((q, index) => {
-                    if (userAnswers[index] === q.correct) {
-                        score++;
-                    }
-                });
-                return score;
-            };
-
-            const startExam = (exam) => {
-                setSelectedExam(exam);
-                setActiveTab('quiz_taking');
-            };
-
-            const renderHome = () => (
-                <div className="flex flex-col items-center justify-center py-10 px-4 space-y-8 animate-fade-in">
-                    <div className="text-center space-y-4 max-w-2xl">
-                        <h1 className="text-4xl md:text-5xl font-extrabold text-teal-700 leading-tight">
-                            Ôn Tập Khoa Học Tự Nhiên 6
-                        </h1>
-                        <p className="text-gray-600 text-lg">
-                            Hệ thống kiến thức trọng tâm học kỳ 1 - Sách Chân Trời Sáng Tạo.
-                            <br/>
-                            (Cập nhật đầy đủ 5 đề ôn tập)
-                        </p>
-                    </div>
-
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-4xl">
-                        <div 
-                            onClick={() => setActiveTab('quiz')}
-                            className="bg-white p-6 rounded-2xl shadow-lg border-2 border-transparent hover:border-teal-400 cursor-pointer transition-all transform hover:-translate-y-1 flex flex-col items-center text-center group"
-                        >
-                            <div className="bg-teal-100 p-4 rounded-full mb-4 group-hover:bg-teal-200 transition-colors">
-                                <Beaker className="w-10 h-10 text-teal-600" />
-                            </div>
-                            <h2 className="text-2xl font-bold text-gray-800 mb-2">Luyện Đề Trắc Nghiệm</h2>
-                            <p className="text-gray-500">5 đề thi thử bao quát toàn bộ chương trình.</p>
-                        </div>
-
-                        <div 
-                            onClick={() => setActiveTab('review')}
-                            className="bg-white p-6 rounded-2xl shadow-lg border-2 border-transparent hover:border-indigo-400 cursor-pointer transition-all transform hover:-translate-y-1 flex flex-col items-center text-center group"
-                        >
-                            <div className="bg-indigo-100 p-4 rounded-full mb-4 group-hover:bg-indigo-200 transition-colors">
-                                <BookOpen className="w-10 h-10 text-indigo-600" />
-                            </div>
-                            <h2 className="text-2xl font-bold text-gray-800 mb-2">Ôn Tập Tự Luận</h2>
-                            <p className="text-gray-500">Tổng hợp câu hỏi và đáp án chi tiết từ các đề.</p>
-                        </div>
-                    </div>
+            <!-- PHẦN 3: ĐIỀN KHUYẾT (KÉO THẢ / CLICK) -->
+            <div class="bg-white p-6 rounded-lg shadow-md border-t-4 border-purple-500">
+                <h2 class="text-xl font-bold mb-2 text-purple-700">PHẦN III: ĐIỀN KHUYẾT (5 Câu - 1.0 điểm)</h2>
+                <p class="text-sm text-gray-600 mb-4 italic">Click chọn từ khóa ở trên, sau đó click vào ô trống tương ứng để điền.</p>
+                
+                <div class="bg-purple-50 p-4 rounded-lg mb-6 sticky top-2 z-10 shadow border border-purple-200">
+                    <h3 class="font-bold text-purple-800 mb-2 text-xs uppercase tracking-wide">Ngân hàng từ khóa:</h3>
+                    <div id="word-bank" class="flex flex-wrap gap-2 justify-center"></div>
                 </div>
-            );
+                <div id="fill-container" class="space-y-4 text-lg leading-loose text-gray-800 px-4"></div>
+            </div>
 
-            const renderQuizList = () => (
-                <div className="max-w-4xl mx-auto py-8 px-4">
-                    <h2 className="text-3xl font-bold text-teal-800 mb-6 flex items-center">
-                        <Brain className="mr-3" /> Danh sách đề ôn tập
-                    </h2>
-                    <div className="grid gap-4">
-                        {examData.map((exam) => (
-                        <div key={exam.id} className="bg-white rounded-xl shadow-md p-6 hover:shadow-lg transition-shadow border-l-4 border-teal-500">
-                            <div className="flex flex-col md:flex-row justify-between items-start md:items-center">
-                            <div>
-                                <h3 className="text-xl font-bold text-gray-800">{exam.title}</h3>
-                                <p className="text-gray-600 mt-1">{exam.description}</p>
-                                <div className="mt-2 text-sm text-teal-600 font-medium">
-                                {exam.questions.length} câu hỏi • Thời gian: ~{Math.ceil(exam.questions.length * 0.75)} phút
-                                </div>
-                            </div>
-                            <button 
-                                onClick={() => startExam(exam)}
-                                className="mt-4 md:mt-0 bg-teal-600 hover:bg-teal-700 text-white px-6 py-2 rounded-lg font-medium flex items-center transition-colors"
-                            >
-                                Làm bài ngay <ArrowRight className="ml-2 w-4 h-4" />
-                            </button>
-                            </div>
-                        </div>
-                        ))}
-                    </div>
-                    <button onClick={() => setActiveTab('home')} className="mt-8 text-gray-500 hover:text-teal-600 flex items-center">
-                        Quay lại trang chủ
-                    </button>
+            <!-- PHẦN 4: TRẢ LỜI NGẮN (TỰ LUẬN) -->
+            <div class="bg-white p-6 rounded-lg shadow-md border-t-4 border-red-500">
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-xl font-bold text-red-700">PHẦN IV: TRẢ LỜI NGẮN (5 Câu - 3.0 điểm)</h2>
+                    <span class="text-xs bg-red-100 text-red-700 px-2 py-1 rounded-full font-bold flex items-center">
+                        <svg class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg> 
+                        AI Chấm
+                    </span>
                 </div>
-            );
+                <div id="sa-container" class="space-y-6"></div>
+            </div>
 
-            const renderQuizTaking = () => {
-                if (!selectedExam) return null;
-                const currentQuestion = selectedExam.questions[currentQuestionIndex];
-                const isLastQuestion = currentQuestionIndex === selectedExam.questions.length - 1;
-                const score = calculateScore();
+            <!-- Submit Button -->
+            <div class="text-center pb-12 pt-6">
+                <button type="button" onclick="submitExam()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-4 px-12 rounded-full shadow-lg transform transition hover:scale-105 text-xl flex items-center justify-center mx-auto">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                    NỘP BÀI & XEM ĐIỂM
+                </button>
+            </div>
+        </form>
+    </div>
 
-                if (showResult) {
-                return (
-                    <div className="max-w-3xl mx-auto py-10 px-4 text-center animate-fade-in">
-                    <div className="bg-white rounded-2xl shadow-xl p-8 border-t-8 border-teal-500">
-                        <Award className="w-20 h-20 mx-auto text-yellow-500 mb-4" />
-                        <h2 className="text-3xl font-bold text-gray-800 mb-2">Kết quả bài làm</h2>
-                        <p className="text-gray-500 mb-6">{selectedExam.title}</p>
-                        
-                        <div className="text-6xl font-extrabold text-teal-600 mb-2">
-                        {score} / {selectedExam.questions.length}
-                        </div>
-                        <p className="text-lg text-gray-600 mb-8">
-                        {score === selectedExam.questions.length ? "Xuất sắc! Bạn đã nắm vững kiến thức." : 
-                        score > selectedExam.questions.length / 2 ? "Khá tốt! Hãy ôn lại những câu sai nhé." : 
-                        "Cần cố gắng hơn! Hãy xem lại lý thuyết."}
-                        </p>
-
-                        <div className="grid gap-4 text-left">
-                        <h3 className="font-bold text-lg text-gray-700 border-b pb-2">Chi tiết đáp án:</h3>
-                        {selectedExam.questions.map((q, idx) => (
-                            <div key={idx} className={`p-4 rounded-lg border ${userAnswers[idx] === q.correct ? 'bg-green-50 border-green-200' : 'bg-red-50 border-red-200'}`}>
-                            <p className="font-semibold text-gray-800 mb-2">Câu {idx + 1}: {q.question}</p>
-                            <div className="text-sm space-y-1">
-                                <p className={userAnswers[idx] === q.correct ? 'text-green-700 flex items-center' : 'text-red-600 flex items-center'}>
-                                {userAnswers[idx] === q.correct ? <Check size={16} className="mr-1"/> : <XIcon size={16} className="mr-1"/>}
-                                Bạn chọn: {q.options[userAnswers[idx]] || "Chưa chọn"}
-                                </p>
-                                {userAnswers[idx] !== q.correct && (
-                                <p className="text-teal-700 font-medium flex items-center">
-                                    <CheckCircle size={16} className="mr-1"/> Đáp án đúng: {q.options[q.correct]}
-                                </p>
-                                )}
-                                <div className="mt-2 text-xs text-gray-500 bg-white p-2 rounded border border-gray-100">
-                                <span className="font-bold">Giải thích:</span> {q.explanation}
-                                </div>
-                            </div>
-                            </div>
-                        ))}
-                        </div>
-
-                        <div className="flex justify-center gap-4 mt-8">
-                        <button 
-                            onClick={() => { setShowResult(false); setUserAnswers({}); setCurrentQuestionIndex(0); }}
-                            className="flex items-center bg-gray-200 hover:bg-gray-300 text-gray-800 px-6 py-3 rounded-xl font-medium"
-                        >
-                            <RefreshCw className="mr-2 w-5 h-5" /> Làm lại
-                        </button>
-                        <button 
-                            onClick={() => setActiveTab('quiz')}
-                            className="bg-teal-600 hover:bg-teal-700 text-white px-6 py-3 rounded-xl font-medium"
-                        >
-                            Chọn đề khác
-                        </button>
-                        </div>
-                    </div>
-                    </div>
-                );
-                }
-
-                return (
-                <div className="max-w-3xl mx-auto py-8 px-4 h-full flex flex-col">
-                    <div className="mb-6">
-                    <div className="flex justify-between text-sm text-gray-600 mb-2">
-                        <span>Câu hỏi {currentQuestionIndex + 1}/{selectedExam.questions.length}</span>
-                        <span>{Math.round(((currentQuestionIndex + 1) / selectedExam.questions.length) * 100)}% hoàn thành</span>
-                    </div>
-                    <div className="w-full bg-gray-200 rounded-full h-2.5">
-                        <div 
-                        className="bg-teal-600 h-2.5 rounded-full transition-all duration-300" 
-                        style={{ width: `${((currentQuestionIndex + 1) / selectedExam.questions.length) * 100}%` }}
-                        ></div>
-                    </div>
-                    </div>
-
-                    <div className="bg-white rounded-2xl shadow-lg p-6 md:p-8 flex-grow">
-                    <h3 className="text-xl md:text-2xl font-bold text-gray-800 mb-6 leading-relaxed">
-                        {currentQuestion.question}
-                    </h3>
-
-                    <div className="space-y-3">
-                        {currentQuestion.options.map((option, index) => (
-                        <div 
-                            key={index}
-                            onClick={() => handleOptionSelect(index)}
-                            className={`p-4 rounded-xl border-2 cursor-pointer transition-all flex items-center
-                            ${userAnswers[currentQuestionIndex] === index 
-                                ? 'border-teal-500 bg-teal-50 text-teal-900 shadow-md' 
-                                : 'border-gray-200 hover:border-teal-300 hover:bg-gray-50'
-                            }`}
-                        >
-                            <div className={`w-6 h-6 rounded-full border-2 mr-4 flex items-center justify-center
-                            ${userAnswers[currentQuestionIndex] === index ? 'border-teal-600 bg-teal-600' : 'border-gray-400'}`}>
-                            {userAnswers[currentQuestionIndex] === index && <div className="w-2.5 h-2.5 bg-white rounded-full" />}
-                            </div>
-                            <span className="text-lg">{option}</span>
-                        </div>
-                        ))}
-                    </div>
-                    </div>
-
-                    <div className="flex justify-between mt-8">
-                    <button
-                        onClick={() => setCurrentQuestionIndex(prev => Math.max(0, prev - 1))}
-                        disabled={currentQuestionIndex === 0}
-                        className={`px-6 py-3 rounded-xl font-medium ${currentQuestionIndex === 0 ? 'bg-gray-100 text-gray-400' : 'bg-white text-gray-700 shadow hover:bg-gray-50'}`}
-                    >
-                        Quay lại
-                    </button>
-                    
-                    {isLastQuestion ? (
-                        <button
-                        onClick={() => setShowResult(true)}
-                        className="px-8 py-3 bg-teal-600 hover:bg-teal-700 text-white rounded-xl font-bold shadow-lg shadow-teal-200 transform hover:-translate-y-0.5 transition-all"
-                        >
-                        Nộp bài
-                        </button>
-                    ) : (
-                        <button
-                        onClick={() => setCurrentQuestionIndex(prev => Math.min(selectedExam.questions.length - 1, prev + 1))}
-                        className="px-6 py-3 bg-teal-600 hover:bg-teal-700 text-white rounded-xl font-medium shadow hover:shadow-lg transition-all"
-                        >
-                        Câu tiếp theo
-                        </button>
-                    )}
-                    </div>
+    <!-- Result Modal -->
+    <div id="resultModal" class="fixed inset-0 bg-gray-900 bg-opacity-70 hidden items-center justify-center z-50 p-4 backdrop-blur-sm">
+        <div class="bg-white rounded-2xl p-6 md:p-8 max-w-lg w-full shadow-2xl overflow-y-auto max-h-[90vh] animate-fade-in-up">
+            <div class="text-center">
+                <div class="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-emerald-100 mb-4">
+                    <svg class="h-10 w-10 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                 </div>
-                );
-            };
-
-            const renderReview = () => (
-                <div className="max-w-4xl mx-auto py-8 px-4">
-                <div className="text-center mb-10">
-                    <h2 className="text-3xl font-bold text-indigo-800 flex items-center justify-center gap-3">
-                    <BookOpen className="text-indigo-600" /> Ôn Tập Tự Luận
-                    </h2>
-                    <p className="text-gray-600 mt-2">Tổng hợp câu hỏi tự luận và đáp án từ 5 đề ôn tập.</p>
+                <h3 class="text-2xl font-bold text-gray-900 mb-2">Kết Quả Bài Làm</h3>
+                <p id="modal-status" class="text-sm text-gray-500 mb-4">Đã chấm xong!</p>
+                
+                <div class="bg-gray-50 p-4 rounded-xl text-left space-y-3 border border-gray-200">
+                    <p class="flex justify-between text-gray-700"><span class="font-medium">Thí sinh:</span> <span id="resName"></span></p>
+                    <div class="border-t border-gray-200"></div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-lg font-bold text-gray-800">Tổng điểm:</span>
+                        <span id="resTotal" class="text-3xl font-bold text-red-600"></span>
+                    </div>
+                    <div class="grid grid-cols-2 gap-3 text-sm mt-2">
+                        <div class="bg-blue-50 p-2 rounded border border-blue-100 text-center">
+                            <div class="text-blue-500 font-bold">Trắc nghiệm</div>
+                            <div id="resP1" class="font-bold text-gray-800 text-lg"></div>
+                        </div>
+                        <div class="bg-orange-50 p-2 rounded border border-orange-100 text-center">
+                            <div class="text-orange-500 font-bold">Đúng/Sai</div>
+                            <div id="resP2" class="font-bold text-gray-800 text-lg"></div>
+                        </div>
+                        <div class="bg-purple-50 p-2 rounded border border-purple-100 text-center">
+                            <div class="text-purple-500 font-bold">Điền khuyết</div>
+                            <div id="resP3" class="font-bold text-gray-800 text-lg"></div>
+                        </div>
+                        <div class="bg-red-50 p-2 rounded border border-red-100 text-center">
+                            <div class="text-red-500 font-bold">Tự luận (AI)</div>
+                            <div id="resP4" class="font-bold text-gray-800 text-lg"></div>
+                        </div>
+                    </div>
                 </div>
                 
-                <div className="grid gap-6">
-                    {theoryData.map((item, index) => (
-                    <div key={index} className="bg-white rounded-xl shadow-md overflow-hidden border border-indigo-100 hover:shadow-lg transition-shadow">
-                        <div className="bg-indigo-50 px-6 py-3 border-b border-indigo-100 flex justify-between items-center">
-                        <span className="text-indigo-700 font-bold uppercase text-sm tracking-wider">{item.exam}</span>
-                        <span className="bg-white text-indigo-600 text-xs font-bold px-2 py-1 rounded border border-indigo-200">Câu hỏi</span>
-                        </div>
-                        <div className="p-6">
-                        <h3 className="text-lg font-bold text-gray-800 mb-4">{item.question}</h3>
-                        <div className="bg-gray-50 p-4 rounded-lg text-gray-700 text-sm md:text-base space-y-2 border-l-4 border-indigo-400">
-                            {item.answer.map((line, idx) => (
-                            <p key={idx} className="leading-relaxed flex items-start">
-                                <span className="mr-2 text-indigo-400">•</span>
-                                {line}
-                            </p>
-                            ))}
-                        </div>
-                        </div>
-                    </div>
-                    ))}
+                <div class="mt-6">
+                    <button onclick="closeModal()" class="w-full rounded-xl border border-transparent shadow-md px-4 py-3 bg-gray-800 text-white font-medium hover:bg-gray-900 transition">Đóng lại</button>
                 </div>
-                <div className="mt-8 text-center">
-                    <button onClick={() => setActiveTab('home')} className="text-indigo-600 font-medium hover:underline">
-                    Quay lại trang chủ
-                    </button>
-                </div>
-                </div>
-            );
+            </div>
+        </div>
+    </div>
 
-            return (
-                <div className="min-h-screen font-sans text-gray-900 flex flex-col">
-                <header className="bg-white shadow-sm sticky top-0 z-50">
-                    <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="flex justify-between items-center h-16">
-                        <div 
-                        className="flex items-center cursor-pointer" 
-                        onClick={() => {setActiveTab('home'); setSelectedExam(null);}}
-                        >
-                        <div className="bg-teal-600 text-white p-2 rounded-lg mr-3">
-                            <Microscope size={24} />
-                        </div>
-                        <span className="text-xl font-bold text-teal-800 tracking-tight">KHTN 6</span>
-                        </div>
+    <script>
+        // --- CẤU HÌNH ---
+        // Thay URL này bằng URL Web App Script của bạn
+        const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbznJgUZYemh5RLp_1ViYMT607TgnoOJBqNnoj-etnYJYH6YbAr-MuQDiC41s-zTN_T_/exec';
 
-                        <nav className="hidden md:flex space-x-8">
-                        <button 
-                            onClick={() => setActiveTab('home')}
-                            className={`text-sm font-medium transition-colors ${activeTab === 'home' ? 'text-teal-600 border-b-2 border-teal-600' : 'text-gray-500 hover:text-teal-600'}`}
-                        >
-                            Trang chủ
-                        </button>
-                        <button 
-                            onClick={() => setActiveTab('quiz')}
-                            className={`text-sm font-medium transition-colors ${activeTab === 'quiz' || activeTab === 'quiz_taking' ? 'text-teal-600 border-b-2 border-teal-600' : 'text-gray-500 hover:text-teal-600'}`}
-                        >
-                            Luyện đề
-                        </button>
-                        <button 
-                            onClick={() => setActiveTab('review')}
-                            className={`text-sm font-medium transition-colors ${activeTab === 'review' ? 'text-teal-600 border-b-2 border-teal-600' : 'text-gray-500 hover:text-teal-600'}`}
-                        >
-                            Ôn lý thuyết
-                        </button>
-                        </nav>
+        // --- DỮ LIỆU ĐỀ THI SINH HỌC ---
+        const biologyExam = {
+            id: "BIO_L26_27",
+            name: "Sinh học 6 - Bài 26 & 27",
+            // 12 Câu trắc nghiệm (0.25đ/câu = 3.0đ)
+            mcq: [
+                { q: "Vi khuẩn lactic có hình dạng chủ yếu là gì?", options: ["Hình xoắn", "Hình cầu hoặc hình que", "Hình dấu phẩy", "Hình đa giác"], ans: 1 },
+                { q: "Vi khuẩn lactic là vi khuẩn Gram gì?", options: ["Gram dương", "Gram âm", "Không xác định", "Trung tính"], ans: 0 },
+                { q: "Quá trình làm sữa chua dựa trên cơ sở khoa học nào?", options: ["Lên men rượu", "Lên men axetic", "Lên men lactic", "Quang hợp"], ans: 2 },
+                { q: "Nhiệt độ thích hợp nhất để ủ sữa chua là khoảng bao nhiêu?", options: ["10-20°C", "90-100°C", "40-50°C", "0-5°C"], ans: 2 },
+                { q: "Trong thực hành quan sát vi khuẩn lactic, ta sử dụng hóa chất nào để nhuộm màu?", options: ["Cồn I-ốt", "Xanh methylene", "Phenolphtalein", "Nước cất"], ans: 1 },
+                { q: "Nguyên sinh vật là nhóm sinh vật có cấu tạo tế bào như thế nào?", options: ["Nhân sơ", "Nhân thực", "Chưa có nhân", "Virus"], ans: 1 },
+                { q: "Trùng roi xanh di chuyển nhờ bộ phận nào?", options: ["Chân giả", "Lông bơi", "Roi bơi", "Vây bơi"], ans: 2 },
+                { q: "Đại diện nào sau đây thuộc nhóm nguyên sinh vật sống tự do?", options: ["Trùng sốt rét", "Trùng kiết lị", "Trùng giày", "Virus cúm"], ans: 2 },
+                { q: "Trùng biến hình bắt mồi bằng cách nào?", options: ["Dùng roi quấn lấy mồi", "Tạo chân giả bao vây mồi", "Dùng lông bơi lùa mồi vào miệng", "Tiết chất độc"], ans: 1 },
+                { q: "Vật trung gian truyền bệnh sốt rét là gì?", options: ["Ruồi nhặng", "Muỗi vằn", "Muỗi Anopheles", "Gián"], ans: 2 },
+                { q: "Trùng kiết lị gây hại ở cơ quan nào của người?", options: ["Phổi", "Gan", "Thành ruột", "Não"], ans: 2 },
+                { q: "Biện pháp nào quan trọng nhất để phòng bệnh sốt rét ở miền núi?", options: ["Không ăn đồ sống", "Ngủ màn (mùng)", "Rửa tay xà phòng", "Tiêm vắc xin cúm"], ans: 1 }
+            ],
+            // 4 Câu Đúng/Sai (Mỗi câu 4 ý, 0.25đ/ý = 1.0đ/câu -> Tổng 4.0đ)
+            tf: [
+                {
+                    q: "Nhận định về đặc điểm của Vi khuẩn Lactic:",
+                    subs: ["Có kích thước hiển vi.", "Sinh sản bằng bào tử.", "Sống trong môi trường giàu chất dinh dưỡng (sữa, ruột).", "Có khả năng di động mạnh."],
+                    ans: [true, false, true, false]
+                },
+                {
+                    q: "Trong quy trình làm sữa chua:",
+                    subs: ["Cần dùng nước sôi 100°C pha sữa để diệt khuẩn.", "Sữa chua mồi cung cấp giống vi khuẩn ban đầu.", "Ủ ấm giúp vi khuẩn lactic sinh sản và lên men.", "Sau khi ủ xong cần bảo quản ngay ở ngăn đá tủ lạnh để đông cứng."],
+                    ans: [false, true, true, false]
+                },
+                {
+                    q: "Đặc điểm của Trùng roi xanh:",
+                    subs: ["Là động vật đa bào.", "Có lục lạp nên có thể tự dưỡng.", "Có điểm mắt để nhận biết ánh sáng.", "Sống kí sinh trong máu người."],
+                    ans: [false, true, true, false]
+                },
+                {
+                    q: "Về bệnh kiết lị và sốt rét:",
+                    subs: ["Trùng kiết lị ăn hồng cầu gây đi ngoài ra máu.", "Trùng sốt rét kí sinh trong tế bào bạch cầu.", "Bệnh sốt rét lây qua đường tiêu hóa.", "Giữ vệ sinh ăn uống giúp phòng bệnh kiết lị."],
+                    ans: [true, false, false, true]
+                }
+            ],
+            // 5 Câu Điền khuyết (5 chỗ trống, 0.2đ/chỗ = 1.0đ)
+            fill: [
+                { text: "Vi khuẩn lactic lên men đường thành", blank: "axit lactic" },
+                { text: "Trùng biến hình di chuyển và bắt mồi nhờ", blank: "chân giả" },
+                { text: "Muỗi", blank: "Anopheles" }, // Phần text nối tiếp sẽ xử lý trong logic render
+                { text: "là trung gian truyền bệnh sốt rét. Trùng giày di chuyển bằng", blank: "lông bơi" },
+                { text: "Nguyên sinh vật có cấu tạo cơ thể là tế bào", blank: "nhân thực" }
+            ],
+            // Ngân hàng từ khóa cho phần điền khuyết
+            wordBank: ["axit lactic", "chân giả", "Anopheles", "lông bơi", "nhân thực", "nhân sơ", "roi bơi", "virus"],
+            
+            // 5 Câu Tự luận (0.6đ/câu = 3.0đ)
+            sa: [
+                { q: "Tại sao khi làm sữa chua không được dùng nước sôi 100 độ C để pha men giống?", ans: "Nước sôi sẽ làm chết vi khuẩn lactic" },
+                { q: "Nêu vai trò của bước ủ ấm (8-12 giờ) trong quy trình làm sữa chua.", ans: "Tạo nhiệt độ thích hợp cho vi khuẩn lên men sinh sản" },
+                { q: "Trùng kiết lị và trùng biến hình có điểm gì giống nhau về cấu tạo di chuyển?", ans: "Đều có chân giả" },
+                { q: "Tại sao bệnh sốt rét thường hay xảy ra ở vùng miền núi?", ans: "Nhiều cây cối nước đọng muỗi sinh sản" },
+                { q: "Nêu 2 nguyên tắc quan trọng để phòng bệnh do nguyên sinh vật lây qua đường tiêu hóa.", ans: "Ăn chín uống sôi rửa tay" }
+            ]
+        };
 
-                        <div className="md:hidden">
-                        <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="text-gray-600 p-2">
-                            {isMobileMenuOpen ? <XIcon size={24} /> : <Menu size={24} />}
-                        </button>
-                        </div>
+        // --- RENDER LOGIC ---
+        
+        // 1. Render Trắc Nghiệm
+        function renderMCQ() {
+            const container = document.getElementById("mcq-container");
+            biologyExam.mcq.forEach((item, idx) => {
+                const div = document.createElement("div");
+                div.className = "p-4 border border-blue-100 rounded bg-blue-50 hover:shadow-sm";
+                div.innerHTML = `
+                    <p class="font-semibold text-gray-800">Câu ${idx + 1}: ${item.q}</p>
+                    <div class="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-2">
+                        ${item.options.map((opt, i) => `
+                            <label class="flex items-center space-x-2 cursor-pointer p-2 rounded hover:bg-blue-100 transition border border-transparent hover:border-blue-200">
+                                <input type="radio" name="mcq_${idx}" value="${i}" class="form-radio text-blue-600 focus:ring-blue-500 h-5 w-5">
+                                <span class="text-gray-700">${opt}</span>
+                            </label>
+                        `).join('')}
                     </div>
-                    </div>
-
-                    {isMobileMenuOpen && (
-                    <div className="md:hidden bg-white border-t border-gray-100 absolute w-full shadow-lg">
-                        <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-                        <button 
-                            onClick={() => { setActiveTab('home'); setIsMobileMenuOpen(false); }}
-                            className="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-teal-600 hover:bg-gray-50"
-                        >
-                            Trang chủ
-                        </button>
-                        <button 
-                            onClick={() => { setActiveTab('quiz'); setIsMobileMenuOpen(false); }}
-                            className="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-teal-600 hover:bg-gray-50"
-                        >
-                            Luyện đề
-                        </button>
-                        <button 
-                            onClick={() => { setActiveTab('review'); setIsMobileMenuOpen(false); }}
-                            className="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-teal-600 hover:bg-gray-50"
-                        >
-                            Ôn lý thuyết
-                        </button>
-                        </div>
-                    </div>
-                    )}
-                </header>
-
-                <main className="flex-grow">
-                    {activeTab === 'home' && renderHome()}
-                    {activeTab === 'quiz' && renderQuizList()}
-                    {activeTab === 'quiz_taking' && renderQuizTaking()}
-                    {activeTab === 'review' && renderReview()}
-                </main>
-
-                <footer className="bg-white border-t border-gray-200 mt-auto">
-                    <div className="max-w-6xl mx-auto py-6 px-4 text-center text-gray-500 text-sm">
-                    <p>© 2024 Ôn tập Khoa học tự nhiên 6. Sách Chân Trời Sáng Tạo.</p>
-                    </div>
-                </footer>
-                </div>
-            );
+                `;
+                container.appendChild(div);
+            });
         }
 
-        const root = ReactDOM.createRoot(document.getElementById('root'));
-        root.render(<KHTN6ReviewApp />);
+        // 2. Render Đúng/Sai
+        function renderTF() {
+            const container = document.getElementById("tf-container");
+            biologyExam.tf.forEach((item, idx) => {
+                const div = document.createElement("div");
+                div.className = "p-4 border border-orange-100 rounded bg-orange-50";
+                div.innerHTML = `
+                    <p class="font-semibold text-gray-800 mb-3">Câu ${idx + 1}: ${item.q}</p>
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full text-sm text-left bg-white rounded-lg shadow-sm overflow-hidden">
+                            <thead class="bg-orange-100 text-xs uppercase font-semibold text-orange-800">
+                                <tr>
+                                    <th class="px-4 py-3">Mệnh đề</th>
+                                    <th class="px-4 py-3 w-16 text-center bg-green-100 text-green-800">Đúng</th>
+                                    <th class="px-4 py-3 w-16 text-center bg-red-100 text-red-800">Sai</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-orange-200">
+                                ${item.subs.map((sub, i) => `
+                                    <tr class="hover:bg-orange-50 transition">
+                                        <td class="px-4 py-2 text-gray-700 font-medium">${String.fromCharCode(97+i)}) ${sub}</td>
+                                        <td class="px-4 py-2 text-center bg-green-50/50"><input type="radio" name="tf_${idx}_${i}" value="true" class="text-green-600 focus:ring-green-500 h-5 w-5 cursor-pointer"></td>
+                                        <td class="px-4 py-2 text-center bg-red-50/50"><input type="radio" name="tf_${idx}_${i}" value="false" class="text-red-600 focus:ring-red-500 h-5 w-5 cursor-pointer"></td>
+                                    </tr>
+                                `).join('')}
+                            </tbody>
+                        </table>
+                    </div>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        // 3. Render Điền khuyết (Click & Fill Logic)
+        let selectedWord = null;
+        let filledData = {}; // Lưu trữ: { "fill_0": "word", "fill_1": "word" }
+
+        function renderFill() {
+            // Render Word Bank
+            const bankDiv = document.getElementById("word-bank");
+            biologyExam.wordBank.forEach(word => {
+                const span = document.createElement("span");
+                span.className = "word-bank-item";
+                span.innerText = word;
+                span.onclick = () => selectWord(span, word);
+                bankDiv.appendChild(span);
+            });
+
+            // Render Sentences
+            const fillDiv = document.getElementById("fill-container");
+            // Gộp các câu lại thành một đoạn văn hoặc danh sách
+            // Ở đây render theo từng dòng cho dễ nhìn
+            biologyExam.fill.forEach((item, idx) => {
+                const p = document.createElement("div");
+                p.className = "mb-3 pb-3 border-b border-purple-100 last:border-0";
+                
+                // Logic ghép chuỗi: Text + Box
+                // Để đơn giản, ta chỉ hiển thị Text rồi đến Box.
+                // Với câu 3: "Muỗi ... là trung gian", ta cần xử lý chuỗi nối.
+                // Tuy nhiên trong cấu trúc data fill trên, mình đã tách ra.
+                // Hãy render đơn giản: [Text] [Box]
+                
+                // Tinh chỉnh hiển thị để trông tự nhiên hơn
+                let html = `<span class="mr-1">${idx+1}. ${item.text}</span>`;
+                html += `<span id="fill_blank_${idx}" class="fill-blank" onclick="fillBox(${idx})"></span>`;
+                
+                // Nếu là câu nối (như câu 3 trong data), ta có thể hardcode logic hiển thị nếu cần, 
+                // nhưng với data hiện tại, Box luôn nằm sau Text.
+                
+                p.innerHTML = html;
+                fillDiv.appendChild(p);
+            });
+        }
+
+        function selectWord(el, word) {
+            // Bỏ chọn cũ
+            document.querySelectorAll('.word-bank-item').forEach(e => e.classList.remove('selected'));
+            
+            // Nếu click lại cái đang chọn thì hủy chọn
+            if (selectedWord === word) {
+                selectedWord = null;
+                return;
+            }
+
+            // Chọn mới
+            if (!el.classList.contains('used')) {
+                el.classList.add('selected');
+                selectedWord = word;
+            }
+        }
+
+        function fillBox(idx) {
+            const box = document.getElementById(`fill_blank_${idx}`);
+            
+            // Nếu đang có từ chọn sẵn -> Điền vào
+            if (selectedWord) {
+                // Nếu box đã có từ -> Trả từ cũ về bank (bỏ class used)
+                if (filledData[idx]) {
+                    updateWordBankStatus(filledData[idx], false);
+                }
+                
+                // Điền từ mới
+                box.innerText = selectedWord;
+                box.classList.add('filled');
+                filledData[idx] = selectedWord;
+                
+                // Đánh dấu từ trong bank là đã dùng
+                updateWordBankStatus(selectedWord, true);
+                
+                // Reset selection
+                selectedWord = null;
+                document.querySelectorAll('.word-bank-item').forEach(e => e.classList.remove('selected'));
+            } 
+            // Nếu không có từ chọn sẵn nhưng box đang có chữ -> Xóa chữ (trả về bank)
+            else if (filledData[idx]) {
+                updateWordBankStatus(filledData[idx], false);
+                box.innerText = "";
+                box.classList.remove('filled');
+                delete filledData[idx];
+            }
+        }
+
+        function updateWordBankStatus(word, isUsed) {
+            const items = document.querySelectorAll('.word-bank-item');
+            for (let item of items) {
+                if (item.innerText === word) {
+                    if (isUsed) item.classList.add('used');
+                    else item.classList.remove('used');
+                    break;
+                }
+            }
+        }
+
+        // 4. Render Tự luận
+        function renderSA() {
+            const container = document.getElementById("sa-container");
+            biologyExam.sa.forEach((item, idx) => {
+                const div = document.createElement("div");
+                div.className = "p-4 border border-red-200 rounded bg-red-50";
+                div.innerHTML = `
+                    <p class="font-semibold text-gray-800 mb-2">Câu ${idx + 1}: ${item.q}</p>
+                    <textarea id="sa_${idx}" rows="2" class="w-full p-3 border border-red-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 bg-white shadow-inner" placeholder="Nhập câu trả lời của bạn..."></textarea>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        // --- SUBMIT LOGIC ---
+        async function submitExam() {
+            const studentName = document.getElementById("studentName").value.trim();
+            const className = document.getElementById("className").value.trim();
+
+            if (!studentName || !className) {
+                alert("Vui lòng nhập đầy đủ Họ tên và Lớp!");
+                return;
+            }
+
+            if(!confirm("Nộp bài ngay?")) return;
+
+            // UI Loading
+            document.getElementById("loading").style.display = "flex";
+            
+            let p1 = 0, p2 = 0, p3 = 0, p4 = 0;
+            const headers = [];
+            const details = [];
+
+            // 1. Chấm MCQ
+            biologyExam.mcq.forEach((item, idx) => {
+                const selected = document.querySelector(`input[name="mcq_${idx}"]:checked`);
+                const val = selected ? parseInt(selected.value) : -1;
+                const isCorrect = (val === item.ans);
+                if (isCorrect) p1 += 0.25;
+                
+                headers.push(`MCQ ${idx+1}`);
+                details.push(isCorrect ? "Đ" : "S");
+            });
+
+            // 2. Chấm TF
+            biologyExam.tf.forEach((item, idx) => {
+                item.subs.forEach((sub, i) => {
+                    const selected = document.querySelector(`input[name="tf_${idx}_${i}"]:checked`);
+                    const val = selected ? (selected.value === "true") : null;
+                    const isCorrect = (val === item.ans[i]);
+                    if (isCorrect) p2 += 0.25;
+                    
+                    headers.push(`TF ${idx+1}${String.fromCharCode(97+i)}`);
+                    details.push(isCorrect ? "Đ" : "S");
+                });
+            });
+
+            // 3. Chấm Fill
+            biologyExam.fill.forEach((item, idx) => {
+                const userAns = filledData[idx] || "";
+                const isCorrect = userAns === item.blank;
+                if (isCorrect) p3 += 0.2;
+                
+                headers.push(`Fill ${idx+1}`);
+                details.push(userAns || "X");
+            });
+
+            // 4. Chấm Tự luận (Gửi sang AI)
+            const saAnswers = [];
+            biologyExam.sa.forEach((item, idx) => {
+                const val = document.getElementById(`sa_${idx}`).value.trim();
+                saAnswers.push(val);
+                headers.push(`SA ${idx+1}`);
+            });
+
+            // Prepare Payload for AI Grading
+            const itemsToGrade = biologyExam.sa.map((item, idx) => {
+                return `Câu hỏi: "${item.q}". Đáp án tham khảo: "${item.ans}". Học sinh trả lời: "${saAnswers[idx]}".`;
+            }).join("\n---\n");
+
+            // Gọi API
+            try {
+                // A. Chấm điểm AI
+                const aiResponse = await fetch(APPS_SCRIPT_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                    body: JSON.stringify({ action: "grade_ai", items: itemsToGrade })
+                });
+                const aiResult = await aiResponse.json();
+                
+                // Tính điểm AI (giả sử mỗi câu 0.6 điểm)
+                if (aiResult.success && aiResult.data) {
+                    aiResult.data.forEach((res, idx) => {
+                        if (res.isCorrect) p4 += 0.6;
+                        details.push(saAnswers[idx] + " (" + (res.isCorrect ? "Đ" : "S") + ")");
+                    });
+                } else {
+                    // Fallback nếu AI lỗi: Chấm theo từ khóa đơn giản
+                    biologyExam.sa.forEach((item, idx) => {
+                        const val = saAnswers[idx].toLowerCase();
+                        // Logic đơn giản: chứa 50% từ khóa
+                        const keywords = item.ans.toLowerCase().split(" ");
+                        let matchCount = 0;
+                        keywords.forEach(k => { if(val.includes(k)) matchCount++; });
+                        const isCorrect = matchCount >= (keywords.length / 2);
+                        if(isCorrect) p4 += 0.6;
+                        details.push(saAnswers[idx] + " (Local)");
+                    });
+                }
+
+                // Làm tròn điểm
+                p1 = Math.round(p1 * 100) / 100;
+                p2 = Math.round(p2 * 100) / 100;
+                p3 = Math.round(p3 * 100) / 100;
+                p4 = Math.round(p4 * 100) / 100;
+                const total = Math.round((p1 + p2 + p3 + p4) * 100) / 100;
+
+                // B. Lưu kết quả
+                await fetch(APPS_SCRIPT_URL, {
+                    method: 'POST',
+                    mode: 'no-cors', // Quan trọng để không bị lỗi CORS khi chỉ gửi dữ liệu
+                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                    body: JSON.stringify({
+                        action: "save_score",
+                        examName: biologyExam.name,
+                        studentName: studentName,
+                        className: className,
+                        totalScore: total,
+                        p1: p1, p2: p2, p3: p3, p4: p4,
+                        headers: headers,
+                        details: details
+                    })
+                });
+
+                // Hiển thị kết quả
+                document.getElementById("loading").style.display = "none";
+                document.getElementById("resName").innerText = `${studentName} - ${className}`;
+                document.getElementById("resTotal").innerText = `${total}/11`; // Tổng max 11 điểm (3+4+1+3)
+                document.getElementById("resP1").innerText = `${p1}/3.0`;
+                document.getElementById("resP2").innerText = `${p2}/4.0`;
+                document.getElementById("resP3").innerText = `${p3}/1.0`;
+                document.getElementById("resP4").innerText = `${p4}/3.0`;
+
+                document.getElementById("resultModal").classList.remove("hidden");
+                document.getElementById("resultModal").classList.add("flex");
+
+            } catch (err) {
+                console.error(err);
+                alert("Có lỗi xảy ra khi kết nối máy chủ. Vui lòng thử lại.");
+                document.getElementById("loading").style.display = "none";
+            }
+        }
+
+        function closeModal() {
+            document.getElementById("resultModal").classList.add("hidden");
+            document.getElementById("resultModal").classList.remove("flex");
+        }
+
+        // INIT
+        window.onload = function() {
+            renderMCQ();
+            renderTF();
+            renderFill();
+            renderSA();
+        };
     </script>
 </body>
 </html>
