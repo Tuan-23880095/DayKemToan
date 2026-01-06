@@ -58,8 +58,8 @@
         const { useState, useEffect, useRef, useMemo } = React;
 
         // --- CẤU HÌNH ---
-        // URL Web App của Google Apps Script (Sử dụng URL cũ của bạn)
-        const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxBPRlkjpMLDctdm2Uk7aYex_P6Cx0uhIdUmwOcYEm9C7JDe5OH92FiWEn6Nz1HNenY-A/exec';
+        // URL Web App của Google Apps Script
+        const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbznJgUZYemh5RLp_1ViYMT607TgnoOJBqNnoj-etnYJYH6YbAr-MuQDiC41s-zTN_T_/exec";
 
         // --- DỮ LIỆU ĐỀ THI (BÀI 26) ---
         const rawExamData = {
@@ -357,7 +357,7 @@
             );
         };
 
-        const ResultScreen = ({ result, onRetry }) => {
+        const ResultScreen = ({ result, aiComment, onRetry }) => {
             if (!result) return null;
             const { total, max, p1, p2, p3, p4 } = result;
             const percentage = (total / max) * 100;
@@ -377,6 +377,21 @@
                             </div>
                             <div className="absolute top-0 right-0 -mr-10 -mt-10 w-40 h-40 bg-white opacity-10 rounded-full"></div>
                         </div>
+
+                        {/* AI Comment Display */}
+                        {aiComment && (
+                            <div className="p-6 bg-indigo-50 border-b border-indigo-100">
+                                <div className="flex items-start gap-3">
+                                    <div className="bg-indigo-600 p-2 rounded-full shadow shrink-0">
+                                        <Icon name="bot" className="w-6 h-6 text-white" />
+                                    </div>
+                                    <div>
+                                        <h3 className="font-bold text-indigo-900 mb-1">Nhận xét từ AI:</h3>
+                                        <p className="text-indigo-800 text-sm italic bg-white p-3 rounded-lg border border-indigo-100 shadow-sm">{aiComment}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        )}
 
                         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 p-6 bg-gray-50 border-b">
                             <div className="bg-white p-3 rounded-xl border border-blue-100 text-center shadow-sm">
@@ -412,8 +427,8 @@
             <div className="fixed inset-0 bg-black bg-opacity-60 backdrop-blur-sm flex items-center justify-center z-50 animate-fade-in">
                 <div className="bg-white p-8 rounded-2xl shadow-2xl text-center max-w-sm mx-4">
                     <div className="animate-spin rounded-full h-16 w-16 border-4 border-gray-200 border-t-emerald-500 mx-auto mb-6"></div>
-                    <h2 className="text-2xl font-bold text-gray-800 mb-2">Đang nộp bài...</h2>
-                    <p className="text-gray-500">Hệ thống đang chấm điểm và gửi dữ liệu.</p>
+                    <h2 className="text-2xl font-bold text-gray-800 mb-2">Đang chấm điểm...</h2>
+                    <p className="text-gray-500">Hệ thống đang phân tích bài làm và xin nhận xét từ AI.</p>
                 </div>
             </div>
         );
@@ -423,6 +438,7 @@
             const [view, setView] = useState('intro'); // intro, quiz, loading, result
             const [user, setUser] = useState({ name: '', cls: '' });
             const [result, setResult] = useState(null);
+            const [aiComment, setAiComment] = useState("");
 
             const handleStart = (name, cls) => {
                 setUser({ name, cls });
@@ -519,7 +535,30 @@
                 const total = Math.round((p1+p2+p3+p4)*100)/100;
                 const maxScore = 10;
 
-                // 5. Gửi dữ liệu về Google Sheet
+                // 5. Lấy Nhận Xét AI (MỚI THÊM)
+                let comment = "";
+                try {
+                    const commentRes = await fetch(APPS_SCRIPT_URL, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                        body: JSON.stringify({
+                            action: "get_comment",
+                            score: total,
+                            maxScore: maxScore,
+                            p1: p1, p2: p2, p3: p3, p4: p4
+                        })
+                    });
+                    const commentData = await commentRes.json();
+                    if(commentData && commentData.comment) {
+                        comment = commentData.comment;
+                    }
+                } catch (e) {
+                    console.error("Comment Error", e);
+                    comment = "Không thể tải nhận xét từ AI.";
+                }
+                setAiComment(comment);
+
+                // 6. Gửi dữ liệu về Google Sheet (Cập nhật payload đúng chuẩn GAS của bạn)
                 try {
                     await fetch(APPS_SCRIPT_URL, {
                         method: 'POST',
@@ -527,12 +566,19 @@
                         headers: { 'Content-Type': 'text/plain;charset=utf-8' },
                         body: JSON.stringify({
                             action: "save_score",
-                            examName: "Bài 26: Vi khuẩn & Sữa chua",
-                            studentName: user.name,
-                            className: user.cls,
-                            totalScore: total,
-                            p1, p2, p3, p4,
-                            headers, details
+                            role: "Bài 26: Vi khuẩn & Sữa chua", // Mapping cho biến 'role' trong GAS
+                            evaluator: user.name,                // Mapping cho biến 'evaluator' trong GAS
+                            groupName: user.cls,                 // Mapping cho biến 'groupName' trong GAS
+                            comment: comment,                    // Trường comment quan trọng
+                            scores: [                            // GAS mong đợi mảng 'scores' cho các cột động
+                                `${total}/${maxScore}`, 
+                                p1, p2, p3, p4,
+                                ...details
+                            ],
+                            headers: [                           // GAS mong đợi mảng 'headers' cho các cột động
+                                "Tổng Điểm", "TN", "Đ/S", "Điền", "Tự Luận", 
+                                ...headers
+                            ]
                         })
                     });
                 } catch(e) { console.error("Save Error", e); }
@@ -547,7 +593,7 @@
                      {view === 'intro' && <StartScreen onStart={handleStart} />}
                      {view === 'quiz' && <QuizScreen onFinish={handleSubmit} />}
                      {view === 'loading' && <LoadingScreen />}
-                     {view === 'result' && <ResultScreen result={result} onRetry={() => setView('intro')} />}
+                     {view === 'result' && <ResultScreen result={result} aiComment={aiComment} onRetry={() => setView('intro')} />}
                 </div>
             );
         };
@@ -557,4 +603,3 @@
     </script>
 </body>
 </html>
-
