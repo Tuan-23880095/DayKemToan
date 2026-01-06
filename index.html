@@ -3,556 +3,557 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kiểm Tra Sinh Học - Bài 26 & 27</title>
+    <title>Kiểm Tra Sinh Học 6 - Bài 26</title>
+    <!-- React & Babel -->
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
         body { font-family: 'Roboto', sans-serif; background-color: #ecfdf5; }
+        .hand-font { font-family: 'Patrick Hand', cursive; }
         
-        /* Styles cho Kéo Thả / Click Điền */
-        .word-bank-item { 
-            cursor: pointer; user-select: none; transition: all 0.2s; 
-            background-color: white; border: 1px solid #10b981; color: #065f46;
-            padding: 6px 12px; border-radius: 20px; font-weight: 500;
-        }
-        .word-bank-item:hover { background-color: #d1fae5; transform: translateY(-2px); }
-        .word-bank-item.selected { 
-            background-color: #059669 !important; color: white !important; 
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1); 
-        }
-        .word-bank-item.used { opacity: 0.5; cursor: not-allowed; background-color: #e5e7eb; border-color: #9ca3af; color: #6b7280; }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #10b981; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #059669; }
 
-        .fill-blank { 
-            display: inline-block; min-width: 80px; height: 30px; 
-            border-bottom: 2px dashed #059669; margin: 0 4px; 
-            text-align: center; color: #064e3b; font-weight: bold; cursor: pointer;
-            vertical-align: bottom; transition: all 0.2s;
+        /* Animation */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
-        .fill-blank:hover { background-color: #d1fae5; }
-        .fill-blank.filled { border-bottom: 2px solid #059669; background-color: #ecfdf5; }
+        .animate-fade-in { animation: fadeIn 0.4s ease-out forwards; }
 
-        /* Loading Spinner */
-        .loading-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); display: none; justify-content: center; align-items: center; z-index: 50; flex-direction: column; color: white; }
-        .spinner { border: 4px solid #f3f3f3; border-top: 4px solid #10b981; border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; margin-bottom: 10px; }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        /* Fill Blank Styles */
+        .fill-blank-slot {
+            display: inline-block;
+            min-width: 100px;
+            padding: 2px 10px;
+            border-bottom: 2px dashed #059669;
+            color: #047857;
+            font-weight: bold;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            background-color: rgba(16, 185, 129, 0.1);
+            border-radius: 4px;
+            margin: 0 4px;
+        }
+        .fill-blank-slot:hover { background-color: #d1fae5; }
+        .fill-blank-slot.filled { border-bottom: 2px solid #059669; background-color: #ecfdf5; color: #059669; }
     </style>
 </head>
 <body>
+    <div id="root"></div>
 
-    <!-- Loading Screen -->
-    <div id="loading" class="loading-overlay">
-        <div class="spinner"></div>
-        <p id="loading-text" class="font-bold">Đang xử lý...</p>
-    </div>
+    <script type="text/babel">
+        const { useState, useEffect, useRef, useMemo } = React;
 
-    <div class="max-w-4xl mx-auto p-4">
-        <!-- Header -->
-        <header class="bg-gradient-to-r from-emerald-600 to-green-700 text-white p-6 rounded-t-xl shadow-lg mb-6 text-center">
-            <h1 class="text-2xl md:text-3xl font-bold uppercase">Kiểm Tra Sinh Học 6</h1>
-            <p class="mt-2 text-emerald-100">Bài 26: Vi khuẩn & Bài 27: Nguyên sinh vật</p>
-        </header>
-
-        <!-- Student Info -->
-        <div class="bg-white p-6 rounded-lg shadow-md mb-6 border-l-4 border-emerald-500">
-            <h2 class="text-lg font-bold mb-4 text-gray-800 flex items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>
-                Thông tin học sinh
-            </h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                    <label class="block text-gray-700 text-sm font-bold mb-2">Họ và tên</label>
-                    <input type="text" id="studentName" class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-emerald-500" placeholder="Nhập họ tên...">
-                </div>
-                <div>
-                    <label class="block text-gray-700 text-sm font-bold mb-2">Lớp</label>
-                    <input type="text" id="className" class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-emerald-500" placeholder="Ví dụ: 6A1">
-                </div>
-            </div>
-        </div>
-
-        <form id="quizForm" class="space-y-8">
-            
-            <!-- PHẦN 1: TRẮC NGHIỆM -->
-            <div class="bg-white p-6 rounded-lg shadow-md border-t-4 border-blue-500">
-                <h2 class="text-xl font-bold mb-4 text-blue-700">PHẦN I: TRẮC NGHIỆM (12 Câu - 3.0 điểm)</h2>
-                <div id="mcq-container" class="space-y-6"></div>
-            </div>
-
-            <!-- PHẦN 2: ĐÚNG SAI -->
-            <div class="bg-white p-6 rounded-lg shadow-md border-t-4 border-orange-500">
-                <h2 class="text-xl font-bold mb-4 text-orange-700">PHẦN II: ĐÚNG / SAI (4 Câu - 4.0 điểm)</h2>
-                <p class="text-sm text-gray-600 mb-4 italic">Mỗi câu hỏi có 4 ý nhỏ. Chọn Đúng hoặc Sai cho từng ý.</p>
-                <div id="tf-container" class="space-y-8"></div>
-            </div>
-
-            <!-- PHẦN 3: ĐIỀN KHUYẾT (KÉO THẢ / CLICK) -->
-            <div class="bg-white p-6 rounded-lg shadow-md border-t-4 border-purple-500">
-                <h2 class="text-xl font-bold mb-2 text-purple-700">PHẦN III: ĐIỀN KHUYẾT (5 Câu - 1.0 điểm)</h2>
-                <p class="text-sm text-gray-600 mb-4 italic">Click chọn từ khóa ở trên, sau đó click vào ô trống tương ứng để điền.</p>
-                
-                <div class="bg-purple-50 p-4 rounded-lg mb-6 sticky top-2 z-10 shadow border border-purple-200">
-                    <h3 class="font-bold text-purple-800 mb-2 text-xs uppercase tracking-wide">Ngân hàng từ khóa:</h3>
-                    <div id="word-bank" class="flex flex-wrap gap-2 justify-center"></div>
-                </div>
-                <div id="fill-container" class="space-y-4 text-lg leading-loose text-gray-800 px-4"></div>
-            </div>
-
-            <!-- PHẦN 4: TRẢ LỜI NGẮN (TỰ LUẬN) -->
-            <div class="bg-white p-6 rounded-lg shadow-md border-t-4 border-red-500">
-                <div class="flex justify-between items-center mb-4">
-                    <h2 class="text-xl font-bold text-red-700">PHẦN IV: TRẢ LỜI NGẮN (5 Câu - 3.0 điểm)</h2>
-                    <span class="text-xs bg-red-100 text-red-700 px-2 py-1 rounded-full font-bold flex items-center">
-                        <svg class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg> 
-                        AI Chấm
-                    </span>
-                </div>
-                <div id="sa-container" class="space-y-6"></div>
-            </div>
-
-            <!-- Submit Button -->
-            <div class="text-center pb-12 pt-6">
-                <button type="button" onclick="submitExam()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-4 px-12 rounded-full shadow-lg transform transition hover:scale-105 text-xl flex items-center justify-center mx-auto">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                    NỘP BÀI & XEM ĐIỂM
-                </button>
-            </div>
-        </form>
-    </div>
-
-    <!-- Result Modal -->
-    <div id="resultModal" class="fixed inset-0 bg-gray-900 bg-opacity-70 hidden items-center justify-center z-50 p-4 backdrop-blur-sm">
-        <div class="bg-white rounded-2xl p-6 md:p-8 max-w-lg w-full shadow-2xl overflow-y-auto max-h-[90vh] animate-fade-in-up">
-            <div class="text-center">
-                <div class="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-emerald-100 mb-4">
-                    <svg class="h-10 w-10 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                </div>
-                <h3 class="text-2xl font-bold text-gray-900 mb-2">Kết Quả Bài Làm</h3>
-                <p id="modal-status" class="text-sm text-gray-500 mb-4">Đã chấm xong!</p>
-                
-                <div class="bg-gray-50 p-4 rounded-xl text-left space-y-3 border border-gray-200">
-                    <p class="flex justify-between text-gray-700"><span class="font-medium">Thí sinh:</span> <span id="resName"></span></p>
-                    <div class="border-t border-gray-200"></div>
-                    <div class="flex justify-between items-center">
-                        <span class="text-lg font-bold text-gray-800">Tổng điểm:</span>
-                        <span id="resTotal" class="text-3xl font-bold text-red-600"></span>
-                    </div>
-                    <div class="grid grid-cols-2 gap-3 text-sm mt-2">
-                        <div class="bg-blue-50 p-2 rounded border border-blue-100 text-center">
-                            <div class="text-blue-500 font-bold">Trắc nghiệm</div>
-                            <div id="resP1" class="font-bold text-gray-800 text-lg"></div>
-                        </div>
-                        <div class="bg-orange-50 p-2 rounded border border-orange-100 text-center">
-                            <div class="text-orange-500 font-bold">Đúng/Sai</div>
-                            <div id="resP2" class="font-bold text-gray-800 text-lg"></div>
-                        </div>
-                        <div class="bg-purple-50 p-2 rounded border border-purple-100 text-center">
-                            <div class="text-purple-500 font-bold">Điền khuyết</div>
-                            <div id="resP3" class="font-bold text-gray-800 text-lg"></div>
-                        </div>
-                        <div class="bg-red-50 p-2 rounded border border-red-100 text-center">
-                            <div class="text-red-500 font-bold">Tự luận (AI)</div>
-                            <div id="resP4" class="font-bold text-gray-800 text-lg"></div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="mt-6">
-                    <button onclick="closeModal()" class="w-full rounded-xl border border-transparent shadow-md px-4 py-3 bg-gray-800 text-white font-medium hover:bg-gray-900 transition">Đóng lại</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <script>
         // --- CẤU HÌNH ---
-        // Thay URL này bằng URL Web App Script của bạn
-        const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxBPRlkjpMLDctdm2Uk7aYex_P6Cx0uhIdUmwOcYEm9C7JDe5OH92FiWEn6Nz1HNenY-A/exec';
+        // URL Web App của Google Apps Script (Sử dụng URL cũ của bạn)
+        const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbznJgUZYemh5RLp_1ViYMT607TgnoOJBqNnoj-etnYJYH6YbAr-MuQDiC41s-zTN_T_/exec";
 
-        // --- DỮ LIỆU ĐỀ THI SINH HỌC ---
-        const biologyExam = {
-            id: "BIO_L26_27",
-            name: "Sinh học 6 - Bài 26 & 27",
-            // 12 Câu trắc nghiệm (0.25đ/câu = 3.0đ)
+        // --- DỮ LIỆU ĐỀ THI (BÀI 26) ---
+        const rawExamData = {
+            // 4 Câu Trắc nghiệm
             mcq: [
-                { q: "Vi khuẩn lactic có hình dạng chủ yếu là gì?", options: ["Hình xoắn", "Hình cầu hoặc hình que", "Hình dấu phẩy", "Hình đa giác"], ans: 1 },
-                { q: "Vi khuẩn lactic là vi khuẩn Gram gì?", options: ["Gram dương", "Gram âm", "Không xác định", "Trung tính"], ans: 0 },
-                { q: "Quá trình làm sữa chua dựa trên cơ sở khoa học nào?", options: ["Lên men rượu", "Lên men axetic", "Lên men lactic", "Quang hợp"], ans: 2 },
-                { q: "Nhiệt độ thích hợp nhất để ủ sữa chua là khoảng bao nhiêu?", options: ["10-20°C", "90-100°C", "40-50°C", "0-5°C"], ans: 2 },
-                { q: "Trong thực hành quan sát vi khuẩn lactic, ta sử dụng hóa chất nào để nhuộm màu?", options: ["Cồn I-ốt", "Xanh methylene", "Phenolphtalein", "Nước cất"], ans: 1 },
-                { q: "Nguyên sinh vật là nhóm sinh vật có cấu tạo tế bào như thế nào?", options: ["Nhân sơ", "Nhân thực", "Chưa có nhân", "Virus"], ans: 1 },
-                { q: "Trùng roi xanh di chuyển nhờ bộ phận nào?", options: ["Chân giả", "Lông bơi", "Roi bơi", "Vây bơi"], ans: 2 },
-                { q: "Đại diện nào sau đây thuộc nhóm nguyên sinh vật sống tự do?", options: ["Trùng sốt rét", "Trùng kiết lị", "Trùng giày", "Virus cúm"], ans: 2 },
-                { q: "Trùng biến hình bắt mồi bằng cách nào?", options: ["Dùng roi quấn lấy mồi", "Tạo chân giả bao vây mồi", "Dùng lông bơi lùa mồi vào miệng", "Tiết chất độc"], ans: 1 },
-                { q: "Vật trung gian truyền bệnh sốt rét là gì?", options: ["Ruồi nhặng", "Muỗi vằn", "Muỗi Anopheles", "Gián"], ans: 2 },
-                { q: "Trùng kiết lị gây hại ở cơ quan nào của người?", options: ["Phổi", "Gan", "Thành ruột", "Não"], ans: 2 },
-                { q: "Biện pháp nào quan trọng nhất để phòng bệnh sốt rét ở miền núi?", options: ["Không ăn đồ sống", "Ngủ màn (mùng)", "Rửa tay xà phòng", "Tiêm vắc xin cúm"], ans: 1 }
+                { q: "Dụng cụ nào được sử dụng để quan sát hình dạng của vi khuẩn?", options: ["Kính lúp", "Kính hiển vi", "Kính viễn vọng", "Mắt thường"], ans: 1 },
+                { q: "Trong thực hành quan sát vi khuẩn lactic, thuốc nhuộm nào được sử dụng?", options: ["Xanh methylene", "Cồn I-ốt", "Thuốc tím", "Nước muối sinh lý"], ans: 0 },
+                { q: "Nhiệt độ thích hợp nhất để ủ sữa chua là bao nhiêu?", options: ["10 - 20 độ C", "90 - 100 độ C", "40 - 50 độ C", "0 - 5 độ C"], ans: 2 },
+                { q: "Vi khuẩn lactic có hình dạng chủ yếu là gì?", options: ["Hình xoắn", "Hình cầu hoặc hình que", "Hình dấu phẩy", "Hình ngôi sao"], ans: 1 }
             ],
-            // 4 Câu Đúng/Sai (Mỗi câu 4 ý, 0.25đ/ý = 1.0đ/câu -> Tổng 4.0đ)
+            // 2 Câu Đúng/Sai (Cluster)
             tf: [
                 {
-                    q: "Nhận định về đặc điểm của Vi khuẩn Lactic:",
-                    subs: ["Có kích thước hiển vi.", "Sinh sản bằng bào tử.", "Sống trong môi trường giàu chất dinh dưỡng (sữa, ruột).", "Có khả năng di động mạnh."],
-                    ans: [true, false, true, false]
-                },
-                {
-                    q: "Trong quy trình làm sữa chua:",
-                    subs: ["Cần dùng nước sôi 100°C pha sữa để diệt khuẩn.", "Sữa chua mồi cung cấp giống vi khuẩn ban đầu.", "Ủ ấm giúp vi khuẩn lactic sinh sản và lên men.", "Sau khi ủ xong cần bảo quản ngay ở ngăn đá tủ lạnh để đông cứng."],
-                    ans: [false, true, true, false]
-                },
-                {
-                    q: "Đặc điểm của Trùng roi xanh:",
-                    subs: ["Là động vật đa bào.", "Có lục lạp nên có thể tự dưỡng.", "Có điểm mắt để nhận biết ánh sáng.", "Sống kí sinh trong máu người."],
-                    ans: [false, true, true, false]
-                },
-                {
-                    q: "Về bệnh kiết lị và sốt rét:",
-                    subs: ["Trùng kiết lị ăn hồng cầu gây đi ngoài ra máu.", "Trùng sốt rét kí sinh trong tế bào bạch cầu.", "Bệnh sốt rét lây qua đường tiêu hóa.", "Giữ vệ sinh ăn uống giúp phòng bệnh kiết lị."],
+                    q: "Nhận định nào sau đây ĐÚNG về vi khuẩn Lactic?",
+                    subs: [
+                        "Là vi khuẩn Gram dương.",
+                        "Có kích thước lớn, có thể nhìn thấy bằng mắt thường.",
+                        "Sinh sản bằng cách nảy chồi.",
+                        "Thường tìm thấy trong sữa chua, dưa muối."
+                    ],
                     ans: [true, false, false, true]
+                },
+                {
+                    q: "Về quy trình làm sữa chua:",
+                    subs: [
+                        "Dùng nước sôi 100 độ C để pha sữa chua giống.",
+                        "Ủ ấm giúp vi khuẩn lactic sinh trưởng và phát triển nhanh.",
+                        "Bảo quản sữa chua trong ngăn đá ngay sau khi pha chế.",
+                        "Sữa chua mồi cung cấp vi khuẩn lactic ban đầu cho quá trình lên men."
+                    ],
+                    ans: [false, true, false, true]
                 }
             ],
-            // 5 Câu Điền khuyết (5 chỗ trống, 0.2đ/chỗ = 1.0đ)
-            fill: [
-                { text: "Vi khuẩn lactic lên men đường thành", blank: "axit lactic" },
-                { text: "Trùng biến hình di chuyển và bắt mồi nhờ", blank: "chân giả" },
-                { text: "Muỗi", blank: "Anopheles" }, // Phần text nối tiếp sẽ xử lý trong logic render
-                { text: "là trung gian truyền bệnh sốt rét. Trùng giày di chuyển bằng", blank: "lông bơi" },
-                { text: "Nguyên sinh vật có cấu tạo cơ thể là tế bào", blank: "nhân thực" }
-            ],
-            // Ngân hàng từ khóa cho phần điền khuyết
-            wordBank: ["axit lactic", "chân giả", "Anopheles", "lông bơi", "nhân thực", "nhân sơ", "roi bơi", "virus"],
-            
-            // 5 Câu Tự luận (0.6đ/câu = 3.0đ)
+            // 2 Câu Điền khuyết
+            fill: {
+                sentences: [
+                    { text: "Vi khuẩn lactic lên men đường trong sữa thành", blank: "axit lactic" },
+                    { text: "Khi làm tiêu bản, ta nhỏ một giọt", blank: "xanh methylene", suffix: "để nhuộm màu vi khuẩn." }
+                ],
+                wordBank: ["axit lactic", "xanh methylene", "oxy", "cồn", "đường glucose", "kính hiển vi"]
+            },
+            // 2 Câu Tự luận
             sa: [
-                { q: "Tại sao khi làm sữa chua không được dùng nước sôi 100 độ C để pha men giống?", ans: "Nước sôi sẽ làm chết vi khuẩn lactic" },
-                { q: "Nêu vai trò của bước ủ ấm (8-12 giờ) trong quy trình làm sữa chua.", ans: "Tạo nhiệt độ thích hợp cho vi khuẩn lên men sinh sản" },
-                { q: "Trùng kiết lị và trùng biến hình có điểm gì giống nhau về cấu tạo di chuyển?", ans: "Đều có chân giả" },
-                { q: "Tại sao bệnh sốt rét thường hay xảy ra ở vùng miền núi?", ans: "Nhiều cây cối nước đọng muỗi sinh sản" },
-                { q: "Nêu 2 nguyên tắc quan trọng để phòng bệnh do nguyên sinh vật lây qua đường tiêu hóa.", ans: "Ăn chín uống sôi rửa tay" }
+                { q: "Tại sao cần bảo quản sữa chua trong ngăn mát tủ lạnh sau khi đã ủ xong?", ans: "Kìm hãm vi khuẩn lên men quá mức làm sữa bị chua gắt" },
+                { q: "Vì sao không dùng nước sôi 100 độ C để pha hộp sữa chua làm giống?", ans: "Nước sôi nhiệt độ cao làm chết vi khuẩn lactic" }
             ]
         };
 
-        // --- RENDER LOGIC ---
-        
-        // 1. Render Trắc Nghiệm
-        function renderMCQ() {
-            const container = document.getElementById("mcq-container");
-            biologyExam.mcq.forEach((item, idx) => {
-                const div = document.createElement("div");
-                div.className = "p-4 border border-blue-100 rounded bg-blue-50 hover:shadow-sm";
-                div.innerHTML = `
-                    <p class="font-semibold text-gray-800">Câu ${idx + 1}: ${item.q}</p>
-                    <div class="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-2">
-                        ${item.options.map((opt, i) => `
-                            <label class="flex items-center space-x-2 cursor-pointer p-2 rounded hover:bg-blue-100 transition border border-transparent hover:border-blue-200">
-                                <input type="radio" name="mcq_${idx}" value="${i}" class="form-radio text-blue-600 focus:ring-blue-500 h-5 w-5">
-                                <span class="text-gray-700">${opt}</span>
-                            </label>
-                        `).join('')}
-                    </div>
-                `;
-                container.appendChild(div);
-            });
-        }
+        // Chuyển đổi dữ liệu cho Slide
+        const quizQuestions = [
+            ...rawExamData.mcq.map((item, i) => ({ ...item, id: `mcq_${i}`, type: 'mcq', section: 'I. Trắc Nghiệm' })),
+            ...rawExamData.tf.map((item, i) => ({ ...item, id: `tf_${i}`, type: 'tf_cluster', section: 'II. Đúng Sai' })),
+            { id: 'fill_all', type: 'fill_blank', section: 'III. Điền Khuyết', data: rawExamData.fill },
+            ...rawExamData.sa.map((item, i) => ({ ...item, id: `sa_${i}`, type: 'short_answer', section: 'IV. Tự Luận' }))
+        ];
 
-        // 2. Render Đúng/Sai
-        function renderTF() {
-            const container = document.getElementById("tf-container");
-            biologyExam.tf.forEach((item, idx) => {
-                const div = document.createElement("div");
-                div.className = "p-4 border border-orange-100 rounded bg-orange-50";
-                div.innerHTML = `
-                    <p class="font-semibold text-gray-800 mb-3">Câu ${idx + 1}: ${item.q}</p>
-                    <div class="overflow-x-auto">
-                        <table class="min-w-full text-sm text-left bg-white rounded-lg shadow-sm overflow-hidden">
-                            <thead class="bg-orange-100 text-xs uppercase font-semibold text-orange-800">
-                                <tr>
-                                    <th class="px-4 py-3">Mệnh đề</th>
-                                    <th class="px-4 py-3 w-16 text-center bg-green-100 text-green-800">Đúng</th>
-                                    <th class="px-4 py-3 w-16 text-center bg-red-100 text-red-800">Sai</th>
-                                </tr>
-                            </thead>
-                            <tbody class="divide-y divide-orange-200">
-                                ${item.subs.map((sub, i) => `
-                                    <tr class="hover:bg-orange-50 transition">
-                                        <td class="px-4 py-2 text-gray-700 font-medium">${String.fromCharCode(97+i)}) ${sub}</td>
-                                        <td class="px-4 py-2 text-center bg-green-50/50"><input type="radio" name="tf_${idx}_${i}" value="true" class="text-green-600 focus:ring-green-500 h-5 w-5 cursor-pointer"></td>
-                                        <td class="px-4 py-2 text-center bg-red-50/50"><input type="radio" name="tf_${idx}_${i}" value="false" class="text-red-600 focus:ring-red-500 h-5 w-5 cursor-pointer"></td>
-                                    </tr>
-                                `).join('')}
-                            </tbody>
-                        </table>
-                    </div>
-                `;
-                container.appendChild(div);
-            });
-        }
+        // --- COMPONENTS ---
 
-        // 3. Render Điền khuyết (Click & Fill Logic)
-        let selectedWord = null;
-        let filledData = {}; // Lưu trữ: { "fill_0": "word", "fill_1": "word" }
-
-        function renderFill() {
-            // Render Word Bank
-            const bankDiv = document.getElementById("word-bank");
-            biologyExam.wordBank.forEach(word => {
-                const span = document.createElement("span");
-                span.className = "word-bank-item";
-                span.innerText = word;
-                span.onclick = () => selectWord(span, word);
-                bankDiv.appendChild(span);
-            });
-
-            // Render Sentences
-            const fillDiv = document.getElementById("fill-container");
-            // Gộp các câu lại thành một đoạn văn hoặc danh sách
-            // Ở đây render theo từng dòng cho dễ nhìn
-            biologyExam.fill.forEach((item, idx) => {
-                const p = document.createElement("div");
-                p.className = "mb-3 pb-3 border-b border-purple-100 last:border-0";
-                
-                // Logic ghép chuỗi: Text + Box
-                // Để đơn giản, ta chỉ hiển thị Text rồi đến Box.
-                // Với câu 3: "Muỗi ... là trung gian", ta cần xử lý chuỗi nối.
-                // Tuy nhiên trong cấu trúc data fill trên, mình đã tách ra.
-                // Hãy render đơn giản: [Text] [Box]
-                
-                // Tinh chỉnh hiển thị để trông tự nhiên hơn
-                let html = `<span class="mr-1">${idx+1}. ${item.text}</span>`;
-                html += `<span id="fill_blank_${idx}" class="fill-blank" onclick="fillBox(${idx})"></span>`;
-                
-                // Nếu là câu nối (như câu 3 trong data), ta có thể hardcode logic hiển thị nếu cần, 
-                // nhưng với data hiện tại, Box luôn nằm sau Text.
-                
-                p.innerHTML = html;
-                fillDiv.appendChild(p);
-            });
-        }
-
-        function selectWord(el, word) {
-            // Bỏ chọn cũ
-            document.querySelectorAll('.word-bank-item').forEach(e => e.classList.remove('selected'));
-            
-            // Nếu click lại cái đang chọn thì hủy chọn
-            if (selectedWord === word) {
-                selectedWord = null;
-                return;
-            }
-
-            // Chọn mới
-            if (!el.classList.contains('used')) {
-                el.classList.add('selected');
-                selectedWord = word;
-            }
-        }
-
-        function fillBox(idx) {
-            const box = document.getElementById(`fill_blank_${idx}`);
-            
-            // Nếu đang có từ chọn sẵn -> Điền vào
-            if (selectedWord) {
-                // Nếu box đã có từ -> Trả từ cũ về bank (bỏ class used)
-                if (filledData[idx]) {
-                    updateWordBankStatus(filledData[idx], false);
+        const Icon = ({ name, className }) => {
+            const ref = useRef(null);
+            useEffect(() => {
+                if (typeof lucide !== 'undefined' && ref.current) {
+                    const i = document.createElement('i');
+                    i.setAttribute('data-lucide', name);
+                    if (className) i.className = className;
+                    ref.current.innerHTML = '';
+                    ref.current.appendChild(i);
+                    lucide.createIcons({ root: ref.current });
                 }
-                
-                // Điền từ mới
-                box.innerText = selectedWord;
-                box.classList.add('filled');
-                filledData[idx] = selectedWord;
-                
-                // Đánh dấu từ trong bank là đã dùng
-                updateWordBankStatus(selectedWord, true);
-                
-                // Reset selection
-                selectedWord = null;
-                document.querySelectorAll('.word-bank-item').forEach(e => e.classList.remove('selected'));
-            } 
-            // Nếu không có từ chọn sẵn nhưng box đang có chữ -> Xóa chữ (trả về bank)
-            else if (filledData[idx]) {
-                updateWordBankStatus(filledData[idx], false);
-                box.innerText = "";
-                box.classList.remove('filled');
-                delete filledData[idx];
-            }
-        }
+            }, [name, className]);
+            return <span ref={ref} style={{ display: 'inline-flex', verticalAlign: 'middle' }}></span>;
+        };
 
-        function updateWordBankStatus(word, isUsed) {
-            const items = document.querySelectorAll('.word-bank-item');
-            for (let item of items) {
-                if (item.innerText === word) {
-                    if (isUsed) item.classList.add('used');
-                    else item.classList.remove('used');
-                    break;
+        const StartScreen = ({ onStart }) => {
+            const [name, setName] = useState("");
+            const [cls, setCls] = useState("");
+
+            return (
+                <div className="flex flex-col items-center justify-center min-h-[80vh] px-4 animate-fade-in">
+                    <div className="bg-white p-8 rounded-2xl shadow-2xl max-w-lg w-full text-center border-t-8 border-emerald-500">
+                        <div className="bg-emerald-100 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
+                            <Icon name="flask-conical" className="w-10 h-10 text-emerald-600" />
+                        </div>
+                        <h1 className="text-3xl font-bold text-gray-800 mb-2 hand-font uppercase">Kiểm Tra Bài 26</h1>
+                        <p className="text-emerald-600 font-medium mb-8">Thực hành quan sát vi khuẩn & Làm sữa chua</p>
+                        
+                        <div className="space-y-4 text-left">
+                            <div>
+                                <label className="block text-sm font-bold text-gray-700 mb-1">Họ và tên</label>
+                                <input type="text" value={name} onChange={e => setName(e.target.value)} className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:outline-none" placeholder="Nhập họ tên..." />
+                            </div>
+                            <div>
+                                <label className="block text-sm font-bold text-gray-700 mb-1">Lớp</label>
+                                <input type="text" value={cls} onChange={e => setCls(e.target.value)} className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:outline-none" placeholder="Ví dụ: 6A1" />
+                            </div>
+                        </div>
+
+                        <button onClick={() => name && cls ? onStart(name, cls) : alert("Vui lòng nhập đủ thông tin!")} 
+                            className="mt-8 w-full py-4 bg-emerald-600 text-white font-bold rounded-xl shadow-lg hover:bg-emerald-700 transition transform hover:scale-105 flex items-center justify-center gap-2">
+                            Bắt đầu làm bài <Icon name="arrow-right" className="w-5 h-5" />
+                        </button>
+                    </div>
+                </div>
+            );
+        };
+
+        const MCQQuestion = ({ data, answer, onAnswer }) => (
+            <div className="animate-fade-in">
+                <h3 className="text-xl font-medium text-gray-800 mb-6">{data.q}</h3>
+                <div className="grid grid-cols-1 gap-3">
+                    {data.options.map((opt, i) => (
+                        <button key={i} onClick={() => onAnswer(i)}
+                            className={`p-4 rounded-xl border-2 text-left transition flex items-center gap-3 relative
+                            ${answer === i ? 'border-emerald-500 bg-emerald-50 ring-1 ring-emerald-300' : 'border-gray-200 hover:border-emerald-300 hover:bg-gray-50'}`}>
+                            <div className={`w-8 h-8 rounded-full flex items-center justify-center border font-bold shrink-0
+                                ${answer === i ? 'bg-emerald-500 text-white border-emerald-500' : 'text-gray-500 border-gray-300 bg-white'}`}>
+                                {String.fromCharCode(65 + i)}
+                            </div>
+                            <span className="text-gray-700 font-medium">{opt}</span>
+                            {answer === i && <Icon name="check-circle" className="absolute right-4 text-emerald-500 w-5 h-5" />}
+                        </button>
+                    ))}
+                </div>
+            </div>
+        );
+
+        const TFClusterQuestion = ({ data, answer = {}, onAnswer }) => (
+            <div className="animate-fade-in">
+                <h3 className="text-xl font-medium text-gray-800 mb-4">{data.q}</h3>
+                <p className="text-sm text-gray-500 italic mb-4">Chọn Đúng hoặc Sai cho mỗi ý dưới đây:</p>
+                <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+                    {data.subs.map((sub, i) => {
+                        const currentVal = answer[i]; 
+                        return (
+                            <div key={i} className="flex flex-col sm:flex-row sm:items-center justify-between p-4 border-b last:border-0 hover:bg-gray-50 transition">
+                                <span className="text-gray-700 font-medium mb-2 sm:mb-0 sm:mr-4 flex-grow">{String.fromCharCode(97+i)}) {sub}</span>
+                                <div className="flex gap-2 shrink-0">
+                                    <button onClick={() => onAnswer({ ...answer, [i]: true })}
+                                        className={`px-4 py-2 rounded-lg text-sm font-bold border transition ${currentVal === true ? 'bg-green-600 text-white border-green-600' : 'bg-white text-gray-600 border-gray-300 hover:bg-green-50'}`}>
+                                        ĐÚNG
+                                    </button>
+                                    <button onClick={() => onAnswer({ ...answer, [i]: false })}
+                                        className={`px-4 py-2 rounded-lg text-sm font-bold border transition ${currentVal === false ? 'bg-red-600 text-white border-red-600' : 'bg-white text-gray-600 border-gray-300 hover:bg-red-50'}`}>
+                                        SAI
+                                    </button>
+                                </div>
+                            </div>
+                        );
+                    })}
+                </div>
+            </div>
+        );
+
+        const FillBlankQuestion = ({ data, answer = {}, onAnswer }) => {
+            const [selectedWord, setSelectedWord] = useState(null);
+
+            const handleWordClick = (word) => {
+                if (selectedWord === word) setSelectedWord(null);
+                else setSelectedWord(word);
+            };
+
+            const handleSlotClick = (index) => {
+                if (selectedWord) {
+                    onAnswer({ ...answer, [index]: selectedWord });
+                    setSelectedWord(null);
+                } else if (answer[index]) {
+                    const newAns = { ...answer };
+                    delete newAns[index];
+                    onAnswer(newAns);
                 }
-            }
-        }
+            };
 
-        // 4. Render Tự luận
-        function renderSA() {
-            const container = document.getElementById("sa-container");
-            biologyExam.sa.forEach((item, idx) => {
-                const div = document.createElement("div");
-                div.className = "p-4 border border-red-200 rounded bg-red-50";
-                div.innerHTML = `
-                    <p class="font-semibold text-gray-800 mb-2">Câu ${idx + 1}: ${item.q}</p>
-                    <textarea id="sa_${idx}" rows="2" class="w-full p-3 border border-red-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 bg-white shadow-inner" placeholder="Nhập câu trả lời của bạn..."></textarea>
-                `;
-                container.appendChild(div);
-            });
-        }
-
-        // --- SUBMIT LOGIC ---
-        async function submitExam() {
-            const studentName = document.getElementById("studentName").value.trim();
-            const className = document.getElementById("className").value.trim();
-
-            if (!studentName || !className) {
-                alert("Vui lòng nhập đầy đủ Họ tên và Lớp!");
-                return;
-            }
-
-            if(!confirm("Nộp bài ngay?")) return;
-
-            // UI Loading
-            document.getElementById("loading").style.display = "flex";
+            const usedWords = Object.values(answer);
             
-            let p1 = 0, p2 = 0, p3 = 0, p4 = 0;
-            const headers = [];
-            const details = [];
-
-            // 1. Chấm MCQ
-            biologyExam.mcq.forEach((item, idx) => {
-                const selected = document.querySelector(`input[name="mcq_${idx}"]:checked`);
-                const val = selected ? parseInt(selected.value) : -1;
-                const isCorrect = (val === item.ans);
-                if (isCorrect) p1 += 0.25;
-                
-                headers.push(`MCQ ${idx+1}`);
-                details.push(isCorrect ? "Đ" : "S");
-            });
-
-            // 2. Chấm TF
-            biologyExam.tf.forEach((item, idx) => {
-                item.subs.forEach((sub, i) => {
-                    const selected = document.querySelector(`input[name="tf_${idx}_${i}"]:checked`);
-                    const val = selected ? (selected.value === "true") : null;
-                    const isCorrect = (val === item.ans[i]);
-                    if (isCorrect) p2 += 0.25;
+            return (
+                <div className="animate-fade-in">
+                    <p className="text-sm text-gray-500 italic mb-4">Click chọn từ khóa rồi click vào ô trống để điền.</p>
                     
-                    headers.push(`TF ${idx+1}${String.fromCharCode(97+i)}`);
+                    <div className="bg-purple-50 p-4 rounded-xl border border-purple-200 mb-6 flex flex-wrap gap-2 sticky top-0 z-10 shadow-sm">
+                        {data.wordBank.map((word, i) => {
+                            const isUsed = usedWords.includes(word);
+                            const isSelected = selectedWord === word;
+                            return (
+                                <button key={i} 
+                                    onClick={() => !isUsed && handleWordClick(word)}
+                                    disabled={isUsed}
+                                    className={`px-3 py-1.5 rounded-full text-sm font-medium border transition transform 
+                                    ${isUsed ? 'bg-gray-200 text-gray-400 border-gray-200 cursor-not-allowed' : 
+                                      isSelected ? 'bg-purple-600 text-white border-purple-600 scale-105 shadow-md' : 
+                                      'bg-white text-purple-700 border-purple-300 hover:bg-purple-100'}`}>
+                                    {word}
+                                </button>
+                            )
+                        })}
+                    </div>
+
+                    <div className="space-y-6 bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+                        {data.sentences.map((item, idx) => (
+                            <div key={idx} className="leading-loose text-gray-800 text-lg border-b border-gray-100 pb-4 last:border-0">
+                                <span className="font-bold mr-2 text-purple-600">{idx + 1}.</span>
+                                {item.text}
+                                <span onClick={() => handleSlotClick(idx)}
+                                    className={`fill-blank-slot ${answer[idx] ? 'filled' : ''}`}>
+                                    {answer[idx] || "....."}
+                                </span>
+                                {item.suffix && <span> {item.suffix}</span>}
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            );
+        };
+
+        const ShortAnswerQuestion = ({ data, answer = "", onAnswer }) => (
+            <div className="animate-fade-in">
+                <h3 className="text-xl font-medium text-gray-800 mb-4">{data.q}</h3>
+                <textarea 
+                    value={answer}
+                    onChange={(e) => onAnswer(e.target.value)}
+                    rows="4"
+                    className="w-full p-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-red-500 focus:border-transparent bg-white shadow-inner text-gray-700 text-lg"
+                    placeholder="Nhập câu trả lời của bạn..."
+                ></textarea>
+                <div className="mt-2 text-right text-sm text-gray-500">
+                    Câu này sẽ được chấm bởi AI.
+                </div>
+            </div>
+        );
+
+        const QuizScreen = ({ onFinish }) => {
+            const [currentIdx, setCurrentIdx] = useState(0);
+            const [answers, setAnswers] = useState({});
+            const [timeLeft, setTimeLeft] = useState(15 * 60); 
+
+            useEffect(() => {
+                const timer = setInterval(() => {
+                    setTimeLeft(prev => {
+                        if (prev <= 1) { clearInterval(timer); onFinish(answers); return 0; }
+                        return prev - 1;
+                    });
+                }, 1000);
+                return () => clearInterval(timer);
+            }, []);
+
+            const formatTime = (s) => `${Math.floor(s/60)}:${(s%60).toString().padStart(2,'0')}`;
+            const currentQ = quizQuestions[currentIdx];
+            const isLast = currentIdx === quizQuestions.length - 1;
+            const progress = ((currentIdx + 1) / quizQuestions.length) * 100;
+
+            const handleAnswer = (ans) => {
+                setAnswers(prev => ({ ...prev, [currentQ.id]: ans }));
+            };
+
+            return (
+                <div className="max-w-3xl mx-auto mt-6 px-4 pb-20">
+                    <div className="bg-white p-4 rounded-xl shadow-sm mb-6 flex justify-between items-center sticky top-2 z-20 border-b border-gray-100">
+                        <div>
+                            <span className="text-xs font-bold text-gray-400 uppercase">Câu hỏi</span>
+                            <div className="text-2xl font-bold text-emerald-600 leading-none">
+                                {currentIdx + 1}<span className="text-lg text-gray-300">/{quizQuestions.length}</span>
+                            </div>
+                        </div>
+                        <div className="hidden sm:block px-3 py-1 bg-gray-100 rounded-full text-xs font-bold text-gray-500">
+                            {currentQ.section}
+                        </div>
+                        <div className="flex items-center gap-2 text-orange-600 bg-orange-50 px-3 py-1.5 rounded-lg border border-orange-100 font-bold">
+                            <Icon name="clock" className="w-4 h-4" /> {formatTime(timeLeft)}
+                        </div>
+                    </div>
+
+                    <div className="w-full bg-gray-200 rounded-full h-2 mb-6">
+                        <div className="bg-emerald-500 h-2 rounded-full transition-all duration-300" style={{ width: `${progress}%` }}></div>
+                    </div>
+
+                    <div className="bg-white rounded-2xl shadow-lg p-6 md:p-8 min-h-[400px] flex flex-col justify-between">
+                        <div>
+                            {currentQ.type === 'mcq' && <MCQQuestion data={currentQ} answer={answers[currentQ.id]} onAnswer={handleAnswer} />}
+                            {currentQ.type === 'tf_cluster' && <TFClusterQuestion data={currentQ} answer={answers[currentQ.id]} onAnswer={handleAnswer} />}
+                            {currentQ.type === 'fill_blank' && <FillBlankQuestion data={currentQ.data} answer={answers[currentQ.id]} onAnswer={handleAnswer} />}
+                            {currentQ.type === 'short_answer' && <ShortAnswerQuestion data={currentQ} answer={answers[currentQ.id]} onAnswer={handleAnswer} />}
+                        </div>
+
+                        <div className="flex justify-between mt-8 pt-6 border-t border-gray-50">
+                            <button onClick={() => setCurrentIdx(c => Math.max(0, c - 1))} disabled={currentIdx === 0}
+                                className={`flex items-center gap-2 px-5 py-2.5 rounded-lg font-medium transition ${currentIdx===0 ? 'text-gray-300 cursor-not-allowed' : 'text-gray-600 hover:bg-gray-100'}`}>
+                                <Icon name="arrow-left" className="w-5 h-5" /> Quay lại
+                            </button>
+                            <button onClick={() => isLast ? onFinish(answers) : setCurrentIdx(c => Math.min(quizQuestions.length - 1, c + 1))}
+                                className={`flex items-center gap-2 px-8 py-3 rounded-xl font-bold text-white shadow-lg transition transform active:scale-95 ${isLast ? 'bg-red-600 hover:bg-red-700' : 'bg-emerald-600 hover:bg-emerald-700'}`}>
+                                {isLast ? 'Nộp Bài' : 'Câu Tiếp Theo'} {!isLast && <Icon name="arrow-right" className="w-5 h-5" />}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            );
+        };
+
+        const ResultScreen = ({ result, onRetry }) => {
+            if (!result) return null;
+            const { total, max, p1, p2, p3, p4 } = result;
+            const percentage = (total / max) * 100;
+
+            return (
+                <div className="max-w-2xl mx-auto mt-10 px-4 pb-20 animate-fade-in">
+                    <div className="bg-white rounded-2xl shadow-2xl overflow-hidden">
+                        <div className="bg-slate-800 text-white p-10 text-center relative overflow-hidden">
+                            <div className="relative z-10">
+                                <h2 className="text-3xl font-bold mb-2">Kết Quả Bài Làm</h2>
+                                <div className="text-6xl font-black mb-4 tracking-tighter">{total}<span className="text-3xl text-gray-400 font-normal">/{max}</span></div>
+                                <p className={`text-xl font-bold hand-font ${percentage >= 80 ? 'text-green-400' : percentage >= 50 ? 'text-yellow-400' : 'text-red-400'}`}>
+                                    {percentage >= 90 ? "Xuất sắc! Bạn là chuyên gia về vi khuẩn!" : 
+                                     percentage >= 70 ? "Làm tốt lắm!" : 
+                                     percentage >= 50 ? "Đạt yêu cầu." : "Cần ôn tập thêm bài 26 nhé!"}
+                                </p>
+                            </div>
+                            <div className="absolute top-0 right-0 -mr-10 -mt-10 w-40 h-40 bg-white opacity-10 rounded-full"></div>
+                        </div>
+
+                        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 p-6 bg-gray-50 border-b">
+                            <div className="bg-white p-3 rounded-xl border border-blue-100 text-center shadow-sm">
+                                <div className="text-xs text-gray-500 uppercase font-bold">Trắc Nghiệm</div>
+                                <div className="text-xl font-bold text-blue-600">{p1}/2.0</div>
+                            </div>
+                            <div className="bg-white p-3 rounded-xl border border-orange-100 text-center shadow-sm">
+                                <div className="text-xs text-gray-500 uppercase font-bold">Đúng/Sai</div>
+                                <div className="text-xl font-bold text-orange-600">{p2}/2.0</div>
+                            </div>
+                            <div className="bg-white p-3 rounded-xl border border-purple-100 text-center shadow-sm">
+                                <div className="text-xs text-gray-500 uppercase font-bold">Điền Khuyết</div>
+                                <div className="text-xl font-bold text-purple-600">{p3}/2.0</div>
+                            </div>
+                            <div className="bg-white p-3 rounded-xl border border-red-100 text-center shadow-sm">
+                                <div className="text-xs text-gray-500 uppercase font-bold">Tự Luận (AI)</div>
+                                <div className="text-xl font-bold text-red-600">{p4}/4.0</div>
+                            </div>
+                        </div>
+
+                        <div className="p-8 text-center">
+                            <p className="text-gray-600 mb-6 font-medium">Kết quả chi tiết và bài làm đã được gửi về hệ thống.</p>
+                            <button onClick={onRetry} className="bg-gray-800 text-white px-8 py-3 rounded-full font-bold shadow-lg hover:bg-gray-900 transition flex items-center gap-2 mx-auto">
+                                <Icon name="rotate-ccw" className="w-5 h-5" /> Làm bài mới
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            );
+        };
+
+        const LoadingScreen = () => (
+            <div className="fixed inset-0 bg-black bg-opacity-60 backdrop-blur-sm flex items-center justify-center z-50 animate-fade-in">
+                <div className="bg-white p-8 rounded-2xl shadow-2xl text-center max-w-sm mx-4">
+                    <div className="animate-spin rounded-full h-16 w-16 border-4 border-gray-200 border-t-emerald-500 mx-auto mb-6"></div>
+                    <h2 className="text-2xl font-bold text-gray-800 mb-2">Đang nộp bài...</h2>
+                    <p className="text-gray-500">Hệ thống đang chấm điểm và gửi dữ liệu.</p>
+                </div>
+            </div>
+        );
+
+        // --- MAIN APP ---
+        const App = () => {
+            const [view, setView] = useState('intro'); // intro, quiz, loading, result
+            const [user, setUser] = useState({ name: '', cls: '' });
+            const [result, setResult] = useState(null);
+
+            const handleStart = (name, cls) => {
+                setUser({ name, cls });
+                setView('quiz');
+            };
+
+            const handleSubmit = async (answers) => {
+                setView('loading');
+                
+                // --- CHẤM ĐIỂM ---
+                // Tổng điểm Max: 10 điểm
+                // MCQ: 4 câu * 0.5 = 2.0 điểm
+                // TF: 2 câu * 1.0 = 2.0 điểm (mỗi ý 0.25)
+                // Fill: 2 câu * 1.0 = 2.0 điểm
+                // SA: 2 câu * 2.0 = 4.0 điểm
+
+                let p1 = 0, p2 = 0, p3 = 0, p4 = 0;
+                let details = []; 
+                let headers = [];
+
+                // 1. Chấm MCQ (4 câu - 2.0đ)
+                rawExamData.mcq.forEach((q, i) => {
+                    const isCorrect = answers[`mcq_${i}`] === q.ans;
+                    if(isCorrect) p1 += 0.5;
+                    headers.push(`MCQ ${i+1}`);
                     details.push(isCorrect ? "Đ" : "S");
                 });
-            });
 
-            // 3. Chấm Fill
-            biologyExam.fill.forEach((item, idx) => {
-                const userAns = filledData[idx] || "";
-                const isCorrect = userAns === item.blank;
-                if (isCorrect) p3 += 0.2;
-                
-                headers.push(`Fill ${idx+1}`);
-                details.push(userAns || "X");
-            });
-
-            // 4. Chấm Tự luận (Gửi sang AI)
-            const saAnswers = [];
-            biologyExam.sa.forEach((item, idx) => {
-                const val = document.getElementById(`sa_${idx}`).value.trim();
-                saAnswers.push(val);
-                headers.push(`SA ${idx+1}`);
-            });
-
-            // Prepare Payload for AI Grading
-            const itemsToGrade = biologyExam.sa.map((item, idx) => {
-                return `Câu hỏi: "${item.q}". Đáp án tham khảo: "${item.ans}". Học sinh trả lời: "${saAnswers[idx]}".`;
-            }).join("\n---\n");
-
-            // Gọi API
-            try {
-                // A. Chấm điểm AI
-                const aiResponse = await fetch(APPS_SCRIPT_URL, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-                    body: JSON.stringify({ action: "grade_ai", items: itemsToGrade })
+                // 2. Chấm TF (2 câu lớn, mỗi ý nhỏ 0.25đ - 2.0đ)
+                rawExamData.tf.forEach((q, i) => {
+                    const userSubAns = answers[`tf_${i}`] || {};
+                    q.subs.forEach((sub, j) => {
+                        const isCorrect = userSubAns[j] === q.ans[j];
+                        if(isCorrect) p2 += 0.25;
+                        headers.push(`TF ${i+1}.${j+1}`);
+                        details.push(isCorrect ? "Đ" : "S");
+                    });
                 });
-                const aiResult = await aiResponse.json();
-                
-                // Tính điểm AI (giả sử mỗi câu 0.6 điểm)
-                if (aiResult.success && aiResult.data) {
-                    aiResult.data.forEach((res, idx) => {
-                        if (res.isCorrect) p4 += 0.6;
-                        details.push(saAnswers[idx] + " (" + (res.isCorrect ? "Đ" : "S") + ")");
+
+                // 3. Chấm Fill (2 câu - 2.0đ)
+                const fillAns = answers['fill_all'] || {};
+                rawExamData.fill.sentences.forEach((s, i) => {
+                    const isCorrect = fillAns[i] === s.blank;
+                    if(isCorrect) p3 += 1.0;
+                    headers.push(`Fill ${i+1}`);
+                    details.push(fillAns[i] || "Trống");
+                });
+
+                // 4. Chấm AI - SA (2 câu - 4.0đ)
+                const saAnswers = rawExamData.sa.map((q, i) => answers[`sa_${i}`] || "");
+                const itemsToGrade = rawExamData.sa.map((q, i) => 
+                    `Câu hỏi: "${q.q}". Đáp án tham khảo: "${q.ans}". Học sinh trả lời: "${saAnswers[i]}".`
+                ).join("\n---\n");
+
+                try {
+                    // Gọi AI chấm điểm
+                    const res = await fetch(APPS_SCRIPT_URL, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                        body: JSON.stringify({ action: "grade_ai", items: itemsToGrade })
                     });
-                } else {
-                    // Fallback nếu AI lỗi: Chấm theo từ khóa đơn giản
-                    biologyExam.sa.forEach((item, idx) => {
-                        const val = saAnswers[idx].toLowerCase();
-                        // Logic đơn giản: chứa 50% từ khóa
-                        const keywords = item.ans.toLowerCase().split(" ");
-                        let matchCount = 0;
-                        keywords.forEach(k => { if(val.includes(k)) matchCount++; });
-                        const isCorrect = matchCount >= (keywords.length / 2);
-                        if(isCorrect) p4 += 0.6;
-                        details.push(saAnswers[idx] + " (Local)");
-                    });
+                    const aiResult = await res.json();
+                    
+                    if (aiResult.success && aiResult.data) {
+                        aiResult.data.forEach((r, i) => {
+                            if(r.isCorrect) p4 += 2.0; // Mỗi câu 2 điểm
+                            headers.push(`SA ${i+1}`);
+                            details.push(`${saAnswers[i]} (${r.isCorrect ? 'Đ' : 'S'})`);
+                        });
+                    } else {
+                        // Fallback logic nếu AI lỗi (Chấm theo từ khóa)
+                        rawExamData.sa.forEach((q, i) => {
+                            const val = saAnswers[i].toLowerCase();
+                            // Logic: Có chứa 50% từ khóa của đáp án
+                            const keywords = q.ans.toLowerCase().split(" ");
+                            let match = 0;
+                            keywords.forEach(k => { if(val.includes(k)) match++; });
+                            const isCorrect = match >= Math.ceil(keywords.length / 2);
+                            
+                            if(isCorrect) p4 += 2.0;
+                            headers.push(`SA ${i+1}`);
+                            details.push(`${saAnswers[i]} (Local)`);
+                        });
+                    }
+                } catch (e) {
+                    console.error("AI Error", e);
                 }
 
                 // Làm tròn điểm
-                p1 = Math.round(p1 * 100) / 100;
-                p2 = Math.round(p2 * 100) / 100;
-                p3 = Math.round(p3 * 100) / 100;
-                p4 = Math.round(p4 * 100) / 100;
-                const total = Math.round((p1 + p2 + p3 + p4) * 100) / 100;
+                p1 = Math.round(p1*100)/100;
+                p2 = Math.round(p2*100)/100;
+                p3 = Math.round(p3*100)/100;
+                p4 = Math.round(p4*100)/100;
+                const total = Math.round((p1+p2+p3+p4)*100)/100;
+                const maxScore = 10;
 
-                // B. Lưu kết quả
-                await fetch(APPS_SCRIPT_URL, {
-                    method: 'POST',
-                    mode: 'no-cors', // Quan trọng để không bị lỗi CORS khi chỉ gửi dữ liệu
-                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-                    body: JSON.stringify({
-                        action: "save_score",
-                        examName: biologyExam.name,
-                        studentName: studentName,
-                        className: className,
-                        totalScore: total,
-                        p1: p1, p2: p2, p3: p3, p4: p4,
-                        headers: headers,
-                        details: details
-                    })
-                });
+                // 5. Gửi dữ liệu về Google Sheet
+                try {
+                    await fetch(APPS_SCRIPT_URL, {
+                        method: 'POST',
+                        mode: 'no-cors',
+                        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                        body: JSON.stringify({
+                            action: "save_score",
+                            examName: "Bài 26: Vi khuẩn & Sữa chua",
+                            studentName: user.name,
+                            className: user.cls,
+                            totalScore: total,
+                            p1, p2, p3, p4,
+                            headers, details
+                        })
+                    });
+                } catch(e) { console.error("Save Error", e); }
 
-                // Hiển thị kết quả
-                document.getElementById("loading").style.display = "none";
-                document.getElementById("resName").innerText = `${studentName} - ${className}`;
-                document.getElementById("resTotal").innerText = `${total}/11`; // Tổng max 11 điểm (3+4+1+3)
-                document.getElementById("resP1").innerText = `${p1}/3.0`;
-                document.getElementById("resP2").innerText = `${p2}/4.0`;
-                document.getElementById("resP3").innerText = `${p3}/1.0`;
-                document.getElementById("resP4").innerText = `${p4}/3.0`;
+                setResult({ total, max: maxScore, p1, p2, p3, p4 });
+                setView('result');
+            };
 
-                document.getElementById("resultModal").classList.remove("hidden");
-                document.getElementById("resultModal").classList.add("flex");
-
-            } catch (err) {
-                console.error(err);
-                alert("Có lỗi xảy ra khi kết nối máy chủ. Vui lòng thử lại.");
-                document.getElementById("loading").style.display = "none";
-            }
-        }
-
-        function closeModal() {
-            document.getElementById("resultModal").classList.add("hidden");
-            document.getElementById("resultModal").classList.remove("flex");
-        }
-
-        // INIT
-        window.onload = function() {
-            renderMCQ();
-            renderTF();
-            renderFill();
-            renderSA();
+            return (
+                <div className="min-h-screen">
+                     <div className="h-2 bg-gradient-to-r from-emerald-400 via-green-500 to-teal-600 sticky top-0 z-30"></div>
+                     {view === 'intro' && <StartScreen onStart={handleStart} />}
+                     {view === 'quiz' && <QuizScreen onFinish={handleSubmit} />}
+                     {view === 'loading' && <LoadingScreen />}
+                     {view === 'result' && <ResultScreen result={result} onRetry={() => setView('intro')} />}
+                </div>
+            );
         };
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
     </script>
 </body>
 </html>
-
