@@ -3,419 +3,493 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kiểm Tra Sinh Học 6 - Bài 26</title>
+    <title>Kiểm tra KHTN 6 - Bài 27: Nguyên Sinh Vật</title>
     <!-- React & Babel -->
     <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Lucide Icons -->
-    <script src="https://unpkg.com/lucide@latest"></script>
     <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons (Version from sample) -->
+    <script src="https://unpkg.com/lucide@0.263.1/dist/umd/lucide.js"></script>
 
     <style>
-        body { font-family: 'Roboto', sans-serif; background-color: #ecfdf5; }
-        .hand-font { font-family: 'Patrick Hand', cursive; }
+        body {
+            font-family: 'Nunito', sans-serif;
+            background-color: #f0f9ff;
+        }
+        .hand-font {
+            font-family: 'Patrick Hand', cursive;
+        }
         
         /* Custom Scrollbar */
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: #f1f1f1; }
-        ::-webkit-scrollbar-thumb { background: #10b981; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: #059669; }
+        ::-webkit-scrollbar-thumb { background: #0ea5e9; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #0284c7; }
 
-        /* Animation */
+        /* Animation for AI Comment */
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
-        .animate-fade-in { animation: fadeIn 0.4s ease-out forwards; }
-
-        /* Fill Blank Styles */
-        .fill-blank-slot {
-            display: inline-block;
-            min-width: 100px;
-            padding: 2px 10px;
-            border-bottom: 2px dashed #059669;
-            color: #047857;
-            font-weight: bold;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.2s;
-            background-color: rgba(16, 185, 129, 0.1);
-            border-radius: 4px;
-            margin: 0 4px;
+        .animate-fade-in {
+            animation: fadeIn 0.5s ease-out forwards;
         }
-        .fill-blank-slot:hover { background-color: #d1fae5; }
-        .fill-blank-slot.filled { border-bottom: 2px solid #059669; background-color: #ecfdf5; color: #059669; }
     </style>
 </head>
 <body>
     <div id="root"></div>
 
     <script type="text/babel">
-        const { useState, useEffect, useRef, useMemo } = React;
+        const { useState, useEffect, useRef } = React;
 
-        // --- CẤU HÌNH ---
         // --- CONFIGURATION ---
+        // Sử dụng URL Google Apps Script từ mẫu code của bạn
         const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxBPRlkjpMLDctdm2Uk7aYex_P6Cx0uhIdUmwOcYEm9C7JDe5OH92FiWEn6Nz1HNenY-A/exec";
 
-        // --- DỮ LIỆU ĐỀ THI (BÀI 26) ---
-        const rawExamData = {
-            // 4 Câu Trắc nghiệm
-            mcq: [
-                { q: "Dụng cụ nào được sử dụng để quan sát hình dạng của vi khuẩn?", options: ["Kính lúp", "Kính hiển vi", "Kính viễn vọng", "Mắt thường"], ans: 1 },
-                { q: "Trong thực hành quan sát vi khuẩn lactic, thuốc nhuộm nào được sử dụng?", options: ["Xanh methylene", "Cồn I-ốt", "Thuốc tím", "Nước muối sinh lý"], ans: 0 },
-                { q: "Nhiệt độ thích hợp nhất để ủ sữa chua là bao nhiêu?", options: ["10 - 20 độ C", "90 - 100 độ C", "40 - 50 độ C", "0 - 5 độ C"], ans: 2 },
-                { q: "Vi khuẩn lactic có hình dạng chủ yếu là gì?", options: ["Hình xoắn", "Hình cầu hoặc hình que", "Hình dấu phẩy", "Hình ngôi sao"], ans: 1 }
-            ],
-            // 2 Câu Đúng/Sai (Cluster)
-            tf: [
-                {
-                    q: "Nhận định nào sau đây ĐÚNG về vi khuẩn Lactic?",
-                    subs: [
-                        "Là vi khuẩn Gram dương.",
-                        "Có kích thước lớn, có thể nhìn thấy bằng mắt thường.",
-                        "Sinh sản bằng cách nảy chồi.",
-                        "Thường tìm thấy trong sữa chua, dưa muối."
-                    ],
-                    ans: [true, false, false, true]
-                },
-                {
-                    q: "Về quy trình làm sữa chua:",
-                    subs: [
-                        "Dùng nước sôi 100 độ C để pha sữa chua giống.",
-                        "Ủ ấm giúp vi khuẩn lactic sinh trưởng và phát triển nhanh.",
-                        "Bảo quản sữa chua trong ngăn đá ngay sau khi pha chế.",
-                        "Sữa chua mồi cung cấp vi khuẩn lactic ban đầu cho quá trình lên men."
-                    ],
-                    ans: [false, true, false, true]
-                }
-            ],
-            // 2 Câu Điền khuyết
-            fill: {
-                sentences: [
-                    { text: "Vi khuẩn lactic lên men đường trong sữa thành", blank: "axit lactic" },
-                    { text: "Khi làm tiêu bản, ta nhỏ một giọt", blank: "xanh methylene", suffix: "để nhuộm màu vi khuẩn." }
+        // --- Data: Questions for KHTN 6 Bài 27 ---
+        const quizData = [
+            // Phần 1: Trắc nghiệm (4 câu)
+            {
+                id: 1,
+                type: "multiple_choice",
+                section: "I. Trắc nghiệm (4 câu)",
+                question: <span>Đặc điểm cơ bản nhất để nhận biết <strong>nguyên sinh vật</strong> là gì?</span>,
+                options: [
+                    { id: "A", text: "Cơ thể đa bào, kích thước lớn" },
+                    { id: "B", text: "Cơ thể đơn bào, nhân thực, kích thước hiển vi" },
+                    { id: "C", text: "Cơ thể đơn bào, nhân sơ" },
+                    { id: "D", text: "Chưa có cấu tạo tế bào" }
                 ],
-                wordBank: ["axit lactic", "xanh methylene", "oxy", "cồn", "đường glucose", "kính hiển vi"]
+                correctAnswer: "B",
+                explanation: "Nguyên sinh vật có cơ thể chỉ gồm một tế bào nhưng đã có nhân hoàn chỉnh (nhân thực)."
             },
-            // 2 Câu Tự luận
-            sa: [
-                { q: "Tại sao cần bảo quản sữa chua trong ngăn mát tủ lạnh sau khi đã ủ xong?", ans: "Kìm hãm vi khuẩn lên men quá mức làm sữa bị chua gắt" },
-                { q: "Vì sao không dùng nước sôi 100 độ C để pha hộp sữa chua làm giống?", ans: "Nước sôi nhiệt độ cao làm chết vi khuẩn lactic" }
-            ]
-        };
+            {
+                id: 2,
+                type: "multiple_choice",
+                section: "I. Trắc nghiệm (4 câu)",
+                question: "Trùng sốt rét lây truyền vào máu người thông qua vật chủ trung gian nào?",
+                options: [
+                    { id: "A", text: "Ruồi nhà" },
+                    { id: "B", text: "Muỗi vằn" },
+                    { id: "C", text: "Muỗi Anopheles" },
+                    { id: "D", text: "Chuột" }
+                ],
+                correctAnswer: "C",
+                explanation: "Muỗi Anopheles là vật chủ trung gian truyền trùng sốt rét Plasmodium."
+            },
+            {
+                id: 3,
+                type: "multiple_choice",
+                section: "I. Trắc nghiệm (4 câu)",
+                question: "Trùng biến hình di chuyển bằng bộ phận nào?",
+                options: [
+                    { id: "A", text: "Lông bơi" },
+                    { id: "B", text: "Roi bơi" },
+                    { id: "C", text: "Chân giả" },
+                    { id: "D", text: "Vây bơi" }
+                ],
+                correctAnswer: "C",
+                explanation: "Trùng biến hình dồn chất nguyên sinh tạo thành chân giả để di chuyển và bắt mồi."
+            },
+            {
+                id: 4,
+                type: "multiple_choice",
+                section: "I. Trắc nghiệm (4 câu)",
+                question: "Đâu là biểu hiện đặc trưng của bệnh kiết lị?",
+                options: [
+                    { id: "A", text: "Ho, sốt cao, đau họng" },
+                    { id: "B", text: "Đau bụng, đi ngoài phân lỏng có lẫn máu" },
+                    { id: "C", text: "Nổi mẩn đỏ khắp người" },
+                    { id: "D", text: "Đau đầu, chóng mặt, buồn nôn" }
+                ],
+                correctAnswer: "B",
+                explanation: "Trùng kiết lị gây loét niêm mạc ruột, dẫn đến đau bụng quặn và đi ngoài ra máu."
+            },
+            
+            // Phần 2: Đúng Sai (4 câu)
+            {
+                id: 5,
+                type: "true_false",
+                section: "II. Đúng / Sai (4 câu)",
+                question: "Tất cả các loài nguyên sinh vật đều gây hại cho con người.",
+                options: [
+                    { id: "True", text: "Đúng" },
+                    { id: "False", text: "Sai" }
+                ],
+                correctAnswer: "False",
+                explanation: "Nhiều loài nguyên sinh vật có lợi như làm thức ăn cho động vật thủy sinh hoặc làm sạch môi trường nước."
+            },
+            {
+                id: 6,
+                type: "true_false",
+                section: "II. Đúng / Sai (4 câu)",
+                question: "Trùng roi xanh có khả năng quang hợp giống như thực vật.",
+                options: [
+                    { id: "True", text: "Đúng" },
+                    { id: "False", text: "Sai" }
+                ],
+                correctAnswer: "True",
+                explanation: "Trong cơ thể trùng roi xanh có các hạt diệp lục giúp chúng quang hợp khi có ánh sáng."
+            },
+            {
+                id: 7,
+                type: "true_false",
+                section: "II. Đúng / Sai (4 câu)",
+                question: "Bệnh kiết lị lây qua đường hô hấp do hít phải không khí ô nhiễm.",
+                options: [
+                    { id: "True", text: "Đúng" },
+                    { id: "False", text: "Sai" }
+                ],
+                correctAnswer: "False",
+                explanation: "Bệnh kiết lị lây qua đường tiêu hóa (ăn uống thức ăn, nước uống nhiễm bào xác trùng kiết lị)."
+            },
+            {
+                id: 8,
+                type: "true_false",
+                section: "II. Đúng / Sai (4 câu)",
+                question: "Diệt bọ gậy (lăng quăng), mắc màn khi ngủ giúp phòng bệnh sốt rét.",
+                options: [
+                    { id: "True", text: "Đúng" },
+                    { id: "False", text: "Sai" }
+                ],
+                correctAnswer: "True",
+                explanation: "Đây là các biện pháp ngăn chặn muỗi Anopheles sinh sản và tiếp xúc với người."
+            },
 
-        // Chuyển đổi dữ liệu cho Slide
-        const quizQuestions = [
-            ...rawExamData.mcq.map((item, i) => ({ ...item, id: `mcq_${i}`, type: 'mcq', section: 'I. Trắc Nghiệm' })),
-            ...rawExamData.tf.map((item, i) => ({ ...item, id: `tf_${i}`, type: 'tf_cluster', section: 'II. Đúng Sai' })),
-            { id: 'fill_all', type: 'fill_blank', section: 'III. Điền Khuyết', data: rawExamData.fill },
-            ...rawExamData.sa.map((item, i) => ({ ...item, id: `sa_${i}`, type: 'short_answer', section: 'IV. Tự Luận' }))
+            // Phần 3: Điền từ (2 câu)
+            {
+                id: 9,
+                type: "fill_in",
+                section: "III. Điền từ (2 câu)",
+                question: <span>Tảo lục đơn bào có khả năng quang hợp nhờ trong tế bào có chứa <strong>(...)</strong>.</span>,
+                options: [
+                    { id: "lục lạp", text: "lục lạp" },
+                    { id: "nhân sơ", text: "nhân sơ" },
+                    { id: "roi bơi", text: "roi bơi" },
+                    { id: "không bào", text: "không bào" }
+                ],
+                correctAnswer: "lục lạp",
+                explanation: "Lục lạp chứa sắc tố diệp lục giúp hấp thu ánh sáng để quang hợp."
+            },
+            {
+                id: 10,
+                type: "fill_in",
+                section: "III. Điền từ (2 câu)",
+                question: <span>Trùng giày di chuyển trong nước nhờ các <strong>(...)</strong> bao quanh cơ thể.</span>,
+                options: [
+                    { id: "chân giả", text: "chân giả" },
+                    { id: "lông bơi", text: "lông bơi" },
+                    { id: "vây bơi", text: "vây bơi" },
+                    { id: "roi bơi", text: "roi bơi" }
+                ],
+                correctAnswer: "lông bơi",
+                explanation: "Trùng giày có các lông bơi nhỏ bao quanh cơ thể giúp chúng di chuyển linh hoạt."
+            }
         ];
 
-        // --- COMPONENTS ---
+        // --- Components ---
 
         const Icon = ({ name, className }) => {
-            const ref = useRef(null);
-            useEffect(() => {
+            const ref = React.useRef(null);
+
+            React.useEffect(() => {
                 if (typeof lucide !== 'undefined' && ref.current) {
                     const i = document.createElement('i');
                     i.setAttribute('data-lucide', name);
-                    if (className) i.className = className;
+                    if (className) {
+                        i.className = className;
+                    }
+                    
                     ref.current.innerHTML = '';
                     ref.current.appendChild(i);
-                    lucide.createIcons({ root: ref.current });
+                    
+                    lucide.createIcons({
+                        root: ref.current
+                    });
                 }
             }, [name, className]);
+
             return <span ref={ref} style={{ display: 'inline-flex', verticalAlign: 'middle' }}></span>;
         };
 
         const StartScreen = ({ onStart }) => {
-            const [name, setName] = useState("");
-            const [cls, setCls] = useState("");
+            const [studentName, setStudentName] = useState("");
+            const [className, setClassName] = useState("");
 
-            return (
-                <div className="flex flex-col items-center justify-center min-h-[80vh] px-4 animate-fade-in">
-                    <div className="bg-white p-8 rounded-2xl shadow-2xl max-w-lg w-full text-center border-t-8 border-emerald-500">
-                        <div className="bg-emerald-100 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
-                            <Icon name="flask-conical" className="w-10 h-10 text-emerald-600" />
-                        </div>
-                        <h1 className="text-3xl font-bold text-gray-800 mb-2 hand-font uppercase">Kiểm Tra Bài 26</h1>
-                        <p className="text-emerald-600 font-medium mb-8">Thực hành quan sát vi khuẩn & Làm sữa chua</p>
-                        
-                        <div className="space-y-4 text-left">
-                            <div>
-                                <label className="block text-sm font-bold text-gray-700 mb-1">Họ và tên</label>
-                                <input type="text" value={name} onChange={e => setName(e.target.value)} className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:outline-none" placeholder="Nhập họ tên..." />
-                            </div>
-                            <div>
-                                <label className="block text-sm font-bold text-gray-700 mb-1">Lớp</label>
-                                <input type="text" value={cls} onChange={e => setCls(e.target.value)} className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:outline-none" placeholder="Ví dụ: 6A1" />
-                            </div>
-                        </div>
-
-                        <button onClick={() => name && cls ? onStart(name, cls) : alert("Vui lòng nhập đủ thông tin!")} 
-                            className="mt-8 w-full py-4 bg-emerald-600 text-white font-bold rounded-xl shadow-lg hover:bg-emerald-700 transition transform hover:scale-105 flex items-center justify-center gap-2">
-                            Bắt đầu làm bài <Icon name="arrow-right" className="w-5 h-5" />
-                        </button>
-                    </div>
-                </div>
-            );
-        };
-
-        const MCQQuestion = ({ data, answer, onAnswer }) => (
-            <div className="animate-fade-in">
-                <h3 className="text-xl font-medium text-gray-800 mb-6">{data.q}</h3>
-                <div className="grid grid-cols-1 gap-3">
-                    {data.options.map((opt, i) => (
-                        <button key={i} onClick={() => onAnswer(i)}
-                            className={`p-4 rounded-xl border-2 text-left transition flex items-center gap-3 relative
-                            ${answer === i ? 'border-emerald-500 bg-emerald-50 ring-1 ring-emerald-300' : 'border-gray-200 hover:border-emerald-300 hover:bg-gray-50'}`}>
-                            <div className={`w-8 h-8 rounded-full flex items-center justify-center border font-bold shrink-0
-                                ${answer === i ? 'bg-emerald-500 text-white border-emerald-500' : 'text-gray-500 border-gray-300 bg-white'}`}>
-                                {String.fromCharCode(65 + i)}
-                            </div>
-                            <span className="text-gray-700 font-medium">{opt}</span>
-                            {answer === i && <Icon name="check-circle" className="absolute right-4 text-emerald-500 w-5 h-5" />}
-                        </button>
-                    ))}
-                </div>
-            </div>
-        );
-
-        const TFClusterQuestion = ({ data, answer = {}, onAnswer }) => (
-            <div className="animate-fade-in">
-                <h3 className="text-xl font-medium text-gray-800 mb-4">{data.q}</h3>
-                <p className="text-sm text-gray-500 italic mb-4">Chọn Đúng hoặc Sai cho mỗi ý dưới đây:</p>
-                <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
-                    {data.subs.map((sub, i) => {
-                        const currentVal = answer[i]; 
-                        return (
-                            <div key={i} className="flex flex-col sm:flex-row sm:items-center justify-between p-4 border-b last:border-0 hover:bg-gray-50 transition">
-                                <span className="text-gray-700 font-medium mb-2 sm:mb-0 sm:mr-4 flex-grow">{String.fromCharCode(97+i)}) {sub}</span>
-                                <div className="flex gap-2 shrink-0">
-                                    <button onClick={() => onAnswer({ ...answer, [i]: true })}
-                                        className={`px-4 py-2 rounded-lg text-sm font-bold border transition ${currentVal === true ? 'bg-green-600 text-white border-green-600' : 'bg-white text-gray-600 border-gray-300 hover:bg-green-50'}`}>
-                                        ĐÚNG
-                                    </button>
-                                    <button onClick={() => onAnswer({ ...answer, [i]: false })}
-                                        className={`px-4 py-2 rounded-lg text-sm font-bold border transition ${currentVal === false ? 'bg-red-600 text-white border-red-600' : 'bg-white text-gray-600 border-gray-300 hover:bg-red-50'}`}>
-                                        SAI
-                                    </button>
-                                </div>
-                            </div>
-                        );
-                    })}
-                </div>
-            </div>
-        );
-
-        const FillBlankQuestion = ({ data, answer = {}, onAnswer }) => {
-            const [selectedWord, setSelectedWord] = useState(null);
-
-            const handleWordClick = (word) => {
-                if (selectedWord === word) setSelectedWord(null);
-                else setSelectedWord(word);
-            };
-
-            const handleSlotClick = (index) => {
-                if (selectedWord) {
-                    onAnswer({ ...answer, [index]: selectedWord });
-                    setSelectedWord(null);
-                } else if (answer[index]) {
-                    const newAns = { ...answer };
-                    delete newAns[index];
-                    onAnswer(newAns);
+            const handleSubmit = () => {
+                if (studentName.trim() && className.trim()) {
+                    onStart(studentName, className);
+                } else {
+                    alert("Vui lòng nhập đầy đủ Họ tên và Lớp!");
                 }
             };
 
-            const usedWords = Object.values(answer);
-            
             return (
-                <div className="animate-fade-in">
-                    <p className="text-sm text-gray-500 italic mb-4">Click chọn từ khóa rồi click vào ô trống để điền.</p>
+                <div className="flex flex-col items-center justify-center min-h-[70vh] text-center p-6 bg-white rounded-2xl shadow-xl max-w-2xl mx-auto mt-10 animate-fade-in border-t-8 border-sky-500">
+                    <div className="bg-sky-100 p-6 rounded-full mb-6">
+                        <Icon name="microscope" className="text-sky-600 w-16 h-16" />
+                    </div>
+                    <h1 className="text-4xl font-bold text-gray-800 mb-4 hand-font">Kiểm Tra KHTN 6</h1>
+                    <h2 className="text-2xl text-sky-600 mb-6 font-semibold">Bài 27: Nguyên Sinh Vật</h2>
                     
-                    <div className="bg-purple-50 p-4 rounded-xl border border-purple-200 mb-6 flex flex-wrap gap-2 sticky top-0 z-10 shadow-sm">
-                        {data.wordBank.map((word, i) => {
-                            const isUsed = usedWords.includes(word);
-                            const isSelected = selectedWord === word;
+                    <div className="w-full max-w-md space-y-4 mb-8 text-left">
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-1">Họ và tên học sinh</label>
+                            <input 
+                                type="text" 
+                                value={studentName}
+                                onChange={(e) => setStudentName(e.target.value)}
+                                className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-500 focus:outline-none"
+                                placeholder="Nhập họ tên của bạn..."
+                            />
+                        </div>
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-1">Lớp</label>
+                            <input 
+                                type="text" 
+                                value={className}
+                                onChange={(e) => setClassName(e.target.value)}
+                                className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-500 focus:outline-none"
+                                placeholder="Ví dụ: 6A1"
+                            />
+                        </div>
+                    </div>
+
+                    <div className="text-left bg-gray-50 p-6 rounded-lg w-full max-w-md mb-8 border border-gray-200 text-sm">
+                        <p className="mb-2 flex items-center gap-2"><Icon name="check-circle" className="w-4 h-4 text-green-500"/> <strong>4 Câu Trắc Nghiệm</strong></p>
+                        <p className="mb-2 flex items-center gap-2"><Icon name="check-circle" className="w-4 h-4 text-green-500"/> <strong>4 Câu Đúng/Sai</strong></p>
+                        <p className="mb-0 flex items-center gap-2"><Icon name="check-circle" className="w-4 h-4 text-green-500"/> <strong>2 Câu Điền Từ</strong></p>
+                    </div>
+
+                    <button 
+                        onClick={handleSubmit}
+                        className="group relative px-8 py-4 bg-sky-600 text-white font-bold rounded-full text-xl shadow-lg hover:bg-sky-700 transition-all transform hover:scale-105 active:scale-95 flex items-center gap-3"
+                    >
+                        Bắt đầu làm bài
+                        <Icon name="arrow-right" className="w-6 h-6 group-hover:translate-x-1 transition-transform" />
+                    </button>
+                </div>
+            );
+        };
+
+        const ResultScreen = ({ answers, aiComment, onRetry }) => {
+            const score = quizData.reduce((acc, q) => {
+                return acc + (answers[q.id] === q.correctAnswer ? 1 : 0);
+            }, 0);
+            const total = quizData.length;
+            const percentage = Math.round((score / total) * 100);
+
+            let message = "";
+            let colorClass = "";
+            if (percentage >= 90) { message = "Xuất sắc!"; colorClass = "text-green-600"; }
+            else if (percentage >= 70) { message = "Làm tốt lắm!"; colorClass = "text-sky-600"; }
+            else if (percentage >= 50) { message = "Đạt yêu cầu"; colorClass = "text-yellow-600"; }
+            else { message = "Cần cố gắng hơn nhé!"; colorClass = "text-red-600"; }
+
+            return (
+                <div className="max-w-4xl mx-auto bg-white rounded-xl shadow-2xl overflow-hidden mt-6 mb-10 animate-fade-in">
+                    <div className="bg-slate-800 text-white p-8 text-center">
+                        <h2 className="text-3xl font-bold mb-2">Kết Quả Bài Làm</h2>
+                        <div className="text-5xl font-black mb-2">{score}/{total}</div>
+                        <p className={`text-2xl font-bold hand-font ${percentage >= 50 ? 'text-green-300' : 'text-red-300'}`}>{message}</p>
+                    </div>
+
+                    {/* AI Comment Section */}
+                    <div className="p-6 bg-indigo-50 border-b border-indigo-100">
+                        <div className="flex items-start gap-4">
+                            <div className="bg-indigo-600 p-2 rounded-full shadow-lg shrink-0">
+                                <Icon name="bot" className="w-8 h-8 text-white" />
+                            </div>
+                            <div className="flex-grow animate-fade-in">
+                                <h3 className="text-lg font-bold text-indigo-900 mb-1">Nhận xét từ Trợ lý AI</h3>
+                                <div className="bg-white p-4 rounded-lg rounded-tl-none shadow-sm border border-indigo-100 text-gray-700 italic">
+                                    "{aiComment || "Đang phân tích kết quả..."}"
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="p-6 space-y-6 bg-gray-50">
+                        {quizData.map((q, index) => {
+                            const isCorrect = answers[q.id] === q.correctAnswer;
+                            const userAnswer = answers[q.id];
+                            
+                            const getOptionLabel = (optId) => {
+                                const opt = q.options.find(o => o.id === optId);
+                                if (!opt) return "Chưa chọn";
+                                return opt.text || opt.id;
+                            };
+
                             return (
-                                <button key={i} 
-                                    onClick={() => !isUsed && handleWordClick(word)}
-                                    disabled={isUsed}
-                                    className={`px-3 py-1.5 rounded-full text-sm font-medium border transition transform 
-                                    ${isUsed ? 'bg-gray-200 text-gray-400 border-gray-200 cursor-not-allowed' : 
-                                      isSelected ? 'bg-purple-600 text-white border-purple-600 scale-105 shadow-md' : 
-                                      'bg-white text-purple-700 border-purple-300 hover:bg-purple-100'}`}>
-                                    {word}
-                                </button>
-                            )
+                                <div key={q.id} className={`border-l-4 p-4 bg-white shadow-sm rounded-r-lg ${isCorrect ? 'border-green-500' : 'border-red-500'}`}>
+                                    <div className="flex justify-between items-start mb-2">
+                                        <h3 className="font-bold text-gray-800 text-lg">Câu {index + 1}: <span className="font-normal text-base">{q.question}</span></h3>
+                                        {isCorrect ? 
+                                            <span className="bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm font-bold flex items-center gap-1 shrink-0"><Icon name="check" className="w-4 h-4"/> Đúng</span> : 
+                                            <span className="bg-red-100 text-red-700 px-3 py-1 rounded-full text-sm font-bold flex items-center gap-1 shrink-0"><Icon name="x" className="w-4 h-4"/> Sai</span>
+                                        }
+                                    </div>
+                                    
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-3 text-sm">
+                                        <div className={`${isCorrect ? 'text-green-700' : 'text-red-600'}`}>
+                                            <span className="font-bold">Bạn chọn:</span> <div className="inline-block">{getOptionLabel(userAnswer)}</div>
+                                        </div>
+                                        {!isCorrect && (
+                                            <div className="text-green-700">
+                                                <span className="font-bold">Đáp án đúng:</span> <div className="inline-block">{getOptionLabel(q.correctAnswer)}</div>
+                                            </div>
+                                        )}
+                                    </div>
+                                    
+                                    <div className="mt-3 bg-sky-50 p-3 rounded text-sky-800 text-sm border border-sky-100">
+                                        <strong>Giải thích: </strong> {q.explanation}
+                                    </div>
+                                </div>
+                            );
                         })}
                     </div>
 
-                    <div className="space-y-6 bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-                        {data.sentences.map((item, idx) => (
-                            <div key={idx} className="leading-loose text-gray-800 text-lg border-b border-gray-100 pb-4 last:border-0">
-                                <span className="font-bold mr-2 text-purple-600">{idx + 1}.</span>
-                                {item.text}
-                                <span onClick={() => handleSlotClick(idx)}
-                                    className={`fill-blank-slot ${answer[idx] ? 'filled' : ''}`}>
-                                    {answer[idx] || "....."}
-                                </span>
-                                {item.suffix && <span> {item.suffix}</span>}
-                            </div>
-                        ))}
+                    <div className="p-8 text-center bg-white border-t">
+                        <button 
+                            onClick={onRetry}
+                            className="bg-gray-800 text-white px-8 py-3 rounded-full font-bold shadow-lg hover:bg-gray-900 transition flex items-center gap-2 mx-auto"
+                        >
+                            <Icon name="rotate-ccw" className="w-5 h-5" /> Làm bài mới
+                        </button>
                     </div>
                 </div>
             );
         };
 
-        const ShortAnswerQuestion = ({ data, answer = "", onAnswer }) => (
-            <div className="animate-fade-in">
-                <h3 className="text-xl font-medium text-gray-800 mb-4">{data.q}</h3>
-                <textarea 
-                    value={answer}
-                    onChange={(e) => onAnswer(e.target.value)}
-                    rows="4"
-                    className="w-full p-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-red-500 focus:border-transparent bg-white shadow-inner text-gray-700 text-lg"
-                    placeholder="Nhập câu trả lời của bạn..."
-                ></textarea>
-                <div className="mt-2 text-right text-sm text-gray-500">
-                    Câu này sẽ được chấm bởi AI.
-                </div>
-            </div>
-        );
-
         const QuizScreen = ({ onFinish }) => {
-            const [currentIdx, setCurrentIdx] = useState(0);
+            const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
             const [answers, setAnswers] = useState({});
-            const [timeLeft, setTimeLeft] = useState(15 * 60); 
+            const [timeLeft, setTimeLeft] = useState(15 * 60);
 
             useEffect(() => {
                 const timer = setInterval(() => {
-                    setTimeLeft(prev => {
-                        if (prev <= 1) { clearInterval(timer); onFinish(answers); return 0; }
+                    setTimeLeft((prev) => {
+                        if (prev <= 1) {
+                            clearInterval(timer);
+                            onFinish(answers);
+                            return 0;
+                        }
                         return prev - 1;
                     });
                 }, 1000);
                 return () => clearInterval(timer);
-            }, []);
+            }, [answers, onFinish]);
 
-            const formatTime = (s) => `${Math.floor(s/60)}:${(s%60).toString().padStart(2,'0')}`;
-            const currentQ = quizQuestions[currentIdx];
-            const isLast = currentIdx === quizQuestions.length - 1;
-            const progress = ((currentIdx + 1) / quizQuestions.length) * 100;
-
-            const handleAnswer = (ans) => {
-                setAnswers(prev => ({ ...prev, [currentQ.id]: ans }));
+            const formatTime = (seconds) => {
+                const mins = Math.floor(seconds / 60);
+                const secs = seconds % 60;
+                return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
             };
 
+            const handleAnswer = (optionId) => {
+                setAnswers({ ...answers, [quizData[currentQuestionIndex].id]: optionId });
+            };
+
+            const handleNext = () => {
+                if (currentQuestionIndex < quizData.length - 1) {
+                    setCurrentQuestionIndex(prev => prev + 1);
+                } else {
+                    onFinish(answers);
+                }
+            };
+
+            const handlePrev = () => {
+                if (currentQuestionIndex > 0) {
+                    setCurrentQuestionIndex(prev => prev - 1);
+                }
+            };
+
+            const currentQ = quizData[currentQuestionIndex];
+            const isLastQuestion = currentQuestionIndex === quizData.length - 1;
+            const progress = ((currentQuestionIndex + 1) / quizData.length) * 100;
+
             return (
-                <div className="max-w-3xl mx-auto mt-6 px-4 pb-20">
-                    <div className="bg-white p-4 rounded-xl shadow-sm mb-6 flex justify-between items-center sticky top-2 z-20 border-b border-gray-100">
+                <div className="max-w-3xl mx-auto mt-6 p-4">
+                    {/* Header Info */}
+                    <div className="flex justify-between items-center mb-6 bg-white p-4 rounded-xl shadow-sm border border-sky-100">
                         <div>
-                            <span className="text-xs font-bold text-gray-400 uppercase">Câu hỏi</span>
-                            <div className="text-2xl font-bold text-emerald-600 leading-none">
-                                {currentIdx + 1}<span className="text-lg text-gray-300">/{quizQuestions.length}</span>
+                            <span className="text-xs font-bold text-gray-400 uppercase tracking-wider">Câu hỏi</span>
+                            <div className="text-2xl font-bold text-sky-600">{currentQuestionIndex + 1}<span className="text-gray-400 text-lg">/{quizData.length}</span></div>
+                        </div>
+                        <div className="text-center hidden sm:block">
+                            <h2 className="text-sm font-semibold text-gray-600 bg-gray-100 px-3 py-1 rounded-full">{currentQ.section}</h2>
+                        </div>
+                        <div className="flex items-center gap-2 text-orange-600 font-bold bg-orange-50 px-4 py-2 rounded-lg border border-orange-100">
+                            <Icon name="clock" className="w-5 h-5" />
+                            {formatTime(timeLeft)}
+                        </div>
+                    </div>
+
+                    {/* Progress Bar */}
+                    <div className="w-full bg-gray-200 rounded-full h-2.5 mb-6">
+                        <div className="bg-sky-600 h-2.5 rounded-full transition-all duration-300" style={{ width: `${progress}%` }}></div>
+                    </div>
+
+                    {/* Question Card */}
+                    <div className="bg-white rounded-2xl shadow-lg p-6 md:p-10 min-h-[400px] flex flex-col relative border border-gray-100">
+                        <div className="flex-grow">
+                            <h3 className="text-xl md:text-2xl font-medium text-gray-800 mb-6 leading-relaxed">
+                                {currentQ.question}
+                            </h3>
+                            
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
+                                {currentQ.options.map((opt) => {
+                                    const isSelected = answers[currentQ.id] === opt.id;
+                                    return (
+                                        <button
+                                            key={opt.id}
+                                            onClick={() => handleAnswer(opt.id)}
+                                            className={`p-4 rounded-xl border-2 text-left transition-all flex items-center gap-3 relative
+                                                ${isSelected 
+                                                    ? 'border-sky-500 bg-sky-50 shadow-md ring-2 ring-sky-200 ring-opacity-50' 
+                                                    : 'border-gray-200 hover:border-sky-300 hover:bg-gray-50'
+                                                }`}
+                                        >
+                                            <div className={`w-8 h-8 rounded-full flex items-center justify-center border font-bold shrink-0
+                                                ${isSelected ? 'bg-sky-500 text-white border-sky-500' : 'text-gray-500 border-gray-300 bg-white'}
+                                            `}>
+                                                {String.fromCharCode(65 + currentQ.options.indexOf(opt))}
+                                            </div>
+                                            <div className="text-lg text-gray-700 font-medium">
+                                                {opt.text}
+                                            </div>
+                                            {isSelected && <Icon name="check-circle" className="absolute right-4 text-sky-500 w-5 h-5" />}
+                                        </button>
+                                    );
+                                })}
                             </div>
                         </div>
-                        <div className="hidden sm:block px-3 py-1 bg-gray-100 rounded-full text-xs font-bold text-gray-500">
-                            {currentQ.section}
-                        </div>
-                        <div className="flex items-center gap-2 text-orange-600 bg-orange-50 px-3 py-1.5 rounded-lg border border-orange-100 font-bold">
-                            <Icon name="clock" className="w-4 h-4" /> {formatTime(timeLeft)}
-                        </div>
-                    </div>
 
-                    <div className="w-full bg-gray-200 rounded-full h-2 mb-6">
-                        <div className="bg-emerald-500 h-2 rounded-full transition-all duration-300" style={{ width: `${progress}%` }}></div>
-                    </div>
-
-                    <div className="bg-white rounded-2xl shadow-lg p-6 md:p-8 min-h-[400px] flex flex-col justify-between">
-                        <div>
-                            {currentQ.type === 'mcq' && <MCQQuestion data={currentQ} answer={answers[currentQ.id]} onAnswer={handleAnswer} />}
-                            {currentQ.type === 'tf_cluster' && <TFClusterQuestion data={currentQ} answer={answers[currentQ.id]} onAnswer={handleAnswer} />}
-                            {currentQ.type === 'fill_blank' && <FillBlankQuestion data={currentQ.data} answer={answers[currentQ.id]} onAnswer={handleAnswer} />}
-                            {currentQ.type === 'short_answer' && <ShortAnswerQuestion data={currentQ} answer={answers[currentQ.id]} onAnswer={handleAnswer} />}
-                        </div>
-
-                        <div className="flex justify-between mt-8 pt-6 border-t border-gray-50">
-                            <button onClick={() => setCurrentIdx(c => Math.max(0, c - 1))} disabled={currentIdx === 0}
-                                className={`flex items-center gap-2 px-5 py-2.5 rounded-lg font-medium transition ${currentIdx===0 ? 'text-gray-300 cursor-not-allowed' : 'text-gray-600 hover:bg-gray-100'}`}>
+                        {/* Navigation */}
+                        <div className="flex justify-between mt-8 pt-6 border-t border-gray-100">
+                            <button 
+                                onClick={handlePrev}
+                                disabled={currentQuestionIndex === 0}
+                                className={`flex items-center gap-2 px-5 py-2 rounded-lg font-medium transition
+                                    ${currentQuestionIndex === 0 ? 'text-gray-300 cursor-not-allowed' : 'text-gray-600 hover:bg-gray-100'}`}
+                            >
                                 <Icon name="arrow-left" className="w-5 h-5" /> Quay lại
                             </button>
-                            <button onClick={() => isLast ? onFinish(answers) : setCurrentIdx(c => Math.min(quizQuestions.length - 1, c + 1))}
-                                className={`flex items-center gap-2 px-8 py-3 rounded-xl font-bold text-white shadow-lg transition transform active:scale-95 ${isLast ? 'bg-red-600 hover:bg-red-700' : 'bg-emerald-600 hover:bg-emerald-700'}`}>
-                                {isLast ? 'Nộp Bài' : 'Câu Tiếp Theo'} {!isLast && <Icon name="arrow-right" className="w-5 h-5" />}
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            );
-        };
-
-        const ResultScreen = ({ result, aiComment, onRetry }) => {
-            if (!result) return null;
-            const { total, max, p1, p2, p3, p4 } = result;
-            const percentage = (total / max) * 100;
-
-            return (
-                <div className="max-w-2xl mx-auto mt-10 px-4 pb-20 animate-fade-in">
-                    <div className="bg-white rounded-2xl shadow-2xl overflow-hidden">
-                        <div className="bg-slate-800 text-white p-10 text-center relative overflow-hidden">
-                            <div className="relative z-10">
-                                <h2 className="text-3xl font-bold mb-2">Kết Quả Bài Làm</h2>
-                                <div className="text-6xl font-black mb-4 tracking-tighter">{total}<span className="text-3xl text-gray-400 font-normal">/{max}</span></div>
-                                <p className={`text-xl font-bold hand-font ${percentage >= 80 ? 'text-green-400' : percentage >= 50 ? 'text-yellow-400' : 'text-red-400'}`}>
-                                    {percentage >= 90 ? "Xuất sắc! Bạn là chuyên gia về vi khuẩn!" : 
-                                     percentage >= 70 ? "Làm tốt lắm!" : 
-                                     percentage >= 50 ? "Đạt yêu cầu." : "Cần ôn tập thêm bài 26 nhé!"}
-                                </p>
-                            </div>
-                            <div className="absolute top-0 right-0 -mr-10 -mt-10 w-40 h-40 bg-white opacity-10 rounded-full"></div>
-                        </div>
-
-                        {/* AI Comment Display */}
-                        {aiComment && (
-                            <div className="p-6 bg-indigo-50 border-b border-indigo-100">
-                                <div className="flex items-start gap-3">
-                                    <div className="bg-indigo-600 p-2 rounded-full shadow shrink-0">
-                                        <Icon name="bot" className="w-6 h-6 text-white" />
-                                    </div>
-                                    <div>
-                                        <h3 className="font-bold text-indigo-900 mb-1">Nhận xét từ AI:</h3>
-                                        <p className="text-indigo-800 text-sm italic bg-white p-3 rounded-lg border border-indigo-100 shadow-sm">{aiComment}</p>
-                                    </div>
-                                </div>
-                            </div>
-                        )}
-
-                        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 p-6 bg-gray-50 border-b">
-                            <div className="bg-white p-3 rounded-xl border border-blue-100 text-center shadow-sm">
-                                <div className="text-xs text-gray-500 uppercase font-bold">Trắc Nghiệm</div>
-                                <div className="text-xl font-bold text-blue-600">{p1}/2.0</div>
-                            </div>
-                            <div className="bg-white p-3 rounded-xl border border-orange-100 text-center shadow-sm">
-                                <div className="text-xs text-gray-500 uppercase font-bold">Đúng/Sai</div>
-                                <div className="text-xl font-bold text-orange-600">{p2}/2.0</div>
-                            </div>
-                            <div className="bg-white p-3 rounded-xl border border-purple-100 text-center shadow-sm">
-                                <div className="text-xs text-gray-500 uppercase font-bold">Điền Khuyết</div>
-                                <div className="text-xl font-bold text-purple-600">{p3}/2.0</div>
-                            </div>
-                            <div className="bg-white p-3 rounded-xl border border-red-100 text-center shadow-sm">
-                                <div className="text-xs text-gray-500 uppercase font-bold">Tự Luận (AI)</div>
-                                <div className="text-xl font-bold text-red-600">{p4}/4.0</div>
-                            </div>
-                        </div>
-
-                        <div className="p-8 text-center">
-                            <p className="text-gray-600 mb-6 font-medium">Kết quả chi tiết và bài làm đã được gửi về hệ thống.</p>
-                            <button onClick={onRetry} className="bg-gray-800 text-white px-8 py-3 rounded-full font-bold shadow-lg hover:bg-gray-900 transition flex items-center gap-2 mx-auto">
-                                <Icon name="rotate-ccw" className="w-5 h-5" /> Làm bài mới
+                            
+                            <button 
+                                onClick={handleNext}
+                                className={`flex items-center gap-2 px-8 py-3 rounded-lg font-bold shadow-lg transition transform active:scale-95
+                                    ${isLastQuestion 
+                                        ? 'bg-green-600 text-white hover:bg-green-700' 
+                                        : 'bg-sky-600 text-white hover:bg-sky-700'}`}
+                            >
+                                {isLastQuestion ? 'Nộp bài' : 'Câu tiếp theo'}
+                                {!isLastQuestion && <Icon name="arrow-right" className="w-5 h-5" />}
                             </button>
                         </div>
                     </div>
@@ -424,176 +498,117 @@
         };
 
         const LoadingScreen = () => (
-            <div className="fixed inset-0 bg-black bg-opacity-60 backdrop-blur-sm flex items-center justify-center z-50 animate-fade-in">
-                <div className="bg-white p-8 rounded-2xl shadow-2xl text-center max-w-sm mx-4">
-                    <div className="animate-spin rounded-full h-16 w-16 border-4 border-gray-200 border-t-emerald-500 mx-auto mb-6"></div>
-                    <h2 className="text-2xl font-bold text-gray-800 mb-2">Đang chấm điểm...</h2>
-                    <p className="text-gray-500">Hệ thống đang phân tích bài làm và xin nhận xét từ AI.</p>
+            <div className="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50 animate-fade-in backdrop-blur-sm">
+                <div className="bg-white p-8 rounded-xl shadow-2xl text-center max-w-sm mx-4">
+                    <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-sky-600 mx-auto mb-4"></div>
+                    <h2 className="text-xl font-bold text-gray-800">Đang chấm điểm...</h2>
+                    <p className="text-gray-600 mt-2">Hệ thống AI đang phân tích bài làm của bạn và gửi dữ liệu về máy chủ.</p>
                 </div>
             </div>
         );
 
-        // --- MAIN APP ---
         const App = () => {
-            const [view, setView] = useState('intro'); // intro, quiz, loading, result
-            const [user, setUser] = useState({ name: '', cls: '' });
-            const [result, setResult] = useState(null);
+            const [gameState, setGameState] = useState('intro'); // intro, quiz, submitting, result
+            const [userInfo, setUserInfo] = useState({ name: '', class: '' });
+            const [userAnswers, setUserAnswers] = useState({});
             const [aiComment, setAiComment] = useState("");
 
-            const handleStart = (name, cls) => {
-                setUser({ name, cls });
-                setView('quiz');
+            const startQuiz = (name, className) => {
+                setUserInfo({ name, class: className });
+                setGameState('quiz');
             };
+            
+            const submitData = async (answers) => {
+                setGameState('submitting');
+                setUserAnswers(answers);
 
-            const handleSubmit = async (answers) => {
-                setView('loading');
-                
-                // --- CHẤM ĐIỂM ---
-                // Tổng điểm Max: 10 điểm
-                // MCQ: 4 câu * 0.5 = 2.0 điểm
-                // TF: 2 câu * 1.0 = 2.0 điểm (mỗi ý 0.25)
-                // Fill: 2 câu * 1.0 = 2.0 điểm
-                // SA: 2 câu * 2.0 = 4.0 điểm
+                // 1. Calculate Local Scores
+                let p1 = 0, p2 = 0, p3 = 0;
+                let answerLog = [];
+                let headersLog = [];
 
-                let p1 = 0, p2 = 0, p3 = 0, p4 = 0;
-                let details = []; 
-                let headers = [];
-
-                // 1. Chấm MCQ (4 câu - 2.0đ)
-                rawExamData.mcq.forEach((q, i) => {
-                    const isCorrect = answers[`mcq_${i}`] === q.ans;
-                    if(isCorrect) p1 += 0.5;
-                    headers.push(`MCQ ${i+1}`);
-                    details.push(isCorrect ? "Đ" : "S");
-                });
-
-                // 2. Chấm TF (2 câu lớn, mỗi ý nhỏ 0.25đ - 2.0đ)
-                rawExamData.tf.forEach((q, i) => {
-                    const userSubAns = answers[`tf_${i}`] || {};
-                    q.subs.forEach((sub, j) => {
-                        const isCorrect = userSubAns[j] === q.ans[j];
-                        if(isCorrect) p2 += 0.25;
-                        headers.push(`TF ${i+1}.${j+1}`);
-                        details.push(isCorrect ? "Đ" : "S");
-                    });
-                });
-
-                // 3. Chấm Fill (2 câu - 2.0đ)
-                const fillAns = answers['fill_all'] || {};
-                rawExamData.fill.sentences.forEach((s, i) => {
-                    const isCorrect = fillAns[i] === s.blank;
-                    if(isCorrect) p3 += 1.0;
-                    headers.push(`Fill ${i+1}`);
-                    details.push(fillAns[i] || "Trống");
-                });
-
-                // 4. Chấm AI - SA (2 câu - 4.0đ)
-                const saAnswers = rawExamData.sa.map((q, i) => answers[`sa_${i}`] || "");
-                const itemsToGrade = rawExamData.sa.map((q, i) => 
-                    `Câu hỏi: "${q.q}". Đáp án tham khảo: "${q.ans}". Học sinh trả lời: "${saAnswers[i]}".`
-                ).join("\n---\n");
-
-                try {
-                    // Gọi AI chấm điểm
-                    const res = await fetch(APPS_SCRIPT_URL, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-                        body: JSON.stringify({ action: "grade_ai", items: itemsToGrade })
-                    });
-                    const aiResult = await res.json();
-                    
-                    if (aiResult.success && aiResult.data) {
-                        aiResult.data.forEach((r, i) => {
-                            if(r.isCorrect) p4 += 2.0; // Mỗi câu 2 điểm
-                            headers.push(`SA ${i+1}`);
-                            details.push(`${saAnswers[i]} (${r.isCorrect ? 'Đ' : 'S'})`);
-                        });
+                quizData.forEach(q => {
+                    const isCorrect = answers[q.id] === q.correctAnswer;
+                    if (q.type === "multiple_choice") {
+                        if (isCorrect) p1 += 1;
+                        headersLog.push(`Câu ${q.id} (TN)`);
+                    } else if (q.type === "true_false") {
+                        if (isCorrect) p2 += 1;
+                        headersLog.push(`Câu ${q.id} (Đ/S)`);
                     } else {
-                        // Fallback logic nếu AI lỗi (Chấm theo từ khóa)
-                        rawExamData.sa.forEach((q, i) => {
-                            const val = saAnswers[i].toLowerCase();
-                            // Logic: Có chứa 50% từ khóa của đáp án
-                            const keywords = q.ans.toLowerCase().split(" ");
-                            let match = 0;
-                            keywords.forEach(k => { if(val.includes(k)) match++; });
-                            const isCorrect = match >= Math.ceil(keywords.length / 2);
-                            
-                            if(isCorrect) p4 += 2.0;
-                            headers.push(`SA ${i+1}`);
-                            details.push(`${saAnswers[i]} (Local)`);
-                        });
+                        if (isCorrect) p3 += 1;
+                        headersLog.push(`Câu ${q.id} (Điền)`);
                     }
-                } catch (e) {
-                    console.error("AI Error", e);
-                }
+                    answerLog.push(answers[q.id] || "Bỏ qua");
+                });
 
-                // Làm tròn điểm
-                p1 = Math.round(p1*100)/100;
-                p2 = Math.round(p2*100)/100;
-                p3 = Math.round(p3*100)/100;
-                p4 = Math.round(p4*100)/100;
-                const total = Math.round((p1+p2+p3+p4)*100)/100;
-                const maxScore = 10;
+                const totalScore = p1 + p2 + p3;
+                const maxScore = quizData.length;
 
-                // 5. Lấy Nhận Xét AI (MỚI THÊM)
+                // 2. Get AI Comment
                 let comment = "";
                 try {
-                    const commentRes = await fetch(APPS_SCRIPT_URL, {
+                    const response = await fetch(APPS_SCRIPT_URL, {
                         method: 'POST',
                         headers: { 'Content-Type': 'text/plain;charset=utf-8' },
                         body: JSON.stringify({
                             action: "get_comment",
-                            score: total,
+                            score: totalScore,
                             maxScore: maxScore,
-                            p1: p1, p2: p2, p3: p3, p4: p4
+                            p1: p1, p2: p2, p3: p3, p4: 0
                         })
                     });
-                    const commentData = await commentRes.json();
-                    if(commentData && commentData.comment) {
-                        comment = commentData.comment;
-                    }
+                    const data = await response.json();
+                    comment = data.comment || "Đã có lỗi khi lấy nhận xét.";
                 } catch (e) {
-                    console.error("Comment Error", e);
-                    comment = "Không thể tải nhận xét từ AI.";
+                    console.error("Error getting comment:", e);
+                    comment = "Không thể kết nối với AI Server (Check Connection).";
                 }
                 setAiComment(comment);
 
-                // 6. Gửi dữ liệu về Google Sheet (Cập nhật payload đúng chuẩn GAS của bạn)
+                // 3. Save to Sheet
+                const summaryHeaders = ["Tổng Điểm", "TN", "Đ/S", "Điền"];
+                const summaryScores = [`${totalScore}/${maxScore}`, p1, p2, p3];
+                
+                const payload = {
+                    action: "save_score",
+                    role: "KHTN 6 - Bài 27: Nguyên Sinh Vật",
+                    evaluator: userInfo.name,
+                    groupName: userInfo.class,
+                    comment: comment,
+                    headers: summaryHeaders.concat(headersLog),
+                    scores: summaryScores.concat(answerLog)
+                };
+
                 try {
                     await fetch(APPS_SCRIPT_URL, {
                         method: 'POST',
                         mode: 'no-cors',
                         headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-                        body: JSON.stringify({
-                            action: "save_score",
-                            role: "Bài 26: Vi khuẩn & Sữa chua", // Mapping cho biến 'role' trong GAS
-                            evaluator: user.name,                // Mapping cho biến 'evaluator' trong GAS
-                            groupName: user.cls,                 // Mapping cho biến 'groupName' trong GAS
-                            comment: comment,                    // Trường comment quan trọng
-                            scores: [                            // GAS mong đợi mảng 'scores' cho các cột động
-                                `${total}/${maxScore}`, 
-                                p1, p2, p3, p4,
-                                ...details
-                            ],
-                            headers: [                           // GAS mong đợi mảng 'headers' cho các cột động
-                                "Tổng Điểm", "TN", "Đ/S", "Điền", "Tự Luận", 
-                                ...headers
-                            ]
-                        })
+                        body: JSON.stringify(payload)
                     });
-                } catch(e) { console.error("Save Error", e); }
+                } catch (e) {
+                    console.error("Error saving score:", e);
+                }
 
-                setResult({ total, max: maxScore, p1, p2, p3, p4 });
-                setView('result');
+                setGameState('result');
+            };
+
+            const retryQuiz = () => {
+                setUserAnswers({});
+                setGameState('intro');
+                setAiComment("");
             };
 
             return (
-                <div className="min-h-screen">
-                     <div className="h-2 bg-gradient-to-r from-emerald-400 via-green-500 to-teal-600 sticky top-0 z-30"></div>
-                     {view === 'intro' && <StartScreen onStart={handleStart} />}
-                     {view === 'quiz' && <QuizScreen onFinish={handleSubmit} />}
-                     {view === 'loading' && <LoadingScreen />}
-                     {view === 'result' && <ResultScreen result={result} aiComment={aiComment} onRetry={() => setView('intro')} />}
+                <div className="min-h-screen pb-10">
+                    {/* Top Bar Decoration */}
+                    <div className="h-2 bg-gradient-to-r from-sky-400 via-blue-500 to-indigo-600 sticky top-0 z-50"></div>
+                    
+                    {gameState === 'intro' && <StartScreen onStart={startQuiz} />}
+                    {gameState === 'quiz' && <QuizScreen onFinish={submitData} />}
+                    {gameState === 'submitting' && <LoadingScreen />}
+                    {gameState === 'result' && <ResultScreen answers={userAnswers} aiComment={aiComment} onRetry={retryQuiz} />}
                 </div>
             );
         };
@@ -603,4 +618,3 @@
     </script>
 </body>
 </html>
-
