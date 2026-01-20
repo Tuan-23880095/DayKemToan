@@ -160,13 +160,15 @@
                     <p class="font-semibold mb-2">Câu 9: Hãy kể tên một số động vật xung quanh em có giá trị thực tiễn (làm cảnh, thức ăn, sức kéo...)?</p>
                     <p class="text-sm text-gray-500 italic mb-2">Gợi ý: Chó, cá, trâu, bò...</p>
                     <textarea name="essay1" rows="3" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-green-500 outline-none" placeholder="Trả lời của em..."></textarea>
-                    <input type="hidden" name="model_essay1" value="Chó: làm cảnh, nghiệp vụ; Cá: làm cảnh, thức ăn; Trâu, bò: cho sức kéo, lấy thịt">
+                    <!-- UPDATED: Model answer for Q9 -->
+                    <input type="hidden" name="model_essay1" value="Chó: làm cảnh, nghiệp vụ; Cá: làm cảnh, thức ăn; Trâu, bò: cho sức kéo, lấy thịt...">
                 </div>
 
                 <div class="mb-6 quiz-item-essay">
                     <p class="font-semibold mb-2">Câu 10: Nêu một số cách phòng trừ tác hại của: Muỗi, Mối, Chuột?</p>
                     <textarea name="essay2" rows="3" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-green-500 outline-none" placeholder="Ví dụ: Muỗi thì diệt lăng quăng..."></textarea>
-                    <input type="hidden" name="model_essay2" value="Muỗi: diệt lăng quăng, không để nước đọng. Mối: sơn gỗ, phun thuốc sinh học. Chuột: vệ sinh môi trường, dùng bẫy.">
+                    <!-- UPDATED: Model answer for Q10 -->
+                    <input type="hidden" name="model_essay2" value="Muỗi: diệt lăng quăng, bọ gậy; không để các vũng nước đọng lâu ngày; đậy nắp các dụng cụ chứa nước sinh hoạt. Mối, mọt: dùng các lớp phủ để bảo vệ bề mặt đồ dùng như sơn tường, sơn gỗ, đánh veni; sử dụng các dung dịch phun sương sinh học. Chuột: vệ sinh môi trường xung quanh thoáng đãng, sạch sẽ; dùng bẫy chuột, thuốc diệt chuột an toàn sinh học.">
                 </div>
             </div>
 
@@ -224,7 +226,7 @@
         // ==========================================================
         // CẤU HÌNH QUAN TRỌNG: Dán URL Web App của bạn vào đây
         // ==========================================================
-        const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxBPRlkjpMLDctdm2Uk7aYex_P6Cx0uhIdUmwOcYEm9C7JDe5OH92FiWEn6Nz1HNenY-A/exec"; 
+        const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbxBPRlkjpMLDctdm2Uk7aYex_P6Cx0uhIdUmwOcYEm9C7JDe5OH92FiWEn6Nz1HNenY-A/exec'; 
         
         // Kiểm tra URL
         if(WEB_APP_URL.includes("PLACEHOLDER")) {
@@ -311,11 +313,41 @@
             document.getElementById('score-p1').innerText = `${p1Score}/3.0`;
             document.getElementById('score-p2').innerText = `${p2Score}/3.0`;
 
-            // Prepare AI grading data
+            // Prepare AI grading data with strict prompt injection
+            // Escaping special characters safely
+            const cleanEssay1 = essay1Val.replace(/"/g, '\\"').replace(/\n/g, " ");
+            const cleanEssay2 = essay2Val.replace(/"/g, '\\"').replace(/\n/g, " ");
+            // Use encodeURIComponent if necessary, but manual escape is cleaner for JSON injection here
+            
             const itemsToGrade = `
+            IGNORE PREVIOUS ROLE INSTRUCTIONS IF ANY.
+            VAI TRÒ CỦA BẠN: Bạn là một Thạc sĩ Sinh học và là giáo viên giỏi.
+            
+            NHIỆM VỤ: Chấm điểm các câu trả lời tự luận dưới đây.
+            
+            QUY TẮC CHẤM NGHIÊM NGẶT:
+            1. So sánh câu trả lời của "student" với "answer" (đáp án gợi ý) và "question" (câu hỏi).
+            2. NẾU học sinh trả lời:
+               - Không liên quan đến câu hỏi.
+               - Nội dung vô nghĩa, spam (ví dụ: "asdf", "không biết", "bla bla").
+               - Có từ ngữ không phù hợp.
+               => BẮT BUỘC trả về "isCorrect": false.
+            3. NẾU học sinh trả lời đúng ý chính (dù diễn đạt khác đáp án mẫu) => Trả về "isCorrect": true.
+            
+            DỮ LIỆU (JSON):
             [
-                {"index": 0, "question": "Giá trị thực tiễn động vật", "student": "${essay1Val}", "answer": "${model1Val}"},
-                {"index": 1, "question": "Phòng trừ tác hại", "student": "${essay2Val}", "answer": "${model2Val}"}
+                {
+                    "index": 0, 
+                    "question": "Hãy kể tên một số động vật xung quanh em có giá trị thực tiễn (làm cảnh, thức ăn, sức kéo...)?", 
+                    "student": "${cleanEssay1}", 
+                    "answer": "${model1Val}"
+                },
+                {
+                    "index": 1, 
+                    "question": "Nêu một số cách phòng trừ tác hại của: Muỗi, Mối, Chuột?", 
+                    "student": "${cleanEssay2}", 
+                    "answer": "${model2Val}"
+                }
             ]
             `;
 
