@@ -224,7 +224,7 @@
         // ==========================================================
         // CẤU HÌNH QUAN TRỌNG: Dán URL Web App của bạn vào đây
         // ==========================================================
-        const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbxBPRlkjpMLDctdm2Uk7aYex_P6Cx0uhIdUmwOcYEm9C7JDe5OH92FiWEn6Nz1HNenY-A/exec'; 
+        const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxBPRlkjpMLDctdm2Uk7aYex_P6Cx0uhIdUmwOcYEm9C7JDe5OH92FiWEn6Nz1HNenY-A/exec"; 
         
         // Kiểm tra URL
         if(WEB_APP_URL.includes("PLACEHOLDER")) {
@@ -250,14 +250,26 @@
             btnText.innerText = "Đang chấm điểm...";
             btnLoader.classList.remove('hidden');
 
-            // 1. Chấm điểm Trắc nghiệm & Điền từ (Client-side grading)
-            let p1Score = 0; // Trắc nghiệm (6 câu x 0.5 = 3đ)
-            let p2Score = 0; // Đúng sai & Điền từ (2 câu x 1.5 = 3đ)
+            // --- 1. Grading Logic & Collecting Details ---
             
-            // Logic chấm trắc nghiệm
-            document.querySelectorAll('.quiz-item[data-type="mcq"]').forEach(item => {
+            let p1Score = 0; // MCQ (6 x 0.5 = 3.0)
+            let p2Score = 0; // TF & Fill (2 x 1.5 = 3.0)
+            
+            // Arrays to store detailed headers and answers for Google Sheet
+            let detailHeaders = [];
+            let detailValues = [];
+
+            // A. Grade MCQs & Collect Data
+            document.querySelectorAll('.quiz-item[data-type="mcq"]').forEach((item, index) => {
                 const selected = item.querySelector('input:checked');
                 const correct = item.getAttribute('data-correct');
+                const qNum = index + 1;
+                
+                // Collect detailed answer
+                detailHeaders.push(`Câu ${qNum} (TN)`);
+                detailValues.push(selected ? selected.value : "Không chọn");
+
+                // Grade
                 if (selected && selected.value === correct) {
                     p1Score += 0.5;
                     item.classList.add('bg-green-50', 'border', 'border-green-200');
@@ -266,24 +278,40 @@
                 }
             });
 
-            // Logic chấm đúng/sai & điền từ
+            // B. Grade True/False (Q7) & Collect Data
             const q7 = document.querySelector('input[name="q7"]:checked');
-            if (q7 && q7.value === "true") p2Score += 1.5;
+            detailHeaders.push("Câu 7 (Đ/S)");
+            if (q7) {
+                detailValues.push(q7.value === "true" ? "Đúng" : "Sai");
+                if (q7.value === "true") p2Score += 1.5;
+            } else {
+                detailValues.push("Không chọn");
+            }
 
+            // C. Grade Fill-in-Blank (Q8) & Collect Data
             const q8 = document.querySelector('input[name="q8"]');
-            if (q8 && q8.value.toLowerCase().trim().includes("quang hợp")) p2Score += 1.5;
+            const q8Val = q8 ? q8.value.trim() : "";
+            detailHeaders.push("Câu 8 (Điền)");
+            detailValues.push(q8Val || "Trống");
+            if (q8Val.toLowerCase().includes("quang hợp")) p2Score += 1.5;
 
-            // Update UI sơ bộ
-            document.getElementById('score-p1').innerText = `${p1Score}/3.0`;
-            document.getElementById('score-p2').innerText = `${p2Score}/3.0`;
-
-            // 2. Chuẩn bị dữ liệu Tự luận gửi AI chấm
+            // D. Collect Essays (Q9, Q10)
             const essay1Val = document.querySelector('textarea[name="essay1"]').value;
             const model1Val = document.querySelector('input[name="model_essay1"]').value;
             const essay2Val = document.querySelector('textarea[name="essay2"]').value;
             const model2Val = document.querySelector('input[name="model_essay2"]').value;
 
-            // Tạo chuỗi prompt cho AI chấm
+            detailHeaders.push("Câu 9 (TL)");
+            detailValues.push(essay1Val);
+            detailHeaders.push("Câu 10 (TL)");
+            detailValues.push(essay2Val);
+
+
+            // Update UI scores preliminarily
+            document.getElementById('score-p1').innerText = `${p1Score}/3.0`;
+            document.getElementById('score-p2').innerText = `${p2Score}/3.0`;
+
+            // Prepare AI grading data
             const itemsToGrade = `
             [
                 {"index": 0, "question": "Giá trị thực tiễn động vật", "student": "${essay1Val}", "answer": "${model1Val}"},
@@ -291,11 +319,11 @@
             ]
             `;
 
-            let p4Score = 0; // Tự luận (4 điểm)
+            let p4Score = 0; // Essay (4.0)
             let aiComment = "";
 
             try {
-                // --- CALL 1: Chấm điểm Tự luận (Đợi AI chấm xong) ---
+                // --- CALL 1: AI Grade Essays (Wait for completion) ---
                 btnText.innerText = "Đang chấm tự luận...";
                 const gradeResponse = await fetch(WEB_APP_URL, {
                     method: "POST",
@@ -303,29 +331,28 @@
                 });
                 const gradeResult = await gradeResponse.json();
                 
-                // Phân tích kết quả chấm
+                // Parse AI result
                 let aiGrades = [];
                 if (gradeResult.success && gradeResult.data) {
                     aiGrades = gradeResult.data;
                 } else if (gradeResult.success && gradeResult.text) {
-                     // Fallback nếu trả text
                      try { aiGrades = JSON.parse(gradeResult.text); } catch(e){}
                 }
 
-                // Tính điểm Tự luận dựa trên AI
+                // Calculate Essay Score
                 if (aiGrades.length > 0) {
                     aiGrades.forEach(g => {
                         if (g.isCorrect) p4Score += 2.0;
                     });
                 } else {
-                    // Fallback nếu AI lỗi: Chấm sơ bộ bằng độ dài
+                    // Fallback
                     if (essay1Val.length > 10) p4Score += 1;
                     if (essay2Val.length > 10) p4Score += 1;
                 }
                 
                 document.getElementById('score-essay').innerText = `${p4Score}/4.0`;
 
-                // --- CALL 2: Lấy nhận xét từ AI (Đợi có nhận xét) ---
+                // --- CALL 2: Get AI Comment (Wait for completion) ---
                 btnText.innerText = "Đang lấy nhận xét...";
                 const totalScore = p1Score + p2Score + p4Score;
                 document.getElementById('total-score').innerText = totalScore;
@@ -347,22 +374,27 @@
                 const commentResult = await commentResponse.json();
                 aiComment = commentResult.comment || "Không lấy được nhận xét.";
 
-                // Hiển thị nhận xét
                 document.getElementById('ai-comment-box').innerHTML = aiComment;
                 document.getElementById('ai-status').innerText = "Đã hoàn tất đánh giá.";
 
-                // --- CALL 3: Lưu vào Sheet (Sau khi đã có điểm và nhận xét) ---
+                // --- CALL 3: Save to Sheet (Wait for completion) ---
                 btnText.innerText = "Đang lưu kết quả...";
+                
+                // Construct final arrays for sheet
+                // Headers: [TN, Fill, TL, Total, ...Detailed Question Headers]
+                const finalHeaders = ["Trắc nghiệm", "Điền từ/Đ-S", "Tự luận", "Tổng điểm", ...detailHeaders];
+                // Values: [Score1, Score2, Score3, Total, ...Student Answers]
+                const finalValues = [p1Score, p2Score, p4Score, totalScore, ...detailValues];
+
                 const savePayload = {
                     role: "Bài Làm",
                     evaluator: name,
                     groupName: className,
-                    comment: aiComment, // Gửi kèm nhận xét đã có
-                    scores: [p1Score, p2Score, p4Score, totalScore],
-                    headers: ["Trắc nghiệm", "Điền từ/Đ-S", "Tự luận", "Tổng điểm"]
+                    comment: aiComment,
+                    scores: finalValues,
+                    headers: finalHeaders
                 };
                 
-                // Sử dụng await để đảm bảo lưu xong mới báo hoàn thành
                 await fetch(WEB_APP_URL, {
                     method: "POST",
                     body: JSON.stringify(savePayload)
@@ -373,7 +405,6 @@
                 document.getElementById('ai-comment-box').innerText = "Có lỗi kết nối. Vui lòng thử lại.";
                 document.getElementById('score-essay').innerText = "Lỗi";
             } finally {
-                // Chỉ hiển thị kết quả cuối cùng khi TẤT CẢ các bước trên đã xong (hoặc lỗi)
                 btnSubmit.classList.add('hidden');
                 resultSection.classList.remove('hidden');
                 resultSection.scrollIntoView({ behavior: 'smooth' });
