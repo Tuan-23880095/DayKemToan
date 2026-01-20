@@ -224,7 +224,7 @@
         // ==========================================================
         // CẤU HÌNH QUAN TRỌNG: Dán URL Web App của bạn vào đây
         // ==========================================================
-        const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbznJgUZYemh5RLp_1ViYMT607TgnoOJBqNnoj-etnYJYH6YbAr-MuQDiC41s-zTN_T_/exec"; 
+        const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbxBPRlkjpMLDctdm2Uk7aYex_P6Cx0uhIdUmwOcYEm9C7JDe5OH92FiWEn6Nz1HNenY-A/exec'; 
         
         // Kiểm tra URL
         if(WEB_APP_URL.includes("PLACEHOLDER")) {
@@ -295,15 +295,15 @@
             let aiComment = "";
 
             try {
-                // --- CALL 1: Chấm điểm Tự luận ---
+                // --- CALL 1: Chấm điểm Tự luận (Đợi AI chấm xong) ---
+                btnText.innerText = "Đang chấm tự luận...";
                 const gradeResponse = await fetch(WEB_APP_URL, {
                     method: "POST",
                     body: JSON.stringify({ action: "grade_ai", items: itemsToGrade })
                 });
                 const gradeResult = await gradeResponse.json();
                 
-                // Phân tích kết quả chấm (Giả sử AI trả về [{index, isCorrect}])
-                // Note: Script cũ trả về JSON text, cần parse kỹ ở đây nếu script trả text
+                // Phân tích kết quả chấm
                 let aiGrades = [];
                 if (gradeResult.success && gradeResult.data) {
                     aiGrades = gradeResult.data;
@@ -312,7 +312,7 @@
                      try { aiGrades = JSON.parse(gradeResult.text); } catch(e){}
                 }
 
-                // Tính điểm Tự luận dựa trên AI (2 câu, mỗi câu 2 điểm)
+                // Tính điểm Tự luận dựa trên AI
                 if (aiGrades.length > 0) {
                     aiGrades.forEach(g => {
                         if (g.isCorrect) p4Score += 2.0;
@@ -325,7 +325,8 @@
                 
                 document.getElementById('score-essay').innerText = `${p4Score}/4.0`;
 
-                // --- CALL 2: Lấy nhận xét & Lưu kết quả ---
+                // --- CALL 2: Lấy nhận xét từ AI (Đợi có nhận xét) ---
+                btnText.innerText = "Đang lấy nhận xét...";
                 const totalScore = p1Score + p2Score + p4Score;
                 document.getElementById('total-score').innerText = totalScore;
 
@@ -334,8 +335,8 @@
                     score: totalScore,
                     maxScore: 10,
                     p1: p1Score,
-                    p2: 0,      // Trong UI mình gộp p2, p3 thành p2, ở đây để p2 đại diện
-                    p3: p2Score, // Map tạm
+                    p2: 0,
+                    p3: p2Score,
                     p4: p4Score
                 };
 
@@ -350,27 +351,29 @@
                 document.getElementById('ai-comment-box').innerHTML = aiComment;
                 document.getElementById('ai-status').innerText = "Đã hoàn tất đánh giá.";
 
-                // --- CALL 3: Lưu vào Sheet (Gửi ngầm) ---
+                // --- CALL 3: Lưu vào Sheet (Sau khi đã có điểm và nhận xét) ---
+                btnText.innerText = "Đang lưu kết quả...";
                 const savePayload = {
                     role: "Bài Làm",
                     evaluator: name,
                     groupName: className,
-                    comment: aiComment,
+                    comment: aiComment, // Gửi kèm nhận xét đã có
                     scores: [p1Score, p2Score, p4Score, totalScore],
                     headers: ["Trắc nghiệm", "Điền từ/Đ-S", "Tự luận", "Tổng điểm"]
                 };
-                fetch(WEB_APP_URL, {
+                
+                // Sử dụng await để đảm bảo lưu xong mới báo hoàn thành
+                await fetch(WEB_APP_URL, {
                     method: "POST",
-                    mode: 'no-cors', // Fire and forget
                     body: JSON.stringify(savePayload)
                 });
 
             } catch (error) {
                 console.error(error);
-                document.getElementById('ai-comment-box').innerText = "Có lỗi kết nối với máy chủ chấm điểm. Vui lòng thử lại.";
+                document.getElementById('ai-comment-box').innerText = "Có lỗi kết nối. Vui lòng thử lại.";
                 document.getElementById('score-essay').innerText = "Lỗi";
             } finally {
-                // Hiển thị kết quả
+                // Chỉ hiển thị kết quả cuối cùng khi TẤT CẢ các bước trên đã xong (hoặc lỗi)
                 btnSubmit.classList.add('hidden');
                 resultSection.classList.remove('hidden');
                 resultSection.scrollIntoView({ behavior: 'smooth' });
