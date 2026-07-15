@@ -3,445 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ôn tập Sinh học 6 - Bài 31: Động vật</title>
-    <!-- Tailwind CSS -->
+    <title>Trung Tâm Bồi Dưỡng Văn Hóa - ĐH KHTN TP.HCM</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
-    <style>
-        body { font-family: 'Quicksand', sans-serif; background-color: #f0f9ff; }
-        .card { transition: transform 0.2s; }
-        .card:hover { transform: translateY(-2px); }
-        .option-label { cursor: pointer; transition: all 0.2s; }
-        .option-input:checked + .option-label { background-color: #dbeafe; border-color: #3b82f6; font-weight: bold; }
-        .loader { border-top-color: #3b82f6; -webkit-animation: spinner 1.5s linear infinite; animation: spinner 1.5s linear infinite; }
-        @keyframes spinner { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>body { font-family: 'Inter', sans-serif; }</style>
 </head>
-<body class="text-gray-700">
+<body class="bg-white text-gray-900 flex flex-col min-h-screen">
 
-    <!-- Config Alert -->
-    <div id="config-alert" class="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4 mb-4 fixed top-0 w-full z-50 hidden">
-        <p class="font-bold">Lưu ý:</p>
-        <p>Vui lòng cập nhật <code>WEB_APP_URL</code> trong code để ứng dụng hoạt động.</p>
-    </div>
-
-    <div class="max-w-4xl mx-auto p-4 md:p-8">
-        <!-- Header -->
-        <header class="text-center mb-8">
-            <h1 class="text-3xl md:text-4xl font-bold text-blue-600 mb-2">Bài 31: Động Vật</h1>
-            <p class="text-gray-600 text-lg">Ôn tập kiến thức Sinh học lớp 6</p>
-        </header>
-
-        <!-- User Info -->
-        <div class="bg-white rounded-xl shadow-md p-6 mb-6">
-            <h2 class="text-xl font-bold mb-4 text-blue-800"><i class="fas fa-user-graduate mr-2"></i>Thông tin học sinh</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Họ và tên</label>
-                    <input type="text" id="student-name" class="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none" placeholder="Nhập họ tên...">
-                </div>
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Lớp</label>
-                    <input type="text" id="student-class" class="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none" placeholder="Ví dụ: 6A1">
-                </div>
-            </div>
-        </div>
-
-        <!-- Quiz Form -->
-        <form id="quiz-form" onsubmit="event.preventDefault(); submitQuiz();">
-            
-            <!-- Phần 1: Trắc Nghiệm -->
-            <div class="bg-white rounded-xl shadow-md p-6 mb-6">
-                <div class="flex items-center justify-between mb-4">
-                    <h2 class="text-xl font-bold text-blue-800"><i class="fas fa-check-circle mr-2"></i>Phần 1: Trắc Nghiệm</h2>
-                    <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded">3 Điểm</span>
-                </div>
-
-                <!-- Câu 1 -->
-                <div class="mb-6 quiz-item" data-type="mcq" data-correct="C">
-                    <p class="font-semibold mb-2">Câu 1: Có thể dựa vào đặc điểm nào sau đây để phân biệt nhóm Động vật không xương sống và Động vật có xương sống?</p>
-                    <div class="space-y-2">
-                        <label class="block relative"><input type="radio" name="q1" value="A" class="option-input hidden"><div class="option-label border rounded-lg p-3 hover:bg-gray-50">A. Bộ xương ngoài</div></label>
-                        <label class="block relative"><input type="radio" name="q1" value="B" class="option-input hidden"><div class="option-label border rounded-lg p-3 hover:bg-gray-50">B. Lớp vỏ</div></label>
-                        <label class="block relative"><input type="radio" name="q1" value="C" class="option-input hidden"><div class="option-label border rounded-lg p-3 hover:bg-gray-50">C. Xương cột sống</div></label>
-                        <label class="block relative"><input type="radio" name="q1" value="D" class="option-input hidden"><div class="option-label border rounded-lg p-3 hover:bg-gray-50">D. Vỏ calium</div></label>
-                    </div>
-                </div>
-
-                <!-- Câu 2 -->
-                <div class="mb-6 quiz-item" data-type="mcq" data-correct="B">
-                    <p class="font-semibold mb-2">Câu 2: Nhóm động vật nào sau đây có số lượng loài lớn nhất?</p>
-                    <div class="space-y-2">
-                        <label class="block relative"><input type="radio" name="q2" value="A" class="option-input hidden"><div class="option-label border rounded-lg p-3 hover:bg-gray-50">A. Nhóm Cá</div></label>
-                        <label class="block relative"><input type="radio" name="q2" value="B" class="option-input hidden"><div class="option-label border rounded-lg p-3 hover:bg-gray-50">B. Nhóm Chân khớp</div></label>
-                        <label class="block relative"><input type="radio" name="q2" value="C" class="option-input hidden"><div class="option-label border rounded-lg p-3 hover:bg-gray-50">C. Nhóm Giun</div></label>
-                        <label class="block relative"><input type="radio" name="q2" value="D" class="option-input hidden"><div class="option-label border rounded-lg p-3 hover:bg-gray-50">D. Nhóm Ruột khoang</div></label>
-                    </div>
-                </div>
-
-                <!-- Câu 3 -->
-                <div class="mb-6 quiz-item" data-type="mcq" data-correct="A">
-                    <p class="font-semibold mb-2">Câu 3: Thuỷ tức là đại diện của nhóm động vật nào sau đây?</p>
-                    <div class="space-y-2">
-                        <label class="block relative"><input type="radio" name="q3" value="A" class="option-input hidden"><div class="option-label border rounded-lg p-3 hover:bg-gray-50">A. Ruột khoang</div></label>
-                        <label class="block relative"><input type="radio" name="q3" value="B" class="option-input hidden"><div class="option-label border rounded-lg p-3 hover:bg-gray-50">B. Giun</div></label>
-                        <label class="block relative"><input type="radio" name="q3" value="C" class="option-input hidden"><div class="option-label border rounded-lg p-3 hover:bg-gray-50">C. Thân mềm</div></label>
-                        <label class="block relative"><input type="radio" name="q3" value="D" class="option-input hidden"><div class="option-label border rounded-lg p-3 hover:bg-gray-50">D. Chân khớp</div></label>
-                    </div>
-                </div>
-
-                <!-- Câu 4 -->
-                <div class="mb-6 quiz-item" data-type="mcq" data-correct="B">
-                    <p class="font-semibold mb-2">Câu 4: Cá heo là đại diện của nhóm động vật nào?</p>
-                    <img src="https://tech12h.com/sites/default/files/styles/inbody400/public/capture_117.jpg?itok=emzvtHMv" class="h-32 object-cover rounded mb-2 border" onerror="this.src='https://placehold.co/400x200?text=Hình+ảnh+Cá+Heo'">
-                    <div class="space-y-2">
-                        <label class="block relative"><input type="radio" name="q4" value="A" class="option-input hidden"><div class="option-label border rounded-lg p-3 hover:bg-gray-50">A. Cá</div></label>
-                        <label class="block relative"><input type="radio" name="q4" value="B" class="option-input hidden"><div class="option-label border rounded-lg p-3 hover:bg-gray-50">B. Thú</div></label>
-                        <label class="block relative"><input type="radio" name="q4" value="C" class="option-input hidden"><div class="option-label border rounded-lg p-3 hover:bg-gray-50">C. Lưỡng cư</div></label>
-                        <label class="block relative"><input type="radio" name="q4" value="D" class="option-input hidden"><div class="option-label border rounded-lg p-3 hover:bg-gray-50">D. Bò sát</div></label>
-                    </div>
-                </div>
-
-                 <!-- Câu 5 -->
-                 <div class="mb-6 quiz-item" data-type="mcq" data-correct="B">
-                    <p class="font-semibold mb-2">Câu 5: Cá cóc là đại diện của nhóm động vật nào?</p>
-                    <div class="space-y-2">
-                        <label class="block relative"><input type="radio" name="q5" value="A" class="option-input hidden"><div class="option-label border rounded-lg p-3 hover:bg-gray-50">A. Cá</div></label>
-                        <label class="block relative"><input type="radio" name="q5" value="B" class="option-input hidden"><div class="option-label border rounded-lg p-3 hover:bg-gray-50">B. Lưỡng cư</div></label>
-                        <label class="block relative"><input type="radio" name="q5" value="C" class="option-input hidden"><div class="option-label border rounded-lg p-3 hover:bg-gray-50">C. Bò sát</div></label>
-                        <label class="block relative"><input type="radio" name="q5" value="D" class="option-input hidden"><div class="option-label border rounded-lg p-3 hover:bg-gray-50">D. Thú</div></label>
-                    </div>
-                </div>
-
-                 <!-- Câu 6 -->
-                 <div class="mb-6 quiz-item" data-type="mcq" data-correct="A">
-                    <p class="font-semibold mb-2">Câu 6: Động vật có xương sống bao gồm những nhóm nào?</p>
-                    <div class="space-y-2">
-                        <label class="block relative"><input type="radio" name="q6" value="A" class="option-input hidden"><div class="option-label border rounded-lg p-3 hover:bg-gray-50">A. Cá, Lưỡng cư, Bò sát, Chim, Thú</div></label>
-                        <label class="block relative"><input type="radio" name="q6" value="B" class="option-input hidden"><div class="option-label border rounded-lg p-3 hover:bg-gray-50">B. Cá, Chân khớp, Bò sát, Chim, Thú</div></label>
-                        <label class="block relative"><input type="radio" name="q6" value="C" class="option-input hidden"><div class="option-label border rounded-lg p-3 hover:bg-gray-50">C. Cá, Lưỡng cư, Bò sát, Ruột khoang, Thú</div></label>
-                        <label class="block relative"><input type="radio" name="q6" value="D" class="option-input hidden"><div class="option-label border rounded-lg p-3 hover:bg-gray-50">D. Thân mềm, Lưỡng cư, Bò sát, Chim, Thú</div></label>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Phần 2: Điền khuyết (Giả lập để khớp với script p2/p3) -->
-            <div class="bg-white rounded-xl shadow-md p-6 mb-6">
-                 <div class="flex items-center justify-between mb-4">
-                    <h2 class="text-xl font-bold text-orange-600"><i class="fas fa-edit mr-2"></i>Phần 2: Đúng/Sai & Điền từ</h2>
-                    <span class="bg-orange-100 text-orange-800 text-xs font-semibold px-2.5 py-0.5 rounded">3 Điểm</span>
-                </div>
-
-                <div class="mb-6 quiz-item" data-type="tf" data-correct="true">
-                    <p class="font-semibold mb-2">Câu 7: San hô là một loài động vật bậc thấp thuộc ngành Ruột khoang. (Đúng/Sai)</p>
-                    <div class="flex space-x-4">
-                        <label class="flex items-center space-x-2 cursor-pointer"><input type="radio" name="q7" value="true" class="form-radio text-orange-500"> <span>Đúng</span></label>
-                        <label class="flex items-center space-x-2 cursor-pointer"><input type="radio" name="q7" value="false" class="form-radio text-orange-500"> <span>Sai</span></label>
-                    </div>
-                </div>
-
-                <div class="mb-6 quiz-item" data-type="fill" data-correct="quang hợp">
-                    <p class="font-semibold mb-2">Câu 8: 80% nhu cầu dinh dưỡng của san hô đến từ hoạt động .................... của loài tảo đơn bào cộng sinh.</p>
-                    <input type="text" name="q8" class="w-full md:w-1/2 p-2 border-b-2 border-orange-300 outline-none focus:border-orange-600 bg-gray-50" placeholder="Nhập đáp án...">
-                </div>
-            </div>
-
-            <!-- Phần 3: Tự Luận (Sẽ được AI chấm) -->
-            <div class="bg-white rounded-xl shadow-md p-6 mb-6">
-                <div class="flex items-center justify-between mb-4">
-                    <h2 class="text-xl font-bold text-green-700"><i class="fas fa-pen-fancy mr-2"></i>Phần 3: Tự Luận</h2>
-                    <span class="bg-green-100 text-green-800 text-xs font-semibold px-2.5 py-0.5 rounded">4 Điểm - AI Chấm</span>
-                </div>
-
-                <div class="mb-6 quiz-item-essay">
-                    <p class="font-semibold mb-2">Câu 9: Hãy kể tên một số động vật xung quanh em có giá trị thực tiễn (làm cảnh, thức ăn, sức kéo...)?</p>
-                    <p class="text-sm text-gray-500 italic mb-2">Gợi ý: Chó, cá, trâu, bò...</p>
-                    <textarea name="essay1" rows="3" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-green-500 outline-none" placeholder="Trả lời của em..."></textarea>
-                    <!-- UPDATED: Model answer for Q9 -->
-                    <input type="hidden" name="model_essay1" value="Chó: làm cảnh, nghiệp vụ; Cá: làm cảnh, thức ăn; Trâu, bò: cho sức kéo, lấy thịt...">
-                </div>
-
-                <div class="mb-6 quiz-item-essay">
-                    <p class="font-semibold mb-2">Câu 10: Nêu một số cách phòng trừ tác hại của: Muỗi, Mối, Chuột?</p>
-                    <textarea name="essay2" rows="3" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-green-500 outline-none" placeholder="Ví dụ: Muỗi thì diệt lăng quăng..."></textarea>
-                    <!-- UPDATED: Model answer for Q10 -->
-                    <input type="hidden" name="model_essay2" value="Muỗi: diệt lăng quăng, bọ gậy; không để các vũng nước đọng lâu ngày; đậy nắp các dụng cụ chứa nước sinh hoạt. Mối, mọt: dùng các lớp phủ để bảo vệ bề mặt đồ dùng như sơn tường, sơn gỗ, đánh veni; sử dụng các dung dịch phun sương sinh học. Chuột: vệ sinh môi trường xung quanh thoáng đãng, sạch sẽ; dùng bẫy chuột, thuốc diệt chuột an toàn sinh học.">
-                </div>
-            </div>
-
-            <!-- Submit Button -->
+    <header class="bg-white shadow-sm sticky top-0 z-50 border-b border-gray-100">
+        <div class="max-w-7xl mx-auto px-4 h-20 flex justify-between items-center">
+            <img class="h-12 w-auto object-contain" src="https://hcmus.edu.vn/wp-content/uploads/2023/04/Logo-chinh-e1681638380305.png" alt="Logo HCMUS">
             <div class="text-center">
-                <button type="submit" id="btn-submit" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-full shadow-lg transform transition hover:scale-105 flex items-center justify-center mx-auto">
-                    <span id="btn-text">Nộp Bài & Xem Kết Quả</span>
-                    <div id="btn-loader" class="loader w-5 h-5 border-4 border-white rounded-full ml-3 hidden"></div>
-                </button>
+                <h1 class="text-xl font-bold text-blue-950 uppercase tracking-wide">Trung Tâm Bồi Dưỡng Văn Hóa</h1>
+                <p class="text-xs text-blue-600 font-medium tracking-widest">TRƯỜNG ĐH KHOA HỌC TỰ NHIÊN TP.HCM</p>
             </div>
-        </form>
-
-        <!-- Result Section (Hidden by default) -->
-        <div id="result-section" class="hidden mt-8 animate-fade-in-up">
-            <div class="bg-white rounded-xl shadow-xl overflow-hidden">
-                <div class="bg-gradient-to-r from-blue-500 to-indigo-600 p-6 text-white text-center">
-                    <h3 class="text-2xl font-bold mb-2">Kết Quả Học Tập</h3>
-                    <div class="text-5xl font-extrabold mb-2"><span id="total-score">0</span><span class="text-2xl opacity-75">/10</span></div>
-                    <p id="ai-status" class="text-blue-100 italic text-sm">Đang chờ AI nhận xét...</p>
-                </div>
-                <div class="p-6">
-                    <div class="grid grid-cols-2 gap-4 mb-6 text-center">
-                        <div class="bg-blue-50 p-3 rounded-lg">
-                            <div class="text-xs text-gray-500 uppercase">Trắc Nghiệm</div>
-                            <div class="font-bold text-blue-700" id="score-p1">0/3</div>
-                        </div>
-                        <div class="bg-orange-50 p-3 rounded-lg">
-                            <div class="text-xs text-gray-500 uppercase">Đúng/Sai & Điền từ</div>
-                            <div class="font-bold text-orange-700" id="score-p2">0/3</div>
-                        </div>
-                        <div class="bg-green-50 p-3 rounded-lg col-span-2">
-                            <div class="text-xs text-gray-500 uppercase">Tự Luận (AI Chấm)</div>
-                            <div class="font-bold text-green-700" id="score-essay">Đang chấm...</div>
-                        </div>
-                    </div>
-                    
-                    <div class="border-t pt-4">
-                        <h4 class="font-bold text-gray-800 mb-2"><i class="fas fa-robot text-purple-600 mr-2"></i>Nhận xét từ AI Giáo Viên:</h4>
-                        <div id="ai-comment-box" class="bg-gray-50 p-4 rounded-lg text-gray-700 italic border-l-4 border-purple-500">
-                            <span class="loader inline-block w-4 h-4 border-2 border-gray-400 rounded-full mr-2"></span> Đang phân tích bài làm của bạn...
-                        </div>
-                    </div>
-
-                    <div class="mt-6 text-center">
-                        <button onclick="location.reload()" class="text-blue-600 hover:underline font-medium">Làm lại bài</button>
-                    </div>
-                </div>
-            </div>
+            <img class="h-14 w-auto object-contain" src="https://bdvh.hcmus.edu.vn/images/logo2_bdvh.jpg" alt="Logo BDVH">
         </div>
+    </header>
 
-    </div>
-
-    <!-- JavaScript logic -->
-    <script>
-        // ==========================================================
-        // CẤU HÌNH QUAN TRỌNG: Dán URL Web App của bạn vào đây
-        // ==========================================================
-        const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbxBPRlkjpMLDctdm2Uk7aYex_P6Cx0uhIdUmwOcYEm9C7JDe5OH92FiWEn6Nz1HNenY-A/exec'; 
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 py-12 flex flex-col items-center justify-center text-center">
+        <div class="flex space-x-4 mb-6 text-5xl">
+            <i class="fas fa-graduation-cap text-blue-600 animate-bounce"></i>
+            <i class="fas fa-book-open text-green-500"></i>
+            <i class="fas fa-atom text-purple-500 fa-spin"></i>
+            <i class="fas fa-calculator text-amber-500"></i>
+        </div>
         
-        // Kiểm tra URL
-        if(WEB_APP_URL.includes("PLACEHOLDER")) {
-            document.getElementById('config-alert').classList.remove('hidden');
-        }
+        <h2 class="text-3xl md:text-4xl font-extrabold text-gray-900 mb-4">
+            Hệ Thống Quản Lý & Tự Học Trực Tuyến
+        </h2>
+        <p class="max-w-2xl text-gray-600 text-base md:text-lg mb-8 leading-relaxed">
+            Nền tảng cung cấp tài liệu lý thuyết chuẩn khoa học, hệ thống bài tập rèn luyện phong phú và các bài trắc nghiệm tính giờ giúp tối ưu hóa năng lực tư duy Toán học và Khoa học Tự nhiên.
+        </p>
 
-        async function submitQuiz() {
-            const btnSubmit = document.getElementById('btn-submit');
-            const btnText = document.getElementById('btn-text');
-            const btnLoader = document.getElementById('btn-loader');
-            const resultSection = document.getElementById('result-section');
-            const name = document.getElementById('student-name').value;
-            const className = document.getElementById('student-class').value;
+        <a href="hoc-tap.html" class="inline-flex items-center px-8 py-3.5 border border-transparent text-base font-semibold rounded-lg shadow-md text-white bg-blue-700 hover:bg-blue-800 transition duration-150 transform hover:-translate-y-0.5">
+            <i class="fas fa-shapes mr-2"></i> Vào Không Gian Học Tập
+        </a>
+    </main>
 
-            if (!name || !className) {
-                alert("Vui lòng điền tên và lớp trước khi nộp bài!");
-                return;
-            }
+    <footer class="bg-gray-900 text-gray-300 py-6 border-t border-gray-800">
+        <div class="max-w-7xl mx-auto px-4 text-center text-sm space-y-1">
+            <p class="font-medium text-white">@ Bản quyền thuộc ThS. Đinh Quốc Tuấn - Mục đích phi lợi nhuận - Vì giáo dục.</p>
+            <p class="text-gray-400 text-xs">Phát triển dựa trên nền tảng tích hợp Google Workspace & Google Apps Script chuyên sâu.</p>
+        </div>
+    </footer>
 
-            // UI Loading
-            btnSubmit.disabled = true;
-            btnSubmit.classList.add('opacity-75');
-            btnText.innerText = "Đang chấm điểm...";
-            btnLoader.classList.remove('hidden');
-
-            // --- 1. Grading Logic & Collecting Details ---
-            
-            let p1Score = 0; // MCQ (6 x 0.5 = 3.0)
-            let p2Score = 0; // TF & Fill (2 x 1.5 = 3.0)
-            
-            // Arrays to store detailed headers and answers for Google Sheet
-            let detailHeaders = [];
-            let detailValues = [];
-
-            // A. Grade MCQs & Collect Data
-            document.querySelectorAll('.quiz-item[data-type="mcq"]').forEach((item, index) => {
-                const selected = item.querySelector('input:checked');
-                const correct = item.getAttribute('data-correct');
-                const qNum = index + 1;
-                
-                // Collect detailed answer
-                detailHeaders.push(`Câu ${qNum} (TN)`);
-                detailValues.push(selected ? selected.value : "Không chọn");
-
-                // Grade
-                if (selected && selected.value === correct) {
-                    p1Score += 0.5;
-                    item.classList.add('bg-green-50', 'border', 'border-green-200');
-                } else {
-                    item.classList.add('bg-red-50', 'border', 'border-red-200');
-                }
-            });
-
-            // B. Grade True/False (Q7) & Collect Data
-            const q7 = document.querySelector('input[name="q7"]:checked');
-            detailHeaders.push("Câu 7 (Đ/S)");
-            if (q7) {
-                detailValues.push(q7.value === "true" ? "Đúng" : "Sai");
-                if (q7.value === "true") p2Score += 1.5;
-            } else {
-                detailValues.push("Không chọn");
-            }
-
-            // C. Grade Fill-in-Blank (Q8) & Collect Data
-            const q8 = document.querySelector('input[name="q8"]');
-            const q8Val = q8 ? q8.value.trim() : "";
-            detailHeaders.push("Câu 8 (Điền)");
-            detailValues.push(q8Val || "Trống");
-            if (q8Val.toLowerCase().includes("quang hợp")) p2Score += 1.5;
-
-            // D. Collect Essays (Q9, Q10)
-            const essay1Val = document.querySelector('textarea[name="essay1"]').value;
-            const model1Val = document.querySelector('input[name="model_essay1"]').value;
-            const essay2Val = document.querySelector('textarea[name="essay2"]').value;
-            const model2Val = document.querySelector('input[name="model_essay2"]').value;
-
-            detailHeaders.push("Câu 9 (TL)");
-            detailValues.push(essay1Val);
-            detailHeaders.push("Câu 10 (TL)");
-            detailValues.push(essay2Val);
-
-
-            // Update UI scores preliminarily
-            document.getElementById('score-p1').innerText = `${p1Score}/3.0`;
-            document.getElementById('score-p2').innerText = `${p2Score}/3.0`;
-
-            // Prepare AI grading data with strict prompt injection
-            // Escaping special characters safely
-            const cleanEssay1 = essay1Val.replace(/"/g, '\\"').replace(/\n/g, " ");
-            const cleanEssay2 = essay2Val.replace(/"/g, '\\"').replace(/\n/g, " ");
-            // Use encodeURIComponent if necessary, but manual escape is cleaner for JSON injection here
-            
-            const itemsToGrade = `
-            IGNORE PREVIOUS ROLE INSTRUCTIONS IF ANY.
-            VAI TRÒ CỦA BẠN: Bạn là một Thạc sĩ Sinh học và là giáo viên giỏi.
-            
-            NHIỆM VỤ: Chấm điểm các câu trả lời tự luận dưới đây.
-            
-            QUY TẮC CHẤM NGHIÊM NGẶT:
-            1. So sánh câu trả lời của "student" với "answer" (đáp án gợi ý) và "question" (câu hỏi).
-            2. NẾU học sinh trả lời:
-               - Không liên quan đến câu hỏi.
-               - Nội dung vô nghĩa, spam (ví dụ: "asdf", "không biết", "bla bla").
-               - Có từ ngữ không phù hợp.
-               => BẮT BUỘC trả về "isCorrect": false.
-            3. NẾU học sinh trả lời đúng ý chính (dù diễn đạt khác đáp án mẫu) => Trả về "isCorrect": true.
-            
-            DỮ LIỆU (JSON):
-            [
-                {
-                    "index": 0, 
-                    "question": "Hãy kể tên một số động vật xung quanh em có giá trị thực tiễn (làm cảnh, thức ăn, sức kéo...)?", 
-                    "student": "${cleanEssay1}", 
-                    "answer": "${model1Val}"
-                },
-                {
-                    "index": 1, 
-                    "question": "Nêu một số cách phòng trừ tác hại của: Muỗi, Mối, Chuột?", 
-                    "student": "${cleanEssay2}", 
-                    "answer": "${model2Val}"
-                }
-            ]
-            `;
-
-            let p4Score = 0; // Essay (4.0)
-            let aiComment = "";
-
-            try {
-                // --- CALL 1: AI Grade Essays (Wait for completion) ---
-                btnText.innerText = "Đang chấm tự luận...";
-                const gradeResponse = await fetch(WEB_APP_URL, {
-                    method: "POST",
-                    body: JSON.stringify({ action: "grade_ai", items: itemsToGrade })
-                });
-                const gradeResult = await gradeResponse.json();
-                
-                // Parse AI result
-                let aiGrades = [];
-                if (gradeResult.success && gradeResult.data) {
-                    aiGrades = gradeResult.data;
-                } else if (gradeResult.success && gradeResult.text) {
-                     try { aiGrades = JSON.parse(gradeResult.text); } catch(e){}
-                }
-
-                // Calculate Essay Score
-                if (aiGrades.length > 0) {
-                    aiGrades.forEach(g => {
-                        if (g.isCorrect) p4Score += 2.0;
-                    });
-                } else {
-                    // Fallback
-                    if (essay1Val.length > 10) p4Score += 1;
-                    if (essay2Val.length > 10) p4Score += 1;
-                }
-                
-                document.getElementById('score-essay').innerText = `${p4Score}/4.0`;
-
-                // --- CALL 2: Get AI Comment (Wait for completion) ---
-                btnText.innerText = "Đang lấy nhận xét...";
-                const totalScore = p1Score + p2Score + p4Score;
-                document.getElementById('total-score').innerText = totalScore;
-
-                const commentPayload = {
-                    action: "get_comment",
-                    score: totalScore,
-                    maxScore: 10,
-                    p1: p1Score,
-                    p2: 0,
-                    p3: p2Score,
-                    p4: p4Score
-                };
-
-                const commentResponse = await fetch(WEB_APP_URL, {
-                    method: "POST",
-                    body: JSON.stringify(commentPayload)
-                });
-                const commentResult = await commentResponse.json();
-                aiComment = commentResult.comment || "Không lấy được nhận xét.";
-
-                document.getElementById('ai-comment-box').innerHTML = aiComment;
-                document.getElementById('ai-status').innerText = "Đã hoàn tất đánh giá.";
-
-                // --- CALL 3: Save to Sheet (Wait for completion) ---
-                btnText.innerText = "Đang lưu kết quả...";
-                
-                // Construct final arrays for sheet
-                // Headers: [TN, Fill, TL, Total, ...Detailed Question Headers]
-                const finalHeaders = ["Trắc nghiệm", "Điền từ/Đ-S", "Tự luận", "Tổng điểm", ...detailHeaders];
-                // Values: [Score1, Score2, Score3, Total, ...Student Answers]
-                const finalValues = [p1Score, p2Score, p4Score, totalScore, ...detailValues];
-
-                const savePayload = {
-                    role: "Bài Làm",
-                    evaluator: name,
-                    groupName: className,
-                    comment: aiComment,
-                    scores: finalValues,
-                    headers: finalHeaders
-                };
-                
-                await fetch(WEB_APP_URL, {
-                    method: "POST",
-                    body: JSON.stringify(savePayload)
-                });
-
-            } catch (error) {
-                console.error(error);
-                document.getElementById('ai-comment-box').innerText = "Có lỗi kết nối. Vui lòng thử lại.";
-                document.getElementById('score-essay').innerText = "Lỗi";
-            } finally {
-                btnSubmit.classList.add('hidden');
-                resultSection.classList.remove('hidden');
-                resultSection.scrollIntoView({ behavior: 'smooth' });
-            }
-        }
-    </script>
 </body>
 </html>
