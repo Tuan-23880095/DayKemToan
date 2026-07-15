@@ -138,12 +138,13 @@ const AcademicApp = {
                         <i class="fas fa-pencil-alt"></i> <span>Bài tập lớp</span>
                     </button>
                     
-                    <a href="https://tracnghiem.hcmus.edu.vn" target="_blank" 
+                    <a href="https://tuan-23880095.github.io/TracNghiemOnline/?id=${lesson.id}" target="_blank" 
                         class="col-span-2 mt-1 flex items-center justify-center space-x-2 p-2 rounded-md border border-purple-200 text-purple-700 bg-purple-50/50 hover:bg-purple-100 text-xs font-semibold transition">
                         <i class="fas fa-stopwatch text-sm"></i>
-                        <span>Trắc nghiệm Trực tuyến (Tính thời gian)</span>
+                           <span>Trắc nghiệm Trực tuyến (Tính thời gian)</span>
                         <i class="fas fa-external-link-alt text-[9px] opacity-70"></i>
                     </a>
+
                 </div>
             `;
             grid.appendChild(card);
