@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buổi 8: Bội Chung Nhỏ Nhất (BCNN) - Lộ trình học hè</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                processEscapes: true
+            },
+            options: {
+                ignoreHtmlClass: 'tex2jax_ignore',
+                processHtmlClass: 'tex2jax_process'
+            }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" id="MathJax-script" async></script>
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #111827;
+            background-color: #ffffff;
+        }
+        .print-break {
+            page-break-inside: avoid;
+        }
+        @media print {
+            body {
+                background-color: #fff;
+                color: #000;
+            }
+            .no-print {
+                display: none !important;
+            }
+            .solution-content {
+                display: block !important;
+            }
+            .fixed-btn {
+                display: none !important;
+            }
+        }
+    </style>
+</head>
+<body class="bg-white text-gray-900 antialiased selection:bg-amber-100">
+
+    <header class="border-b border-gray-200 py-10 px-4 bg-gray-50 print:bg-white print:border-b-4 print:py-4">
+        <div class="max-w-4xl mx-auto text-center">
+            <span class="px-3 py-1 bg-indigo-100 text-indigo-800 text-xs font-bold rounded-full uppercase tracking-wider">Lộ trình học Toán 6</span>
+            <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight text-gray-900 mt-3">BUỔI 8: BỘI CHUNG NHỎ NHẤT (BCNN)</h1>
+            <p class="text-sm text-gray-500 mt-2 italic">Bài toán lặp lại, sự gặp nhau trong tương lai & Phương pháp giải toán thực tế</p>
+        </div>
+    </header>
+
+    <main class="max-w-4xl mx-auto px-4 py-8 space-y-12">
+        
+        <section class="bg-gradient-to-br from-indigo-50 to-emerald-50 rounded-2xl p-6 border border-indigo-100 shadow-sm print:border-gray-300">
+            <h2 class="text-xl font-bold text-indigo-900 mb-4 flex items-center gap-2">
+                <i class="fa-solid fa-compass-drafting text-indigo-600 animate-spin-slow"></i>
+                🎨 Gợi Ý Mô Hình Và Hình Ảnh Trực Quan (Đầu giờ)
+            </h2>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="bg-white p-5 rounded-xl border border-gray-200 shadow-xs flex flex-col justify-between">
+                    <div>
+                        <h3 class="font-bold text-gray-800 flex items-center gap-2 mb-2">
+                            <span class="flex items-center justify-center w-6 h-6 rounded-full bg-indigo-100 text-indigo-600 text-xs font-bold">1</span>
+                            Mô hình "Bánh răng cưa" (Cơ học)
+                        </h3>
+                        <p class="text-xs text-gray-600 leading-relaxed mb-4">
+                            Khớp bánh nhỏ (12 răng) và bánh lớn (18 răng) với nhau, đánh dấu vạch đỏ tại điểm tiếp xúc. Khi quay, để 2 vạch đỏ lại gặp nhau lần đầu tiên, hệ thống cần chạy qua đúng <strong class="text-indigo-600">$36$ răng cưa</strong> - chính là $BCNN(12, 18)$.
+                        </p>
+                    </div>
+                    <div class="flex items-center justify-center p-4 bg-indigo-50/50 rounded-lg border border-dashed border-indigo-200">
+                        <div class="flex gap-4 items-center">
+                            <div class="relative w-16 h-16 bg-amber-400 rounded-full border-4 border-dashed border-amber-600 flex items-center justify-center animate-spin">
+                                <div class="w-8 h-8 bg-white rounded-full flex items-center justify-center font-mono text-[10px] font-bold text-amber-900">12 R</div>
+                                <div class="absolute -right-1 top-1/2 -translate-y-1/2 w-3 h-3 bg-red-600 rounded-full border border-white"></div>
+                            </div>
+                            <div class="relative w-20 h-20 bg-indigo-400 rounded-full border-4 border-dashed border-indigo-600 flex items-center justify-center animate-reverse-spin">
+                                <div class="w-10 h-10 bg-white rounded-full flex items-center justify-center font-mono text-[10px] font-bold text-indigo-950">18 R</div>
+                                <div class="absolute -left-1.5 top-1/2 -translate-y-1/2 w-3 h-3 bg-red-600 rounded-full border border-white"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-5 rounded-xl border border-gray-200 shadow-xs flex flex-col justify-between">
+                    <div>
+                        <h3 class="font-bold text-gray-800 flex items-center gap-2 mb-2">
+                            <span class="flex items-center justify-center w-6 h-6 rounded-full bg-emerald-100 text-emerald-600 text-xs font-bold">2</span>
+                            Mô hình "Tờ lịch lớp học"
+                        </h3>
+                        <p class="text-xs text-gray-600 leading-relaxed mb-4">
+                            Bạn An trực nhật 4 ngày/lần (ngày 4, 8, 12, ...). Bạn Bình trực nhật 6 ngày/lần (ngày 6, 12, 18, ...). Điểm chung gặp nhau đầu tiên của hai bạn chính là ngày số <strong class="text-emerald-600">12</strong>.
+                        </p>
+                    </div>
+                    <div class="bg-emerald-50/50 p-2 rounded-lg border border-dashed border-emerald-200">
+                        <div class="grid grid-cols-7 gap-1 text-center text-[10px] font-mono">
+                            <div class="font-bold text-gray-400">T2</div><div class="font-bold text-gray-400">T3</div><div class="font-bold text-gray-400">T4</div><div class="font-bold text-gray-400">T5</div><div class="font-bold text-gray-400">T6</div><div class="font-bold text-gray-400">T7</div><div class="font-bold text-gray-400">CN</div>
+                            <div>1</div><div>2</div><div>3</div>
+                            <div class="bg-red-100 text-red-800 rounded font-bold" title="An trực nhật">4●</div>
+                            <div>5</div>
+                            <div class="bg-blue-100 text-blue-800 rounded font-bold" title="Bình trực nhật">6■</div>
+                            <div>7</div>
+                            <div class="bg-red-100 text-red-800 rounded font-bold" title="An trực nhật">8●</div>
+                            <div>9</div><div>10</div><div>11</div>
+                            <div class="bg-purple-200 text-purple-950 font-bold rounded-lg ring-2 ring-purple-600" title="Cả hai cùng trực nhật">12★</div>
+                            <div>13</div><div>14</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="print-break border border-gray-200 rounded-xl p-6 shadow-sm">
+            <div class="flex items-center gap-3 border-b border-gray-100 pb-3 mb-4">
+                <span class="px-3 py-1 bg-blue-600 text-white font-bold text-xs rounded">CẤP ĐỘ 1</span>
+                <h2 class="text-xl font-bold text-gray-900">PHẦN 1: MỨC ĐỘ CƠ BẢN (Nhận biết & Quy tắc tìm)</h2>
+            </div>
+            
+            <div class="space-y-6 text-base leading-relaxed text-gray-800">
+                <div>
+                    <h3 class="font-semibold text-blue-800 text-lg flex items-center gap-2">
+                        <i class="fa-solid fa-shapes text-sm"></i> 1.1. Khái niệm Bội chung (BC) và Bội chung nhỏ nhất (BCNN)
+                    </h3>
+                    <ul class="list-disc list-inside pl-4 mt-2 space-y-1 text-sm text-gray-700">
+                        <li><strong>Bội chung (BC):</strong> Một số được gọi là bội chung của hai hay nhiều số nếu nó chia hết cho tất cả các số đó. Tập hợp các bội chung của $a$ và $b$ kí hiệu là $BC(a, b)$.</li>
+                        <li><strong>Bội chung nhỏ nhất (BCNN):</strong> Là số nhỏ nhất <u>khác 0</u> trong tập hợp các bội chung. Kí hiệu là $BCNN(a, b)$.</li>
+                    </ul>
+                    <div class="bg-amber-50 border-l-4 border-amber-500 p-3 text-xs text-amber-900 my-3 rounded-r">
+                        💡 <strong>Lưu ý sư phạm:</strong> $BC(a, b)$ là một <strong>tập hợp</strong> gồm vô số phần tử, còn $BCNN(a, b)$ chỉ là <strong>một con số</strong> cụ thể duy nhất.
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="font-semibold text-blue-800 text-lg flex items-center gap-2">
+                        <i class="fa-solid fa-list-ol text-sm"></i> 1.2. Quy tắc tìm BCNN bằng cách phân tích ra thừa số nguyên tố
+                    </h3>
+                    <p class="text-sm mt-1">Để tìm BCNN của hai hay nhiều số lớn hơn 1, ta thực hiện theo 3 bước:</p>
+                    <div class="grid sm:grid-cols-3 gap-3 my-3">
+                        <div class="p-3 bg-gray-50 border border-gray-200 rounded-lg">
+                            <span class="block text-xs font-bold text-blue-600 uppercase">Bước 1</span>
+                            <span class="text-xs text-gray-700">Phân tích mỗi số ra thừa số nguyên tố.</span>
+                        </div>
+                        <div class="p-3 bg-gray-50 border border-gray-200 rounded-lg">
+                            <span class="block text-xs font-bold text-blue-600 uppercase">Bước 2</span>
+                            <span class="text-xs text-gray-700">Chọn ra các thừa số nguyên tố <strong>chung</strong> và <strong>riêng</strong>.</span>
+                        </div>
+                        <div class="p-3 bg-gray-50 border border-gray-200 rounded-lg">
+                            <span class="block text-xs font-bold text-blue-600 uppercase">Bước 3</span>
+                            <span class="text-xs text-gray-700">Lập tích, mỗi thừa số lấy với số mũ <strong>lớn nhất</strong>.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="font-semibold text-blue-800 text-lg flex items-center gap-2">
+                        <i class="fa-solid fa-bolt text-sm"></i> 1.3. Cách tìm Bội chung (BC) cực nhanh
+                    </h3>
+                    <p class="text-sm pl-4 border-l-2 border-indigo-400 bg-indigo-50/20 p-2 rounded">
+                        <strong>Quy tắc vàng:</strong> Tất cả các bội chung của $a$ và $b$ đều là bội của $BCNN(a, b)$. 
+                        <br><span class="font-mono text-xs">Công thức: $BC(a, b) = B(BCNN(a, b))$</span>
+                    </p>
+                </div>
+
+                <div class="border border-gray-200 bg-white rounded-lg p-4 shadow-sm">
+                    <div class="flex justify-between items-center bg-gray-50 px-3 py-2 -mx-4 -mt-4 border-b border-gray-200 rounded-t-lg">
+                        <span class="font-bold text-sm text-gray-700"><i class="fa-solid fa-pen-clip mr-1 text-blue-600"></i> 📝 Ví dụ minh họa 1</span>
+                    </div>
+                    <div class="mt-3 text-sm">
+                        <p>Tìm $BCNN(12, 15, 18)$ và tìm tập hợp $BC(12, 15, 18)$.</p>
+                    </div>
+                    
+                    <div class="mt-4">
+                        <button onclick="toggleSolution('sol1')" class="no-print text-xs font-semibold text-indigo-600 hover:text-indigo-800 focus:outline-none flex items-center gap-1">
+                            <i class="fa-solid fa-eye-slash" id="eye-sol1"></i> <span id="text-sol1">Xem lời giải chi tiết</span>
+                        </button>
+                        <div id="sol1" class="solution-content hidden mt-3 bg-emerald-50/60 border-l-4 border-emerald-500 p-3 rounded text-sm text-gray-800">
+                            <p class="font-bold text-emerald-950 mb-1">Lời giải:</p>
+                            <p class="mb-2"><strong>Bước 1:</strong> Phân tích ra thừa số nguyên tố:
+                                <br>&nbsp;&nbsp;&nbsp;&nbsp;• $12 = 2^2 \cdot 3$
+                                <br>&nbsp;&nbsp;&nbsp;&nbsp;• $15 = 3 \cdot 5$
+                                <br>&nbsp;&nbsp;&nbsp;&nbsp;• $18 = 2 \cdot 3^2$
+                            </p>
+                            <p class="mb-2"><strong>Bước 2 & 3:</strong> Chọn thừa số chung và riêng gồm: $2, 3, 5$. Số mũ lớn nhất của $2$ là $2$, của $3$ là $2$, của $5$ là $1$.
+                                <br>&nbsp;&nbsp;&nbsp;&nbsp;$\Rightarrow BCNN(12, 15, 18) = 2^2 \cdot 3^2 \cdot 5 = 4 \cdot 9 \cdot 5 = \mathbf{180}$.
+                            </p>
+                            <p><strong>Tìm BC:</strong> 
+                                <br>&nbsp;&nbsp;&nbsp;&nbsp;$BC(12, 15, 18) = B(180) = \mathbf{\{0; 180; 360; 540; 720; \dots\}}$.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="print-break border border-gray-200 rounded-xl p-6 shadow-sm">
+            <div class="flex items-center gap-3 border-b border-gray-100 pb-3 mb-4">
+                <span class="px-3 py-1 bg-emerald-600 text-white font-bold text-xs rounded">CẤP ĐỘ 2</span>
+                <h2 class="text-xl font-bold text-gray-900">PHẦN 2: MỨC ĐỘ VẬN DỤNG (Bài toán thực tế)</h2>
+            </div>
+
+            <div class="space-y-6 text-base leading-relaxed text-gray-800">
+                <div>
+                    <h3 class="font-semibold text-emerald-800 text-lg flex items-center gap-2">
+                        <i class="fa-solid fa-clipboard-question text-sm"></i> 2.1. Dấu hiệu nhận biết dạng toán BCNN
+                    </h3>
+                    <p class="text-sm mt-1">Học sinh cần đặc biệt lưu ý các từ khóa mang tính chất chỉ dẫn:</p>
+                    <ul class="list-disc list-inside pl-4 text-sm text-gray-700 space-y-1 mt-1">
+                        <li>Xuất hiện các từ: <strong>"ít nhất"</strong>, <strong>"nhỏ nhất"</strong>, <strong>"cùng lúc"</strong>, <strong>"lặp lại"</strong>.</li>
+                        <li>Nói về chu kỳ thời gian lặp lại của sự kiện: xe xuất bến cùng lúc, hai bạn cùng trực nhật một ngày...</li>
+                    </ul>
+                </div>
+
+                <div class="border border-gray-200 bg-white rounded-lg p-4 shadow-sm">
+                    <div class="flex justify-between items-center bg-gray-50 px-3 py-2 -mx-4 -mt-4 border-b border-gray-200 rounded-t-lg">
+                        <span class="font-bold text-sm text-gray-700"><i class="fa-solid fa-pen-clip mr-1 text-emerald-600"></i> 📝 Ví dụ minh họa 2 (Lịch trực nhật)</span>
+                    </div>
+                    <div class="mt-3 text-sm space-y-2">
+                        <p>Hai bạn Long và Hoàng cùng học một trường. Long cứ $10$ ngày lại trực nhật một lần, Hoàng cứ $12$ ngày trực nhật một lần. Lần đầu tiên cả hai cùng trực nhật vào một ngày. Hỏi sau ít nhất bao nhiêu ngày nữa thì hai bạn lại cùng trực nhật?</p>
+                    </div>
+                    
+                    <div class="mt-4">
+                        <button onclick="toggleSolution('sol2')" class="no-print text-xs font-semibold text-indigo-600 hover:text-indigo-800 focus:outline-none flex items-center gap-1">
+                            <i class="fa-solid fa-eye-slash" id="eye-sol2"></i> <span id="text-sol2">Xem lời giải chi tiết</span>
+                        </button>
+                        <div id="sol2" class="solution-content hidden mt-3 bg-emerald-50/60 border-l-4 border-emerald-500 p-3 rounded text-sm text-gray-800">
+                            <p class="font-bold text-emerald-950 mb-1">Cách trình bày mẫu chuẩn tự luận:</p>
+                            <p class="mb-2">Gọi số ngày ít nhất hai bạn lại cùng trực nhật là $x$ ngày ($x \in \mathbb{N}^*$).</p>
+                            <p class="mb-2">Vì cứ 10 ngày Long trực một lần nên $x \vdots 10$.
+                                <br>Vì cứ 12 ngày Hoàng trực một lần nên $x \vdots 12$.
+                                <br>Do đó $x \in BC(10, 12)$.
+                            </p>
+                            <p class="mb-2">Vì đề bài hỏi số ngày là "ít nhất", suy ra $x = BCNN(10, 12)$.</p>
+                            <p class="mb-2">Phân tích thừa số nguyên tố:
+                                <br>&nbsp;&nbsp;&nbsp;&nbsp;• $10 = 2 \cdot 5$
+                                <br>&nbsp;&nbsp;&nbsp;&nbsp;• $12 = 2^2 \cdot 3$
+                                <br>&nbsp;&nbsp;&nbsp;&nbsp;$\Rightarrow x = BCNN(10, 12) = 2^2 \cdot 3 \cdot 5 = \mathbf{60}$.
+                            </p>
+                            <p><strong>Kết luận:</strong> Vậy sau ít nhất <strong>60 ngày</strong> thì hai bạn lại cùng trực nhật.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="print-break border border-gray-200 rounded-xl p-6 shadow-sm">
+            <div class="flex items-center gap-3 border-b border-gray-100 pb-3 mb-4">
+                <span class="px-3 py-1 bg-violet-600 text-white font-bold text-xs rounded">CẤP ĐỘ 3</span>
+                <h2 class="text-xl font-bold text-gray-900">PHẦN 3: MỨC ĐỘ NÂNG CAO (Mẹo giải nhanh & Xếp hàng có dư)</h2>
+            </div>
+
+            <div class="space-y-6 text-base leading-relaxed text-gray-800">
+                <div class="grid sm:grid-cols-2 gap-4">
+                    <div class="p-3 bg-violet-50 rounded-lg border border-violet-100">
+                        <span class="font-bold text-xs text-violet-800 block mb-1">⚡ Mẹo nhẩm nhanh 1 (Số lớn chia hết)</span>
+                        <p class="text-xs text-gray-600">Nếu số lớn nhất trong nhóm chia hết cho các số còn lại, thì BCNN chính là số lớn nhất đó.
+                            <br><em>Ví dụ: $BCNN(8, 64) = 64$ (vì $64 \vdots 8$).</em>
+                        </p>
+                    </div>
+                    <div class="p-3 bg-violet-50 rounded-lg border border-violet-100">
+                        <span class="font-bold text-xs text-violet-800 block mb-1">⚡ Mẹo nhẩm nhanh 2 (Nguyên tố cùng nhau)</span>
+                        <p class="text-xs text-gray-600">Nếu các số đôi một nguyên tố cùng nhau (không có ước chung), BCNN là tích các số đó.
+                            <br><em>Ví dụ: $BCNN(3, 7, 8) = 3 \cdot 7 \cdot 8 = 168$.</em>
+                        </p>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="font-semibold text-violet-800 text-lg flex items-center gap-2">
+                        <i class="fa-solid fa-puzzle-piece text-sm"></i> 3.2. Phương pháp giải bài toán "Xếp hàng có số dư"
+                    </h3>
+                    <p class="text-sm mt-1"><strong>Tư duy logic:</strong> Nếu một số $a$ chia cho $x, y, z$ đều dư một số $r$, thì ta có phép toán chia hết sau: <span class="font-mono bg-gray-100 px-1 text-red-600">$(a - r) \vdots x$, $(a - r) \vdots y$, $(a - r) \vdots z$</span>. Có nghĩa là $(a - r)$ chính là bội chung của $x, y, z$.</p>
+                </div>
+
+                <div class="border border-gray-200 bg-white rounded-lg p-4 shadow-sm">
+                    <div class="flex justify-between items-center bg-gray-50 px-3 py-2 -mx-4 -mt-4 border-b border-gray-200 rounded-t-lg">
+                        <span class="font-bold text-sm text-gray-700"><i class="fa-solid fa-pen-clip mr-1 text-violet-600"></i> 📝 Ví dụ minh họa 3 (Toán thực tế nâng cao)</span>
+                    </div>
+                    <div class="mt-3 text-sm space-y-1">
+                        <p>Một trường học có số lượng học sinh không quá 1000 em. Khi xếp hàng 20, hàng 25, hàng 30 thì đều dư 15 học sinh, nhưng xếp hàng 41 thì vừa đủ. Tính số học sinh của trường đó.</p>
+                    </div>
+                    
+                    <div class="mt-4">
+                        <button onclick="toggleSolution('sol3')" class="no-print text-xs font-semibold text-indigo-600 hover:text-indigo-800 focus:outline-none flex items-center gap-1">
+                            <i class="fa-solid fa-eye-slash" id="eye-sol3"></i> <span id="text-sol3">Xem lời giải chi tiết</span>
+                        </button>
+                        <div id="sol3" class="solution-content hidden mt-3 bg-emerald-50/60 border-l-4 border-emerald-500 p-3 rounded text-sm text-gray-800 font-sans leading-relaxed">
+                            <p class="font-bold text-emerald-950 mb-1">Lời giải:</p>
+                            <p class="mb-2">Gọi số học sinh của trường là $a$ ($a \in \mathbb{N}^*, a \le 1000$).</p>
+                            <p class="mb-2">Vì xếp hàng 20, 25, 30 đều dư 15 học sinh nên:
+                                <br>&nbsp;&nbsp;&nbsp;&nbsp;$(a - 15) \vdots 20$; $(a - 15) \vdots 25$; $(a - 15) \vdots 30$.
+                                <br>&nbsp;&nbsp;&nbsp;&nbsp;$\Rightarrow (a - 15) \in BC(20, 25, 30)$.
+                            </p>
+                            <p class="mb-2">Phân tích ra thừa số nguyên tố:
+                                <br>&nbsp;&nbsp;&nbsp;&nbsp;• $20 = 2^2 \cdot 5$
+                                <br>&nbsp;&nbsp;&nbsp;&nbsp;• $25 = 5^2$
+                                <br>&nbsp;&nbsp;&nbsp;&nbsp;• $30 = 2 \cdot 3 \cdot 5$
+                                <br>&nbsp;&nbsp;&nbsp;&nbsp;$\Rightarrow BCNN(20, 25, 30) = 2^2 \cdot 3 \cdot 5^2 = 300$.
+                            </p>
+                            <p class="mb-2">Từ đó suy ra:
+                                <br>&nbsp;&nbsp;&nbsp;&nbsp;$(a - 15) \in B(300) = \{0; 300; 600; 900; 1200; \dots\}$
+                                <br>&nbsp;&nbsp;&nbsp;&nbsp;$\Rightarrow a \in \{15; 315; 615; 915; 1215; \dots\}$
+                            </p>
+                            <p class="mb-2">Vì số học sinh không quá 1000 nên ta chỉ xét các giá trị: $a \in \{315; 615; 915\}$.
+                                <br>Đồng thời khi xếp hàng 41 thì vừa đủ có nghĩa là $a \vdots 41$. Ta kiểm tra:
+                                <br>&nbsp;&nbsp;&nbsp;&nbsp;• $315 : 41 \approx 7.68$ (Không thỏa mãn)
+                                <br>&nbsp;&nbsp;&nbsp;&nbsp;• $615 : 41 = 15$ (Thỏa mãn chia hết)
+                                <br>&nbsp;&nbsp;&nbsp;&nbsp;• $915 : 41 \approx 22.31$ (Không thỏa mãn)
+                            </p>
+                            <p><strong>Kết luận:</strong> Vậy trường đó có chính xác <strong>615 học sinh</strong>.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <section class="no-print border-2 border-dashed border-indigo-200 rounded-xl p-6 bg-slate-50">
+            <div class="text-center mb-6">
+                <span class="px-3 py-1 bg-indigo-100 text-indigo-700 font-bold text-xs rounded-full">HỆ THỐNG KIỂM TRA ONLINE</span>
+                <h2 class="text-2xl font-bold text-gray-900 mt-2">BÀI KIỂM TRA ĐÁNH GIÁ NĂNG LỰC BUỔI 8</h2>
+                <p class="text-xs text-gray-500 mt-1">Nhập thông tin bên dưới để làm bài kiểm tra và gửi điểm số lên máy chủ của thầy.</p>
+            </div>
+
+            <div class="grid sm:grid-cols-2 gap-4 mb-6 bg-white p-4 rounded-lg border border-gray-200">
+                <div>
+                    <label class="block text-xs font-bold text-gray-700 uppercase mb-1">Họ và Tên Học Sinh <span class="text-red-500">*</span></label>
+                    <div class="relative">
+                        <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400"><i class="fa-solid fa-user-graduate"></i></span>
+                        <input type="text" id="studentName" placeholder="Nhập họ tên đầy đủ..." class="w-full pl-9 pr-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-gray-700 uppercase mb-1">Mã Lớp Học / Mã Đề</label>
+                    <div class="relative">
+                        <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400"><i class="fa-solid fa-tag"></i></span>
+                        <input type="text" id="examCode" value="toan6-08" readonly class="w-full pl-9 pr-3 py-2 border border-gray-200 rounded bg-gray-100 text-gray-500 font-mono text-sm font-bold">
+                    </div>
+                </div>
+            </div>
+
+            <div class="space-y-6" id="quizContainer">
+                
+                <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-xs question-box" data-qindex="1" data-correct="C">
+                    <p class="font-semibold text-sm text-gray-900 mb-3"><span class="text-indigo-600">Câu 1:</span> Tìm bội chung nhỏ nhất của 12 và 18.</p>
+                    <div class="grid sm:grid-cols-2 gap-3 text-xs">
+                        <label class="flex items-center gap-2 p-2 border border-gray-100 rounded cursor-pointer hover:bg-gray-50">
+                            <input type="radio" name="q1" value="A" class="form-radio text-indigo-600"> <span>A. $18$</span>
+                        </label>
+                        <label class="flex items-center gap-2 p-2 border border-gray-100 rounded cursor-pointer hover:bg-gray-50">
+                            <input type="radio" name="q1" value="B" class="form-radio text-indigo-600"> <span>B. $72$</span>
+                        </label>
+                        <label class="flex items-center gap-2 p-2 border border-gray-100 rounded cursor-pointer hover:bg-gray-50">
+                            <input type="radio" name="q1" value="C" class="form-radio text-indigo-600"> <span>C. $36$</span>
+                        </label>
+                        <label class="flex items-center gap-2 p-2 border border-gray-100 rounded cursor-pointer hover:bg-gray-50">
+                            <input type="radio" name="q1" value="D" class="form-radio text-indigo-600"> <span>D. $216$</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-xs question-box" data-qindex="2" data-correct="D">
+                    <p class="font-semibold text-sm text-gray-900 mb-3"><span class="text-indigo-600">Câu 2:</span> Điền vào dấu ... để hoàn thành quy tắc: "Tập hợp các bội chung của $a$ và $b$ chính là tập hợp các bội của ..."</p>
+                    <div class="grid sm:grid-cols-2 gap-3 text-xs">
+                        <label class="flex items-center gap-2 p-2 border border-gray-100 rounded cursor-pointer hover:bg-gray-50">
+                            <input type="radio" name="q2" value="A" class="form-radio text-indigo-600"> <span>A. $UCLN(a, b)$</span>
+                        </label>
+                        <label class="flex items-center gap-2 p-2 border border-gray-100 rounded cursor-pointer hover:bg-gray-50">
+                            <input type="radio" name="q2" value="B" class="form-radio text-indigo-600"> <span>B. $a \cdot b$</span>
+                        </label>
+                        <label class="flex items-center gap-2 p-2 border border-gray-100 rounded cursor-pointer hover:bg-gray-50">
+                            <input type="radio" name="q2" value="C" class="form-radio text-indigo-600"> <span>C. $a + b$</span>
+                        </label>
+                        <label class="flex items-center gap-2 p-2 border border-gray-100 rounded cursor-pointer hover:bg-gray-50">
+                            <input type="radio" name="q2" value="D" class="form-radio text-indigo-600"> <span>D. $BCNN(a, b)$</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-xs question-box" data-qindex="3" data-correct="A">
+                    <p class="font-semibold text-sm text-gray-900 mb-3"><span class="text-indigo-600">Câu 3:</span> Hai tuyến xe buýt xuất phát cùng một bến. Tuyến thứ nhất cứ 15 phút xuất bến 1 lần. Tuyến thứ hai cứ 20 phút xuất bến 1 lần. Hỏi sau ít nhất bao nhiêu phút thì cả hai tuyến lại xuất bến cùng nhau?</p>
+                    <div class="grid sm:grid-cols-2 gap-3 text-xs">
+                        <label class="flex items-center gap-2 p-2 border border-gray-100 rounded cursor-pointer hover:bg-gray-50">
+                            <input type="radio" name="q3" value="A" class="form-radio text-indigo-600"> <span>A. 60 phút</span>
+                        </label>
+                        <label class="flex items-center gap-2 p-2 border border-gray-100 rounded cursor-pointer hover:bg-gray-50">
+                            <input type="radio" name="q3" value="B" class="form-radio text-indigo-600"> <span>B. 30 phút</span>
+                        </label>
+                        <label class="flex items-center gap-2 p-2 border border-gray-100 rounded cursor-pointer hover:bg-gray-50">
+                            <input type="radio" name="q3" value="C" class="form-radio text-indigo-600"> <span>C. 120 phút</span>
+                        </label>
+                        <label class="flex items-center gap-2 p-2 border border-gray-100 rounded cursor-pointer hover:bg-gray-50">
+                            <input type="radio" name="q3" value="D" class="form-radio text-indigo-600"> <span>D. 35 phút</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-xs question-box" data-qindex="4" data-correct="B">
+                    <p class="font-semibold text-sm text-gray-900 mb-3"><span class="text-indigo-600">Câu 4:</span> Tính nhẩm nhanh $BCNN(5, 7, 11)$.</p>
+                    <div class="grid sm:grid-cols-2 gap-3 text-xs">
+                        <label class="flex items-center gap-2 p-2 border border-gray-100 rounded cursor-pointer hover:bg-gray-50">
+                            <input type="radio" name="q4" value="A" class="form-radio text-indigo-600"> <span>A. $35$</span>
+                        </label>
+                        <label class="flex items-center gap-2 p-2 border border-gray-100 rounded cursor-pointer hover:bg-gray-50">
+                            <input type="radio" name="q4" value="B" class="form-radio text-indigo-600"> <span>B. $385$</span>
+                        </label>
+                        <label class="flex items-center gap-2 p-2 border border-gray-100 rounded cursor-pointer hover:bg-gray-50">
+                            <input type="radio" name="q4" value="C" class="form-radio text-indigo-600"> <span>C. $77$</span>
+                        </label>
+                        <label class="flex items-center gap-2 p-2 border border-gray-100 rounded cursor-pointer hover:bg-gray-50">
+                            <input type="radio" name="q4" value="D" class="form-radio text-indigo-600"> <span>D. $1$</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-xs question-box" data-qindex="5" data-correct="B">
+                    <p class="font-semibold text-sm text-gray-900 mb-3"><span class="text-indigo-600">Câu 5:</span> Tìm số tự nhiên nhỏ nhất (khác 0) sao cho số đó khi chia cho 4, 5, 6 đều dư 1.</p>
+                    <div class="grid sm:grid-cols-2 gap-3 text-xs">
+                        <label class="flex items-center gap-2 p-2 border border-gray-100 rounded cursor-pointer hover:bg-gray-50">
+                            <input type="radio" name="q5" value="A" class="form-radio text-indigo-600"> <span>A. $60$</span>
+                        </label>
+                        <label class="flex items-center gap-2 p-2 border border-gray-100 rounded cursor-pointer hover:bg-gray-50">
+                            <input type="radio" name="q5" value="B" class="form-radio text-indigo-600"> <span>B. $61$</span>
+                        </label>
+                        <label class="flex items-center gap-2 p-2 border border-gray-100 rounded cursor-pointer hover:bg-gray-50">
+                            <input type="radio" name="q5" value="C" class="form-radio text-indigo-600"> <span>C. $121$</span>
+                        </label>
+                        <label class="flex items-center gap-2 p-2 border border-gray-100 rounded cursor-pointer hover:bg-gray-50">
+                            <input type="radio" name="q5" value="D" class="form-radio text-indigo-600"> <span>D. $120$</span>
+                        </label>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="mt-8 text-center">
+                <button onclick="submitQuiz()" id="btnSubmit" class="bg-indigo-600 text-white font-extrabold px-8 py-3 rounded-lg shadow-md hover:bg-indigo-700 transition duration-150 focus:outline-none">
+                    <i class="fa-solid fa-paper-plane mr-2"></i>Gửi Kết Quả Lên Bảng Điểm
+                </button>
+                <div id="quizResult" class="mt-4 text-center font-bold text-lg hidden"></div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="border-t border-gray-200 mt-16 py-8 px-4 bg-gray-50 text-center text-xs font-medium text-gray-500 print:bg-white print:border-t-2">
+        <div class="max-w-4xl mx-auto space-y-2">
+            <p>@ Bản quyền thuộc ThS. Đinh Quốc Tuấn - Mục đích phi lợi nhuận - Vì giáo dục.</p>
+            <p class="text-[10px] text-gray-400 no-print">Trang được tối ưu hóa hiển thị chuẩn học thuật THCS & Chế độ in ấn gọn gàng.</p>
+        </div>
+    </footer>
+
+    <button id="btn-print-doc" onclick="safePrint()" class="fixed bottom-5 right-5 bg-gray-900 text-white px-4 py-2 rounded-lg shadow-lg hover:bg-gray-700 print:hidden z-50">
+        <i class="fas fa-print mr-2"></i> In Tài Liệu
+    </button>
+
+
+    <script>
+        // Ghi nhận thời điểm tải trang để tính thời gian làm bài của học sinh
+        const startTime = new Date();
+
+        // 1. Hàm đóng mở ẩn hiện Gợi ý lời giải
+        function toggleSolution(id) {
+            const solDiv = document.getElementById(id);
+            const eyeIcon = document.getElementById('eye-' + id);
+            const textSpan = document.getElementById('text-' + id);
+
+            if (solDiv.classList.contains('hidden')) {
+                solDiv.classList.remove('hidden');
+                eyeIcon.classList.remove('fa-eye-slash');
+                eyeIcon.classList.add('fa-eye');
+                textSpan.innerText = 'Ẩn lời giải';
+            } else {
+                solDiv.classList.add('hidden');
+                eyeIcon.classList.remove('fa-eye');
+                eyeIcon.classList.add('fa-eye-slash');
+                textSpan.innerText = 'Xem lời giải chi tiết';
+            }
+        }
+
+        // 2. Hàm in tài liệu (Do MathJax tải bất đồng bộ nên cần kiểm tra hoàn tất trước khi in)
+        function safePrint() {
+            const printBtn = document.getElementById('btn-print-doc');
+            printBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Đang chuẩn bị...';
+            
+            // Đảm bảo MathJax đã render xong mọi công thức trước khi gọi hộp thoại in
+            if (window.MathJax && window.MathJax.typesetPromise) {
+                MathJax.typesetPromise().then(() => {
+                    printBtn.innerHTML = '<i class="fas fa-print mr-2"></i> In Tài Liệu';
+                    window.print();
+                });
+            } else {
+                // Fallback nếu không có công thức toán
+                setTimeout(() => {
+                    printBtn.innerHTML = '<i class="fas fa-print mr-2"></i> In Tài Liệu';
+                    window.print();
+                }, 500); 
+            }
+        }
+
+        // 3. Hàm chấm điểm và gửi dữ liệu về Google Apps Script
+        function submitQuiz() {
+            const nameInput = document.getElementById('studentName');
+            const examCodeInput = document.getElementById('examCode');
+            const btn = document.getElementById('btnSubmit');
+            const resultDiv = document.getElementById('quizResult');
+
+            const hoTen = nameInput.value.trim();
+            const maDe = examCodeInput.value.trim();
+
+            if (!hoTen) {
+                alert('Con hãy điền Họ và tên trước khi nộp bài để thầy ghi nhận điểm số nhé!');
+                nameInput.focus();
+                return;
+            }
+
+            // Tính toán khoảng thời gian làm bài
+            const endTime = new Date();
+            const elapsedMs = endTime - startTime;
+            const mins = Math.floor(elapsedMs / 60000);
+            const secs = Math.floor((elapsedMs % 60000) / 1000);
+            const thoiGian = `${mins} phút ${secs} giây`;
+
+            // Thu thập và đánh giá kết quả
+            const questionBoxes = document.querySelectorAll('.question-box');
+            let correctCount = 0;
+            let totalQ = questionBoxes.length;
+            let cauSaiList = [];
+
+            questionBoxes.forEach(box => {
+                const idx = box.getAttribute('data-qindex');
+                const correctAnswer = box.getAttribute('data-correct');
+                const checkedRadio = box.querySelector(`input[name="q${idx}"]:checked`);
+
+                if (checkedRadio) {
+                    if (checkedRadio.value === correctAnswer) {
+                        correctCount++;
+                    } else {
+                        cauSaiList.push(`C${idx} (Chọn ${checkedRadio.value}, ĐA đúng ${correctAnswer})`);
+                    }
+                } else {
+                    cauSaiList.push(`C${idx} (Chưa làm, ĐA đúng ${correctAnswer})`);
+                }
+            });
+
+            // Tính điểm theo thang điểm 10
+            const score = ((correctCount / totalQ) * 10).toFixed(1);
+            const cauSaiStr = cauSaiList.length > 0 ? cauSaiList.join('; ') : 'Đúng 100%';
+
+            // Cập nhật giao diện nút gửi
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Đang tải dữ liệu...';
+
+            // Đối tượng Payload chuẩn theo API xử lý ở file code gs tracnghiemonline.md
+            const payload = {
+                hoTen: hoTen,
+                maDe: maDe,
+                diem: parseFloat(score),
+                thoiGian: thoiGian,
+                cauSai: cauSaiStr
+            };
+
+            // Link Web App Google Apps Script của bạn
+            const scriptUrl = "https://script.google.com/macros/s/AKfycbzY7b7h4OwvhXuK5Vs6hl-aD88BPnAiAKbU5lfJobby0D4nzbIJVKT4n0AKCpAGoK0nZA/exec";
+
+            // Gọi API lưu thông tin bằng fetch POST
+            fetch(scriptUrl, {
+                method: "POST",
+                mode: "no-cors", // Thiết lập no-cors phòng tránh lỗi bảo mật chéo domain từ Apps Script
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(payload)
+            })
+            .then(() => {
+                // Hiển thị trạng thái thành công cho học sinh
+                resultDiv.classList.remove('hidden');
+                resultDiv.className = "mt-4 text-center font-bold text-lg text-emerald-600";
+                resultDiv.innerHTML = `<i class="fa-solid fa-circle-check mr-2"></i> Hoàn thành! Con được ${score}/10 điểm. Kết quả đã nộp thành công lên bảng điểm của lớp.`;
+                btn.innerHTML = '<i class="fa-solid fa-check mr-2"></i> Đã Nộp Kết Quả';
+                btn.className = "bg-gray-400 text-white font-extrabold px-8 py-3 rounded-lg cursor-not-allowed";
+            })
+            .catch(err => {
+                console.error("Error:", err);
+                resultDiv.classList.remove('hidden');
+                resultDiv.className = "mt-4 text-center font-bold text-lg text-red-600";
+                resultDiv.innerHTML = `<i class="fa-solid fa-triangle-exclamation mr-2"></i> Đã xảy ra lỗi gửi điểm. Con hãy thông báo cho thầy để hỗ trợ nhé!`;
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fa-solid fa-paper-plane mr-2"></i> Thử gửi lại';
+            });
+        }
+    </script>
+</body>
+</html>
