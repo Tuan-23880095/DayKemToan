@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buổi 2: Hệ thập phân, Số La Mã và Phép toán cơ bản</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            },
+            svg: {
+                fontCache: 'global'
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <style>
+        body {
+            font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+        /* Đảm bảo khi in, các phần ẩn gợi ý sẽ tự động hiện ra đầy đủ */
+        @media print {
+            .solution-content {
+                display: block !important;
+            }
+            .no-print {
+                display: none !important;
+            }
+            .print-break {
+                page-break-after: always;
+            }
+        }
+    </style>
+</head>
+<body class="bg-white text-gray-900 leading-relaxed antialiased">
+
+    <header class="border-b-4 border-gray-900 py-10 px-6 bg-gray-50 text-center">
+        <div class="max-w-4xl mx-auto">
+            <span class="bg-blue-600 text-white text-xs font-bold uppercase px-3 py-1 rounded-full tracking-wider">Tài liệu học hè Toán 6</span>
+            <h1 class="text-3xl md:text-4xl font-extrabold text-gray-900 mt-3 tracking-tight">BUỔI 2: HỆ THẬP PHÂN, SỐ LA MÃ VÀ PHÉP TOÁN CƠ BẢN</h1>
+            <p class="text-gray-600 mt-2 text-lg">Lộ trình bồi dưỡng tư duy toàn diện cho nhóm học sinh xuất sắc</p>
+        </div>
+    </header>
+
+    <main class="max-w-4xl mx-auto px-6 py-10 space-y-12">
+        
+        <div class="bg-amber-50 border-l-4 border-amber-500 p-5 rounded-r-lg shadow-sm">
+            <p class="text-amber-900 font-medium">
+                <i class="fa-solid fa-compass mr-2"></i> <strong>Chào các em học sinh!</strong> Tiếp nối lộ trình học hè nâng cao, Buổi 2 sẽ đưa các em trở về cội nguồn của những con số thông qua Hệ thập phân và Số La Mã, đồng thời khởi động lại tư duy tính toán logic với các phép toán cơ bản.
+            </p>
+        </div>
+
+        <section class="space-y-6">
+            <div class="flex items-center space-x-3 border-b-2 border-gray-900 pb-2">
+                <span class="text-3xl">🎨</span>
+                <h2 class="text-2xl font-bold tracking-tight text-gray-900">GỢI Ý MÔ HÌNH VÀ HÌNH ẢNH TRỰC QUAN</h2>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="border border-gray-200 rounded-xl p-6 bg-white shadow-sm flex flex-col justify-between items-center text-center">
+                    <div>
+                        <h3 class="text-lg font-bold text-indigo-600 mb-3"><i class="fa-solid fa-clock mr-2"></i>Mô hình Đồng hồ cổ (Số La Mã)</h3>
+                        <p class="text-sm text-gray-600 mb-4">Hãy quan sát mặt số của các chiếc đồng hồ treo tường cổ kính. Những kí hiệu số kì lạ (I, II, III... XII) từ đâu mà có và tuân theo quy luật nào?</p>
+                    </div>
+                    <svg class="w-40 h-40 mt-2" viewBox="0 0 100 100">
+                        <circle cx="50" cy="50" r="45" fill="#f8fafc" stroke="#4f46e5" stroke-width="3"/>
+                        <circle cx="50" cy="50" r="38" fill="none" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="2"/>
+                        <line x1="50" y1="50" x2="50" y2="22" stroke="#1e293b" stroke-width="2.5" stroke-linecap="round"/>
+                        <line x1="50" y1="50" x2="70" y2="50" stroke="#ef4444" stroke-width="2" stroke-linecap="round"/>
+                        <circle cx="50" cy="50" r="3" fill="#1e293b"/>
+                        <text x="50" y="16" text-anchor="middle" font-size="7" font-weight="bold" fill="#334155">XII</text>
+                        <text x="84" y="52.5" text-anchor="middle" font-size="7" font-weight="bold" fill="#334155">III</text>
+                        <text x="50" y="90" text-anchor="middle" font-size="7" font-weight="bold" fill="#334155">VI</text>
+                        <text x="16" y="52.5" text-anchor="middle" font-size="7" font-weight="bold" fill="#334155">IX</text>
+                    </svg>
+                </div>
+
+                <div class="border border-gray-200 rounded-xl p-6 bg-white shadow-sm flex flex-col justify-between items-center text-center">
+                    <div>
+                        <h3 class="text-lg font-bold text-emerald-600 mb-3"><i class="fa-solid fa-money-bill-wave mr-2"></i>Mô hình Tiền giấy Việt Nam (Hệ thập phân)</h3>
+                        <p class="text-sm text-gray-600 mb-4">Quy luật tích lũy giá trị tài chính: Cứ gom đủ 10 tờ mệnh giá 1 nghìn đồng, ta sẽ đổi được chính xác 1 tờ mệnh giá 10 nghìn đồng. Đây chính là bản chất cốt lõi của Hệ thập phân.</p>
+                    </div>
+                    <svg class="w-45 h-40 mt-2" viewBox="0 0 120 90">
+                        <rect x="25" y="25" width="70" height="40" rx="3" fill="#10b981" opacity="0.8" stroke="#047857" stroke-width="1"/>
+                        <text x="60" y="48" text-anchor="middle" font-size="6" font-weight="bold" fill="white">100.000 đ</text>
+                        <rect x="15" y="15" width="70" height="40" rx="3" fill="#f59e0b" opacity="0.9" stroke="#b45309" stroke-width="1"/>
+                        <text x="50" y="38" text-anchor="middle" font-size="6" font-weight="bold" fill="white">10.000 đ</text>
+                        <rect x="5" y="5" width="70" height="40" rx="3" fill="#3b82f6" stroke="#1d4ed8" stroke-width="1"/>
+                        <circle cx="20" cy="25" r="6" fill="white" opacity="0.3"/>
+                        <text x="40" y="28" text-anchor="middle" font-size="7" font-weight="bold" fill="white">1.000 đ</text>
+                    </svg>
+                </div>
+            </div>
+        </section>
+
+        <section class="space-y-6">
+            <div class="flex items-center space-x-3 border-b-2 border-gray-900 pb-2">
+                <span class="bg-gray-900 text-white font-bold px-2 py-0.5 rounded text-sm">PHẦN 1</span>
+                <h2 class="text-2xl font-bold tracking-tight text-gray-900">MỨC ĐỘ CƠ BẢN: NHẬN BIẾT HỆ THẬP PHÂN & KÍ HIỆU LA MÃ</h2>
+            </div>
+            <p class="text-gray-700"><strong>Mục tiêu:</strong> Học sinh nắm vững quy luật vận hành của hệ thập phân, xác định chuẩn xác giá trị theo vị trí cấu tạo của chữ số và ghi nhớ 3 kí hiệu La Mã nền tảng.</p>
+
+            <div class="space-y-4">
+                <h3 class="text-xl font-semibold text-gray-800 flex items-center"><i class="fa-solid fa-list-ol text-blue-500 mr-2"></i>1.1. Cách ghi số tự nhiên trong Hệ thập phân</h3>
+                <ul class="list-disc pl-6 space-y-2 text-gray-700">
+                    <li><strong>Tập hợp chữ số chuẩn:</strong> Trong hệ thập phân, chúng ta phối hợp 10 chữ số gốc để cấu thành mọi số tự nhiên: $0; 1; 2; 3; 4; 5; 6; 7; 8; 9$.</li>
+                    <li><strong>Quy tắc giá trị vị trí (Hàng và Lớp):</strong> Mỗi vị trí của chữ số trong một dãy số quy định một "Hàng". <em>Cứ 10 đơn vị ở một hàng thì gộp lại bằng vị trí của 1 đơn vị ở hàng liền trước nó.</em> Các hàng liên tiếp được tổ chức gộp lại thành các Lớp (Lớp đơn vị, Lớp nghìn, Lớp triệu...).</li>
+                    <li><strong class="text-rose-600">Lưu ý quan trọng:</strong> Đối với bất kỳ số tự nhiên khác số $0$, chữ số đại diện ở vị trí đầu tiên bên trái luôn bắt buộc phải khác $0$.</li>
+                </ul>
+            </div>
+
+            <div class="space-y-4">
+                <h3 class="text-xl font-semibold text-gray-800 flex items-center"><i class="fa-solid fa-gavel text-purple-500 mr-2"></i>1.2. Làm quen với Số La Mã (Từ 1 đến 10)</h3>
+                <p class="text-gray-700">Bên cạnh hệ thập phân phổ biến, hệ thống số cổ đại La Mã vẫn được ứng dụng. Phương pháp ghi số này sử dụng tổ hợp từ 3 kí tự chữ cái nền tảng để thiết lập các số có giá trị không vượt quá 30:</p>
+                
+                <div class="grid grid-cols-3 gap-4 max-w-md my-2 text-center">
+                    <div class="p-3 border border-gray-200 rounded-lg bg-gray-50"><span class="block font-bold text-lg text-gray-900">I</span><span class="text-xs text-gray-500">Giá trị: 1</span></div>
+                    <div class="p-3 border border-gray-200 rounded-lg bg-gray-50"><span class="block font-bold text-lg text-gray-900">V</span><span class="text-xs text-gray-500">Giá trị: 5</span></div>
+                    <div class="p-3 border border-gray-200 rounded-lg bg-gray-50"><span class="block font-bold text-lg text-gray-900">X</span><span class="text-xs text-gray-500">Giá trị: 10</span></div>
+                </div>
+
+                <ul class="list-disc pl-6 space-y-2 text-gray-700">
+                    <li><strong>Đặc điểm độc đáo:</strong> Trái ngược hoàn toàn với hệ thập phân, hệ số La Mã <strong>không tồn tại</strong> kí tự đại diện cho số 0. Đồng thời giá trị của các thành phần độc lập (I, V, X) luôn cố định, không phụ thuộc vào vị trí.</li>
+                    <li><strong>Quy tắc ghép số (Phạm vi 1 đến 10):</strong>
+                        <ul class="list-circle pl-6 mt-1 space-y-1">
+                            <li>Viết thêm về bên phải đại diện cho phép tính <strong>CỘNG</strong> (Ví dụ: $\text{VI} = 5 + 1 = 6$; $\text{VII} = 5 + 2 = 7$).</li>
+                            <li>Viết thêm về bên trái đại diện cho phép tính <strong>TRỪ</strong> (Ví dụ: $\text{IV} = 5 - 1 = 4$; $\text{IX} = 10 - 1 = 9$).</li>
+                            <li><span class="text-amber-600 font-medium">Lưu ý giới hạn:</span> Kí tự chữ số kí hiệu là <code class="bg-gray-100 px-1 rounded">I</code> chỉ được lặp liên tiếp tối đa 3 lần.</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="border-2 border-dashed border-gray-300 rounded-xl p-5 bg-gray-50/50">
+                <span class="bg-blue-100 text-blue-800 text-xs font-bold uppercase px-2 py-0.5 rounded">📝 Ví dụ minh họa 1</span>
+                <div class="mt-3 space-y-2 text-gray-800 font-medium">
+                    <p>a) Trong số tự nhiên $54\,902$, chữ số $4$ nằm ở vị trí thuộc hàng nào và có giá trị biểu thị bằng bao nhiêu?</p>
+                    <p>b) Thực hiện viết chuỗi các ký số từ 1 đến 5 bằng định dạng chữ số La Mã.</p>
+                </div>
+                
+                <div class="mt-4">
+                    <button onclick="toggleSolution('sol-1')" class="no-print bg-gray-900 hover:bg-gray-800 text-white text-xs px-3 py-1.5 rounded-md font-medium transition flex items-center space-x-1">
+                        <i id="eye-icon-sol-1" class="fa-solid fa-eye mr-1"></i>
+                        <span id="text-sol-1">Xem gợi ý & lời giải</span>
+                    </button>
+                    <div id="sol-1" class="solution-content hidden mt-3 p-4 border border-gray-200 bg-white rounded-lg text-gray-700 text-sm space-y-2">
+                        <p><strong>Hướng dẫn giải chi tiết:</strong></p>
+                        <p>a) Xét từ phải qua trái trong số $54\,902$, ta có: chữ số 2 thuộc hàng đơn vị, chữ số 0 thuộc hàng chục, chữ số 9 thuộc hàng trăm, chữ số 4 thuộc <strong>hàng nghìn</strong>. Do đó giá trị tương ứng của nó bằng: $4 \times 1000 = 4000$.</p>
+                        <p>b) Áp dụng quy tắc cơ bản và quy tắc trừ, dãy ký số La Mã tương ứng từ 1 đến 5 là: <strong>I, II, III, IV, V</strong>.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="print-break"></div>
+
+        <section class="space-y-6">
+            <div class="flex items-center space-x-3 border-b-2 border-gray-900 pb-2">
+                <span class="bg-gray-900 text-white font-bold px-2 py-0.5 rounded text-sm">PHẦN 2</span>
+                <h2 class="text-2xl font-bold tracking-tight text-gray-900">MỨC ĐỘ NÂNG CAO: CẤU TẠO SỐ VÀ TÍNH CHẤT PHÉP TÍNH HỢP LÝ</h2>
+            </div>
+            <p class="text-gray-700"><strong>Mục tiêu:</strong> Làm quen thành thạo với các kí hiệu đại số tổng quát $\overline{ab}, \overline{abc}$ và tối ưu hóa năng lực tính toán thông qua phương pháp "tính nhanh, tính hợp lí".</p>
+
+            <div class="space-y-4">
+                <h3 class="text-xl font-semibold text-gray-800 flex items-center"><i class="fa-solid fa-calculator text-emerald-500 mr-2"></i>2.1. Phân tích cấu tạo số tự nhiên thành tổng các giá trị thành phần</h3>
+                <p class="text-gray-700">Bất kỳ số tự nhiên nào trong hệ thập phân đều có thể tách biệt rõ ràng dưới dạng một biểu thức tổng giá trị thực tế dựa vào cấu trúc vị trí chữ số:</p>
+                <div class="bg-gray-50 p-4 border border-gray-200 rounded-lg space-y-2 text-sm font-mono text-gray-800">
+                    <p>• Kí hiệu $\overline{ab}$ biểu thị số tự nhiên có hai chữ số (điều kiện $a \neq 0$). Ta phân tích: $\overline{ab} = a \times 10 + b$</p>
+                    <p>• Kí hiệu $\overline{abc}$ biểu thị số tự nhiên có ba chữ số (điều kiện $a \neq 0$). Ta phân tích: $\overline{abc} = a \times 100 + b \times 10 + c$</p>
+                </div>
+            </div>
+
+            <div class="space-y-4">
+                <h3 class="text-xl font-semibold text-gray-800 flex items-center"><i class="fa-solid fa-square-root-variable text-amber-500 mr-2"></i>2.2. Ôn tập tính chất của phép cộng và phép nhân</h3>
+                <p class="text-gray-700">Việc nắm vững các quy luật biến đổi toán học giúp học sinh xử lý các biểu thức số học phức tạp một cách tối ưu:</p>
+                <ul class="list-disc pl-6 space-y-2 text-gray-700">
+                    <li><strong>Tính chất giao hoán và kết hợp:</strong> Hỗ trợ hoán đổi linh hoạt vị trí linh động và nhóm liên kết các số hạng, thừa số có khả năng tạo ra kết quả tròn chục, tròn trăm hoặc tròn nghìn một cách nhanh chóng.</li>
+                    <li><strong>Tính chất phân phối của phép nhân đối với phép cộng/trừ:</strong> Công thức cốt lõi ứng dụng liên tục trong giải toán nâng cao: 
+                        <div class="my-2 text-center text-lg font-bold text-gray-900">$$a \cdot (b + c) = a \cdot b + a \cdot c$$</div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="border-2 border-dashed border-gray-300 rounded-xl p-5 bg-gray-50/50">
+                <span class="bg-blue-100 text-blue-800 text-xs font-bold uppercase px-2 py-0.5 rounded">📝 Ví dụ minh họa 2</span>
+                <div class="mt-3 space-y-2 text-gray-800 font-medium">
+                    <p>a) Thực hiện phân tích cấu tạo số số tự nhiên $236$ thành cấu trúc tổng giá trị các hàng chữ số cấu thành.</p>
+                    <p>b) Vận dụng thuật toán tính nhanh để xử lý biểu thức số sau: $125 \cdot 2022 \cdot 8$</p>
+                </div>
+                
+                <div class="mt-4">
+                    <button onclick="toggleSolution('sol-2')" class="no-print bg-gray-900 hover:bg-gray-800 text-white text-xs px-3 py-1.5 rounded-md font-medium transition flex items-center space-x-1">
+                        <i id="eye-icon-sol-2" class="fa-solid fa-eye mr-1"></i>
+                        <span id="text-sol-2">Xem gợi ý & lời giải</span>
+                    </button>
+                    <div id="sol-2" class="solution-content hidden mt-3 p-4 border border-gray-200 bg-white rounded-lg text-gray-700 text-sm space-y-2">
+                        <p><strong>Hướng dẫn giải chi tiết:</strong></p>
+                        <p>a) Tách số $236$ theo quy tắc cấu tạo hàng lớp thập phân: $236 = (2 \times 100) + (3 \times 10) + 6$.</p>
+                        <p>b) Áp dụng tính chất giao hoán và kết hợp để tạo cặp số tròn nghìn tích hợp lý:</p>
+                        <div class="bg-gray-50 p-2.5 rounded font-mono text-xs">
+                            $125 \cdot 2022 \cdot 8 = (125 \cdot 8) \cdot 2022 = 1000 \cdot 2022 = 2\,022\,000$.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="space-y-6">
+            <div class="flex items-center space-x-3 border-b-2 border-gray-900 pb-2">
+                <span class="bg-gray-900 text-white font-bold px-2 py-0.5 rounded text-sm">PHẦN 3</span>
+                <h2 class="text-2xl font-bold tracking-tight text-gray-900">MỨC ĐỘ VẬN DỤNG: SỐ LA MÃ MỞ RỘNG & TOÁN TÌM X KHUYẾT SỐ</h2>
+            </div>
+            <p class="text-gray-700"><strong>Mục tiêu:</strong> Học sinh mở rộng khả năng đọc viết thành thạo số La Mã đến phạm vi giá trị 30 và áp dụng linh hoạt bản chất 4 phép tính cơ bản vào mô hình toán học Tìm x.</p>
+
+            <div class="space-y-4">
+                <h3 class="text-xl font-semibold text-gray-800 flex items-center"><i class="fa-solid fa-arrow-up-right-dots text-indigo-500 mr-2"></i>3.1. Phương pháp ghi số La Mã mở rộng từ phạm vi 11 đến 30</h3>
+                <p class="text-gray-700">Quy tắc triển khai rất đơn giản: Học sinh chỉ cần tiến hành đặt thêm kí hiệu thành phần hàng chục là <code class="bg-gray-100 px-1 rounded">X</code> (đại diện cho 10) hoặc <code class="bg-gray-100 px-1 rounded">XX</code> (đại diện cho 20) vào vị trí ngay trước cấu trúc chuỗi số của các số tương ứng từ 1 đến 9:</p>
+                <ul class="list-disc pl-6 space-y-1 text-gray-700">
+                    <li><strong>Phạm vi từ 11 đến 20:</strong> Thêm ký tự ký hiệu $\text{X}$ vào bên trái cấu trúc biểu diễn số từ I đến X (Ví dụ minh họa: Số $14 = \text{X} + \text{IV} = \text{XIV}$).</li>
+                    <li><strong>Phạm vi từ 21 đến 30:</strong> Thêm ký tự ký hiệu $\text{XX}$ vào bên trái cấu trúc biểu diễn số từ I đến X (Ví dụ minh họa: Số $24 = \text{XX} + \text{IV} = \text{XXIV}$; Số $29 = \text{XX} + \text{IX} = \text{XXIX}$).</li>
+                </ul>
+            </div>
+
+            <div class="space-y-4">
+                <h3 class="text-xl font-semibold text-gray-800 flex items-center"><i class="fa-solid fa-shapes text-rose-500 mr-2"></i>3.2. Phương pháp giải bài toán Tìm x dựa trên mối quan hệ toán học ngược</h3>
+                <p class="text-gray-700">Luôn luôn nhắc nhở học sinh tư duy suy ngược logic để định vị xác định vai trò vị trí của cấu trúc biến số $x$ trong biểu thức:</p>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div class="p-3 border border-gray-200 rounded-lg bg-gray-50/50">
+                        <span class="font-bold text-gray-800 block text-sm mb-1"><i class="fa-solid fa-minus text-red-400 mr-1"></i>Đối với Phép toán trừ:</span>
+                        <p class="text-xs text-gray-600">Số bị trừ $-$ Số trừ = Hiệu <br><span class="text-gray-900 font-medium">$\rightarrow$ Số bị trừ = Hiệu + Số trừ</span></p>
+                    </div>
+                    <div class="p-3 border border-gray-200 rounded-lg bg-gray-50/50">
+                        <span class="font-bold text-gray-800 block text-sm mb-1"><i class="fa-solid fa-divide text-blue-400 mr-1"></i>Đối với Phép toán chia:</span>
+                        <p class="text-xs text-gray-600">Số bị chia $:$ Số chia = Thương <br><span class="text-gray-900 font-medium">$\rightarrow$ Số bị chia = Thương $\times$ Số chia</span></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="border-2 border-dashed border-gray-300 rounded-xl p-5 bg-gray-50/50">
+                <span class="bg-blue-100 text-blue-800 text-xs font-bold uppercase px-2 py-0.5 rounded">📝 Ví dụ minh họa 3</span>
+                <div class="mt-3 space-y-2 text-gray-800 font-medium">
+                    <p>a) Tổ hợp số La Mã nâng cao: Biểu diễn chính xác các số $18, 25, 27$ sang định dạng chữ số La Mã.</p>
+                    <p>b) Bài toán tìm khuyết số cấu trúc phức tạp: Tìm số tự nhiên $x$, biết biểu thức logic: $(x - 1) \cdot 3 = 21$.</p>
+                </div>
+                
+                <div class="mt-4">
+                    <button onclick="toggleSolution('sol-3')" class="no-print bg-gray-900 hover:bg-gray-800 text-white text-xs px-3 py-1.5 rounded-md font-medium transition flex items-center space-x-1">
+                        <i id="eye-icon-sol-3" class="fa-solid fa-eye mr-1"></i>
+                        <span id="text-sol-3">Xem gợi ý & lời giải</span>
+                    </button>
+                    <div id="sol-3" class="solution-content hidden mt-3 p-4 border border-gray-200 bg-white rounded-lg text-gray-700 text-sm space-y-2">
+                        <p><strong>Hướng dẫn giải chi tiết:</strong></p>
+                        <p>a) Tiến hành phân tích cấu tạo chục và đơn vị: <br>
+                           - $18 = 10 + 8 \rightarrow$ <strong>XVIII</strong> <br>
+                           - $25 = 20 + 5 \rightarrow$ <strong>XXV</strong> <br>
+                           - $27 = 20 + 7 \rightarrow$ <strong>XXVII</strong>
+                        </p>
+                        <p>b) Định vị cụm ngoặc đơn chứa ẩn số dưới vai trò của một thừa số chưa biết:</p>
+                        <div class="bg-gray-50 p-2.5 rounded font-mono text-xs space-y-1">
+                            <p>$(x - 1) = 21 : 3$</p>
+                            <p>$x - 1 = 7$</p>
+                            <p>$x = 7 + 1 = 8$.</p>
+                        </div>
+                        <p class="text-emerald-700 font-medium mt-1"><i class="fa-regular fa-lightbulb mr-1"></i>Mẹo nhỏ sư phạm: Có thể tổ chức thi đua giải nhanh câu này trên bảng nhỏ cho 4 bạn nhỏ tăng tính tương tác sinh động.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="print-break"></div>
+
+        <section class="no-print border-2 border-gray-900 rounded-2xl overflow-hidden shadow-md">
+            <div class="bg-gray-900 text-white p-5">
+                <h2 class="text-xl font-bold flex items-center"><i class="fa-solid fa-square-poll-horizontal mr-2 text-amber-400"></i>HỆ THỐNG ĐÁNH GIÁ LUYỆN TẬP TẠI LỚP</h2>
+                <p class="text-xs text-gray-300 mt-1">Hệ thống ghi nhận điểm số tự động thời gian thực và cập nhật đồng bộ trực tiếp lên cơ sở dữ liệu học tập.</p>
+            </div>
+            
+            <form id="quizForm" class="p-6 bg-white space-y-6">
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-bold text-gray-700 uppercase mb-1 tracking-wider">Họ và Tên Học Sinh <span class="text-red-500">*</span></label>
+                        <input type="text" id="hoTen" required class="w-full border-2 border-gray-200 rounded-lg px-3 py-2 text-sm focus:border-gray-900 focus:outline-none transition" placeholder="Nhập tên học sinh...">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-700 uppercase mb-1 tracking-wider">Mã Đề Luyện Tập</label>
+                        <input type="text" id="maDe" value="khtn6-05" readonly class="w-full bg-gray-50 border-2 border-gray-200 rounded-lg px-3 py-2 text-sm font-mono text-gray-500 cursor-not-allowed">
+                    </div>
+                </div>
+
+                <hr class="border-gray-200">
+
+                <div class="space-y-2">
+                    <p class="font-semibold text-sm text-gray-900">Câu 1: Chữ số 4 đứng ở vị trí hàng nào trong số tự nhiên $54\,902$?</p>
+                    <div class="grid grid-cols-2 gap-2">
+                        <label class="flex items-center space-x-2 p-2.5 border border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer text-xs"><input type="radio" name="q1" value="A" required class="text-gray-900"> <span>A. Hàng chục nghìn</span></label>
+                        <label class="flex items-center space-x-2 p-2.5 border border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer text-xs"><input type="radio" name="q1" value="B" class="text-gray-900"> <span>B. Hàng trăm</span></label>
+                        <label class="flex items-center space-x-2 p-2.5 border border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer text-xs"><input type="radio" name="q1" value="C" class="text-gray-900"> <span>C. Hàng nghìn</span></label>
+                        <label class="flex items-center space-x-2 p-2.5 border border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer text-xs"><input type="radio" name="q1" value="D" class="text-gray-900"> <span>D. Hàng đơn vị</span></label>
+                    </div>
+                </div>
+
+                <div class="space-y-2">
+                    <p class="font-semibold text-sm text-gray-900">Câu 2: Tính nhanh biểu thức giá trị: $125 \cdot 2022 \cdot 8$ kết quả là bao nhiêu?</p>
+                    <div class="grid grid-cols-2 gap-2">
+                        <label class="flex items-center space-x-2 p-2.5 border border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer text-xs"><input type="radio" name="q2" value="A" required class="text-gray-900"> <span>A. $202\,200$</span></label>
+                        <label class="flex items-center space-x-2 p-2.5 border border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer text-xs"><input type="radio" name="q2" value="B" class="text-gray-900"> <span>B. $2\,022\,000$</span></label>
+                        <label class="flex items-center space-x-2 p-2.5 border border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer text-xs"><input type="radio" name="q2" value="C" class="text-gray-900"> <span>C. $20\,220\,000$</span></label>
+                        <label class="flex items-center space-x-2 p-2.5 border border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer text-xs"><input type="radio" name="q2" value="D" class="text-gray-900"> <span>D. $2\,022$</span></label>
+                    </div>
+                </div>
+
+                <div class="space-y-2">
+                    <p class="font-semibold text-sm text-gray-900">Câu 3: Kết quả của giá trị tự nhiên $x$ thỏa mãn bài toán biểu thức $(x - 1) \cdot 3 = 21$ là:</p>
+                    <div class="grid grid-cols-2 gap-2">
+                        <label class="flex items-center space-x-2 p-2.5 border border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer text-xs"><input type="radio" name="q3" value="A" required class="text-gray-900"> <span>A. $x = 6$</span></label>
+                        <label class="flex items-center space-x-2 p-2.5 border border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer text-xs"><input type="radio" name="q3" value="B" class="text-gray-900"> <span>B. $x = 7$</span></label>
+                        <label class="flex items-center space-x-2 p-2.5 border border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer text-xs"><input type="radio" name="q3" value="C" class="text-gray-900"> <span>C. $x = 8$</span></label>
+                        <label class="flex items-center space-x-2 p-2.5 border border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer text-xs"><input type="radio" name="q3" value="D" class="text-gray-900"> <span>D. $x = 9$</span></label>
+                    </div>
+                </div>
+
+                <div class="pt-2">
+                    <button type="button" onclick="submitQuiz()" id="submit-btn" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2.5 rounded-lg shadow-md transition flex justify-center items-center space-x-2 text-sm">
+                        <i class="fa-solid fa-paper-plane"></i>
+                        <span>Nộp Kết Quả Bài Làm</span>
+                    </button>
+                </div>
+            </form>
+        </section>
+
+    </main>
+
+    <footer class="border-t border-gray-200 mt-16 py-6 text-center text-xs text-gray-500 space-y-2">
+        <p class="font-medium text-gray-700">@ Bản quyền thuộc ThS. Đinh Quốc Tuấn - Mục đích phi lợi nhuận - Vì giáo dục.</p>
+        <p>Tài liệu nội bộ tối ưu hóa giảng dạy năng lực Tư duy logic Toán học lớp 6.</p>
+    </footer>
+
+    <button id="btn-print-doc" onclick="safePrint()" class="fixed bottom-5 right-5 bg-gray-900 text-white px-4 py-2 rounded-lg shadow-lg hover:bg-gray-700 print:hidden z-50">
+        <i class="fas fa-print mr-2"></i> In Tài Liệu
+    </button>
+
+    <script>
+        // Khởi tạo biến ghi nhận thời điểm bắt đầu load trang tính toán thời gian làm bài
+        const startTime = new Date();
+
+        // Hàm xử lý ẩn/hiện lời giải trực quan học sinh độc lập
+        function toggleSolution(id) {
+            const container = document.getElementById(id);
+            const icon = document.getElementById(`eye-icon-${id}`);
+            const text = document.getElementById(`text-${id}`);
+            
+            if (container.classList.contains('hidden')) {
+                container.classList.remove('hidden');
+                icon.classList.replace('fa-eye', 'fa-eye-slash');
+                text.innerText = "Ẩn gợi ý & lời giải";
+            } else {
+                container.classList.add('hidden');
+                icon.classList.replace('fa-eye-slash', 'fa-eye');
+                text.innerText = "Xem gợi ý & lời giải";
+            }
+        }
+
+        // Hàm xử lý chức năng in tài liệu an toàn MathJax của bạn
+        function safePrint() {
+            const printBtn = document.getElementById('btn-print-doc');
+            printBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Đang chuẩn bị...';
+            
+            // Đảm bảo MathJax đã render xong mọi công thức trước khi gọi hộp thoại in
+            if (window.MathJax && window.MathJax.typesetPromise) {
+                MathJax.typesetPromise().then(() => {
+                    printBtn.innerHTML = '<i class="fas fa-print mr-2"></i> In Tài Liệu';
+                    window.print();
+                });
+            } else {
+                // Fallback nếu không có công thức toán
+                setTimeout(() => {
+                    printBtn.innerHTML = '<i class="fas fa-print mr-2"></i> In Tài Liệu';
+                    window.print();
+                }, 500); 
+            }
+        }
+
+        // Hàm chấm điểm trắc nghiệm và đồng bộ gửi dữ liệu về Apps Script
+        async function submitQuiz() {
+            const form = document.getElementById('quizForm');
+            const hoTen = document.getElementById('hoTen').value.trim();
+            const maDe = document.getElementById('maDe').value;
+            
+            if (!hoTen) {
+                alert("Vui lòng nhập đầy đủ Họ và Tên học sinh trước khi thực hiện nộp bài!");
+                return;
+            }
+
+            // Kiểm tra validate form radio đáp án
+            const q1 = form.elements['q1'].value;
+            const q2 = form.elements['q2'].value;
+            const q3 = form.elements['q3'].value;
+
+            if (!q1 || !q2 || !q3) {
+                alert("Vui lòng tích chọn hoàn tất đáp án của tất cả các câu hỏi!");
+                return;
+            }
+
+            // Định nghĩa đáp án đúng
+            const correctAnswers = { q1: 'C', q2: 'B', q3: 'C' };
+            let totalPoints = 0;
+            let cauSaiList = [];
+
+            // Câu 1
+            if (q1 === correctAnswers.q1) totalPoints += 3.33; else cauSaiList.push("Câu 1");
+            // Câu 2
+            if (q2 === correctAnswers.q2) totalPoints += 3.33; else cauSaiList.push("Câu 2");
+            // Câu 3
+            if (q3 === correctAnswers.q3) totalPoints += 3.34; else cauSaiList.push("Câu 3");
+
+            // Làm tròn điểm số đẹp
+            const finalScore = Math.round(totalPoints);
+            
+            // Tính toán khoảng thời gian thực tế làm bài (đơn vị: phút/giây biến đổi chuỗi text)
+            const endTime = new Date();
+            const diffMs = endTime - startTime;
+            const diffMins = Math.floor(diffMs / 60000);
+            const diffSecs = ((diffMs % 60000) / 1000).toFixed(0);
+            const durationString = `${diffMins} phút ${diffSecs} giây`;
+
+            const errorDetails = cauSaiList.length > 0 ? `Sai ở: ${cauSaiList.join(', ')}` : "Không có (Đạt điểm tuyệt đối)";
+
+            // Đóng gói cấu trúc dữ liệu JSON khớp chuẩn 100% với hàm doPost(e) của code gs
+            const payload = {
+                hoTen: hoTen,
+                maDe: maDe,
+                diem: finalScore,
+                thoiGian: durationString,
+                cauSai: errorDetails
+            };
+
+            const submitBtn = document.getElementById('submit-btn');
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Hệ thống đang truyền dữ liệu...';
+
+            // Endpoint Apps Script của Thầy Đinh Quốc Tuấn
+            const scriptUrl = "https://script.google.com/macros/s/AKfycbzY7b7h4OwvhXuK5Vs6hl-aD88BPnAiAKbU5lfJobby0D4nzbIJVKT4n0AKCpAGoK0nZA/exec";
+
+            try {
+                // Thực hiện fetch POST API kết nối không đồng bộ
+                await fetch(scriptUrl, {
+                    method: 'POST',
+                    mode: 'no-cors', // Sử dụng chế độ no-cors an toàn cho Google Macro Web App redirecting
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(payload)
+                });
+
+                // Vì chế độ no-cors không đọc được body response trả về nhưng dữ liệu vẫn đẩy lên Google Sheet thành công
+                alert(`🎉 Chúc mừng học sinh ${hoTen} đã nộp bài thành công!\n• Điểm số ước tính: ${finalScore}/10 điểm.\n• Kết quả chi tiết đã được đồng bộ lên Google Sheets.`);
+                submitBtn.innerHTML = '<i class="fa-solid fa-circle-check mr-2"></i> Đã gửi thành công';
+                submitBtn.className = "w-full bg-emerald-600 text-white font-bold py-2.5 rounded-lg shadow-md cursor-not-allowed text-sm text-center";
+            } catch (error) {
+                console.error("Lỗi kết nối:", error);
+                alert("Đã xảy ra sự cố trong quá trình đồng bộ hóa dữ liệu. Vui lòng kiểm tra lại kết nối Internet hoặc cấu hình mạng!");
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane mr-2"></i> Thử nộp lại kết quả';
+            }
+        }
+    </script>
+</body>
+</html>
