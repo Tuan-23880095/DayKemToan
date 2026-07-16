@@ -249,6 +249,17 @@
 
         // Khởi tạo bộ dữ liệu 10 câu hỏi bao gồm 3 cấp độ
         const quizData = [
+            // 2. BẮT BUỘC CÓ: Gọi MathJax render lại các công thức toán vừa được thêm vào
+            if (window.MathJax && window.MathJax.typesetPromise) {
+                // Có thể truyền ID của thẻ chứa câu hỏi vào mảng nếu chỉ muốn quét 1 vùng nhỏ để tối ưu tốc độ
+                // VD: MathJax.typesetPromise([document.getElementById('quiz-container')])
+                
+                MathJax.typesetPromise().then(() => {
+                    console.log("Toán học đã được render xong!");
+                }).catch((err) => {
+                    console.error("Lỗi render MathJax: ", err);
+                });
+            }
             {
                 id: 1,
                 level: "Cơ bản",
