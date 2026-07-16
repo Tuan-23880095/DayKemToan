@@ -86,7 +86,7 @@ const AcademicApp = {
         });
     },
 
-    // Lọc và vẽ các thẻ buổi học lên khung Body
+ // Lọc và vẽ các thẻ buổi học lên khung Body
     renderLessons() {
         const grid = document.getElementById("lessons-grid");
         const title = document.getElementById("current-view-title");
@@ -106,12 +106,49 @@ const AcademicApp = {
             return;
         }
 
-        matchedLessons.forEach(lesson => {
+        matchedLessons.forEach((lesson, index) => {
             const isOpen = lesson.status.toLowerCase().trim() === "open";
+            
+            // Định nghĩa 5 chủ đề màu sắc tinh tế xoay vòng (Màu nền mờ nhạt và viền đậm)
+            const themes = [
+                { // Tông Xanh Dương (Logic & Trí tuệ)
+                    borderTop: "border-t-blue-500",
+                    hoverBorder: "hover:border-blue-300",
+                    lessonIdBg: "bg-blue-50 text-blue-700 border border-blue-100",
+                },
+                { // Tông Xanh Ngọc Lục Bảo (Cân bằng & Thư thái)
+                    borderTop: "border-t-emerald-500",
+                    hoverBorder: "hover:border-emerald-300",
+                    lessonIdBg: "bg-emerald-50 text-emerald-700 border border-emerald-100",
+                },
+                { // Tông Cam Hổ Phách (Sáng tạo & Năng lượng)
+                    borderTop: "border-t-amber-500",
+                    hoverBorder: "hover:border-amber-300",
+                    lessonIdBg: "bg-amber-50 text-amber-700 border border-amber-100",
+                },
+                { // Tông Tím Lavender (Nhạy bén & Tập trung chuyên sâu)
+                    borderTop: "border-t-purple-500",
+                    hoverBorder: "hover:border-purple-300",
+                    lessonIdBg: "bg-purple-50 text-purple-700 border border-purple-100",
+                },
+                { // Tông Hồng San Hô (Cảm hứng & Thân thiện)
+                    borderTop: "border-t-rose-500",
+                    hoverBorder: "hover:border-rose-300",
+                    lessonIdBg: "bg-rose-50 text-rose-700 border border-rose-100",
+                }
+            ];
+
+            // Chọn màu dựa trên số dư vị trí bài học
+            const theme = themes[index % themes.length];
+
             const card = document.createElement("div");
             
-            card.className = `bg-white border rounded-xl overflow-hidden shadow-sm flex flex-col transition-all duration-200 ${
-                isOpen ? "hover:shadow-md border-gray-200" : "opacity-60 grayscale-[40%] border-gray-200 pointer-events-none select-none"
+            // Nếu bài đang mở: có bóng đổ khi lướt qua, có viền trên dày 4px theo chủ đề màu
+            // Nếu bài đã khóa: nhạt đi, chuyển viền trên sang màu xám mặc định
+            card.className = `bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm flex flex-col transition-all duration-200 ${
+                isOpen 
+                ? `hover:shadow-md border-t-4 ${theme.borderTop} ${theme.hoverBorder}` 
+                : "opacity-60 grayscale-[40%] pointer-events-none select-none border-t-4 border-t-gray-300"
             }`;
 
             card.innerHTML = `
@@ -122,7 +159,9 @@ const AcademicApp = {
                         }">
                             <i class="fas ${isOpen ? "fa-unlock" : "fa-lock"} mr-1"></i>${isOpen ? "Đang Mở" : "Đã Khóa"}
                         </span>
-                        <span class="text-[10px] text-gray-400 font-mono tracking-wider">${lesson.id}</span>
+                        <span class="text-[10px] px-2.5 py-0.5 rounded font-mono tracking-wider font-semibold ${
+                            isOpen ? theme.lessonIdBg : "bg-gray-100 text-gray-500 border border-gray-200"
+                        }">${lesson.id}</span>
                     </div>
                     <h3 class="text-base font-bold text-gray-900 mb-1.5">${lesson.title}</h3>
                     <p class="text-xs text-gray-500 line-clamp-2 leading-relaxed">${lesson.desc}</p>
@@ -144,7 +183,6 @@ const AcademicApp = {
                            <span>Trắc nghiệm Trực tuyến (Tính thời gian)</span>
                         <i class="fas fa-external-link-alt text-[9px] opacity-70"></i>
                     </a>
-
                 </div>
             `;
             grid.appendChild(card);
