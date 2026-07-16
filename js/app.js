@@ -109,48 +109,51 @@ const AcademicApp = {
         matchedLessons.forEach((lesson, index) => {
             const isOpen = lesson.status.toLowerCase().trim() === "open";
             
-            // Định nghĩa 5 chủ đề màu sắc tinh tế xoay vòng (Màu nền mờ nhạt và viền đậm)
+            // BỘ 5 CHỦ ĐỀ MÀU NÂNG CẤP (Thêm cardBg với dải màu Gradient)
             const themes = [
-                { // Tông Xanh Dương (Logic & Trí tuệ)
+                { // Tông Xanh Dương
                     borderTop: "border-t-blue-500",
-                    hoverBorder: "hover:border-blue-300",
+                    hoverBorder: "hover:border-blue-400",
                     lessonIdBg: "bg-blue-50 text-blue-700 border border-blue-100",
+                    cardBg: "bg-gradient-to-b from-blue-50/80 to-white", // Đổ màu từ mờ xanh sang trắng
                 },
-                { // Tông Xanh Ngọc Lục Bảo (Cân bằng & Thư thái)
+                { // Tông Xanh Ngọc Lục Bảo
                     borderTop: "border-t-emerald-500",
-                    hoverBorder: "hover:border-emerald-300",
+                    hoverBorder: "hover:border-emerald-400",
                     lessonIdBg: "bg-emerald-50 text-emerald-700 border border-emerald-100",
+                    cardBg: "bg-gradient-to-b from-emerald-50/80 to-white",
                 },
-                { // Tông Cam Hổ Phách (Sáng tạo & Năng lượng)
+                { // Tông Cam Hổ Phách
                     borderTop: "border-t-amber-500",
-                    hoverBorder: "hover:border-amber-300",
+                    hoverBorder: "hover:border-amber-400",
                     lessonIdBg: "bg-amber-50 text-amber-700 border border-amber-100",
+                    cardBg: "bg-gradient-to-b from-amber-50/80 to-white",
                 },
-                { // Tông Tím Lavender (Nhạy bén & Tập trung chuyên sâu)
+                { // Tông Tím Lavender
                     borderTop: "border-t-purple-500",
-                    hoverBorder: "hover:border-purple-300",
+                    hoverBorder: "hover:border-purple-400",
                     lessonIdBg: "bg-purple-50 text-purple-700 border border-purple-100",
+                    cardBg: "bg-gradient-to-b from-purple-50/80 to-white",
                 },
-                { // Tông Hồng San Hô (Cảm hứng & Thân thiện)
+                { // Tông Hồng San Hô
                     borderTop: "border-t-rose-500",
-                    hoverBorder: "hover:border-rose-300",
+                    hoverBorder: "hover:border-rose-400",
                     lessonIdBg: "bg-rose-50 text-rose-700 border border-rose-100",
+                    cardBg: "bg-gradient-to-b from-rose-50/80 to-white",
                 }
             ];
 
-            // Chọn màu dựa trên số dư vị trí bài học
             const theme = themes[index % themes.length];
-
             const card = document.createElement("div");
             
-            // Nếu bài đang mở: có bóng đổ khi lướt qua, có viền trên dày 4px theo chủ đề màu
-            // Nếu bài đã khóa: nhạt đi, chuyển viền trên sang màu xám mặc định
-            card.className = `bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm flex flex-col transition-all duration-200 ${
+            // Áp dụng theme.cardBg cho các bài đang Mở, thêm hiệu ứng nổi thẻ 3D nhẹ
+            card.className = `border border-gray-200 rounded-xl overflow-hidden shadow-sm flex flex-col transition-all duration-300 ${
                 isOpen 
-                ? `hover:shadow-md border-t-4 ${theme.borderTop} ${theme.hoverBorder}` 
-                : "opacity-60 grayscale-[40%] pointer-events-none select-none border-t-4 border-t-gray-300"
+                ? `hover:shadow-md hover:-translate-y-0.5 border-t-4 ${theme.borderTop} ${theme.hoverBorder} ${theme.cardBg}` 
+                : "bg-white opacity-60 grayscale-[40%] pointer-events-none select-none border-t-4 border-t-gray-300"
             }`;
 
+            // (Phần card.innerHTML bên dưới thầy giữ nguyên như phiên bản trước)
             card.innerHTML = `
                 <div class="p-5 flex-grow">
                     <div class="flex justify-between items-center mb-2.5">
