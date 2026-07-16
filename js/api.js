@@ -1,7 +1,7 @@
 // js/api.js
 
 // URL Web App lấy từ phần triển khai trên Google Apps Script
-const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyWnyoV75dwBwrV0xnlgBC9V1Krndw1z_mCux5yKqtOJhGu4R8sWyJhpOruNd7JCPKD/exec"; 
+const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw7sGemj9iG49aqpCI97IcK9AJodyrtJ2L0dfVgB-jPwte18hXSjhvxYH5ohxU5e_AD/exec"; 
 
 const AcademicAPI = {
     /**
