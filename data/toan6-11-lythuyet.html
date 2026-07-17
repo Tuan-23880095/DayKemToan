@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buổi 11: Phép Nhân Và Phép Chia Hết Số Nguyên</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- MathJax Configuration -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                processEscapes: true
+            },
+            svg: {
+                fontCache: 'global'
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #ffffff;
+            color: #111827;
+        }
+        @media print {
+            .print\:hidden {
+                display: none !important;
+            }
+            body {
+                color: #000000;
+                background-color: #ffffff;
+            }
+            .no-print-border {
+                border: none !important;
+                box-shadow: none !important;
+            }
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between antialiased selection:bg-gray-200">
+
+    <!-- Header -->
+    <header class="border-b border-gray-200 py-6 px-4 bg-white sticky top-0 z-40 print:relative print:border-b-2">
+        <div class="max-w-4xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+            <div>
+                <span class="text-xs font-bold uppercase tracking-widest text-blue-600 bg-blue-50 px-2.5 py-1 rounded">Chương trình Toán lớp 6</span>
+                <h1 class="text-2xl md:text-3xl font-extrabold text-gray-950 mt-2">Buổi 11: Phép Nhân & Phép Chia Hết Số Nguyên</h1>
+            </div>
+            <div class="text-right md:text-right text-sm text-gray-500 print:text-left">
+                <p><i class="fa-regular fa-clock mr-1"></i> Thời lượng lý thuyết: 40 phút</p>
+                <p class="font-medium text-gray-800 mt-1">Người hướng dẫn: ThS. Đinh Quốc Tuấn</p>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow max-w-4xl w-full mx-auto px-4 py-8 space-y-12">
+        
+        <!-- LỜI MỞ ĐẦU -->
+        <div class="p-4 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 leading-relaxed">
+            <strong>Chào bạn!</strong> Tiếp nối Buổi 10 về Phép cộng và trừ số nguyên, Buổi 11 sẽ giúp các em hoàn thiện bức tranh về 4 phép tính cơ bản trong thế giới số âm với <strong>Phép nhân và Phép chia hết số nguyên</strong>. Dưới đây là nội dung lý thuyết chi tiết 40 phút, được phân chia thành 3 mức độ, tối ưu hóa sự tương tác cho nhóm 4 học sinh và bám sát các nguồn tài liệu SGK Toán 6.
+        </div>
+
+        <!-- PHẦN KHỞI ĐỘNG & MÔ HÌNH TRỰC QUAN -->
+        <section class="space-y-6">
+            <div class="border-l-4 border-amber-500 pl-4">
+                <h2 class="text-xl font-bold text-gray-950 uppercase tracking-tight">🎨 Gợi ý mô hình và hình ảnh trực quan (Mở đầu buổi học)</h2>
+                <p class="text-gray-600 text-sm mt-1">Sử dụng mô hình "Tài khoản ngân hàng" thực tế để cụ thể hóa quy tắc dấu tương đối trừu tượng.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
+                <!-- Mô hình 1 -->
+                <div class="border border-gray-200 rounded-xl p-5 bg-white shadow-sm flex flex-col items-center text-center">
+                    <span class="text-xs font-semibold px-2 py-0.5 bg-red-50 text-red-600 rounded-full mb-3">Mô hình Nhân khác dấu $(+) \cdot (-)$</span>
+                    <h3 class="font-bold text-gray-900 mb-1">Tích lũy khoản nợ</h3>
+                    <div class="w-full h-32 flex justify-center items-center my-2">
+                        <!-- SVG Khác dấu -->
+                        <svg width="280" height="100" viewBox="0 0 280 100">
+                            <!-- Ngày 1, 2, 3 nợ -->
+                            <rect x="10" y="20" width="60" height="50" rx="4" fill="#ffebee" stroke="#ef4444" stroke-width="1"/>
+                            <text x="22" y="42" fill="#c62828" font-size="9" font-weight="bold">Ngày 1</text>
+                            <text x="20" y="58" fill="#b71c1c" font-size="10">-50k</text>
+
+                            <rect x="80" y="20" width="60" height="50" rx="4" fill="#ffebee" stroke="#ef4444" stroke-width="1"/>
+                            <text x="92" y="42" fill="#c62828" font-size="9" font-weight="bold">Ngày 2</text>
+                            <text x="90" y="58" fill="#b71c1c" font-size="10">-50k</text>
+
+                            <rect x="150" y="20" width="60" height="50" rx="4" fill="#ffebee" stroke="#ef4444" stroke-width="1"/>
+                            <text x="162" y="42" fill="#c62828" font-size="9" font-weight="bold">Ngày 3</text>
+                            <text x="160" y="58" fill="#b71c1c" font-size="10">-50k</text>
+
+                            <!-- Mũi tên kết quả -->
+                            <path d="M 220 45 L 235 45" fill="none" stroke="#4b5563" stroke-width="1.5" marker-end="url(#arrow)"/>
+                            
+                            <!-- Tổng nợ -->
+                            <rect x="245" y="25" width="30" height="40" rx="4" fill="#b71c1c"/>
+                            <text x="247" y="48" fill="#ffffff" font-size="9" font-weight="bold">-150k</text>
+                        </svg>
+                    </div>
+                    <p class="text-xs text-gray-600 mt-2 leading-relaxed">Bạn An mỗi ngày tiêu xài lạm vào thẻ tín dụng nợ ngân hàng $50$ nghìn đồng ($-50$). Sau $3$ ngày liên tiếp ($+3$), tổng tài sản thay đổi thế nào? <br><span class="font-mono text-red-600 font-semibold">$(+3) \cdot (-50) = -150$</span> (Nợ thêm $150$ nghìn).</p>
+                </div>
+
+                <!-- Mô hình 2 -->
+                <div class="border border-gray-200 rounded-xl p-5 bg-white shadow-sm flex flex-col items-center text-center">
+                    <span class="text-xs font-semibold px-2 py-0.5 bg-emerald-50 text-emerald-600 rounded-full mb-3">Mô hình Nhân cùng dấu $(-) \cdot (-)$</span>
+                    <h3 class="font-bold text-gray-900 mb-1">Hủy bỏ khoản phạt</h3>
+                    <div class="w-full h-32 flex justify-center items-center my-2">
+                        <!-- SVG Cùng dấu -->
+                        <svg width="280" height="100" viewBox="0 0 280 100">
+                            <!-- Phí phạt cũ -->
+                            <g opacity="0.4">
+                                <rect x="20" y="20" width="70" height="50" rx="4" fill="#ffebee" stroke="#ef4444" stroke-width="1"/>
+                                <text x="32" y="42" fill="#c62828" font-size="9">Phạt vạ</text>
+                                <text x="38" y="58" fill="#b71c1c" font-size="10">-50k</text>
+                                <rect x="100" y="20" width="70" height="50" rx="4" fill="#ffebee" stroke="#ef4444" stroke-width="1"/>
+                                <text x="112" y="42" fill="#c62828" font-size="9">Phạt vạ</text>
+                                <text x="118" y="58" fill="#b71c1c" font-size="10">-50k</text>
+                            </g>
+                            <!-- Dấu X đỏ hủy bỏ -->
+                            <line x1="15" y1="15" x2="95" y2="75" stroke="#ef4444" stroke-width="3"/>
+                            <line x1="95" y1="15" x2="15" y2="75" stroke="#ef4444" stroke-width="3"/>
+                            <line x1="95" y1="15" x2="175" y2="75" stroke="#ef4444" stroke-width="3"/>
+                            <line x1="175" y1="15" x2="95" y2="75" stroke="#ef4444" stroke-width="3"/>
+
+                            <!-- Mũi tên kết quả -->
+                            <path d="M 185 45 L 200 45" fill="none" stroke="#4b5563" stroke-width="1.5"/>
+                            
+                            <!-- Hoàn trả số dư dương -->
+                            <rect x="210" y="20" width="60" height="50" rx="4" fill="#e8f5e9" stroke="#2e7d32" stroke-width="1.5"/>
+                            <text x="218" y="42" fill="#2e7d32" font-size="9" font-weight="bold">Cộng lại</text>
+                            <text x="222" y="58" fill="#1b5e20" font-size="10" font-weight="bold">+100k</text>
+                        </svg>
+                    </div>
+                    <p class="text-xs text-gray-600 mt-2 leading-relaxed">Ngân hàng quyết định hủy bỏ (tương ứng phép trừ hoặc dấu âm: $-2$ lần) các khoản phí phạt trễ hạn trước đó (mỗi lần phạt $-50$). Khi xóa bỏ khoản nợ, tài khoản sẽ tăng số dư: <br><span class="font-mono text-emerald-600 font-semibold">$(-2) \cdot (-50) = +100$</span> (Thặng dư $100$ nghìn).</p>
+                </div>
+            </div>
+        </section>
+
+        <hr class="border-gray-200">
+
+        <!-- PHẦN 1: MỨC ĐỘ CƠ BẢN -->
+        <section class="space-y-6">
+            <div class="flex items-center gap-3">
+                <span class="flex items-center justify-center w-8 h-8 rounded-full bg-blue-600 text-white font-bold text-sm">1</span>
+                <h2 class="text-xl font-bold text-gray-950 uppercase tracking-tight">Phần 1: Mức Độ Cơ Bản (Quy tắc Nhân và Chia hai số nguyên)</h2>
+            </div>
+            
+            <div class="bg-gray-50 border border-gray-200 rounded-xl p-5 space-y-4">
+                <p class="text-sm font-semibold text-blue-700 uppercase tracking-wider"><i class="fa-solid fa-bullseye mr-1"></i> Mục tiêu bài học:</p>
+                <p class="text-sm text-gray-700 -mt-2">Học sinh thuộc lòng và phản xạ nhanh nhạy "bài ca xét dấu": Cùng dấu ra Dương $(+)$, Khác dấu ra Âm $(-)$ áp dụng đồng bộ cho cả hai phép toán nhân và chia.</p>
+                
+                <h3 class="font-bold text-gray-900 border-b border-gray-200 pb-2 mt-4 text-base">1.1. Phép nhân hai số nguyên</h3>
+                <ul class="list-disc pl-5 space-y-2 text-sm text-gray-800">
+                    <li><strong>Nhân hai số nguyên khác dấu:</strong>
+                        <br><span class="font-medium text-gray-950">Quy tắc:</span> Ta thực hiện nhân hai phần số tự nhiên của chúng với nhau rồi đặt dấu trừ "$-$" cố định trước kết quả thu được.
+                        <br><span class="font-mono text-xs text-red-700 bg-red-50 px-1 rounded">Công thức: (+a) · (-b) = -(a · b). Kết quả thu được luôn là một số nguyên âm.</span>
+                    </li>
+                    <li><strong>Nhân hai số nguyên cùng dấu:</strong>
+                        <br><span class="font-medium text-gray-950">Quy tắc:</span> Ta chỉ cần tính tích hai phần số tự nhiên của hai số đó với nhau.
+                        <br><span class="font-mono text-xs text-emerald-700 bg-emerald-50 px-1 rounded">Công thức: (-a) · (-b) = a · b. Kết quả thu được luôn luôn là một số nguyên dương.</span>
+                    </li>
+                    <li class="text-amber-900 font-medium">⚠️ Lưu ý nền tảng: Bất kỳ một số nguyên nào khi thực hiện nhân với số $0$ cũng đều bằng $0$.</li>
+                </ul>
+
+                <h3 class="font-bold text-gray-900 border-b border-gray-200 pb-2 mt-6 text-base">1.2. Phép chia hết trong tập hợp số nguyên ($\mathbb{Z}$)</h3>
+                <p class="text-sm text-gray-800"><strong>Định nghĩa:</strong> Cho hai số nguyên $a, b$ (với điều kiện bắt buộc $b \neq 0$). Nếu tìm được một số nguyên $q$ sao cho thoả mãn đẳng thức $a = b \cdot q$ thì ta khẳng định có phép chia hết: $a : b = q$. Trong đó $a$ được gọi là số bị chia, $b$ là số chia và $q$ đại diện cho thương.</p>
+                
+                <p class="text-sm font-semibold text-gray-900 mt-2">Quy tắc xác định dấu của Thương (Hoàn toàn đồng bộ với phép nhân):</p>
+                <div class="grid grid-cols-2 gap-4 max-w-md text-sm font-mono p-2 bg-white border border-gray-200 rounded-lg">
+                    <div class="space-y-1">
+                        <p class="text-emerald-700">$(+) : (+) \rightarrow (+)$</p>
+                        <p class="text-emerald-700">$(-) : (-) \rightarrow (+)$</p>
+                        <p class="text-xs text-gray-500 italic">(Cùng dấu ra kết quả Dương)</p>
+                    </div>
+                    <div class="space-y-1">
+                        <p class="text-red-700">$(+) : (-) \rightarrow (-)$</p>
+                        <p class="text-red-700">$(-) : (+) \rightarrow (-)$</p>
+                        <p class="text-xs text-gray-500 italic">(Khác dấu ra kết quả Âm)</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ví dụ Minh họa 1 -->
+            <div class="border border-gray-200 rounded-xl p-5 space-y-3">
+                <p class="text-sm font-bold text-gray-900"><i class="fa-regular fa-lightbulb text-yellow-500 mr-1"></i> 📝 Ví dụ minh họa 1 (Gọi nhanh 4 học sinh lên bảng nhẩm giá trị):</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm font-medium">
+                    <div class="p-3 bg-gray-50 rounded-lg border border-gray-200"><strong>HS 1 (Nhân khác dấu):</strong> Tính $5 \cdot (-6)$</div>
+                    <div class="p-3 bg-gray-50 rounded-lg border border-gray-200"><strong>HS 2 (Nhân cùng dấu):</strong> Tính $(-8) \cdot (-7)$</div>
+                    <div class="p-3 bg-gray-50 rounded-lg border border-gray-200"><strong>HS 3 (Chia khác dấu):</strong> Tính $36 : (-4)$</div>
+                    <div class="p-3 bg-gray-50 rounded-lg border border-gray-200"><strong>HS 4 (Chia cùng dấu):</strong> Tính $(-45) : (-5)$</div>
+                </div>
+                
+                <!-- Gợi ý lời giải ẩn -->
+                <details class="group bg-gray-50 border border-gray-200 rounded-lg p-3 mt-2 no-print-border">
+                    <summary class="text-sm font-semibold text-blue-600 hover:text-blue-800 cursor-pointer list-none flex items-center gap-1 select-none">
+                        <i class="fa-solid fa-chevron-right transition-transform group-open:rotate-90 text-xs"></i>
+                        <span>Xem kết quả đối chiếu chi tiết</span>
+                    </summary>
+                    <div class="text-sm text-gray-800 mt-3 pt-3 border-t border-gray-200 font-mono space-y-1 pl-2">
+                        <p><strong>Đáp án HS 1:</strong> $5 \cdot (-6) = -(5 \cdot 6) = -30$.</p>
+                        <p><strong>Đáp án HS 2:</strong> $(-8) \cdot (-7) = 8 \cdot 7 = 56$.</p>
+                        <p><strong>Đáp án HS 3:</strong> $36 : (-4) = -9$.</p>
+                        <p><strong>Đáp án HS 4:</strong> $(-45) : (-5) = 9$.</p>
+                    </div>
+                </details>
+            </div>
+        </section>
+
+        <hr class="border-gray-200">
+
+        <!-- PHẦN 2: MỨC ĐỘ NÂNG CAO -->
+        <section class="space-y-6">
+            <div class="flex items-center gap-3">
+                <span class="flex items-center justify-center w-8 h-8 rounded-full bg-blue-600 text-white font-bold text-sm">2</span>
+                <h2 class="text-xl font-bold text-gray-950 uppercase tracking-tight">Phần 2: Mức Độ Nâng Cao (Tính chất và Tích nhiều thừa số)</h2>
+            </div>
+
+            <div class="bg-gray-50 border border-gray-200 rounded-xl p-5 space-y-4">
+                <p class="text-sm font-semibold text-blue-700 uppercase tracking-wider"><i class="fa-solid fa-bullseye mr-1"></i> Mục tiêu bài học:</p>
+                <p class="text-sm text-gray-700 -mt-2">Học sinh biết cách áp dụng linh hoạt tính chất phân phối, giao hoán và kết hợp để làm bài toán tính nhanh (tính hợp lý); đồng thời nhận định nhanh dấu của một biểu thức tích dài.</p>
+
+                <h3 class="font-bold text-gray-900 border-b border-gray-200 pb-2 mt-4 text-base">2.1. Xác định dấu của tích chứa nhiều số nguyên</h3>
+                <p class="text-sm text-gray-800">Giáo viên hướng dẫn học sinh đếm tổng số lượng dấu trừ "$-$" (thừa số âm) trong chuỗi phép nhân liên tiếp:</p>
+                <ul class="list-disc pl-5 space-y-2 text-sm text-gray-800">
+                    <li>Nếu biểu thức có <strong>số lượng chẵn</strong> các thừa số âm $\rightarrow$ Toàn bộ tích sẽ mang dấu <strong>Dương $(+)$</strong>. 
+                        <br><span class="text-xs text-gray-500 italic">(Ví dụ minh họa: $(-2) \cdot (-3) \cdot (-4) \cdot (-5) > 0$)</span>
+                    </li>
+                    <li>Nếu biểu thức có <strong>số lượng lẻ</strong> các thừa số âm $\rightarrow$ Toàn bộ tích sẽ mang dấu <strong>Âm $(-)$</strong>.
+                        <br><span class="text-xs text-gray-500 italic">(Ví dụ minh họa: $(-1) \cdot (-2) \cdot (-3) < 0$)</span>
+                    </li>
+                </ul>
+
+                <h3 class="font-bold text-gray-900 border-b border-gray-200 pb-2 mt-6 text-base">2.2. Các tính chất cốt lõi của phép nhân số nguyên</h3>
+                <p class="text-sm text-gray-800">Phép nhân trong miền số nguyên $\mathbb{Z}$ thừa hưởng trọn vẹn các tính chất như trên tập số tự nhiên:</p>
+                <ul class="list-disc pl-5 space-y-2 text-sm text-gray-800">
+                    <li><strong>Giao hoán:</strong> $a \cdot b = b \cdot a$</li>
+                    <li><strong>Kết hợp:</strong> $(a \cdot b) \cdot c = a \cdot (b \cdot c)$. Biện pháp ghép cặp chiến lược các số tạo thành tích tròn chục, tròn trăm dễ tính nhẩm nhanh (như ghép $2$ với $5$; $4$ với $25$; $8$ với $125$).</li>
+                    <li><strong>Tính chất phân phối đối với phép cộng / trừ (Trọng tâm thi cử):</strong> $$a \cdot (b + c) = a \cdot b + a \cdot c$$ $$a \cdot (b - c) = a \cdot b - a \cdot c$$</li>
+                </ul>
+            </div>
+
+            <!-- Ví dụ Minh họa 2 -->
+            <div class="border border-gray-200 rounded-xl p-5 space-y-3">
+                <p class="text-sm font-bold text-gray-900"><i class="fa-regular fa-lightbulb text-yellow-500 mr-1"></i> 📝 Ví dụ minh họa 2 (Tính giá trị biểu thức theo phương pháp hợp lý):</p>
+                <div class="text-sm text-gray-800 pl-2">
+                    <p class="font-medium">Thực hiện phép tính sau: $$(-8) \cdot 72 + 8 \cdot (-19) - (-8)$$</p>
+                    <p class="text-xs text-amber-800 mt-1 bg-amber-50 p-2 rounded border-l-2 border-amber-400"><strong>Phân tích sư phạm:</strong> Đây là dạng bài dùng tính chất phân phối ngược (rút thừa số chung). Hướng dẫn học sinh biến đổi khéo léo để làm xuất hiện nhân tử chung là số $8$ hoặc số $-8$.</p>
+                </div>
+                
+                <!-- Gợi ý lời giải ẩn -->
+                <details class="group bg-gray-50 border border-gray-200 rounded-lg p-3 mt-2 no-print-border">
+                    <summary class="text-sm font-semibold text-blue-600 hover:text-blue-800 cursor-pointer list-none flex items-center gap-1 select-none">
+                        <i class="fa-solid fa-chevron-right transition-transform group-open:rotate-90 text-xs"></i>
+                        <span>Xem lời giải chi tiết từng bước</span>
+                    </summary>
+                    <div class="text-sm text-gray-800 mt-3 pt-3 border-t border-gray-200 font-mono space-y-2 pl-2">
+                        <p>Ta thực hiện biến đổi chuyển đổi vị trí các dấu trừ vào bên trong để quy về nhân tử chung là số $8$:</p>
+                        <p>$(-8) \cdot 72 + 8 \cdot (-19) - (-8)$</p>
+                        <p>$= 8 \cdot (-72) + 8 \cdot (-19) + 8 \cdot 1$ <span class="text-xs text-gray-500 font-sans">(Vì $-(-8) = +8 = 8 \cdot 1$)</span></p>
+                        <p>$= 8 \cdot [(-72) + (-19) + 1]$ <span class="text-xs text-gray-500 font-sans">(Áp dụng tính chất phân phối rút 8 ra ngoài)</span></p>
+                        <p>$= 8 \cdot [(-91) + 1]$</p>
+                        <p>$= 8 \cdot (-90)$</p>
+                        <p>$= -720$.</p>
+                    </div>
+                </details>
+            </div>
+        </section>
+
+        <hr class="border-gray-200">
+
+        <!-- PHẦN 3: MỨC ĐỘ VẬN DỤNG -->
+        <section class="space-y-6">
+            <div class="flex items-center gap-3">
+                <span class="flex items-center justify-center w-8 h-8 rounded-full bg-blue-600 text-white font-bold text-sm">3</span>
+                <h2 class="text-xl font-bold text-gray-950 uppercase tracking-tight">Phần 3: Mức Độ Vận Dụng (Ước, Bội trong $\mathbb{Z}$ và Bài toán Tìm x)</h2>
+            </div>
+
+            <div class="bg-gray-50 border border-gray-200 rounded-xl p-5 space-y-4">
+                <p class="text-sm font-semibold text-blue-700 uppercase tracking-wider"><i class="fa-solid fa-bullseye mr-1"></i> Mục tiêu bài học:</p>
+                <p class="text-sm text-gray-700 -mt-2">Mở rộng thành công khái niệm Ước và Bội từ miền số tự nhiên rộng sang tập số nguyên bao gồm phần âm, giải quyết gọn gàng các bài toán Tìm x nâng cao.</p>
+
+                <h3 class="font-bold text-gray-900 border-b border-gray-200 pb-2 mt-4 text-base">3.1. Khái niệm Ước và Bội của một số nguyên</h3>
+                <p class="text-sm text-gray-800">Nếu số nguyên $a$ chia hết cho số nguyên $b$ ($a \vdots b$) thì ta nói $a$ chính là <strong>bội</strong> của $b$, còn số $b$ đóng vai trò là <strong>ước</strong> của $a$.</p>
+                <p class="text-sm text-amber-950 bg-yellow-50 p-3 rounded-lg border-l-4 border-yellow-500 font-medium">
+                    💡 Điểm khác biệt mấu chốt so với Tiểu học: Trong tập hợp số nguyên $\mathbb{Z}$, nếu số nguyên $a$ là bội của $b$ thì số đối của nó (là $-a$) cũng hoàn toàn là bội của $b$. Tương tự đối với khái niệm ước số.
+                    <br><span class="block mt-1 font-normal text-xs text-gray-700"><strong>Phương pháp tìm ước:</strong> Muốn tìm toàn bộ các ước của một số nguyên $a$ bất kỳ, trước hết ta xác định toàn bộ các ước số dương tự nhiên của nó, sau đó bổ sung thêm các số đối tương ứng (bằng cách thêm dấu trừ phía trước).</span>
+                </p>
+
+                <!-- Ví dụ Minh họa 3 -->
+                <div class="bg-white border border-gray-200 rounded-xl p-4 mt-2 space-y-2">
+                    <p class="text-xs font-bold text-blue-600 uppercase tracking-wide">📝 Ví dụ minh họa 3 (Vận dụng xác định Ước):</p>
+                    <p class="text-sm text-gray-900 font-medium">Hãy tìm toàn bộ tất cả các ước thuộc tập hợp số nguyên của số: $-6$.</p>
+                    <details class="group bg-gray-50 border border-gray-100 rounded-lg p-2 no-print-border">
+                        <summary class="text-xs font-semibold text-gray-500 hover:text-gray-700 cursor-pointer list-none flex items-center gap-1 select-none">
+                            <i class="fa-solid fa-chevron-right transition-transform group-open:rotate-90 text-[10px]"></i> Xem hướng dẫn giải
+                        </summary>
+                        <div class="text-sm text-gray-800 mt-2 pt-2 border-t border-gray-200 pl-2">
+                            <p>Các ước nguyên dương của số $6$ gồm: $1; \, 2; \, 3; \, 6$.</p>
+                            <p>Tiến hành lấy thêm các số đối mang dấu âm của chúng, ta liệt kê được đầy đủ tập hợp các ước của $-6$ là:</p>
+                            <p class="font-mono mt-1 text-blue-700">$$\text{Ư}(-6) = \{-6; \, -3; \, -2; \, -1; \, 1; \, 2; \, 3; \, 6\}$$</p>
+                        </div>
+                    </details>
+                </div>
+
+                <h3 class="font-bold text-gray-900 border-b border-gray-200 pb-2 mt-6 text-base">3.2. Vận dụng giải quyết toán Tìm x thành thạo</h3>
+                <p class="text-sm text-gray-800">Cơ cấu bài toán dựa vững chắc trên mối quan hệ thành phần phép tính: <br><span class="font-mono text-xs bg-gray-100 px-1 rounded">Số bị chia = Thương · Số chia</span>, và kết hợp chặt chẽ quy tắc bỏ ngoặc đổi dấu thu gọn biểu thức ở buổi 10.</p>
+
+                <!-- Ví dụ Minh họa 4 -->
+                <div class="bg-white border border-gray-200 rounded-xl p-4 mt-2 space-y-2">
+                    <p class="text-xs font-bold text-blue-600 uppercase tracking-wide">📝 Ví dụ minh họa 4 (Vận dụng Tìm x - Hoạt động cặp đôi đấu trí):</p>
+                    <p class="text-sm text-gray-900 font-medium">Tìm giá trị số nguyên $x \in \mathbb{Z}$ biết đẳng thức ràng buộc sau: $$(2x + 14) : (-4) = -5$$</p>
+                    <details class="group bg-gray-50 border border-gray-100 rounded-lg p-2 no-print-border">
+                        <summary class="text-xs font-semibold text-gray-500 hover:text-gray-700 cursor-pointer list-none flex items-center gap-1 select-none">
+                            <i class="fa-solid fa-chevron-right transition-transform group-open:rotate-90 text-[10px]"></i> Xem lời giải chi tiết đại số
+                        </summary>
+                        <div class="text-sm text-gray-800 mt-2 pt-2 border-t border-gray-200 font-mono space-y-2 pl-2">
+                            <p>Coi cụm biểu thức $(2x + 14)$ là một thành phần số bị chia chưa được biết:</p>
+                            <p>$2x + 14 = (-5) \cdot (-4)$</p>
+                            <p>$2x + 14 = 20$ <span class="text-xs text-gray-500 font-sans">(Quy tắc nhân hai số nguyên cùng dấu ra số dương)</span></p>
+                            <p>$2x = 20 - 14$</p>
+                            <p>$2x = 6$</p>
+                            <p>$x = 6 : 2 \Rightarrow x = 3$.</p>
+                            <p class="text-emerald-700 font-sans font-medium text-xs">Vậy giá trị $x$ cần tìm là $3$.</p>
+                        </div>
+                    </details>
+                </div>
+            </div>
+
+            <!-- Tổng kết trực quan -->
+            <div class="p-4 bg-blue-50 border border-blue-200 rounded-xl space-y-2">
+                <h4 class="text-sm font-bold text-blue-900"><i class="fa-solid fa-network-wired mr-1"></i> Tóm lược cuối bài bằng "Sơ đồ tư duy về Dấu":</h4>
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-center text-xs font-mono font-bold text-gray-800 pt-1">
+                    <div class="p-2 bg-white rounded border border-blue-200 shadow-sm">$(+) \cdot (+) = +$</div>
+                    <div class="p-2 bg-white rounded border border-blue-200 shadow-sm">$(-) \cdot (-) = +$</div>
+                    <div class="p-2 bg-white rounded border border-blue-200 shadow-sm">$(+) \cdot (-) = -$</div>
+                    <div class="p-2 bg-white rounded border border-blue-200 shadow-sm text-red-600">$(-) \cdot (+) = -$</div>
+                </div>
+            </div>
+        </section>
+
+        <hr class="border-gray-200">
+
+        <!-- HỆ THỐNG KIỂM TRA ĐÁNH GIÁ (Gửi điểm về Apps Script) -->
+        <section id="quiz-section" class="space-y-6 print:hidden">
+            <div class="border-l-4 border-emerald-500 pl-4">
+                <h2 class="text-xl font-bold text-gray-950 uppercase tracking-tight">📝 Bài kiểm tra đánh giá năng lực tích hợp trực tuyến (Buổi 11)</h2>
+                <p class="text-gray-600 text-sm mt-1">Học sinh hoàn thành các câu hỏi trắc nghiệm khách quan dưới đây để lưu kết quả trực tiếp về hệ thống dữ liệu đám mây của Thầy Tuấn.</p>
+            </div>
+
+            <div class="border border-gray-200 rounded-xl p-6 bg-white space-y-6">
+                <!-- Thông tin học sinh -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Họ và tên học sinh <span class="text-red-500">*</span></label>
+                        <input type="text" id="student-name" placeholder="Nhập tên chính xác của học sinh..." class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Mã định danh buổi học</label>
+                        <input type="text" id="exam-id" value="toan6-buoi11" readonly class="w-full border border-gray-200 bg-gray-50 rounded-lg px-3 py-2 text-sm font-mono text-gray-500 cursor-not-allowed">
+                    </div>
+                </div>
+
+                <hr class="border-gray-100">
+
+                <!-- Câu hỏi trắc nghiệm -->
+                <div class="space-y-6">
+                    <!-- Câu 1 -->
+                    <div class="quiz-box space-y-2" data-correct="B">
+                        <p class="text-sm font-semibold text-gray-900">Câu 1: Giá trị kết quả tính tích hai số nguyên cùng dấu sau $(-6) \cdot (-7)$ bằng bao nhiêu?</p>
+                        <div class="grid grid-cols-1 gap-2 pl-2">
+                            <label class="flex items-center gap-2 text-sm text-gray-700 cursor-pointer"><input type="radio" name="q1" value="A" class="form-radio text-blue-600"> A. $-42$</label>
+                            <label class="flex items-center gap-2 text-sm text-gray-700 cursor-pointer"><input type="radio" name="q1" value="B" class="form-radio text-blue-600"> B. $42$</label>
+                            <label class="flex items-center gap-2 text-sm text-gray-700 cursor-pointer"><input type="radio" name="q1" value="C" class="form-radio text-blue-600"> C. $-13$</label>
+                            <label class="flex items-center gap-2 text-sm text-gray-700 cursor-pointer"><input type="radio" name="q1" value="D" class="form-radio text-blue-600"> D. $13$</label>
+                        </div>
+                    </div>
+
+                    <!-- Câu 2 -->
+                    <div class="quiz-box space-y-2" data-correct="A">
+                        <p class="text-sm font-semibold text-gray-900">Câu 2: Một biểu thức tích gồm liên tiếp có tổng cộng 5 thừa số nguyên âm và 2 thừa số nguyên dương. Hỏi kết quả dấu cuối cùng của tích đó là dấu gì?</p>
+                        <div class="grid grid-cols-1 gap-2 pl-2">
+                            <label class="flex items-center gap-2 text-sm text-gray-700 cursor-pointer"><input type="radio" name="q2" value="A" class="form-radio text-blue-600"> A. Mang dấu Âm $(-)$</label>
+                            <label class="flex items-center gap-2 text-sm text-gray-700 cursor-pointer"><input type="radio" name="q2" value="B" class="form-radio text-blue-600"> B. Mang dấu Dương $(+)$</label>
+                            <label class="flex items-center gap-2 text-sm text-gray-700 cursor-pointer"><input type="radio" name="q2" value="C" class="form-radio text-blue-600"> C. Luôn bằng số 0</label>
+                            <label class="flex items-center gap-2 text-sm text-gray-700 cursor-pointer"><input type="radio" name="q2" value="D" class="form-radio text-blue-600"> D. Không thể xác định được trước dấu</label>
+                        </div>
+                    </div>
+
+                    <!-- Câu 3 -->
+                    <div class="quiz-box space-y-2" data-correct="D">
+                        <p class="text-sm font-semibold text-gray-900">Câu 3: Tìm số nguyên $x \in \mathbb{Z}$ thỏa mãn phương trình chia hết sau đây: $x \cdot (-3) = 18$?</p>
+                        <div class="grid grid-cols-1 gap-2 pl-2">
+                            <label class="flex items-center gap-2 text-sm text-gray-700 cursor-pointer"><input type="radio" name="q3" value="A" class="form-radio text-blue-600"> A. $x = 6$</label>
+                            <label class="flex items-center gap-2 text-sm text-gray-700 cursor-pointer"><input type="radio" name="q3" value="B" class="form-radio text-blue-600"> B. $x = 21$</label>
+                            <label class="flex items-center gap-2 text-sm text-gray-700 cursor-pointer"><input type="radio" name="q3" value="C" class="form-radio text-blue-600"> C. $x = -21$</label>
+                            <label class="flex items-center gap-2 text-sm text-gray-700 cursor-pointer"><input type="radio" name="q3" value="D" class="form-radio text-blue-600"> D. $x = -6$</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Nút nộp bài -->
+                <div class="pt-4">
+                    <button id="submit-quiz-btn" onclick="submitQuiz()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-2.5 px-4 rounded-lg shadow transition-all duration-150 flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-paper-plane"></i> Gửi kết quả chấm điểm về hệ thống
+                    </button>
+                    <p id="quiz-msg" class="text-center text-sm font-medium mt-3 hidden"></p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-gray-200 py-6 text-center text-xs text-gray-600 bg-gray-50 mt-12 print:bg-white print:border-t-2">
+        <div class="max-w-4xl mx-auto px-4">
+            <p class="font-semibold text-gray-800 text-sm">@ Bản quyền thuộc ThS. Đinh Quốc Tuấn - Mục đích phi lợi nhuận - Vì giáo dục.</p>
+            <p class="mt-1 text-gray-400">Tài liệu học thuật số hóa nội bộ lớp học chất lượng cao.</p>
+        </div>
+    </footer>
+
+    <!-- Nút In Tài Liệu (Yêu cầu kỹ thuật giữ nguyên logic) -->
+    <button id="btn-print-doc" onclick="safePrint()" class="fixed bottom-5 right-5 bg-gray-900 text-white px-4 py-2 rounded-lg shadow-lg hover:bg-gray-700 print:hidden z-50">
+        <i class="fas fa-print mr-2"></i> In Tài Liệu
+    </button>
+
+    <script>
+        // Log thời điểm bắt đầu học sinh thực hành làm bài kiểm tra nháp
+        const startTime = new Date();
+
+        function safePrint() {
+            const printBtn = document.getElementById('btn-print-doc');
+            printBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Đang chuẩn bị...';
+            
+            // Đảm bảo MathJax đã render xong mọi công thức trước khi gọi hộp thoại in
+            if (window.MathJax && window.MathJax.typesetPromise) {
+                MathJax.typesetPromise().then(() => {
+                    printBtn.innerHTML = '<i class="fas fa-print mr-2"></i> In Tài Liệu';
+                    window.print();
+                });
+            } else {
+                // Fallback nếu không có công thức toán
+                setTimeout(() => {
+                    printBtn.innerHTML = '<i class="fas fa-print mr-2"></i> In Tài Liệu';
+                    window.print();
+                }, 500); 
+            }
+        }
+
+        function submitQuiz() {
+            const nameInput = document.getElementById('student-name').value.trim();
+            const examId = document.getElementById('exam-id').value;
+            const msgEl = document.getElementById('quiz-msg');
+            const submitBtn = document.getElementById('submit-quiz-btn');
+
+            if (!nameInput) {
+                alert('Học sinh vui lòng nhập chính xác Họ và tên trước khi nộp bài!');
+                return;
+            }
+
+            // Đo đạc khoảng thời gian làm bài của học sinh
+            const endTime = new Date();
+            const diffMs = endTime - startTime;
+            const diffMins = Math.floor(diffMs / 60000);
+            const diffSecs = Math.round((diffMs % 60000) / 1000);
+            const timeStr = `${diffMins} phút ${diffSecs} giây`;
+
+            // Xử lý logic tính điểm đáp án
+            let score = 0;
+            let wrongDetail = [];
+            const quizBoxes = document.querySelectorAll('.quiz-box');
+
+            quizBoxes.forEach((box, index) => {
+                const questionNum = index + 1;
+                const correctAnswer = box.getAttribute('data-correct');
+                const selectedRadio = box.querySelector(`input[name="q${questionNum}"]:checked`);
+                
+                if (selectedRadio) {
+                    if (selectedRadio.value === correctAnswer) {
+                        score += 10 / quizBoxes.length;
+                    } else {
+                        wrongDetail.push(`Câu ${questionNum} (Chọn: ${selectedRadio.value}, Đúng: ${correctAnswer})`);
+                    }
+                } else {
+                    wrongDetail.push(`Câu ${questionNum} (Chưa chọn đáp án, Đúng: ${correctAnswer})`);
+                }
+            });
+
+            score = Math.round(score * 100) / 100;
+            const wrongDetailStr = wrongDetail.length > 0 ? wrongDetail.join('; ') : 'Không có câu sai';
+
+            // Khởi tạo đối tượng truyền dữ liệu tương thích hoàn chỉnh cấu trúc Google Apps Script nhận nhận sheets dữ liệu
+            const payload = {
+                hoTen: nameInput,
+                maDe: examId,
+                diem: score,
+                thoiGian: timeStr,
+                cauSai: wrongDetailStr
+            };
+
+            // Vô hiệu hoá nút tránh hành vi spam kết quả trùng lặp lên bảng tính
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Đang gửi dữ liệu chấm điểm tự động...';
+
+            const appScriptUrl = "https://script.google.com/macros/s/AKfycbzY7b7h4OwvhXuK5Vs6hl-aD88BPnAiAKbU5lfJobby0D4nzbIJVKT4n0AKCpAGoK0nZA/exec";
+
+            // Thực thi fetch API phương thức POST đẩy bản ghi (mode no-cors giải quyết vấn đề CORS của Google Apps Script Web App)
+            fetch(appScriptUrl, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(payload)
+            })
+            .then(() => {
+                msgEl.className = "text-center text-sm font-semibold mt-3 text-emerald-600";
+                msgEl.innerHTML = `<i class="fa-solid fa-circle-check mr-1"></i> Hệ thống đồng bộ thành công! Điểm của em đạt được: ${score}/10 điểm.`;
+                submitBtn.innerHTML = '<i class="fa-solid fa-check-double"></i> Đã nộp thành công';
+                submitBtn.className = "w-full bg-gray-400 text-white font-semibold py-2.5 px-4 rounded-lg cursor-not-allowed";
+            })
+            .catch(error => {
+                console.error('Lỗi truyền dữ liệu kết nối:', error);
+                msgEl.className = "text-center text-sm font-semibold mt-3 text-red-600";
+                msgEl.innerHTML = `<i class="fa-solid fa-circle-xmark mr-1"></i> Sự cố đường truyền mạng: Không thể đẩy điểm số về Google Sheets.`;
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Thử lại nộp kết quả';
+            });
+        }
+    </script>
+</body>
+</html>
