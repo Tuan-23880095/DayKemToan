@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buổi 14: Các Phép Tính Phân Số Cấp Độ Số Nguyên & Hai Bài Toán Vận Dụng</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- MathJax Configuration -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                processEscapes: true
+            },
+            svg: {
+                fontCache: 'global'
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #ffffff;
+            color: #111827;
+        }
+        @media print {
+            .print\:hidden {
+                display: none !important;
+            }
+            body {
+                color: #000000;
+                background-color: #ffffff;
+            }
+            .no-print-border {
+                border: none !important;
+                box-shadow: none !important;
+            }
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between antialiased selection:bg-gray-200">
+
+    <!-- Header -->
+    <header class="border-b border-gray-200 py-6 px-4 bg-white sticky top-0 z-40 print:relative print:border-b-2">
+        <div class="max-w-4xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+            <div>
+                <span class="text-xs font-bold uppercase tracking-widest text-indigo-600 bg-indigo-50 px-2.5 py-1 rounded">Chương trình Toán học Lớp 6</span>
+                <h1 class="text-2xl md:text-3xl font-extrabold text-gray-950 mt-2">Buổi 14: Bốn Phép Tính Phân Số Số Nguyên & Hai Bài Toán Cơ Bản</h1>
+            </div>
+            <div class="text-right md:text-right text-sm text-gray-500 print:text-left">
+                <p><i class="fa-regular fa-clock mr-1"></i> Thời lượng lý thuyết: 40 phút</p>
+                <p class="font-medium text-gray-800 mt-1">Người hướng dẫn: ThS. Đinh Quốc Tuấn</p>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow max-w-4xl w-full mx-auto px-4 py-8 space-y-12">
+        
+        <!-- LỜI MỞ ĐẦU -->
+        <div class="p-4 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 leading-relaxed">
+            <strong>Chào bạn!</strong> Để tiếp tục chuỗi bài giảng cho nhóm 4 học sinh, Buổi 14 sẽ là một buổi học rất thú vị vì các em sẽ được ghép nối kỹ năng tính toán số nguyên âm (đã học) vào cấu trúc phân số nâng cao, đồng thời làm quen và giải quyết triệt để các bài toán ứng dụng thực tế sinh động. Nội dung bài học dưới đây được thiết kế khoa học theo 3 cấp độ tư duy rõ rệt.
+        </div>
+
+        <!-- PHẦN KHỞI ĐỘNG & MÔ HÌNH TRỰC QUAN -->
+        <section class="space-y-6">
+            <div class="border-l-4 border-indigo-600 pl-4">
+                <h2 class="text-xl font-bold text-gray-950 uppercase tracking-tight">🎨 Gợi ý mô hình và hình ảnh trực quan (Sử dụng xuyên suốt)</h2>
+                <p class="text-gray-600 text-sm mt-1">Sử dụng hình học đoạn thẳng và đồ thị mũi tên để mô hình hóa logic phân số và các toán tử nghịch đảo toán học.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
+                <!-- Mô hình 1 -->
+                <div class="border border-gray-200 rounded-xl p-5 bg-white shadow-sm flex flex-col items-center text-center">
+                    <span class="text-xs font-semibold px-2 py-0.5 bg-indigo-50 text-indigo-600 rounded-full mb-3">Mô hình 1: Sơ đồ đoạn thẳng tỷ lệ</span>
+                    <div class="w-full h-36 flex justify-center items-center my-1">
+                        <!-- SVG Sơ đồ đoạn thẳng đa sắc -->
+                        <svg width="300" height="110" viewBox="0 0 300 110">
+                            <!-- Tổng đoạn thẳng chia 5 phần -->
+                            <rect x="20" y="45" width="250" height="16" rx="2" fill="#f3f4f6" stroke="#d1d5db" stroke-width="1.5"/>
+                            <line x1="70" y1="45" x2="70" y2="61" stroke="#d1d5db" stroke-width="1.5"/>
+                            <line x1="120" y1="45" x2="120" y2="61" stroke="#d1d5db" stroke-width="1.5"/>
+                            <line x1="170" y1="45" x2="170" y2="61" stroke="#d1d5db" stroke-width="1.5"/>
+                            <line x1="220" y1="45" x2="220" y2="61" stroke="#d1d5db" stroke-width="1.5"/>
+                            
+                            <!-- Highlight 3 phần đầu (màu xanh nước biển) -->
+                            <rect x="20" y="45" width="150" height="16" rx="2" fill="#3b82f6" opacity="0.3"/>
+                            
+                            <!-- Kí hiệu ngoặc nhọn phần nhỏ (3/5) -->
+                            <path d="M 20 40 Q 95 20 170 40" fill="none" stroke="#3b82f6" stroke-width="1.5"/>
+                            <text x="82" y="16" fill="#1e40af" font-size="9" font-weight="bold">Giá trị một phần ($\frac{3}{5}$)</text>
+
+                            <!-- Kí hiệu ngoặc nhọn tổng thể -->
+                            <path d="M 20 66 Q 145 86 270 66" fill="none" stroke="#111827" stroke-width="1.5"/>
+                            <text x="110" y="98" fill="#111827" font-size="9" font-weight="bold">Tổng số lượng ban đầu ($a$)</text>
+                        </svg>
+                    </div>
+                    <p class="text-xs text-gray-600 mt-2 leading-relaxed"><strong>Bài toán 1:</strong> Biết tổng thể lớn, tìm giá trị 3 phần nhỏ $\rightarrow$ Làm phép tính <strong>NHÂN</strong> ($a \cdot \frac{3}{5}$).<br><strong>Bài toán 2:</strong> Biết giá trị 3 phần nhỏ bằng số cụ thể, tìm lại toàn bộ tổng thể $\rightarrow$ Làm phép tính <strong>CHIA</strong> (Giá trị $: \frac{3}{5}$).</p>
+                </div>
+
+                <!-- Mô hình 2 -->
+                <div class="border border-gray-200 rounded-xl p-5 bg-white shadow-sm flex flex-col items-center text-center">
+                    <span class="text-xs font-semibold px-2 py-0.5 bg-emerald-50 text-emerald-600 rounded-full mb-3">Mô hình 2: Mũi tên hai chiều toán học nghịch đảo</span>
+                    <div class="w-full h-36 flex justify-center items-center my-1">
+                        <!-- SVG Mũi tên nghịch đảo toán học -->
+                        <svg width="260" height="110" viewBox="0 0 260 110">
+                            <!-- Khối Phân số A -->
+                            <rect x="15" y="35" width="55" height="40" rx="6" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.5"/>
+                            <text x="26" y="59" fill="#1e40af" font-size="12" font-weight="bold">Chia</text>
+                            
+                            <!-- Luồng mũi tên đi sang phải (Nhân nghịch đảo) -->
+                            <path d="M 80 42 L 170 42" fill="none" stroke="#059669" stroke-width="2" stroke-dasharray="1"/>
+                            <polygon points="170,38 178,42 170,46" fill="#059669"/>
+                            <text x="94" y="34" fill="#065f46" font-size="9" font-weight="bold">Nhân nghịch đảo</text>
+
+                            <!-- Luồng mũi tên đi ngược lại -->
+                            <path d="M 170 68 L 80 68" fill="none" stroke="#dc2626" stroke-width="2"/>
+                            <polygon points="80,72 72,68 80,64" fill="#dc2626"/>
+                            <text x="96" y="82" fill="#991b1b" font-size="9" font-weight="bold">Đảo ngược tử-mẫu</text>
+
+                            <!-- Khối Phân số B -->
+                            <rect x="190" y="35" width="55" height="40" rx="6" fill="#ecfdf5" stroke="#10b981" stroke-width="1.5"/>
+                            <text x="202" y="59" fill="#065f46" font-size="12" font-weight="bold">$\frac{n}{m}$</text>
+                        </svg>
+                    </div>
+                    <p class="text-xs text-gray-600 mt-2 leading-relaxed">Minh họa trực quan bản chất phép chia một phân số. Phép chia thực chất chính là hành động nhân với phân số nghịch đảo (đảo vị trí tử số và mẫu số). Rút gọn chéo trước khi thực hiện nhân giúp đạt phân số tối giản nhanh nhất.</p>
+                </div>
+            </div>
+        </section>
+
+        <hr class="border-gray-200">
+
+        <!-- PHẦN 1: MỨC ĐỘ CƠ BẢN -->
+        <section class="space-y-6">
+            <div class="flex items-center gap-3">
+                <span class="flex items-center justify-center w-8 h-8 rounded-full bg-blue-600 text-white font-bold text-sm">1</span>
+                <h2 class="text-xl font-bold text-gray-950 uppercase tracking-tight">Phần 1: Mức Độ Cơ Bản (Quy tắc 4 phép tính với phân số chứa số âm)</h2>
+            </div>
+            
+            <div class="bg-gray-50 border border-gray-200 rounded-xl p-5 space-y-4">
+                <p class="text-sm font-semibold text-blue-700 uppercase tracking-wider"><i class="fa-solid fa-bullseye mr-1"></i> Mục tiêu bài học:</p>
+                <p class="text-sm text-gray-700 -mt-2">Học sinh tái cấu trúc quy tắc tính toán phân số từ Tiểu học, tích hợp nhuần nhuyễn quy tắc dấu nguyên âm để xử lý chính xác bài toán.</p>
+                
+                <h3 class="font-bold text-gray-900 border-b border-gray-200 pb-2 mt-4 text-base">1.1. Phép cộng và Phép trừ phân số</h3>
+                <ul class="list-disc pl-5 space-y-2 text-sm text-gray-800">
+                    <li><strong>Quy tắc đồng mẫu:</strong> Muốn thực hiện cộng hoặc trừ hai phân số, ta bắt buộc phải đưa chúng về cùng một mẫu số chung (quy đồng mẫu số), sau đó tiến hành cộng hoặc trừ phần tử số và giữ nguyên mẫu số chung đó.</li>
+                    <li class="text-red-950 bg-red-50 p-2.5 rounded border-l-4 border-red-500 font-medium text-xs">
+                        ⚠️ Lưu ý nền tảng cốt lõi (Lớp 6): Trước khi thực hiện quy đồng, bắt buộc học sinh phải xử lý đổi tất cả các phân số có mẫu số âm thành phân số có mẫu số dương tương đương (Ví dụ: phân số $\frac{3}{-5}$ cần chuyển thành $\frac{-3}{5}$). Tiếp tục áp dụng quy tắc cộng trừ số nguyên có dấu trên tử.
+                    </li>
+                </ul>
+
+                <h3 class="font-bold text-gray-900 border-b border-gray-200 pb-2 mt-6 text-base">1.2. Phép nhân và Phép chia phân số</h3>
+                <ul class="list-disc pl-5 space-y-2 text-sm text-gray-800">
+                    <li><strong>Phép nhân:</strong> Thực hiện lấy giá trị tử số nhân tử số, mẫu số nhân mẫu số. Tuân thủ nghiêm ngặt quy tắc xét dấu tích số nguyên: <span class="italic font-semibold text-indigo-700">Cùng dấu ra kết quả Dương (+), khác dấu ra kết quả Âm (-).</span></li>
+                    <li><strong>Phép chia:</strong> Muốn thực hiện chia một phân số cho một phân số khác zero, ta lấy phân số thứ nhất nhân với phân số nghịch đảo của phân số thứ hai.</li>
+                </ul>
+            </div>
+
+            <!-- Ví dụ Minh họa 1 -->
+            <div class="border border-gray-200 rounded-xl p-5 space-y-3">
+                <p class="text-sm font-bold text-gray-900"><i class="fa-regular fa-lightbulb text-yellow-500 mr-1"></i> 📝 Ví dụ minh họa 1 (Gọi nhanh 4 học sinh nhóm nhỏ tính toán trên bảng):</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm font-medium">
+                    <div class="p-3 bg-gray-50 rounded-lg border border-gray-200"><strong>HS 1 (Phép Cộng):</strong> Tính biểu thức $\frac{-3}{8} + \frac{5}{8}$</div>
+                    <div class="p-3 bg-gray-50 rounded-lg border border-gray-200"><strong>HS 2 (Phép Trừ):</strong> Tính biểu thức $\frac{1}{6} - \frac{-2}{3}$</div>
+                    <div class="p-3 bg-gray-50 rounded-lg border border-gray-200"><strong>HS 3 (Phép Nhân):</strong> Tính biểu thức $\frac{-4}{5} \cdot \frac{15}{-8}$</div>
+                    <div class="p-3 bg-gray-50 rounded-lg border border-gray-200"><strong>HS 4 (Phép Chia):</strong> Tính biểu thức $\frac{-7}{12} : \frac{14}{3}$</div>
+                </div>
+                
+                <!-- Gợi ý lời giải ẩn -->
+                <details class="group bg-gray-50 border border-gray-200 rounded-lg p-3 mt-2 no-print-border">
+                    <summary class="text-sm font-semibold text-blue-600 hover:text-blue-800 cursor-pointer list-none flex items-center gap-1 select-none">
+                        <i class="fa-solid fa-chevron-right transition-transform group-open:rotate-90 text-xs"></i>
+                        <span>Xem gợi ý lời giải đối chiếu chi tiết</span>
+                    </summary>
+                    <div class="text-sm text-gray-800 mt-3 pt-3 border-t border-gray-200 font-mono space-y-2 pl-2">
+                        <p><strong>Lời giải HS 1:</strong> $\frac{-3}{8} + \frac{5}{8} = \frac{-3 + 5}{8} = \frac{2}{8} = \frac{1}{4}$.</p>
+                        <p><strong>Lời giải HS 2:</strong> $\frac{1}{6} - \frac{-2}{3} = \frac{1}{6} + \frac{2}{3} = \frac{1}{6} + \frac{4}{6} = \frac{5}{6}$.</p>
+                        <p><strong>Lời giải HS 3:</strong> $\frac{-4}{5} \cdot \frac{15}{-8} = \frac{-4 \cdot 15}{5 \cdot (-8)} = \frac{-60}{-40} = \frac{3}{2}$ <span class="font-sans text-xs text-gray-500">(Tích cùng dấu âm ra dương)</span>.</p>
+                        <p><strong>Lời giải HS 4:</strong> $\frac{-7}{12} : \frac{14}{3} = \frac{-7}{12} \cdot \frac{3}{14} = \frac{-7 \cdot 3}{12 \cdot 14} = \frac{-1 \cdot 1}{4 \cdot 2} = \frac{-1}{8}$ <span class="font-sans text-xs text-gray-500">(Nhân nghịch đảo kết hợp rút gọn chéo)</span>.</p>
+                    </div>
+                </details>
+            </div>
+        </section>
+
+        <hr class="border-gray-200">
+
+        <!-- PHẦN 2: MỨC ĐỘ NÂNG CAO -->
+        <section class="space-y-6">
+            <div class="flex items-center gap-3">
+                <span class="flex items-center justify-center w-8 h-8 rounded-full bg-blue-600 text-white font-bold text-sm">2</span>
+                <h2 class="text-xl font-bold text-gray-950 uppercase tracking-tight">Phần 2: Mức Độ Nâng Cao (Thứ tự thực hiện phép tính và Tính hợp lí)</h2>
+            </div>
+
+            <div class="bg-gray-50 border border-gray-200 rounded-xl p-5 space-y-4">
+                <p class="text-sm font-semibold text-blue-700 uppercase tracking-wider"><i class="fa-solid fa-bullseye mr-1"></i> Mục tiêu bài học:</p>
+                <p class="text-sm text-gray-700 -mt-2">Học sinh hình thành tư duy quan sát cấu trúc biểu thức, vận dụng linh hoạt tính chất phân phối để cô lập thừa số chung tối ưu tốc độ tính toán.</p>
+
+                <h3 class="font-bold text-gray-900 border-b border-gray-200 pb-2 mt-4 text-base">2.1. Thứ tự ưu tiên thực hiện các phép toán</h3>
+                <ul class="list-disc pl-5 space-y-1.5 text-sm text-gray-800">
+                    <li>Luôn tuân thủ nguyên lý: Thực hiện phép toán Nhân và Chia trước, sau đó mới thực hiện phép toán Cộng và Trừ sau.</li>
+                    <li>Nếu trong cấu trúc biểu thức xuất hiện các dấu ngoặc điều hướng, ta ưu tiên xử lý các phép toán nằm ở phía trong ngoặc trước.</li>
+                </ul>
+
+                <h3 class="font-bold text-gray-900 border-b border-gray-200 pb-2 mt-6 text-base">2.2. Tính chất phân phối của phép nhân đối với phép cộng và phép trừ</h3>
+                <p class="text-sm text-gray-800">Công thức đại số phân phối ngược thu gọn thừa số chung: $$a \cdot  b + a \cdot c = a \cdot (b + c)$$</p>
+                <p class="text-sm text-gray-800 leading-relaxed">Đối với tập hợp các phân số phức tạp, kỹ năng nhận diện cấu trúc phân phối này là chìa khóa vạn năng giúp biến đổi đưa những chuỗi phân số quy đồng cồng kềnh trở nên cực kỳ giản đơn.</p>
+            </div>
+
+            <!-- Ví dụ Minh họa 2 -->
+            <div class="border border-gray-200 rounded-xl p-5 space-y-3">
+                <p class="text-sm font-bold text-gray-900"><i class="fa-regular fa-lightbulb text-yellow-500 mr-1"></i> 📝 Ví dụ minh họa 2 (Mức độ Nâng cao):</p>
+                <div class="text-sm text-gray-800 pl-2 space-y-2">
+                    <p class="font-medium">Tính giá trị của biểu thức phức hợp sau một cách hợp lí nhất:</p>
+                    <p class="font-mono bg-white p-2 rounded border border-gray-200 inline-block">$$B = b \cdot \frac{1}{2} + b \cdot \frac{1}{3} - b \cdot \frac{1}{4} \quad \text{với} \quad b = \frac{4}{5}$$</p>
+                    <p class="text-xs text-amber-800 bg-amber-50 p-2.5 rounded border-l-2 border-amber-400 font-sans"><strong>Phân tích sư phạm:</strong> Giáo viên hướng dẫn học sinh tuyệt đối không thế trực tiếp giá trị phân số $b$ vào biểu thức ngay từ đầu, mà cần sử dụng tính chất phân phối rút gọn hệ số đặt ẩn tử chung $b$ ra bên ngoài trước.</p>
+                </div>
+                
+                <!-- Gợi ý lời giải ẩn -->
+                <details class="group bg-gray-50 border border-gray-200 rounded-lg p-3 mt-2 no-print-border">
+                    <summary class="text-sm font-semibold text-blue-600 hover:text-blue-800 cursor-pointer list-none flex items-center gap-1 select-none">
+                        <i class="fa-solid fa-chevron-right transition-transform group-open:rotate-90 text-xs"></i>
+                        <span>Xem gợi ý lời giải chi tiết</span>
+                    </summary>
+                    <div class="text-sm text-gray-800 mt-3 pt-3 border-t border-gray-200 font-mono space-y-2 pl-2">
+                        <p>Ta tiến hành rút thừa số chung $b$ ra ngoài ngoặc:</p>
+                        <p>$B = b \cdot \left( \frac{1}{2} + \frac{1}{3} - \frac{1}{4} \right)$</p>
+                        <p>Thay giá trị biến số $b = \frac{4}{5}$ vào cấu trúc biểu thức mới thu gọn, thực hiện quy đồng mẫu số chung là 12 trong ngoặc:</p>
+                        <p>$B = \frac{4}{5} \cdot \left( \frac{6}{12} + \frac{4}{12} - \frac{3}{12} \right)$</p>
+                        <p>$B = \frac{4}{5} \cdot \frac{7}{12}$</p>
+                        <p>Thực hiện nhân phân số kết hợp rút gọn chéo số 4 ở tử và số 12 dưới mẫu:</p>
+                        <p>$B = \frac{1 \cdot 7}{5 \cdot 3} = \frac{7}{15}$.</p>
+                        <p class="text-xs font-sans text-emerald-700 font-semibold">Kết luận: Giá trị biểu thức thu được là $\frac{7}{15}$.</p>
+                    </div>
+                </details>
+            </div>
+        </section>
+
+        <hr class="border-gray-200">
+
+        <!-- PHẦN 3: MỨC ĐỘ VẬN DỤNG -->
+        <section class="space-y-6">
+            <div class="flex items-center gap-3">
+                <span class="flex items-center justify-center w-8 h-8 rounded-full bg-blue-600 text-white font-bold text-sm">3</span>
+                <h2 class="text-xl font-bold text-gray-950 uppercase tracking-tight">Phần 3: Mức Độ Vận Dụng (Hai bài toán cơ bản về phân số ứng dụng thực tế)</h2>
+            </div>
+
+            <div class="bg-gray-50 border border-gray-200 rounded-xl p-5 space-y-4">
+                <p class="text-sm font-semibold text-blue-700 uppercase tracking-wider"><i class="fa-solid fa-bullseye mr-1"></i> Mục tiêu bài học:</p>
+                <p class="text-sm text-gray-700 -mt-2">Giúp học sinh phân biệt tường minh hai dạng bài toán phân số nghịch đảo nhau để lựa chọn chính xác phép toán xử lý (Nhân hay Chia).</p>
+
+                <h3 class="font-bold text-gray-900 border-b border-gray-200 pb-2 mt-4 text-base">3.1. Bài toán 1: Tìm giá trị phân số của một số cho trước</h3>
+                <ul class="list-disc pl-5 space-y-1 text-sm text-gray-800">
+                    <li><strong>Dấu hiệu nhận biết đặc trưng:</strong> Đề bài cung cấp trước giá trị tổng thể đại diện (số lượng gốc ban đầu) và yêu cầu tính toán trích xuất một phần nhỏ của nó.</li>
+                    <li><strong>Quy tắc toán học:</strong> Muốn tìm giá trị của phân số $\frac{m}{n}$ của một số lượng $a$ cho trước, ta tính tích: <span class="font-semibold text-indigo-700">$a \cdot \frac{m}{n}$</span> (Áp dụng toán tử phép <strong>NHÂN</strong>).</li>
+                </ul>
+
+                <h3 class="font-bold text-gray-900 border-b border-gray-200 pb-2 mt-6 text-base">3.2. Bài toán 2: Tìm một số khi biết trước giá trị phân số của nó</h3>
+                <ul class="list-disc pl-5 space-y-1 text-sm text-gray-800">
+                    <li><strong>Dấu hiệu nhận biết đặc trưng:</strong> Đề bài cung cấp số lượng của một phần nhỏ tương ứng với tỷ lệ phân số và yêu cầu truy ngược tìm lại giá trị đại diện cho toàn bộ tổng thể ban đầu.</li>
+                    <li><strong>Quy tắc toán học:</strong> Muốn tìm một số lượng chưa biết khi biết $\frac{m}{n}$ của số đó có giá trị bằng $b$, ta tính thương: <span class="font-semibold text-indigo-700">$b : \frac{m}{n}$</span> (Áp dụng toán tử phép <strong>CHIA</strong>).</li>
+                </ul>
+            </div>
+
+            <!-- Ví dụ Minh họa 3 -->
+            <div class="border border-gray-200 rounded-xl p-5 space-y-3">
+                <p class="text-sm font-bold text-gray-900"><i class="fa-regular fa-lightbulb text-yellow-500 mr-1"></i> 📝 Ví dụ minh họa 3 (Vận dụng bài toán thực tế phối hợp nhiều bước):</p>
+                <div class="text-sm text-gray-800 pl-2 leading-relaxed">
+                    <p>Để chuẩn bị chế biến món ăn thực tế <em>thịt kho dừa</em> tiêu chuẩn, định lượng nguyên liệu quy định khối lượng thịt ba chỉ phải bằng $\frac{3}{2}$ khối lượng cùi dừa sử dụng, và khối lượng đường gia vị ăn kèm bằng $\frac{1}{20}$ khối lượng cùi dừa. Giả định người nấu chuẩn bị sẵn chính xác $600$ gam thịt ba chỉ. Hãy tính xem cần phải mua bao nhiêu gam cùi dừa và bao nhiêu gam đường đi kèm?</p>
+                </div>
+                
+                <!-- Gợi ý lời giải ẩn -->
+                <details class="group bg-gray-50 border border-gray-200 rounded-lg p-3 mt-2 no-print-border">
+                    <summary class="text-sm font-semibold text-blue-600 hover:text-blue-800 cursor-pointer list-none flex items-center gap-1 select-none">
+                        <i class="fa-solid fa-chevron-right transition-transform group-open:rotate-90 text-xs"></i>
+                        <span>Xem gợi ý lời giải chi tiết từng bước</span>
+                    </summary>
+                    <div class="text-sm text-gray-800 mt-3 pt-3 border-t border-gray-200 space-y-3 pl-2">
+                        <div>
+                            <p><strong>Bước 1: Tính toán tìm khối lượng cùi dừa cần mua</strong></p>
+                            <p class="text-xs text-gray-500 italic">Phân tích logic: Ta biết $\frac{3}{2}$ khối lượng cùi dừa tương ứng với giá trị cho trước là $600$g thịt ba chỉ. Đây chính là cấu trúc thuộc Bài toán 2 (biết giá trị phân số phần nhỏ, truy tìm tổng thể lớn).</p>
+                            <p class="font-mono mt-1">Lượng cùi dừa cần dùng = $600 : \frac{3}{2} = 600 \cdot \frac{2}{3} = 400 \text{ (gam)}$.</p>
+                        </div>
+                        <div>
+                            <p><strong>Bước 2: Tính toán tìm khối lượng đường gia vị cần chuẩn bị</strong></p>
+                            <p class="text-xs text-gray-500 italic">Phân tích logic: Ta cần xác định đại lượng bằng $\frac{1}{20}$ của khối lượng cùi dừa vừa tìm được ($400$g). Đây chính là cấu trúc thuộc Bài toán 1 (tìm giá trị phân số của một số cho trước).</p>
+                            <p class="font-mono mt-1">Lượng đường cần mua = $400 \cdot \frac{1}{20} = 20 \text{ (gam)}$.</p>
+                        </div>
+                        <p class="text-xs font-semibold text-emerald-700">Đáp số: Cần dùng 400g cùi dừa và 20g đường.</p>
+                    </div>
+                </details>
+            </div>
+
+            <!-- Ví dụ Minh họa 4 -->
+            <div class="border border-gray-200 rounded-xl p-5 space-y-3">
+                <p class="text-sm font-bold text-gray-900"><i class="fa-regular fa-lightbulb text-yellow-500 mr-1"></i> 📝 Ví dụ minh họa 4 (Vận dụng - Cộng phân số mô hình thực tế):</p>
+                <div class="text-sm text-gray-800 pl-2 leading-relaxed">
+                    <p>Khi tham gia hành trình dã ngoại leo núi Côn Sơn, trong khoảng thời gian $5$ phút đầu tiên, bạn Việt di chuyển hoàn thành được $\frac{1}{6}$ tổng quãng đường; trong $5$ phút tiếp theo Việt đi được $\frac{1}{7}$ quãng đường; và trong $5$ phút cuối cùng Việt leo được thêm $\frac{1}{9}$ quãng đường nữa. Hỏi tổng hợp sau tổng thời gian $15$ phút hành trình, Việt đã đi được bao nhiêu phần của toàn bộ quãng đường núi?</p>
+                </div>
+                
+                <!-- Gợi ý lời giải ẩn -->
+                <details class="group bg-gray-50 border border-gray-200 rounded-lg p-3 mt-2 no-print-border">
+                    <summary class="text-sm font-semibold text-blue-600 hover:text-blue-800 cursor-pointer list-none flex items-center gap-1 select-none">
+                        <i class="fa-solid fa-chevron-right transition-transform group-open:rotate-90 text-xs"></i>
+                        <span>Xem gợi ý lời giải chi tiết</span>
+                    </summary>
+                    <div class="text-sm text-gray-800 mt-3 pt-3 border-t border-gray-200 pl-2 font-mono">
+                        <p>Tổng số phần quãng đường núi bạn Việt hoàn thành sau 15 phút là:</p>
+                        <p>$$\frac{1}{6} + \frac{1}{7} + \frac{1}{9}$$</p>
+                        <p>Tìm Mẫu số chung nhỏ nhất của 6, 7 và 9 là $126$. Tiến hành nhân tử phụ quy đồng phân số:</p>
+                        <p>$$= \frac{21}{126} + \frac{18}{126} + \frac{14}{126} = \frac{53}{126} \text{ (quãng đường)}$$</p>
+                        <p class="text-xs font-sans text-emerald-700 font-semibold">Đáp số: Việt đi được $\frac{53}{126}$ quãng đường.</p>
+                    </div>
+                </details>
+            </div>
+
+            <!-- Mẹo sư phạm tương tác -->
+            <div class="p-4 bg-blue-50 border border-blue-200 rounded-xl space-y-1">
+                <h4 class="text-sm font-bold text-blue-900"><i class="fa-solid fa-chalkboard-user mr-1"></i> 💡 Mẹo sư phạm điều phối lớp học dành cho Giáo viên:</h4>
+                <p class="text-xs text-blue-950 leading-relaxed">Với đặc thù nhóm nhỏ gồm 4 học sinh học tập, tại công đoạn triển khai Ví dụ 3, giáo viên có thể chủ động phân chia lớp thành 2 đội thi đấu đối kháng trực tiếp. Ngay sau khi đọc to nội dung tình huống giả định thực tế, giáo viên đặt câu hỏi phản xạ nhanh: <em>"Tìm lượng cùi dừa sử dụng phép toán tính chất gì?"</em>. Đội học sinh nào phân tích nhanh, giơ cao bảng con ghi từ khóa <strong>"CHIA"</strong> chính xác và nhanh nhất sẽ ghi điểm thưởng thi đua.</p>
+            </div>
+        </section>
+
+        <hr class="border-gray-200">
+
+        <!-- HỆ THỐNG KIỂM TRA ĐÁNH GIÁ (Gửi điểm về Apps Script) -->
+        <section id="quiz-section" class="space-y-6 print:hidden">
+            <div class="border-l-4 border-emerald-500 pl-4">
+                <h2 class="text-xl font-bold text-gray-950 uppercase tracking-tight">📝 Bài kiểm tra nhanh đánh giá năng lực tích hợp trực tuyến (Buổi 14)</h2>
+                <p class="text-gray-600 text-sm mt-1">Học sinh hoàn thành biểu mẫu câu hỏi trắc nghiệm khách quan dưới đây để tự động lưu điểm số về hệ thống đám mây.</p>
+            </div>
+
+            <div class="border border-gray-200 rounded-xl p-6 bg-white space-y-6">
+                <!-- Thông tin học sinh -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Họ và tên học sinh <span class="text-red-500">*</span></label>
+                        <input type="text" id="student-name" placeholder="Nhập tên chính xác của học sinh..." class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Mã định danh buổi học</label>
+                        <input type="text" id="exam-id" value="toan6-buoi14" readonly class="w-full border border-gray-200 bg-gray-50 rounded-lg px-3 py-2 text-sm font-mono text-gray-500 cursor-not-allowed">
+                    </div>
+                </div>
+
+                <hr class="border-gray-100">
+
+                <!-- Câu hỏi trắc nghiệm -->
+                <div class="space-y-6">
+                    <!-- Câu 1 -->
+                    <div class="quiz-box space-y-2" data-correct="D">
+                        <p class="text-sm font-semibold text-gray-900">Câu 1: Tính toán thu gọn biểu thức tích phân số có dấu sau đây: $\frac{-5}{6} \cdot \frac{18}{-25}$?</p>
+                        <div class="grid grid-cols-1 gap-2 pl-2">
+                            <label class="flex items-center gap-2 text-sm text-gray-700 cursor-pointer"><input type="radio" name="q1" value="A" class="form-radio text-indigo-600"> A. $\frac{-3}{5}$</label>
+                            <label class="flex items-center gap-2 text-sm text-gray-700 cursor-pointer"><input type="radio" name="q1" value="B" class="form-radio text-indigo-600"> B. $\frac{-5}{3}$</label>
+                            <label class="flex items-center gap-2 text-sm text-gray-700 cursor-pointer"><input type="radio" name="q1" value="C" class="form-radio text-indigo-600"> C. $\frac{5}{3}$</label>
+                            <label class="flex items-center gap-2 text-sm text-gray-700 cursor-pointer"><input type="radio" name="q1" value="D" class="form-radio text-indigo-600"> D. $\frac{3}{5}$</label>
+                        </div>
+                    </div>
+
+                    <!-- Câu 2 -->
+                    <div class="quiz-box space-y-2" data-correct="B">
+                        <p class="text-sm font-semibold text-gray-900">Câu 2: Một cửa hàng nông sản xuất kho bán đi $\frac{4}{7}$ khối lượng của một bao gạo thì thu được đúng $28$ kg gạo. Hỏi ban đầu bao gạo nguyên vẹn nặng tổng cộng bao nhiêu kg?</p>
+                        <div class="grid grid-cols-1 gap-2 pl-2">
+                            <label class="flex items-center gap-2 text-sm text-gray-700 cursor-pointer"><input type="radio" name="q2" value="A" class="form-radio text-indigo-600"> A. $16 \text{ kg}$</label>
+                            <label class="flex items-center gap-2 text-sm text-gray-700 cursor-pointer"><input type="radio" name="q2" value="B" class="form-radio text-indigo-600"> B. $49 \text{ kg}$</label>
+                            <label class="flex items-center gap-2 text-sm text-gray-700 cursor-pointer"><input type="radio" name="q2" value="C" class="form-radio text-indigo-600"> C. $35 \text{ kg}$</label>
+                            <label class="flex items-center gap-2 text-sm text-gray-700 cursor-pointer"><input type="radio" name="q2" value="D" class="form-radio text-indigo-600"> D. $42 \text{ kg}$</label>
+                        </div>
+                    </div>
+
+                    <!-- Câu 3 -->
+                    <div class="quiz-box space-y-2" data-correct="A">
+                        <p class="text-sm font-semibold text-gray-900">Câu 3: Bác Hùng dự định dành $\frac{2}{5}$ số tiền lương hàng tháng để gửi tiết kiệm. Biết mức lương tháng của bác là $15$ triệu đồng. Hỏi số tiền bác Hùng gửi tiết kiệm là bao nhiêu?</p>
+                        <div class="grid grid-cols-1 gap-2 pl-2">
+                            <label class="flex items-center gap-2 text-sm text-gray-700 cursor-pointer"><input type="radio" name="q3" value="A" class="form-radio text-indigo-600"> A. $6 \text{ triệu đồng}$</label>
+                            <label class="flex items-center gap-2 text-sm text-gray-700 cursor-pointer"><input type="radio" name="q3" value="B" class="form-radio text-indigo-600"> B. $7.5 \text{ triệu đồng}$</label>
+                            <label class="flex items-center gap-2 text-sm text-gray-700 cursor-pointer"><input type="radio" name="q3" value="C" class="form-radio text-indigo-600"> C. $9 \text{ triệu đồng}$</label>
+                            <label class="flex items-center gap-2 text-sm text-gray-700 cursor-pointer"><input type="radio" name="q3" value="D" class="form-radio text-indigo-600"> D. $5 \text{ triệu đồng}$</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Nút nộp bài -->
+                <div class="pt-4">
+                    <button id="submit-quiz-btn" onclick="submitQuiz()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-2.5 px-4 rounded-lg shadow transition-all duration-150 flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-paper-plane"></i> Gửi kết quả chấm điểm về hệ thống
+                    </button>
+                    <p id="quiz-msg" class="text-center text-sm font-medium mt-3 hidden"></p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-gray-200 py-6 text-center text-xs text-gray-600 bg-gray-50 mt-12 print:bg-white print:border-t-2">
+        <div class="max-w-4xl mx-auto px-4">
+            <p class="font-semibold text-gray-800 text-sm">@ Bản quyền thuộc ThS. Đinh Quốc Tuấn - Mục đích phi lợi nhuận - Vì giáo dục.</p>
+            <p class="mt-1 text-gray-400">Tài liệu học thuật số hóa chuyên sâu phục vụ giảng dạy toán THCS.</p>
+        </div>
+    </footer>
+
+    <!-- Nút In Tài Liệu -->
+    <button id="btn-print-doc" onclick="safePrint()" class="fixed bottom-5 right-5 bg-gray-900 text-white px-4 py-2 rounded-lg shadow-lg hover:bg-gray-700 print:hidden z-50">
+        <i class="fas fa-print mr-2"></i> In Tài Liệu
+    </button>
+
+    <script>
+        // Khởi tạo ghi log mốc thời gian bắt đầu làm test của học sinh
+        const startTime = new Date();
+
+        function safePrint() {
+            const printBtn = document.getElementById('btn-print-doc');
+            printBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Đang chuẩn bị...';
+            
+            // Đảm bảo MathJax đã render xong mọi công thức trước khi gọi hộp thoại in
+            if (window.MathJax && window.MathJax.typesetPromise) {
+                MathJax.typesetPromise().then(() => {
+                    printBtn.innerHTML = '<i class="fas fa-print mr-2"></i> In Tài Liệu';
+                    window.print();
+                });
+            } else {
+                // Fallback nếu không có công thức toán
+                setTimeout(() => {
+                    printBtn.innerHTML = '<i class="fas fa-print mr-2"></i> In Tài Liệu';
+                    window.print();
+                }, 500); 
+            }
+        }
+
+        function submitQuiz() {
+            const nameInput = document.getElementById('student-name').value.trim();
+            const examId = document.getElementById('exam-id').value;
+            const msgEl = document.getElementById('quiz-msg');
+            const submitBtn = document.getElementById('submit-quiz-btn');
+
+            if (!nameInput) {
+                alert('Học sinh vui lòng nhập chính xác Họ và tên trước khi thực hiện nộp bài!');
+                return;
+            }
+
+            // Đo đạc thời gian hoàn thành bài thi trắc nghiệm
+            const endTime = new Date();
+            const diffMs = endTime - startTime;
+            const diffMins = Math.floor(diffMs / 60000);
+            const diffSecs = Math.round((diffMs % 60000) / 1000);
+            const timeStr = `${diffMins} phút ${diffSecs} giây`;
+
+            // Logic chấm điểm tự động các câu hỏi
+            let score = 0;
+            let wrongDetail = [];
+            const quizBoxes = document.querySelectorAll('.quiz-box');
+
+            quizBoxes.forEach((box, index) => {
+                const questionNum = index + 1;
+                const correctAnswer = box.getAttribute('data-correct');
+                const selectedRadio = box.querySelector(`input[name="q${questionNum}"]:checked`);
+                
+                if (selectedRadio) {
+                    if (selectedRadio.value === correctAnswer) {
+                        score += 10 / quizBoxes.length;
+                    } else {
+                        wrongDetail.push(`Câu ${questionNum} (Chọn: ${selectedRadio.value}, Đúng: ${correctAnswer})`);
+                    }
+                } else {
+                    wrongDetail.push(`Câu ${questionNum} (Chưa chọn đáp án, Đúng: ${correctAnswer})`);
+                }
+            });
+
+            score = Math.round(score * 100) / 100;
+            const wrongDetailStr = wrongDetail.length > 0 ? wrongDetail.join('; ') : 'Không có câu sai';
+
+            // Thiết lập cấu trúc JSON tương thích với Apps Script thu thập dữ liệu
+            const payload = {
+                hoTen: nameInput,
+                maDe: examId,
+                diem: score,
+                thoiGian: timeStr,
+                cauSai: wrongDetailStr
+            };
+
+            // Vô hiệu hóa nút bấm tránh gửi trùng lặp dữ liệu
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Đang truyền dữ liệu kết quả...';
+
+            const appScriptUrl = "https://script.google.com/macros/s/AKfycbzY7b7h4OwvhXuK5Vs6hl-aD88BPnAiAKbU5lfJobby0D4nzbIJVKT4n0AKCpAGoK0nZA/exec";
+
+            // Đẩy bản ghi kết quả học tập qua Fetch API phương thức POST
+            fetch(appScriptUrl, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(payload)
+            })
+            .then(() => {
+                msgEl.className = "text-center text-sm font-semibold mt-3 text-emerald-600";
+                msgEl.innerHTML = `<i class="fa-solid fa-circle-check mr-1"></i> Đồng bộ thành công! Kết quả bài test nhanh của em đạt: ${score}/10 điểm.`;
+                submitBtn.innerHTML = '<i class="fa-solid fa-check-double"></i> Đã nộp thành công';
+                submitBtn.className = "w-full bg-gray-400 text-white font-semibold py-2.5 px-4 rounded-lg cursor-not-allowed";
+            })
+            .catch(error => {
+                console.error('Lỗi truyền tải Fetch:', error);
+                msgEl.className = "text-center text-sm font-semibold mt-3 text-red-600";
+                msgEl.innerHTML = `<i class="fa-solid fa-circle-xmark mr-1"></i> Không thể kết nối tới Google Sheets. Vui lòng kiểm tra lại đường truyền mạng.`;
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Thử lại nộp kết quả';
+            });
+        }
+    </script>
+</body>
+</html>
