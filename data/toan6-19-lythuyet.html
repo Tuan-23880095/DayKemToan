@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buổi 19: Một Số Yếu Tố Thống Kê - Thu Thập Và Biểu Diễn Dữ Liệu</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- MathJax Configuration -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                processEscapes: true
+            },
+            svg: {
+                fontCache: 'global'
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #ffffff;
+            color: #111827;
+        }
+        @media print {
+            .print\:hidden {
+                display: none !important;
+            }
+            body {
+                color: #000000;
+                background-color: #ffffff;
+            }
+            .no-print-border {
+                border: none !important;
+                box-shadow: none !important;
+            }
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between antialiased selection:bg-gray-200">
+
+    <!-- Header -->
+    <header class="border-b border-gray-200 py-6 px-4 bg-white sticky top-0 z-40 print:relative print:border-b-2">
+        <div class="max-w-4xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+            <div>
+                <span class="text-xs font-bold uppercase tracking-widest text-amber-600 bg-amber-50 px-2.5 py-1 rounded">Chương trình Toán học Lớp 6</span>
+                <h1 class="text-2xl md:text-3xl font-extrabold text-gray-950 mt-2">Buổi 19: Một Số Yếu Tố Thống Kê</h1>
+            </div>
+            <div class="text-right md:text-right text-sm text-gray-500 print:text-left">
+                <p><i class="fa-regular fa-clock mr-1"></i> Thời lượng lý thuyết: 40 phút</p>
+                <p class="font-medium text-gray-800 mt-1">Người hướng dẫn: ThS. Đinh Quốc Tuấn</p>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow max-w-4xl w-full mx-auto px-4 py-8 space-y-12">
+        
+        <!-- LỜI MỞ ĐẦU -->
+        <div class="p-4 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 leading-relaxed">
+            <strong>Chào bạn!</strong> Tiếp nối phân môn Hình học, Buổi 19 sẽ đưa các em học sinh nhóm 4 người bước vào chương Một số yếu tố Thống kê. Đây là bài học rất gần gũi với đời sống, giúp các em biết cách thu thập thông tin, phát hiện sự vô lý của số liệu và rèn luyện kỹ năng quan sát, biểu diễn dữ liệu trực quan. Nội dung bài học dưới đây được xây dựng chi tiết theo 3 cấp độ tư duy khoa học.
+        </div>
+
+        <!-- PHẦN KHỞI ĐỘNG & MÔ HÌNH TRỰC QUAN -->
+        <section class="space-y-6">
+            <div class="border-l-4 border-amber-500 pl-4">
+                <h2 class="text-xl font-bold text-gray-950 uppercase tracking-tight">🎨 Gợi ý mô hình và hình ảnh trực quan (Mở đầu buổi học)</h2>
+                <p class="text-gray-600 text-sm mt-1">Sử dụng phương pháp phân loại mô hình thực tế và lắp ghép hình khối để cụ thể hóa quy trình thống kê số liệu.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
+                <!-- Mô hình 1 -->
+                <div class="border border-gray-200 rounded-xl p-5 bg-white shadow-sm flex flex-col items-center text-center">
+                    <span class="text-xs font-semibold px-2 py-0.5 bg-amber-50 text-amber-700 rounded-full mb-3">Mô hình 1: Rổ trái cây thống kê</span>
+                    <div class="w-full h-36 flex justify-center items-center my-1">
+                        <!-- SVG Rổ trái cây đa sắc -->
+                        <svg width="240" height="110" viewBox="0 0 240 110">
+                            <!-- Cái rổ -->
+                            <path d="M 40 50 Q 120 100 200 50 Z" fill="#d97706" opacity="0.3" stroke="#92400e" stroke-width="2"/>
+                            <ellipse cx="120" cy="50" rx="80" ry="12" fill="#b45309" opacity="0.2" stroke="#92400e" stroke-width="1.5"/>
+                            
+                            <!-- Trái cam (Màu cam) -->
+                            <circle cx="90" cy="48" r="14" fill="#f97316"/>
+                            <circle cx="86" cy="42" r="2" fill="#fff" opacity="0.4"/>
+                            
+                            <!-- Trái táo (Màu đỏ) -->
+                            <circle cx="125" cy="44" r="13" fill="#ef4444"/>
+                            <path d="M 125 31 Q 128 25 132 26" fill="none" stroke="#15803d" stroke-width="2"/>
+                            
+                            <!-- Quả chuối (Màu vàng) -->
+                            <path d="M 135 45 Q 160 35 175 55 Q 155 50 135 45" fill="#eab308" stroke="#ca8a04" stroke-width="1"/>
+                            
+                            <!-- Thêm quả rời để phân loại -->
+                            <circle cx="70" cy="52" r="12" fill="#f97316"/>
+                            <circle cx="150" cy="48" r="13" fill="#ef4444"/>
+                        </svg>
+                    </div>
+                    <p class="text-xs text-gray-600 mt-2 leading-relaxed">Giáo viên mang đến lớp một rổ trái cây hỗn hợp lộn xộn (hoặc các tấm thẻ hình). Yêu cầu 4 học sinh cùng thảo luận để phân loại riêng từng nhóm quả, đếm chính xác số lượng rồi ghi kết quả ra bảng. Đây là bước mô phỏng thực tiễn nhất của quá trình <strong>Thu thập và Phân loại dữ liệu</strong>.</p>
+                </div>
+
+                <!-- Mô hình 2 -->
+                <div class="border border-gray-200 rounded-xl p-5 bg-white shadow-sm flex flex-col items-center text-center">
+                    <span class="text-xs font-semibold px-2 py-0.5 bg-blue-50 text-blue-600 rounded-full mb-3">Mô hình 2: Biểu đồ cột bằng khối xếp hình Lego</span>
+                    <div class="w-full h-36 flex justify-center items-center my-1">
+                        <!-- SVG Biểu đồ cột kép bằng khối Lego -->
+                        <svg width="240" height="110" viewBox="0 0 240 110">
+                            <!-- Trục tọa độ -->
+                            <line x1="30" y1="90" x2="220" y2="90" stroke="#4b5563" stroke-width="1.5"/>
+                            <line x1="30" y1="15" x2="30" y2="90" stroke="#4b5563" stroke-width="1.5"/>
+                            
+                            <!-- Cụm đối tượng 1 (Bạn An): Cột Toán (Xanh), Văn (Đỏ) -->
+                            <!-- Khối Lego Toán (Cao 3 khối = 6đ) -->
+                            <rect x="50" y="45" width="16" height="45" fill="#3b82f6" stroke="#1d4ed8" stroke-width="1"/>
+                            <circle cx="58" cy="50" r="2" fill="#fff" opacity="0.5"/>
+                            <circle cx="58" cy="65" r="2" fill="#fff" opacity="0.5"/>
+                            <circle cx="58" cy="80" r="2" fill="#fff" opacity="0.5"/>
+                            
+                            <!-- Khối Lego Văn (Cao 4 khối = 8đ) -->
+                            <rect x="66" y="30" width="16" height="60" fill="#ef4444" stroke="#b91c1c" stroke-width="1"/>
+                            <circle cx="74" cy="35" r="2" fill="#fff" opacity="0.5"/>
+                            <circle cx="74" cy="50" r="2" fill="#fff" opacity="0.5"/>
+                            <circle cx="74" cy="65" r="2" fill="#fff" opacity="0.5"/>
+                            <circle cx="74" cy="80" r="2" fill="#fff" opacity="0.5"/>
+
+                            <!-- Cụm đối tượng 2 (Bạn Bình): Cột Toán (Xanh), Văn (Đỏ) -->
+                            <!-- Khối Lego Toán (Cao 5 khối = 10đ) -->
+                            <rect x="120" y="15" width="16" height="75" fill="#3b82f6" stroke="#1d4ed8" stroke-width="1"/>
+                            <circle cx="128" cy="20" r="2" fill="#fff" opacity="0.5"/>
+                            <circle cx="128" cy="35" r="2" fill="#fff" opacity="0.5"/>
+                            <circle cx="128" cy="50" r="2" fill="#fff" opacity="0.5"/>
+                            <circle cx="128" cy="65" r="2" fill="#fff" opacity="0.5"/>
+                            <circle cx="128" cy="80" r="2" fill="#fff" opacity="0.5"/>
+                            
+                            <!-- Khối Lego Văn (Cao 3 khối = 6đ) -->
+                            <rect x="136" y="45" width="16" height="45" fill="#ef4444" stroke="#b91c1c" stroke-width="1"/>
+                            
+                            <!-- Chú thích -->
+                            <rect x="175" y="20" width="10" height="10" fill="#3b82f6"/>
+                            <text x="190" y="29" font-size="8" font-weight="bold">Toán</text>
+                            <rect x="175" y="35" width="10" height="10" fill="#ef4444"/>
+                            <text x="190" y="44" font-size="8" font-weight="bold">Văn</text>
+                            
+                            <text x="54" y="102" font-size="8" font-weight="bold">An</text>
+                            <text x="124" y="102" font-size="8" font-weight="bold">Bình</text>
+                        </svg>
+                    </div>
+                    <p class="text-xs text-gray-600 mt-2 leading-relaxed">Sử dụng các khối gạch xếp hình Lego để mô hình hóa biểu đồ (Quy ước: 1 khối tương ứng với 2 đơn vị số liệu). Học sinh tự tay lắp ráp chiều cao các cột gạch sát cạnh nhau để so sánh trực quan điểm số các môn học, từ đó thấu hiểu sâu sắc bản chất của <strong>Biểu đồ cột kép</strong>.</p>
+                </div>
+            </div>
+        </section>
+
+        <hr class="border-gray-200">
+
+        <!-- PHẦN 1: MỨC ĐỘ CƠ BẢN -->
+        <section class="space-y-6">
+            <div class="flex items-center gap-3">
+                <span class="flex items-center justify-center w-8 h-8 rounded-full bg-blue-600 text-white font-bold text-sm">1</span>
+                <h2 class="text-xl font-bold text-gray-950 uppercase tracking-tight">Phần 1: Mức Độ Cơ Bản (Khái niệm Dữ liệu và Nhận diện Biểu đồ)</h2>
+            </div>
+            
+            <div class="bg-gray-50 border border-gray-200 rounded-xl p-5 space-y-4">
+                <p class="text-sm font-semibold text-blue-700 uppercase tracking-wider"><i class="fa-solid fa-bullseye mr-1"></i> Mục tiêu bài học:</p>
+                <p class="text-sm text-gray-700 -mt-2">Học sinh phân biệt tường minh dữ liệu dạng số liệu và không phải số liệu; đồng thời nhận diện, đọc hiểu được các thông số hiển thị bề mặt từ các loại biểu đồ cơ bản.</p>
+                
+                <h3 class="font-bold text-gray-900 border-b border-gray-200 pb-2 mt-4 text-base">1.1. Dữ liệu và Phân loại dữ liệu thống kê</h3>
+                <ul class="list-disc pl-5 space-y-2 text-sm text-gray-800">
+                    <li><strong>Khái niệm dữ liệu:</strong> Toàn bộ những thông tin thu thập được từ thực tế đời sống dưới các dạng thức khác nhau như: con số, văn bản ký tự, hình ảnh, âm thanh,... được gọi chung là dữ liệu.</li>
+                    <li><strong>Số liệu:</strong> Khi dữ liệu thu thập được tồn tại dưới dạng các con số định lượng (ví dụ: chiều cao, cân nặng, điểm số, nhiệt độ) thì được gọi cụ thể là số liệu. Ngược lại, những dữ liệu có cấu trúc bằng chữ (ví dụ: tên món ăn, quốc tịch, màu sắc) thì <span class="font-medium text-gray-950">không phải là số liệu</span>.</li>
+                    <li><strong>Thu thập dữ liệu:</strong> Có rất nhiều phương pháp khoa học để tiến hành thu thập thông tin như: trực tiếp quan sát, làm thí nghiệm thực chứng, phát phiếu điều tra khảo sát (phiếu hỏi), hoặc trích xuất số liệu có sẵn từ sách báo và mạng internet.</li>
+                </ul>
+
+                <h3 class="font-bold text-gray-900 border-b border-gray-200 pb-2 mt-6 text-base">1.2. Nhận diện 3 loại Biểu đồ biểu diễn thông dụng</h3>
+                <ul class="list-disc pl-5 space-y-3 text-sm text-gray-800">
+                    <li><strong>Biểu đồ tranh:</strong> Sử dụng các biểu tượng đồ họa hoặc hình ảnh sinh động để thể hiện quy mô của dữ liệu dữ kiện. Điểm đặc thù mấu chốt là một biểu tượng quy ước có thể đại diện thay thế cho một nhóm nhiều đối tượng cùng loại <span class="italic text-gray-500">(Ví dụ: Quy ước một hình ảnh 1 mặt cười ☺ = 5 học sinh)</span>.</li>
+                    <li><strong>Biểu đồ cột:</strong> Sử dụng các cột hình chữ nhật đứng có chiều rộng thiết kế không đổi, đặt cách đều nhau trên trục ngang. Chiều cao của từng cột đại diện trực quan cho độ lớn của số liệu đối tượng tương ứng.</li>
+                    <li><strong>Biểu đồ cột kép:</strong> Ghép song song hai hay nhiều biểu đồ cột có màu sắc/họa tiết phân biệt đứng sát cạnh nhau trên cùng một đối tượng để so sánh đối chiếu trực quan một cách nhanh chóng từng cặp số liệu của hai bộ dữ liệu cùng loại <span class="italic text-gray-500">(Ví dụ: So sánh đối chiếu sản lượng xuất khẩu gạo của Việt Nam và Thái Lan qua các năm)</span>.</li>
+                </ul>
+            </div>
+
+            <!-- Ví dụ Minh họa 1 -->
+            <div class="border border-gray-200 rounded-xl p-5 space-y-3">
+                <p class="text-sm font-bold text-gray-900"><i class="fa-regular fa-lightbulb text-yellow-500 mr-1"></i> 📝 Ví dụ minh họa 1 (Mức độ Cơ bản - Trò chơi phản xạ nhanh nhạy):</p>
+                <div class="text-sm text-gray-800 space-y-2 pl-2">
+                    <p>Trong các dãy dữ liệu thông tin thu thập dưới đây, em hãy phân định xem dãy nào thuộc nhóm <strong>"số liệu"</strong>, dãy nào thuộc nhóm <strong>"không phải là số liệu"</strong>?</p>
+                    <p><strong>a)</strong> Danh sách các môn học yêu thích nhất của 4 bạn trong nhóm: <em>Toán, Ngữ văn, Lịch sử, Mỹ thuật.</em></p>
+                    <p><strong>b)</strong> Chỉ số cân nặng đo theo đơn vị (kg) tương ứng của 4 bạn học sinh: $35, \, 42, \, 38, \, 40$.</p>
+                </div>
+                
+                <!-- Gợi ý lời giải ẩn -->
+                <details class="group bg-gray-50 border border-gray-200 rounded-lg p-3 mt-2 no-print-border">
+                    <summary class="text-sm font-semibold text-blue-600 hover:text-blue-800 cursor-pointer list-none flex items-center gap-1 select-none">
+                        <i class="fa-solid fa-chevron-right transition-transform group-open:rotate-90 text-xs"></i>
+                        <span>Xem gợi ý lời giải đối chiếu</span>
+                    </summary>
+                    <div class="text-sm text-gray-800 mt-3 pt-3 border-t border-gray-200 space-y-2 pl-2">
+                        <p><strong>Lời giải phân tích:</strong></p>
+                        <ul class="list-disc pl-5 space-y-1">
+                            <li>Xét dãy thông tin <strong>a)</strong>: Đây là tập hợp dữ liệu bao gồm các ký tự chữ mô tả tên gọi môn học, do đó dãy này <span class="font-bold text-amber-700">không phải là số liệu</span>.</li>
+                            <li>Xét dãy thông tin <strong>b)</strong>: Đây là tập hợp dữ liệu cấu thành hoàn toàn từ các con số định lượng cụ thể chỉ khối lượng của học sinh, do đó dãy này chính xác <span class="font-bold text-emerald-600">là số liệu</span>.</li>
+                        </ul>
+                    </div>
+                </details>
+            </div>
+        </section>
+
+        <hr class="border-gray-200">
+
+        <!-- PHẦN 2: MỨC ĐỘ NÂNG CAO -->
+        <section class="space-y-6">
+            <div class="flex items-center gap-3">
+                <span class="flex items-center justify-center w-8 h-8 rounded-full bg-blue-600 text-white font-bold text-sm">2</span>
+                <h2 class="text-xl font-bold text-gray-950 uppercase tracking-tight">Phần 2: Mức Độ Nâng Cao (Đánh giá tính hợp lí số liệu và Kỹ năng Vẽ biểu đồ)</h2>
+            </div>
+
+            <div class="bg-gray-50 border border-gray-200 rounded-xl p-5 space-y-4">
+                <p class="text-sm font-semibold text-blue-700 uppercase tracking-wider"><i class="fa-solid fa-bullseye mr-1"></i> Mục tiêu bài học:</p>
+                <p class="text-sm text-gray-700 -mt-2">Học sinh đóng vai thám tử tư duy phát hiện ra các điểm mâu thuẫn, vô lý toán học trong một bảng số liệu thu thập; đồng thời nắm vững các bước quy chuẩn để tự vẽ biểu đồ.</p>
+
+                <h3 class="font-bold text-gray-900 border-b border-gray-200 pb-2 mt-4 text-base">2.1. Đánh giá tính hợp lí của dữ liệu thống kê</h3>
+                <p class="text-sm text-gray-800 leading-relaxed">Để thẩm định xem một bảng dữ liệu được ghi chép, thu thập có đảm bảo tính chính xác khoa học hay không, ta tiến hành đối chiếu dựa trên 2 tiêu chí cốt lõi:</p>
+                <ul class="list-disc pl-5 space-y-2 text-sm text-gray-800">
+                    <li><strong>Đúng định dạng quy ước:</strong> Nếu trường dữ liệu hoặc cột bảng yêu cầu điền thông tin định lượng về "số lượng" thì không thể chấp nhận việc nhập vào các chữ cái hay ký hiệu văn bản vô nghĩa.</li>
+                    <li><strong>Nằm trong phạm vi dự kiến thực tế:</strong> Các con số thống kê thu được không được phép mâu thuẫn hay vô lý một cách cực đoan so với thực tế đời sống tự nhiên <span class="italic text-gray-500">(Ví dụ thực tế: Số lượng học sinh vắng mặt lớp học không thể mang giá trị âm, hoặc chỉ số nhiệt độ cơ thể của một người sống không thể đạt ngưỡng $100^\circ\text{C}$)</span>.</li>
+                </ul>
+
+                <h3 class="font-bold text-gray-900 border-b border-gray-200 pb-2 mt-6 text-base">2.2. Các quy tắc cơ bản khi tiến hành tự dựng Vẽ biểu đồ</h3>
+                <ul class="list-disc pl-5 space-y-3 text-sm text-gray-800">
+                    <li><strong>Đối với Biểu đồ tranh:</strong> Cần xác định tường minh hình ảnh biểu tượng đại diện phù hợp và bắt buộc phải ghi rõ bảng chú giải quy ước đơn vị <span class="italic text-gray-500">(Mỗi hình đại diện cho bao nhiêu đối tượng cụ thể)</span>.</li>
+                    <li><strong>Đối với Biểu đồ cột và Biểu đồ cột kép:</strong>
+                        <ol class="list-decimal pl-5 mt-1 space-y-1 text-gray-700 font-medium">
+                            <li>Thiết lập hệ trục tọa độ gồm 2 trục vuông góc tuyệt đối: Trục ngang dùng để biểu diễn danh sách các đối tượng khảo sát; trục dọc chia khoảng cách các mốc vạch giá trị số liệu phải luôn đều đặn cách đều nhau.</li>
+                            <li>Tất cả các cột hình chữ nhật dựng lên phải tuân thủ có cùng một chiều rộng như nhau, khoảng cách trống giữa các cột (hoặc giữa các cụm cột kép đối tượng) phải được căn chia bằng nhau một cách đồng bộ.</li>
+                            <li>Riêng với loại biểu đồ cột kép, hai hoặc nhiều cột thành phần thuộc cùng một nhóm đối tượng phải được vẽ sát khít cạnh nhau. Bắt buộc phải sử dụng các màu sắc khác nhau hoặc tô họa tiết gạch chéo phân biệt rõ ràng đi kèm bảng chú giải thành phần.</li>
+                        </ol>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Ví dụ Minh họa 2 -->
+            <div class="border border-gray-200 rounded-xl p-5 space-y-3">
+                <p class="text-sm font-bold text-gray-900"><i class="fa-regular fa-lightbulb text-yellow-500 mr-1"></i> 📝 Ví dụ minh họa 2 (Nâng cao - Thám tử tìm lỗi số liệu sai biệt):</p>
+                <div class="text-sm text-gray-800 leading-relaxed pl-2">
+                    <p>Số lượng học sinh nghỉ học vắng mặt tính trong ngày của các lớp thuộc khối 6 tại trường THCS Đoàn Kết được một cán bộ sao chép ghi nhanh lại vào sổ tay như sau:</p>
+                    <p class="font-mono bg-white p-2.5 rounded-lg border border-gray-200 my-2 inline-block text-xs">
+                        Lớp 6A1: 2; &nbsp;&nbsp; Lớp 6A2: 1; &nbsp;&nbsp; Lớp 6A4: K; &nbsp;&nbsp; Lớp 6A7: 100; &nbsp;&nbsp; Lớp 6A8: -2.
+                    </p>
+                    <p>Em hãy thực hiện tư duy phản biện, tìm kiếm ra các thông tin không hợp lí xuất hiện trong chuỗi số liệu trên và giải thích rõ nguyên nhân tại sao?</p>
+                </div>
+                
+                <!-- Gợi ý lời giải ẩn -->
+                <details class="group bg-gray-50 border border-gray-200 rounded-lg p-3 mt-2 no-print-border">
+                    <summary class="text-sm font-semibold text-blue-600 hover:text-blue-800 cursor-pointer list-none flex items-center gap-1 select-none">
+                        <i class="fa-solid fa-chevron-right transition-transform group-open:rotate-90 text-xs"></i>
+                        <span>Xem lời giải bóc tách chi tiết bẫy số liệu</span>
+                    </summary>
+                    <div class="text-sm text-gray-800 mt-3 pt-3 border-t border-gray-200 space-y-2 pl-2">
+                        <p>Dựa vào các quy tắc kiểm tra tính hợp lý của dữ liệu thống kê, ta phát hiện ra các điểm vô lý nghiêm trọng sau đây:</p>
+                        <ul class="list-disc pl-5 space-y-1">
+                            <li>Dữ liệu vắng mặt của lớp 6A4 ghi là <span class="font-bold font-mono text-red-600">"K"</span>: Điểm này hoàn toàn <strong>không hợp lí</strong> vì sai định dạng quy ước (Dữ liệu số lượng bắt buộc phải điền bằng ký tự số, không thể điền bằng chữ cái).</li>
+                            <li>Dữ liệu vắng mặt của lớp 6A7 ghi là <span class="font-bold font-mono text-red-600">"100"</span>: Điểm này hoàn toàn <strong>không hợp lí</strong> vì nằm ngoài phạm vi thực tế đời sống (Tổng sĩ số trung bình của một lớp học phổ thông thông thường chỉ dao động từ 30 đến 45 học sinh, không thể có số lượng học sinh vắng trong một ngày lên đến 100 em).</li>
+                            <li>Dữ liệu vắng mặt của lớp 6A8 ghi là <span class="font-bold font-mono text-red-600">"-2"</span>: Điểm này hoàn toàn <strong>không hợp lí</strong> vì số lượng học sinh đếm được trên thực tế phải luôn tồn tại dưới dạng một số tự nhiên ($\mathbb{N}$), không thể xuất hiện giá trị âm đại số.</li>
+                        </ul>
+                    </div>
+                </details>
+            </div>
+        </section>
+
+        <hr class="border-gray-200">
+
+        <!-- PHẦN 3: MỨC ĐỘ VẬN DỤNG -->
+        <section class="space-y-6">
+            <div class="flex items-center gap-3">
+                <span class="flex items-center justify-center w-8 h-8 rounded-full bg-blue-600 text-white font-bold text-sm">3</span>
+                <h2 class="text-xl font-bold text-gray-950 uppercase tracking-tight">Phần 3: Mức Độ Vận Dụng (Phân tích dữ liệu sâu và Giải toán thực tiễn)</h2>
+            </div>
+
+            <div class="bg-gray-50 border border-gray-200 rounded-xl p-5 space-y-4">
+                <p class="text-sm font-semibold text-blue-700 uppercase tracking-wider"><i class="fa-solid fa-bullseye mr-1"></i> Mục tiêu bài học:</p>
+                <p class="text-sm text-gray-700 -mt-2">Học sinh không chỉ đọc các con số hiển thị thô trên bề mặt, mà phải biết cách liên kết dữ liệu để tính toán tổng số, tỷ lệ phần trăm, độ sai lệch và nhận xét chính xác xu hướng biến động.</p>
+
+                <h3 class="font-bold text-gray-900 border-b border-gray-200 pb-2 mt-4 text-base">3.1. Quy trình khai thác Phân tích sâu dữ liệu từ biểu đồ trực quan</h3>
+                <p class="text-sm text-gray-800 leading-relaxed">Khi tiến hành phân tích một biểu đồ số liệu thực tế, học sinh cần dóng tọa độ từ trục ngang để nhận diện chính xác đối tượng danh mục, sau đó dóng vuông góc sang trục dọc để đọc trị số định lượng. Các dạng câu hỏi vận dụng tổng hợp thường yêu cầu thực hiện:</p>
+                <ul class="list-disc pl-5 space-y-1.5 text-sm text-gray-800">
+                    <li>Xác định phần tử có giá trị lớn nhất hoặc nhỏ nhất <span class="italic text-gray-500">(Tìm kiếm cột có chiều cao cao nhất hoặc thấp nhất trên hệ trục)</span>.</li>
+                    <li>Tính toán tổng quy mô số lượng của toàn bộ hệ thống bằng phép cộng gộp giá trị của tất cả các cột thành phần.</li>
+                    <li>Tính toán độ chênh lệch biên độ giữa các đối tượng bằng việc thực hiện phép tính hiệu số (Lấy trị số cột cao trừ đi trị số cột thấp).</li>
+                    <li>Đưa ra nhận xét khách quan về xu hướng chuyển dịch dữ liệu theo thời gian <span class="italic text-gray-500">(Xu hướng tăng dần đều, giảm dần đều hay giữ trạng thái ổn định đi ngang)</span>.</li>
+                </ul>
+            </div>
+
+            <!-- Ví dụ Minh họa 3 -->
+            <div class="border border-gray-200 rounded-xl p-5 space-y-3">
+                <p class="text-sm font-bold text-gray-900"><i class="fa-regular fa-lightbulb text-yellow-500 mr-1"></i> 📝 Ví dụ minh họa 3 (Vận dụng thực tế - Hoạt động điều phối phân rã nhiệm vụ nhóm 4 học sinh):</p>
+                <div class="text-sm text-gray-800 leading-relaxed pl-2 space-y-3">
+                    <p>Giáo viên hiển thị biểu đồ cột kép biểu diễn điểm số bài kiểm tra định kỳ các môn học của hai học sinh tên <strong>Cúc</strong> và <strong>Trúc</strong> với các thông số ghi nhận cụ thể như sau:</p>
+                    <div class="max-w-md mx-auto overflow-x-auto bg-white border border-gray-200 rounded-lg p-2 font-medium">
+                        <table class="w-full text-center text-xs divide-y divide-gray-200">
+                            <thead>
+                                <tr class="bg-gray-50 font-bold">
+                                    <th class="p-2">Học sinh</th>
+                                    <th class="p-2 text-blue-600">Môn Toán</th>
+                                    <th class="p-2 text-emerald-600">Môn Ngữ Văn</th>
+                                    <th class="p-2 text-purple-600">Môn Tiếng Anh</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-100 font-mono text-gray-900">
+                                <tr>
+                                    <td class="p-2 font-sans font-bold">Bạn Cúc</td>
+                                    <td class="p-2">9</td>
+                                    <td class="p-2">6</td>
+                                    <td class="p-2">10</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-2 font-sans font-bold">Bạn Trúc</td>
+                                    <td class="p-2">5</td>
+                                    <td class="p-2">8</td>
+                                    <td class="p-2">6</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p>Giáo viên tiến hành phân chia nhóm 4 học sinh làm việc tương tác tương ứng với 4 nhiệm vụ phân tích sâu:</p>
+                    <ul class="list-disc pl-5 text-xs font-semibold text-gray-700 space-y-1">
+                        <li>Học sinh 1: Xác định xem ở những môn học nào thì điểm số của bạn Cúc đạt kết quả cao hơn bạn Trúc?</li>
+                        <li>Học sinh 2: Xác định xem ở những môn học nào thì điểm số của bạn Trúc đạt kết quả vượt hơn bạn Cúc?</li>
+                        <li>Học sinh 3: Tính toán chỉ số điểm trung bình cộng cả 3 môn học này của cá nhân bạn Cúc?</li>
+                        <li>Học sinh 4: Đưa ra nhận xét đánh giá tổng quan về năng lực thế mạnh học tập riêng của từng bạn học sinh?</li>
+                    </ul>
+                </div>
+                
+                <!-- Gợi ý lời giải ẩn -->
+                <details class="group bg-gray-50 border border-gray-200 rounded-lg p-3 mt-2 no-print-border">
+                    <summary class="text-sm font-semibold text-blue-600 hover:text-blue-800 cursor-pointer list-none flex items-center gap-1 select-none">
+                        <i class="fa-solid fa-chevron-right transition-transform group-open:rotate-90 text-xs"></i>
+                        <span>Xem đáp án phân tích đối chiếu từ 4 học sinh</span>
+                    </summary>
+                    <div class="text-sm text-gray-800 mt-3 pt-3 border-t border-gray-200 space-y-2 pl-2">
+                        <p><strong>Kết quả thực hiện chính xác của các thành viên trong nhóm:</strong></p>
+                        <ul class="list-disc pl-5 space-y-1.5">
+                            <li><strong>Đáp án HS 1:</strong> Quan sát đối chiếu số liệu ta thấy môn học điểm của Cúc cao hơn Trúc là môn <span class="font-semibold text-indigo-700">Toán</span> (9 so với 5) và môn <span class="font-semibold text-indigo-700">Tiếng Anh</span> (10 so với 6).</li>
+                            <li><strong>Đáp án HS 2:</strong> Môn học điểm số của bạn Trúc cao vượt hơn bạn Cúc là môn <span class="font-semibold text-indigo-700">Ngữ Văn</span> (8 so với 6).</li>
+                            <li><strong>Đáp án HS 3:</strong> Công thức tính toán điểm số trung bình cộng 3 môn của bạn Cúc là: $$(9 + 6 + 10) : 3 = 25 : 3 \approx 8,3 \text{ (điểm)}$$</li>
+                            <li><strong>Đáp án HS 4:</strong> Nhận xét định hướng năng lực dựa trên xu hướng số liệu: Bạn Cúc có xu hướng học tốt và có tư duy mạnh ở các môn học khối tự nhiên và mảng ngôn ngữ ngoại ngữ; trong khi đó bạn Trúc lại bộc lộ rõ thế mạnh học tập tốt ở các môn học thuộc khối xã hội.</li>
+                        </ul>
+                    </div>
+                </details>
+            </div>
+
+            <!-- Mẹo sư phạm kết luận từ Thầy Tuấn -->
+            <div class="p-4 bg-blue-50 border border-blue-200 rounded-xl space-y-1">
+                <h4 class="text-sm font-bold text-blue-900"><i class="fa-solid fa-chalkboard-user mr-1"></i> 💡 Mẹo sư phạm điều phối lớp học dành cho Giáo viên:</h4>
+                <p class="text-xs text-blue-950 leading-relaxed">Tại mốc thời gian 10 phút cuối biểu giờ của buổi học, giáo viên tổ chức cho 4 em học sinh lập tức thực hành một dự án khảo sát thống kê bỏ túi ngay tại lớp với chủ đề thực tế: <em>"Khảo sát phân loại nước uống yêu thích nhất của 4 bạn trong nhóm và thầy/cô hướng dẫn"</em>. Sau khi thu thập ghi chép, yêu cầu các em cùng phối hợp vẽ nhanh một biểu đồ cột minh họa lên trên bảng con. Hoạt động này giúp các em làm chủ trọn vẹn toàn bộ quy trình cấu trúc Thống kê từ đầu đến cuối một cách hứng khởi.</p>
+            </div>
+        </section>
+
+        <hr class="border-gray-200">
+
+        <!-- HỆ THỐNG KIỂM TRA ĐÁNH GIÁ (Gửi điểm về Apps Script) -->
+        <section id="quiz-section" class="space-y-6 print:hidden">
+            <div class="border-l-4 border-emerald-500 pl-4">
+                <h2 class="text-xl font-bold text-gray-950 uppercase tracking-tight">📝 Bài kiểm tra đánh giá nhanh năng lực thống kê trực tuyến</h2>
+                <p class="text-gray-600 text-sm mt-1">Học sinh hoàn thành câu hỏi trắc nghiệm dưới đây để nộp kết quả trực tiếp về hệ thống chấm điểm lưu trữ của Thầy Tuấn[cite: 1].</p>
+            </div>
+
+            <div class="border border-gray-200 rounded-xl p-6 bg-white space-y-6">
+                <!-- Thông tin học sinh -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Họ và tên học sinh <span class="text-red-500">*</span></label>
+                        <input type="text" id="student-name" placeholder="Nhập tên chính xác của học sinh..." class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Mã định danh buổi học</label>
+                        <input type="text" id="exam-id" value="toan6-buoi19" readonly class="w-full border border-gray-200 bg-gray-50 rounded-lg px-3 py-2 text-sm font-mono text-gray-500 cursor-not-allowed">
+                    </div>
+                </div>
+
+                <hr class="border-gray-100">
+
+                <!-- Câu hỏi trắc nghiệm -->
+                <div class="space-y-6">
+                    <!-- Câu 1 -->
+                    <div class="quiz-box space-y-2" data-correct="B">
+                        <p class="text-sm font-semibold text-gray-900">Câu 1: Dãy dữ liệu thông tin nào sau đây được phân loại chính xác là một dãy "số liệu"?</p>
+                        <div class="grid grid-cols-1 gap-2 pl-2">
+                            <label class="flex items-center gap-2 text-sm text-gray-700 cursor-pointer"><input type="radio" name="q1" value="A" class="form-radio text-blue-600"> A. Danh sách quốc tịch của các vận động viên tham gia thi đấu.</label>
+                            <label class="flex items-center gap-2 text-sm text-gray-700 cursor-pointer"><input type="radio" name="q1" value="B" class="form-radio text-blue-600"> B. Chiều cao đo theo đơn vị (cm) của các thành viên lớp học.</label>
+                            <label class="flex items-center gap-2 text-sm text-gray-700 cursor-pointer"><input type="radio" name="q1" value="C" class="form-radio text-blue-600"> C. Tên gọi các loại nước uống giải khát đóng chai trên thị trường.</label>
+                            <label class="flex items-center gap-2 text-sm text-gray-700 cursor-pointer"><input type="radio" name="q1" value="D" class="form-radio text-blue-600"> D. Các nhóm màu sắc sơn tường nội thất được ưa chuộng.</label>
+                        </div>
+                    </div>
+
+                    <!-- Câu 2 -->
+                    <div class="quiz-box space-y-2" data-correct="A">
+                        <p class="text-sm font-semibold text-gray-900">Câu 2: Nếu trong cột bảng ghi chép số lượng học sinh đi muộn xuất hiện giá trị dữ liệu ký tự là chữ "H", thông tin này không hợp lý vì lý do nào?</p>
+                        <div class="grid grid-cols-1 gap-2 pl-2">
+                            <label class="flex items-center gap-2 text-sm text-gray-700 cursor-pointer"><input type="radio" name="q2" value="A" class="form-radio text-blue-600"> A. Sai định dạng quy ước toán học thống kê.</label>
+                            <label class="flex items-center gap-2 text-sm text-gray-700 cursor-pointer"><input type="radio" name="q2" value="B" class="form-radio text-blue-600"> B. Nằm ngoài phạm vi dự kiến thực tế của đời sống tự nhiên.</label>
+                            <label class="flex items-center gap-2 text-sm text-gray-700 cursor-pointer"><input type="radio" name="q2" value="C" class="form-radio text-blue-600"> C. Hoàn toàn là một số liệu hợp lý bình thường.</label>
+                            <label class="flex items-center gap-2 text-sm text-gray-700 cursor-pointer"><input type="radio" name="q2" value="D" class="form-radio text-blue-600"> D. Vì chữ "H" mang giá trị định lượng âm.</label>
+                        </div>
+                    </div>
+
+                    <!-- Câu 3 -->
+                    <div class="quiz-box space-y-2" data-correct="C">
+                        <p class="text-sm font-semibold text-gray-900">Câu 3: Trên một biểu đồ tranh quy ước sử dụng hình ảnh đại diện biểu tượng 🍎, biết quy định 1 biểu tượng 🍎 = 4 quả táo thực tế. Nếu đối tượng khảo sát có tổng cộng 5 biểu tượng 🍎 vẽ trên dòng thì đại diện cho bao nhiêu quả táo trong thực tế?</p>
+                        <div class="grid grid-cols-1 gap-2 pl-2">
+                            <label class="flex items-center gap-2 text-sm text-gray-700 cursor-pointer"><input type="radio" name="q3" value="A" class="form-radio text-blue-600"> A. 5 quả táo.</label>
+                            <label class="flex items-center gap-2 text-sm text-gray-700 cursor-pointer"><input type="radio" name="q3" value="B" class="form-radio text-blue-600"> B. 9 quả táo.</label>
+                            <label class="flex items-center gap-2 text-sm text-gray-700 cursor-pointer"><input type="radio" name="q3" value="C" class="form-radio text-blue-600"> C. 20 quả táo.</label>
+                            <label class="flex items-center gap-2 text-sm text-gray-700 cursor-pointer"><input type="radio" name="q3" value="D" class="form-radio text-blue-600"> D. 15 quả táo.</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Nút nộp bài -->
+                <div class="pt-4">
+                    <button id="submit-quiz-btn" onclick="submitQuiz()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-2.5 px-4 rounded-lg shadow transition-all duration-150 flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-paper-plane"></i> Gửi kết quả bài làm về hệ thống
+                    </button>
+                    <p id="quiz-msg" class="text-center text-sm font-medium mt-3 hidden"></p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-gray-200 py-6 text-center text-xs text-gray-600 bg-gray-50 mt-12 print:bg-white print:border-t-2">
+        <div class="max-w-4xl mx-auto px-4">
+            <p class="font-semibold text-gray-800 text-sm">@ Bản quyền thuộc ThS. Đinh Quốc Tuấn - Mục đích phi lợi nhuận - Vì giáo dục.</p>
+            <p class="mt-1 text-gray-400">Tài liệu học thuật số hóa nội bộ phục vụ bài giảng phân môn Thống kê Toán lớp 6.</p>
+        </div>
+    </footer>
+
+    <!-- Nút In Tài Liệu (Yêu cầu giữ nguyên cấu trúc lô-gíc kỹ thuật từ người dùng) -->
+    <button id="btn-print-doc" onclick="safePrint()" class="fixed bottom-5 right-5 bg-gray-900 text-white px-4 py-2 rounded-lg shadow-lg hover:bg-gray-700 print:hidden z-50">
+        <i class="fas fa-print mr-2"></i> In Tài Liệu
+    </button>
+
+    <script>
+        // Log thời mốc khởi điểm ban đầu học sinh làm bài test đánh giá
+        const startTime = new Date();
+
+        function safePrint() {
+            const printBtn = document.getElementById('btn-print-doc');
+            printBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Đang chuẩn bị...';
+            
+            // Đảm bảo MathJax đã render xong mọi công thức trước khi gọi hộp thoại in
+            if (window.MathJax && window.MathJax.typesetPromise) {
+                MathJax.typesetPromise().then(() => {
+                    printBtn.innerHTML = '<i class="fas fa-print mr-2"></i> In Tài Liệu';
+                    window.print();
+                });
+            } else {
+                // Fallback nếu không có công thức toán
+                setTimeout(() => {
+                    printBtn.innerHTML = '<i class="fas fa-print mr-2"></i> In Tài Liệu';
+                    window.print();
+                }, 500); 
+            }
+        }
+
+        function submitQuiz() {
+            const nameInput = document.getElementById('student-name').value.trim();
+            const examId = document.getElementById('exam-id').value;
+            const msgEl = document.getElementById('quiz-msg');
+            const submitBtn = document.getElementById('submit-quiz-btn');
+
+            if (!nameInput) {
+                alert('Vui lòng nhập đầy đủ Họ và tên học sinh trước khi thực hiện gửi bài!');
+                return;
+            }
+
+            // Đo lường chính xác khoảng thời gian hoàn thành bài kiểm tra trắc nghiệm
+            const endTime = new Date();
+            const diffMs = endTime - startTime;
+            const diffMins = Math.floor(diffMs / 60000);
+            const diffSecs = Math.round((diffMs % 60000) / 1000);
+            const timeStr = `${diffMins} phút ${diffSecs} giây`;
+
+            // Thực hiện tính toán thang điểm các câu trắc nghiệm tự động
+            let score = 0;
+            let wrongDetail = [];
+            const quizBoxes = document.querySelectorAll('.quiz-box');
+
+            quizBoxes.forEach((box, index) => {
+                const questionNum = index + 1;
+                const correctAnswer = box.getAttribute('data-correct');
+                const selectedRadio = box.querySelector(`input[name="q${questionNum}"]:checked`);
+                
+                if (selectedRadio) {
+                    if (selectedRadio.value === correctAnswer) {
+                        score += 10 / quizBoxes.length;
+                    } else {
+                        wrongDetail.push(`Câu ${questionNum} (Chọn: ${selectedRadio.value}, Đúng: ${correctAnswer})`);
+                    }
+                } else {
+                    wrongDetail.push(`Câu ${questionNum} (Chưa tích đáp án, Đúng: ${correctAnswer})`);
+                }
+            });
+
+            score = Math.round(score * 100) / 100;
+            const wrongDetailStr = wrongDetail.length > 0 ? wrongDetail.join('; ') : 'Không có câu sai';
+
+            // Thiết lập cấu trúc JSON tương thích hoàn chỉnh cấu trúc Google Apps Script backend nhận dữ liệu[cite: 1]
+            const payload = {
+                hoTen: nameInput,       // Tên học sinh[cite: 1]
+                maDe: examId,           // Mã môn/buổi[cite: 1]
+                diem: score,            // Điểm số[cite: 1]
+                thoiGian: timeStr,      // Thời gian làm bài[cite: 1]
+                cauSai: wrongDetailStr  // Chi tiết câu làm sai[cite: 1]
+            };
+
+            // Khóa nút bấm ngăn hành vi spam gửi trùng lặp bản ghi liên tục
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Đang truyền tải đồng bộ dữ liệu kết quả...';
+
+            const appScriptUrl = "https://script.google.com/macros/s/AKfycbzY7b7h4OwvhXuK5Vs6hl-aD88BPnAiAKbU5lfJobby0D4nzbIJVKT4n0AKCpAGoK0nZA/exec";
+
+            // Đẩy bản ghi kết quả học tập qua Fetch API phương thức POST (sử dụng mode no-cors xử lý vấn đề cross-origin với Google Apps Script Web App)[cite: 1]
+            fetch(appScriptUrl, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(payload)
+            })
+            .then(() => {
+                msgEl.className = "text-center text-sm font-semibold mt-3 text-emerald-600";
+                msgEl.innerHTML = `<i class="fa-solid fa-circle-check mr-1"></i> Hệ thống đã tiếp nhận dữ liệu bài làm! Điểm của em đạt được là: ${score}/10 điểm.`;
+                submitBtn.innerHTML = '<i class="fa-solid fa-check-double"></i> Đã gửi điểm thành công';
+                submitBtn.className = "w-full bg-gray-400 text-white font-semibold py-2.5 px-4 rounded-lg cursor-not-allowed";
+            })
+            .catch(error => {
+                console.error('Lỗi truyền dữ liệu fetch:', error);
+                msgEl.className = "text-center text-sm font-semibold mt-3 text-red-600";
+                msgEl.innerHTML = `<i class="fa-solid fa-circle-xmark mr-1"></i> Trục trặc đường truyền: Không thể đẩy điểm số về máy chủ Google Sheets.`;
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Thử lại nộp kết quả';
+            });
+        }
+    </script>
+</body>
+</html>
+  
