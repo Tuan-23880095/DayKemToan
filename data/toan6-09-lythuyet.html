@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buổi 9: Tập Hợp Các Số Nguyên Âm Và Số Nguyên</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- MathJax Configuration -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                processEscapes: true
+            },
+            svg: {
+                fontCache: 'global'
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #ffffff;
+            color: #111827;
+        }
+        @media print {
+            .print\:hidden {
+                display: none !important;
+            }
+            body {
+                color: #000000;
+                background-color: #ffffff;
+            }
+            .no-print-border {
+                border: none !important;
+                box-shadow: none !important;
+            }
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between antialiased selection:bg-gray-200">
+
+    <!-- Header -->
+    <header class="border-b border-gray-200 py-6 px-4 bg-white sticky top-0 z-40 print:relative print:border-b-2">
+        <div class="max-w-4xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+            <div>
+                <span class="text-xs font-bold uppercase tracking-widest text-blue-600 bg-blue-50 px-2.5 py-1 rounded">Chương trình Toán lớp 6</span>
+                <h1 class="text-2xl md:text-3xl font-extrabold text-gray-950 mt-2">Buổi 9: Thế Giới Số Nguyên Âm & Tập Hợp $\mathbb{Z}$</h1>
+            </div>
+            <div class="text-right md:text-right text-sm text-gray-500 print:text-left">
+                <p><i class="fa-regular fa-clock mr-1"></i> Thời lượng lý thuyết: 40 phút</p>
+                <p class="font-medium text-gray-800 mt-1">Người hướng dẫn: ThS. Đinh Quốc Tuấn</p>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow max-w-4xl w-full mx-auto px-4 py-8 space-y-12">
+        
+        <!-- PHẦN KHỞI ĐỘNG & MÔ HÌNH TRỰC QUAN -->
+        <section class="space-y-6">
+            <div class="border-l-4 border-yellow-500 pl-4">
+                <h2 class="text-xl font-bold text-gray-950 uppercase tracking-tight">🎨 Gợi ý mô hình và hình ảnh trực quan (Khởi động)</h2>
+                <p class="text-gray-600 text-sm mt-1">Giúp học sinh tiếp cận khái niệm số âm một cách tự nhiên nhất thông qua các hình ảnh đa sắc màu thực tế.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-4">
+                <!-- Mô hình 1 -->
+                <div class="border border-gray-200 rounded-xl p-5 bg-white shadow-sm flex flex-col items-center text-center">
+                    <span class="text-xs font-semibold px-2 py-0.5 bg-red-50 text-red-600 rounded-full mb-3">Mô hình 1</span>
+                    <h3 class="font-bold text-gray-900 mb-2">Nhiệt Kế Khổng Lồ</h3>
+                    <div class="w-full h-32 flex justify-center items-center my-2">
+                        <!-- SVG Nhiệt kế đa sắc -->
+                        <svg width="60" height="120" viewBox="0 0 60 120" class="drop-shadow-sm">
+                            <rect x="25" y="10" width="10" height="80" rx="5" fill="#e5e7eb"/>
+                            <circle cx="30" cy="95" r="15" fill="#ef4444"/>
+                            <rect x="27" y="50" width="6" height="45" fill="#ef4444"/>
+                            <!-- Vạch chia -->
+                            <line x1="20" y1="25" x2="25" y2="25" stroke="#1f2937" stroke-width="1.5"/>
+                            <text x="10" y="28" font-size="8" font-weight="bold" fill="#3b82f6">> 0°C</text>
+                            <line x1="20" y1="55" x2="25" y2="55" stroke="#ef4444" stroke-width="2"/>
+                            <text x="8" y="58" font-size="9" font-weight="bold" fill="#ef4444">0°C</text>
+                            <line x1="20" y1="80" x2="25" y2="80" stroke="#1f2937" stroke-width="1.5"/>
+                            <text x="10" y="83" font-size="8" font-weight="bold" fill="#3b82f6">< 0°C</text>
+                        </svg>
+                    </div>
+                    <p class="text-xs text-gray-600 mt-2">Biểu diễn các vùng nhiệt độ đóng băng dưới $0^\circ\text{C}$ (như ở Bắc Cực) xuất hiện dấu "$-$" phía trước.</p>
+                </div>
+
+                <!-- Mô hình 2 -->
+                <div class="border border-gray-200 rounded-xl p-5 bg-white shadow-sm flex flex-col items-center text-center">
+                    <span class="text-xs font-semibold px-2 py-0.5 bg-emerald-50 text-emerald-600 rounded-full mb-3">Mô hình 2</span>
+                    <h3 class="font-bold text-gray-900 mb-2">Tòa Nhà Tầng Hầm</h3>
+                    <div class="w-full h-32 flex justify-center items-center my-2">
+                        <!-- SVG Tòa nhà đa sắc -->
+                        <svg width="100" height="120" viewBox="0 0 100 120">
+                            <!-- Các tầng trên -->
+                            <rect x="25" y="10" width="50" height="25" fill="#3b82f6" rx="2"/>
+                            <text x="45" y="26" fill="white" font-size="10" font-weight="bold">Tầng 2</text>
+                            <rect x="25" y="38" width="50" height="25" fill="#60a5fa" rx="2"/>
+                            <text x="45" y="54" fill="white" font-size="10" font-weight="bold">Tầng 1</text>
+                            <!-- Mặt đất -->
+                            <line x1="5" y1="67" x2="95" y2="67" stroke="#10b981" stroke-width="3"/>
+                            <text x="78" y="64" fill="#10b981" font-size="8" font-weight="bold">Mặt đất (G)</text>
+                            <!-- Tầng hầm -->
+                            <rect x="25" y="72" width="50" height="25" fill="#4b5563" rx="2"/>
+                            <text x="40" y="88" fill="white" font-size="9" font-weight="bold">Hầm B1 (-1)</text>
+                            <rect x="25" y="100" width="50" height="15" fill="#1f2937" rx="2"/>
+                            <text x="40" y="111" fill="white" font-size="8" font-weight="bold">Hầm B2 (-2)</text>
+                        </svg>
+                    </div>
+                    <p class="text-xs text-gray-600 mt-2">Mặt đất tương ứng với mốc số 0. Các tầng hầm nằm dưới lòng đất tương ứng với số nguyên âm $-1, -2$.</p>
+                </div>
+
+                <!-- Mô hình 3 -->
+                <div class="border border-gray-200 rounded-xl p-5 bg-white shadow-sm flex flex-col items-center text-center">
+                    <span class="text-xs font-semibold px-2 py-0.5 bg-purple-50 text-purple-600 rounded-full mb-3">Mô hình 3</span>
+                    <h3 class="font-bold text-gray-900 mb-2">Tài Khoản Ngân Hàng</h3>
+                    <div class="w-full h-32 flex justify-center items-center my-2">
+                        <!-- SVG Tài khoản ngân hàng số dư âm -->
+                        <svg width="120" height="120" viewBox="0 0 120 120">
+                            <!-- Thẻ tín dụng -->
+                            <rect x="10" y="25" width="100" height="65" rx="8" fill="url(#cardGrad)" stroke="#4b5563" stroke-width="1"/>
+                            <circle cx="25" cy="40" r="8" fill="#f59e0b" opacity="0.8"/>
+                            <circle cx="35" cy="40" r="8" fill="#ef4444" opacity="0.8"/>
+                            <text x="20" y="75" fill="#ffffff" font-size="10" font-family="monospace">Số dư: -2.000.000đ</text>
+                            <text x="80" y="42" fill="#e5e7eb" font-size="7" font-weight="bold">VISA</text>
+                            <!-- Định nghĩa màu Gradient -->
+                            <defs>
+                                <linearGradient id="cardGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#1f2937" />
+                                    <stop offset="100%" stop-color="#111827" />
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                    </div>
+                    <p class="text-xs text-gray-600 mt-2">Tài khoản có sẵn 5 triệu mua sắm hết 7 triệu đồng. Số tiền nợ ngân hàng được hiển thị qua số dư âm.</p>
+                </div>
+            </div>
+        </section>
+
+        <hr class="border-gray-200">
+
+        <!-- PHẦN 1: MỨC ĐỘ CƠ BẢN -->
+        <section class="space-y-6">
+            <div class="flex items-center gap-3">
+                <span class="flex items-center justify-center w-8 h-8 rounded-full bg-blue-600 text-white font-bold text-sm">1</span>
+                <h2 class="text-xl font-bold text-gray-950 uppercase tracking-tight">Phần 1: Mức Độ Cơ Bản (Làm quen, Tập hợp $\mathbb{Z}$ và Trục số)</h2>
+            </div>
+            
+            <div class="bg-gray-50 border border-gray-200 rounded-xl p-5 space-y-4">
+                <p class="text-sm font-semibold text-blue-700 uppercase tracking-wider"><i class="fa-solid fa-bullseye mr-1"></i> Mục tiêu bài học:</p>
+                <p class="text-sm text-gray-700 -mt-2">Học sinh biết đọc/viết số nguyên âm chính xác, nắm vững các bộ phận cấu thành tập hợp $\mathbb{Z}$ và thành thạo biểu diễn điểm trên trục số.</p>
+                
+                <h3 class="font-bold text-gray-900 border-b border-gray-200 pb-2 mt-4 text-base">1.1. Làm quen với số nguyên âm và Tập hợp số nguyên ($\mathbb{Z}$)</h3>
+                <ul class="list-disc pl-5 space-y-2 text-sm text-gray-800">
+                    <li><strong>Số nguyên âm:</strong> Các số tự nhiên khác 0 có thêm dấu "$-$" đằng trước như $-1; -2; -3;...$ gọi là các số nguyên âm. Đọc là: <em>âm một, âm hai, âm ba,...</em> (hoặc <em>trừ một, trừ hai, trừ ba,...</em>).</li>
+                    <li><strong>Tập hợp số nguyên ($\mathbb{Z}$):</strong> Bao gồm $3$ bộ phận chính: Số nguyên âm, số 0 và số nguyên dương. Kí hiệu: $$\mathbb{Z} = \{...; -3; -2; -1; 0; 1; 2; 3;...\}$$</li>
+                </ul>
+
+                <div class="bg-red-50 border-l-4 border-red-500 p-4 rounded-r-lg my-3">
+                    <p class="text-xs font-bold text-red-700 uppercase tracking-wider"><i class="fa-solid fa-triangle-exertion mr-1"></i> Lưu ý cực kỳ quan trọng (Ghi bút đỏ):</p>
+                    <ul class="list-disc pl-5 text-xs text-red-950 mt-1 space-y-1">
+                        <li>Số $0$ <strong>không phải</strong> là số nguyên âm, cũng <strong>không phải</strong> là số nguyên dương.</li>
+                        <li>Số nguyên dương chính là các số tự nhiên khác 0 ($\mathbb{N}^*$). Đôi khi người ta viết thêm dấu "$+$" phía trước (Ví dụ: $+6$ đọc là dương sáu).</li>
+                    </ul>
+                </div>
+
+                <h3 class="font-bold text-gray-900 border-b border-gray-200 pb-2 mt-6 text-base">1.2. Biểu diễn số nguyên trên trục số</h3>
+                <ul class="list-disc pl-5 space-y-2 text-sm text-gray-800">
+                    <li><strong>Cấu tạo trục số:</strong> Vẽ một đường thẳng nằm ngang, đánh dấu một điểm $0$ gọi là điểm gốc.</li>
+                    <li><strong>Chiều:</strong> Chiều từ trái sang phải theo hướng mũi tên là <strong>chiều dương</strong>, chiều ngược lại từ phải sang trái là <strong>chiều âm</strong>.</li>
+                    <li><strong>Vị trí:</strong> Các số nguyên dương nằm bên phải số 0, các số nguyên âm nằm bên trái số 0. Khoảng cách giữa các vạch đơn vị phải luôn bằng nhau.</li>
+                </ul>
+
+                <!-- Minh họa Trục số trực quan -->
+                <div class="w-full overflow-x-auto py-4 flex flex-col items-center">
+                    <p class="text-xs font-semibold text-gray-500 mb-2">Hình vẽ minh họa cấu trúc trục số tiêu chuẩn</p>
+                    <svg width="460" height="60" viewBox="0 0 460 60" class="mx-auto">
+                        <!-- Trục thẳng -->
+                        <line x1="20" y1="30" x2="430" y2="30" stroke="#111827" stroke-width="2"/>
+                        <polygon points="430,25 440,30 430,35" fill="#111827"/>
+                        <!-- Chiều âm / dương -->
+                        <text x="425" y="48" font-size="9" font-weight="bold" fill="#10b981">(+) Chiều dương</text>
+                        <text x="20" y="18" font-size="9" font-weight="bold" fill="#ef4444">(-) Chiều âm</text>
+                        <!-- Điểm gốc 0 -->
+                        <circle cx="225" cy="30" r="4" fill="#ef4444"/>
+                        <line x1="225" y1="25" x2="225" y2="35" stroke="#ef4444" stroke-width="2"/>
+                        <text x="222" y="48" font-size="11" font-weight="bold" fill="#ef4444">0</text>
+                        <!-- Các vạch đơn vị -->
+                        <!-- Dương -->
+                        <line x1="275" y1="25" x2="275" y2="35" stroke="#111827" stroke-width="1.5"/>
+                        <text x="272" y="48" font-size="11" fill="#111827">1</text>
+                        <line x1="325" y1="25" x2="325" y2="35" stroke="#111827" stroke-width="1.5"/>
+                        <text x="322" y="48" font-size="11" fill="#111827">2</text>
+                        <line x1="375" y1="25" x2="375" y2="35" stroke="#111827" stroke-width="1.5"/>
+                        <text x="372" y="48" font-size="11" fill="#111827">3</text>
+                        <!-- Âm -->
+                        <line x1="175" y1="25" x2="175" y2="35" stroke="#111827" stroke-width="1.5"/>
+                        <text x="168" y="48" font-size="11" fill="#111827">-1</text>
+                        <line x1="125" y1="25" x2="125" y2="35" stroke="#111827" stroke-width="1.5"/>
+                        <text x="118" y="48" font-size="11" fill="#111827">-2</text>
+                        <line x1="75" y1="25" x2="75" y2="35" stroke="#111827" stroke-width="1.5"/>
+                        <text x="68" y="48" font-size="11" fill="#111827">-3</text>
+                    </svg>
+                </div>
+            </div>
+
+            <!-- Ví dụ Minh họa 1 -->
+            <div class="border border-gray-200 rounded-xl p-5 space-y-3">
+                <p class="text-sm font-bold text-gray-900"><i class="fa-regular fa-lightbulb text-yellow-500 mr-1"></i> 📝 Ví dụ minh họa 1 (Mức độ Cơ bản):</p>
+                <div class="text-sm text-gray-800 space-y-2 pl-2">
+                    <p><strong>a)</strong> Dùng số nguyên thích hợp để diễn đạt lại các tình huống thực tế sau:</p>
+                    <ul class="list-disc pl-5 italic text-gray-600">
+                        <li>"Độ sâu của rãnh Mariana là $10\,971$ mét dưới mực nước biển."</li>
+                        <li>"Ông A đang nợ ngân hàng số tiền là $4$ triệu đồng."</li>
+                    </ul>
+                    <p><strong>b)</strong> Vẽ một trục số và xác định vị trí biểu diễn của các số sau trên trục số đó: $-4; \, 3; \, -1; \, 0$.</p>
+                </div>
+                
+                <!-- Gợi ý lời giải ẩn -->
+                <details class="group bg-gray-50 border border-gray-200 rounded-lg p-3 mt-2 no-print-border">
+                    <summary class="text-sm font-semibold text-blue-600 hover:text-blue-800 cursor-pointer list-none flex items-center gap-1 select-none">
+                        <i class="fa-solid fa-chevron-right transition-transform group-open:rotate-90 text-xs"></i>
+                        <span>Xem gợi ý lời giải chi tiết</span>
+                    </summary>
+                    <div class="text-sm text-gray-800 mt-3 pt-3 border-t border-gray-200 space-y-2 pl-2">
+                        <p><strong>Hướng dẫn giải câu a:</strong></p>
+                        <ul class="list-disc pl-5">
+                            <li>Vì độ sâu nằm dưới mực nước biển (mốc 0) nên ta dùng số nguyên âm: <span class="font-bold text-red-600">$-10\,971 \text{ m}$</span>.</li>
+                            <li>Vì số tiền nợ đại diện cho giá trị tài sản âm nên ta dùng số nguyên âm: <span class="font-bold text-red-600">$-4\,000\,000 \text{ đồng}$</span>.</li>
+                        </ul>
+                        <p class="mt-2"><strong>Hướng dẫn giải câu b:</strong></p>
+                        <p>Học sinh chia đều khoảng cách trên trục số, số gốc là $0$. Điểm $-1$ nằm sát bên trái gốc $0$, điểm $-4$ cách gốc $0$ về bên trái 4 đơn vị. Điểm $3$ cách gốc $0$ về bên phải 3 đơn vị.</p>
+                    </div>
+                </details>
+            </div>
+        </section>
+
+        <hr class="border-gray-200">
+
+        <!-- PHẦN 2: MỨC ĐỘ NÂNG CAO -->
+        <section class="space-y-6">
+            <div class="flex items-center gap-3">
+                <span class="flex items-center justify-center w-8 h-8 rounded-full bg-blue-600 text-white font-bold text-sm">2</span>
+                <h2 class="text-xl font-bold text-gray-950 uppercase tracking-tight">Phần 2: Mức Độ Nâng Cao (Số đối và Quy tắc So sánh)</h2>
+            </div>
+
+            <div class="bg-gray-50 border border-gray-200 rounded-xl p-5 space-y-4">
+                <p class="text-sm font-semibold text-blue-700 uppercase tracking-wider"><i class="fa-solid fa-bullseye mr-1"></i> Mục tiêu bài học:</p>
+                <p class="text-sm text-gray-700 -mt-2">Giúp học sinh bứt phá khỏi lối mòn tư duy tiểu học "số nhìn chữ số càng to thì giá trị càng lớn" khi bắt đầu thực hành trên miền số âm.</p>
+
+                <h3 class="font-bold text-gray-900 border-b border-gray-200 pb-2 mt-4 text-base">2.1. Hai số đối nhau</h3>
+                <ul class="list-disc pl-5 space-y-2 text-sm text-gray-800">
+                    <li><strong>Định nghĩa:</strong> Hai số nguyên trên trục số nằm ở hai phía đối lập so với điểm gốc 0 và cách đều điểm gốc 0 được gọi là <strong>hai số đối nhau</strong>.</li>
+                    <li><em>Ví dụ:</em> Số $3$ và số $-3$ là hai số đối nhau. Ta nói: Số đối của $3$ là $-3$; Số đối của $-3$ là $3$.</li>
+                    <li><strong>Quy tắc tìm nhanh số đối:</strong>
+                        <ul class="list-circle pl-5 mt-1 space-y-1 text-gray-700">
+                            <li>Số đối của một số nguyên dương là một số nguyên âm tương ứng.</li>
+                            <li>Số đối của một số nguyên âm là một số nguyên dương tương ứng.</li>
+                            <li>Số đối đặc biệt của số $0$ là <strong>chính nó ($0$)</strong>.</li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <h3 class="font-bold text-gray-900 border-b border-gray-200 pb-2 mt-6 text-base">2.2. So sánh hai số nguyên</h3>
+                <ul class="list-disc pl-5 space-y-2 text-sm text-gray-800">
+                    <li><strong>Nhìn nhận từ trục số:</strong> Nếu trên trục số nằm ngang, điểm $a$ nằm ở bên trái so với điểm $b$ thì ta khẳng định số $a$ nhỏ hơn số $b$ (Kí hiệu: $a < b$ hoặc $b > a$).</li>
+                    <li><strong>3 Quy tắc so sánh nhanh không cần vẽ trục số:</strong>
+                        <ol class="list-decimal pl-5 mt-1 space-y-1 text-gray-700 font-medium">
+                            <li>Mọi số nguyên dương đều luôn lớn hơn số $0$.</li>
+                            <li>Mọi số nguyên âm đều luôn nhỏ hơn số $0$.</li>
+                            <li>Mọi số nguyên âm đều luôn luôn nhỏ hơn bất kỳ một số nguyên dương nào.</li>
+                        </ol>
+                    </li>
+                    <li class="bg-yellow-50 p-2.5 rounded border-l-4 border-yellow-500 font-medium text-amber-950">
+                        💡 Mẹo so sánh hai số nguyên âm cực nhanh: Đối với hai số nguyên âm, số nào có phần số (phần bỏ đi dấu trừ phía trước) lớn hơn thì số nguyên âm đó lại có giá trị nhỏ hơn. (Ví dụ minh họa: Vì $19 > 1$ nên chắc chắn $-19 < -1$).
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Ví dụ Minh họa 2 -->
+            <div class="border border-gray-200 rounded-xl p-5 space-y-3">
+                <p class="text-sm font-bold text-gray-900"><i class="fa-regular fa-lightbulb text-yellow-500 mr-1"></i> 📝 Ví dụ minh họa 2 (Mức độ Nâng cao):</p>
+                <div class="text-sm text-gray-800 space-y-2 pl-2">
+                    <p><strong>a)</strong> Hãy tìm số đối của từng số nguyên cho sau đây: $-15; \, 2024; \, 0$.</p>
+                    <p><strong>b)</strong> Hãy điền các dấu so sánh thích hợp ($<, >, =$) vào các vị trí trống sau:</p>
+                    <div class="grid grid-cols-3 gap-2 max-w-md my-2 font-mono">
+                        <div>$3 \ \dots \ -10$</div>
+                        <div>$0 \ \dots \ -20$</div>
+                        <div>$-387 \ \dots \ -378$</div>
+                    </div>
+                </div>
+                
+                <!-- Gợi ý lời giải ẩn -->
+                <details class="group bg-gray-50 border border-gray-200 rounded-lg p-3 mt-2 no-print-border">
+                    <summary class="text-sm font-semibold text-blue-600 hover:text-blue-800 cursor-pointer list-none flex items-center gap-1 select-none">
+                        <i class="fa-solid fa-chevron-right transition-transform group-open:rotate-90 text-xs"></i>
+                        <span>Xem gợi ý lời giải chi tiết</span>
+                    </summary>
+                    <div class="text-sm text-gray-800 mt-3 pt-3 border-t border-gray-200 space-y-2 pl-2">
+                        <p><strong>Đáp án câu a:</strong></p>
+                        <ul class="list-disc pl-5">
+                            <li>Số đối của $-15$ là <span class="font-bold text-emerald-600">$15$</span>.</li>
+                            <li>Số đối của $2024$ là <span class="font-bold text-emerald-600">$-2024$</span>.</li>
+                            <li>Số đối của $0$ là <span class="font-bold text-emerald-600">$0$</span>.</li>
+                        </ul>
+                        <p class="mt-2"><strong>Đáp án câu b:</strong></p>
+                        <ul class="list-disc pl-5 font-mono">
+                            <li>$3 > -10$ (Quy tắc: Số nguyên dương luôn lớn hơn mọi số nguyên âm).</li>
+                            <li>$0 > -20$ (Quy tắc: Số 0 luôn lớn hơn mọi số nguyên âm).</li>
+                            <li>$-387 < -378$ (Áp dụng mẹo: Vì phần số $387 > 378$ nên số âm tương ứng đảo dấu lại).</li>
+                        </ul>
+                    </div>
+                </details>
+            </div>
+        </section>
+
+        <hr class="border-gray-200">
+
+        <!-- PHẦN 3: MỨC ĐỘ VẬN DỤNG -->
+        <section class="space-y-6">
+            <div class="flex items-center gap-3">
+                <span class="flex items-center justify-center w-8 h-8 rounded-full bg-blue-600 text-white font-bold text-sm">3</span>
+                <h2 class="text-xl font-bold text-gray-950 uppercase tracking-tight">Phần 3: Mức Độ Vận Dụng (Biểu diễn tập hợp theo điều kiện ràng buộc)</h2>
+            </div>
+
+            <div class="bg-gray-50 border border-gray-200 rounded-xl p-5 space-y-4">
+                <p class="text-sm font-semibold text-blue-700 uppercase tracking-wider"><i class="fa-solid fa-bullseye mr-1"></i> Mục tiêu bài học:</p>
+                <p class="text-sm text-gray-700 -mt-2">Kết hợp nhuần nhuyễn kiến thức nâng cao của Buổi 1 (Kí hiệu tập hợp toán học) và số nguyên âm của Buổi 9 để tìm kiếm và liệt kê chính xác các phần tử nguyên nằm trong một khoảng cho trước.</p>
+
+                <h3 class="font-bold text-gray-900 border-b border-gray-200 pb-2 mt-4 text-base">3.1. Phương pháp tìm các phần tử của tập hợp thỏa mãn điều kiện</h3>
+                <p class="text-sm text-gray-800 leading-relaxed">Giáo viên hướng dẫn học sinh phân tích kỹ tính chất của hai dấu so sánh biên mốc:</p>
+                <ul class="list-disc pl-5 space-y-2 text-sm text-gray-800">
+                    <li>Dấu $<$ hoặc $>$ (nhỏ hơn / lớn hơn hẳn): <strong>Không được phép lấy</strong> giá trị số nằm tại điểm mốc biên đó.</li>
+                    <li>Dấu $\le$ hoặc $\ge$ (nhỏ hơn hoặc bằng / lớn hơn hoặc bằng): <strong>Được phép lấy luôn</strong> giá trị số tại điểm mốc biên.</li>
+                    <li><strong>Phương pháp làm bài vạn năng:</strong> Học sinh tự tưởng tượng (hoặc phác thảo nhanh ra nháp) một trục số nằm ngang, khoanh vùng xác định mốc bắt đầu và mốc kết thúc, sau đó "nhặt" tuần tự tất cả các số nguyên thô nằm trọn giữa chúng theo đúng chiều tăng dần.</li>
+                </ul>
+            </div>
+
+            <!-- Ví dụ Minh họa 3 -->
+            <div class="border border-gray-200 rounded-xl p-5 space-y-3">
+                <p class="text-sm font-bold text-gray-900"><i class="fa-regular fa-lightbulb text-yellow-500 mr-1"></i> 📝 Ví dụ minh họa 3 (Mức độ Vận dụng - Hoạt động thi đấu nhóm):</p>
+                <div class="text-sm text-gray-800 space-y-2 pl-2">
+                    <p>Cho tập hợp số nguyên $A$ được xác định bởi công thức sau: $$A = \{x \in \mathbb{Z} \mid -4 \le x < 2\}$$</p>
+                    <p><strong>a)</strong> Hãy viết tập hợp $A$ bằng phương pháp liệt kê toàn bộ các phần tử vốn có.</p>
+                    <p><strong>b)</strong> Sắp xếp toàn bộ các phần tử thuộc tập hợp $A$ theo thứ tự giảm dần từ lớn đến bé.</p>
+                    <p><strong>c)</strong> Hãy tìm ra phần tử có giá trị lớn nhất và phần tử có giá trị nhỏ nhất trong tập hợp $A$, sau đó tìm tiếp số đối của hai phần tử vừa tìm được đó.</p>
+                </div>
+                
+                <!-- Gợi ý lời giải ẩn -->
+                <details class="group bg-gray-50 border border-gray-200 rounded-lg p-3 mt-2 no-print-border">
+                    <summary class="text-sm font-semibold text-blue-600 hover:text-blue-800 cursor-pointer list-none flex items-center gap-1 select-none">
+                        <i class="fa-solid fa-chevron-right transition-transform group-open:rotate-90 text-xs"></i>
+                        <span>Xem gợi ý lời giải chi tiết</span>
+                    </summary>
+                    <div class="text-sm text-gray-800 mt-3 pt-3 border-t border-gray-200 space-y-3 pl-2">
+                        <p><strong>Lời giải câu a:</strong> Analysing mốc biên: Tại mốc $-4$ có dấu $\le$ nên ta giữ lại phần tử $-4$. Tại biên mốc số $2$ chỉ có dấu $<$ nên ta loại bỏ phần tử số $2$. Vậy tập hợp liệt kê đầy đủ là: 
+                        <span class="font-bold text-blue-700">$$A = \{-4; -3; -2; -1; 0; 1\}$$</span></p>
+                        
+                        <p><strong>Lời giải câu b:</strong> Đảo chiều chuỗi số tăng dần thành chuỗi số giảm dần: 
+                        <span class="font-bold text-blue-700">$1; \, 0; \, -1; \, -2; \, -3; \, -4$</span>.</p>
+                        
+                        <p><strong>Lời giải câu c:</strong> Quan sát tập hợp $A$:
+                            <ul class="list-disc pl-5 mt-1 space-y-1">
+                                <li>Phần tử lớn nhất là <span class="font-bold text-emerald-600">$1$</span> $\rightarrow$ Số đối của nó là <span class="font-bold text-red-600">$-1$</span>.</li>
+                                <li>Phần tử nhỏ nhất là <span class="font-bold text-emerald-600">$-4$</span> $\rightarrow$ Số đối của nó là <span class="font-bold text-red-600">$4$</span>.</li>
+                            </ul>
+                        </p>
+                    </div>
+                </details>
+            </div>
+
+            <!-- Hoạt động tương tác bổ sung -->
+            <div class="p-4 bg-blue-50 rounded-xl border border-blue-100 flex items-start gap-3">
+                <i class="fa-solid fa-people-group text-blue-600 text-lg mt-0.5"></i>
+                <div>
+                    <h4 class="text-sm font-bold text-blue-900">💡 Hoạt động tương tác lớp học (Nhóm 4 học sinh):</h4>
+                    <p class="text-xs text-blue-950 mt-1 leading-relaxed">Giáo viên phát cho 4 em học sinh 4 bảng con. Giáo viên đọc thật nhanh các cặp số nguyên ngẫu nhiên (ví dụ: $-99$ và $-100$). Ai phân tích dấu và đặt dấu "$<$" hoặc "$>$" lên bảng con giơ lên nhanh và đúng nhất sẽ được tính 1 điểm cộng thi đua. Hoạt động này kích thích tối đa phản xạ phân định độ lớn miền số âm cực kỳ tốt.</p>
+                </div>
+            </div>
+        </section>
+
+        <hr class="border-gray-200">
+
+        <!-- HỆ THỐNG KIỂM TRA ĐÁNH GIÁ (Gửi điểm về Apps Script) -->
+        <section id="quiz-section" class="space-y-6 print:hidden">
+            <div class="border-l-4 border-emerald-500 pl-4">
+                <h2 class="text-xl font-bold text-gray-950 uppercase tracking-tight">📝 Bài kiểm tra nhanh năng lực tại lớp</h2>
+                <p class="text-gray-600 text-sm mt-1">Học sinh hoàn thành biểu mẫu bên dưới để nộp điểm trực tiếp về hệ thống theo dõi của Thầy Tuấn.</p>
+            </div>
+
+            <div class="border border-gray-200 rounded-xl p-6 bg-white space-y-6">
+                <!-- Thông tin học sinh -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Họ và tên học sinh <span class="text-red-500">*</span></label>
+                        <input type="text" id="student-name" placeholder="Nhập đầy đủ họ và tên..." class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Mã đề / Buổi học</label>
+                        <input type="text" id="exam-id" value="toan6-buoi09" readonly class="w-full border border-gray-200 bg-gray-50 rounded-lg px-3 py-2 text-sm font-mono text-gray-500 cursor-not-allowed">
+                    </div>
+                </div>
+
+                <hr class="border-gray-100">
+
+                <!-- Câu hỏi trắc nghiệm -->
+                <div class="space-y-4">
+                    <!-- Câu 1 -->
+                    <div class="quiz-box" data-correct="A">
+                        <p class="text-sm font-medium text-gray-900"><strong>Câu 1:</strong> Trong các khẳng định sau về số 0, khẳng định nào sau đây là hoàn toàn đúng?</p>
+                        <div class="grid grid-cols-1 gap-2 mt-2 pl-2">
+                            <label class="flex items-center gap-2 text-sm text-gray-700 cursor-pointer"><input type="radio" name="q1" value="A" class="form-radio text-blue-600"> A. Số 0 không là số nguyên âm và cũng không là số nguyên dương.</label>
+                            <label class="flex items-center gap-2 text-sm text-gray-700 cursor-pointer"><input type="radio" name="q1" value="B" class="form-radio text-blue-600"> B. Số 0 là số nguyên dương nhỏ nhất.</label>
+                            <label class="flex items-center gap-2 text-sm text-gray-700 cursor-pointer"><input type="radio" name="q1" value="C" class="form-radio text-blue-600"> C. Số 0 là số nguyên âm lớn nhất.</label>
+                            <label class="flex items-center gap-2 text-sm text-gray-700 cursor-pointer"><input type="radio" name="q1" value="D" class="form-radio text-blue-600"> D. Số 0 thuộc tập hợp số tự nhiên khác không $\mathbb{N}^*$.</label>
+                        </div>
+                    </div>
+
+                    <!-- Câu 2 -->
+                    <div class="quiz-box" data-correct="C">
+                        <p class="text-sm font-medium text-gray-900"><strong>Câu 2:</strong> Tìm giá trị số đối của số nguyên sau: $-(-25)$?</p>
+                        <div class="grid grid-cols-1 gap-2 mt-2 pl-2">
+                            <label class="flex items-center gap-2 text-sm text-gray-700 cursor-pointer"><input type="radio" name="q2" value="A" class="form-radio text-blue-600"> A. $25$</label>
+                            <label class="flex items-center gap-2 text-sm text-gray-700 cursor-pointer"><input type="radio" name="q2" value="B" class="form-radio text-blue-600"> B. $0$</label>
+                            <label class="flex items-center gap-2 text-sm text-gray-700 cursor-pointer"><input type="radio" name="q2" value="C" class="form-radio text-blue-600"> C. $-25$</label>
+                            <label class="flex items-center gap-2 text-sm text-gray-700 cursor-pointer"><input type="radio" name="q2" value="D" class="form-radio text-blue-600"> D. Không tồn tại số đối.</label>
+                        </div>
+                    </div>
+
+                    <!-- Câu 3 -->
+                    <div class="quiz-box" data-correct="B">
+                        <p class="text-sm font-medium text-gray-900"><strong>Câu 3:</strong> Sắp xếp các số nguyên sau theo thứ tự tăng dần từ bé đến lớn: $2; \, -5; \, 0; \, -1$?</p>
+                        <div class="grid grid-cols-1 gap-2 mt-2 pl-2">
+                            <label class="flex items-center gap-2 text-sm text-gray-700 cursor-pointer"><input type="radio" name="q3" value="A" class="form-radio text-blue-600"> A. $-1; \, -5; \, 0; \, 2$</label>
+                            <label class="flex items-center gap-2 text-sm text-gray-700 cursor-pointer"><input type="radio" name="q3" value="B" class="form-radio text-blue-600"> B. $-5; \, -1; \, 0; \, 2$</label>
+                            <label class="flex items-center gap-2 text-sm text-gray-700 cursor-pointer"><input type="radio" name="q3" value="C" class="form-radio text-blue-600"> C. $0; \, -1; \, 2; \, -5$</label>
+                            <label class="flex items-center gap-2 text-sm text-gray-700 cursor-pointer"><input type="radio" name="q3" value="D" class="form-radio text-blue-600"> D. $2; \, 0; \, -1; \, -5$</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Nút nộp bài -->
+                <div class="pt-2">
+                    <button id="submit-quiz-btn" onclick="submitQuiz()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-2.5 px-4 rounded-lg shadow transition-all duration-150 flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-paper-plane"></i> Nộp kết quả bài làm về hệ thống
+                    </button>
+                    <p id="quiz-msg" class="text-center text-sm font-medium mt-3 hidden"></p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-gray-200 py-6 text-center text-xs text-gray-600 bg-gray-50 mt-12 print:bg-white print:border-t-2">
+        <div class="max-w-4xl mx-auto px-4">
+            <p class="font-semibold text-gray-800 text-sm">@ Bản quyền thuộc ThS. Đinh Quốc Tuấn - Mục đích phi lợi nhuận - Vì giáo dục.</p>
+            <p class="mt-1 text-gray-400">Tài liệu học thuật số hóa nội bộ lớp học chất lượng cao.</p>
+        </div>
+    </footer>
+
+    <!-- Nút In Tài Liệu (Yêu cầu giữ nguyên logic cấu trúc) -->
+    <button id="btn-print-doc" onclick="safePrint()" class="fixed bottom-5 right-5 bg-gray-900 text-white px-4 py-2 rounded-lg shadow-lg hover:bg-gray-700 print:hidden z-50">
+        <i class="fas fa-print mr-2"></i> In Tài Liệu
+    </button>
+
+    <script>
+        // Log thời gian làm bài của học sinh
+        const startTime = new Date();
+
+        function safePrint() {
+            const printBtn = document.getElementById('btn-print-doc');
+            printBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Đang chuẩn bị...';
+            
+            // Đảm bảo MathJax đã render xong mọi công thức trước khi gọi hộp thoại in
+            if (window.MathJax && window.MathJax.typesetPromise) {
+                MathJax.typesetPromise().then(() => {
+                    printBtn.innerHTML = '<i class="fas fa-print mr-2"></i> In Tài Liệu';
+                    window.print();
+                });
+            } else {
+                // Fallback nếu không có công thức toán
+                setTimeout(() => {
+                    printBtn.innerHTML = '<i class="fas fa-print mr-2"></i> In Tài Liệu';
+                    window.print();
+                }, 500); 
+            }
+        }
+
+        function submitQuiz() {
+            const nameInput = document.getElementById('student-name').value.trim();
+            const examId = document.getElementById('exam-id').value;
+            const msgEl = document.getElementById('quiz-msg');
+            const submitBtn = document.getElementById('submit-quiz-btn');
+
+            if (!nameInput) {
+                alert('Vui lòng điền đầy đủ họ và tên trước khi nộp bài!');
+                return;
+            }
+
+            // Tính toán thời gian làm bài
+            const endTime = new Date();
+            const diffMs = endTime - startTime;
+            const diffMins = Math.floor(diffMs / 60000);
+            const diffSecs = Math.round((diffMs % 60000) / 1000);
+            const timeStr = `${diffMins} phút ${diffSecs} giây`;
+
+            // Kiểm tra tính toán đáp án đúng/sai
+            let score = 0;
+            let wrongDetail = [];
+            const quizBoxes = document.querySelectorAll('.quiz-box');
+
+            quizBoxes.forEach((box, index) => {
+                const questionNum = index + 1;
+                const correctAnswer = box.getAttribute('data-correct');
+                const selectedRadio = box.querySelector(`input[name="q${questionNum}"]:checked`);
+                
+                if (selectedRadio) {
+                    if (selectedRadio.value === correctAnswer) {
+                        score += 10 / quizBoxes.length; // Thang điểm 10 chia đều
+                    } else {
+                        wrongDetail.push(`Câu ${questionNum} (Chọn: ${selectedRadio.value}, Đúng: ${correctAnswer})`);
+                    }
+                } else {
+                    wrongDetail.push(`Câu ${questionNum} (Không chọn, Đúng: ${correctAnswer})`);
+                }
+            });
+
+            score = Math.round(score * 100) / 100; // Làm tròn 2 chữ số thập phân
+            const wrongDetailStr = wrongDetail.length > 0 ? wrongDetail.join('; ') : 'Không có câu sai';
+
+            // Cấu trúc JSON Payload tương thích với cấu trúc của Google Apps Script nhận dữ liệu qua doPost
+            const payload = {
+                hoTen: nameInput,
+                maDe: examId,
+                diem: score,
+                thoiGian: timeStr,
+                cauSai: wrongDetailStr
+            };
+
+            // Vô hiệu hóa nút bấm tránh spam dữ liệu trùng lặp
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Hệ thống đang truyền dữ liệu...';
+
+            const appScriptUrl = "https://script.google.com/macros/s/AKfycbzY7b7h4OwvhXuK5Vs6hl-aD88BPnAiAKbU5lfJobby0D4nzbIJVKT4n0AKCpAGoK0nZA/exec";
+
+            // Gửi dữ liệu qua fetch API phương thức POST (sử dụng mode no-cors cho endpoint Apps Script dạng Web App)
+            fetch(appScriptUrl, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(payload)
+            })
+            .then(() => {
+                msgEl.className = "text-center text-sm font-semibold mt-3 text-emerald-600";
+                msgEl.innerHTML = `<i class="fa-solid fa-circle-check mr-1"></i> Nộp bài thành công! Số điểm của bạn là: ${score}/10 điểm. Kết quả đã được lưu trữ thành công.`;
+                submitBtn.innerHTML = '<i class="fa-solid fa-check-double"></i> Đã gửi điểm số thành công';
+                submitBtn.className = "w-full bg-gray-400 text-white font-semibold py-2.5 px-4 rounded-lg cursor-not-allowed";
+            })
+            .catch(error => {
+                console.error('Lỗi kết nối:', error);
+                msgEl.className = "text-center text-sm font-semibold mt-3 text-red-600";
+                msgEl.innerHTML = `<i class="fa-solid fa-circle-xmark mr-1"></i> Lỗi hệ thống mạng: Không thể đẩy điểm số về Google Sheets.`;
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Thử lại nộp kết quả';
+            });
+        }
+    </script>
+    <button id="btn-print-doc" onclick="safePrint()" class="fixed bottom-5 right-5 bg-gray-900 text-white px-4 py-2 rounded-lg shadow-lg hover:bg-gray-700 print:hidden z-50">
+      <i class="fas fa-print mr-2"></i> In Tài Liệu
+    </button>
+
+
+    <script>
+        function safePrint() {
+            const printBtn = document.getElementById('btn-print-doc');
+            printBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Đang chuẩn bị...';
+            
+            // Đảm bảo MathJax đã render xong mọi công thức trước khi gọi hộp thoại in
+            if (window.MathJax && window.MathJax.typesetPromise) {
+                MathJax.typesetPromise().then(() => {
+                    printBtn.innerHTML = '<i class="fas fa-print mr-2"></i> In Tài Liệu';
+                    window.print();
+                });
+            } else {
+                // Fallback nếu không có công thức toán
+                setTimeout(() => window.print(), 500); 
+            }
+        }
+    </script>
+
+</body>
+</html>
