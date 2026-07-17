@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buổi 13: Mở Rộng Khái Niệm Phân Số & Tính Chất Cơ Bản</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- MathJax Configuration -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                processEscapes: true
+            },
+            svg: {
+                fontCache: 'global'
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #ffffff;
+            color: #111827;
+        }
+        @media print {
+            .print\:hidden {
+                display: none !important;
+            }
+            body {
+                color: #000000;
+                background-color: #ffffff;
+            }
+            .no-print-border {
+                border: none !important;
+                box-shadow: none !important;
+            }
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between antialiased selection:bg-gray-200">
+
+    <!-- Header -->
+    <header class="border-b border-gray-200 py-6 px-4 bg-white sticky top-0 z-40 print:relative print:border-b-2">
+        <div class="max-w-4xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+            <div>
+                <span class="text-xs font-bold uppercase tracking-widest text-indigo-600 bg-indigo-50 px-2.5 py-1 rounded">Chương trình Toán học Lớp 6</span>
+                <h1 class="text-2xl md:text-3xl font-extrabold text-gray-950 mt-2">Buổi 13: Khái Niệm Phân Số & Tính Chất Bằng Nhau</h1>
+            </div>
+            <div class="text-right md:text-right text-sm text-gray-500 print:text-left">
+                <p><i class="fa-regular fa-clock mr-1"></i> Thời lượng lý thuyết: 40 phút</p>
+                <p class="font-medium text-gray-800 mt-1">Người hướng dẫn: ThS. Đinh Quốc Tuấn</p>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow max-w-4xl w-full mx-auto px-4 py-8 space-y-12">
+        
+        <!-- LỜI MỞ ĐẦU -->
+        <div class="p-4 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 leading-relaxed">
+            <strong>Chào bạn!</strong> Bước sang Buổi 13, chúng ta sẽ đưa các em học sinh bước vào chương Phân số của cấp THCS. Điểm mấu chốt của buổi này là giúp các em "phá vỡ" giới hạn của phân số ở Tiểu học (chỉ dùng số tự nhiên) để làm quen với phân số chứa số nguyên âm, đồng thời sử dụng các công cụ mạnh như ƯCLN để rút gọn phân số. Dưới đây là nội dung lý thuyết chi tiết 40 phút, được thiết kế theo 3 mức độ cho nhóm 4 học sinh, đi kèm gợi ý mô hình trực quan sinh động.
+        </div>
+
+        <!-- PHẦN KHỞI ĐỘNG & MÔ HÌNH TRỰC QUAN -->
+        <section class="space-y-6">
+            <div class="border-l-4 border-indigo-500 pl-4">
+                <h2 class="text-xl font-bold text-gray-950 uppercase tracking-tight">🎨 Gợi ý mô hình và hình ảnh trực quan (Mở đầu buổi học)</h2>
+                <p class="text-gray-600 text-sm mt-1">Sử dụng hình ảnh trực quan hóa để giúp học sinh tiếp cận khái niệm phân số âm và quy tắc tích chéo một cách tự nhiên.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
+                <!-- Mô hình 1 -->
+                <div class="border border-gray-200 rounded-xl p-5 bg-white shadow-sm flex flex-col items-center text-center">
+                    <span class="text-xs font-semibold px-2 py-0.5 bg-blue-50 text-blue-600 rounded-full mb-3">Mô hình 1</span>
+                    <h3 class="font-bold text-gray-900 mb-2">Thước Đo Chia Phần (Nhiệt Kế Âm)</h3>
+                    <div class="w-full h-32 flex justify-center items-center my-2">
+                        <!-- SVG Thước đo chia phần -->
+                        <svg width="260" height="100" viewBox="0 0 260 100">
+                            <!-- Trục thước đo -->
+                            <rect x="20" y="40" width="220" height="20" rx="4" fill="#f3f4f6" stroke="#9ca3af" stroke-width="1.5"/>
+                            
+                            <!-- Vạch mốc chính -->
+                            <line x1="220" y1="35" x2="220" y2="65" stroke="#111827" stroke-width="2"/>
+                            <text x="216" y="25" font-size="11" font-weight="bold" fill="#111827">0°C</text>
+                            
+                            <line x1="20" y1="35" x2="20" y2="65" stroke="#111827" stroke-width="2"/>
+                            <text x="13" y="25" font-size="11" font-weight="bold" fill="#ef4444">-1°C</text>
+                            
+                            <!-- Các vạch nhỏ chia 4 phần -->
+                            <line x1="70" y1="40" x2="70" y2="60" stroke="#4b5563" stroke-width="1.5"/>
+                            <line x1="120" y1="40" x2="120" y2="60" stroke="#ef4444" stroke-width="2"/>
+                            <line x1="170" y1="40" x2="170" y2="60" stroke="#4b5563" stroke-width="1.5"/>
+                            
+                            <!-- Tô màu phần hiển thị âm 3/4 -->
+                            <rect x="70" y="41" width="150" height="18" fill="#3b82f6" opacity="0.3"/>
+                            
+                            <!-- Chỉ hướng mũi tên -->
+                            <path d="M 120 72 L 120 62" fill="none" stroke="#ef4444" stroke-width="1.5" marker-end="url(#arrow)"/>
+                            <text x="105" y="88" font-size="12" font-weight="bold" fill="#ef4444">$\frac{-3}{4}$°C</text>
+                        </svg>
+                    </div>
+                    <p class="text-xs text-gray-600 mt-2 leading-relaxed">Đoạn từ $0^\circ\text{C}$ đến $-1^\circ\text{C}$ được chia làm 4 phần bằng nhau. Nếu nhiệt độ ở vạch thứ 3 dưới số 0, ta biểu diễn là $\frac{-3}{4}$ độ. Mô hình giúp các em thấy rõ giá trị âm thực tế thay vì chỉ dùng hình học chia bánh.</p>
+                </div>
+
+                <!-- Mô hình 2 -->
+                <div class="border border-gray-200 rounded-xl p-5 bg-white shadow-sm flex flex-col items-center text-center">
+                    <span class="text-xs font-semibold px-2 py-0.5 bg-emerald-50 text-emerald-600 rounded-full mb-3">Mô hình 2</span>
+                    <h3 class="font-bold text-gray-900 mb-2">Chiếc Cân Thăng Bằng (Tích Chéo)</h3>
+                    <div class="w-full h-32 flex justify-center items-center my-2">
+                        <!-- SVG Cân thăng bằng tích chéo -->
+                        <svg width="240" height="100" viewBox="0 0 240 100">
+                            <!-- Trục cân -->
+                            <line x1="120" y1="20" x2="120" y2="80" stroke="#4b5563" stroke-width="3"/>
+                            <polygon points="105,80 135,80 120,90" fill="#4b5563"/>
+                            <line x1="40" y1="40" x2="200" y2="40" stroke="#10b981" stroke-width="4"/>
+                            
+                            <!-- Đĩa cân trái -->
+                            <line x1="40" y1="40" x2="40" y2="65" stroke="#4b5563" stroke-width="1"/>
+                            <rect x="15" y="65" width="50" height="20" rx="3" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.5"/>
+                            <text x="32" y="79" fill="#1e40af" font-size="12" font-weight="bold">$\frac{a}{b}$</text>
+                            
+                            <!-- Đĩa cân phải -->
+                            <line x1="200" y1="40" x2="200" y2="65" stroke="#4b5563" stroke-width="1"/>
+                            <rect x="175" y="65" width="50" height="20" rx="3" fill="#fef2f2" stroke="#ef4444" stroke-width="1.5"/>
+                            <text x="192" y="79" fill="#991b1b" font-size="12" font-weight="bold">$\frac{c}{d}$</text>
+                            
+                            <!-- Ký hiệu nhân chéo X ở tâm -->
+                            <path d="M 95 15 L 145 35 M 95 35 L 145 15" fill="none" stroke="#f59e0b" stroke-width="2"/>
+                            <text x="85" y="28" fill="#f59e0b" font-size="10" font-weight="bold">$a \cdot d = b \cdot c$</text>
+                        </svg>
+                    </div>
+                    <p class="text-xs text-gray-600 mt-2 leading-relaxed">Chiếc cân chỉ thăng bằng (hai phân số bằng nhau) khi tích chéo của chúng bằng nhau ($a \cdot d = b \cdot c$). Giáo viên dùng nét phấn nối chéo tạo thành dấu "X" giúp học sinh dễ ghi nhớ quy tắc.</p>
+                </div>
+            </div>
+        </section>
+
+        <hr class="border-gray-200">
+
+        <!-- PHẦN 1: MỨC ĐỘ CƠ BẢN -->
+        <section class="space-y-6">
+            <div class="flex items-center gap-3">
+                <span class="flex items-center justify-center w-8 h-8 rounded-full bg-blue-600 text-white font-bold text-sm">1</span>
+                <h2 class="text-xl font-bold text-gray-950 uppercase tracking-tight">Phần 1: Mức Độ Cơ Bản (Mở rộng khái niệm và Phân số bằng nhau)</h2>
+            </div>
+            
+            <div class="bg-gray-50 border border-gray-200 rounded-xl p-5 space-y-4">
+                <p class="text-sm font-semibold text-blue-700 uppercase tracking-wider"><i class="fa-solid fa-bullseye mr-1"></i> Mục tiêu bài học:</p>
+                <p class="text-sm text-gray-700 -mt-2">Học sinh nhận biết chính xác cấu trúc phân số trên miền số nguyên, biết cách kiểm tra hai phân số có bằng nhau hay không bằng quy tắc nhân chéo.</p>
+                
+                <h3 class="font-bold text-gray-900 border-b border-gray-200 pb-2 mt-4 text-base">1.1. Mở rộng khái niệm phân số</h3>
+                <ul class="list-disc pl-5 space-y-2 text-sm text-gray-800">
+                    <li><strong>Định nghĩa:</strong> Người ta gọi biểu thức dạng $\frac{a}{b}$, trong đó $a, b \in \mathbb{Z}, b \neq 0$ là một phân số. Trong đó, $a$ là tử số (tử) và $b$ là mẫu số (mẫu) của phân số đó.</li>
+                    <li><strong>Sự khác biệt cốt lõi:</strong> Ở Tiểu học, tử và mẫu bắt buộc phải là số tự nhiên. Lên lớp 6, tử và mẫu đã được mở rộng, có thể nhận các giá trị là số nguyên âm.</li>
+                    <li><em>Ví dụ:</em> $\frac{-3}{4}; \, \frac{5}{-9}; \, \frac{-2}{-7}$ đều là các phân số hợp lệ. Đọc lần lượt là: <em>"âm ba phần tư", "năm phần âm chín", "âm hai phần âm bảy".</em></li>
+                </ul>
+
+                <h3 class="font-bold text-gray-900 border-b border-gray-200 pb-2 mt-6 text-base">1.2. Hai phân số bằng nhau</h3>
+                <ul class="list-disc pl-5 space-y-2 text-sm text-gray-800">
+                    <li><strong>Quy tắc nhân chéo:</strong> Hai phân số $\frac{a}{b}$ và $\frac{c}{d}$ được gọi là bằng nhau nếu thoả mãn đẳng thức: $$a \cdot d = b \cdot c$$</li>
+                    <li class="text-amber-900 font-medium bg-amber-50 p-2.5 rounded border-l-4 border-amber-500">
+                        ⚠️ Lưu ý sư phạm: Giáo viên nhấn mạnh nếu tích chéo $a \cdot d \neq b \cdot c$ thì hai phân số đó lập tức không bằng nhau.
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Ví dụ Minh họa 1 -->
+            <div class="border border-gray-200 rounded-xl p-5 space-y-3">
+                <p class="text-sm font-bold text-gray-900"><i class="fa-regular fa-lightbulb text-yellow-500 mr-1"></i> 📝 Ví dụ minh họa 1 (Mức độ Cơ bản):</p>
+                <div class="text-sm text-gray-800 space-y-2 pl-2">
+                    <p><strong>a)</strong> Trong các cách viết sau, cách viết nào cho ta một phân số hợp lệ: $\frac{2,5}{-4} ; \, \frac{0}{7} ; \, \frac{3}{-8} ; \, \frac{4}{0}$ ?</p>
+                    <p><strong>b)</strong> Các cặp phân số sau đây có bằng nhau hay không? $\frac{-3}{4}$ và $\frac{6}{-8}$.</p>
+                </div>
+                
+                <!-- Gợi ý lời giải ẩn -->
+                <details class="group bg-gray-50 border border-gray-200 rounded-lg p-3 mt-2 no-print-border">
+                    <summary class="text-sm font-semibold text-blue-600 hover:text-blue-800 cursor-pointer list-none flex items-center gap-1 select-none">
+                        <i class="fa-solid fa-chevron-right transition-transform group-open:rotate-90 text-xs"></i>
+                        <span>Xem gợi ý lời giải chi tiết</span>
+                    </summary>
+                    <div class="text-sm text-gray-800 mt-3 pt-3 border-t border-gray-200 space-y-2 pl-2">
+                        <p><strong>Hướng dẫn giải câu a:</strong></p>
+                        <ul class="list-disc pl-5">
+                            <li>$\frac{0}{7}$ và $\frac{3}{-8}$ là phân số vì cả tử và mẫu đều là số nguyên, đồng thời mẫu số đều khác 0.</li>
+                            <li>$\frac{2,5}{-4}$ không phải phân số vì tử số là số thập phân. $\frac{4}{0}$ không phải phân số vì mẫu số bằng 0.</li>
+                        </ul>
+                        <p class="mt-2"><strong>Hướng dẫn giải câu b:</strong></p>
+                        <p>Xét tích chéo của hai phân số: $(-3) \cdot (-8) = 24$ và $4 \cdot 6 = 24$.</p>
+                        <p>Vì tích chéo bằng nhau ($24 = 24$), nên ta kết luận: <span class="font-bold text-emerald-600">$\frac{-3}{4} = \frac{6}{-8}$</span>.</p>
+                    </div>
+                </details>
+            </div>
+        </section>
+
+        <hr class="border-gray-200">
+
+        <!-- PHẦN 2: MỨC ĐỘ NÂNG CAO -->
+        <section class="space-y-6">
+            <div class="flex items-center gap-3">
+                <span class="flex items-center justify-center w-8 h-8 rounded-full bg-blue-600 text-white font-bold text-sm">2</span>
+                <h2 class="text-xl font-bold text-gray-950 uppercase tracking-tight">Phần 2: Mức Độ Nâng Cao (Tính chất cơ bản và Rút gọn phân số)</h2>
+            </div>
+
+            <div class="bg-gray-50 border border-gray-200 rounded-xl p-5 space-y-4">
+                <p class="text-sm font-semibold text-blue-700 uppercase tracking-wider"><i class="fa-solid fa-bullseye mr-1"></i> Mục tiêu bài học:</p>
+                <p class="text-sm text-gray-700 -mt-2">Học sinh biết dùng tính chất cơ bản để khử dấu âm ở mẫu số và thành thạo kỹ thuật dùng ƯCLN để rút gọn phân số về tối giản chỉ qua 1 lần chia.</p>
+
+                <h3 class="font-bold text-gray-900 border-b border-gray-200 pb-2 mt-4 text-base">2.1. Hai tính chất cơ bản của phân số</h3>
+                <ul class="list-disc pl-5 space-y-3 text-sm text-gray-800">
+                    <li><strong>Tính chất 1 (Phép nhân):</strong> Nếu ta nhân cả tử và mẫu của một phân số với cùng một số nguyên khác 0, ta được một phân số mới bằng phân số đã cho:
+                        <br><span class="font-mono text-xs text-blue-700 bg-blue-50 px-1.5 py-0.5 rounded">$$\frac{a}{b} = \frac{a \cdot m}{b \cdot m} \quad (m \in \mathbb{Z}, \, m \neq 0)$$</span>
+                    </li>
+                    <li><strong>Tính chất 2 (Phép chia):</strong> Nếu ta chia cả tử và mẫu của một phân số cho cùng một ước chung của chúng, ta được một phân số mới bằng phân số đã cho:
+                        <br><span class="font-mono text-xs text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded">$$\frac{a}{b} = \frac{a : n}{b : n} \quad (n \in \text{ƯC}(a, b))$$</span>
+                    </li>
+                </ul>
+
+                <h3 class="font-bold text-gray-900 border-b border-gray-200 pb-2 mt-6 text-base">2.2. Xử lý mẫu số âm (Quy tắc "làm đẹp" phân số)</h3>
+                <p class="text-sm text-gray-800 leading-relaxed">Một phân số có mẫu số âm luôn có thể đổi lại thành một phân số bằng nó có mẫu số dương bằng cách nhân cả tử và mẫu với $-1$ (hoặc chuyển trực tiếp dấu "$-$" từ dưới mẫu lên trên tử).</p>
+                <p class="text-sm font-mono text-gray-600 pl-5">Ví dụ: $\frac{3}{-4} = \frac{-3}{4}$ ; $\quad \frac{-5}{-6} = \frac{5}{6}$.</p>
+
+                <h3 class="font-bold text-gray-900 border-b border-gray-200 pb-2 mt-6 text-base">2.3. Rút gọn về phân số tối giản</h3>
+                <p class="text-sm text-gray-800">Phân số tối giản là phân số mà cả tử và mẫu đều không có ước chung nào khác ngoài $1$ và $-1$.</p>
+                <p class="text-sm bg-yellow-50 p-3 rounded border-l-4 border-yellow-500 font-medium text-amber-950">
+                    💡 Kỹ thuật rút gọn siêu tốc: Thay vì chia thử nhiều lần như ở Tiểu học, học sinh hãy tìm Ước chung lớn nhất ($\text{ƯCLN}$) của tử và mẫu (bỏ qua dấu âm), rồi chia cả tử và mẫu cho $\text{ƯCLN}$ đó. Phân số tối giản thu được nên viết dưới dạng mẫu số dương.
+                </p>
+            </div>
+
+            <!-- Ví dụ Minh họa 2 -->
+            <div class="border border-gray-200 rounded-xl p-5 space-y-3">
+                <p class="text-sm font-bold text-gray-900"><i class="fa-regular fa-lightbulb text-yellow-500 mr-1"></i> 📝 Ví dụ minh họa 2 (Mức độ Nâng cao):</p>
+                <div class="text-sm text-gray-800 pl-2">
+                    <p>Hãy rút gọn các phân số sau về phân số tối giản: $\frac{18}{-30}$ và $\frac{-12}{-52}$.</p>
+                </div>
+                
+                <!-- Gợi ý lời giải ẩn -->
+                <details class="group bg-gray-50 border border-gray-200 rounded-lg p-3 mt-2 no-print-border">
+                    <summary class="text-sm font-semibold text-blue-600 hover:text-blue-800 cursor-pointer list-none flex items-center gap-1 select-none">
+                        <i class="fa-solid fa-chevron-right transition-transform group-open:rotate-90 text-xs"></i>
+                        <span>Xem gợi ý lời giải chi tiết</span>
+                    </summary>
+                    <div class="text-sm text-gray-800 mt-3 pt-3 border-t border-gray-200 font-mono space-y-3 pl-2">
+                        <div>
+                            <p><strong>Xử lý phân số $\frac{18}{-30}$:</strong></p>
+                            <p>Đưa về mẫu dương thành: $\frac{-18}{30}$. Ta tìm được $\text{ƯCLN}(18, 30) = 6$.</p>
+                            <p>Chia cả tử và mẫu cho $6$: $\frac{-18 : 6}{30 : 6} = \frac{-3}{5}$.</p>
+                        </div>
+                        <div>
+                            <p><strong>Xử lý phân số $\frac{-12}{-52}$:</strong></p>
+                            <p>Đưa về mẫu dương thành: $\frac{12}{52}$. Ta tìm được $\text{ƯCLN}(12, 52) = 4$.</p>
+                            <p>Chia cả tử và mẫu cho $4$: $\frac{12 : 4}{52 : 4} = \frac{3}{13}$.</p>
+                        </div>
+                    </div>
+                </details>
+            </div>
+        </section>
+
+        <hr class="border-gray-200">
+
+        <!-- PHẦN 3: MỨC ĐỘ VẬN DỤNG -->
+        <section class="space-y-6">
+            <div class="flex items-center gap-3">
+                <span class="flex items-center justify-center w-8 h-8 rounded-full bg-blue-600 text-white font-bold text-sm">3</span>
+                <h2 class="text-xl font-bold text-gray-950 uppercase tracking-tight">Phần 3: Mức Độ Vận Dụng (Biểu diễn số nguyên và Bài toán Tìm x)</h2>
+            </div>
+
+            <div class="bg-gray-50 border border-gray-200 rounded-xl p-5 space-y-4">
+                <p class="text-sm font-semibold text-blue-700 uppercase tracking-wider"><i class="fa-solid fa-bullseye mr-1"></i> Mục tiêu bài học:</p>
+                <p class="text-sm text-gray-700 -mt-2">Học sinh liên kết linh hoạt được số nguyên với phân số và vận dụng thành thạo định lý nhân chéo để giải quyết lớp bài toán tìm ẩn số chưa biết.</p>
+
+                <h3 class="font-bold text-gray-900 border-b border-gray-200 pb-2 mt-4 text-base">3.1. Số nguyên cũng là một phân số</h3>
+                <p class="text-sm text-gray-800">Mọi số nguyên $n$ bất kỳ đều có thể xem là một phân số với mẫu số mặc định bằng $1$.</p>
+                <p class="text-sm font-mono text-blue-700 pl-5">$$n = \frac{n}{1}$$</p>
+                <p class="text-xs text-gray-600 italic">Tính chất nền tảng này giúp học sinh thực hiện các phép toán hỗn hợp giữa số nguyên và phân số ở các bài học tiếp theo.</p>
+
+                <h3 class="font-bold text-gray-900 border-b border-gray-200 pb-2 mt-6 text-base">3.2. Dạng toán Tìm x trong đẳng thức phân số bằng nhau</h3>
+                <p class="text-sm text-gray-800">Từ quy tắc nhân chéo: $\frac{a}{b} = \frac{c}{d} \Rightarrow a \cdot d = b \cdot c$.</p>
+                <p class="text-sm text-gray-800">Muốn tìm một thành phần chưa biết (ví dụ tìm giá trị $a$), ta lấy tích của đường chéo đã biết giá trị chia cho số còn lại: $$a = \frac{b \cdot c}{d}$$</p>
+            </div>
+
+            <!-- Ví dụ Minh họa 3 -->
+            <div class="border border-gray-200 rounded-xl p-5 space-y-3">
+                <p class="text-sm font-bold text-gray-900"><i class="fa-regular fa-lightbulb text-yellow-500 mr-1"></i> 📝 Ví dụ minh họa 3 (Vận dụng nâng cao):</p>
+                <div class="text-sm text-gray-800 pl-2">
+                    <p class="font-medium">Tìm các số nguyên $x, y$ sao cho thỏa mãn dãy tỉ số bằng nhau sau: $$\frac{-4}{11} = \frac{x}{22} = \frac{40}{y}$$</p>
+                </div>
+                
+                <!-- Gợi ý lời giải ẩn -->
+                <details class="group bg-gray-50 border border-gray-200 rounded-lg p-3 mt-2 no-print-border">
+                    <summary class="text-sm font-semibold text-blue-600 hover:text-blue-800 cursor-pointer list-none flex items-center gap-1 select-none">
+                        <i class="fa-solid fa-chevron-right transition-transform group-open:rotate-90 text-xs"></i>
+                        <span>Xem gợi ý lời giải chi tiết</span>
+                    </summary>
+                    <div class="text-sm text-gray-800 mt-3 pt-3 border-t border-gray-200 font-mono space-y-3 pl-2">
+                        <div>
+                            <p><strong>1. Tìm giá trị của $x$:</strong> Xét cặp phân số $\frac{-4}{11} = \frac{x}{22}$</p>
+                            <p>Theo quy tắc nhân chéo ta có: $x \cdot 11 = (-4) \cdot 22$</p>
+                            <p>$\Rightarrow 11x = -88 \Rightarrow x = -8$.</p>
+                        </div>
+                        <div>
+                            <p><strong>2. Tìm giá trị của $y$:</strong> Xét cặp phân số $\frac{-4}{11} = \frac;{40}{y}$</p>
+                            <p>Theo quy tắc nhân chéo ta có: $(-4) \cdot y = 11 \cdot 40$</p>
+                            <p>$\Rightarrow -4y = 440 \Rightarrow y = -110$.</p>
+                        </div>
+                        <p class="text-xs text-emerald-700 font-sans font-medium">Kết luận: Vậy các số nguyên cần tìm là $x = -8$ và $y = -110$.</p>
+                    </div>
+                </details>
+            </div>
+
+            <!-- Hoạt động tương tác lớp học -->
+            <div class="p-4 bg-blue-50 border border-blue-200 rounded-xl flex items-start gap-3">
+                <i class="fa-solid fa-gamepad text-blue-600 text-lg mt-0.5"></i>
+                <div>
+                    <h4 class="text-sm font-bold text-blue-900">💡 Gợi ý hoạt động tương tác lớp học "Tìm bạn":</h4>
+                    <p class="text-xs text-blue-950 mt-1 leading-relaxed">Sau phần lý thuyết, giáo viên tổ chức trò chơi kết nối nhanh. Phát cho 4 học sinh các tấm thẻ ghi phân số chưa tối giản (ví dụ: $\frac{6}{-8}$, $\frac{-15}{20}$, $\frac{9}{-12}$, $\frac{-3}{4}$). Yêu cầu các em nhanh chóng tính nhẩm, rút gọn phân số trên tay mình và di chuyển nhanh để nắm tay người bạn có cùng kết quả tối giản. Hoạt động này giúp củng cố phản xạ đổi dấu mẫu âm và rút gọn phân số cực kỳ hào hứng.</p>
+                </div>
+            </div>
+        </section>
+
+        <hr class="border-gray-200">
+
+        <!-- HỆ THỐNG KIỂM TRA ĐÁNH GIÁ (Gửi điểm về Apps Script) -->
+        <section id="quiz-section" class="space-y-6 print:hidden">
+            <div class="border-l-4 border-emerald-500 pl-4">
+                <h2 class="text-xl font-bold text-gray-950 uppercase tracking-tight">📝 Bài kiểm tra nhanh đánh giá năng lực tại lớp</h2>
+                <p class="text-gray-600 text-sm mt-1">Học sinh hoàn thành câu hỏi dưới đây để nộp kết quả trực tiếp về hệ thống theo dõi lưu trữ tự động.</p>
+            </div>
+
+            <div class="border border-gray-200 rounded-xl p-6 bg-white space-y-6">
+                <!-- Thông tin học sinh -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Họ và tên học sinh <span class="text-red-500">*</span></label>
+                        <input type="text" id="student-name" placeholder="Nhập đầy đủ tên học sinh..." class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Mã định danh đề thi</label>
+                        <input type="text" id="exam-id" value="toan6-buoi13" readonly class="w-full border border-gray-200 bg-gray-50 rounded-lg px-3 py-2 text-sm font-mono text-gray-500 cursor-not-allowed">
+                    </div>
+                </div>
+
+                <hr class="border-gray-100">
+
+                <!-- Câu hỏi trắc nghiệm -->
+                <div class="space-y-6">
+                    <!-- Câu 1 -->
+                    <div class="quiz-box space-y-2" data-correct="B">
+                        <p class="text-sm font-semibold text-gray-900">Câu 1: Phân số nào dưới đây là phân số tối giản và có mẫu số dương?</p>
+                        <div class="grid grid-cols-1 gap-2 pl-2">
+                            <label class="flex items-center gap-2 text-sm text-gray-700 cursor-pointer"><input type="radio" name="q1" value="A" class="form-radio text-blue-600"> A. $\frac{4}{-5}$</label>
+                            <label class="flex items-center gap-2 text-sm text-gray-700 cursor-pointer"><input type="radio" name="q1" value="B" class="form-radio text-blue-600"> B. $\frac{-3}{7}$</label>
+                            <label class="flex items-center gap-2 text-sm text-gray-700 cursor-pointer"><input type="radio" name="q1" value="C" class="form-radio text-blue-600"> C. $\frac{6}{8}$</label>
+                            <label class="flex items-center gap-2 text-sm text-gray-700 cursor-pointer"><input type="radio" name="q1" value="D" class="form-radio text-blue-600"> D. $\frac{-2}{-9}$</label>
+                        </div>
+                    </div>
+
+                    <!-- Câu 2 -->
+                    <div class="quiz-box space-y-2" data-correct="D">
+                        <p class="text-sm font-semibold text-gray-900">Câu 2: Dùng tính chất cơ bản, phân số $\frac{24}{-36}$ khi rút gọn hoàn toàn về phân số tối giản sẽ bằng:</p>
+                        <div class="grid grid-cols-1 gap-2 pl-2">
+                            <label class="flex items-center gap-2 text-sm text-gray-700 cursor-pointer"><input type="radio" name="q2" value="A" class="form-radio text-blue-600"> A. $\frac{2}{3}$</label>
+                            <label class="flex items-center gap-2 text-sm text-gray-700 cursor-pointer"><input type="radio" name="q2" value="B" class="form-radio text-blue-600"> B. $\frac{2}{-3}$</label>
+                            <label class="flex items-center gap-2 text-sm text-gray-700 cursor-pointer"><input type="radio" name="q2" value="C" class="form-radio text-blue-600"> C. $\frac{-4}{6}$</label>
+                            <label class="flex items-center gap-2 text-sm text-gray-700 cursor-pointer"><input type="radio" name="q2" value="D" class="form-radio text-blue-600"> D. $\frac{-2}{3}$</label>
+                        </div>
+                    </div>
+
+                    <!-- Câu 3 -->
+                    <div class="quiz-box space-y-2" data-correct="C">
+                        <p class="text-sm font-semibold text-gray-900">Câu 3: Tìm số nguyên $x$ thỏa mãn biểu thức sau: $\frac{x}{6} = \frac{-10}{15}$?</p>
+                        <div class="grid grid-cols-1 gap-2 pl-2">
+                            <label class="flex items-center gap-2 text-sm text-gray-700 cursor-pointer"><input type="radio" name="q3" value="A" class="form-radio text-blue-600"> A. $x = 4$</label>
+                            <label class="flex items-center gap-2 text-sm text-gray-700 cursor-pointer"><input type="radio" name="q3" value="B" class="form-radio text-blue-600"> B. $x = -2$</label>
+                            <label class="flex items-center gap-2 text-sm text-gray-700 cursor-pointer"><input type="radio" name="q3" value="C" class="form-radio text-blue-600"> C. $x = -4$</label>
+                            <label class="flex items-center gap-2 text-sm text-gray-700 cursor-pointer"><input type="radio" name="q3" value="D" class="form-radio text-blue-600"> D. $x = -60$</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Nút nộp bài -->
+                <div class="pt-4">
+                    <button id="submit-quiz-btn" onclick="submitQuiz()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-2.5 px-4 rounded-lg shadow transition-all duration-150 flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-paper-plane"></i> Gửi kết quả chấm điểm về hệ thống
+                    </button>
+                    <p id="quiz-msg" class="text-center text-sm font-medium mt-3 hidden"></p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-gray-200 py-6 text-center text-xs text-gray-600 bg-gray-50 mt-12 print:bg-white print:border-t-2">
+        <div class="max-w-4xl mx-auto px-4">
+            <p class="font-semibold text-gray-800 text-sm">@ Bản quyền thuộc ThS. Đinh Quốc Tuấn - Mục đích phi lợi nhuận - Vì giáo dục.</p>
+            <p class="mt-1 text-gray-400">Tài liệu lý thuyết và thực hành toán học số hóa chất lượng cao.</p>
+        </div>
+    </footer>
+
+    <!-- Nút In Tài Liệu -->
+    <button id="btn-print-doc" onclick="safePrint()" class="fixed bottom-5 right-5 bg-gray-900 text-white px-4 py-2 rounded-lg shadow-lg hover:bg-gray-700 print:hidden z-50">
+        <i class="fas fa-print mr-2"></i> In Tài Liệu
+    </button>
+
+    <script>
+        // Log mốc thời gian làm bài kiểm tra ban đầu của học sinh
+        const startTime = new Date();
+
+        function safePrint() {
+            const printBtn = document.getElementById('btn-print-doc');
+            printBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Đang chuẩn bị...';
+            
+            // Đảm bảo MathJax đã render xong mọi công thức trước khi gọi hộp thoại in
+            if (window.MathJax && window.MathJax.typesetPromise) {
+                MathJax.typesetPromise().then(() => {
+                    printBtn.innerHTML = '<i class="fas fa-print mr-2"></i> In Tài Liệu';
+                    window.print();
+                });
+            } else {
+                // Fallback nếu không có công thức toán
+                setTimeout(() => {
+                    printBtn.innerHTML = '<i class="fas fa-print mr-2"></i> In Tài Liệu';
+                    window.print();
+                }, 500); 
+            }
+        }
+
+        function submitQuiz() {
+            const nameInput = document.getElementById('student-name').value.trim();
+            const examId = document.getElementById('exam-id').value;
+            const msgEl = document.getElementById('quiz-msg');
+            const submitBtn = document.getElementById('submit-quiz-btn');
+
+            if (!nameInput) {
+                alert('Vui lòng nhập Họ và tên học sinh trước khi thực hiện nộp bài!');
+                return;
+            }
+
+            // Tính toán thời lượng làm bài thực tế
+            const endTime = new Date();
+            const diffMs = endTime - startTime;
+            const diffMins = Math.floor(diffMs / 60000);
+            const diffSecs = Math.round((diffMs % 60000) / 1000);
+            const timeStr = `${diffMins} phút ${diffSecs} giây`;
+
+            // Kiểm tra phân tích đáp án trắc nghiệm
+            let score = 0;
+            let wrongDetail = [];
+            const quizBoxes = document.querySelectorAll('.quiz-box');
+
+            quizBoxes.forEach((box, index) => {
+                const questionNum = index + 1;
+                const correctAnswer = box.getAttribute('data-correct');
+                const selectedRadio = box.querySelector(`input[name="q${questionNum}"]:checked`);
+                
+                if (selectedRadio) {
+                    if (selectedRadio.value === correctAnswer) {
+                        score += 10 / quizBoxes.length;
+                    } else {
+                        wrongDetail.push(`Câu ${questionNum} (Chọn: ${selectedRadio.value}, Đúng: ${correctAnswer})`);
+                    }
+                } else {
+                    wrongDetail.push(`Câu ${questionNum} (Chưa chọn, Đúng: ${correctAnswer})`);
+                }
+            });
+
+            score = Math.round(score * 100) / 100;
+            const wrongDetailStr = wrongDetail.length > 0 ? wrongDetail.join('; ') : 'Không có câu sai';
+
+            // Đóng gói cấu trúc dữ liệu payload gửi đi tương thích với Google Apps Script Web App
+            const payload = {
+                hoTen: nameInput,
+                maDe: examId,
+                diem: score,
+                thoiGian: timeStr,
+                cauSai: wrongDetailStr
+            };
+
+            // Vô hiệu hóa nút bấm tránh gửi dữ liệu trùng lặp lên bảng tính
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Đang truyền tải kết quả bài làm...';
+
+            const appScriptUrl = "https://script.google.com/macros/s/AKfycbzY7b7h4OwvhXuK5Vs6hl-aD88BPnAiAKbU5lfJobby0D4nzbIJVKT4n0AKCpAGoK0nZA/exec";
+
+            // Thực thi gửi bản ghi thông qua Fetch API POST (sử dụng mode no-cors để xử lý cross-origin với Web App)
+            fetch(appScriptUrl, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(payload)
+            })
+            .then(() => {
+                msgEl.className = "text-center text-sm font-semibold mt-3 text-emerald-600";
+                msgEl.innerHTML = `<i class="fa-solid fa-circle-check mr-1"></i> Hệ thống đã nhận bài! Điểm của em đạt được là: ${score}/10 điểm.`;
+                submitBtn.innerHTML = '<i class="fa-solid fa-check-double"></i> Đã nộp thành công';
+                submitBtn.className = "w-full bg-gray-400 text-white font-semibold py-2.5 px-4 rounded-lg cursor-not-allowed";
+            })
+            .catch(error => {
+                console.error('Lỗi truyền dữ liệu:', error);
+                msgEl.className = "text-center text-sm font-semibold mt-3 text-red-600";
+                msgEl.innerHTML = `<i class="fa-solid fa-circle-xmark mr-1"></i> Lỗi kết nối: Không thể gửi kết quả về Google Sheets.`;
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Thử lại nộp kết quả';
+            });
+        }
+    </script>
+</body>
+</html>
