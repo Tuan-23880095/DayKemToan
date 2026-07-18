@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buổi 8: Số thực và Giá trị tuyệt đối của một số thực - ThS. Đinh Quốc Tuấn</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- MathJax Configuration & Library -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['\\(', '\\)'], ['$', '$']],
+                displayMath: [['\\[', '\\]'], ['$$', '$$']]
+            },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #ffffff;
+            color: #111827;
+        }
+        /* Tối ưu hóa trang in tài liệu lý thuyết */
+        @media print {
+            .print\:hidden { display: none !important; }
+            body { background: white; color: black; }
+            details { display: block !important; }
+            details summary { display: none !important; }
+            .page-break { page-break-before: always; }
+            .card-border { box-shadow: none !important; border: 1px solid #e5e7eb !important; }
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col antialiased selection:bg-emerald-100">
+
+    <!-- Header học thuật chuẩn mực -->
+    <header class="border-b border-gray-100 sticky top-0 bg-white/95 backdrop-blur-md z-40 print:hidden">
+        <div class="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <img src="https://hcmus.edu.vn/wp-content/uploads/2023/04/Logo-chinh-e1681638380305.png" alt="Logo HCMUS" class="h-12 w-auto object-contain">
+                <div class="border-l-2 border-emerald-500 pl-3">
+                    <span class="text-xs font-bold tracking-widest text-emerald-600 uppercase block">Tài liệu toán chuyên sâu</span>
+                    <span class="text-sm font-bold text-gray-800">Toán học Lớp 7 • Hệ thống số thực</span>
+                </div>
+            </div>
+            <div class="text-right hidden sm:block">
+                <p class="text-xs text-gray-400 font-semibold">Tác giả biên soạn:</p>
+                <p class="text-sm font-extrabold text-gray-800">ThS. Đinh Quốc Tuấn</p>
+            </div>
+        </div>
+    </header>
+
+    <!-- Banner thiên nhiên sinh động truyền cảm hứng (Tuổi 12-16) -->
+    <div class="relative w-full bg-gradient-to-r from-emerald-50 via-teal-50 to-green-50 border-b border-gray-100 overflow-hidden">
+        <div class="absolute inset-0 opacity-20 pointer-events-none bg-[radial-gradient(#059669_1px,transparent_1px)] [background-size:20px_20px]"></div>
+        <div class="max-w-5xl mx-auto px-4 py-10 md:py-14 grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
+            <div class="md:col-span-2 space-y-4 z-10">
+                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800 border border-emerald-200 shadow-sm">
+                    <i class="fa-solid fa-mountain-sun mr-1.5 text-emerald-600"></i> Thế giới tự nhiên kì diệu
+                </span>
+                <h1 class="text-3xl md:text-5xl font-black text-gray-900 tracking-tight leading-tight">
+                    Buổi 4: Số thực và Giá trị tuyệt đối của một số thực
+                </h1>
+                <p class="text-gray-600 text-base max-w-xl font-medium leading-relaxed">
+                    Khám phá sự hoàn hảo của trục số thực biểu diễn mọi đại lượng trong tự nhiên. Học cách đo lường khoảng cách tuyệt đối và làm chủ tư duy toán học logic từ Cơ bản đến Vận dụng cao.
+                </p>
+            </div>
+            <div class="flex justify-center md:justify-end">
+                <div class="relative p-1.5 bg-white rounded-3xl shadow-xl border border-gray-100 transform rotate-1 hover:rotate-0 transition-transform duration-300">
+                    <img src="https://firebasestorage.googleapis.com/v0/b/link-anh-web.firebasestorage.app/o/ttbdvh.jpg?alt=media&token=f270aa9b-a2bc-48e8-8910-80742b542615" alt="Thiên nhiên trong sáng" class="w-64 h-44 object-cover rounded-2xl shadow-inner">
+                    <div class="absolute -bottom-3 -right-3 bg-gradient-to-r from-yellow-400 to-amber-400 text-gray-900 font-black text-xs px-3 py-1.5 rounded-xl shadow-md">
+                        Kiến tạo tương lai (12-16 tuổi) 🍃
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Không gian nội dung chính -->
+    <main class="max-w-5xl mx-auto px-4 py-10 flex-grow w-full space-y-12">
+        
+        <!-- ================= GỢI Ý MÔ HÌNH VÀ HÌNH ẢNH TRỰC QUAN ================= -->
+        <section class="p-6 md:p-8 bg-gradient-to-br from-emerald-50/40 via-white to-teal-50/20 rounded-3xl border border-emerald-100/50 shadow-sm card-border">
+            <h2 class="text-xl font-extrabold text-emerald-900 mb-6 flex items-center">
+                <i class="fa-solid fa-compass-drafting mr-2.5 text-emerald-600"></i> 💡 GỢI Ý MÔ HÌNH VÀ HÌNH ẢNH TRỰC QUAN
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Mô hình 1: Sơ đồ tập hợp số -->
+                <div class="bg-white p-5 rounded-2xl border border-emerald-100 shadow-sm space-y-3 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center space-x-2 text-emerald-700 mb-2">
+                            <span class="p-2 bg-emerald-50 rounded-xl"><i class="fa-solid fa-circle-nodes text-sm"></i></span>
+                            <h3 class="font-bold text-gray-900 text-sm">Mô hình "Sơ đồ tập hợp số" (Biểu đồ Venn)</h3>
+                        </div>
+                        <p class="text-xs text-gray-600 leading-relaxed font-medium">
+                            Vẽ một vòng tròn lớn nhất ngoài cùng đại diện cho tập số thực \(\mathbb{R}\). Bên trong vòng tròn lớn này chia làm hai phần riêng biệt: một bên là tập hợp số vô tỉ \(\mathbb{I}\), một bên là tập hợp số hữu tỉ \(\mathbb{Q}\). Bên trong tập \(\mathbb{Q}\) tiếp tục vẽ vòng tròn nhỏ hơn là tập số nguyên \(\mathbb{Z}\), và nhỏ nhất là tập số tự nhiên \(\mathbb{N}\). Hình ảnh này giúp học sinh thấy rõ \(\mathbb{R}\) lấp đầy mọi con số đã học.
+                        </p>
+                    </div>
+                    <div class="pt-2 font-mono text-center text-xs font-bold text-emerald-600 bg-emerald-50/50 rounded-lg py-1.5">
+                        \(\mathbb{N} \subset \mathbb{Z} \subset \mathbb{Q} \subset \mathbb{R}\) và \(\mathbb{I} \subset \mathbb{R}\)
+                    </div>
+                </div>
+
+                <!-- Mô hình 2: Khoảng cách trên trục số -->
+                <div class="bg-white p-5 rounded-2xl border border-teal-100 shadow-sm space-y-3 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center space-x-2 text-teal-700 mb-2">
+                            <span class="p-2 bg-teal-50 rounded-xl"><i class="fa-solid fa-arrows-left-right text-sm"></i></span>
+                            <h3 class="font-bold text-gray-900 text-sm">Hình ảnh "Khoảng cách trên trục số"</h3>
+                        </div>
+                        <p class="text-xs text-gray-600 leading-relaxed font-medium">
+                            Giáo viên vẽ một trục số thực nằm ngang. Đánh dấu điểm \(0\) làm mốc. Vẽ hai điểm \(A\) (biểu diễn số \(3\)) và \(B\) (biểu diễn số \(-3\)). Dùng hai mũi tên vòng cung nối từ \(A\) về \(0\) và từ \(B\) về \(0\), ghi chú trên cả hai mũi tên là "Độ dài = \(3\)". Từ đó dẫn dắt trực quan: Giá trị tuyệt đối chính là khoảng cách, mà khoảng cách thì luôn lớn hơn hoặc bằng \(0\).
+                        </p>
+                    </div>
+                    <div class="pt-2 font-mono text-center text-xs font-bold text-teal-600 bg-teal-50/50 rounded-lg py-1.5">
+                        \(|-3| = |3| = 3 \ge 0\)
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= PHẦN 1: LÝ THUYẾT CHI TIẾT (3 CẤP ĐỘ) ================= -->
+        <div class="space-y-10">
+            <div class="border-b pb-4">
+                <h2 class="text-2xl font-black text-gray-900 tracking-tight flex items-center uppercase">
+                    <span class="w-3 h-7 bg-emerald-500 rounded-md mr-3 inline-block"></span>
+                    PHẦN 1: LÝ THUYẾT CHI TIẾT (3 CẤP ĐỘ)
+                </h2>
+            </div>
+
+            <!-- CẤP ĐỘ 1: CƠ BẢN -->
+            <section class="bg-white rounded-2xl border border-gray-200 p-6 md:p-8 space-y-6 card-border">
+                <div class="flex items-center space-x-3 border-b pb-3 border-gray-100">
+                    <span class="bg-sky-500 text-white font-extrabold text-xs px-3 py-1 rounded-lg uppercase tracking-wider">Cấp độ 1</span>
+                    <h3 class="text-lg font-bold text-gray-900">CƠ BẢN (Nhận biết & Thông hiểu)</h3>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm text-gray-700 leading-relaxed">
+                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-100 space-y-2.5">
+                        <h4 class="font-bold text-sky-800 text-base flex items-center"><i class="fa-solid fa-layer-group mr-2"></i> 1. Số thực và Trục số thực</h4>
+                        <ul class="list-disc list-inside space-y-1.5 ml-1">
+                            <li><strong class="text-gray-900">Khái niệm:</strong> Số hữu tỉ và số vô tỉ được gọi chung là số thực. Tập hợp các số thực được kí hiệu là \(\mathbb{R}\).</li>
+                            <li><strong class="text-gray-900">Trục số thực:</strong> Mỗi số thực đều được biểu diễn bởi một điểm duy nhất trên trục số. Ngược lại, mỗi điểm trên trục số đều biểu diễn một số thực. Các điểm biểu diễn số thực đã lấp đầy trục số nên trục số được gọi là trục số thực.</li>
+                            <li><strong class="text-gray-900">Số đối:</strong> Mỗi số thực \(x\) đều có một số đối kí hiệu là \(-x\). Ta luôn có hệ thức bất biến: \(x + (-x) = 0\).</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-100 space-y-2.5">
+                        <h4 class="font-bold text-sky-800 text-base flex items-center"><i class="fa-solid fa-calculator mr-2"></i> 2. Giá trị tuyệt đối của một số thực</h4>
+                        <ul class="list-disc list-inside space-y-1.5 ml-1">
+                            <li><strong class="text-gray-900">Khái niệm:</strong> Khoảng cách từ điểm \(x\) đến điểm \(0\) trên trục số được gọi là giá trị tuyệt đối của số thực \(x\), kí hiệu là \(|x|\).</li>
+                            <li><strong class="text-gray-900">Cách tính:</strong>
+                                <br><span class="ml-4 inline-block text-xs font-semibold text-gray-600">• Nếu \(x > 0\):</span> \(|x| = x\) (Giá trị tuyệt đối của số dương là chính nó).
+                                <br><span class="ml-4 inline-block text-xs font-semibold text-gray-600">• Nếu \(x < 0\):</span> \(|x| = -x\) (Giá trị tuyệt đối của số âm là số đối của nó).
+                                <br><span class="ml-4 inline-block text-xs font-semibold text-gray-600">• Nếu \(x = 0\):</span> \(|0| = 0\).
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Ví dụ Cấp độ 1 -->
+                <div class="bg-gradient-to-r from-slate-50 to-white p-5 rounded-xl border border-gray-200">
+                    <p class="font-bold text-gray-800 text-xs uppercase tracking-wider mb-2"><i class="fa-regular fa-lightbulb text-amber-500 mr-1"></i> Ví dụ minh họa (Cấp độ 1)</p>
+                    <div class="space-y-3 text-sm">
+                        <div class="p-3 bg-white rounded-lg border border-gray-100 shadow-sm font-medium">
+                            <p><strong>Bài toán:</strong> Tính giá trị tuyệt đối của các số sau: \(20\); \(-1,55\); \(0\); \(\sqrt{2}\); \(-\pi\). Tìm số đối của \(\sqrt{2}\) và \(-\pi\).</p>
+                        </div>
+                        
+                        <details class="group bg-white rounded-xl border border-emerald-200 shadow-sm transition-all duration-200">
+                            <summary class="list-none flex items-center justify-between cursor-pointer font-bold text-emerald-700 p-3 select-none">
+                                <span class="flex items-center"><i class="fa-solid fa-square-poll-horizontal mr-2 text-emerald-500 transition-transform group-open:rotate-180"></i> Xem hướng dẫn lời giải ẩn</span>
+                                <span class="text-xs bg-emerald-50 px-2.5 py-1 rounded-md text-emerald-600 group-open:hidden">Bấm để hiển thị</span>
+                            </summary>
+                            <div class="p-4 border-t border-emerald-100 bg-emerald-50/10 text-gray-700 space-y-2 font-medium">
+                                <p>• <strong class="text-gray-900">Tính giá trị tuyệt đối:</strong></p>
+                                <p class="ml-4">\(|20| = 20\); \(|-1,55| = 1,55\); \(|0| = 0\); \(|\sqrt{2}| = \sqrt{2}\); \(|-\pi| = \pi\).</p>
+                                <p>• <strong class="text-gray-900">Tìm số đối:</strong></p>
+                                <p class="ml-4">Số đối của \(\sqrt{2}\) là \(-\sqrt{2}\); Số đối của \(-\pi\) là \(\pi\).</p>
+                            </div>
+                        </details>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CẤP ĐỘ 2: NÂNG CAO -->
+            <section class="bg-white rounded-2xl border border-gray-200 p-6 md:p-8 space-y-6 card-border">
+                <div class="flex items-center space-x-3 border-b pb-3 border-gray-100">
+                    <span class="bg-indigo-500 text-white font-extrabold text-xs px-3 py-1 rounded-lg uppercase tracking-wider">Cấp độ 2</span>
+                    <h3 class="text-lg font-bold text-gray-900">NÂNG CAO (Phân tích & Giải phương trình cơ bản)</h3>
+                </div>
+                <p class="text-sm font-semibold text-indigo-700 bg-indigo-50 px-3 py-1.5 rounded-lg inline-block">
+                    Mục tiêu: Học sinh nắm được các tính chất bất biến của giá trị tuyệt đối và cách giải bài toán "Tìm \(x\)" chứa dấu giá trị tuyệt đối.
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm text-gray-700 leading-relaxed">
+                    <div class="bg-indigo-50/30 p-4 rounded-xl border border-indigo-100/50 space-y-2">
+                        <h4 class="font-bold text-indigo-900 text-base">1. Tính chất quan trọng của Giá trị tuyệt đối</h4>
+                        <ul class="list-disc list-inside space-y-1.5">
+                            <li>Giá trị tuyệt đối của một số thực luôn là một số không âm: \(|x| \ge 0\) với mọi số thực \(x\).</li>
+                            <li>Hai số thực đối nhau có giá trị tuyệt đối bằng nhau: \(|-x| = |x|\).</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-indigo-50/30 p-4 rounded-xl border border-indigo-100/50 space-y-2">
+                        <h4 class="font-bold text-indigo-900 text-base">2. Phương pháp giải bài toán Tìm \(x\) dạng \(|A(x)| = b\)</h4>
+                        <ul class="list-none space-y-1.5">
+                            <li><strong>• Trường hợp 1:</strong> Nếu \(b < 0 \Rightarrow\) Bài toán vô nghiệm (vì \(|A(x)| \ge 0\)).</li>
+                            <li><strong>• Trường hợp 2:</strong> Nếu \(b = 0 \Rightarrow A(x) = 0\).</li>
+                            <li><strong>• Trường hợp 3:</strong> Nếu \(b > 0 \Rightarrow\) Phân chia thành 2 trường hợp riêng biệt: \(A(x) = b\) hoặc \(A(x) = -b\).</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Ví dụ Cấp độ 2 -->
+                <div class="bg-gradient-to-r from-slate-50 to-white p-5 rounded-xl border border-gray-200">
+                    <p class="font-bold text-gray-800 text-xs uppercase tracking-wider mb-2"><i class="fa-regular fa-lightbulb text-amber-500 mr-1"></i> Ví dụ minh họa (Cấp độ 2)</p>
+                    <div class="space-y-4 text-sm">
+                        <div class="p-3 bg-white rounded-lg border border-gray-100 shadow-sm space-y-2 font-medium">
+                            <p><strong>Bài toán:</strong> Tìm số thực \(x\), biết:</p>
+                            <p class="ml-4">a) \(|x| = \sqrt{5}\) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; b) \(|x - 2| = 0\) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; c) \(|x + 2| = -5\)</p>
+                        </div>
+                        
+                        <details class="group bg-white rounded-xl border border-emerald-200 shadow-sm transition-all duration-200">
+                            <summary class="list-none flex items-center justify-between cursor-pointer font-bold text-emerald-700 p-3 select-none">
+                                <span class="flex items-center"><i class="fa-solid fa-square-poll-horizontal mr-2 text-emerald-500 transition-transform group-open:rotate-180"></i> Xem hướng dẫn lời giải ẩn</span>
+                                <span class="text-xs bg-emerald-50 px-2.5 py-1 rounded-md text-emerald-600 group-open:hidden">Bấm để mở</span>
+                            </summary>
+                            <div class="p-4 border-t border-emerald-100 bg-emerald-50/10 text-gray-700 space-y-3 font-medium">
+                                <p><strong>Giải:</strong></p>
+                                <p><strong>a) Vì \(\sqrt{5} > 0\)</strong> nên ta tìm được hai giá trị thỏa mãn: \(x = \sqrt{5}\) hoặc \(x = -\sqrt{5}\).</p>
+                                <p><strong>b) Từ \(|x - 2| = 0\)</strong> suy ra biểu thức bên trong bằng 0: \(x - 2 = 0 \Rightarrow x = 2\).</p>
+                                <p><strong>c) Từ \(|x + 2| = -5\)</strong>. Vì giá trị tuyệt đối của một số thực luôn không âm (\(|x + 2| \ge 0\)), nên không tồn tại giá trị nào của \(x\) thoả mãn điều kiện đề bài (Phương trình vô nghiệm).</p>
+                            </div>
+                        </details>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CẤP ĐỘ 3: VẬN DỤNG -->
+            <section class="bg-white rounded-2xl border border-gray-200 p-6 md:p-8 space-y-6 card-border">
+                <div class="flex items-center space-x-3 border-b pb-3 border-gray-100">
+                    <span class="bg-emerald-500 text-white font-extrabold text-xs px-3 py-1 rounded-lg uppercase tracking-wider">Cấp độ 3</span>
+                    <h3 class="text-lg font-bold text-gray-900">VẬN DỤNG (Biến đổi biểu thức & Tìm cực trị)</h3>
+                </div>
+                <p class="text-sm font-semibold text-emerald-700 bg-emerald-50 px-3 py-1.5 rounded-lg inline-block">
+                    Mục tiêu: Học sinh áp dụng linh hoạt tính chất \(|x| \ge 0\) để đánh giá biểu thức, kết hợp các phép tính số thực nâng cao.
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm text-gray-700 leading-relaxed">
+                    <div class="bg-emerald-50/20 p-4 rounded-xl border border-emerald-100/50 space-y-1.5">
+                        <h4 class="font-bold text-emerald-900 text-base">1. Thứ tự tính giá trị biểu thức</h4>
+                        <p>Thực hiện các phép tính bên trong dấu giá trị tuyệt đối trước (đóng vai trò ưu tiên như dấu ngoặc đơn), sau đó khai triển lấy kết quả tuyệt đối rồi mới thực hiện các phép toán bên ngoài dấu.</p>
+                    </div>
+
+                    <div class="bg-emerald-50/20 p-4 rounded-xl border border-emerald-100/50 space-y-1.5">
+                        <h4 class="font-bold text-emerald-900 text-base">2. Đánh giá Tìm Cực trị (GTNN / GTLN)</h4>
+                        <ul class="list-disc list-inside space-y-1">
+                            <li>Vì \(|A(x)| \ge 0 \Rightarrow |A(x)| + m \ge m\). Dấu "=" xảy ra khi \(A(x) = 0\). Do đó Giá trị nhỏ nhất (GTNN) là \(m\).</li>
+                            <li>Vì \(-|A(x)| \le 0 \Rightarrow m - |A(x)| \le m\). Dấu "=" xảy ra khi \(A(x) = 0\). Do đó Giá trị lớn nhất (GTLN) là \(m\).</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Ví dụ Cấp độ 3 -->
+                <div class="bg-gradient-to-r from-slate-50 to-white p-5 rounded-xl border border-gray-200">
+                    <p class="font-bold text-gray-800 text-xs uppercase tracking-wider mb-2"><i class="fa-regular fa-lightbulb text-amber-500 mr-1"></i> Ví dụ minh họa (Cấp độ 3)</p>
+                    <div class="space-y-4 text-sm">
+                        <div class="p-3 bg-white rounded-lg border border-gray-100 shadow-sm space-y-2 font-medium">
+                            <p><strong>Bài toán 1 (Tính giá trị):</strong> Tính giá trị biểu thức \(M = \sqrt{9} - |-5| + |-3,14|\).</p>
+                            <p><strong>Bài toán 2 (Tìm cực trị):</strong> Tìm giá trị nhỏ nhất của biểu thức \(A = 10 \cdot |x - 2| + 22\).</p>
+                        </div>
+                        
+                        <details class="group bg-white rounded-xl border border-emerald-200 shadow-sm transition-all duration-200">
+                            <summary class="list-none flex items-center justify-between cursor-pointer font-bold text-emerald-700 p-3 select-none">
+                                <span class="flex items-center"><i class="fa-solid fa-square-poll-horizontal mr-2 text-emerald-500 transition-transform group-open:rotate-180"></i> Xem hướng dẫn lời giải ẩn</span>
+                                <span class="text-xs bg-emerald-50 px-2.5 py-1 rounded-md text-emerald-600 group-open:hidden">Bấm để mở</span>
+                            </summary>
+                            <div class="p-4 border-t border-emerald-100 bg-emerald-50/10 text-gray-700 space-y-3 font-medium">
+                                <div>
+                                    <p class="text-gray-900 font-bold">Giải Bài toán 1:</p>
+                                    <p>Ta khai triển từng thành phần: \(\sqrt{9} = 3\); \(|-5| = 5\); \(|-3,14| = 3,14\).</p>
+                                    <p>Thay vào biểu thức ta được: \(M = 3 - 5 + 3,14 = -2 + 3,14 = 1,14\).</p>
+                                </div>
+                                <hr class="border-emerald-100/60">
+                                <div>
+                                    <p class="text-gray-900 font-bold">Giải Bài toán 2:</p>
+                                    <p>With mọi số thực \(x\), ta luôn có \(|x - 2| \ge 0 \Rightarrow 10 \cdot |x - 2| \ge 0\).</p>
+                                    <p>Cộng cả hai vế với 22 ta được: \(A = 10 \cdot |x - 2| + 22 \ge 22\).</p>
+                                    <p>Vậy giá trị nhỏ nhất của \(A\) là \(22\). Dấu "=" đẳng thức xảy ra khi và chỉ khi: \(x - 2 = 0 \Rightarrow x = 2\).</p>
+                                </div>
+                            </div>
+                        </details>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- ================= PHẦN 2: BÀI TẬP TRẮC NGHIỆM KIỂM CHỨNG ================= -->
+        <section class="border-t border-gray-100 pt-10 page-break">
+            <div class="bg-gradient-to-br from-slate-900 via-gray-900 to-emerald-950 text-white rounded-3xl p-6 md:p-8 shadow-xl relative overflow-hidden card-border">
+                <div class="absolute -right-10 -bottom-10 opacity-5 pointer-events-none text-white">
+                    <i class="fa-solid fa-graduation-cap text-[14rem]"></i>
+                </div>
+                
+                <div class="max-w-xl space-y-2">
+                    <span class="text-xs font-bold uppercase tracking-widest text-emerald-400 bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-500/20 inline-block">Đánh giá trực tuyến</span>
+                    <h2 class="text-2xl md:text-3xl font-black tracking-tight">Bài Tập Trắc Nghiệm Kiểm Chứng</h2>
+                    <p class="text-gray-400 text-xs md:text-sm">Hệ thống chấm điểm thông minh tự động đồng bộ kết quả về cơ sở dữ liệu học tập của nhà trường.</p>
+                </div>
+
+                <!-- Form xác định thông tin cá nhân -->
+                <form id="quizForm" onsubmit="evaluateAndSubmitForm(event)" class="mt-8 space-y-6 text-gray-900">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div class="bg-white p-4 rounded-2xl shadow-inner border border-gray-100">
+                            <label class="block text-xs font-bold text-gray-400 uppercase tracking-wide mb-1"><i class="fa-solid fa-user-check mr-1 text-emerald-500"></i> Họ và tên học sinh</label>
+                            <input type="text" id="studentName" required placeholder="Nhập họ và tên đầy đủ..." class="w-full bg-white border-b-2 border-gray-200 focus:border-emerald-500 outline-none py-1 text-sm font-bold text-gray-900 transition-colors">
+                        </div>
+                        <div class="bg-white p-4 rounded-2xl shadow-inner border border-gray-100">
+                            <label class="block text-xs font-bold text-gray-400 uppercase tracking-wide mb-1"><i class="fa-solid fa-folder mr-1 text-emerald-500"></i> Mã số chuyên đề</label>
+                            <input type="text" id="lessonId" readonly value="toan7-04" class="w-full bg-gray-50 border-b-2 border-gray-200 outline-none py-1 text-sm font-bold text-gray-500 cursor-not-allowed">
+                        </div>
+                    </div>
+
+                    <!-- Khối đề thi trắc nghiệm -->
+                    <div class="space-y-5 mt-6">
+                        <!-- Câu 1 -->
+                        <div class="bg-white p-5 rounded-2xl shadow-sm space-y-3">
+                            <p class="text-sm font-bold text-gray-900"><span class="text-emerald-600">Câu 1:</span> Khẳng định nào sau đây là đúng về tập hợp số thực?</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs font-semibold text-gray-700">
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-gray-100 hover:bg-emerald-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q1" value="A" required class="text-emerald-600 focus:ring-emerald-500 h-4 w-4"> <span>A. Số thực chỉ bao gồm các số hữu tỉ.</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-gray-100 hover:bg-emerald-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q1" value="B" class="text-emerald-600 focus:ring-emerald-500 h-4 w-4"> <span>B. Số thực bao gồm số hữu tỉ và số vô tỉ.</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-gray-100 hover:bg-emerald-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q1" value="C" class="text-emerald-600 focus:ring-emerald-500 h-4 w-4"> <span>C. Tập hợp số thực được kí hiệu là \(\mathbb{Q}\).</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-gray-100 hover:bg-emerald-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q1" value="D" class="text-emerald-600 focus:ring-emerald-500 h-4 w-4"> <span>D. Số \(0\) không phải là số thực.</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Câu 2 -->
+                        <div class="bg-white p-5 rounded-2xl shadow-sm space-y-3">
+                            <p class="text-sm font-bold text-gray-900"><span class="text-emerald-600">Câu 2:</span> Giá trị tuyệt đối của số \(-3,14\) là:</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs font-semibold text-gray-700">
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-gray-100 hover:bg-emerald-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q2" value="A" required class="text-emerald-600 focus:ring-emerald-500 h-4 w-4"> <span>A. \(-3,14\)</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-gray-100 hover:bg-emerald-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q2" value="B" class="text-emerald-600 focus:ring-emerald-500 h-4 w-4"> <span>B. \(0\)</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-gray-100 hover:bg-emerald-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q2" value="C" class="text-emerald-600 focus:ring-emerald-500 h-4 w-4"> <span>C. \(3,14\)</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-gray-100 hover:bg-emerald-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q2" value="D" class="text-emerald-600 focus:ring-emerald-500 h-4 w-4"> <span>D. Kí hiệu là \(-|3,14|\)</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Câu 3 -->
+                        <div class="bg-white p-5 rounded-2xl shadow-sm space-y-3">
+                            <p class="text-sm font-bold text-gray-900"><span class="text-emerald-600">Câu 3:</span> Khẳng định nào sau đây là <strong>sai</strong>?</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs font-semibold text-gray-700">
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-gray-100 hover:bg-emerald-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q3" value="A" required class="text-emerald-600 focus:ring-emerald-500 h-4 w-4"> <span>A. Khoảng cách từ điểm \(x\) đến điểm \(0\) trên trục số là giá trị tuyệt đối của \(x\).</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-gray-100 hover:bg-emerald-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q3" value="B" class="text-emerald-600 focus:ring-emerald-500 h-4 w-4"> <span>B. Hai số đối nhau có giá trị tuyệt đối bằng nhau.</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-gray-100 hover:bg-emerald-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q3" value="C" class="text-emerald-600 focus:ring-emerald-500 h-4 w-4"> <span>C. Giá trị tuyệt đối của mọi số thực luôn là một số dương hoặc bằng \(0\).</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-gray-100 hover:bg-emerald-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q3" value="D" class="text-emerald-600 focus:ring-emerald-500 h-4 w-4"> <span>D. Giá trị tuyệt đối của một số âm là một số âm.</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Câu 4 -->
+                        <div class="bg-white p-5 rounded-2xl shadow-sm space-y-3">
+                            <p class="text-sm font-bold text-gray-900"><span class="text-emerald-600">Câu 4:</span> Có bao nhiêu giá trị của \(x\) thoả mãn \(|x| = \sqrt{7}\)?</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs font-semibold text-gray-700">
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-gray-100 hover:bg-emerald-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q4" value="A" required class="text-emerald-600 focus:ring-emerald-500 h-4 w-4"> <span>A. \(0\) giá trị.</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-gray-100 hover:bg-emerald-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q4" value="B" class="text-emerald-600 focus:ring-emerald-500 h-4 w-4"> <span>B. \(1\) giá trị.</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-gray-100 hover:bg-emerald-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q4" value="C" class="text-emerald-600 focus:ring-emerald-500 h-4 w-4"> <span>C. \(2\) giá trị.</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-gray-100 hover:bg-emerald-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q4" value="D" class="text-emerald-600 focus:ring-emerald-500 h-4 w-4"> <span>D. Vô số giá trị.</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Câu 5 -->
+                        <div class="bg-white p-5 rounded-2xl shadow-sm space-y-3">
+                            <p class="text-sm font-bold text-gray-900"><span class="text-emerald-600">Câu 5:</span> Kết quả của phép tính \(|-11| + |22| - |-33|\) là:</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs font-semibold text-gray-700">
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-gray-100 hover:bg-emerald-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q5" value="A" required class="text-emerald-600 focus:ring-emerald-500 h-4 w-4"> <span>A. \(0\)</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-gray-100 hover:bg-emerald-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q5" value="B" class="text-emerald-600 focus:ring-emerald-500 h-4 w-4"> <span>B. \(-66\)</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-gray-100 hover:bg-emerald-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q5" value="C" class="text-emerald-600 focus:ring-emerald-500 h-4 w-4"> <span>C. \(66\)</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-gray-100 hover:bg-emerald-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q5" value="D" class="text-emerald-600 focus:ring-emerald-500 h-4 w-4"> <span>D. \(22\)</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Nút nộp bài -->
+                    <div class="pt-2 flex flex-col sm:flex-row items-center justify-between gap-4">
+                        <button type="submit" id="submitBtn" class="w-full sm:w-auto bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-sm px-8 py-3.5 rounded-xl shadow-lg hover:shadow-emerald-500/20 transition-all flex items-center justify-center space-x-2">
+                            <i class="fa-solid fa-cloud-arrow-up"></i> <span>Nộp Bài Chấm Điểm</span>
+                        </button>
+                        <div id="statusReport" class="text-xs font-bold text-gray-300"></div>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer bản quyền theo yêu cầu của User -->
+    <footer class="bg-gray-50 border-t border-gray-100 py-6 text-center text-xs text-gray-500 font-medium px-4">
+        <p class="font-bold text-gray-700">@ Bản quyền thuộc ThS. Đinh Quốc Tuấn - Mục đích phi lợi nhuận - Vì giáo dục.</p>
+        <p class="text-gray-400 mt-1">Hệ thống hỗ trợ tự học trực tuyến môn Toán THCS độc lập.</p>
+    </footer>
+
+    <!-- ================= NÚT IN TÀI LIỆU VÀ SCRIPT GỐC CỦA USER ================= -->
+    <button id="btn-print-doc" onclick="safePrint()" class="fixed bottom-5 right-5 bg-gray-900 text-white px-4 py-2 rounded-lg shadow-lg hover:bg-gray-700 print:hidden z-50">
+        <i class="fas fa-print mr-2"></i> In Tài Liệu
+    </button>
+
+    <script>
+        // Lưu thời gian bắt đầu học tập làm bài toán tính hiệu năng
+        const timeInit = new Date();
+
+        function safePrint() {
+            const printBtn = document.getElementById('btn-print-doc');
+            printBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Đang chuẩn bị...';
+            
+            // Đảm bảo MathJax đã render xong mọi công thức trước khi gọi hộp thoại in
+            if (window.MathJax && window.MathJax.typesetPromise) {
+                MathJax.typesetPromise().then(() => {
+                    printBtn.innerHTML = '<i class="fas fa-print mr-2"></i> In Tài Liệu';
+                    window.print();
+                });
+            } else {
+                // Fallback nếu không có công thức toán
+                setTimeout(() => window.print(), 500); 
+            }
+        }
+
+        // Đánh giá kiểm nghiệm kết quả trắc nghiệm và đồng bộ đám mây Apps Script công khai
+        function evaluateAndSubmitForm(event) {
+            event.preventDefault();
+            
+            const submitBtn = document.getElementById('submitBtn');
+            const statusReport = document.getElementById('statusReport');
+            
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i> Đang truyền tin...';
+            statusReport.innerHTML = "Đang xử lý kết nối đồng bộ hệ thống...";
+
+            // Bảng đáp án chuẩn xác
+            const correctKey = { q1: "B", q2: "C", q3: "D", q4: "C", q5: "A" };
+            
+            const studentName = document.getElementById('studentName').value.trim();
+            const lessonId = document.getElementById('lessonId').value.trim();
+            
+            let correctCounter = 0;
+            let totalQuizCount = Object.keys(correctKey).length;
+            let missedReportArray = [];
+
+            // Thu thập đối chiếu đáp án vòng lặp
+            for (let questionCode in correctKey) {
+                const selectedRadio = document.querySelector(`input[name="${questionCode}"]:checked`);
+                if (selectedRadio && selectedRadio.value === correctKey[questionCode]) {
+                    correctCounter++;
+                } else {
+                    let chosenChar = selectedRadio ? selectedRadio.value : "Trống";
+                    missedReportArray.push(`${questionCode.toUpperCase()}(Chọn: ${chosenChar}|Đúng: ${correctKey[questionCode]})`);
+                }
+            }
+
+            // Tính toán chuyển đổi sang thang điểm hệ 10 chuẩn mực
+            const finalScore = ((correctCounter / totalQuizCount) * 10).toFixed(2);
+            
+            // Tính khoảng thời gian hoàn thành
+            const timeComplete = new Date();
+            const elapsedDurationSeconds = Math.floor((timeComplete - timeInit) / 1000);
+            const thoiGian = `${elapsedDurationSeconds} giây`;
+            const cauSai = missedReportArray.length > 0 ? missedReportArray.join(", ") : "Không có";
+
+            // Tạo gói Payload tương thích hoàn chỉnh cấu trúc doPost(e) trên máy chủ Google Apps Script
+            const transmissionPayload = {
+                hoTen: studentName,
+                maDe: lessonId,
+                diem: parseFloat(finalScore),
+                thoiGian: thoiGian,
+                cauSai: cauSai
+            };
+
+            const webAppsScriptEndpoint = "https://script.google.com/macros/s/AKfycbzY7b7h4OwvhXuK5Vs6hl-aD88BPnAiAKbU5lfJobby0D4nzbIJVKT4n0AKCpAGoK0nZA/exec";
+
+            // Thực hiện Fetch POST bất đồng bộ cấu hình 'no-cors' tránh block redirection của Google Node
+            fetch(webAppsScriptEndpoint, {
+                method: "POST",
+                mode: "no-cors",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(transmissionPayload)
+            })
+            .then(() => {
+                statusReport.className = "text-xs font-bold text-emerald-400";
+                statusReport.innerHTML = `<i class="fa-solid fa-circle-check"></i> Đã đồng bộ điểm số: ${finalScore}/10`;
+                alert(`Hệ thống thông báo nộp bài thành công!\nChào em ${studentName}, điểm số kiểm chứng của em đạt được là: ${finalScore} / 10.`);
+                submitBtn.innerHTML = '<i class="fa-solid fa-cloud-lock"></i> Đã lưu kết quả';
+            })
+            .catch(error => {
+                console.error("Giao dịch truyền tin thất bại:", error);
+                statusReport.className = "text-xs font-bold text-red-400";
+                statusReport.innerHTML = "<i class="fa-solid fa-triangle-exclamation"></i> Lỗi kết nối mạng, vui lòng nộp lại!";
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Thử nộp lại bài';
+            });
+        }
+    </script>
+</body>
+</html>
