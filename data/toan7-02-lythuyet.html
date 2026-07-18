@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buổi 2: Các phép tính với số hữu tỉ - Học tập trực tuyến</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- MathJax Configuration & Library -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['\\(', '\\)'], ['$', '$']],
+                displayMath: [['\\[', '\\]'], ['$$', '$$']]
+            },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #ffffff;
+            color: #1a1a1a;
+        }
+        /* Tối ưu hóa giao diện khi in tài liệu */
+        @media print {
+            .print\:hidden { display: none !important; }
+            body { background: white; color: black; }
+            details { display: block !important; }
+            details summary { display: none !important; }
+            .page-break { page-break-before: always; }
+            .card-shadow { shadow: none !important; border: 1px solid #e2e8f0 !important; }
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col antialiased bg-white selection:bg-emerald-100">
+
+    <!-- Top Navigation Bar / School Header -->
+    <header class="border-b border-gray-100 sticky top-0 bg-white/95 backdrop-blur-md z-40 print:hidden">
+        <div class="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between">
+            <div class="flex items-center space-x-4">
+                <img src="https://hcmus.edu.vn/wp-content/uploads/2023/04/Logo-chinh-e1681638380305.png" alt="Logo HCMUS" class="h-12 w-auto object-contain">
+                <div class="border-l-2 border-emerald-500 pl-4">
+                    <span class="text-xs font-bold tracking-widest text-emerald-600 uppercase block">Tài liệu học tập THCS</span>
+                    <span class="text-sm font-bold text-gray-800">Toán học Lớp 7 • Sách mới</span>
+                </div>
+            </div>
+            <div class="text-right hidden sm:block">
+                <span class="text-xs font-semibold text-gray-400 block">Giảng viên phụ trách</span>
+                <span class="text-sm font-bold text-gray-800">ThS. Đinh Quốc Tuấn</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section / Nature Themed Banner for Teens -->
+    <div class="relative w-full bg-gradient-to-r from-emerald-50 via-teal-50 to-emerald-50 border-b border-gray-100 overflow-hidden">
+        <div class="absolute inset-0 opacity-40 pointer-events-none bg-[radial-gradient(#10b981_1px,transparent_1px)] [background-size:24px_24px]"></div>
+        <div class="max-w-5xl mx-auto px-4 py-10 md:py-14 grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
+            <div class="md:col-span-2 space-y-4 z-10">
+                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800 border border-emerald-200">
+                    <i class="fa-solid fa-seedling mr-1.5 text-emerald-600"></i> Chủ đề tự nhiên sáng tạo
+                </span>
+                <h1 class="text-3xl md:text-5xl font-extrabold text-gray-900 tracking-tight leading-tight">
+                    Buổi 2: Các phép tính trong <br class="hidden md:block"><span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-teal-600">Tập hợp Số hữu tỉ</span>
+                </h1>
+                <p class="text-gray-600 text-base max-w-xl font-medium">
+                    Hãy cùng khám phá quy luật toán học thông qua các mô hình chuyển động sinh động của tự nhiên, giúp việc tính toán trở nên trực quan và dễ dàng hơn bao giờ hết!
+                </p>
+            </div>
+            <div class="flex justify-center md:justify-end">
+                <div class="relative p-1.5 bg-white rounded-3xl shadow-xl border border-gray-100 transform rotate-1 hover:rotate-0 transition-transform duration-300">
+                    <img src="https://firebasestorage.googleapis.com/v0/b/link-anh-web.firebasestorage.app/o/ttbdvh.jpg?alt=media&token=f270aa9b-a2bc-48e8-8910-80742b542615" alt="Khám phá thiên nhiên" class="w-64 h-44 object-cover rounded-2xl shadow-inner">
+                    <span class="absolute -bottom-3 -right-3 bg-gradient-to-r from-yellow-400 to-amber-400 text-gray-900 font-extrabold text-xs px-3 py-1.5 rounded-xl shadow-md">
+                        Dành cho tuổi 12-16 🚀
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Workspace Content -->
+    <main class="max-w-5xl mx-auto px-4 py-10 flex-grow w-full space-y-12">
+        
+        <!-- ================= SECTION: VISUAL MODELS ================= -->
+        <section class="p-6 md:p-8 bg-gradient-to-br from-emerald-50/50 via-white to-teal-50/30 rounded-3xl border border-emerald-100/60 shadow-sm">
+            <h2 class="text-xl font-extrabold text-emerald-900 mb-6 flex items-center">
+                <i class="fa-solid fa-compass-drafting mr-2.5 text-emerald-600"></i> 💡 GỢI Ý MÔ HÌNH VÀ HÌNH ẢNH TRỰC QUAN
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Model 1: Motion -->
+                <div class="bg-white p-5 rounded-2xl border border-emerald-100 shadow-sm space-y-3">
+                    <div class="flex items-center space-x-2 text-emerald-700">
+                        <span class="p-2 bg-emerald-50 rounded-xl"><i class="fa-solid fa-cloud-sun text-lg"></i></span>
+                        <h3 class="font-bold text-gray-900 text-base">Mô hình chuyển động thực tế</h3>
+                    </div>
+                    <p class="text-xs text-gray-600 leading-relaxed font-medium">
+                        Sử dụng hình ảnh một chiếc <strong>khinh khí cầu</strong> bay lên/hạ xuống hoặc một thiết bị lặn dưới mặt nước biển. Chiều đi lên (hoặc trên mặt nước) biểu diễn số hữu tỉ dương, chiều đi xuống (hoặc dưới mặt nước) biểu diễn số âm. Việc tính toán vị trí mới chính là phép cộng/trừ các số hữu tỉ.
+                    </p>
+                </div>
+
+                <!-- Model 2: Geometry Area -->
+                <div class="bg-white p-5 rounded-2xl border border-teal-100 shadow-sm space-y-3">
+                    <div class="flex items-center space-x-2 text-teal-700">
+                        <span class="p-2 bg-teal-50 rounded-xl"><i class="fa-solid fa-chart-gantt text-lg"></i></span>
+                        <h3 class="font-bold text-gray-900 text-base">Mô hình diện tích hình chữ nhật</h3>
+                    </div>
+                    <p class="text-xs text-gray-600 leading-relaxed font-medium">
+                        Vẽ một hình chữ nhật được chia thành các ô vuông nhỏ. Ví dụ chiều dài là \(\frac{3}{2}\) đơn vị, chiều rộng là \(\frac{4}{5}\) đơn vị. Diện tích phần gạch chéo thể hiện trực quan phép nhân \(\frac{3}{2} \cdot \frac{4}{5}\), giúp học sinh hiểu tại sao <span class="text-teal-600 font-bold">"tử nhân tử, mẫu nhân mẫu"</span>.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= SECTION: CORE THEORY ================= -->
+        <div class="space-y-10">
+            <div class="border-b pb-4">
+                <h2 class="text-2xl font-black text-gray-900 tracking-tight flex items-center uppercase">
+                    <span class="w-3 h-7 bg-emerald-500 rounded-md mr-3 inline-block"></span>
+                    PHẦN 1: LÝ THUYẾT CHI TIẾT (3 CẤP ĐỘ)
+                </h2>
+            </div>
+
+            <!-- LEVEL 1: BASIC -->
+            <section class="bg-white rounded-2xl border border-gray-200/80 p-6 md:p-8 space-y-6 card-shadow">
+                <div class="flex items-center space-x-3 border-b pb-3 border-gray-100">
+                    <span class="bg-sky-500 text-white font-extrabold text-xs px-3 py-1 rounded-lg uppercase tracking-wider">Cấp độ 1</span>
+                    <h3 class="text-lg font-extrabold text-gray-900">CƠ BẢN (Nhận biết, Thông hiểu & Kỹ năng tính toán nền tảng)</h3>
+                </div>
+                <p class="text-sm font-semibold text-sky-700 bg-sky-50 px-3 py-1.5 rounded-lg inline-block">
+                    Mục tiêu: Học sinh nắm vững quy tắc thực hiện phép tính, kĩ năng quy đồng mẫu số và rút gọn phân số.
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm leading-relaxed text-gray-700">
+                    <div class="space-y-3 bg-slate-50/50 p-4 rounded-xl border border-slate-100">
+                        <h4 class="font-bold text-sky-800 text-base flex items-center"><i class="fa-solid fa-plus-minus mr-2"></i> 1. Cộng và trừ hai số hữu tỉ</h4>
+                        <ul class="list-disc list-inside space-y-2 ml-1">
+                            <li><strong class="text-gray-900">Quy tắc:</strong> Viết chúng dưới dạng phân số có mẫu số dương, rồi áp dụng quy tắc cộng, trừ phân số (quy đồng mẫu số nếu cần).</li>
+                            <li>Nếu số hữu tỉ cho dưới dạng số thập phân hữu hạn, ta có thể đặt tính cộng, trừ trực tiếp như số thập phân thông thường.</li>
+                            <li><strong class="text-indigo-600">Rèn luyện kỹ năng:</strong> Trước khi quy đồng, hãy luôn rút gọn các phân số về dạng tối giản. Phép trừ chính là cộng với số đối.</li>
+                        </ul>
+                    </div>
+
+                    <div class="space-y-3 bg-slate-50/50 p-4 rounded-xl border border-slate-100">
+                        <h4 class="font-bold text-sky-800 text-base flex items-center"><i class="fa-solid fa-xmark mr-2"></i> 2. Nhân và chia hai số hữu tỉ</h4>
+                        <ul class="list-disc list-inside space-y-2 ml-1">
+                            <li><strong class="text-gray-900">Phép nhân:</strong> Áp dụng công thức: $$\frac{a}{b} \cdot \frac{c}{d} = \frac{a \cdot c}{b \cdot d}$$</li>
+                            <li><strong class="text-gray-900">Phép chia:</strong> Nhân với phân số nghịch đảo: $$\frac{a}{b} : \frac{c}{d} = \frac{a}{b} \cdot \frac{d}{c} = \frac{a \cdot d}{b \cdot c} \text{ (với } c \neq 0\text{)}$$</li>
+                            <li><strong class="text-gray-900">Dấu phép tính:</strong> Tuân thủ quy tắc dấu như số nguyên (cùng dấu ra dương, trái dấu ra âm).</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Examples Level 1 -->
+                <div class="bg-white p-5 rounded-xl border border-gray-200 bg-gradient-to-r from-slate-50 to-white">
+                    <p class="font-bold text-gray-800 text-xs uppercase tracking-wider mb-3"><i class="fa-regular fa-lightbulb text-amber-500 mr-1"></i> Ví dụ minh họa (Cấp độ 1)</p>
+                    <div class="space-y-4 text-sm">
+                        <div class="p-3 bg-white rounded-lg border border-gray-100 shadow-sm space-y-1">
+                            <p><strong>Bài toán 1 (Quy đồng và cộng trừ):</strong> Tính \(\frac{-2}{5} + \frac{3}{7}\)</p>
+                            <p><strong>Bài toán 2 (Đổi định dạng và nhân chia):</strong> Tính \(0,36 \cdot \frac{-5}{9}\)</p>
+                        </div>
+                        
+                        <details class="group bg-white rounded-xl border border-emerald-200 shadow-sm transition-all duration-200">
+                            <summary class="list-none flex items-center justify-between cursor-pointer font-bold text-emerald-700 p-3 select-none">
+                                <span class="flex items-center"><i class="fa-solid fa-circle-chevron-down mr-2 text-emerald-500 transition-transform group-open:rotate-180"></i> Hướng dẫn & Lời giải ẩn</span>
+                                <span class="text-xs bg-emerald-50 px-2.5 py-1 rounded-md text-emerald-600 group-open:hidden">Xem giải chi tiết</span>
+                            </summary>
+                            <div class="p-4 border-t border-emerald-100 bg-emerald-50/20 text-gray-700 space-y-3 font-medium">
+                                <p><strong>Lời giải chi tiết:</strong></p>
+                                <p><strong>Giải Bài toán 1:</strong> Quy đồng mẫu số chung là $35$:<br>
+                                \(\frac{-2}{5} + \frac{3}{7} = \frac{-2 \cdot 7}{35} + \frac{3 \cdot 5}{35} = \frac{-14}{35} + \frac{15}{35} = \frac{1}{35}\).</p>
+                                <hr class="border-emerald-100/60">
+                                <p><strong>Giải Bài toán 2:</strong> Đổi số thập phân sang phân số tối giản:<br>
+                                Đổi \(0,36 = \frac{36}{100} = \frac{9}{25}\).<br>
+                                Ta thực hiện phép nhân: \(\frac{9}{25} \cdot \frac{-5}{9} = \frac{9 \cdot (-5)}{25 \cdot 9} = \frac{-5}{25} = \frac{-1}{5}\).</p>
+                            </div>
+                        </details>
+                    </div>
+                </div>
+            </section>
+
+            <!-- LEVEL 2: ADVANCED -->
+            <section class="bg-white rounded-2xl border border-gray-200/80 p-6 md:p-8 space-y-6 card-shadow">
+                <div class="flex items-center space-x-3 border-b pb-3 border-gray-100">
+                    <span class="bg-indigo-500 text-white font-extrabold text-xs px-3 py-1 rounded-lg uppercase tracking-wider">Cấp độ 2</span>
+                    <h3 class="text-lg font-extrabold text-gray-900">NÂNG CAO (Tính toán hợp lí & Vận dụng tính chất)</h3>
+                </div>
+                <p class="text-sm font-semibold text-indigo-700 bg-indigo-50 px-3 py-1.5 rounded-lg inline-block">
+                    Mục tiêu: Học sinh biết quan sát biểu thức, nhóm các số hạng hoặc thừa số phù hợp để tính nhanh, tránh cồng kềnh.
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm leading-relaxed text-gray-700">
+                    <div class="space-y-3 bg-slate-50/50 p-4 rounded-xl border border-slate-100">
+                        <h4 class="font-bold text-indigo-800 text-base flex items-center"><i class="fa-solid fa-code-merge mr-2"></i> 1. Tính chất của phép cộng số hữu tỉ</h4>
+                        <p>Phép cộng có đầy đủ tính chất: <strong>Giao hoán, Kết hợp, cộng với số \(0\)</strong>, và <strong>cộng với số đối</strong>.</p>
+                        <p class="text-xs font-semibold text-amber-700 bg-amber-50 p-2 rounded-lg">Kỹ thuật: Phá ngoặc linh hoạt và nhóm các phân số có cùng mẫu số, hoặc nhóm các số thập phân tròn chục/tròn trăm lại với nhau.</p>
+                    </div>
+
+                    <div class="space-y-3 bg-slate-50/50 p-4 rounded-xl border border-slate-100">
+                        <h4 class="font-bold text-indigo-800 text-base flex items-center"><i class="fa-solid fa-arrows-turn-to-dots mr-2"></i> 2. Tính chất của phép nhân số hữu tỉ</h4>
+                        <p>Phép nhân có tính chất: <strong>Giao hoán, Kết hợp, nhân với \(1\)</strong>, và đặc biệt là <strong>Phân phối của phép nhân đối với phép cộng/trừ</strong>.</p>
+                        <p class="text-xs font-semibold text-emerald-700 bg-emerald-50 p-2 rounded-lg">Kỹ thuật (Rút nhân tử chung): Áp dụng công thức ngược \(a \cdot b + a \cdot c = a \cdot (b + c)\). Phương pháp này tối ưu thời gian làm bài thi cực tốt.</p>
+                    </div>
+                </div>
+
+                <!-- Examples Level 2 -->
+                <div class="bg-white p-5 rounded-xl border border-gray-200 bg-gradient-to-r from-slate-50 to-white">
+                    <p class="font-bold text-gray-800 text-xs uppercase tracking-wider mb-3"><i class="fa-regular fa-lightbulb text-amber-500 mr-1"></i> Ví dụ minh họa (Cấp độ 2)</p>
+                    <div class="space-y-4 text-sm">
+                        <div class="p-3 bg-white rounded-lg border border-gray-100 shadow-sm space-y-2">
+                            <p><strong>Bài toán 1 (Nhóm hạng tử):</strong> Tính một cách hợp lí: \(A = \left( \frac{-2}{3} + \frac{5}{2} \right) + \left( \frac{1}{3} + \frac{-1}{2} \right)\)</p>
+                            <p><strong>Bài toán 2 (Áp dụng phân phối):</strong> Tính: \(B = \frac{7}{12} \cdot (-2,34) - \frac{7}{12} \cdot (-0,34)\)</p>
+                        </div>
+                        
+                        <details class="group bg-white rounded-xl border border-emerald-200 shadow-sm transition-all duration-200">
+                            <summary class="list-none flex items-center justify-between cursor-pointer font-bold text-emerald-700 p-3 select-none">
+                                <span class="flex items-center"><i class="fa-solid fa-circle-chevron-down mr-2 text-emerald-500 transition-transform group-open:rotate-180"></i> Hướng dẫn & Lời giải ẩn</span>
+                                <span class="text-xs bg-emerald-50 px-2.5 py-1 rounded-md text-emerald-600 group-open:hidden">Xem giải chi tiết</span>
+                            </summary>
+                            <div class="p-4 border-t border-emerald-100 bg-emerald-50/20 text-gray-700 space-y-4 font-medium">
+                                <p><strong>Lời giải chi tiết:</strong></p>
+                                <div>
+                                    <p class="text-gray-900 font-bold">Giải Bài toán 1:</p>
+                                    <p>Áp dụng tính chất giao hoán và kết hợp để nhóm các phân số cùng mẫu:</p>
+                                    <p>\(A = \left( \frac{-2}{3} + \frac{1}{3} \right) + \left( \frac{5}{2} + \frac{-1}{2} \right)\)</p>
+                                    <p>\(A = \frac{-1}{3} + \frac{4}{2} = \frac{-1}{3} + 2 = \frac{-1}{3} + \frac{6}{3} = \frac{5}{3}\).</p>
+                                </div>
+                                <hr class="border-emerald-100/60">
+                                <div>
+                                    <p class="text-gray-900 font-bold">Giải Bài toán 2:</p>
+                                    <p>Đặt thừa số chung \(\frac{7}{12}\) ra ngoài:</p>
+                                    <p>\(B = \frac{7}{12} \cdot [(-2,34) - (-0,34)]\)</p>
+                                    <p>\(B = \frac{7}{12} \cdot [-2,34 + 0,34] = \frac{7}{12} \cdot (-2,00) = \frac{7}{12} \cdot (-2) = \frac{-14}{12} = \frac{-7}{6}\).</p>
+                                </div>
+                            </div>
+                        </details>
+                    </div>
+                </div>
+            </section>
+
+            <!-- LEVEL 3: APPLICATION -->
+            <section class="bg-white rounded-2xl border border-gray-200/80 p-6 md:p-8 space-y-6 card-shadow">
+                <div class="flex items-center space-x-3 border-b pb-3 border-gray-100">
+                    <span class="bg-emerald-500 text-white font-extrabold text-xs px-3 py-1 rounded-lg uppercase tracking-wider">Cấp độ 3</span>
+                    <h3 class="text-lg font-extrabold text-gray-900">VẬN DỤNG (Thực tiễn & Giải quyết vấn đề)</h3>
+                </div>
+                <p class="text-sm font-semibold text-emerald-700 bg-emerald-50 px-3 py-1.5 rounded-lg inline-block">
+                    Mục tiêu: Đọc hiểu bài toán thực tế, chuyển đổi ngôn ngữ đời sống thành mô hình phép toán số hữu tỉ chính xác.
+                </p>
+
+                <div class="bg-slate-50 p-4 rounded-xl border border-slate-150 space-y-2 text-sm text-gray-700">
+                    <p class="font-bold text-gray-900 flex items-center"><i class="fa-solid fa-graduation-cap text-emerald-600 mr-2"></i> Kỹ năng giải toán thực tế quý báu:</p>
+                    <ul class="list-decimal list-inside space-y-1.5 ml-1">
+                        <li>Xác định các đại lượng đang tăng hay giảm, đi lên hay đi xuống để gán dấu âm (\(-\)) hoặc dương (\(+\)) cho chuẩn xác.</li>
+                        <li>Thực hiện linh hoạt việc chuyển đổi định dạng giữa phân số, hỗn số và số thập phân tùy theo số liệu đề bài.</li>
+                    </ul>
+                </div>
+
+                <!-- Examples Level 3 -->
+                <div class="bg-white p-5 rounded-xl border border-gray-200 bg-gradient-to-r from-slate-50 to-white">
+                    <p class="font-bold text-gray-800 text-xs uppercase tracking-wider mb-3"><i class="fa-regular fa-lightbulb text-amber-500 mr-1"></i> Ví dụ minh họa (Cấp độ 3)</p>
+                    <div class="space-y-4 text-sm">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="p-3 bg-white rounded-lg border border-gray-100 shadow-sm space-y-1">
+                                <p class="font-bold text-emerald-700"><i class="fa-solid fa-wind mr-1"></i> Bài toán 1 (Khinh khí cầu):</p>
+                                <p class="text-xs text-gray-600">Giả sử một khinh khí cầu bay lên từ mặt đất theo chiều thẳng đứng với vận tốc \(0,8\text{ m/s}\) trong \(50\) giây. Sau đó nó giảm dần độ cao với vận tốc \(\frac{5}{9}\text{ m/s}\). Hỏi sau \(27\) giây kể từ khi hạ độ cao, khinh khí cầu cách mặt đất bao nhiêu mét?</p>
+                            </div>
+                            <div class="p-3 bg-white rounded-lg border border-gray-100 shadow-sm space-y-1">
+                                <p class="font-bold text-teal-700"><i class="fa-solid fa-ship mr-1"></i> Bài toán 2 (Địa lý - Lặn biển):</p>
+                                <p class="text-xs text-gray-600">Từ mặt nước biển, một thiết bị lặn khảo sát lặn xuống \(\frac{43}{6}\text{ m}\). Sau đó nó tiếp tục lặn xuống thêm \(5,4\text{ m}\) nữa. Hỏi khi đó thiết bị lặn ở độ cao bao nhiêu mét so với mực nước biển?</p>
+                            </div>
+                        </div>
+                        
+                        <details class="group bg-white rounded-xl border border-emerald-200 shadow-sm transition-all duration-200">
+                            <summary class="list-none flex items-center justify-between cursor-pointer font-bold text-emerald-700 p-3 select-none">
+                                <span class="flex items-center"><i class="fa-solid fa-circle-chevron-down mr-2 text-emerald-500 transition-transform group-open:rotate-180"></i> Hướng dẫn & Lời giải ẩn</span>
+                                <span class="text-xs bg-emerald-50 px-2.5 py-1 rounded-md text-emerald-600 group-open:hidden">Xem giải chi tiết</span>
+                            </summary>
+                            <div class="p-4 border-t border-emerald-100 bg-emerald-50/20 text-gray-700 space-y-4 font-medium">
+                                <p><strong>Lời giải chi tiết:</strong></p>
+                                <div>
+                                    <p class="text-gray-900 font-bold">Giải Bài toán 1:</p>
+                                    <p>• Quãng đường bay lên (chiều dương): \(0,8 \cdot 50 = 40\text{ (m)}\).</p>
+                                    <p>• Quãng đường hạ xuống (chiều âm): \(\frac{5}{9} \cdot 27 = 15\text{ (m)}\).</p>
+                                    <p>• Vị trí hiện tại của khinh khí cầu cách mặt đất là: \(40 - 15 = 25\text{ (m)}\).</p>
+                                    <p class="text-xs text-indigo-600 font-semibold">(Biểu diễn gộp: \(0,8 \cdot 50 + \left( \frac{-5}{9} \right) \cdot 27 = 40 - 15 = 25\text{ m}\)).</p>
+                                </div>
+                                <hr class="border-emerald-100/60">
+                                <div>
+                                    <p class="text-gray-900 font-bold">Giải Bài toán 2:</p>
+                                    <p>Vì thiết bị di chuyển xuống dưới mực nước biển nên ta sử dụng giá trị số âm để biểu diễn trạng thái vị trí:</p>
+                                    <p>Độ cao của thiết bị so với mực nước biển là:<br>
+                                    \(\frac{-43}{6} + (-5,4) = \frac{-43}{6} + \frac{-54}{10} = \frac{-215}{30} + \frac{-162}{30} = \frac{-377}{30}\text{ (m)}\).</p>
+                                    <p class="text-xs text-amber-700 font-semibold">Kết luận: Thiết bị đang ở vị trí cách mực nước biển \(\frac{377}{30}\) mét về phía dưới.</p>
+                                </div>
+                            </div>
+                        </details>
+                    </div>
+                </div>
+            </section>
+
+            <!-- PEDAGOGICAL TIPS -->
+            <section class="p-5 bg-amber-50 rounded-2xl border border-amber-200/70 text-sm leading-relaxed text-gray-800">
+                <p class="font-bold text-amber-900 text-base mb-1.5 flex items-center">
+                    <i class="fa-solid fa-chalkboard-user mr-2 text-amber-600"></i> 💡 Lời khuyên sư phạm dành cho học sinh:
+                </p>
+                <p>
+                    Trong chương này, quy tắc tối thượng cần nhớ là <span class="text-amber-800 font-bold">"Rút gọn phân số trước khi tiến hành quy đồng mẫu số"</span>. Rất nhiều bạn học sinh mắc kẹt ở các bước quy đồng ra mẫu số chung lên đến hàng nghìn một cách cồng kềnh chỉ vì quên bước đơn giản này. Ngoài ra, hãy tận dụng tính năng tính toán phân số trên máy tính Casio để hỗ trợ tìm nhanh Mẫu thức chung nhỏ nhất (LCM).
+                </p>
+            </section>
+        </div>
+
+        <!-- ================= SECTION: ASYNCHRONOUS ONLINE QUIZ ================= -->
+        <section class="border-t border-gray-100 pt-10 page-break">
+            <div class="bg-gradient-to-br from-slate-900 via-gray-900 to-emerald-950 text-white rounded-3xl p-6 md:p-8 shadow-xl relative overflow-hidden">
+                <div class="absolute -right-10 -bottom-10 opacity-5 pointer-events-none text-white">
+                    <i class="fa-solid fa-medal text-[12rem]"></i>
+                </div>
+                
+                <div class="max-w-xl space-y-2">
+                    <span class="text-xs font-bold uppercase tracking-widest text-emerald-400 bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-500/20 inline-block">Đánh giá năng lực</span>
+                    <h2 class="text-2xl md:text-3xl font-extrabold tracking-tight">Phiếu Luyện Tập Trắc Nghiệm Buổi 2</h2>
+                    <p class="text-gray-400 text-xs md:text-sm">Kết quả điểm số làm bài sẽ được tự động đồng bộ hóa thời gian thực về máy chủ đám mây của nhà trường.</p>
+                </div>
+
+                <!-- Identity Information Area -->
+                <form id="quizForm" onsubmit="handleQuizSubmission(event)" class="mt-8 space-y-6 text-gray-900">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100/10">
+                            <label class="block text-xs font-bold text-gray-400 uppercase tracking-wide mb-1"><i class="fa-solid fa-user-graduate mr-1 text-emerald-500"></i> Họ và tên học sinh</label>
+                            <input type="text" id="studentName" required placeholder="Nhập họ tên đầy đủ..." class="w-full bg-white border-b-2 border-gray-200 focus:border-emerald-500 outline-none py-1 text-sm font-semibold text-gray-900 transition-colors">
+                        </div>
+                        <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100/10">
+                            <label class="block text-xs font-bold text-gray-400 uppercase tracking-wide mb-1"><i class="fa-solid fa-bookmark mr-1 text-emerald-500"></i> Mã học phần / Mã đề</label>
+                            <input type="text" id="examCode" readonly value="toan7-02" class="w-full bg-gray-50 border-b-2 border-gray-200 outline-none py-1 text-sm font-bold text-gray-600 cursor-not-allowed">
+                        </div>
+                    </div>
+
+                    <!-- Question Nodes -->
+                    <div class="space-y-4 mt-6">
+                        <!-- Q1 -->
+                        <div class="bg-white p-5 rounded-xl shadow-sm space-y-3">
+                            <p class="text-sm font-bold text-gray-900"><span class="text-emerald-600">Câu 1:</span> Kết quả của phép tính \(\frac{-2}{5} + \frac{3}{5}\) bằng bao nhiêu?</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs font-semibold text-gray-700">
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-gray-100 hover:bg-slate-50 cursor-pointer transition-colors">
+                                    <input type="radio" name="q1" value="A" required class="text-emerald-600 focus:ring-emerald-500 h-4 w-4"> <span>A. \(\frac{-5}{5}\)</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-gray-100 hover:bg-slate-50 cursor-pointer transition-colors">
+                                    <input type="radio" name="q1" value="B" class="text-emerald-600 focus:ring-emerald-500 h-4 w-4"> <span>B. \(\frac{1}{5}\)</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-gray-100 hover:bg-slate-50 cursor-pointer transition-colors">
+                                    <input type="radio" name="q1" value="C" class="text-emerald-600 focus:ring-emerald-500 h-4 w-4"> <span>C. \(\frac{-1}{5}\)</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-gray-100 hover:bg-slate-50 cursor-pointer transition-colors">
+                                    <input type="radio" name="q1" value="D" class="text-emerald-600 focus:ring-emerald-500 h-4 w-4"> <span>D. \(\frac{5}{5}\)</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Q2 -->
+                        <div class="bg-white p-5 rounded-xl shadow-sm space-y-3">
+                            <p class="text-sm font-bold text-gray-900"><span class="text-emerald-600">Câu 2:</span> Số nghịch đảo của số hữu tỉ \(\frac{-3}{4}\) là:</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs font-semibold text-gray-700">
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-gray-100 hover:bg-slate-50 cursor-pointer transition-colors">
+                                    <input type="radio" name="q2" value="A" required class="text-emerald-600 focus:ring-emerald-500 h-4 w-4"> <span>A. \(\frac{3}{4}\)</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-gray-100 hover:bg-slate-50 cursor-pointer transition-colors">
+                                    <input type="radio" name="q2" value="B" class="text-emerald-600 focus:ring-emerald-500 h-4 w-4"> <span>B. \(\frac{4}{3}\)</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-gray-100 hover:bg-slate-50 cursor-pointer transition-colors">
+                                    <input type="radio" name="q2" value="C" class="text-emerald-600 focus:ring-emerald-500 h-4 w-4"> <span>C. \(\frac{-4}{3}\)</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-gray-100 hover:bg-slate-50 cursor-pointer transition-colors">
+                                    <input type="radio" name="q2" value="D" class="text-emerald-600 focus:ring-emerald-500 h-4 w-4"> <span>D. \(\frac{-3}{4}\)</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Q3 -->
+                        <div class="bg-white p-5 rounded-xl shadow-sm space-y-3">
+                            <p class="text-sm font-bold text-gray-900"><span class="text-emerald-600">Câu 3:</span> Giá trị của biểu thức \(B = \frac{5}{7} \cdot 12 - \frac{5}{7} \cdot 5\) là:</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs font-semibold text-gray-700">
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-gray-100 hover:bg-slate-50 cursor-pointer transition-colors">
+                                    <input type="radio" name="q3" value="A" required class="text-emerald-600 focus:ring-emerald-500 h-4 w-4"> <span>A. \(5\)</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-gray-100 hover:bg-slate-50 cursor-pointer transition-colors">
+                                    <input type="radio" name="q3" value="B" class="text-emerald-600 focus:ring-emerald-500 h-4 w-4"> <span>B. \(\frac{5}{7}\)</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-gray-100 hover:bg-slate-50 cursor-pointer transition-colors">
+                                    <input type="radio" name="q3" value="C" class="text-emerald-600 focus:ring-emerald-500 h-4 w-4"> <span>C. \(12\)</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-gray-100 hover:bg-slate-50 cursor-pointer transition-colors">
+                                    <input type="radio" name="q3" value="D" class="text-emerald-600 focus:ring-emerald-500 h-4 w-4"> <span>D. \(35\)</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Form Submitter Action Footer -->
+                    <div class="pt-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+                        <button type="submit" id="submitBtn" class="w-full sm:w-auto bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-sm px-8 py-3.5 rounded-xl shadow-lg hover:shadow-emerald-500/20 transition-all flex items-center justify-center space-x-2">
+                            <i class="fa-solid fa-paper-plane"></i> <span>Nộp bài & Xem kết quả</span>
+                        </button>
+                        <div id="responseStatus" class="text-xs font-semibold text-gray-300 transition-all"></div>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- Institution Footer Statement -->
+    <footer class="bg-gray-50 border-t border-gray-100 py-8 text-center text-xs text-gray-500 font-medium space-y-1.5 px-4">
+        <p class="font-bold text-gray-800 text-sm">@ Bản quyền thuộc ThS. Đinh Quốc Tuấn - Mục đích phi lợi nhuận - Vì giáo dục.</p>
+        <p>Hệ thống học liệu bổ trợ trực tuyến Chân trời sáng tạo Toán học THCS</p>
+    </footer>
+
+    <!-- ================= INJECTED PRINT BUTTON & LOGIC ================= -->
+    <button id="btn-print-doc" onclick="safePrint()" class="fixed bottom-5 right-5 bg-gray-900 text-white px-4 py-2 rounded-lg shadow-lg hover:bg-gray-700 print:hidden z-50">
+        <i class="fas fa-print mr-2"></i> In Tài Liệu
+    </button>
+
+    <script>
+        // Track test start time for telemetry
+        const quizStartTime = new Date();
+
+        function safePrint() {
+            const printBtn = document.getElementById('btn-print-doc');
+            printBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Đang chuẩn bị...';
+            
+            // Đảm bảo MathJax đã render xong mọi công thức trước khi gọi hộp thoại in
+            if (window.MathJax && window.MathJax.typesetPromise) {
+                MathJax.typesetPromise().then(() => {
+                    printBtn.innerHTML = '<i class="fas fa-print mr-2"></i> In Tài Liệu';
+                    window.print();
+                });
+            } else {
+                // Fallback nếu không có công thức toán
+                setTimeout(() => window.print(), 500); 
+            }
+        }
+
+        // Handle Quiz evaluation and cloud transmission (Google Apps Script Target)
+        function handleQuizSubmission(event) {
+            event.preventDefault();
+            
+            const submitBtn = document.getElementById('submitBtn');
+            const statusNode = document.getElementById('responseStatus');
+            
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i> Đang tính toán...';
+            statusNode.innerHTML = "Đang đồng bộ dữ liệu điểm số...";
+
+            // Answer keys
+            const keys = { q1: "B", q2: "C", q3: "A" };
+            
+            const hoTen = document.getElementById('studentName').value.trim();
+            const maDe = document.getElementById('examCode').value.trim();
+            
+            let correctCount = 0;
+            let totalCount = Object.keys(keys).length;
+            let missedList = [];
+
+            for (let question in keys) {
+                const selectedOption = document.querySelector(`input[name="${question}"]:checked`);
+                if (selectedOption && selectedOption.value === keys[question]) {
+                    correctCount++;
+                } else {
+                    let userValue = selectedOption ? selectedOption.value : "Trống";
+                    missedList.push(`${question.toUpperCase()}(Chọn: ${userValue}|Đúng: ${keys[question]})`);
+                }
+            }
+
+            // Standardize grade to 10-point scale
+            const finalScore = ((correctCount / totalCount) * 10).toFixed(2);
+            
+            // Calculate time elapsed
+            const quizEndTime = new Date();
+            const durationSeconds = Math.floor((quizEndTime - quizStartTime) / 1000);
+            const thoiGian = `${durationSeconds} giây`;
+            const cauSai = missedList.length > 0 ? missedList.join(", ") : "Không có";
+
+            // Payload structured for processing by doPost(e) in Apps Script
+            const postData = {
+                hoTen: hoTen,
+                maDe: maDe,
+                diem: parseFloat(finalScore),
+                thoiGian: thoiGian,
+                cauSai: cauSai
+            };
+
+            const endpointUrl = "https://script.google.com/macros/s/AKfycbzY7b7h4OwvhXuK5Vs6hl-aD88BPnAiAKbU5lfJobby0D4nzbIJVKT4n0AKCpAGoK0nZA/exec";
+
+            // Execute asynchronous network transaction with no-cors to accommodate redirection architecture
+            fetch(endpointUrl, {
+                method: "POST",
+                mode: "no-cors",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(postData)
+            })
+            .then(() => {
+                statusNode.className = "text-xs font-bold text-emerald-400";
+                statusNode.innerHTML = `<i class="fa-solid fa-cloud-arrow-up mr-1"></i> Đã hoàn tất! Điểm: ${finalScore}/10`;
+                alert(`Hệ thống xác nhận thành công!\nChúc mừng em ${hoTen} đã nộp bài.\nĐiểm số đạt được: ${finalScore} / 10 điểm.`);
+                submitBtn.innerHTML = '<i class="fa-solid fa-circle-check"></i> Đã ghi nhận';
+            })
+            .catch(err => {
+                console.error("Transmission Error:", err);
+                statusNode.className = "text-xs font-bold text-red-400";
+                statusNode.innerHTML = "<i class="fa-solid fa-triangle-exclamation mr-1"></i> Lỗi mạng! Hãy nộp lại.";
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="fa-solid fa-rotate-right mr-1"></i> Thử nộp lại';
+            });
+        }
+    </script>
+</body>
+</html>
