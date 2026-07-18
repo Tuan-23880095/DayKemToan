@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buổi 3: Lũy thừa của một số hữu tỉ - ThS. Đinh Quốc Tuấn</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- MathJax Configuration & Library -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['\\(', '\\)'], ['$', '$']],
+                displayMath: [['\\[', '\\]'], ['$$', '$$']]
+            },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #ffffff;
+            color: #111827;
+        }
+        /* Định dạng tối ưu hóa trang khi in tài liệu */
+        @media print {
+            .print\:hidden { display: none !important; }
+            body { background: white; color: black; }
+            details { display: block !important; }
+            details summary { display: none !important; }
+            .page-break { page-break-before: always; }
+            .card-style { box-shadow: none !important; border: 1px solid #e5e7eb !important; }
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col antialiased selection:bg-emerald-100">
+
+    <!-- Header học thuật -->
+    <header class="border-b border-gray-100 sticky top-0 bg-white/95 backdrop-blur-md z-40 print:hidden">
+        <div class="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <img src="https://hcmus.edu.vn/wp-content/uploads/2023/04/Logo-chinh-e1681638380305.png" alt="Logo HCMUS" class="h-12 w-auto object-contain">
+                <div class="border-l-2 border-emerald-500 pl-3">
+                    <span class="text-xs font-bold tracking-widest text-emerald-600 uppercase block">Học liệu chuyên sâu</span>
+                    <span class="text-sm font-bold text-gray-800">Toán học Lớp 7 • Chương trình mới</span>
+                </div>
+            </div>
+            <div class="text-right hidden sm:block">
+                <p class="text-xs text-gray-400 font-semibold">Người biên soạn:</p>
+                <p class="text-sm font-extrabold text-gray-800">ThS. Đinh Quốc Tuấn</p>
+            </div>
+        </div>
+    </header>
+
+    <!-- Banner thiên nhiên sinh động dành cho lứa tuổi 12-16 -->
+    <div class="relative w-full bg-gradient-to-r from-emerald-50 via-teal-50 to-green-50 border-b border-gray-100 overflow-hidden">
+        <div class="absolute inset-0 opacity-20 pointer-events-none bg-[radial-gradient(#059669_1px,transparent_1px)] [background-size:20px_20px]"></div>
+        <div class="max-w-5xl mx-auto px-4 py-10 md:py-14 grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
+            <div class="md:col-span-2 space-y-4 z-10">
+                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800 border border-emerald-200 shadow-sm">
+                    <i class="fa-solid fa-leaf mr-1.5 text-emerald-600"></i> Khám phá tự nhiên & toán học
+                </span>
+                <h1 class="text-3xl md:text-5xl font-black text-gray-900 tracking-tight leading-tight">
+                    Buổi 3: Lũy thừa của <br class="hidden md:block"><span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-teal-600">Một số hữu tỉ</span>
+                </h1>
+                <p class="text-gray-600 text-base max-w-xl font-medium leading-relaxed">
+                    Chào mừng các em học sinh đến với thế giới của những phép toán tăng trưởng diệu kỳ. Hãy cùng tìm hiểu quy luật lũy thừa thông qua các mô hình thực tế sinh động xung quanh chúng ta!
+                </p>
+            </div>
+            <div class="flex justify-center md:justify-end">
+                <div class="relative p-1.5 bg-white rounded-3xl shadow-xl border border-gray-100 transform rotate-1 hover:rotate-0 transition-transform duration-300">
+                    <img src="https://firebasestorage.googleapis.com/v0/b/link-anh-web.firebasestorage.app/o/ttbdvh.jpg?alt=media&token=f270aa9b-a2bc-48e8-8910-80742b542615" alt="Thiên nhiên và Tuổi trẻ" class="w-64 h-44 object-cover rounded-2xl shadow-inner">
+                    <div class="absolute -bottom-3 -left-3 bg-gradient-to-r from-yellow-400 to-amber-400 text-gray-900 font-black text-xs px-3 py-1.5 rounded-xl shadow-md">
+                        Tuổi trẻ sáng tạo (12-16) 🌱
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Nội dung chính -->
+    <main class="max-w-5xl mx-auto px-4 py-10 flex-grow w-full space-y-12">
+        
+        <!-- ================= GỢI Ý MÔ HÌNH VÀ HÌNH ẢNH TRỰC QUAN ================= -->
+        <section class="p-6 md:p-8 bg-gradient-to-br from-emerald-50/40 via-white to-teal-50/20 rounded-3xl border border-emerald-100/50 shadow-sm card-style">
+            <h2 class="text-xl font-extrabold text-emerald-900 mb-6 flex items-center">
+                <i class="fa-solid fa-wand-magic-sparkles mr-2.5 text-emerald-600"></i> 💡 GỢI Ý MÔ HÌNH VÀ HÌNH ẢNH TRỰC QUAN
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Mô hình 1 -->
+                <div class="bg-white p-5 rounded-2xl border border-emerald-100 shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center space-x-2 text-emerald-700 mb-3">
+                            <span class="p-2 bg-emerald-50 rounded-xl"><i class="fa-solid fa-scroll text-sm"></i></span>
+                            <h3 class="font-bold text-gray-900 text-sm">Mô hình "Gấp giấy"</h3>
+                        </div>
+                        <p class="text-xs text-gray-600 leading-relaxed font-medium">
+                            <strong>Sự tăng trưởng cấp số nhân:</strong> Giáo viên có thể mang theo một tờ giấy lớn. Gấp đôi lần 1 tạo ra \(2^1 = 2\) lớp giấy. Gấp đôi lần 2 tạo ra \(2^2 = 4\) lớp giấy. Gấp đôi lần 3 tạo ra \(2^3 = 8\) lớp giấy. Hình ảnh này giúp học sinh hiểu sâu sắc bản chất của số mũ là phép nhân lặp lại của cùng một cơ số.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Mô hình 2 -->
+                <div class="bg-white p-5 rounded-2xl border border-teal-100 shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center space-x-2 text-teal-700 mb-3">
+                            <span class="p-2 bg-teal-50 rounded-xl"><i class="fa-solid fa-boxes-stacked text-sm"></i></span>
+                            <h3 class="font-bold text-gray-900 text-sm">Hình ảnh "Hộp trong hộp"</h3>
+                        </div>
+                        <p class="text-xs text-gray-600 leading-relaxed font-medium">
+                            <strong>Mô phỏng Lũy thừa của lũy thừa:</strong> Hình ảnh một chiếc thùng lớn chứa \(3\) chiếc hộp, trong mỗi chiếc hộp lại chứa \(3\) gói quà nhỏ (\(3^2\)). Nếu nhân bản toàn bộ mô hình này lên \(4\) lần, ta có \((3^2)^4\). Điều này giúp học sinh hình dung trực quan công thức \((x^m)^n = x^{m \cdot n}\).
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Mô hình 3 -->
+                <div class="bg-white p-5 rounded-2xl border border-green-100 shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center space-x-2 text-green-700 mb-3">
+                            <span class="p-2 bg-green-50 rounded-xl"><i class="fa-solid fa-cube text-sm"></i></span>
+                            <h3 class="font-bold text-gray-900 text-sm">Hình ảnh Khối Rubik</h3>
+                        </div>
+                        <p class="text-xs text-gray-600 leading-relaxed font-medium">
+                            <strong>Ứng dụng tính toán thể tích:</strong> Hình ảnh một khối rubik hình lập phương quen thuộc. Để tính toán chính xác thể tích của một khối rubik có độ dài cạnh bằng \(5,5\text{ cm}\), chúng ta áp dụng phép tính lũy thừa bậc 3 thực tế: \(V = 5,5^3\).
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= PHẦN 1: LÝ THUYẾT CHI TIẾT (3 CẤP ĐỘ) ================= -->
+        <div class="space-y-10">
+            <div class="border-b pb-4">
+                <h2 class="text-2xl font-black text-gray-900 tracking-tight flex items-center uppercase">
+                    <span class="w-3 h-7 bg-emerald-500 rounded-md mr-3 inline-block"></span>
+                    PHẦN 1: LÝ THUYẾT CHI TIẾT (3 CẤP ĐỘ)
+                </h2>
+            </div>
+
+            <!-- CẤP ĐỘ 1: CƠ BẢN -->
+            <section class="bg-white rounded-2xl border border-gray-200 p-6 md:p-8 space-y-6 card-shadow card-style">
+                <div class="flex items-center space-x-3 border-b pb-3 border-gray-100">
+                    <span class="bg-sky-500 text-white font-extrabold text-xs px-3 py-1 rounded-lg uppercase tracking-wider">Cấp độ 1</span>
+                    <h3 class="text-lg font-bold text-gray-900">CƠ BẢN (Nhận biết & Thông hiểu)</h3>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-sm text-gray-700 leading-relaxed">
+                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-100 space-y-2">
+                        <h4 class="font-bold text-sky-800 text-base"><i class="fa-solid fa-book-open mr-1.5"></i> 1. Khái niệm lũy thừa</h4>
+                        <p><strong>Định nghĩa:</strong> Lũy thừa bậc \(n\) của một số hữu tỉ \(x\), kí hiệu là \(x^n\), là tích của \(n\) thừa số \(x\) (\(n\) là số tự nhiên lớn hơn \(1\)).</p>
+                        <p class="font-mono bg-white p-2 rounded border text-center font-bold">\(x^n = x \cdot x \cdot x \dots x\) <br><span class="text-xs text-gray-400">(\(n\) thừa số \(x\))</span></p>
+                        <p>Trong đó: \(x\) gọi là cơ số, \(n\) gọi là số mũ.</p>
+                        <p class="text-xs bg-amber-50 p-2 rounded text-amber-800 font-semibold"><strong>Quy ước:</strong> \(x^1 = x\); và \(x^0 = 1\) (với \(x \neq 0\)).</p>
+                    </div>
+
+                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-100 space-y-2">
+                        <h4 class="font-bold text-sky-800 text-base"><i class="fa-solid fa-calculator mr-1.5"></i> 2. Nhân & chia cùng cơ số</h4>
+                        <p><strong>Phép nhân:</strong> Giữ nguyên cơ số và cộng hai số mũ:</p>
+                        <p class="font-mono bg-white p-1.5 rounded border text-center font-bold">\(x^m \cdot x^n = x^{m+n}\)</p>
+                        <p><strong>Phép chia:</strong> Giữ nguyên cơ số và trừ số mũ của lũy thừa bị chia cho số mũ của lũy thừa chia:</p>
+                        <p class="font-mono bg-white p-1.5 rounded border text-center font-bold">\(x^m : x^n = x^{m-n}\)</p>
+                        <p class="text-xs text-gray-500 font-medium">(với \(x \neq 0, m \ge n\))</p>
+                    </div>
+
+                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-100 space-y-2">
+                        <h4 class="font-bold text-sky-800 text-base"><i class="fa-solid fa-layer-group mr-1.5"></i> 3. Lũy thừa của lũy thừa</h4>
+                        <p>Khi tính lũy thừa của một lũy thừa, ta tiến hành giữ nguyên cơ số gốc ban đầu và thực hiện nhân hai số mũ với nhau:</p>
+                        <p class="font-mono bg-white p-2 rounded border text-center font-bold">\((x^m)^n = x^{m \cdot n}\)</p>
+                    </div>
+                </div>
+
+                <!-- Ví dụ Cấp độ 1 -->
+                <div class="bg-gradient-to-r from-slate-50 to-white p-5 rounded-xl border border-gray-200">
+                    <p class="font-bold text-gray-800 text-xs uppercase tracking-wider mb-2"><i class="fa-regular fa-lightbulb text-amber-500 mr-1"></i> Ví dụ minh họa (Cấp độ 1)</p>
+                    <div class="space-y-3 text-sm">
+                        <div class="p-3 bg-white rounded-lg border border-gray-100 shadow-sm space-y-1 font-medium">
+                            <p>a) Tính phân số: \(\left(\frac{-1}{2}\right)^3\)</p>
+                            <p>b) Áp dụng công thức thu gọn: \(\left(\frac{-2}{5}\right)^2 \cdot \left(\frac{-2}{5}\right)^3\)</p>
+                            <p>c) Lũy thừa của lũy thừa: \(\left[(-0,1)^3\right]^2\)</p>
+                        </div>
+                        
+                        <details class="group bg-white rounded-xl border border-emerald-200 shadow-sm transition-all duration-200">
+                            <summary class="list-none flex items-center justify-between cursor-pointer font-bold text-emerald-700 p-3 select-none">
+                                <span class="flex items-center"><i class="fa-solid fa-square-poll-horizontal mr-2 text-emerald-500 transition-transform group-open:rotate-180"></i> Xem gợi ý lời giải ẩn</span>
+                                <span class="text-xs bg-emerald-50 px-2.5 py-1 rounded-md text-emerald-600 group-open:hidden">Bấm để mở</span>
+                            </summary>
+                            <div class="p-4 border-t border-emerald-100 bg-emerald-50/10 text-gray-700 space-y-2 font-medium">
+                                <p>a) \(\left(\frac{-1}{2}\right)^3 = \frac{-1}{2} \cdot \frac{-1}{2} \cdot \frac{-1}{2} = \frac{-1}{8}\).</p>
+                                <p>b) \(\left(\frac{-2}{5}\right)^2 \cdot \left(\frac{-2}{5}\right)^3 = \left(\frac{-2}{5}\right)^{2+3} = \left(\frac{-2}{5}\right)^5\).</p>
+                                <p>c) \(\left[(-0,1)^3\right]^2 = (-0,1)^{3 \cdot 2} = (-0,1)^6\).</p>
+                            </div>
+                        </details>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CẤP ĐỘ 2: NÂNG CAO -->
+            <section class="bg-white rounded-2xl border border-gray-200 p-6 md:p-8 space-y-6 card-shadow card-style">
+                <div class="flex items-center space-x-3 border-b pb-3 border-gray-100">
+                    <span class="bg-indigo-500 text-white font-extrabold text-xs px-3 py-1 rounded-lg uppercase tracking-wider">Cấp độ 2</span>
+                    <h3 class="text-lg font-bold text-gray-900">NÂNG CAO (Phân tích & Biến đổi biểu thức)</h3>
+                </div>
+                <p class="text-sm font-semibold text-indigo-700 bg-indigo-50 px-3 py-1.5 rounded-lg inline-block">
+                    Mục tiêu: Học sinh nắm được quy tắc xét dấu, biến đổi cơ số và giải bài toán tìm số mũ/cơ số chuyên sâu.
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-sm text-gray-700 leading-relaxed">
+                    <div class="bg-indigo-50/30 p-4 rounded-xl border border-indigo-100/50 space-y-1.5">
+                        <h4 class="font-bold text-indigo-900 text-base">1. Quy tắc dấu của lũy thừa</h4>
+                        <p>• Lũy thừa với <strong>số mũ chẵn</strong> của một số hữu tỉ (dù âm hay dương) đều mang <strong>dấu dương</strong>.</p>
+                        <p>• Lũy thừa với <strong>số mũ lẻ</strong> của một số hữu tỉ âm sẽ mang <strong>dấu âm</strong>.</p>
+                    </div>
+
+                    <div class="bg-indigo-50/30 p-4 rounded-xl border border-indigo-100/50 space-y-1.5">
+                        <h4 class="font-bold text-indigo-900 text-base">2. Tích và thương (Mở rộng)</h4>
+                        <p>• Lũy thừa của một tích bằng tích các lũy thừa: <br><span class="font-bold text-center block my-1">\((x \cdot y)^n = x^n \cdot y^n\)</span></p>
+                        <p>• Lũy thừa của một thương bằng thương các lũy thừa: <br><span class="font-bold text-center block my-1">\(\left(\frac{x}{y}\right)^n = \frac{x^n}{y^n}\) <span class="text-xs font-normal text-gray-500">(\(y \neq 0\))</span></span></p>
+                    </div>
+
+                    <div class="bg-indigo-50/30 p-4 rounded-xl border border-indigo-100/50 space-y-1.5">
+                        <h4 class="font-bold text-indigo-900 text-base">3. Giải toán Tìm \(x\)</h4>
+                        <p>Phương pháp tìm số mũ hoặc cơ số cơ bản dựa trên tính chất đồng nhất phân tích:</p>
+                        <p class="bg-white p-2 rounded border text-center font-medium">Với \(a \neq 0, a \neq \pm 1\), nếu có <br><span class="font-bold">\(a^m = a^n \Rightarrow m = n\).</span></p>
+                    </div>
+                </div>
+
+                <!-- Ví dụ Cấp độ 2 -->
+                <div class="bg-gradient-to-r from-slate-50 to-white p-5 rounded-xl border border-gray-200">
+                    <p class="font-bold text-gray-800 text-xs uppercase tracking-wider mb-2"><i class="fa-regular fa-lightbulb text-amber-500 mr-1"></i> Ví dụ minh họa (Cấp độ 2)</p>
+                    <div class="space-y-4 text-sm">
+                        <div class="p-3 bg-white rounded-lg border border-gray-100 shadow-sm space-y-2 font-medium">
+                            <p><strong>Bài toán 1 (Tính hợp lí):</strong> Tính giá trị biểu thức: \(\frac{25^3 \cdot 2^{10}}{16^2 \cdot 625^2}\)</p>
+                            <p><strong>Bài toán 2 (Tìm số mũ):</strong> Tìm số tự nhiên \(n\) biết rằng: \(2^{n-1} = 16\)</p>
+                        </div>
+                        
+                        <details class="group bg-white rounded-xl border border-emerald-200 shadow-sm transition-all duration-200">
+                            <summary class="list-none flex items-center justify-between cursor-pointer font-bold text-emerald-700 p-3 select-none">
+                                <span class="flex items-center"><i class="fa-solid fa-square-poll-horizontal mr-2 text-emerald-500 transition-transform group-open:rotate-180"></i> Xem gợi ý lời giải ẩn</span>
+                                <span class="text-xs bg-emerald-50 px-2.5 py-1 rounded-md text-emerald-600 group-open:hidden">Bấm để mở</span>
+                            </summary>
+                            <div class="p-4 border-t border-emerald-100 bg-emerald-50/10 text-gray-700 space-y-3 font-medium">
+                                <div>
+                                    <p class="text-gray-900 font-bold">Giải Bài toán 1:</p>
+                                    <p>Đưa tất cả về cơ số nguyên tố \(5\) và \(2\). Ta có \(25 = 5^2\), \(16 = 2^4\), \(625 = 5^4\).</p>
+                                    <p>Biểu thức trở thành: \(\frac{(5^2)^3 \cdot 2^{10}}{(2^4)^2 \cdot (5^4)^2} = \frac{5^6 \cdot 2^{10}}{2^8 \cdot 5^8} = \frac{2^{10-8}}{5^{8-6}} = \frac{2^2}{5^2} = \frac{4}{25}\).</p>
+                                </div>
+                                <hr class="border-emerald-100/60">
+                                <div>
+                                    <p class="text-gray-900 font-bold">Giải Bài toán 2:</p>
+                                    <p>Ta phân tích số bên vế phải: \(16 = 2^4\).</p>
+                                    <p>Suy ra: \(2^{n-1} = 2^4 \Rightarrow n - 1 = 4 \Rightarrow n = 5\).</p>
+                                </div>
+                            </div>
+                        </details>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CẤP ĐỘ 3: VẬN DỤNG -->
+            <section class="bg-white rounded-2xl border border-gray-200 p-6 md:p-8 space-y-6 card-shadow card-style">
+                <div class="flex items-center space-x-3 border-b pb-3 border-gray-100">
+                    <span class="bg-emerald-500 text-white font-extrabold text-xs px-3 py-1 rounded-lg uppercase tracking-wider">Cấp độ 3</span>
+                    <h3 class="text-lg font-bold text-gray-900">VẬN DỤNG (Thực tiễn & Đo lường)</h3>
+                </div>
+                <p class="text-sm font-semibold text-emerald-700 bg-emerald-50 px-3 py-1.5 rounded-lg inline-block">
+                    Mục tiêu: Học sinh biết dùng lũy thừa (đặc biệt là lũy thừa cơ số 10) để biểu diễn các số rất lớn hoặc rất nhỏ trong khoa học vũ trụ, địa lý vật lý.
+                </p>
+
+                <div class="bg-emerald-50/20 p-4 rounded-xl border border-emerald-100 text-sm text-gray-700 leading-relaxed">
+                    <p class="font-bold text-emerald-900"><i class="fa-solid fa-satellite mr-1.5"></i> Ứng dụng khoa học thực tế:</p>
+                    <p>Trong thiên văn học hoặc vật lí vĩ mô, người ta thường dùng lũy thừa viết dưới dạng cơ số \(10\) kèm theo hệ số thập phân để biểu diễn một cách ngắn gọn khoảng cách năm ánh sáng, khối lượng khổng lồ của các hành tinh hay các hạt nguyên tử siêu nhỏ.</p>
+                </div>
+
+                <!-- Ví dụ Cấp độ 3 -->
+                <div class="bg-gradient-to-r from-slate-50 to-white p-5 rounded-xl border border-gray-200">
+                    <p class="font-bold text-gray-800 text-xs uppercase tracking-wider mb-2"><i class="fa-regular fa-lightbulb text-amber-500 mr-1"></i> Ví dụ minh họa (Cấp độ 3)</p>
+                    <div class="space-y-4 text-sm">
+                        <div class="p-3 bg-white rounded-lg border border-gray-100 shadow-sm space-y-3 font-medium">
+                            <p><strong>Bài toán 1 (Thiên văn):</strong> Khối lượng của Trái Đất khoảng \(5,97 \cdot 10^{24}\text{ kg}\), khối lượng của Sao Mộc khoảng \(1,8986 \cdot 10^{27}\text{ kg}\). Hỏi Sao Mộc nặng gấp khoảng bao nhiêu lần Trái Đất?</p>
+                            <p><strong>Bài toán 2 (Thể tích):</strong> Một khối kim loại tự nhiên có dạng hình lập phương với độ dài một cạnh đo được là \(\frac{1}{5}\text{ m}\). Tính thể tích lý thuyết của khối kim loại đó.</p>
+                        </div>
+                        
+                        <details class="group bg-white rounded-xl border border-emerald-200 shadow-sm transition-all duration-200">
+                            <summary class="list-none flex items-center justify-between cursor-pointer font-bold text-emerald-700 p-3 select-none">
+                                <span class="flex items-center"><i class="fa-solid fa-square-poll-horizontal mr-2 text-emerald-500 transition-transform group-open:rotate-180"></i> Xem gợi ý lời giải ẩn</span>
+                                <span class="text-xs bg-emerald-50 px-2.5 py-1 rounded-md text-emerald-600 group-open:hidden">Bấm để mở</span>
+                            </summary>
+                            <div class="p-4 border-t border-emerald-100 bg-emerald-50/10 text-gray-700 space-y-3 font-medium">
+                                <div>
+                                    <p class="text-gray-900 font-bold">Giải Bài toán 1:</p>
+                                    <p>Để biết Sao Mộc nặng gấp bao nhiêu lần Trái Đất, ta lập tỉ số khối lượng giữa hai hành tinh:</p>
+                                    <p class="font-mono bg-white p-2 rounded border my-1 inline-block">
+                                        \(\frac{1,8986 \cdot 10^{27}}{5,97 \cdot 10^{24}} = \frac{1,8986}{5,97} \cdot 10^{27-24} \approx 0,318 \cdot 10^3 = 318\text{ (lần)}\).
+                                    </p>
+                                    <p>Kết luận: Sao Mộc nặng gấp khoảng 318 lần Trái Đất của chúng ta.</p>
+                                </div>
+                                <hr class="border-emerald-100/60">
+                                <div>
+                                    <p class="text-gray-900 font-bold">Giải Bài toán 2:</p>
+                                    <p>Thể tích hình lập phương bằng cạnh lũy thừa bậc 3:</p>
+                                    <p class="font-mono bg-white p-2 rounded border my-1 inline-block">
+                                        \(V = \left(\frac{1}{5}\right)^3 = \frac{1^3}{5^3} = \frac{1}{125}\text{ (m}^3\text{)}\).
+                                    </p>
+                                </div>
+                            </div>
+                        </details>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- ================= PHẦN 2: BÀI TẬP TRẮC NGHIỆM KIỂM CHỨNG ================= -->
+        <section class="border-t border-gray-100 pt-10 page-break">
+            <div class="bg-gradient-to-br from-gray-900 via-slate-900 to-emerald-950 text-white rounded-3xl p-6 md:p-8 shadow-xl relative overflow-hidden card-style">
+                <div class="absolute -right-8 -bottom-8 opacity-5 pointer-events-none text-white">
+                    <i class="fa-solid fa-circle-check text-[14rem]"></i>
+                </div>
+                
+                <div class="max-w-xl space-y-2">
+                    <span class="text-xs font-bold uppercase tracking-widest text-emerald-400 bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-500/20 inline-block">Đánh giá nhanh cuối buổi</span>
+                    <h2 class="text-2xl md:text-3xl font-black tracking-tight">Bài Tập Trắc Nghiệm Kiểm Chứng</h2>
+                    <p class="text-gray-400 text-xs md:text-sm">Hệ thống tự động chấm điểm và đồng bộ trực tiếp về trang tính Google Sheets của giáo viên.</p>
+                </div>
+
+                <!-- Form Nhập danh tính học sinh -->
+                <form id="quizForm" onsubmit="submitEvaluationQuiz(event)" class="mt-8 space-y-6 text-gray-900">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div class="bg-white p-4 rounded-2xl shadow-inner border border-gray-100">
+                            <label class="block text-xs font-bold text-gray-400 uppercase tracking-wide mb-1"><i class="fa-solid fa-user-tag mr-1 text-emerald-500"></i> Họ và tên học sinh</label>
+                            <input type="text" id="fullname" required placeholder="Nhập tên của em..." class="w-full bg-white border-b-2 border-gray-200 focus:border-emerald-500 outline-none py-1 text-sm font-bold text-gray-900 transition-colors">
+                        </div>
+                        <div class="bg-white p-4 rounded-2xl shadow-inner border border-gray-100">
+                            <label class="block text-xs font-bold text-gray-400 uppercase tracking-wide mb-1"><i class="fa-solid fa-folder-open mr-1 text-emerald-500"></i> Mã số buổi học</label>
+                            <input type="text" id="lessonCode" readonly value="toan7-03" class="w-full bg-gray-50 border-b-2 border-gray-200 outline-none py-1 text-sm font-bold text-gray-500 cursor-not-allowed">
+                        </div>
+                    </div>
+
+                    <!-- Khối câu hỏi trắc nghiệm -->
+                    <div class="space-y-5 mt-6">
+                        <!-- Câu 1 -->
+                        <div class="bg-white p-5 rounded-2xl shadow-sm space-y-3">
+                            <p class="text-sm font-bold text-gray-900"><span class="text-emerald-600">Câu 1:</span> Khẳng định nào sau đây là đúng về công thức nhân hai lũy thừa cùng cơ số?</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs font-semibold text-gray-700">
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-gray-100 hover:bg-emerald-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q1" value="A" required class="text-emerald-600 focus:ring-emerald-500 h-4 w-4"> <span>A. \(x^m \cdot x^n = x^{m \cdot n}\)</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-gray-100 hover:bg-emerald-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q1" value="B" class="text-emerald-600 focus:ring-emerald-500 h-4 w-4"> <span>B. \(x^m \cdot x^n = x^{m - n}\)</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-gray-100 hover:bg-emerald-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q1" value="C" class="text-emerald-600 focus:ring-emerald-500 h-4 w-4"> <span>C. \(x^m \cdot x^n = x^{m + n}\)</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-gray-100 hover:bg-emerald-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q1" value="D" class="text-emerald-600 focus:ring-emerald-500 h-4 w-4"> <span>D. \(x^m \cdot x^n = (x \cdot x)^{m + n}\)</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Câu 2 -->
+                        <div class="bg-white p-5 rounded-2xl shadow-sm space-y-3">
+                            <p class="text-sm font-bold text-gray-900"><span class="text-emerald-600">Câu 2:</span> Kết quả của phép tính \(3^3 \cdot 3^2\) là:</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs font-semibold text-gray-700">
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-gray-100 hover:bg-emerald-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q2" value="A" required class="text-emerald-600 focus:ring-emerald-500 h-4 w-4"> <span>A. \(3^6\)</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-gray-100 hover:bg-emerald-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q2" value="B" class="text-emerald-600 focus:ring-emerald-500 h-4 w-4"> <span>B. \(3^5\)</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-gray-100 hover:bg-emerald-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q2" value="C" class="text-emerald-600 focus:ring-emerald-500 h-4 w-4"> <span>C. \(9^5\)</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-gray-100 hover:bg-emerald-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q2" value="D" class="text-emerald-600 focus:ring-emerald-500 h-4 w-4"> <span>D. \(3^1\)</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Câu 3 -->
+                        <div class="bg-white p-5 rounded-2xl shadow-sm space-y-3">
+                            <p class="text-sm font-bold text-gray-900"><span class="text-emerald-600">Câu 3:</span> Kết quả phép tính nào sau đây <strong>không phải</strong> là \(x^{12}\)?</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs font-semibold text-gray-700">
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-gray-100 hover:bg-emerald-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q3" value="A" required class="text-emerald-600 focus:ring-emerald-500 h-4 w-4"> <span>A. \(x^{11} \cdot x\)</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-gray-100 hover:bg-emerald-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q3" value="B" class="text-emerald-600 focus:ring-emerald-500 h-4 w-4"> <span>B. \((x^3)^4\)</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-gray-100 hover:bg-emerald-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q3" value="C" class="text-emerald-600 focus:ring-emerald-500 h-4 w-4"> <span>C. \(x^{14} : x^2\)</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-gray-100 hover:bg-emerald-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q3" value="D" class="text-emerald-600 focus:ring-emerald-500 h-4 w-4"> <span>D. \(x^4 \cdot x^3\)</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Câu 4 -->
+                        <div class="bg-white p-5 rounded-2xl shadow-sm space-y-3">
+                            <p class="text-sm font-bold text-gray-900"><span class="text-emerald-600">Câu 4:</span> Tìm \(x\), biết \(x^2 = 9\). Giá trị hợp lệ của \(x\) là:</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs font-semibold text-gray-700">
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-gray-100 hover:bg-emerald-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q4" value="A" required class="text-emerald-600 focus:ring-emerald-500 h-4 w-4"> <span>A. \(x = 3\)</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-gray-100 hover:bg-emerald-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q4" value="B" class="text-emerald-600 focus:ring-emerald-500 h-4 w-4"> <span>B. \(x = -3\)</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-gray-100 hover:bg-emerald-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q4" value="C" class="text-emerald-600 focus:ring-emerald-500 h-4 w-4"> <span>C. \(x = 3\) hoặc \(x = -3\)</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-gray-100 hover:bg-emerald-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q4" value="D" class="text-emerald-600 focus:ring-emerald-500 h-4 w-4"> <span>D. \(x = 81\)</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Câu 5 -->
+                        <div class="bg-white p-5 rounded-2xl shadow-sm space-y-3">
+                            <p class="text-sm font-bold text-gray-900"><span class="text-emerald-600">Câu 5:</span> Lũy thừa \(\left[(-0,1)^2\right]^4\) có kết quả bằng:</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs font-semibold text-gray-700">
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-gray-100 hover:bg-emerald-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q5" value="A" required class="text-emerald-600 focus:ring-emerald-500 h-4 w-4"> <span>A. \((-0,1)^6\)</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-gray-100 hover:bg-emerald-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q5" value="B" class="text-emerald-600 focus:ring-emerald-500 h-4 w-4"> <span>B. \((0,1)^8\)</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-gray-100 hover:bg-emerald-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q5" value="C" class="text-emerald-600 focus:ring-emerald-500 h-4 w-4"> <span>C. \((-0,1)^8\)</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-gray-100 hover:bg-emerald-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q5" value="D" class="text-emerald-600 focus:ring-emerald-500 h-4 w-4"> <span>D. Cả B và C đều đúng.</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Khu vực điều khiển hành động form -->
+                    <div class="pt-2 flex flex-col sm:flex-row items-center justify-between gap-4">
+                        <button type="submit" id="submitBtn" class="w-full sm:w-auto bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-sm px-8 py-3.5 rounded-xl shadow-lg hover:shadow-emerald-500/20 transition-all flex items-center justify-center space-x-2">
+                            <i class="fa-solid fa-cloud-arrow-up"></i> <span>Gửi bài chấm điểm</span>
+                        </button>
+                        <div id="statusReport" class="text-xs font-bold text-gray-300"></div>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer bản quyền -->
+    <footer class="bg-gray-50 border-t border-gray-100 py-6 text-center text-xs text-gray-500 font-medium px-4">
+        <p class="font-bold text-gray-700">@ Bản quyền thuộc ThS. Đinh Quốc Tuấn - Mục đích phi lợi nhuận - Vì giáo dục.</p>
+        <p class="text-gray-400 mt-1">Hệ thống hỗ trợ giảng dạy trực tuyến môn Toán trung học cơ sở.</p>
+    </footer>
+
+    <!-- ================= NÚT IN TÀI LIỆU VÀ SCRIPT THEO YÊU CẦU ================= -->
+    <button id="btn-print-doc" onclick="safePrint()" class="fixed bottom-5 right-5 bg-gray-900 text-white px-4 py-2 rounded-lg shadow-lg hover:bg-gray-700 print:hidden z-50">
+        <i class="fas fa-print mr-2"></i> In Tài Liệu
+    </button>
+
+    <script>
+        // Khởi tạo bộ đếm thời gian làm bài trắc nghiệm ngay khi load trang
+        const sessionStartTime = new Date();
+
+        function safePrint() {
+            const printBtn = document.getElementById('btn-print-doc');
+            printBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Đang chuẩn bị...';
+            
+            // Đảm bảo MathJax đã render xong mọi công thức trước khi gọi hộp thoại in
+            if (window.MathJax && window.MathJax.typesetPromise) {
+                MathJax.typesetPromise().then(() => {
+                    printBtn.innerHTML = '<i class="fas fa-print mr-2"></i> In Tài Liệu';
+                    window.print();
+                });
+            } else {
+                // Fallback nếu không có công thức toán
+                setTimeout(() => window.print(), 500); 
+            }
+        }
+
+        // Hàm kiểm tra, tính điểm và đẩy dữ liệu lên máy chủ Apps Script qua phương thức POST công khai
+        function submitEvaluationQuiz(event) {
+            event.preventDefault();
+            
+            const submitBtn = document.getElementById('submitBtn');
+            const statusReport = document.getElementById('statusReport');
+            
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i> Đang chấm điểm...';
+            statusReport.innerHTML = "Đang kết nối đến máy chủ lưu trữ...";
+
+            // Đáp án đúng được đối chiếu
+            const answersKey = { q1: "C", q2: "B", q3: "D", q4: "C", q5: "D" };
+            
+            const hoTen = document.getElementById('fullname').value.trim();
+            const maDe = document.getElementById('lessonCode').value.trim();
+            
+            let correctCount = 0;
+            let totalQuestions = Object.keys(answersKey).length;
+            let listErrors = [];
+
+            // Chấm điểm vòng lặp
+            for (let question in answersKey) {
+                const checkedOption = document.querySelector(`input[name="${question}"]:checked`);
+                if (checkedOption && checkedOption.value === answersKey[question]) {
+                    correctCount++;
+                } else {
+                    let chosenVal = checkedOption ? checkedOption.value : "Bỏ qua";
+                    listErrors.push(`${question.toUpperCase()}(Chọn: ${chosenVal}|Đúng: ${answersKey[question]})`);
+                }
+            }
+
+            // Quy đổi sang thang điểm 10 chuẩn mực
+            const computedGrade = ((correctCount / totalQuestions) * 10).toFixed(2);
+            
+            // Tính toán khoảng thời gian làm bài
+            const sessionEndTime = new Date();
+            const elapsedSeconds = Math.floor((sessionEndTime - sessionStartTime) / 1000);
+            const thoiGian = `${elapsedSeconds} giây`;
+            const cauSai = listErrors.length > 0 ? listErrors.join(", ") : "Không có";
+
+            // Tạo gói dữ liệu payload tương thích hoàn toàn với file appscript cấu trúc doPost(e)
+            const webPayload = {
+                hoTen: hoTen,
+                maDe: maDe,
+                diem: parseFloat(computedGrade),
+                thoiGian: thoiGian,
+                cauSai: cauSai
+            };
+
+            const targetAppsScriptUrl = "https://script.google.com/macros/s/AKfycbzY7b7h4OwvhXuK5Vs6hl-aD88BPnAiAKbU5lfJobby0D4nzbIJVKT4n0AKCpAGoK0nZA/exec";
+
+            // Thực hiện giao dịch mạng bất đồng bộ chế độ no-cors an toàn cho Apps Script Redirect
+            fetch(targetAppsScriptUrl, {
+                method: "POST",
+                mode: "no-cors",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(webPayload)
+            })
+            .then(() => {
+                statusReport.className = "text-xs font-bold text-emerald-400";
+                statusReport.innerHTML = `<i class="fa-solid fa-circle-check"></i> Hoàn thành! Điểm đạt: ${computedGrade}/10`;
+                alert(`Hệ thống thông báo:\nEm ${hoTen} đã hoàn thành bài thi trắc nghiệm!\nĐiểm của em đạt được là: ${computedGrade} / 10.`);
+                submitBtn.innerHTML = '<i class="fa-solid fa-cloud-lock"></i> Đã đồng bộ điểm';
+            })
+            .catch(error => {
+                console.error("Lỗi truyền tin:", error);
+                statusReport.className = "text-xs font-bold text-red-400";
+                statusReport.innerHTML = "<i class="fa-solid fa-triangle-exclamation"></i> Lỗi mạng, hãy nhấn gửi lại!";
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Thử gửi lại bài';
+            });
+        }
+    </script>
+</body>
+</html>
