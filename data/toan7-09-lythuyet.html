@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buổi 9: Các góc ở vị trí đặc biệt & Tia phân giác - ThS. Đinh Quốc Tuấn</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- MathJax Configuration & Library -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['\\(', '\\)'], ['$', '$']],
+                displayMath: [['\\[', '\\]'], ['$$', '$$']]
+            },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #ffffff;
+            color: #111827;
+        }
+        /* Tối ưu hóa định dạng trang khi in ấn */
+        @media print {
+            .print\:hidden { display: none !important; }
+            body { background: white; color: black; }
+            details { display: block !important; }
+            details summary { display: none !important; }
+            .page-break { page-break-before: always; }
+            .card-border { box-shadow: none !important; border: 1px solid #e5e7eb !important; }
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col antialiased selection:bg-emerald-100">
+
+    <!-- Header học thuật -->
+    <header class="border-b border-gray-100 sticky top-0 bg-white/95 backdrop-blur-md z-40 print:hidden">
+        <div class="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <img src="https://hcmus.edu.vn/wp-content/uploads/2023/04/Logo-chinh-e1681638380305.png" alt="Logo HCMUS" class="h-12 w-auto object-contain">
+                <div class="border-l-2 border-emerald-500 pl-3">
+                    <span class="text-xs font-bold tracking-widest text-emerald-600 uppercase block">Tài liệu toán hình học 7</span>
+                    <span class="text-sm font-bold text-gray-800">Hình học trực quan & Suy luận logic</span>
+                </div>
+            </div>
+            <div class="text-right hidden sm:block">
+                <p class="text-xs text-gray-400 font-semibold">Người biên soạn:</p>
+                <p class="text-sm font-extrabold text-gray-800">ThS. Đinh Quốc Tuấn</p>
+            </div>
+        </div>
+    </header>
+
+    <!-- Banner thiên nhiên sinh động truyền cảm hứng (Tuổi 12-16) -->
+    <div class="relative w-full bg-gradient-to-r from-emerald-50 via-teal-50 to-green-50 border-b border-gray-100 overflow-hidden">
+        <div class="absolute inset-0 opacity-20 pointer-events-none bg-[radial-gradient(#059669_1px,transparent_1px)] [background-size:20px_20px]"></div>
+        <div class="max-w-5xl mx-auto px-4 py-10 md:py-14 grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
+            <div class="md:col-span-2 space-y-4 z-10">
+                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800 border border-emerald-200 shadow-sm">
+                    <i class="fa-solid fa-mountain-sun mr-1.5 text-emerald-600"></i> Không gian toán học xanh
+                </span>
+                <h1 class="text-3xl md:text-5xl font-black text-gray-900 tracking-tight leading-tight">
+                    Buổi 9: Các góc ở vị trí đặc biệt & Tia phân giác
+                </h1>
+                <p class="text-gray-600 text-base max-w-xl font-medium leading-relaxed">
+                    Bước chuyển mình từ tư duy hình học trực quan sang tư duy logic lập luận chặt chẽ. Hãy cùng khám phá thế giới hình học chân thực thông qua các mô hình chuyển động sinh động.
+                </p>
+            </div>
+            <div class="flex justify-center md:justify-end">
+                <div class="relative p-1.5 bg-white rounded-3xl shadow-xl border border-gray-100 transform rotate-1 hover:rotate-0 transition-transform duration-300">
+                    <img src="https://firebasestorage.googleapis.com/v0/b/link-anh-web.firebasestorage.app/o/ttbdvh.jpg?alt=media&token=f270aa9b-a2bc-48e8-8910-80742b542615" alt="Khám phá tự nhiên học thuật" class="w-64 h-44 object-cover rounded-2xl shadow-inner">
+                    <div class="absolute -bottom-3 -left-3 bg-gradient-to-r from-yellow-400 to-amber-400 text-gray-900 font-black text-xs px-3 py-1.5 rounded-xl shadow-md">
+                        Kiến tạo tư duy (12-16 tuổi) 🍃
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Không gian làm việc chính -->
+    <main class="max-w-5xl mx-auto px-4 py-10 flex-grow w-full space-y-12">
+        
+        <!-- ================= GỢI Ý MÔ HÌNH VÀ HÌNH ẢNH TRỰC QUAN ================= -->
+        <section class="p-6 md:p-8 bg-gradient-to-br from-emerald-50/40 via-white to-teal-50/20 rounded-3xl border border-emerald-100/50 shadow-sm card-border">
+            <h2 class="text-xl font-extrabold text-emerald-900 mb-6 flex items-center">
+                <i class="fa-solid fa-compass-drafting mr-2.5 text-emerald-600"></i> 💡 GỢI Ý MÔ HÌNH VÀ HÌNH ẢNH TRỰC QUAN
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Mô hình 1 -->
+                <div class="bg-white p-5 rounded-2xl border border-emerald-100 shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center space-x-2 text-emerald-700 mb-3">
+                            <span class="p-2 bg-emerald-50 rounded-xl"><i class="fa-solid fa-scissors text-sm"></i></span>
+                            <h3 class="font-bold text-gray-900 text-sm">Mô hình "Chiếc kéo"</h3>
+                        </div>
+                        <p class="text-xs text-gray-600 leading-relaxed font-medium">
+                            <strong>Minh họa góc đối đỉnh:</strong> Sử dụng một chiếc kéo thực tế hoặc hai thanh gác chéo ghim lại ở giữa. Khi mở chiếc kéo ra, hai góc tạo bởi hai lưỡi kéo (đối diện nhau) luôn luôn bằng nhau dù mở to hay nhỏ. Hình ảnh này giúp học sinh lập tức ghi nhớ sâu sắc tính chất của góc đối đỉnh.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Mô hình 2 -->
+                <div class="bg-white p-5 rounded-2xl border border-teal-100 shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center space-x-2 text-teal-700 mb-3">
+                            <span class="p-2 bg-teal-50 rounded-xl"><i class="fa-solid fa-note-sticky text-sm"></i></span>
+                            <h3 class="font-bold text-gray-900 text-sm">Mô hình "Gấp giấy"</h3>
+                        </div>
+                        <p class="text-xs text-gray-600 leading-relaxed font-medium">
+                            <strong>Minh họa tia phân giác:</strong> Cắt một góc bất kỳ trên giấy. Yêu cầu học sinh gấp nếp giấy sao cho hai cạnh bên của góc trùng khít hoàn hảo lên nhau. Nếp gấp thẳng ở chính giữa xuất hiện chính là hình ảnh trực quan của tia phân giác.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Mô hình 3 -->
+                <div class="bg-white p-5 rounded-2xl border border-green-100 shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center space-x-2 text-green-700 mb-3">
+                            <span class="p-2 bg-green-50 rounded-xl"><i class="fa-solid fa-scale-balanced text-sm"></i></span>
+                            <h3 class="font-bold text-gray-900 text-sm">Kim cân thăng bằng</h3>
+                        </div>
+                        <p class="text-xs text-gray-600 leading-relaxed font-medium">
+                            Trình chiếu hình ảnh một chiếc cân đĩa đang ở vị trí thăng bằng ổn định. Chiếc kim chỉ vạch chính giữa chia góc tạo bởi giá đỡ thành hai phần góc nhỏ bằng nhau, trực quan hóa hoàn hảo khái niệm tia phân giác trong thực tế đời sống.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= PHẦN 1: LÝ THUYẾT CHI TIẾT (3 CẤP ĐỘ) ================= -->
+        <div class="space-y-10">
+            <div class="border-b pb-4">
+                <h2 class="text-2xl font-black text-gray-900 tracking-tight flex items-center uppercase">
+                    <span class="w-3 h-7 bg-emerald-500 rounded-md mr-3 inline-block"></span>
+                    PHẦN 1: LÝ THUYẾT CHI TIẾT (3 CẤP ĐỘ)
+                </h2>
+            </div>
+
+            <!-- CẤP ĐỘ 1: CƠ BẢN -->
+            <section class="bg-white rounded-2xl border border-gray-200 p-6 md:p-8 space-y-6 card-border">
+                <div class="flex items-center space-x-3 border-b pb-3 border-gray-100">
+                    <span class="bg-sky-500 text-white font-extrabold text-xs px-3 py-1 rounded-lg uppercase tracking-wider">Cấp độ 1</span>
+                    <h3 class="text-lg font-bold text-gray-900">CƠ BẢN (Nhận biết & Tính toán trực tiếp)</h3>
+                </div>
+                <p class="text-sm font-semibold text-sky-700 bg-sky-50 px-3 py-1.5 rounded-lg inline-block">
+                    Mục tiêu: Nhận biết được các góc qua hình vẽ, nắm vững định nghĩa cơ bản và tính toán số đo góc trực tiếp.
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-sm text-gray-700 leading-relaxed">
+                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-100 space-y-2">
+                        <h4 class="font-bold text-sky-800 text-base flex items-center"><i class="fa-solid fa-vector-square mr-2"></i> 1. Hai góc kề bù</h4>
+                        <p><strong>Khái niệm:</strong> Hai góc có một cạnh chung, hai cạnh còn lại là hai tia đối nhau được gọi là hai góc kề bù.</p>
+                        <p><strong>Tính chất:</strong> Hai góc kề bù có tổng số đo bằng 180°. Bản chất toán học là chúng được ghép lại để tạo thành một góc bẹt hoàn chỉnh.</p>
+                    </div>
+
+                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-100 space-y-2">
+                        <h4 class="font-bold text-sky-800 text-base flex items-center"><i class="fa-solid fa-arrows-to-dot mr-2"></i> 2. Hai góc đối đỉnh</h4>
+                        <p><strong>Khái niệm:</strong> Hai góc đối đỉnh là hai góc mà mỗi cạnh của góc này là tia đối của một cạnh của góc kia.</p>
+                        <p><strong>Tính chất:</strong> Hai góc đối đỉnh thì bằng nhau. Khi hai đường thẳng thẳng cắt nhau trong không gian phẳng sẽ tạo thành chính xác hai cặp góc đối đỉnh đối xứng.</p>
+                    </div>
+
+                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-100 space-y-2">
+                        <h4 class="font-bold text-sky-800 text-base flex items-center"><i class="fa-solid fa-chart-pie mr-2"></i> 3. Tia phân giác</h4>
+                        <p><strong>Khái niệm:</strong> Tia nằm giữa hai cạnh của một góc và tạo với hai cạnh ấy hai góc bằng nhau gọi là tia phân giác.</p>
+                        <p><strong>Công thức:</strong> Nếu $Oz$ là tia phân giác của góc $\widehat{xOy}$ thì ta luôn có: $$\widehat{xOz} = \widehat{zOy} = \frac{\widehat{xOy}}{2}$$</p>
+                    </div>
+                </div>
+
+                <!-- GeoGebra Embed 1 & 2 -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2">
+                    <div class="space-y-2">
+                        <p class="text-xs font-bold text-gray-500 uppercase tracking-wider"><i class="fa-solid fa-bezier-curve mr-1"></i> Mô hình tương tác 1: Hai góc kề bù</p>
+                        <div class="geogebra-container w-full">
+                            <iframe src="https://www.geogebra.org/material/iframe/id/b8vwh79v/width/800/height/450/ai/false/smb/false/stb/false/stbh/false/ld/false/sri/true" width="100%" height="320px" style="border: 1px solid #e4e4e7; border-radius: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);" allowfullscreen></iframe>
+                        </div>
+                    </div>
+                    <div class="space-y-2">
+                        <p class="text-xs font-bold text-gray-500 uppercase tracking-wider"><i class="fa-solid fa-bezier-curve mr-1"></i> Mô hình tương tác 2: Hai góc đối đỉnh</p>
+                        <div class="geogebra-container w-full">
+                            <iframe src="https://www.geogebra.org/material/iframe/id/msh9vzuz/width/800/height/450/ai/false/smb/false/stb/false/stbh/false/ld/false/sri/true" width="100%" height="320px" style="border: 1px solid #e4e4e7; border-radius: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);" allowfullscreen></iframe>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Ví dụ Cấp độ 1 -->
+                <div class="bg-gradient-to-r from-slate-50 to-white p-5 rounded-xl border border-gray-200">
+                    <p class="font-bold text-gray-800 text-xs uppercase tracking-wider mb-2"><i class="fa-regular fa-lightbulb text-amber-500 mr-1"></i> Ví dụ minh họa (Cấp độ 1)</p>
+                    <div class="space-y-3 text-sm">
+                        <div class="p-3 bg-white rounded-lg border border-gray-100 shadow-sm font-medium">
+                            <p><strong>Bài toán:</strong> Cho góc $\widehat{xOy} = 60^\circ$. Vẽ tia phân giác $Om$ của góc $\widehat{xOy}$. Tính số đo của góc $\widehat{xOm}$.</p>
+                        </div>
+                        
+                        <details class="group bg-white rounded-xl border border-emerald-200 shadow-sm transition-all duration-200">
+                            <summary class="list-none flex items-center justify-between cursor-pointer font-bold text-emerald-700 p-3 select-none">
+                                <span class="flex items-center"><i class="fa-solid fa-square-poll-horizontal mr-2 text-emerald-500 transition-transform group-open:rotate-180"></i> Xem hướng dẫn giải ẩn</span>
+                                <span class="text-xs bg-emerald-50 px-2.5 py-1 rounded-md text-emerald-600 group-open:hidden">Bấm để mở</span>
+                            </summary>
+                            <div class="p-4 border-t border-emerald-100 bg-emerald-50/10 text-gray-700 font-medium">
+                                <p><strong>Giải:</strong> Vì tia $Om$ là tia phân giác của góc $\widehat{xOy}$ nên áp dụng định nghĩa cấu trúc phân đôi ta có:</p>
+                                <p class="font-mono bg-white p-2 rounded border my-2 inline-block">$$\widehat{xOm} = \widehat{mOy} = \frac{\widehat{xOy}}{2} = \frac{60^\circ}{2} = 30^\circ$$</p>
+                                <p>Vậy số đo góc $\widehat{xOm}$ bằng 30°.</p>
+                            </div>
+                        </details>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CẤP ĐỘ 2: NÂNG CAO -->
+            <section class="bg-white rounded-2xl border border-gray-200 p-6 md:p-8 space-y-6 card-border">
+                <div class="flex items-center space-x-3 border-b pb-3 border-gray-100">
+                    <span class="bg-indigo-500 text-white font-extrabold text-xs px-3 py-1 rounded-lg uppercase tracking-wider">Cấp độ 2</span>
+                    <h3 class="text-lg font-bold text-gray-900">NÂNG CAO (Suy luận hình học & Khám phá tính chất)</h3>
+                </div>
+                <p class="text-sm font-semibold text-indigo-700 bg-indigo-50 px-3 py-1.5 rounded-lg inline-block">
+                    Mục tiêu: Bắt đầu làm quen với chuỗi lập luận hình học logic chi tiết (Vì... nên...), giải toán liên cấp gồm nhiều bước biến đổi.
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm text-gray-700 leading-relaxed">
+                    <div class="bg-indigo-50/30 p-4 rounded-xl border border-indigo-100/50 space-y-1.5">
+                        <h4 class="font-bold text-indigo-900 text-base">1. Kỹ năng suy luận đan xen</h4>
+                        <p>Khi hai đường thẳng cắt nhau tạo thành 4 góc chung đỉnh, chỉ cần đề bài cung cấp số đo của một góc bất kỳ, ta lập tức tính được số đo của cả ba góc còn lại bằng cách phối hợp nhịp nhàng giữa tính chất kề bù và tính chất đối đỉnh.</p>
+                    </div>
+
+                    <div class="bg-indigo-50/30 p-4 rounded-xl border border-indigo-100/50 space-y-1.5">
+                        <h4 class="font-bold text-indigo-900 text-base">2. Định lí tia phân giác của hai góc kề bù</h4>
+                        <p class="font-semibold text-gray-900">Định lí kinh điển:</p>
+                        <p>Góc tạo bởi hai tia phân giác của hai góc kề bù luôn luôn là một góc vuông (độ lớn bằng 90°). Đây là cấu trúc chứng minh xuất hiện rất nhiều trong các bài kiểm tra định kỳ Hình học 7.</p>
+                    </div>
+                </div>
+
+                <!-- GeoGebra Embed 4 -->
+                <div class="space-y-2 pt-2">
+                    <p class="text-xs font-bold text-gray-500 uppercase tracking-wider"><i class="fa-solid fa-bezier-curve mr-1"></i> Mô hình tương tác 3: Hai tia phân giác của hai góc kề bù (Bất biến 90°)</p>
+                    <div class="geogebra-container w-full">
+                        <iframe src="https://www.geogebra.org/material/iframe/id/ngm7g4da/width/800/height/450/ai/false/smb/false/stb/false/stbh/false/ld/false/sri/true" width="100%" height="360px" style="border: 1px solid #e4e4e7; border-radius: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);" allowfullscreen></iframe>
+                    </div>
+                </div>
+
+                <!-- Ví dụ Cấp độ 2 -->
+                <div class="bg-gradient-to-r from-slate-50 to-white p-5 rounded-xl border border-gray-200">
+                    <p class="font-bold text-gray-800 text-xs uppercase tracking-wider mb-2"><i class="fa-regular fa-lightbulb text-amber-500 mr-1"></i> Ví dụ minh họa (Cấp độ 2)</p>
+                    <div class="space-y-3 text-sm">
+                        <div class="p-3 bg-white rounded-lg border border-gray-100 shadow-sm font-medium">
+                            <p><strong>Bài toán:</strong> Hai đường thẳng $xy$ và $zt$ cắt nhau tại điểm $O$ tạo thành góc $\widehat{xOz} = 40^\circ$. Tính số đo các góc còn lại trên hình.</p>
+                        </div>
+                        
+                        <details class="group bg-white rounded-xl border border-emerald-200 shadow-sm transition-all duration-200">
+                            <summary class="list-none flex items-center justify-between cursor-pointer font-bold text-emerald-700 p-3 select-none">
+                                <span class="flex items-center"><i class="fa-solid fa-square-poll-horizontal mr-2 text-emerald-500 transition-transform group-open:rotate-180"></i> Xem hướng dẫn giải ẩn</span>
+                                <span class="text-xs bg-emerald-50 px-2.5 py-1 rounded-md text-emerald-600 group-open:hidden">Bấm để mở</span>
+                            </summary>
+                            <div class="p-4 border-t border-emerald-100 bg-emerald-50/10 text-gray-700 space-y-2 font-medium">
+                                <p><strong>Giải:</strong></p>
+                                <p>• Ta có $\widehat{tOy}$ và $\widehat{xOz}$ là hai góc đối đỉnh nên: $$\widehat{tOy} = \widehat{xOz} = 40^\circ$$</p>
+                                <p>• Ta có $\widehat{xOt}$ và $\widehat{xOz}$ là hai góc kề bù nên: $$\widehat{xOt} + \widehat{xOz} = 180^\circ \Rightarrow \widehat{xOt} = 180^\circ - 40^\circ = 140^\circ$$</p>
+                                <p>• Vì góc $\widehat{zOy}$ đối đỉnh với góc $\widehat{xOt}$ nên: $$\widehat{zOy} = \widehat{xOt} = 140^\circ$$</p>
+                                <p>Kết luận: Các góc còn lại có số đo lần lượt là: $\widehat{tOy} = 40^\circ$, $\widehat{xOt} = 140^\circ$, $\widehat{zOy} = 140^\circ$.</p>
+                            </div>
+                        </details>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CẤP ĐỘ 3: VẬN DỤNG -->
+            <section class="bg-white rounded-2xl border border-gray-200 p-6 md:p-8 space-y-6 card-border">
+                <div class="flex items-center space-x-3 border-b pb-3 border-gray-100">
+                    <span class="bg-emerald-500 text-white font-extrabold text-xs px-3 py-1 rounded-lg uppercase tracking-wider">Cấp độ 3</span>
+                    <h3 class="text-lg font-bold text-gray-900">VẬN DỤNG (Vẽ hình bằng dụng cụ đặc biệt & Ứng dụng nâng cao)</h3>
+                </div>
+                <p class="text-sm font-semibold text-emerald-700 bg-emerald-50 px-3 py-1.5 rounded-lg inline-block">
+                    Mục tiêu: Sử dụng Compa, thước hai lề song song để dựng tia phân giác chính xác và giải quyết các bài toán ẩn số phức tạp.
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm text-gray-700 leading-relaxed">
+                    <div class="bg-emerald-50/20 p-4 rounded-xl border border-emerald-100/50 space-y-1">
+                        <h4 class="font-bold text-emerald-900 text-base">1. Vẽ phân giác bằng thước hai lề</h4>
+                        <p>Đặt lần lượt mép của thước thẳng áp sát vào từng cạnh bên của góc cần vẽ, dùng bút kẻ hai đường thẳng mờ song song dọc theo mép còn lại của thước. Giao điểm của hai đường thẳng mờ này khi nối với đỉnh góc ban đầu chính là tia phân giác cần tìm.</p>
+                    </div>
+
+                    <div class="bg-emerald-50/20 p-4 rounded-xl border border-emerald-100/50 space-y-1">
+                        <h4 class="font-bold text-emerald-900 text-base">2. Vẽ phân giác bằng dụng cụ Compa</h4>
+                        <p>Vẽ một cung tròn tâm gốc $O$ cắt hai cạnh của góc tại hai điểm $M$ và $N$. Giữ nguyên khẩu độ compa, lần lượt vẽ hai cung tròn nhỏ tâm $M$ và tâm $N$ sao cho chúng cắt nhau tại điểm $P$ nằm bên trong vùng góc. Tia $OP$ chính là tia phân giác tuyệt đối.</p>
+                    </div>
+                </div>
+
+                <!-- GeoGebra Embed 3 -->
+                <div class="space-y-2 pt-2">
+                    <p class="text-xs font-bold text-gray-500 uppercase tracking-wider"><i class="fa-solid fa-bezier-curve mr-1"></i> Mô hình tương tác 4: Định lý phân chia tỉ lệ tia phân giác</p>
+                    <div class="geogebra-container w-full">
+                        <iframe src="https://www.geogebra.org/material/iframe/id/v6m67msh/width/800/height/450/ai/false/smb/false/stb/false/stbh/false/ld/false/sri/true" width="100%" height="360px" style="border: 1px solid #e4e4e7; border-radius: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);" allowfullscreen></iframe>
+                    </div>
+                </div>
+
+                <!-- Ví dụ Cấp độ 3 -->
+                <div class="bg-gradient-to-r from-slate-50 to-white p-5 rounded-xl border border-gray-200">
+                    <p class="font-bold text-gray-800 text-xs uppercase tracking-wider mb-2"><i class="fa-regular fa-lightbulb text-amber-500 mr-1"></i> Ví dụ minh họa (Cấp độ 3)</p>
+                    <div class="space-y-4 text-sm">
+                        <div class="p-3 bg-white rounded-lg border border-gray-100 shadow-sm font-medium">
+                            <p><strong>Bài toán:</strong> Cho hai đường thẳng cắt nhau tại điểm $O$ tạo thành 4 góc chung đỉnh. Biết rằng tổng số đo của 3 trong số 4 góc đó bằng 300°. Hãy tính số đo chi tiết của cả 4 góc.</p>
+                        </div>
+                        
+                        <details class="group bg-white rounded-xl border border-emerald-200 shadow-sm transition-all duration-200">
+                            <summary class="list-none flex items-center justify-between cursor-pointer font-bold text-emerald-700 p-3 select-none">
+                                <span class="flex items-center"><i class="fa-solid fa-square-poll-horizontal mr-2 text-emerald-500 transition-transform group-open:rotate-180"></i> Xem hướng dẫn giải ẩn</span>
+                                <span class="text-xs bg-emerald-50 px-2.5 py-1 rounded-md text-emerald-600 group-open:hidden">Bấm để mở</span>
+                            </summary>
+                            <div class="p-4 border-t border-emerald-100 bg-emerald-50/10 text-gray-700 space-y-3 font-medium">
+                                <p><strong>Hướng dẫn tư duy hình học nâng cao:</strong></p>
+                                <p>1. Gọi tên 4 góc tạo thành xung quanh giao điểm lần lượt là $\widehat{O_1}, \widehat{O_2}, \widehat{O_3}, \widehat{O_4}$ (trong đó cặp $\widehat{O_1}, \widehat{O_3}$ đối đỉnh; cặp $\widehat{O_2}, \widehat{O_4}$ đối đỉnh).</p>
+                                <p>2. Khảo sát toàn thể: Tổng số đo của cả 4 góc xung quanh một điểm trong mặt phẳng luôn bằng góc đầy 360°.</p>
+                                <p>3. Do đó, số đo góc thứ tư còn lại sẽ là: $$360^\circ - 300^\circ = 60^\circ$$ Giả sử góc này là $\widehat{O_1} = 60^\circ$.</p>
+                                <p>4. Từ tính chất góc đối đỉnh suy ra: $$\widehat{O_3} = \widehat{O_1} = 60^\circ$$</p>
+                                <p>5. Hai góc còn lại ($\widehat{O_2}$ và $\widehat{O_4}$) kề bù với góc $60^\circ$ nên số đo là: $$180^\circ - 60^\circ = 120^\circ$$</p>
+                                <p>Vậy số đo của cả 4 góc lần lượt là: 60°, 120°, 60°, 120°.</p>
+                            </div>
+                        </details>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- ================= PHẦN 2: BÀI TẬP TRẮC NGHIỆM KIỂM CHỨNG ================= -->
+        <section class="border-t border-gray-100 pt-10 page-break">
+            <div class="bg-gradient-to-br from-slate-900 via-gray-900 to-emerald-950 text-white rounded-3xl p-6 md:p-8 shadow-xl relative overflow-hidden card-border">
+                <div class="absolute -right-10 -bottom-10 opacity-5 pointer-events-none text-white">
+                    <i class="fa-solid fa-graduation-cap text-[14rem]"></i>
+                </div>
+                
+                <div class="max-w-xl space-y-2">
+                    <span class="text-xs font-bold uppercase tracking-widest text-emerald-400 bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-500/20 inline-block">Đánh giá kiến thức bài học</span>
+                    <h2 class="text-2xl md:text-3xl font-black tracking-tight">Bài Tập Trắc Nghiệm Kiểm Chứng</h2>
+                    <p class="text-gray-400 text-xs md:text-sm">Hệ thống tự động chấm điểm thông minh và đồng bộ hóa kết quả làm bài của học sinh về Google Sheets của nhà trường.</p>
+                </div>
+
+                <!-- Form xác định thông tin cá nhân học sinh -->
+                <form id="quizForm" onsubmit="evaluateAndSubmitForm(event)" class="mt-8 space-y-6 text-gray-900">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div class="bg-white p-4 rounded-2xl shadow-inner border border-gray-100">
+                            <label class="block text-xs font-bold text-gray-400 uppercase tracking-wide mb-1"><i class="fa-solid fa-user-check mr-1 text-emerald-500"></i> Họ và tên học sinh</label>
+                            <input type="text" id="studentName" required placeholder="Nhập họ và tên đầy đủ..." class="w-full bg-white border-b-2 border-gray-200 focus:border-emerald-500 outline-none py-1 text-sm font-bold text-gray-900 transition-colors">
+                        </div>
+                        <div class="bg-white p-4 rounded-2xl shadow-inner border border-gray-100">
+                            <label class="block text-xs font-bold text-gray-400 uppercase tracking-wide mb-1"><i class="fa-solid fa-folder-open mr-1 text-emerald-500"></i> Mã chuyên đề bài học</label>
+                            <input type="text" id="lessonId" readonly value="toan7-09" class="w-full bg-gray-50 border-b-2 border-gray-200 outline-none py-1 text-sm font-bold text-gray-500 cursor-not-allowed">
+                        </div>
+                    </div>
+
+                    <!-- Khối câu hỏi trắc nghiệm -->
+                    <div class="space-y-5 mt-6">
+                        <!-- Câu 1 -->
+                        <div class="bg-white p-5 rounded-2xl shadow-sm space-y-3">
+                            <p class="text-sm font-bold text-gray-900"><span class="text-emerald-600">Câu 1:</span> Hai góc kề bù là hai góc:</p>
+                            <div class="grid grid-cols-1 gap-2 text-xs font-semibold text-gray-700">
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-gray-100 hover:bg-emerald-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q1" value="A" required class="text-emerald-600 focus:ring-emerald-500 h-4 w-4"> <span>A. Có chung một đỉnh và bằng nhau.</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-gray-100 hover:bg-emerald-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q1" value="B" class="text-emerald-600 focus:ring-emerald-500 h-4 w-4"> <span>B. Có tổng số đo bằng 180°.</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-gray-100 hover:bg-emerald-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q1" value="C" class="text-emerald-600 focus:ring-emerald-500 h-4 w-4"> <span>C. Vừa kề nhau, vừa bù nhau (có tổng số đo bằng 180°).</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-gray-100 hover:bg-emerald-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q1" value="D" class="text-emerald-600 focus:ring-emerald-500 h-4 w-4"> <span>D. Có mỗi cạnh của góc này là tia đối của một cạnh của góc kia.</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Câu 2 -->
+                        <div class="bg-white p-5 rounded-2xl shadow-sm space-y-3">
+                            <p class="text-sm font-bold text-gray-900"><span class="text-emerald-600">Câu 2:</span> Khẳng định nào sau đây là ĐÚNG về hai góc đối đỉnh?</p>
+                            <div class="grid grid-cols-1 gap-2 text-xs font-semibold text-gray-700">
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-gray-100 hover:bg-emerald-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q2" value="A" required class="text-emerald-600 focus:ring-emerald-500 h-4 w-4"> <span>A. Hai góc đối đỉnh thì có tổng bằng 180°.</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-gray-100 hover:bg-emerald-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q2" value="B" class="text-emerald-600 focus:ring-emerald-500 h-4 w-4"> <span>B. Hai góc đối đỉnh thì bằng nhau.</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-gray-100 hover:bg-emerald-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q2" value="C" class="text-emerald-600 focus:ring-emerald-500 h-4 w-4"> <span>C. Hai góc bằng nhau thì chắc chắn đối đỉnh.</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-gray-100 hover:bg-emerald-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q2" value="D" class="text-emerald-600 focus:ring-emerald-500 h-4 w-4"> <span>D. Hai góc đối đỉnh thì có chung một cạnh.</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Câu 3 -->
+                        <div class="bg-white p-5 rounded-2xl shadow-sm space-y-3">
+                            <p class="text-sm font-bold text-gray-900"><span class="text-emerald-600">Câu 3:</span> Cho góc $\widehat{AOB} = 120^\circ$. Tia $OM$ là tia phân giác của góc $\widehat{AOB}$. Số đo của góc $\widehat{AOM}$ là:</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs font-semibold text-gray-700">
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-gray-100 hover:bg-emerald-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q3" value="A" required class="text-emerald-600 focus:ring-emerald-500 h-4 w-4"> <span>A. 120°</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-gray-100 hover:bg-emerald-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q3" value="B" class="text-emerald-600 focus:ring-emerald-500 h-4 w-4"> <span>B. 60°</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-gray-100 hover:bg-emerald-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q3" value="C" class="text-emerald-600 focus:ring-emerald-500 h-4 w-4"> <span>C. 240°</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-gray-100 hover:bg-emerald-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q3" value="D" class="text-emerald-600 focus:ring-emerald-500 h-4 w-4"> <span>D. 40°</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Câu 4 -->
+                        <div class="bg-white p-5 rounded-2xl shadow-sm space-y-3">
+                            <p class="text-sm font-bold text-gray-900"><span class="text-emerald-600">Câu 4:</span> Hai đường thẳng $xx'$ and $yy'$ cắt nhau tại $O$. Biết góc $\widehat{xOy} = 50^\circ$. Số đo của góc đối đỉnh với góc $\widehat{xOy}$ là:</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs font-semibold text-gray-700">
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-gray-100 hover:bg-emerald-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q4" value="A" required class="text-emerald-600 focus:ring-emerald-500 h-4 w-4"> <span>A. 50°</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-gray-100 hover:bg-emerald-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q4" value="B" class="text-emerald-600 focus:ring-emerald-500 h-4 w-4"> <span>B. 130°</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-gray-100 hover:bg-emerald-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q4" value="C" class="text-emerald-600 focus:ring-emerald-500 h-4 w-4"> <span>C. 180°</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-gray-100 hover:bg-emerald-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q4" value="D" class="text-emerald-600 focus:ring-emerald-500 h-4 w-4"> <span>D. 90°</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Câu 5 -->
+                        <div class="bg-white p-5 rounded-2xl shadow-sm space-y-3">
+                            <p class="text-sm font-bold text-gray-900"><span class="text-emerald-600">Câu 5:</span> Chọn khẳng định đúng nhất về tính chất của tia phân giác:</p>
+                            <div class="grid grid-cols-1 gap-2 text-xs font-semibold text-gray-700">
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-gray-100 hover:bg-emerald-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q5" value="A" required class="text-emerald-600 focus:ring-emerald-500 h-4 w-4"> <span>A. Góc tạo bởi hai tia phân giác của hai góc kề bù luôn là một góc tù.</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-gray-100 hover:bg-emerald-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q5" value="B" class="text-emerald-600 focus:ring-emerald-500 h-4 w-4"> <span>B. Góc tạo bởi hai tia phân giác của hai góc kề bù là một góc nhọn.</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-gray-100 hover:bg-emerald-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q5" value="C" class="text-emerald-600 focus:ring-emerald-500 h-4 w-4"> <span>C. Góc tạo bởi hai tia phân giác của hai góc kề bù là một góc vuông (90°).</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-gray-100 hover:bg-emerald-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q5" value="D" class="text-emerald-600 focus:ring-emerald-500 h-4 w-4"> <span>D. Hai góc kề bù chỉ có chung một tia phân giác duy nhất.</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Nút nộp bài toán -->
+                    <div class="pt-2 flex flex-col sm:flex-row items-center justify-between gap-4">
+                        <button type="submit" id="submitBtn" class="w-full sm:w-auto bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-sm px-8 py-3.5 rounded-xl shadow-lg hover:shadow-emerald-500/20 transition-all flex items-center justify-center space-x-2">
+                            <i class="fa-solid fa-cloud-arrow-up"></i> <span>Nộp Bài Chấm Điểm</span>
+                        </button>
+                        <div id="statusReport" class="text-xs font-bold text-gray-300"></div>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer bản quyền -->
+    <footer class="bg-gray-50 border-t border-gray-100 py-6 text-center text-xs text-gray-500 font-medium px-4">
+        <p class="font-bold text-gray-700">@ Bản quyền thuộc ThS. Đinh Quốc Tuấn - Mục đích phi lợi nhuận - Vì giáo dục.</p>
+        <p class="text-gray-400 mt-1">Hệ thống hỗ trợ trực tuyến độc lập phát triển kỹ năng toán học phổ thông.</p>
+    </footer>
+
+    <!-- ================= NÚT IN TÀI LIỆU VÀ SCRIPT GỐC CỦA USER ================= -->
+    <button id="btn-print-doc" onclick="safePrint()" class="fixed bottom-5 right-5 bg-gray-900 text-white px-4 py-2 rounded-lg shadow-lg hover:bg-gray-700 print:hidden z-50">
+        <i class="fas fa-print mr-2"></i> In Tài Liệu
+    </button>
+
+    <script>
+        // Theo dõi thời gian bắt đầu học tập làm bài toán tính hiệu năng
+        const timeInit = new Date();
+
+        function safePrint() {
+            const printBtn = document.getElementById('btn-print-doc');
+            printBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Đang chuẩn bị...';
+            
+            // Đảm bảo MathJax đã render xong mọi công thức trước khi gọi hộp thoại in
+            if (window.MathJax && window.MathJax.typesetPromise) {
+                window.MathJax.typesetPromise().then(() => {
+                    printBtn.innerHTML = '<i class="fas fa-print mr-2"></i> In Tài Liệu';
+                    window.print();
+                });
+            } else {
+                // Fallback nếu không có công thức toán
+                setTimeout(() => {
+                    printBtn.innerHTML = '<i class="fas fa-print mr-2"></i> In Tài Liệu';
+                    window.print();
+                }, 500); 
+            }
+        }
+
+        // Hàm kiểm tra, tính điểm và đẩy dữ liệu lên máy chủ Apps Script qua phương thức POST công khai
+        function evaluateAndSubmitForm(event) {
+            event.preventDefault();
+            
+            const submitBtn = document.getElementById('submitBtn');
+            const statusReport = document.getElementById('statusReport');
+            
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i> Đang truyền tin...';
+            statusReport.innerHTML = "Đang xử lý kết nối đồng bộ hệ thống...";
+
+            // Bảng đáp án đúng được đối chiếu bài thi
+            const correctKey = { q1: "C", q2: "B", q3: "B", q4: "A", q5: "C" };
+            
+            const studentName = document.getElementById('studentName').value.trim();
+            const lessonId = document.getElementById('lessonId').value.trim();
+            
+            let correctCounter = 0;
+            let totalQuizCount = Object.keys(correctKey).length;
+            let missedReportArray = [];
+
+            // Thu thập đối chiếu đáp án vòng lặp qua từng node dữ liệu
+            for (let questionCode in correctKey) {
+                const selectedRadio = document.querySelector(`input[name="${questionCode}"]:checked`);
+                if (selectedRadio && selectedRadio.value === correctKey[questionCode]) {
+                    correctCounter++;
+                } else {
+                    let chosenChar = selectedRadio ? selectedRadio.value : "Bỏ qua";
+                    missedReportArray.push(`${questionCode.toUpperCase()}(Chọn: ${chosenChar}|Đúng: ${correctKey[questionCode]})`);
+                }
+            }
+
+            // Tính toán chuyển đổi sang thang điểm hệ 10 chuẩn mực hình học
+            const finalScore = ((correctCounter / totalQuizCount) * 10).toFixed(2);
+            
+            // Tính khoảng thời gian hoàn thành
+            const timeComplete = new Date();
+            const elapsedDurationSeconds = Math.floor((timeComplete - timeInit) / 1000);
+            const thoiGian = `${elapsedDurationSeconds} giây`;
+            const cauSai = missedReportArray.length > 0 ? missedReportArray.join(", ") : "Không có";
+
+            // Tạo gói Payload tương thích hoàn chỉnh cấu trúc dữ liệu doPost(e) trên máy chủ Google Apps Script
+            const transmissionPayload = {
+                hoTen: studentName,
+                maDe: lessonId,
+                diem: parseFloat(finalScore),
+                thoiGian: thoiGian,
+                cauSai: cauSai
+            };
+
+            const webAppsScriptEndpoint = "https://script.google.com/macros/s/AKfycbzY7b7h4OwvhXuK5Vs6hl-aD88BPnAiAKbU5lfJobby0D4nzbIJVKT4n0AKCpAGoK0nZA/exec";
+
+            // Thực hiện Fetch POST bất đồng bộ cấu hình 'no-cors' tránh block redirection của hệ thống Google node
+            fetch(webAppsScriptEndpoint, {
+                method: "POST",
+                mode: "no-cors",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(transmissionPayload)
+            })
+            .then(() => {
+                statusReport.className = "text-xs font-bold text-emerald-400";
+                statusReport.innerHTML = `<i class="fa-solid fa-circle-check"></i> Đã đồng bộ điểm số: ${finalScore}/10`;
+                alert(`Hệ thống thông báo kết quả bài thi thành công!\nChào em ${studentName}, điểm số kiểm chứng chuyên đề đạt được là: ${finalScore} / 10.`);
+                submitBtn.innerHTML = '<i class="fa-solid fa-cloud-lock"></i> Đã lưu kết quả';
+            })
+            .catch(error => {
+                console.error("Giao dịch truyền tin thất bại:", error);
+                statusReport.className = "text-xs font-bold text-red-400";
+                statusReport.innerHTML = "<i class="fa-solid fa-triangle-exclamation"></i> Lỗi kết nối mạng, vui lòng nộp lại!";
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Thử nộp lại bài';
+            });
+        }
+    </script>
+</body>
+</html>
