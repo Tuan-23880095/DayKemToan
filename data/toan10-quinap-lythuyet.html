@@ -19,8 +19,8 @@
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     
     <!-- JSXGraph cho Hình học động -->
-    <script type="text/javascript" charset="UTF-8" src="https://cdn.jsdelivr.net/npm/jsxgraph/dist/jsxgraphcore.js"></script>
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/jsxgraph/dist/jsxgraph.css" />
+    <script type="text/javascript" charset="UTF-8" src="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraphcore.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraph.css" />
 
     <style>
         body { 
@@ -296,7 +296,8 @@
         for(let i=0; i<5; i++) {
             let c = colors[i];
             if(i==0) {
-                board1.create('polygon', [,], {fillColor: c, fillOpacity: 0.7, borders:{strokeColor:'white', strokeWidth: 1}});
+                // ĐÃ SỬA: Thay thế dấu rỗng [,] bằng mảng tọa độ ô vuông đầu tiên tại gốc [0,0]
+                board1.create('polygon', [[0,0], [1,0], [1,1], [0,1]], {fillColor: c, fillOpacity: 0.7, borders:{strokeColor:'white', strokeWidth: 1}});
             } else {
                 for(let j=0; j<i; j++) {
                     board1.create('polygon', [[j,i], [j+1,i], [j+1,i+1], [j,i+1]], {fillColor: c, fillOpacity: 0.7, borders:{strokeColor:'white', strokeWidth: 1}});
@@ -311,8 +312,9 @@
 
         // JSXGraph: Vẽ mô hình chia đa giác
         var board2 = JXG.JSXGraph.initBoard('jxgbox2', {boundingbox: [-5, 5, 5, -5], axis: false, showNavigation: false});
-        var p1 = board2.create('point',, {name:'A₁', size:3, color: '#1e293b'});
-        var p2 = board2.create('point',, {name:'A₂', size:3, color: '#1e293b'});
+        // ĐÃ SỬA: Loại bỏ lỗi cú pháp hai dấu phẩy liên tục ",," bằng việc điền mảng tọa độ thực tế cho các điểm lồi phía trên đa giác
+        var p1 = board2.create('point', [0, 4], {name:'A₁', size:3, color: '#1e293b'});
+        var p2 = board2.create('point', [2, 3], {name:'A₂', size:3, color: '#1e293b'});
         var p3 = board2.create('point', [4, -1], {name:'A₃', size:3, color: '#1e293b'});
         var p4 = board2.create('point', [2, -4], {name:'A_k', size:3, color: '#1e293b'});
         var p5 = board2.create('point', [-2, -4], {name:'A_{k+1}', size:3, color: '#1e293b'});
@@ -400,4 +402,3 @@
     </script>
 </body>
 </html>
-```
