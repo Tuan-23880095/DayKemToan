@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buổi 9: Dấu của tam thức bậc hai — ThS. Đinh Quốc Tuấn</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- FontAwesome Icons CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts: Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- MathJax Configuration & Library -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['\\(', '\\)']],
+                displayMath: [['\\[', '\\]']]
+            },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <!-- JSXGraph CSS & Core Engine -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraph.css" />
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraphcore.js"></script>
+
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #f8fafc;
+            color: #0f172a;
+        }
+        .jxgbox {
+            background-color: #ffffff !important;
+            border-radius: 1rem;
+            overflow: hidden;
+            border: 1px solid #e2e8f0;
+        }
+        @media print {
+            .print\:hidden { display: none !important; }
+            body { background: white !important; color: black !important; }
+            details { display: block !important; }
+            details summary { display: none !important; }
+            .page-break { page-break-before: always; }
+            .card-border { box-shadow: none !important; border: 1px solid #e5e7eb !important; }
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col antialiased selection:bg-indigo-100">
+
+    <!-- Header học thuật -->
+    <header class="border-b border-slate-200 sticky top-0 bg-white/95 backdrop-blur-md z-40 print:hidden">
+        <div class="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 px-6 py-4">
+            <div class="flex items-center gap-4">
+                <img src="https://hcmus.edu.vn/wp-content/uploads/2023/04/Logo-chinh-e1681638380305.png" alt="Logo HCMUS" class="h-14 w-auto object-contain">
+                <div class="border-l-2 border-slate-300 pl-4">
+                    <span class="text-xs font-bold tracking-widest text-indigo-600 uppercase block mb-0.5">Tài liệu số hóa tương tác</span>
+                    <span class="text-base font-extrabold text-slate-800">Chuyên đề Hàm số & Bất phương trình lớp 10</span>
+                </div>
+            </div>
+            <div class="flex items-center gap-3 sm:text-right">
+                <div class="hidden sm:block">
+                    <p class="text-xs text-slate-400 font-semibold">Giảng viên biên soạn:</p>
+                    <p class="text-sm font-extrabold text-slate-800">ThS. Đinh Quốc Tuấn</p>
+                </div>
+                <img src="https://firebasestorage.googleapis.com/v0/b/link-anh-web.firebasestorage.app/o/ttbdvh.jpg?alt=media&token=f270aa9b-a2bc-48e8-8910-80742b542615" 
+                     alt="Logo TTBDVH" class="h-14 w-14 object-cover rounded-full border border-slate-200 shadow-inner">
+            </div>
+        </div>
+    </header>
+
+    <!-- Banner nhập môn thư gửi học sinh -->
+    <div class="bg-gradient-to-r from-indigo-50 via-slate-50 to-emerald-50 border-b border-slate-200 py-10 print:hidden">
+        <div class="max-w-4xl mx-auto px-6 space-y-4">
+            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-indigo-100 text-indigo-800 border border-indigo-200 shadow-xs">
+                <i class="fa-solid fa-key mr-1.5 text-indigo-600"></i> Chìa khóa vàng Đại số phổ thông
+            </span>
+            <h1 class="text-2xl sm:text-4xl font-black tracking-tight text-slate-900 leading-tight">
+                Buổi 9: Dấu Của Tam Thức Bậc Hai
+            </h1>
+            <p class="text-slate-600 text-sm sm:text-base font-medium leading-relaxed text-justify">
+                Chào các em! Thầy rất vui được đồng hành cùng các em bước sang Buổi học thứ 9. Hôm nay chúng ta sẽ tìm hiểu về một trong những "chìa khóa vàng" của chương trình TRUNG HỌC PHỔ THÔNG: Dấu của tam thức bậc hai. Nắm vững định lí này, các em sẽ giải quyết "gọn gàng" các bài toán bất phương trình bậc hai, phương trình chứa căn, và sau này là xét tính đơn điệu của hàm số ở lớp 12. Nội dung bài học được thầy chia thành 3 cấp độ như sau:
+            </p>
+        </div>
+    </div>
+
+    <!-- Nội dung không gian làm việc chính -->
+    <main class="max-w-4xl mx-auto px-4 sm:px-6 py-10 flex-grow w-full space-y-16">
+        
+        <!-- ================= PHẦN 1: MỨC ĐỘ CƠ BẢN ================= -->
+        <section class="space-y-6">
+            <div class="flex items-center gap-3 border-b pb-3 border-slate-200">
+                <span class="bg-sky-600 text-white text-xs font-black px-3 py-1 rounded-md uppercase tracking-wider">Cấp độ 1</span>
+                <h2 class="text-xl font-extrabold text-slate-900">PHẦN 1: MỨC ĐỘ CƠ BẢN (ĐỊNH LÍ VỀ DẤU CỦA TAM THỨC BẬC HAI)</h2>
+            </div>
+            <p class="text-xs font-bold text-sky-800 bg-sky-50 px-3 py-2 rounded-lg inline-block">
+                Mục tiêu: Học sinh nhận biết tam thức bậc hai, hiểu và thuộc lòng quy tắc xét dấu cốt lõi "Trong trái - Ngoài cùng".
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm leading-relaxed text-slate-700">
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs space-y-2">
+                    <h3 class="font-bold text-slate-800 text-base flex items-center gap-2 text-sky-700"><i class="fa-solid fa-book"></i> 1. Khái niệm Tam thức bậc hai</h3>
+                    <p>&bull; Tam thức bậc hai (đối với \(x\)) là biểu thức có dạng \(f(x) = ax^2 + bx + c\), trong đó \(a, b, c\) là những số thực cho trước và \(a \neq 0\).</p>
+                    <p>&bull; Nghiệm của phương trình \(ax^2 + bx + c = 0\) cũng được gọi là nghiệm của tam thức bậc hai \(f(x)\).</p>
+                </div>
+
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs space-y-2">
+                    <h3 class="font-bold text-slate-800 text-base flex items-center gap-2 text-sky-700"><i class="fa-solid fa-list-check"></i> 2. Định lí về dấu của tam thức bậc hai</h3>
+                    <p>Cho tam thức bậc hai \(f(x) = ax^2 + bx + c \ (a \neq 0)\), có biệt thức \(\Delta = b^2 - 4ac\). Dấu của \(f(x)\) được quy định cụ thể:</p>
+                    <p>&bull; <strong>Trường hợp \(\Delta < 0\):</strong> \(f(x)\) luôn cùng dấu với hệ số \(a\) với mọi \(x \in \mathbb{R}\).</p>
+                    <p>&bull; <strong>Trường hợp \(\Delta = 0\):</strong> \(f(x)\) luôn cùng dấu với hệ số \(a\) với mọi \(x \neq -\frac{b}{2a}\). Tại \(x = -\frac{b}{2a}\) thì \(f(x) = 0\).</p>
+                    <p>&bull; <strong>Trường hợp \(\Delta > 0\):</strong> \(f(x)\) có hai nghiệm phân biệt \(x_1, x_2\) (giả sử \(x_1 < x_2\)). Khoảng <strong>TRONG</strong> hai nghiệm \((x_1; x_2)\) thì \(f(x)\) <strong>TRÁI</strong> dấu với \(a\). Các khoảng <strong>NGOÀI</strong> hai nghiệm \((-\infty; x_1) \cup (x_2; +\infty)\) thì \(f(x)\) <strong>CÙNG</strong> dấu với \(a\).</p>
+                    <p class="text-xs bg-amber-50 text-amber-900 p-2 rounded border border-amber-200 font-bold block text-center mt-1"><i class="fa-solid fa-wand-magic-sparkles mr-1"></i> Thần chú sư phạm: "TRONG TRÁI — NGOÀI CÙNG"</p>
+                </div>
+            </div>
+
+            <!-- Ví dụ 1 & Mô hình 1 -->
+            <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border space-y-6">
+                <div>
+                    <span class="bg-sky-100 text-sky-800 text-xs font-bold px-2 py-0.5 rounded">Ví dụ minh họa 1</span>
+                    <p class="text-sm font-semibold text-slate-800 mt-2">Lập bảng xét dấu của tam thức bậc hai \(f(x) = x^2 - x - 2\).</p>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+                    <div class="space-y-3">
+                        <details class="group">
+                            <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                                <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem hướng dẫn giải mẫu</span>
+                            </summary>
+                            <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 leading-relaxed space-y-2">
+                                <p><strong>Giải:</strong> Ta có \(a = 1 > 0\) và tam thức có hai nghiệm phân biệt \(x_1 = -1, x_2 = 2\).</p>
+                                <p>&bull; Áp dụng quy tắc "Trong trái - Ngoài cùng", tam thức sẽ mang dấu âm \((-)\) trên khoảng ở trong hai nghiệm \((-1; 2)\) (vì trái dấu với \(a > 0\)).</p>
+                                <p>&bull; Tam thức sẽ mang dấu dương \((+)\) trên các khoảng nằm ở ngoài hai nghiệm: \((-\infty; -1) \cup (2; +\infty)\).</p>
+                            </div>
+                        </details>
+                        <div id="status-box1" class="text-xs font-bold p-3 bg-indigo-50 border border-indigo-100 rounded-xl text-center text-slate-700">
+                            <i class="fa-solid fa-circle-info text-indigo-600 mr-1.5"></i> Di chuyển thử điểm M trên đồ thị để kiểm chứng quy tắc dấu!
+                        </div>
+                    </div>
+                    <div>
+                        <div id="box1" class="w-full h-64 jxgbox"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= PHẦN 2: MỨC ĐỘ NÂNG CAO ================= -->
+        <section class="space-y-6">
+            <div class="flex items-center gap-3 border-b pb-3 border-slate-200">
+                <span class="bg-amber-600 text-white text-xs font-black px-3 py-1 rounded-md uppercase tracking-wider">Cấp độ 2</span>
+                <h2 class="text-xl font-extrabold text-slate-900">PHẦN 2: MỨC ĐỘ NÂNG CAO (TAM THỨC BẬC HAI KHÔNG ĐỔI DẤU TRÊN \(\mathbb{R}\))</h2>
+            </div>
+            <p class="text-xs font-bold text-amber-800 bg-amber-50 px-3 py-2 rounded-lg inline-block">
+                Mục tiêu: Giải quyết bài toán chứa tham số biến thiên m để biểu thức luôn dương hoặc luôn âm trên toàn bộ trục số.
+            </p>
+
+            <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs text-sm leading-relaxed text-slate-700">
+                <h3 class="font-bold text-slate-800 text-base flex items-center gap-2 text-amber-700 mb-2"><i class="fa-solid fa-shield-halved"></i> 1. Điều kiện để tam thức không đổi dấu trên \(\mathbb{R}\)</h3>
+                <p>Để tam thức luôn luôn giữ nguyên một dấu trên \(\mathbb{R}\), đồ thị Parabol của nó phải hoàn toàn nằm hẳn về một phía so với trục hoành (không cắt, không có nghiệm). Điều này bắt buộc biệt thức phải âm (\(\Delta < 0\)):</p>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 my-3 font-mono text-xs text-center">
+                    <div class="p-3 bg-slate-50 border rounded-xl font-sans">
+                        <span class="font-bold text-indigo-600 block mb-1">Luôn dương (\(> 0, \forall x \in \mathbb{R}\)):</span>
+                        \(\begin{cases} a > 0 \\ \Delta < 0 \end{cases}\)
+                    </div>
+                    <div class="p-3 bg-slate-50 border rounded-xl font-sans">
+                        <span class="font-bold text-rose-600 block mb-1">Luôn âm (\(< 0, \forall x \in \mathbb{R}\)):</span>
+                        \(\begin{cases} a < 0 \\ \Delta < 0 \end{cases}\)
+                    </div>
+                </div>
+                <p class="text-xs bg-amber-50 p-2 rounded border border-amber-200 font-semibold"><i class="fa-solid fa-lightbulb text-amber-600"></i> Mẹo từ thầy Tuấn: Nếu đề bài xuất hiện thêm dấu bằng (\(\ge 0\) hoặc \(\le 0\)), các em chỉ cần thêm dấu bằng vào điều kiện của biệt thức thành \(\Delta \le 0\), hệ số \(a\) giữ nguyên điều kiện không đổi.</p>
+            </div>
+
+            <!-- Ví dụ 2 & Mô hình 2 -->
+            <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border space-y-6">
+                <div>
+                    <span class="bg-amber-100 text-amber-800 text-xs font-bold px-2 py-0.5 rounded">Ví dụ minh họa 2</span>
+                    <p class="text-sm font-semibold text-slate-800 mt-2">Tìm các giá trị của tham số \(m\) để tam thức \(f(x) = x^2 - 2x + m - 12\) nhận giá trị dương với mọi \(x \in \mathbb{R}\).</p>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                    <div class="space-y-4">
+                        <details class="group">
+                            <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                                <i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform mr-1"></i> Xem hướng dẫn giải tham số m
+                            </summary>
+                            <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-2 leading-relaxed">
+                                <p>&bull; Xét tam thức \(f(x) = x^2 - 2x + m - 12\) có hệ số \(a = 1 > 0\).</p>
+                                <p>&bull; Để biểu thức luôn dương với mọi \(x \in \mathbb{R}\) \(\Leftrightarrow \begin{cases} a > 0 \\ \Delta' < 0 \end{cases}\).</p>
+                                <p>&bull; Ta tính biệt thức thu gọn: \(\Delta' = (-1)^2 - 1 \cdot (m - 12) = 13 - m\).</p>
+                                <p>&bull; Điều kiện: \(\Delta' < 0 \Leftrightarrow 13 - m < 0 \Leftrightarrow m > 13\).</p>
+                                <p><strong>Kết luận:</strong> Với \(m > 13\), tam thức luôn luôn nhận giá trị dương.</p>
+                            </div>
+                        </details>
+
+                        <div class="p-4 bg-slate-100 rounded-xl border border-slate-200 text-xs space-y-2">
+                            <span class="font-bold text-slate-700 block uppercase"><i class="fa-solid fa-sliders text-indigo-500"></i> Thanh trượt tham số m trực quan:</span>
+                            <p class="text-slate-500">Kéo thử thanh trượt để thay đổi giá trị \(m\). Khi \(m > 13\), đồ thị Parabol lập tức nhảy vọt lên hoàn toàn phía trên trục hoành, minh họa trạng thái vô nghiệm đại số.</p>
+                        </div>
+                    </div>
+                    <div>
+                        <div id="box2" class="w-full h-64 jxgbox"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= PHẦN 3: MỨC ĐỘ VẬN DỤNG ================= -->
+        <section class="space-y-6">
+            <div class="flex items-center gap-3 border-b pb-3 border-slate-200">
+                <span class="bg-emerald-600 text-white text-xs font-black px-3 py-1 rounded-md uppercase tracking-wider">Cấp độ 3</span>
+                <h2 class="text-xl font-extrabold text-slate-900">PHẦN 3: MỨC ĐỘ VẬN DỤNG (GIẢI BẤT PHƯƠNG TRÌNH VÀ BÀI TOÁN THỰC TẾ)</h2>
+            </div>
+            <p class="text-xs font-bold text-emerald-800 bg-emerald-50 px-3 py-2 rounded-lg inline-block">
+                Mục tiêu: Áp dụng quy tắc xét dấu tam thức để giải bất phương trình bậc hai và tối ưu hóa diện tích thực tế.
+            </p>
+
+            <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs text-sm leading-relaxed text-slate-700 space-y-2">
+                <h3 class="font-bold text-slate-800 text-base flex items-center gap-2 text-emerald-700 mb-1"><i class="fa-solid fa-square-root-variable"></i> 1. Quy trình giải bất phương trình bậc hai một ẩn</h3>
+                <p>&bull; <strong>Phương pháp:</strong> Đưa bất phương trình về dạng chuẩn so sánh với 0. Tiến hành tìm nghiệm của tam thức, áp dụng định lý dấu "Trong trái - Ngoài cùng" để lập bảng xét dấu, cuối cùng chọn khoảng nghiệm thích hợp ứng với chiều của bất phương trình.</p>
+            </div>
+
+            <!-- Ví dụ 3 & Mô hình 3 -->
+            <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border space-y-6">
+                <div>
+                    <span class="bg-emerald-100 text-emerald-800 text-xs font-bold px-2 py-0.5 rounded">Ví dụ minh họa 3 (Vận dụng thực tế)</span>
+                    <p class="text-sm font-semibold text-slate-800 mt-2 text-justify">Trở lại tình huống thiết kế rào vườn. Với yêu cầu mảnh đất rào chắn có diện tích không nhỏ hơn 48 m², người ta thiết lập được bất phương trình biểu diễn diện tích là: \(S(x) = -2x^2 + 20x \ge 48\). Hãy tìm khoảng giá trị cho phép của bề rộng \(x\).</p>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                    <div class="space-y-4 text-xs text-slate-700 leading-relaxed text-justify">
+                        <details class="group">
+                            <summary class="list-none flex items-center font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                                <i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform mr-1"></i> Xem hướng dẫn giải thiết kế
+                            </summary>
+                            <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-slate-700 space-y-2">
+                                <p>&bull; Đưa bất phương trình về dạng chuẩn hệ thức: \(-2x^2 + 20x - 48 \ge 0\).</p>
+                                <p>&bull; Xét tam thức bậc hai có hệ số \(a = -2 < 0\) và hai nghiệm phân biệt: \(x_1 = 4, x_2 = 6\).</p>
+                                <p>&bull; Theo quy tắc dấu tam thức: Trong khoảng hai nghiệm \((4; 6)\), biểu thức trái dấu với \(a\) mang dấu dương \((+)\). Các khoảng ngoài mang dấu âm \((-)\).</p>
+                                <p>&bull; Do bất phương trình lấy dấu \(\ge 0\) nên ta chọn đoạn mang dấu dương: \(x \in [4; 6]\).</p>
+                                <p><strong>Kết luận:</strong> Bề rộng của mảnh đất rào chắn phải nằm trong khoảng từ 4m đến 6m để đạt yêu cầu diện tích.</p>
+                            </div>
+                        </details>
+                        
+                        <div id="status-box3" class="text-xs font-bold p-3 bg-emerald-50 rounded-xl text-center text-emerald-800 border border-emerald-200">
+                            <i class="fa-solid fa-expand mr-1"></i> Di chuyển thử giá trị bề rộng x trên đồ thị!
+                        </div>
+                    </div>
+                    <div>
+                        <div id="box3" class="w-full h-64 jxgbox"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= BÀI TẬP ĐÁNH GIÁ NĂNG LỰC TRẮC NGHIỆM ================= -->
+        <section class="border-t border-slate-200 pt-10 page-break">
+            <div class="bg-gradient-to-br from-slate-900 via-slate-800 to-indigo-950 text-white rounded-3xl p-6 sm:p-8 shadow-xl relative overflow-hidden card-border">
+                <div class="absolute -right-10 -bottom-10 opacity-5 pointer-events-none text-white">
+                    <i class="fa-solid fa-square-check text-[14rem]"></i>
+                </div>
+                
+                <div class="max-w-xl space-y-2">
+                    <span class="text-xs font-bold uppercase tracking-widest text-emerald-400 bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-500/20 inline-block">Đánh giá trực tuyến tại lớp</span>
+                    <h2 class="text-xl sm:text-2xl font-black tracking-tight">BÀI TẬP ĐÁNH GIÁ NĂNG LỰC TẠI LỚP</h2>
+                    <p class="text-slate-400 text-xs sm:text-sm">Học sinh hoàn thành chọn đáp án trực tuyến, kết quả bài làm sẽ được gửi đồng bộ tự động lên máy chủ nhà trường.</p>
+                </div>
+
+                <form id="quizForm" class="mt-8 space-y-6 text-slate-900">
+                    <!-- Khối thông tin học sinh -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div class="bg-white p-4 rounded-xl shadow-inner border border-slate-100">
+                            <label class="block text-xs font-bold text-slate-400 uppercase tracking-wide mb-1"><i class="fa-solid fa-user mr-1 text-indigo-500"></i> Họ và tên học sinh</label>
+                            <input type="text" id="studentName" required placeholder="Nhập họ tên đầy đủ..." class="w-full bg-white border-b-2 border-slate-200 focus:border-indigo-500 outline-none py-1 text-sm font-bold text-slate-900 transition-colors">
+                        </div>
+                        <div class="bg-white p-4 rounded-xl shadow-inner border border-slate-100">
+                            <label class="block text-xs font-bold text-slate-400 uppercase tracking-wide mb-1"><i class="fa-solid fa-file-code mr-1 text-indigo-500"></i> Mã chuyên đề bài học</label>
+                            <input type="text" id="examId" readonly value="Buoi09_DauTamThuc_Toan10" class="w-full bg-slate-50 border-b-2 border-slate-200 outline-none py-1 text-sm font-bold text-slate-500 cursor-not-allowed">
+                        </div>
+                    </div>
+
+                    <!-- Khối các câu hỏi trắc nghiệm -->
+                    <div class="space-y-5 mt-6">
+                        <!-- Câu 1 -->
+                        <div class="bg-white p-5 rounded-2xl shadow-sm space-y-3">
+                            <p class="text-sm font-bold text-slate-900"><span class="text-indigo-600">Câu 1:</span> Khi biệt thức \(\Delta > 0\), quy tắc phân phối dấu của tam thức bậc hai tuân theo quy luật thần chú nào?</p>
+                            <div class="grid grid-cols-1 gap-2 text-xs font-semibold text-slate-700">
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q1" value="A" required class="text-indigo-600 h-4 w-4"> <span>A. Trong cùng — Ngoài trái</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q1" value="B" class="text-indigo-600 h-4 w-4"> <span>B. Trong trái — Ngoài cùng (Trái dấu với a ở trong, cùng dấu với a ở ngoài hai nghiệm)</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q1" value="C" class="text-indigo-600 h-4 w-4"> <span>C. Luôn luôn cùng dấu với hệ số a trên toàn bộ trục số R</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Câu 2 -->
+                        <div class="bg-white p-5 rounded-2xl shadow-sm space-y-3">
+                            <p class="text-sm font-bold text-slate-900"><span class="text-indigo-600">Câu 2:</span> Điểm nghiệm phân biệt của tam thức bậc hai \(f(x) = x^2 - x - 2\) khảo sát ở Ví dụ 1 gồm những giá trị nào?</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs font-semibold text-slate-700">
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q2" value="A" required class="text-indigo-600 h-4 w-4"> <span>A. \(x = 1\) và \(x = -2\)</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q2" value="B" class="text-indigo-600 h-4 w-4"> <span>B. \(x = -1\) và \(x = 2\)</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q2" value="C" class="text-indigo-600 h-4 w-4"> <span>C. Vô nghiệm thực</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Câu 3 -->
+                        <div class="bg-white p-5 rounded-2xl shadow-sm space-y-3">
+                            <p class="text-sm font-bold text-slate-900"><span class="text-indigo-600">Câu 3:</span> Để tam thức bậc hai \(ax^2+bx+c\) luôn luôn nhận giá trị âm với mọi \(x \in \mathbb{R}\), điều kiện hệ thức bắt buộc là:</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs font-semibold text-slate-700">
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q3" value="A" required class="text-indigo-600 h-4 w-4"> <span>A. \(\begin{cases} a > 0 \\ \Delta < 0 \end{cases}\)</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q3" value="B" class="text-indigo-600 h-4 w-4"> <span>B. \(\begin{cases} a < 0 \\ \Delta < 0 \end{cases}\)</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q3" value="C" class="text-indigo-600 h-4 w-4"> <span>C. \(\begin{cases} a < 0 \\ \Delta > 0 \end{cases}\)</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Câu 4 -->
+                        <div class="bg-white p-5 rounded-2xl shadow-sm space-y-3">
+                            <p class="text-sm font-bold text-slate-900"><span class="text-indigo-600">Câu 4:</span> Tập giá trị tham số \(m\) thu được ở Ví dụ 2 để biểu thức wood luôn dương trên toàn trục số thực là:</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs font-semibold text-slate-700">
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q4" value="A" required class="text-indigo-600 h-4 w-4"> <span>A. \(m < 13\)</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q4" value="B" class="text-indigo-600 h-4 w-4"> <span>B. \(m = 13\)</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q4" value="C" class="text-indigo-600 h-4 w-4"> <span>C. \(m > 13\)</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Câu 5 -->
+                        <div class="bg-white p-5 rounded-2xl shadow-sm space-y-3">
+                            <p class="text-sm font-bold text-slate-900"><span class="text-indigo-600">Câu 5:</span> Tập tập nghiệm tập hợp khoảng bề rộng \(x\) cho phép ở bài toán thực tế thiết kế hàng rào vườn (Ví dụ 3) là:</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs font-semibold text-slate-700">
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q5" value="A" required class="text-indigo-600 h-4 w-4"> <span>A. \(x \in (4; 6)\)</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q5" value="B" class="text-indigo-600 h-4 w-4"> <span>B. \(x \in [4; 6]\)</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q5" value="C" class="text-indigo-600 h-4 w-4"> <span>C. \(x \in (-\infty; 4] \cup [6; +\infty)\)</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Khu vực nút bấm kích hoạt dữ liệu -->
+                    <div class="pt-2 flex flex-col sm:flex-row items-center justify-between gap-4">
+                        <button type="submit" id="submitBtn" class="w-full sm:w-auto bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-sm px-8 py-3.5 rounded-xl shadow-lg transition-all flex items-center justify-center space-x-2 cursor-pointer">
+                            <i class="fa-solid fa-cloud-arrow-up"></i> <span>Nộp Bài Chấm Điểm</span>
+                        </button>
+                        <div id="statusReport" class="text-xs font-bold text-slate-400"></div>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer bản quyền -->
+    <footer class="bg-slate-900 text-slate-400 py-8 text-center text-xs font-medium px-4 mt-auto">
+        <p class="font-bold text-slate-300">@ Bản quyền thuộc ThS. Đinh Quốc Tuấn - Mục đích phi lợi nhuận - Vì giáo dục.</p>
+        <p class="text-slate-500 mt-2">Hệ thống bài giảng số hóa đồ họa trực quan tích hợp quy trình đồng bộ dữ liệu đám mây lớp 10.</p>
+    </footer>
+
+    <!-- NÚT IN TÀI LIỆU CỐ ĐỊNH -->
+    <button id="btn-print-doc" onclick="safePrint()" class="fixed bottom-5 right-5 bg-gray-900 text-white px-4 py-2 rounded-lg shadow-lg hover:bg-gray-700 print:hidden z-50 cursor-pointer">
+        <i class="fas fa-print mr-2"></i> In Tài Liệu
+    </button>
+
+    <script>
+        function safePrint() {
+            const printBtn = document.getElementById('btn-print-doc');
+            printBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Đang chuẩn bị...';
+            
+            if (window.MathJax && window.MathJax.typesetPromise) {
+                MathJax.typesetPromise().then(() => {
+                    printBtn.innerHTML = '<i class="fas fa-print mr-2"></i> In Tài Liệu';
+                    window.print();
+                });
+            } else {
+                setTimeout(() => window.print(), 500); 
+            }
+        }
+    </script>
+
+    <!-- HỆ THỐNG KỊCH BẢN ĐIỀU KHIỂN HÌNH HỌC ĐỘNG JSXGRAPH -->
+    <script>
+        const timeInit = new Date();
+
+        document.addEventListener("DOMContentLoaded", function() {
+            
+            // --- MÔ HÌNH 1: XÉT DẤU TAM THỨC BẬC HAI X^2 - X - 2 ---
+            const b1 = JXG.JSXGraph.initBoard('box1', {
+                boundingbox: [-3, 4, 4, -3], axis: true, showNavigation: false, showCopyright: false
+            });
+
+            // Vẽ Parabol phân vùng màu động: Đỉnh lồi S(0.5, -2.25)
+            // Nhánh âm (Dưới Ox)
+            b1.create('functiongraph', [function(x) {
+                return (x >= -1 && x <= 2) ? (x*x - x - 2) : NaN;
+            }, -1, 2], {strokeColor: '#ef4444', strokeWidth: 4});
+
+            // Nhánh dương (Trên Ox)
+            b1.create('functiongraph', [function(x) {
+                return (x < -1) ? (x*x - x - 2) : NaN;
+            }, -3, -1], {strokeColor: '#3b82f6', strokeWidth: 3});
+            b1.create('functiongraph', [function(x) {
+                return (x > 2) ? (x*x - x - 2) : NaN;
+            }, 2, 4], {strokeColor: '#3b82f6', strokeWidth: 3});
+
+            // Highlight hai nghiệm phân biệt
+            b1.create('point', [-1, 0], {name: 'x₁=-1', color: '#1e293b', size: 3, fixed: true});
+            b1.create('point', [2, 0], {name: 'x₂=2', color: '#1e293b', size: 3, fixed: true});
+
+            // Tạo trục dẫn hướng hoành độ độc lập để gắn Glider bám chuẩn
+            let axisOx = b1.create('axis', [[0,0], [1,0]], {visible: false});
+            let M = b1.create('glider', [0.5, 0, axisOx], {name: 'M (x)', color: '#4f46e5', size: 4});
+
+            // Điểm dóng cao độ động chạy bám theo tung độ hàm số
+            let N = b1.create('point', [
+                function() { return M.X(); },
+                function() { return M.X()*M.X() - M.X() - 2; }
+            ], {visible: true, name: '', color: '#4f46e5', size: 2});
+            b1.create('segment', [M, N], {dash: 2, strokeColor: '#94a3b8'});
+
+            let statusBox1 = document.getElementById('status-box1');
+            M.on('drag', function() {
+                let x = M.X();
+                let f = x*x - x - 2;
+                if (x > -1 && x < 2) {
+                    statusBox1.className = "text-xs font-bold p-3 bg-rose-50 border border-rose-200 rounded-xl text-center text-rose-800 animate-pulse";
+                    statusBox1.innerHTML = `<i class="fa-solid fa-folder-minus"></i> Khoảng TRONG hai nghiệm: x = ${x.toFixed(2)} &rArr; f(x) = ${f.toFixed(2)} &lt; 0 (TRÁI dấu hệ số a)`;
+                } else if (x === -1 || x === 2) {
+                    statusBox1.className = "text-xs font-bold p-3 bg-slate-100 border border-slate-200 rounded-xl text-center text-slate-800";
+                    statusBox1.innerHTML = `<i class="fa-solid fa-circle-dot"></i> Tại điểm nghiệm cơ sở: x = ${x.toFixed(0)} &rArr; f(x) = 0.00`;
+                } else {
+                    statusBox1.className = "text-xs font-bold p-3 bg-emerald-50 border border-emerald-200 rounded-xl text-center text-emerald-800";
+                    statusBox1.innerHTML = `<i class="fa-solid fa-folder-plus"></i> Khoảng NGOÀI hai nghiệm: x = ${x.toFixed(2)} &rArr; f(x) = ${f.toFixed(2)} &gt; 0 (CÙNG dấu hệ số a)`;
+                }
+            });
+
+
+            // --- MÔ HÌNH 2: TỊNH TIẾN PARABOL THEO THAM SỐ M ---
+            const b2 = JXG.JSXGraph.initBoard('box2', {
+                boundingbox: [-2, 10, 4, -3], axis: true, showNavigation: false, showCopyright: false
+            });
+
+            // Slider m chạy từ m=5 đến m=20. Mốc ranh giới là m=13
+            let slM = b2.create('slider', [[-1, 8.5], [2.5, 8.5], [5, 11, 20]], {name: 'Tham so m', snapWidth: 0.2, color: '#f59e0b'});
+
+            // Khởi tạo đồ thị đa tuyến động đổi màu thuộc tính theo tham số m
+            let graph2 = b2.create('functiongraph', [function(x) {
+                return x*x - 2*x + slM.Value() - 12;
+            }, -2, 4], {strokeWidth: 3});
+
+            // Nhãn hiển thị tích hợp phân tích biệt thức Delta tự động cập nhật
+            b2.create('text', [-1.5, -1.8, function() {
+                let m = slM.Value();
+                let delta = 13 - m;
+                
+                if (m > 13) {
+                    graph2.setAttribute({strokeColor: '#10b981'}); // Đổi sang màu xanh khi nổi lên
+                    return `<span style="color:#059669"><b>m = ${m.toFixed(1)} &gt; 13 &rArr; &Delta;' = ${delta.toFixed(1)} &lt; 0: PARABOL NỔI HẲN LÊN TRÊN, BPT LUÔN ĐÚNG!</b></span>`;
+                } else {
+                    graph2.setAttribute({strokeColor: '#ef4444'}); // Đỏ khi cắt Ox
+                    return `<span style="color:#dc2626"><b>m = ${m.toFixed(1)} &le; 13 &rArr; &Delta;' = ${delta.toFixed(1)} &ge; 0: Đồ thị còn phần nằm dưới trục hoành.</b></span>`;
+                }
+            }], {fontSize: 10.5, fontStyle: 'bold'});
+
+
+            // --- MÔ HÌNH 3: BẤT PHƯƠNG TRÌNH DIỆN TÍCH RÀO VƯỜN ---
+            // Đồ thị hóa hệ số quy đổi: y = -2x^2 + 20x và đường giới hạn hạn mức y = 48
+            const b3 = JXG.JSXGraph.initBoard('box3', {
+                boundingbox: [-1, 56, 9, -5], axis: true, showNavigation: false, showCopyright: false
+            });
+
+            // Vẽ Parabol diện tích S(x)
+            b3.create('functiongraph', [function(x) {
+                return (x >= 0 && x <= 10) ? (-2*x*x + 20*x) : NaN;
+            }, 0, 10], {strokeColor: '#059669', strokeWidth: 2});
+
+            // Vẽ đường giới hạn diện tích tối thiểu S = 48
+            let ptH1 = b3.create('point', [0, 48], {visible: false});
+            let ptH2 = b3.create('point', [10, 48], {visible: false});
+            b3.create('line', [ptH1, ptH2], {strokeColor: '#4f46e5', strokeWidth: 1.5, dash: 2});
+            b3.create('text', [7, 50, 'Hạn mức: 48 m²'], {color: '#4f46e5', fontWeight: 'bold', fontSize: 10});
+
+            // Tạo điểm định vị kéo thả kiểm thử x trên trục Ox
+            let axisOx3 = b3.create('axis', [[0,0], [1,0]], {visible: false});
+            let Mx3 = b3.create('glider', [5, 0, axisOx3], {name: 'Rộng x (m)', color: '#0f766e', size: 4});
+
+            // Điểm dóng diện tích
+            let Nx3 = b3.create('point', [
+                function() { return Mx3.X(); },
+                function() { return -2*Mx3.X()*Mx3.X() + 20*Mx3.X(); }
+            ], {visible: true, name: '', color: '#059669', size: 2});
+            b3.create('segment', [Mx3, Nx3], {dash: 2, strokeColor: '#94a3b8'});
+
+            let statusBox3 = document.getElementById('status-box3');
+            Mx3.on('drag', function() {
+                let x = Mx3.X();
+                let s = -2*x*x + 20*x;
+                if (x >= 4 && x <= 6) {
+                    statusBox3.className = "text-xs font-bold p-3 bg-emerald-50 border border-emerald-200 rounded-xl text-center text-emerald-800 animate-pulse";
+                    statusBox3.innerHTML = `🎉 x = ${x.toFixed(2)}m &rArr; Diện tích S = ${s.toFixed(2)} m² &ge; 48 (ĐẠT YÊU CẦU THIẾT KẾ!)`;
+                } else {
+                    statusBox3.className = "text-xs font-bold p-3 bg-rose-50 border border-rose-200 rounded-xl text-center text-rose-800";
+                    statusBox3.innerHTML = `⚠️ x = ${x.toFixed(2)}m &rArr; Diện tích S = ${s.toFixed(2)} m² &lt; 48 (KHÔNG ĐẠT TIÊU CHUẨN)`;
+                }
+            });
+        });
+
+        // --- XỬ LÝ BIỂU MẪU CHẤM ĐIỂM TRẮC NGHIỆM VÀ ĐẨY DỮ LIỆU VỀ GOOGLE SHEETS VIA APPS SCRIPT ---
+        document.getElementById('quizForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const submitBtn = document.getElementById('submitBtn');
+            const statusReport = document.getElementById('statusReport');
+            
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i> Hệ thống đang đồng bộ dữ liệu bài làm...';
+            statusReport.innerHTML = "Đang mã hóa kết nối đồng bộ đám mây học thuật...";
+
+            // Bảng khóa đáp án chuẩn xác
+            const correctKey = { q1: "B", q2: "B", q3: "B", q4: "C", q5: "B" };
+            const studentName = document.getElementById('studentName').value.trim();
+            const lessonId = document.getElementById('examId').value.trim();
+            
+            let correctCounter = 0;
+            let totalQuizCount = Object.keys(correctKey).length;
+            let missedReportArray = [];
+
+            // Chấm điểm tự động vòng lặp
+            for (let questionCode in correctKey) {
+                const selectedRadio = document.querySelector(`input[name="${questionCode}"]:checked`);
+                if (selectedRadio && selectedRadio.value === correctKey[questionCode]) {
+                    correctCounter++;
+                } else {
+                    let chosenChar = selectedRadio ? selectedRadio.value : "Bỏ qua";
+                    missedReportArray.push(`${questionCode.toUpperCase()}(Chọn: ${chosenChar}|Đúng: ${correctKey[questionCode]})`);
+                }
+            }
+
+            // Quy đổi dữ liệu thời gian lăng trụ đứng
+            const finalScore = ((correctCounter / totalQuizCount) * 10).toFixed(2);
+            const timeComplete = new Date();
+            const elapsedDurationSeconds = Math.floor((timeComplete - timeInit) / 1000);
+            const thoiGian = `${Math.floor(elapsedDurationSeconds / 60)} phút ${elapsedDurationSeconds % 60} giây`;
+            const cauSai = missedReportArray.length > 0 ? missedReportArray.join(", ") : "Không có (Đạt điểm tuyệt đối 10/10)";
+
+            // Payload tương thích cấu trúc API Apps Script nhận dạng
+            const transmissionPayload = {
+                hoTen: studentName,
+                maDe: lessonId,
+                diem: parseFloat(finalScore),
+                thoiGian: thoiGian,
+                cauSai: cauSai
+            };
+
+            const webAppsScriptEndpoint = "https://script.google.com/macros/s/AKfycbzY7b7h4OwvhXuK5Vs6hl-aD88BPnAiAKbU5lfJobby0D4nzbIJVKT4n0AKCpAGoK0nZA/exec";
+
+            // Thực thi kết nối POST bất đồng bộ
+            fetch(webAppsScriptEndpoint, {
+                method: "POST",
+                mode: "no-cors",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(transmissionPayload)
+            })
+            .then(() => {
+                statusReport.className = "text-xs font-bold text-emerald-500 bg-emerald-50 px-3 py-2 rounded-xl border border-emerald-200 inline-block";
+                statusReport.innerHTML = `<i class="fa-solid fa-circle-check"></i> Đã nộp bài thành công! Kết quả đạt được: ${finalScore}/10.`;
+                alert(`Hệ thống thông báo nộp kết quả bài thi thành công!\nChào em ${studentName}, điểm số chuyên đề đạt được là: ${finalScore} / 10.`);
+                submitBtn.innerHTML = '<i class="fa-solid fa-lock"></i> Kết quả đã khóa bảo mật';
+            })
+            .catch(error => {
+                console.error("Giao dịch truyền tin thất bại:", error);
+                statusReport.className = "text-xs font-bold text-rose-500 bg-rose-50 px-3 py-2 rounded-xl border border-rose-200 inline-block";
+                statusReport.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> Lỗi kết nối mạng, vui lòng nộp lại bài!';
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Thử nộp lại bài';
+            });
+        });
+    </script>
+</body>
+</html>
