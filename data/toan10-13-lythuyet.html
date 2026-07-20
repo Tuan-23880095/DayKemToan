@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buổi 13: Các công thức tính diện tích tam giác — ThS. Đinh Quốc Tuấn</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- FontAwesome Icons CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts: Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- MathJax Configuration & Library -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['\\(', '\\)']],
+                displayMath: [['\\[', '\\]']]
+            },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <!-- JSXGraph CSS & Core Engine -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraph.css" />
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraphcore.js"></script>
+
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #f8fafc;
+            color: #0f172a;
+        }
+        .jxgbox {
+            background-color: #ffffff !important;
+            border-radius: 1rem;
+            overflow: hidden;
+            border: 1px solid #e2e8f0;
+        }
+        @media print {
+            .print\:hidden { display: none !important; }
+            body { background: white !important; color: black !important; }
+            details { display: block !important; }
+            details summary { display: none !important; }
+            .page-break { page-break-before: always; }
+            .card-border { box-shadow: none !important; border: 1px solid #e5e7eb !important; }
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col antialiased selection:bg-indigo-100">
+
+    <!-- Header học thuật cao cấp -->
+    <header class="border-b border-slate-200 sticky top-0 bg-white/95 backdrop-blur-md z-40 print:hidden">
+        <div class="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 px-6 py-4">
+            <div class="flex items-center gap-4">
+                <img src="https://hcmus.edu.vn/wp-content/uploads/2023/04/Logo-chinh-e1681638380305.png" alt="Logo HCMUS" class="h-14 w-auto object-contain">
+                <div class="border-l-2 border-slate-300 pl-4">
+                    <span class="text-xs font-bold tracking-widest text-indigo-600 uppercase block mb-0.5">Tài liệu số hóa tương tác</span>
+                    <span class="text-base font-extrabold text-slate-800">Chuyên đề Hệ thức lượng trong tam giác lớp 10</span>
+                </div>
+            </div>
+            <div class="flex items-center gap-3 sm:text-right">
+                <div class="hidden sm:block">
+                    <p class="text-xs text-slate-400 font-semibold">Giảng viên biên soạn:</p>
+                    <p class="text-sm font-extrabold text-slate-800">ThS. Đinh Quốc Tuấn</p>
+                </div>
+                <img src="https://firebasestorage.googleapis.com/v0/b/link-anh-web.firebasestorage.app/o/ttbdvh.jpg?alt=media&token=f270aa9b-a2bc-48e8-8910-80742b542615" 
+                     alt="Logo TTBDVH" class="h-14 w-14 object-cover rounded-full border border-slate-200 shadow-inner">
+            </div>
+        </div>
+    </header>
+
+    <!-- Banner nhập môn thư gửi học sinh -->
+    <div class="bg-gradient-to-r from-indigo-50 via-slate-50 to-emerald-50 border-b border-slate-200 py-10 print:hidden">
+        <div class="max-w-4xl mx-auto px-6 space-y-4">
+            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-indigo-100 text-indigo-800 border border-indigo-200 shadow-xs">
+                <i class="fa-solid fa-calculator mr-1.5 text-indigo-600"></i> Không gian hình học lượng giác trực quan
+            </span>
+            <h1 class="text-2xl sm:text-4xl font-black tracking-tight text-slate-900 leading-tight">
+                Buổi 13: Các Công Thức Tính Diện Tích Tam Giác
+            </h1>
+            <p class="text-slate-600 text-sm sm:text-base font-medium leading-relaxed text-justify">
+                Chào các em! Thầy rất vui khi được đồng hành cùng các em trong Buổi học thứ 13. Ở buổi trước, chúng ta đã trang bị hai "vũ khí" cực mạnh là Định lí Sin và Định lí Côsin. Hôm nay, chúng ta sẽ hoàn thiện bộ công cụ hình học phẳng bằng việc tìm hiểu Các công thức tính diện tích tam giác và cách ứng dụng chúng vào bài toán Giải tam giác. Kiến thức hôm nay rất đẹp vì nó liên kết chặt chẽ giữa cạnh, góc, diện tích và các loại bán kính đường tròn nội/ngoại tiếp tam giác. Thầy đã chia bài học thành 3 cấp độ kèm theo chứng minh chi tiết và gợi ý mô hình trực quan.
+            </p>
+        </div>
+    </div>
+
+    <!-- Nội dung không gian làm việc chính -->
+    <main class="max-w-4xl mx-auto px-4 sm:px-6 py-10 flex-grow w-full space-y-16">
+        
+        <!-- ================= PHẦN 1: MỨC ĐỘ CƠ BẢN ================= -->
+        <section class="space-y-6">
+            <div class="flex items-center gap-3 border-b pb-3 border-slate-200">
+                <span class="bg-sky-600 text-white text-xs font-black px-3 py-1 rounded-md uppercase tracking-wider">Cấp độ 1</span>
+                <h2 class="text-xl font-extrabold text-slate-900">PHẦN 1: MỨC ĐỘ CƠ BẢN (CÔNG THỨC DIỆN TÍCH VÀ CÁC KHÁI NIỆM)</h2>
+            </div>
+            <p class="text-xs font-bold text-sky-800 bg-sky-50 px-3 py-2 rounded-lg inline-block">
+                Mục tiêu: Ghi nhớ các kí hiệu quy ước, thuộc lòng 5 công thức tính diện tích tam giác và biết cách áp dụng trực tiếp để giải bài toán tam giác cơ bản.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm leading-relaxed text-slate-700">
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs space-y-2">
+                    <h3 class="font-bold text-slate-800 text-base flex items-center gap-2 text-sky-700"><i class="fa-solid fa-tags"></i> 1. Các kí hiệu quy ước trong tam giác ABC</h3>
+                    <ul class="list-disc list-inside pl-2 space-y-1 text-xs">
+                        <li>\(a, b, c\): Độ dài các cạnh tương ứng với đỉnh \(A, B, C\) (tức là \(BC=a, AC=b, AB=c\)).</li>
+                        <li>\(h_a, h_b, h_c\): Độ dài các đường cao lần lượt kẻ từ đỉnh \(A, B, C\).</li>
+                        <li>\(R, r\): Bán kính đường tròn ngoại tiếp và bán kính đường tròn nội tiếp tam giác.</li>
+                        <li>\(p = \frac{a+b+c}{2}\): Nửa chu vi của tam giác.</li>
+                        <li>\(S\): Diện tích tam giác.</li>
+                    </ul>
+                    <p class="pt-2 text-slate-700"><strong>Giải tam giác:</strong> Là việc tìm số đo các cạnh và các góc còn lại của tam giác đó khi ta biết được một số yếu tố đủ để xác định đa giác lồi này.</p>
+                </div>
+
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs space-y-2">
+                    <h3 class="font-bold text-slate-800 text-base flex items-center gap-2 text-sky-700"><i class="fa-solid fa-square-root-variable"></i> 2. Hệ thống 5 công thức tính diện tích tam giác</h3>
+                    <ol class="list-decimal list-inside pl-2 space-y-1.5 text-xs font-medium">
+                        <li>Công thức đường cao: <span class="text-indigo-600 font-bold">\(S = \frac{1}{2}ah_a = \frac{1}{2}bh_b = \frac{1}{2}ch_c\)</span></li>
+                        <li>Công thức góc xen giữa: <span class="text-indigo-600 font-bold">\(S = \frac{1}{2}ab \sin C = \frac{1}{2}bc \sin A = \frac{1}{2}ac \sin B\)</span></li>
+                        <li>Công thức bán kính ngoại tiếp: <span class="text-indigo-600 font-bold">\(S = \frac{abc}{4R}\)</span></li>
+                        <li>Công thức bán kính nội tiếp: <span class="text-indigo-600 font-bold">\(S = p \cdot r\)</span></li>
+                        <li>Công thức tích Heron: <span class="text-indigo-600 font-bold">\(S = \sqrt{p(p-a)(p-b)(p-c)}\)</span></li>
+                    </ol>
+                </div>
+            </div>
+
+            <!-- Chứng minh công thức basic 2 -->
+            <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border space-y-6">
+                <div class="flex flex-col md:flex-row gap-6 items-start">
+                    <div class="flex-1 space-y-3 text-sm text-slate-700">
+                        <span class="bg-sky-100 text-sky-800 text-xs font-bold px-2 py-0.5 rounded">Chứng minh hình học hệ thức (2)</span>
+                        <p class="text-justify font-medium"><strong>Định lý:</strong> \(S = \frac{1}{2}bc \sin A\)</p>
+                        <p class="text-justify text-xs leading-relaxed text-slate-600"><strong>Chứng minh:</strong> Xét tam giác \(ABC\) với đường cao \(BD\) kẻ từ \(B\) xuống \(AC\). Diện tích tam giác tính theo công thức diện tích truyền thống là \(S = \frac{1}{2}AC \cdot BD = \frac{1}{2}b \cdot BD\). Trong tam giác vuông \(ABD\), ta có hệ thức tỉ số lượng giác \(\sin A = \frac{BD}{AB} = \frac{BD}{c} \Rightarrow BD = c \sin A\). Thay độ cao vạch kẻ vào phương trình diện tích ban đầu, ta được: \(S = \frac{1}{2}b (c \sin A) = \frac{1}{2}bc \sin A\) (đpcm).</p>
+                        
+                        <div class="pt-2">
+                            <details class="group">
+                                <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                                    <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem Ví dụ minh họa 1 (Áp dụng Heron)</span>
+                                </summary>
+                                <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-2">
+                                    <p><strong>Bài toán:</strong> Cho tam giác \(ABC\) có các cạnh \(a = 13, b = 14, c = 15\). Tính diện tích \(S\).</p>
+                                    <p><strong>Giải:</strong></p>
+                                    <p>&bull; Ta tính nửa chu vi đa giác: \(p = \frac{13 + 14 + 15}{2} = 21\).</p>
+                                    <p>&bull; Áp dụng công thức Heron, ta có: <br> \(S = \sqrt{21(21-13)(21-14)(21-15)} = \sqrt{21 \cdot 8 \cdot 7 \cdot 6} = \sqrt{7056} = 84\).</p>
+                                </div>
+                            </details>
+                        </div>
+                    </div>
+                    <div class="w-full md:w-80 flex flex-col shrink-0">
+                        <div id="box1" class="w-full h-60 jxgbox"></div>
+                        <div id="status-box1" class="text-[11px] font-bold p-2 mt-2 bg-indigo-50 border border-indigo-100 rounded-lg text-center text-slate-700 font-mono">
+                            Diện tích S tính thực tế hiển thị tại đây.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= PHẦN 2: MỨC ĐỘ NÂNG CAO ================= -->
+        <section class="space-y-6">
+            <div class="flex items-center gap-3 border-b pb-3 border-slate-200">
+                <span class="bg-amber-600 text-white text-xs font-black px-3 py-1 rounded-md uppercase tracking-wider">Cấp độ 2</span>
+                <h2 class="text-xl font-extrabold text-slate-900">PHẦN 2: MỨC ĐỘ NÂNG CAO (CHỨNG MINH CÔNG THỨC VÀ BÀI TOÁN TỔNG HỢP)</h2>
+            </div>
+            <p class="text-xs font-bold text-amber-800 bg-amber-50 px-3 py-2 rounded-lg inline-block">
+                Mục tiêu: Hiểu bản chất cấu trúc hình học đằng sau công thức chứa bán kính ngoại tiếp R, nội tiếp r và vận dụng biến đổi các hệ thức nâng cao.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm leading-relaxed text-slate-700">
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs space-y-2">
+                    <h3 class="font-bold text-slate-800 text-base flex items-center gap-2 text-amber-700 mb-1"><i class="fa-solid fa-circle-dot"></i> 1. Chứng minh công thức phân rã nội tiếp: \(S = p \cdot r\)</h3>
+                    <p class="text-xs text-justify text-slate-600"><strong>Chứng minh:</strong> Gọi \(I\) là tâm đường tròn nội tiếp tam giác \(ABC\), \(r\) là bán kính. Nối tâm \(I\) với 3 đỉnh \(A, B, C\), ta chia tam giác lớn thành 3 khối tam giác nhỏ là \(\Delta IAB, \Delta IBC, \Delta ICA\). Đường cao hạ từ đỉnh \(I\) vuông góc xuống 3 cạnh đáy \(a, b, c\) tương ứng đều bằng chính bán kính \(r\) hình tròn nội tiếp. Ta có: <br> \[S_{ABC} = S_{IBC} + S_{ICA} + S_{IAB} = \frac{1}{2}a \cdot r + \frac{1}{2}b \cdot r + \frac{1}{2}c \cdot r = r \left( \frac{a+b+c}{2} \right) = p \cdot r \text{ (đpcm).}\]</p>
+                </div>
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs space-y-2">
+                    <h3 class="font-bold text-slate-800 text-base flex items-center gap-2 text-amber-700 mb-1"><i class="fa-solid fa-circle-notch"></i> 2. Chứng minh công thức bán kính ngoại tiếp: \(S = \frac{abc}{4R}\)</h3>
+                    <p class="text-xs text-justify text-slate-600"><strong>Chứng minh:</strong> Dựa theo định lí Sin cấu trúc lượng giác từ buổi học trước, ta có tỉ số: \(\frac{c}{\sin C} = 2R \Rightarrow \sin C = \frac{c}{2R}\). Thay thế hệ thức quy đổi \(\sin C\) vào công thức diện tích góc xen giữa diện tích số (2) là \(S = \frac{1}{2}ab \sin C\), ta thu được phương trình tổ hợp phẳng: <br> \[S = \frac{1}{2}ab \left( \frac{c}{2R} \right) = \frac{abc}{4R} \text{ (đpcm).}\]</p>
+                </div>
+            </div>
+
+            <!-- Đồ thị tương tác mô hình 2 & Ví dụ nâng cao -->
+            <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border space-y-6">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
+                    <div class="md:col-span-2 space-y-4">
+                        <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+                            <span class="bg-amber-100 text-amber-800 text-xs font-bold px-2 py-0.5 rounded block w-max mb-2">Ví dụ minh họa 2 (Hệ quả nâng cao)</span>
+                            <p class="text-xs font-semibold text-slate-800 leading-relaxed text-justify"><strong>Bài toán:</strong> Chứng minh rằng diện tích tam giác \(ABC\) còn có thể xác định mở rộng bằng biểu thức: \(S = 2R^2 \sin A \sin B \sin C\).</p>
+                            <p class="text-xs text-slate-600 mt-2 text-justify"><strong>Giải:</strong> Theo hệ quả rút ra từ định lí Sin phẳng lồi, ta có độ dài các cạnh lần lượt biểu diễn theo bán kính ngoại tiếp là: \(a = 2R \sin A\), \(b = 2R \sin B\), \(c = 2R \sin C\). Thay toàn bộ các biểu thức đại số cạnh này vào công thức gốc \(S = \frac{abc}{4R}\), ta thu được chuỗi rút gọn phương trình: <br> \[S = \frac{(2R \sin A)(2R \sin B)(2R \sin C)}{4R} = \frac{8R^3 \sin A \sin B \sin C}{4R} = 2R^2 \sin A \sin B \sin C \text{ (đpcm).}\]</p>
+                        </div>
+                    </div>
+                    <div class="w-full flex flex-col items-center">
+                        <span class="text-[11px] font-bold text-slate-500 mb-1 block text-center uppercase tracking-wide"><i class="fa-solid fa-circle-dot text-amber-500"></i> Đồ thị minh họa 2: Tâm tròn nội tiếp</span>
+                        <div id="box2" class="w-full h-56 jxgbox"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= PHẦN 3: MỨC ĐỘ VẬN DỤNG ================= -->
+        <section class="space-y-6">
+            <div class="flex items-center gap-3 border-b pb-3 border-slate-200">
+                <span class="bg-emerald-600 text-white text-xs font-black px-3 py-1 rounded-md uppercase tracking-wider">Cấp độ 3</span>
+                <h2 class="text-xl font-extrabold text-slate-900">PHẦN 3: MỨC ĐỘ VẬN DỤNG (GIẢI TAM GIÁC TRONG THỰC TẾ)</h2>
+            </div>
+            <p class="text-xs font-bold text-emerald-800 bg-emerald-50 px-3 py-2 rounded-lg inline-block">
+                Mục tiêu: Đưa các kích thước đo đạc thực địa, rào cản chướng ngại vật về mô hình đa giác phẳng lượng lý để giải trắc địa thực tế.
+            </p>
+
+            <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs text-sm leading-relaxed text-slate-700 space-y-2 text-justify">
+                <h3 class="font-bold text-slate-800 text-base flex items-center gap-2 text-emerald-700 mb-1"><i class="fa-solid fa-compass"></i> Khái niệm mô hình hóa toán học địa hình</h3>
+                <p>Vận dụng giải tam giác giúp ta giải quyết rất nhiều bài toán trắc địa đo đạc không gian phẳng thực tế, đặc biệt hữu ích trong thiết kế quy hoạch xây dựng công trình. Bằng cách biến các mốc điểm thực địa cách trở thành các đỉnh của mô hình tam giác, ta phối hợp dùng ống ngắm đo góc và dây kéo đo cạnh bờ an toàn để tính toán chuẩn xác kích thước các yếu tố bị che khuất không thể tiếp cận trực tiếp.</p>
+            </div>
+
+            <!-- Ví dụ 3 & Mô hình 3 -->
+            <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border space-y-6">
+                <div>
+                    <span class="bg-emerald-100 text-emerald-800 text-xs font-bold px-2 py-0.5 rounded">Ví dụ minh họa 3 (Đo khoảng cách qua hồ nước)</span>
+                    <p class="text-sm font-semibold text-slate-800 mt-2 text-justify">Để tính khoảng cách giữa hai địa điểm \(A\) và \(B\) bị ngăn cách bởi một hồ nước lớn, người ta chọn một vị trí điểm bờ an toàn \(C\) sao cho có thể đo đạc trực tiếp các thông số cạnh vạch: \(AC = 1\text{ km}\), \(CB = 800\text{ m}\) và góc kẹp giữa góc đỉnh \(\widehat{ACB} = 105^\circ\). Hãy xác định khoảng cách thực tế giữa vệt \(A\) và \(B\).</p>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                    <div class="space-y-4 text-xs text-slate-700 leading-relaxed text-justify">
+                        <details class="group">
+                            <summary class="list-none flex items-center font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                                <i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform mr-1"></i> Xem quy trình giải tam giác
+                            </summary>
+                            <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-2">
+                                <p>&bull; <strong>Bước 1:</strong> Thống nhất đơn vị đo lường thực địa: Đổi kích thước \(1\text{ km} = 1000\text{ m}\).</p>
+                                <p>&bull; Mô hình hóa bài toán thành tam giác \(ABC\) phẳng lồi có kích thước hai cạnh kề bên: \(AC = 1000\text{ m}\), \(BC = 800\text{ m}\) và góc xen giữa \(\widehat{C} = 105^\circ\).</p>
+                                <p>&bull; <strong>Bước 2:</strong> Áp dụng Định lí Côsin tính toán khoảng cách đường xuyên tâm hồ:</p>
+                                <p class="text-center font-mono font-bold text-slate-900 py-1">
+                                    \(AB^2 = AC^2 + BC^2 - 2 \cdot AC \cdot BC \cdot \cos C\) <br>
+                                    \(= 1000^2 + 800^2 - 2 \cdot 1000 \cdot 800 \cdot \cos 105^\circ \approx 2\,054\,110,47\)
+                                </p>
+                                <p>&bull; Khai căn bậc hai thu được kết quả: \(AB = \sqrt{2054110,47} \approx 1433,2\text{ m}\).</p>
+                                <p class="text-emerald-800 font-bold">&bull; Kết luận: Khoảng cách giữa hai địa điểm ngăn cách xấp xỉ bằng 1433,2 mét.</p>
+                            </div>
+                        </details>
+                        
+                        <div class="p-4 bg-indigo-50 border border-indigo-100 rounded-xl text-slate-900 text-xs">
+                            <span class="font-bold block mb-1 text-indigo-800"><i class="fa-solid fa-wand-magic-sparkles"></i> Sổ tay tóm tắt chọn nhanh công thức từ thầy Tuấn:</span>
+                            <ul class="list-disc list-inside space-y-1 text-slate-700">
+                                <li>Có độ dài đường cao hạ vạch &rArr; Áp dụng ngay công thức **(1)**</li>
+                                <li>Biết góc đỉnh kẹp xen giữa hai cạnh &rArr; Áp dụng công thức **(2)**</li>
+                                <li>Dữ kiện chứa bán kính đường tròn ngoại tiếp \(R\) &rArr; Áp dụng công thức **(3)**</li>
+                                <li>Dữ kiện chứa bán kính đường tròn nội tiếp \(r\) &rArr; Áp dụng công thức **(4)**</li>
+                                <li>Biết trọn vẹn độ lớn 3 cạnh đa giác &rArr; Sử dụng định lý **Heron (5)**</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="flex flex-col items-center">
+                        <span class="text-[11px] font-bold text-slate-500 mb-1 block text-center uppercase tracking-wide"><i class="fa-solid fa-satellite-dish text-emerald-500 animate-pulse"></i> Đồ thị minh họa 3: Trắc địa đo khoảng cách xuyên hồ</span>
+                        <div id="box3" class="w-full h-56 jxgbox"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ================= BÀI TẬP ĐÁNH GIÁ NĂNG LỰC TRẮC NGHIỆM ================= -->
+        <section class="border-t border-slate-200 pt-10 page-break">
+            <div class="bg-gradient-to-br from-slate-900 via-slate-800 to-indigo-950 text-white rounded-3xl p-6 sm:p-8 shadow-xl relative overflow-hidden card-border">
+                <div class="absolute -right-10 -bottom-10 opacity-5 pointer-events-none text-white">
+                    <i class="fa-solid fa-square-check text-[14rem]"></i>
+                </div>
+                
+                <div class="max-w-xl space-y-2">
+                    <span class="text-xs font-bold uppercase tracking-widest text-emerald-400 bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-500/20 inline-block">Đánh giá trực tuyến tại lớp</span>
+                    <h2 class="text-xl sm:text-2xl font-black tracking-tight">BÀI TẬP ĐÁNH GIÁ NĂNG LỰC TẠI LỚP</h2>
+                    <p class="text-slate-400 text-xs sm:text-sm">Học sinh hoàn thành trắc nghiệm 5 câu dưới đây. Kết quả điểm số và thời gian làm bài sẽ đồng bộ tự động về hệ thống đám mây.</p>
+                </div>
+
+                <form id="quizForm" class="mt-8 space-y-6 text-slate-900">
+                    <!-- Khối thông tin học sinh -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div class="bg-white p-4 rounded-xl shadow-inner border border-slate-100">
+                            <label class="block text-xs font-bold text-slate-400 uppercase tracking-wide mb-1"><i class="fa-solid fa-user-graduate mr-1 text-indigo-500"></i> Họ và tên học sinh</label>
+                            <input type="text" id="studentName" required placeholder="Nhập họ tên đầy đủ..." class="w-full bg-white border-b-2 border-slate-200 focus:border-indigo-500 outline-none py-1 text-sm font-bold text-slate-900 transition-colors">
+                        </div>
+                        <div class="bg-white p-4 rounded-xl shadow-inner border border-slate-100">
+                            <label class="block text-xs font-bold text-slate-400 uppercase tracking-wide mb-1"><i class="fa-solid fa-file-code mr-1 text-indigo-500"></i> Mã chuyên đề bài học</label>
+                            <input type="text" id="examId" readonly value="Buoi13_DienTichTamGiac_Toan10" class="w-full bg-slate-50 border-b-2 border-slate-200 outline-none py-1 text-sm font-bold text-slate-500 cursor-not-allowed">
+                        </div>
+                    </div>
+
+                    <!-- Khối câu hỏi -->
+                    <div class="space-y-5 mt-6">
+                        <!-- Câu 1 -->
+                        <div class="bg-white p-5 rounded-2xl shadow-sm space-y-3">
+                            <p class="text-sm font-bold text-slate-900"><span class="text-indigo-600">Câu 1:</span> Công thức Heron dùng để xác định tính diện tích tam giác khi biết trọn vẹn số đo của 3 cạnh có hệ thức cấu trúc logic nào?</p>
+                            <div class="grid grid-cols-1 gap-2 text-xs font-semibold text-slate-700">
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q1" value="A" required class="text-indigo-600 h-4 w-4"> <span>A. \(S = p(p-a)(p-b)(p-c)\)</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q1" value="B" class="text-indigo-600 h-4 w-4"> <span>B. \(S = \sqrt{p(p-a)(p-b)(p-c)}\) &nbsp;(với \(p\) là nửa chu vi)</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q1" value="C" class="text-indigo-600 h-4 w-4"> <span>C. \(S = \frac{abc}{4R}\)</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Câu 2 -->
+                        <div class="bg-white p-5 rounded-2xl shadow-sm space-y-3">
+                            <p class="text-sm font-bold text-slate-900"><span class="text-indigo-600">Câu 2:</span> Tam thức diện tích tam giác tính theo bán kính đường tròn nội tiếp \(r\) và bán kính ngoại tiếp \(R\) tuân theo quy tắc nào sau đây?</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs font-semibold text-slate-700">
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q2" value="A" required class="text-indigo-600 h-4 w-4"> <span>A. \(S = 2p \cdot r\) và \(S = \frac{abc}{R}\)</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q2" value="B" class="text-indigo-600 h-4 w-4"> <span>B. \(S = p \cdot r\) và \(S = \frac{abc}{4R}\)</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q2" value="C" class="text-indigo-600 h-4 w-4"> <span>C. \(S = \sqrt{p \cdot r}\) và \(S = \frac{abc}{2R}\)</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Câu 3 -->
+                        <div class="bg-white p-5 rounded-2xl shadow-sm space-y-3">
+                            <p class="text-sm font-bold text-slate-900"><span class="text-indigo-600">Câu 3:</span> Một tam giác có độ dài 3 cạnh đo đạc thực tế lần lượt bằng \(13, 14, 15\). Diện tích \(S\) của tam giác này bằng bao nhiêu?</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs font-semibold text-slate-700">
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q3" value="A" required class="text-indigo-600 h-4 w-4"> <span>A. 42</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q3" value="B" class="text-indigo-600 h-4 w-4"> <span>B. 84</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q3" value="C" class="text-indigo-600 h-4 w-4"> <span>C. 96</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Câu 4 -->
+                        <div class="bg-white p-5 rounded-2xl shadow-sm space-y-3">
+                            <p class="text-sm font-bold text-slate-900"><span class="text-indigo-600">Câu 4:</span> Hệ thức lượng mở rộng nào sau đây dùng để tính toán diện tích dựa trên bình phương bán kính ngoại tiếp \(R^2\)?</p>
+                            <div class="grid grid-cols-1 gap-2 text-xs font-semibold text-slate-700">
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q4" value="A" required class="text-indigo-600 h-4 w-4"> <span>A. \(S = 2R^2 \sin A \sin B \sin C\)</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q4" value="B" class="text-indigo-600 h-4 w-4"> <span>B. \(S = R^2 \sin A \sin B \sin C\)</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q4" value="C" class="text-indigo-600 h-4 w-4"> <span>C. \(S = 4R^2 \cos A \cos B \cos C\)</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Câu 5 -->
+                        <div class="bg-white p-5 rounded-2xl shadow-sm space-y-3">
+                            <p class="text-sm font-bold text-slate-900"><span class="text-indigo-600">Câu 5:</span> Khái niệm "Giải tam giác" phẳng lồi được định nghĩa là gì trong hệ toán học phổ thông?</p>
+                            <div class="grid grid-cols-1 gap-2 text-xs font-semibold text-slate-700">
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q5" value="A" required class="text-indigo-600 h-4 w-4"> <span>A. Chỉ tính duy nhất diện tích bề mặt bên trong tam giác</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q5" value="B" class="text-indigo-600 h-4 w-4"> <span>B. Tìm số đo các cạnh và các góc còn lại khi biết đủ yếu tố xác định tam giác đó</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q5" value="C" class="text-indigo-600 h-4 w-4"> <span>C. Phân chia tam giác thành 3 khối tam giác cân đều đỉnh tâm I</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Khu vực nút nộp bài toán -->
+                    <div class="pt-2 flex flex-col sm:flex-row items-center justify-between gap-4">
+                        <button type="submit" id="submitBtn" class="w-full sm:w-auto bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-sm px-8 py-3.5 rounded-xl shadow-lg transition-all flex items-center justify-center space-x-2 cursor-pointer">
+                            <i class="fa-solid fa-cloud-arrow-up"></i> <span>Nộp Bài Chấm Điểm</span>
+                        </button>
+                        <div id="statusReport" class="text-xs font-bold text-slate-400"></div>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer bản quyền -->
+    <footer class="bg-slate-900 text-slate-400 py-8 text-center text-xs font-medium px-4 mt-auto">
+        <p class="font-bold text-slate-300">@ Bản quyền thuộc ThS. Đinh Quốc Tuấn - Mục đích phi lợi nhuận - Vì giáo dục.</p>
+        <p class="text-slate-500 mt-2">Hệ thống bài học tích hợp sơ đồ đồ họa động liên kết cơ sở dữ liệu bảng tính đám mây lớp 10.</p>
+    </footer>
+
+    <!-- NÚT IN TÀI LIỆU CỐ ĐỊNH -->
+    <button id="btn-print-doc" onclick="safePrint()" class="fixed bottom-5 right-5 bg-gray-900 text-white px-4 py-2 rounded-lg shadow-lg hover:bg-gray-700 print:hidden z-50 cursor-pointer">
+        <i class="fas fa-print mr-2"></i> In Tài Liệu
+    </button>
+
+    <script>
+        function safePrint() {
+            const printBtn = document.getElementById('btn-print-doc');
+            printBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Đang chuẩn bị...';
+            
+            // Đảm bảo MathJax đã render xong mọi công thức trước khi gọi hộp thoại in
+            if (window.MathJax && window.MathJax.typesetPromise) {
+                MathJax.typesetPromise().then(() => {
+                    printBtn.innerHTML = '<i class="fas fa-print mr-2"></i> In Tài Liệu';
+                    window.print();
+                });
+            } else {
+                // Fallback nếu không có công thức toán
+                setTimeout(() => {
+                    printBtn.innerHTML = '<i class="fas fa-print mr-2"></i> In Tài Liệu';
+                    window.print();
+                }, 500); 
+            }
+        }
+    </script>
+
+    <!-- HỆ THỐNG KỊCH BẢN ĐIỀU KHIỂN HÌNH HỌC ĐỘNG JSXGRAPH -->
+    <script>
+        const timeInit = new Date();
+
+        document.addEventListener("DOMContentLoaded", function() {
+            
+            // --- MÔ HÌNH 1: TÍNH DIỆN TÍCH S = 1/2*b*c*sinA VÀ ĐƯỜNG CAO ---
+            const b1 = JXG.JSXGraph.initBoard('box1', {
+                boundingbox: [-0.5, 4.5, 5.5, -0.5], axis: false, showNavigation: false, showCopyright: false
+            });
+
+            // Tạo các đỉnh tam giác tương tác tự do
+            let pA = b1.create('point', [0.5, 3.5], {name: 'A', color: '#4f46e5', size: 3});
+            let pC = b1.create('point', [4.5, 0.5], {name: 'C', color: '#1e293b', size: 2, fixed: true});
+            let pB = b1.create('point', [1.5, 0.5], {name: 'B', color: '#1e293b', size: 3});
+            
+            let triPoly = b1.create('polygon', [pA, pB, pC], {fillColor: '#60a5fa', fillOpacity: 0.15, strokeColor: '#2563eb', strokeWidth: 2});
+            let baseLine = b1.create('line', [pB, pC], {visible: false});
+
+            // Vẽ chân đường cao BD nét đứt vuông góc hạ từ B xuống cạnh AC
+            let sideAC = b1.create('line', [pA, pC], {visible: false});
+            let pD = b1.create('point', [
+                function() {
+                    let ax = pA.X(), ay = pA.Y();
+                    let cx = pC.X(), cy = pC.Y();
+                    let bx = pB.X(), by = pB.Y();
+                    let dx = cx - ax, dy = cy - ay;
+                    if (dx*dx + dy*dy === 0) return ax;
+                    let t = ((bx - ax) * dx + (by - ay) * dy) / (dx*dx + dy*dy);
+                    return ax + t * dx;
+                },
+                function() {
+                    let ax = pA.X(), ay = pA.Y();
+                    let cx = pC.X(), cy = pC.Y();
+                    let bx = pB.X(), by = pB.Y();
+                    let dx = cx - ax, dy = cy - ay;
+                    if (dx*dx + dy*dy === 0) return ay;
+                    let t = ((bx - ax) * dx + (by - ay) * dy) / (dx*dx + dy*dy);
+                    return ay + t * dy;
+                }
+            ], {name: 'D', visible: true, size: 2, color: '#475569'});
+            
+            b1.create('segment', [pB, pD], {dash: 2, strokeColor: '#ef4444', strokeWidth: 1.5});
+
+            // Kí hiệu nhãn góc đỉnh A
+            b1.create('angle', [pB, pA, pC], {radius: 0.4, fillColor: '#fee2e2', strokeColor: '#dc2626'});
+
+            let statusBox1 = document.getElementById('status-box1');
+            function updateMetricsModel1() {
+                let xA = pA.X(), yA = pA.Y();
+                let xB = pB.X(), yB = pB.Y();
+                let xC = pC.X(), yC = pC.Y();
+
+                let c = Math.sqrt((xA-xB)**2 + (yA-yB)**2); // AB
+                let b = Math.sqrt((xA-xC)**2 + (yA-cy=yC)**2); // AC
+                let a = Math.sqrt((xB-xC)**2 + (yB-yC)**2); // BC
+                
+                // Tính diện tích phẳng qua tích chéo phẳng
+                let area = 0.5 * Math.abs(xA * (xB - yC) + xB * (yC - yA) + xC * (yA - yB)); // Safe determinant area
+                let areaFormula = 0.5 * b * c * Math.sin(b1.create('angle', [pB, pA, pC]).Value());
+
+                statusBox1.innerHTML = `Độ rộng b (AC) = ${b.toFixed(2)} | c (AB) = ${c.toFixed(2)} <br> 📐 Tính toán động: S = 1/2*b*c*sinA = ${area.toFixed(2)}`;
+            }
+            pA.on('drag', updateMetricsModel1);
+            pB.on('drag', updateMetricsModel1);
+            updateMetricsModel1();
+
+
+            // --- MÔ HÌNH 2: TÂM TRÒN NỘI TIẾP I VÀ PHÂN RÃ BÁN KÍNH r ---
+            const b2 = JXG.JSXGraph.initBoard('box2', {
+                boundingbox: [-1.5, 3.5, 3.5, -1.5], axis: false, showNavigation: false, showCopyright: false
+            });
+
+            // Tam giác cố định khung hình
+            let vA = b2.create('point', [1, 2.8], {name: 'A', color: '#1e293b', size: 2, fixed: true});
+            let vB = b2.create('point', [-1, -1], {name: 'B', color: '#1e293b', size: 2, fixed: true});
+            let vC = b2.create('point', [3, -1], {name: 'C', color: '#1e293b', size: 2, fixed: true});
+            b2.create('polygon', [vA, vB, vC], {fillColor: '#f1f5f9', fillOpacity: 0.5, strokeColor: '#94a3b8'});
+
+            // Tính toán định vị tâm nội tiếp I hình học phẳng
+            let sideA = 4.0; // BC length = 4
+            let sideB = Math.sqrt((1-3)**2 + (2.8+1)**2); // AC length
+            let sideC = Math.sqrt((1+1)**2 + (2.8+1)**2); // AB length
+            let totalPerim = sideA + sideB + sideC;
+
+            let ix = (sideA * 1 + sideB * (-1) + sideC * 3) / totalPerim;
+            let iy = (sideA * 2.8 + sideB * (-1) + sideC * (-1)) / totalPerim;
+
+            let ptI = b2.create('point', [ix, iy], {name: 'I', color: '#d97706', size: 3, fixed: true});
+            
+            // Vẽ 3 đoạn phân rã tam giác nối tâm I sang 3 đỉnh
+            b2.create('segment', [ptI, vA], {strokeColor: '#3b82f6', strokeWidth: 1.5, dash: 1});
+            b2.create('segment', [ptI, vB], {strokeColor: '#ef4444', strokeWidth: 1.5, dash: 1});
+            b2.create('segment', [ptI, vC], {strokeColor: '#10b981', strokeWidth: 1.5, dash: 1});
+
+            // Vẽ đường tròn nội tiếp r
+            let inradiusVal = 2 * (0.5 * 4 * 3.8) / totalPerim; // S = 1/2 * base * height
+            b2.create('circle', [ptI, inradiusVal], {strokeColor: '#d97706', strokeWidth: 1.5});
+
+
+            // --- MÔ HÌNH 3: TRẮC ĐỊA ĐO ĐẠC KHOẢNG CÁCH AB XUYÊN HỒ NƯỚC ---
+            const b3 = JXG.JSXGraph.initBoard('box3', {
+                boundingbox: [-1, 5, 5, -1], axis: false, showNavigation: false, showCopyright: false
+            });
+
+            // Điểm mốc trắc địa bờ an toàn C đóng vai trò là gốc phẳng lồi cố định
+            let mC = b3.create('point', [0, 0], {name: 'Trạm C', color: '#111827', size: 3, fixed: true});
+            
+            // Vẽ 2 điểm A và B tạo góc nghiêng 105 độ tại đỉnh C
+            let angleRad = 105 * Math.PI / 180;
+            let mA = b3.create('point', [3.5, 0], {name: 'Mốc A (1000m)', color: '#059669', size: 3, fixed: true});
+            let mB = b3.create('point', [2.8 * Math.cos(angleRad), 2.8 * Math.sin(angleRad)], {name: 'Mốc B (800m)', color: '#059669', size: 3, fixed: true});
+
+            // Vẽ khối đa diện mô phỏng hồ nước chướng ngại vật mờ ở giữa
+            let lakeP1 = b3.create('point', [1.2, 0.5], {visible: false});
+            let lakeP2 = b3.create('point', [1.8, -0.3], {visible: false});
+            let lakeP3 = b3.create('point', [1.0, -1.2], {visible: false});
+            b3.create('polygon', [lakeP1, lakeP2, lakeP3], {fillColor: '#38bdf8', fillOpacity: 0.4, strokeColor: '#0284c7', strokeWidth: 1});
+
+            // Vẽ tuyến bờ ngắm bắn laser an toàn
+            b3.create('segment', [mC, mA], {strokeColor: '#10b981', strokeWidth: 2});
+            b3.create('segment', [mC, mB], {strokeColor: '#10b981', strokeWidth: 2});
+
+            // Đoạn thẳng cần tính toán AB xuyên qua chướng ngại vật hồ
+            b3.create('segment', [mA, mB], {strokeColor: '#d97706', strokeWidth: 2.5, dash: 2});
+
+            // Cấu hình nhãn góc đỉnh C lượng học
+            b3.create('angle', [mA, mC, mB], {radius: 0.5, fillColor: '#ccfbf1', strokeColor: '#14b8a6'});
+        });
+
+        // --- XỬ LÝ BIỂU MẪU CHẤM ĐIỂM TRẮC NGHIỆM VÀ ĐẨY DỮ LIỆU VỀ GOOGLE SHEETS ---
+        document.getElementById('quizForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const submitBtn = document.getElementById('submitBtn');
+            const statusReport = document.getElementById('statusReport');
+            
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i> Đang nộp bài...';
+            statusReport.innerHTML = "Đang đồng bộ kết nối hệ thống đám mây học thuật...";
+
+            // Bảng khóa điểm đáp án chuẩn
+            const correctKey = { q1: "B", q2: "B", q3: "B", q4: "A", q5: "B" };
+            const studentName = document.getElementById('studentName').value.trim();
+            const lessonId = document.getElementById('examId').value.trim();
+            
+            let correctCounter = 0;
+            let totalQuizCount = Object.keys(correctKey).length;
+            let missedReportArray = [];
+
+            for (let questionCode in correctKey) {
+                const selectedRadio = document.querySelector(`input[name="${questionCode}"]:checked`);
+                if (selectedRadio && selectedRadio.value === correctKey[questionCode]) {
+                    correctCounter++;
+                } else {
+                    let chosenChar = selectedRadio ? selectedRadio.value : "Bỏ qua";
+                    missedReportArray.push(`${questionCode.toUpperCase()}(Chọn: ${chosenChar}|Đúng: ${correctKey[questionCode]})`);
+                }
+            }
+
+            const finalScore = ((correctCounter / totalQuizCount) * 10).toFixed(2);
+            const timeComplete = new Date();
+            const elapsedDurationSeconds = Math.floor((timeComplete - timeInit) / 1000);
+            const thoiGian = `${Math.floor(elapsedDurationSeconds / 60)} phút ${elapsedDurationSeconds % 60} giây`;
+            const cauSai = missedReportArray.length > 0 ? missedReportArray.join(", ") : "Không có (Đạt điểm tuyệt đối)";
+
+            const transmissionPayload = {
+                hoTen: studentName,
+                maDe: lessonId,
+                diem: parseFloat(finalScore),
+                thoiGian: thoiGian,
+                cauSai: cauSai
+            };
+
+            const webAppsScriptEndpoint = "https://script.google.com/macros/s/AKfycbzY7b7h4OwvhXuK5Vs6hl-aD88BPnAiAKbU5lfJobby0D4nzbIJVKT4n0AKCpAGoK0nZA/exec";
+
+            fetch(webAppsScriptEndpoint, {
+                method: "POST",
+                mode: "no-cors",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(transmissionPayload)
+            })
+            .then(() => {
+                statusReport.className = "text-xs font-bold text-emerald-500 bg-emerald-50 px-3 py-2 rounded-xl border border-emerald-200 inline-block";
+                statusReport.innerHTML = `<i class="fa-solid fa-circle-check"></i> Đã đồng bộ thành công kết quả thi: ${finalScore}/10 lên hệ thống Google Sheets!`;
+                alert(`Hệ thống thông báo nộp kết quả thành công!\nChào em ${studentName}, điểm số chuyên đề đạt được là: ${finalScore} / 10.`);
+                submitBtn.innerHTML = '<i class="fa-solid fa-lock"></i> Kết quả đã khóa bảo mật';
+            })
+            .catch(error => {
+                console.error("Giao dịch truyền tin thất bại:", error);
+                statusReport.className = "text-xs font-bold text-rose-500 bg-rose-50 px-3 py-2 rounded-xl border border-rose-200 inline-block";
+                statusReport.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> Lỗi kết nối mạng, vui lòng bấm nộp lại bài!';
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Thử nộp lại bài';
+            });
+        });
+    </script>
+</body>
+</html>
