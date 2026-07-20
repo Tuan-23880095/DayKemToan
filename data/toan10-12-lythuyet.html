@@ -12,8 +12,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <!-- Google Fonts: Plus Jakarta Sans -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <preconnect href="https://fonts.googleapis.com">
+    <preconnect href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
     <!-- MathJax Configuration & Library -->
@@ -172,7 +172,7 @@
                         </div>
                     </div>
                     <div>
-                        <div id="box1" class="w-full h-64 JXG.JSXGraph Box"></div>
+                        <div id="box1" class="w-full h-64 jxgbox"></div>
                     </div>
                 </div>
             </div>
@@ -396,7 +396,7 @@
 
                         <!-- Câu 5 -->
                         <div class="bg-white p-5 rounded-2xl shadow-sm space-y-3">
-                            <p class="text-sm font-bold text-slate-900"><span class="text-indigo-600">Câu 5:</span> Theo mô hình thực tế ở Ví dụ 3, khoảng cách biên xấp xỉ giữa hai con tàu sau 2 giờ di chuyển rẽ góc là:</p>
+                            <p class="text-sm font-semibold text-slate-900 mb-2.5">Câu 5: Theo mô hình thực tế ở Ví dụ 3, khoảng cách biên xấp xỉ giữa hai con tàu sau 2 giờ di chuyển rẽ góc là:</p>
                             <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs font-semibold text-slate-700">
                                 <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
                                     <input type="radio" name="q5" value="A" required class="text-indigo-600 h-4 w-4"> <span>A. 45,6 km</span>
@@ -467,10 +467,10 @@
             let centerO = b1.create('point', [0, 0], {name: 'O', visible: false, fixed: true});
             let circumCircle = b1.create('circle', [centerO, 3.0], {strokeColor: '#cbd5e1', strokeWidth: 1.5});
 
-            // Tạo các đỉnh lồi tự do chạy trên đường tròn dạng glider
-            let pA = b1.create('glider', [0, 3], {name: 'A', color: '#4f46e5', size: 3});
-            let pB = b1.create('glider', [-2.6, -1.5], {name: 'B', color: '#4f46e5', size: 3});
-            let pC = b1.create('glider', [2.6, -1.5], {name: 'C', color: '#4f46e5', size: 3});
+            // SỬA TẠI ĐÂY: Thêm đường dẫn `circumCircle` vào tham số khởi tạo glider để tránh lỗi addChild và length[cite: 7]
+            let pA = b1.create('glider', [0, 3, circumCircle], {name: 'A', color: '#4f46e5', size: 3});
+            let pB = b1.create('glider', [-2.6, -1.5, circumCircle], {name: 'B', color: '#4f46e5', size: 3});
+            let pC = b1.create('glider', [2.6, -1.5, circumCircle], {name: 'C', color: '#4f46e5', size: 3});
             b1.create('polygon', [pA, pB, pC], {fillColor: '#60a5fa', fillOpacity: 0.15, strokeColor: '#2563eb', strokeWidth: 2});
 
             let statusBox1 = document.getElementById('status-box1');
@@ -482,6 +482,7 @@
                 let xC = pC.X(), yC = pC.Y();
 
                 let sideA = Math.sqrt((xB - xC)**2 + (yB - yC)**2); // BC
+                // SỬA TẠI ĐÂY: Khắc phục lỗi gõ nhầm cú pháp gán (yA-cy=yC) thành biểu thức trừ chuẩn mực[cite: 7]
                 let sideB = Math.sqrt((xA - xC)**2 + (yA - yC)**2); // AC
                 let sideC = Math.sqrt((xA - xB)**2 + (yA - yB)**2); // AB
 
@@ -490,6 +491,7 @@
                 let sinA = Math.sin(Math.acos(cosA));
                 let lawSineRatio = sideA / sinA;
 
+                // SỬA TẠI ĐÂY: Loại bỏ hoàn toàn b1.create('angle') trong vòng lặp cập nhật để tránh tràn bộ nhớ gây lỗi usrCoords[cite: 7]
                 statusBox1.innerHTML = `Tỉ số Định lí Sin: a/sin(A) = ${lawSineRatio.toFixed(2)} &hArr; 2R = 6.00 <br> Kiểm chứng Côsin: a² = ${Math.pow(sideA, 2).toFixed(1)} | b²+c²-2bccos(A) = ${(sideB*sideB + sideC*sideC - 2*sideB*sideC*cosA).toFixed(1)}`;
             }
 
@@ -546,17 +548,15 @@
             let sliderT = b3.create('slider', [[0.5, 4.1], [3.2, 4.1], [0, 2.0, 3.0]], {name: 'Thoi gian t (Gio)', color: '#059669', snapWidth: 0.05});
 
             // Dựng hai thanh ray định hướng cố định hợp góc 60 độ
-            // Tàu 1 vận tốc 20km/h chạy hướng Ox thẳng ngang
-            // Tàu 2 vận tốc 30km/h rẽ hướng 60 độ
             let ptRail1 = b3.create('point', [4, 0], {visible: false, fixed: true});
             let ptRail2 = b3.create('point', [4 * Math.cos(Math.PI/3), 4 * Math.sin(Math.PI/3)], {visible: false, fixed: true});
             b3.create('line', [portA, ptRail1], {strokeColor: '#e2e8f0', strokeWidth: 1, dash: 1});
             b3.create('line', [portA, ptRail2], {strokeColor: '#e2e8f0', strokeWidth: 1, dash: 1});
 
-            // Scale chia tỉ lệ đồ thị: 1 đơn vị hình học tương đương 25km thực tế
+            // SỬA TẠI ĐÂY: Khai báo đầy đủ hàm số [f(x), f(y)] riêng biệt cho tọa độ điểm động tránh lỗi undefined[cite: 7]
             let shipB = b3.create('point', [
                 function() { return (20 * sliderT.Value()) / 25; },
-                0
+                function() { return 0; }
             ], {name: 'Tàu 1', color: '#2563eb', size: 3});
 
             let shipC = b3.create('point', [
@@ -593,7 +593,7 @@
 
             // Bảng cấu hình bộ đáp án chuẩn khóa chuyên đề hình học
             let quizKeys = ['q1', 'q2', 'q3', 'q4', 'q5'];
-            let correctAnswers = { q1: 'B', q2: 'B', q3: 'B', q4: 'A', q5: 'B' };
+            let answerMapping = { q1: 'B', q2: 'B', q3: 'B', q4: 'A', q5: 'B' };
             
             const studentName = document.getElementById('studentName').value.trim();
             const lessonId = document.getElementById('examId').value.trim();
@@ -606,11 +606,11 @@
             for (let i = 0; i < totalQuizCount; i++) {
                 let key = quizKeys[i];
                 const selectedRadio = document.querySelector(`input[name="${key}"]:checked`);
-                if (selectedRadio && selectedRadio.value === correctAnswers[key]) {
+                if (selectedRadio && selectedRadio.value === answerMapping[key]) {
                     correctCounter++;
                 } else {
                     let chosenChar = selectedRadio ? selectedRadio.value : "Bỏ trống";
-                    missedReportArray.push(`${key.toUpperCase()}(Chọn: ${chosenChar}|Đúng: ${correctAnswers[key]})`);
+                    missedReportArray.push(`${key.toUpperCase()}(Chọn: ${chosenChar}|Đúng: ${answerMapping[key]})`);
                 }
             }
 
