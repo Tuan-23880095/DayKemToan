@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buổi 14: Đại cương về Vectơ — ThS. Đinh Quốc Tuấn</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- FontAwesome Icons CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts: Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- MathJax Configuration & Library -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['\\(', '\\)']],
+                displayMath: [['\\[', '\\]']]
+            },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <!-- JSXGraph CSS & Core Engine -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraph.css" />
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraphcore.js"></script>
+
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #f8fafc;
+            color: #0f172a;
+        }
+        .jxgbox {
+            background-color: #ffffff !important;
+            border-radius: 1rem;
+            overflow: hidden;
+            border: 1px solid #e2e8f0;
+        }
+        @media print {
+            .print\:hidden { display: none !important; }
+            body { background: white !important; color: black !important; }
+            details { display: block !important; }
+            details summary { display: none !important; }
+            .page-break { page-break-before: always; }
+            .card-border { box-shadow: none !important; border: 1px solid #e5e7eb !important; }
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col antialiased selection:bg-indigo-100">
+
+    <!-- Header học thuật cao cấp -->
+    <header class="border-b border-slate-200 sticky top-0 bg-white/95 backdrop-blur-md z-40 print:hidden">
+        <div class="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 px-6 py-4">
+            <div class="flex items-center gap-4">
+                <img src="https://hcmus.edu.vn/wp-content/uploads/2023/04/Logo-chinh-e1681638380305.png" alt="Logo HCMUS" class="h-14 w-auto object-contain">
+                <div class="border-l-2 border-slate-300 pl-4">
+                    <span class="text-xs font-bold tracking-widest text-indigo-600 uppercase block mb-0.5">Tài liệu số hóa tương tác</span>
+                    <span class="text-base font-extrabold text-slate-800">Chuyên đề Hình học tuyến tính lớp 10</span>
+                </div>
+            </div>
+            <div class="flex items-center gap-3 sm:text-right">
+                <div class="hidden sm:block">
+                    <p class="text-xs text-slate-400 font-semibold">Giảng viên biên soạn:</p>
+                    <p class="text-sm font-extrabold text-slate-800">ThS. Đinh Quốc Tuấn</p>
+                </div>
+                <img src="https://firebasestorage.googleapis.com/v0/b/link-anh-web.firebasestorage.app/o/ttbdvh.jpg?alt=media&token=f270aa9b-a2bc-48e8-8910-80742b542615" 
+                     alt="Logo TTBDVH" class="h-14 w-14 object-cover rounded-full border border-slate-200 shadow-inner">
+            </div>
+        </div>
+    </header>
+
+    <!-- Banner nhập môn -->
+    <div class="bg-gradient-to-r from-indigo-50 via-slate-50 to-emerald-50 border-b border-slate-200 py-10 print:hidden">
+        <div class="max-w-4xl mx-auto px-6 space-y-4">
+            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-indigo-100 text-indigo-800 border border-indigo-200 shadow-xs">
+                <i class="fa-solid fa-location-arrow mr-1.5 text-indigo-600"></i> Không gian hình học có hướng phẳng
+            </span>
+            <h1 class="text-2xl sm:text-4xl font-black tracking-tight text-slate-900 leading-tight">
+                Buổi 14: Đại Cương Về Vectơ
+            </h1>
+            <p class="text-slate-600 text-sm sm:text-base font-medium leading-relaxed text-justify">
+                Chào các em! Thầy rất vui được tiếp tục đồng hành cùng các em trong Buổi học thứ 14. Hôm nay, chúng ta sẽ chính thức bước vào một chương hoàn toàn mới và đóng vai trò xương sống cho Toán học hiện đại cũng như Vật lí: Vectơ. Khác với các đoạn thẳng mang tính "tĩnh" mà các em học ở cấp 2, Vectơ mang tính "động" vì nó có chứa "hướng". Dưới đây là nội dung lý thuyết chi tiết, kèm theo giải thích, ví dụ và gợi ý mô hình trực quan JSXGraph, được chia thành 3 cấp độ:
+            </p>
+        </div>
+    </div>
+
+    <!-- Không gian làm việc nội dung chính -->
+    <main class="max-w-4xl mx-auto px-4 sm:px-6 py-10 flex-grow w-full space-y-16">
+        
+        <!-- ================= PHẦN 1: MỨC ĐỘ CƠ BẢN ================= -->
+        <section class="space-y-6">
+            <div class="flex items-center gap-3 border-b pb-3 border-slate-200">
+                <span class="bg-sky-600 text-white text-xs font-black px-3 py-1 rounded-md uppercase tracking-wider">Cấp độ 1</span>
+                <h2 class="text-xl font-extrabold text-slate-900">PHẦN 1: MỨC ĐỘ CƠ BẢN (KHÁI NIỆM VÀ CÁC YẾU TỐ CỦA VECTƠ)</h2>
+            </div>
+            <p class="text-xs font-bold text-sky-800 bg-sky-50 px-3 py-2 rounded-lg inline-block">
+                Mục tiêu: Hiểu rõ khái niệm vectơ, phân biệt được vectơ với đoạn thẳng thông thường, xác định được giá và độ dài của vectơ.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm leading-relaxed text-slate-700">
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs space-y-2">
+                    <h3 class="font-bold text-slate-800 text-base flex items-center gap-2 text-sky-700"><i class="fa-solid fa-arrow-right-long"></i> 1. Định nghĩa Vectơ</h3>
+                    <p>&bull; <strong>Khái niệm:</strong> Vectơ là một đoạn thẳng có hướng, nghĩa là trong hai đầu mút của đoạn thẳng, đã chỉ rõ điểm đầu và điểm cuối.</p>
+                    <p>&bull; <strong>Kí hiệu:</strong> Vectơ có điểm đầu \(A\), điểm cuối \(B\) được kí hiệu là \(\overrightarrow{AB}\) (đọc là vectơ \(AB\)). Khi không cần chỉ rõ điểm đầu và điểm cuối, vectơ còn có thể viết gọn là \(\vec{a}, \vec{b}, \vec{x}, \vec{y}...\).</p>
+                </div>
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs space-y-2">
+                    <h3 class="font-bold text-slate-800 text-base flex items-center gap-2 text-sky-700"><i class="fa-solid fa-ruler-horizontal"></i> 2. Giá và Độ dài của Vectơ</h3>
+                    <p>&bull; <strong>Giá của vectơ:</strong> Đường thẳng đi qua hai điểm \(A\) và \(B\) (điểm đầu và điểm cuối) gọi là giá của vectơ \(\overrightarrow{AB}\).</p>
+                    <p>&bull; <strong>Độ dài (Môđun):</strong> Độ dài của đoạn thẳng \(AB\) gọi là độ dài của vectơ \(\overrightarrow{AB}\), kí hiệu là \(|\overrightarrow{AB}|\). Khoảng cách từ điểm đầu đến điểm cuối chính là độ dài của vectơ. Ta luôn có hệ quả: \(|\overrightarrow{AB}| = AB\).</p>
+                </div>
+            </div>
+
+            <!-- Ví dụ 1 & Mô hình 1 -->
+            <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border space-y-6">
+                <div>
+                    <span class="bg-sky-100 text-sky-800 text-xs font-bold px-2 py-0.5 rounded">Ví dụ minh họa 1</span>
+                    <p class="text-sm font-semibold text-slate-800 mt-2">Cho hình vuông \(ABCD\) có cạnh bằng 2. Tính độ dài của các vectơ \(\overrightarrow{AB}\) và \(\overrightarrow{AC}\).</p>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+                    <div class="space-y-3">
+                        <details class="group">
+                            <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                                <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem hướng dẫn giải hình học</span>
+                            </summary>
+                            <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-2 text-justify">
+                                <p>&bull; Độ dài vectơ \(\overrightarrow{AB}\) chính là độ dài cạnh hình vuông: \(|\overrightarrow{AB}| = AB = 2\).</p>
+                                <p>&bull; Độ dài vectơ \(\overrightarrow{AC}\) là độ dài đường chéo hình vuông. Áp dụng định lí Pythagore: \(|\overrightarrow{AC}| = AC = \sqrt{AB^2 + BC^2} = \sqrt{2^2 + 2^2} = \sqrt{8} = 2\sqrt{2}\).</p>
+                            </div>
+                        </details>
+                        <div id="status-box1" class="text-xs font-bold p-3 bg-indigo-50 border border-indigo-100 rounded-xl text-center text-slate-700 font-mono">
+                            |AB| = 3.00 đơn vị chiều dài
+                        </div>
+                    </div>
+                    <div>
+                        <div id="box1" class="w-full h-64 jxgbox"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ================= PHẦN 2: MỨC ĐỘ NÂNG CAO ================= -->
+        <section class="space-y-6">
+            <div class="flex items-center gap-3 border-b pb-3 border-slate-200">
+                <span class="bg-amber-600 text-white text-xs font-black px-3 py-1 rounded-md uppercase tracking-wider">Cấp độ 2</span>
+                <h2 class="text-xl font-extrabold text-slate-900">PHẦN 2: MỨC ĐỘ NÂNG CAO (SỰ CÙNG PHƯƠNG, CÙNG HƯỚNG VÀ BẰNG NHAU)</h2>
+            </div>
+            <p class="text-xs font-bold text-amber-800 bg-amber-50 px-3 py-2 rounded-lg inline-block">
+                Mục tiêu: Xét mối quan hệ tương quan giữa nhiều vectơ với nhau. Đây là nền tảng để giải các bài toán chứng minh hệ thức phẳng lồi.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm leading-relaxed text-slate-700">
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs space-y-2">
+                    <h3 class="font-bold text-slate-800 text-base flex items-center gap-2 text-amber-700 mb-1"><i class="fa-solid fa-arrows-left-right"></i> 1. Vectơ cùng phương, cùng hướng</h3>
+                    <p>&bull; <strong>Định nghĩa cùng phương:</strong> Hai vectơ được gọi là cùng phương nếu giá của chúng song song hoặc trùng nhau. Do đó chúng chỉ có thể cùng hướng hoặc ngược hướng.</p>
+                    <p>&bull; <strong>Định lí 3 điểm thẳng hàng:</strong> Điều kiện cần và đủ để ba điểm phân biệt \(A, B, C\) thẳng hàng là hai vectơ \(\overrightarrow{AB}\) và \(\overrightarrow{AC}\) cùng phương. (Vì hai giá song song hoặc trùng nhau nhưng cùng đi qua điểm \(A\) nên bắt buộc chúng phải trùng khít nhau theo tiên đề Euclid).</p>
+                </div>
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs space-y-2">
+                    <h3 class="font-bold text-slate-800 text-base flex items-center gap-2 text-amber-700 mb-1"><i class="fa-solid fa-equals"></i> 2. Các mối quan hệ đặc trưng và Vectơ-không</h3>
+                    <p>&bull; <strong>Vectơ bằng nhau:</strong> Hai vectơ \(\vec{a}\) và \(\vec{b}\) bằng nhau nếu chúng <strong>cùng hướng và cùng độ dài</strong>, kí hiệu \(\vec{a} = \vec{b}\).</p>
+                    <p>&bull; <strong>Vectơ đối nhau:</strong> Nếu chúng ngược hướng và cùng độ dài. Ví dụ: \(\overrightarrow{AB} = -\overrightarrow{BA}\).</p>
+                    <p>&bull; <strong>Vectơ-không (\(\vec{0}\)):</strong> Có điểm đầu và điểm cuối trùng nhau (Ví dụ: \(\overrightarrow{AA} = \vec{0}\)). Có độ dài bằng 0, được quy ước cùng phương, cùng hướng với mọi vectơ.</p>
+                </div>
+            </div>
+
+            <!-- Ví dụ 2 & Mô hình 2 -->
+            <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border space-y-6">
+                <div>
+                    <span class="bg-amber-100 text-amber-800 text-xs font-bold px-2 py-0.5 rounded">Ví dụ minh họa 2</span>
+                    <p class="text-sm font-semibold text-slate-800 mt-2">Cho hình chữ nhật \(ABCD\) có \(O\) là giao điểm của hai đường chéo. Hãy chỉ ra: a) Các vectơ bằng vectơ \(\overrightarrow{AB}\). b) Các vectơ đối của vectơ \(\overrightarrow{AD}\).</p>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                    <div class="space-y-4">
+                        <details class="group">
+                            <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                                <i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform mr-1"></i> Xem hướng dẫn giải hình học chữ nhật
+                            </summary>
+                            <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-2 leading-relaxed">
+                                <p><strong>Giải:</strong></p>
+                                <p>&bull; a) Vì \(ABCD\) là hình chữ nhật nên cạnh đối \(AB \parallel DC\) và \(AB = DC\). Hướng đi từ \(A\) đến \(B\) trùng khít hướng đi từ \(D\) đến \(C\). Do đó ta có: <strong>\(\overrightarrow{AB} = \overrightarrow{DC}\)</strong>.</p>
+                                <p>&bull; b) Các vectơ ngược hướng và nhận cùng độ lớn độ dài với \(\overrightarrow{AD}\) là: <strong>\(\overrightarrow{DA}\)</strong> và <strong>\(\overrightarrow{CB}\)</strong>.</p>
+                            </div>
+                        </details>
+
+                        <div class="p-4 bg-slate-100 rounded-xl border border-slate-200 space-y-3 text-xs">
+                            <span class="font-bold text-slate-700 block uppercase"><i class="fa-solid fa-filter text-indigo-500"></i> Bộ lọc kiểm thử vectơ tương tác:</span>
+                            <div class="flex flex-wrap gap-2">
+                                <button type="button" onclick="filterVectors('all')" class="bg-slate-200 hover:bg-slate-300 text-slate-800 font-bold px-3 py-1.5 rounded-lg transition-colors cursor-pointer">Hiện tất cả</button>
+                                <button type="button" onclick="filterVectors('direction')" class="bg-amber-500 hover:bg-amber-600 text-white font-bold px-3 py-1.5 rounded-lg transition-colors cursor-pointer">Cùng phương với AB</button>
+                                <button type="button" onclick="filterVectors('equal')" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-3 py-1.5 rounded-lg transition-colors cursor-pointer">Bằng với AB</button>
+                            </div>
+                            <div id="filter-label" class="font-semibold text-indigo-950 italic pt-1">Đang hiển thị: Toàn bộ cấu trúc hình bình hành handle.</div>
+                        </div>
+                    </div>
+                    <div>
+                        <div id="box2" class="w-full h-64 jxgbox"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ================= PHẦN 3: MỨC ĐỘ VẬN DỤNG ================= -->
+        <section class="space-y-6">
+            <div class="flex items-center gap-3 border-b pb-3 border-slate-200">
+                <span class="bg-emerald-600 text-white text-xs font-black px-3 py-1 rounded-md uppercase tracking-wider">Cấp độ 3</span>
+                <h2 class="text-xl font-extrabold text-slate-900">PHẦN 3: MỨC ĐỘ VẬN DỤNG (MÔ HÌNH HÓA ĐẠI LƯỢNG VẬT LÍ)</h2>
+            </div>
+            <p class="text-xs font-bold text-emerald-800 bg-emerald-50 px-3 py-2 rounded-lg inline-block">
+                Mục tiêu: Phân biệt rõ ràng bản chất giữa đại lượng có hướng (Vectơ) và vô hướng trong thực tiễn cơ học, vật lý kỹ thuật.
+            </p>
+
+            <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs text-sm leading-relaxed text-slate-700 space-y-2">
+                <h3 class="font-bold text-slate-800 text-base flex items-center gap-2 text-emerald-700 mb-1"><i class="fa-solid fa-scale-balanced"></i> Đại lượng vô hướng và đại lượng có hướng</h3>
+                <p>&bull; <strong>Đai lượng vô hướng:</strong> Là những dữ kiện chỉ cần biểu diễn bằng một con số độ lớn thuần túy (Ví dụ: nhiệt độ, thể tích, thời gian, khối lượng, giá tiền).</p>
+                <p>&bull; <strong>Đại lượng có hướng:</strong> Đòi hỏi bắt buộc phải biết rõ cả độ lớn lũy tiến lẫn hướng tác động trong không gian (Ví dụ: lực kéo, vận tốc chạy, gia tốc, độ dịch chuyển). Ta bắt buộc phải dùng vectơ đồ thị để biểu diễn chúng.</p>
+            </div>
+
+            <!-- Ví dụ 3 & Mô hình 3 -->
+            <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border space-y-6">
+                <div>
+                    <span class="bg-emerald-100 text-emerald-800 text-xs font-bold px-2 py-0.5 rounded">Ví dụ minh họa 3</span>
+                    <p class="text-sm font-semibold text-slate-800 mt-2">Tìm sự khác biệt về đặc tính đo lường toán học giữa hai đại lượng sau: 1) Chiếc xe máy có giá tiền là 30 triệu đồng. 2) Chiếc thuyền chạy với vận tốc là 30 km/h theo hướng Tây Nam.</p>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                    <div class="space-y-4 text-xs text-slate-700 leading-relaxed text-justify">
+                        <details class="group">
+                            <summary class="list-none flex items-center font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                                <i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform mr-1"></i> Xem phân tích từ giảng viên
+                            </summary>
+                            <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-2">
+                                <p>&bull; Đại lượng thứ nhất (giá tiền mặt của xe) chỉ trỏ duy nhất một hằng số độ lớn quy đổi thành tiền, không chứa yếu tố điều hướng, nó là <strong>đại lượng vô hướng</strong>.</p>
+                                <p>&bull; Đại lượng thứ hai (vận tốc thuyền di chuyển) chỉ rõ hai thành phần: độ lớn căn bậc (\(30\text{ km/h}\)) và hướng vectơ chĩa về phương Tây Nam. Do đó, đây là <strong>đại lượng có hướng</strong>, cần dùng mũi tên hình học lượng phân định điểm đặt, hướng và độ dài để đặc tả.</p>
+                            </div>
+                        </details>
+                        
+                        <div class="p-4 bg-emerald-50 rounded-xl border border-emerald-200 text-emerald-950">
+                            <span class="font-bold block mb-1 text-emerald-800"><i class="fa-solid fa-user-check"></i> Lời dặn cốt lõi của thầy Đinh Quốc Tuấn:</span>
+                            Bài học mở đầu này chứa rất nhiều khái niệm mới. Điều quan trọng nhất các em cần khắc cốt ghi tâm là: <strong>Vectơ bằng nhau thì phải xét cả HƯỚNG lẫn ĐỘ DÀI</strong>. Rất nhiều bạn học sinh lớp 10 nhầm lẫn tai hại giữa độ dài đoạn thẳng đơn thuần \(AB = CD\) và hệ thức vectơ có hướng \(\overrightarrow{AB} = \overrightarrow{CD}\). Hãy đặc biệt chú ý điều này nhé!
+                        </div>
+                    </div>
+                    <div>
+                        <div id="box3" class="w-full h-64 jxgbox"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ================= BÀI TẬP ĐÁNH GIÁ NĂNG LỰC TRẮC NGHIỆM ================= -->
+        <section class="border-t border-slate-200 pt-10 page-break">
+            <div class="bg-gradient-to-br from-slate-900 via-slate-800 to-indigo-950 text-white rounded-3xl p-6 sm:p-8 shadow-xl relative overflow-hidden card-border">
+                <div class="absolute -right-10 -bottom-10 opacity-5 pointer-events-none text-white">
+                    <i class="fa-solid fa-square-check text-[14rem]"></i>
+                </div>
+                
+                <div class="max-w-xl space-y-2">
+                    <span class="text-xs font-bold uppercase tracking-widest text-emerald-400 bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-500/20 inline-block">Đánh giá trực tuyến tại lớp</span>
+                    <h2 class="text-xl sm:text-2xl font-black tracking-tight">BÀI TẬP ĐÁNH GIÁ NĂNG LỰC TẠI LỚP</h2>
+                    <p class="text-slate-400 text-xs sm:text-sm">Học sinh hoàn thành chọn đáp án trực tuyến, kết quả bài làm sẽ được gửi tự động về Google Sheets hệ thống.</p>
+                </div>
+
+                <form id="quizForm" class="mt-8 space-y-6 text-slate-900">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div class="bg-white p-4 rounded-xl shadow-inner border border-slate-100">
+                            <label class="block text-xs font-bold text-slate-400 uppercase tracking-wide mb-1"><i class="fa-solid fa-user mr-1 text-indigo-500"></i> Họ và tên học sinh</label>
+                            <input type="text" id="studentName" required placeholder="Nhập họ tên đầy đủ..." class="w-full bg-white border-b-2 border-slate-200 focus:border-indigo-500 outline-none py-1 text-sm font-bold text-slate-900 transition-colors">
+                        </div>
+                        <div class="bg-white p-4 rounded-xl shadow-inner border border-slate-100">
+                            <label class="block text-xs font-bold text-slate-400 uppercase tracking-wide mb-1"><i class="fa-solid fa-file-code mr-1 text-indigo-500"></i> Mã chuyên đề bài học</label>
+                            <input type="text" id="examId" readonly value="Buoi14_DaiCuongVect_Toan10" class="w-full bg-slate-50 border-b-2 border-slate-200 outline-none py-1 text-sm font-bold text-slate-500 cursor-not-allowed">
+                        </div>
+                    </div>
+
+                    <!-- Khối 5 câu hỏi trắc nghiệm -->
+                    <div class="space-y-5 mt-6">
+                        <!-- Câu 1 -->
+                        <div class="bg-white p-5 rounded-2xl shadow-sm space-y-3">
+                            <p class="text-sm font-bold text-slate-900"><span class="text-indigo-600">Câu 1:</span> Một đoạn thẳng được định nghĩa có hướng, chỉ rõ điểm đầu và điểm cuối gọi là đại lượng gì?</p>
+                            <div class="grid grid-cols-1 gap-2 text-xs font-semibold text-slate-700">
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q1" value="A" required class="text-indigo-600 h-4 w-4"> <span>A. Trục số vô hạn</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q1" value="B" class="text-indigo-600 h-4 w-4"> <span>B. Vectơ</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q1" value="C" class="text-indigo-600 h-4 w-4"> <span>C. Đường thẳng giá đơn lập</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Câu 2 -->
+                        <div class="bg-white p-5 rounded-2xl shadow-sm space-y-3">
+                            <p class="text-sm font-bold text-slate-900"><span class="text-indigo-600">Câu 2:</span> Điều kiện cần và đủ để bộ ba điểm phân biệt \(A, B, C\) nằm thẳng hàng trong không gian phẳng hình học là:</p>
+                            <div class="grid grid-cols-1 gap-2 text-xs font-semibold text-slate-700">
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q2" value="A" required class="text-indigo-600 h-4 w-4"> <span>A. Hai vectơ \(\overrightarrow{AB}\) và \(\overrightarrow{AC}\) nhận độ dài bằng nhau</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q2" value="B" class="text-indigo-600 h-4 w-4"> <span>B. Hai vectơ \(\overrightarrow{AB}\) và \(\overrightarrow{AC}\) cùng phương với nhau</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q2" value="C" class="text-indigo-600 h-4 w-4"> <span>C. Độ dài \(|\overrightarrow{AB}| + |\overrightarrow{BC}| = 0\)</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Câu 3 -->
+                        <div class="bg-white p-5 rounded-2xl shadow-sm space-y-3">
+                            <p class="text-sm font-bold text-slate-900"><span class="text-indigo-600">Câu 3:</span> Hai vectơ được định nghĩa bằng nhau (\(\vec{a} = \vec{b}\)) khi và chỉ khi thỏa mãn đồng thời các yếu tố nào?</p>
+                            <div class="grid grid-cols-1 gap-2 text-xs font-semibold text-slate-700">
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q3" value="A" required class="text-indigo-600 h-4 w-4"> <span>A. Cùng phương và có độ dài đoạn thẳng bằng nhau</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q3" value="B" class="text-indigo-600 h-4 w-4"> <span>B. Cùng hướng và có độ dài môđun bằng nhau</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q3" value="C" class="text-indigo-600 h-4 w-4"> <span>C. Giá song song và ngược hướng chuyển động</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Câu 4 -->
+                        <div class="bg-white p-5 rounded-2xl shadow-sm space-y-3">
+                            <p class="text-sm font-bold text-slate-900"><span class="text-indigo-600">Câu 4:</span> Đại lượng nào dưới đây được phân loại là <strong>đại lượng vô hướng</strong> trong đời sống toán học thực tiễn?</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs font-semibold text-slate-700">
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q4" value="A" required class="text-indigo-600 h-4 w-4"> <span>A. Giá tiền, Khối lượng</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q4" value="B" class="text-indigo-600 h-4 w-4"> <span>B. Vận tốc tàu thủy</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q4" value="C" class="text-indigo-600 h-4 w-4"> <span>C. Lực đẩy động cơ</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Câu 5 -->
+                        <div class="bg-white p-5 rounded-2xl shadow-sm space-y-3">
+                            <p class="text-sm font-bold text-slate-900"><span class="text-indigo-600">Câu 5:</span> Khẳng định nào dưới đây diễn tả đúng bản chất quy ước toán học đối với Vectơ-không (\(\vec{0}\))?</p>
+                            <div class="grid grid-cols-1 gap-2 text-xs font-semibold text-slate-700">
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q5" value="A" required class="text-indigo-600 h-4 w-4"> <span>A. Có độ dài lớn hơn 1 và song song trục hoành</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q5" value="B" class="text-indigo-600 h-4 w-4"> <span>B. Có độ dài bằng 0, quy ước cùng phương, cùng hướng với mọi vectơ</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q5" value="C" class="text-indigo-600 h-4 w-4"> <span>C. Không cùng phương với bất kì một vectơ nào khác</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Khu vực nút nộp bài toán -->
+                    <div class="pt-2 flex flex-col sm:flex-row items-center justify-between gap-4">
+                        <button type="submit" id="submitBtn" class="w-full sm:w-auto bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-sm px-8 py-3.5 rounded-xl shadow-lg transition-all flex items-center justify-center space-x-2 cursor-pointer">
+                            <i class="fa-solid fa-cloud-arrow-up"></i> <span>Nộp Bài Chấm Điểm</span>
+                        </button>
+                        <div id="statusReport" class="text-xs font-bold text-slate-400"></div>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer bản quyền -->
+    <footer class="bg-slate-900 text-slate-400 py-8 text-center text-xs font-medium px-4 mt-auto">
+        <p class="font-bold text-slate-300">@ Bản quyền thuộc ThS. Đinh Quốc Tuấn - Mục đích phi lợi nhuận - Vì giáo dục.</p>
+        <p class="text-slate-500 mt-2">Hệ thống bài giảng số hóa lượng hình phẳng tích hợp thư viện điều khiển chuyển động.</p>
+    </footer>
+
+    <!-- NÚT IN TÀI LIỆU CỐ ĐỊNH -->
+    <button id="btn-print-doc" onclick="safePrint()" class="fixed bottom-5 right-5 bg-gray-900 text-white px-4 py-2 rounded-lg shadow-lg hover:bg-gray-700 print:hidden z-50 cursor-pointer">
+        <i class="fas fa-print mr-2"></i> In Tài Liệu
+    </button>
+
+    <script>
+        function safePrint() {
+            const printBtn = document.getElementById('btn-print-doc');
+            printBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Đang chuẩn bị...';
+            
+            if (window.MathJax && window.MathJax.typesetPromise) {
+                MathJax.typesetPromise().then(() => {
+                    printBtn.innerHTML = '<i class="fas fa-print mr-2"></i> In Tài Liệu';
+                    window.print();
+                });
+            } else {
+                setTimeout(() => {
+                    printBtn.innerHTML = '<i class="fas fa-print mr-2"></i> In Tài Liệu';
+                    window.print();
+                }, 500); 
+            }
+        }
+    </script>
+
+    <!-- HỆ THỐNG KỊCH BẢN ĐIỀU KHIỂN HÌNH HỌC ĐỘNG JSXGRAPH -->
+    <script>
+        const timeInit = new Date();
+        let b2, arrowAB, arrowDC, arrowBA, arrowCD;
+
+        document.addEventListener("DOMContentLoaded", function() {
+            
+            // --- MÔ HÌNH 1: GIÁ VÀ ĐỘ DÀI CỦA VECTƠ ---
+            const b1 = JXG.JSXGraph.initBoard('box1', {
+                boundingbox: [-4, 4, 4, -4], axis: false, showNavigation: false, showCopyright: false
+            });
+
+            // Vẽ trục d đóng vai trò là "Giá" đường thẳng vô hạn
+            let lineD = b1.create('line', [[-3, -1], [3, 1]], {strokeColor: '#cbd5e1', strokeWidth: 1.5, dash: 2});
+
+            // Tạo hai điểm trượt glider liên kết trực tiếp biến lineD
+            let pA = b1.create('glider', [-2, -0.66, lineD], {name: 'A (Đầu)', color: '#4f46e5', size: 3});
+            let pB = b1.create('glider', [2, 0.66, lineD], {name: 'B (Cuối)', color: '#10b981', size: 3});
+
+            // Mũi tên vectơ nối đoạn thẳng có hướng
+            b1.create('arrow', [pA, pB], {strokeColor: '#4f46e5', strokeWidth: 3});
+
+            let statusBox1 = document.getElementById('status-box1');
+            function updateMetricsModel1() {
+                let dx = pB.X() - pA.X();
+                let dy = pB.Y() - pA.Y();
+                let modulus = Math.sqrt(dx*dx + dy*dy);
+                statusBox1.innerHTML = `Vectơ AB nằm trên giá d | Độ dài |AB| = ${modulus.toFixed(2)} đơn vị`;
+            }
+            pA.on('drag', updateMetricsModel1);
+            pB.on('drag', updateMetricsModel1);
+            updateMetricsModel1();
+
+
+            // --- MÔ HÌNH 2: HÌNH BÌNH HÀNH VÀ QUAN HỆ CÙNG PHƯƠNG, BẰNG NHAU ---
+            b2 = JXG.JSXGraph.initBoard('box2', {
+                boundingbox: [-4, 3, 5, -3], axis: false, showNavigation: false, showCopyright: false
+            });
+
+            // Ba đỉnh tự do điều khiển cấu trúc hình bình hành
+            let hA = b2.create('point', [-2, 1.5], {name: 'A', color: '#1f2937', size: 3});
+            let hB = b2.create('point', [1.5, 1.5], {name: 'B', color: '#1f2937', size: 3});
+            let hD = b2.create('point', [-3, -1.5], {name: 'D', color: '#1f2937', size: 3});
+
+            // Đỉnh C phụ thuộc mảng tọa độ hàm liên kết hình học
+            let hC = b2.create('point', [
+                function() { return hB.X() + hD.X() - hA.X(); },
+                function() { return hB.Y() + hD.Y() - hA.Y(); }
+            ], {name: 'C', color: '#475569', size: 2});
+
+            // Vẽ khung đa giác nền mờ
+            b2.create('polygon', [hA, hB, hC, hD], {fillColor: '#f8fafc', fillOpacity: 0.5, strokeColor: '#cbd5e1', strokeWidth: 1});
+
+            // Dựng sẵn trọn bộ các mũi tên biến động phục vụ bộ lọc hiển thị
+            arrowAB = b2.create('arrow', [hA, hB], {strokeColor: '#2563eb', strokeWidth: 3, visible: true});
+            arrowDC = b2.create('arrow', [hD, hC], {strokeColor: '#059669', strokeWidth: 3, visible: true});
+            arrowBA = b2.create('arrow', [hB, hA], {strokeColor: '#dc2626', strokeWidth: 2, visible: false});
+            arrowCD = b2.create('arrow', [hC, hD], {strokeColor: '#dc2626', strokeWidth: 2, visible: false});
+
+
+            // --- MÔ HÌNH 3: SA BÀN LA BÀN ĐẠI LƯỢNG VÀNG CÓ HƯỚNG VẬN TỐC ---
+            const b3 = JXG.JSXGraph.initBoard('box3', {
+                boundingbox: [-4, 4, 4, -4], axis: false, showNavigation: false, showCopyright: false
+            });
+
+            // Hệ thống nền vòng tròn la bàn la bán định vị phương hướng
+            let centerO = b3.create('point', [0, 0], {name: 'Thuyền', color: '#0f172a', size: 3, fixed: true});
+            b3.create('circle', [centerO, 1.5], {strokeColor: '#e2e8f0', strokeWidth: 1, dash: 2});
+            b3.create('circle', [centerO, 3.0], {strokeColor: '#e2e8f0', strokeWidth: 1, dash: 1});
+
+            // Trục tọa độ la bàn chỉ bốn phương Đông Tây Nam Bắc
+            b3.create('line', [[-3.5, 0], [3.5, 0]], {strokeColor: '#f1f5f9', strokeWidth: 1, fixed: true});
+            b3.create('line', [[0, -3.5], [0, 3.5]], {strokeColor: '#f1f5f9', strokeWidth: 1, fixed: true});
+            b3.create('text', [0, 3.2, 'Bắc (N)'], {anchorX: 'middle', fontSize: 10, color: '#94a3b8'});
+            b3.create('text', [3.2, 0, 'Đông (E)'], {fontSize: 10, color: '#94a3b8'});
+            b3.create('text', [-3.8, 0, 'Tây (W)'], {fontSize: 10, color: '#94a3b8'});
+            b3.create('text', [0, -3.4, 'Nam (S)'], {anchorX: 'middle', fontSize: 10, color: '#94a3b8'});
+
+            // Hai thanh trượt điều khiển đại lượng: Tốc độ môđun và Bánh lái hướng
+            let slSpeed = b3.create('slider', [[-3.5, -2.4], [0.5, -2.4], [0.5, 2.5, 3.5]], {name: 'Toc do (v)', color: '#10b981'});
+            let slAngle = b3.create('slider', [[-3.5, -3.1], [0.5, -3.1], [0, 225, 360]], {name: 'Goc lai (Do)', color: '#6366f1', snapWidth: 1});
+
+            // Điểm mút động tính toán dựa trên hai thành phần của glider
+            let ptTarget = b3.create('point', [
+                function() {
+                    let rad = slAngle.Value() * Math.PI / 180;
+                    return slSpeed.Value() * Math.cos(rad);
+                },
+                function() {
+                    let rad = slAngle.Value() * Math.PI / 180;
+                    return slSpeed.Value() * Math.sin(rad);
+                }
+            ], {visible: false});
+
+            // Vectơ vận tốc hành trình v chỉ phương hướng thực tế của thuyền
+            b3.create('arrow', [centerO, ptTarget], {strokeColor: '#10b981', strokeWidth: 3.5});
+        });
+
+        // HÀM ĐIỀU KHIỂN BỘ LỌC CỦA MÔ HÌNH 2
+        function filterVectors(mode) {
+            let label = document.getElementById('filter-label');
+            
+            // Tắt toàn bộ
+            arrowAB.setAttribute({visible: false});
+            arrowDC.setAttribute({visible: false});
+            arrowBA.setAttribute({visible: false});
+            arrowCD.setAttribute({visible: false});
+
+            if (mode === 'all') {
+                arrowAB.setAttribute({visible: true});
+                arrowDC.setAttribute({visible: true});
+                label.innerText = "Đang hiển thị: Hai cạnh đối \(\overrightarrow{AB}\) và \(\overrightarrow{DC}\) bằng nhau.";
+            } else if (mode === 'direction') {
+                arrowAB.setAttribute({visible: true});
+                arrowDC.setAttribute({visible: true});
+                arrowBA.setAttribute({visible: true});
+                arrowCD.setAttribute({visible: true});
+                label.innerText = "Đang hiển thị: Toàn bộ 4 vectơ cùng phương dọc theo hệ cạnh song song.";
+            } else if (mode === 'equal') {
+                arrowAB.setAttribute({visible: true, strokeColor: '#10b981'});
+                arrowDC.setAttribute({visible: true, strokeColor: '#10b981'});
+                label.innerText = "Kết luận: \(\overrightarrow{AB} = \overrightarrow{DC}\) (Vì cùng hướng và cùng độ lớn).";
+            }
+            b2.update();
+        }
+
+        // --- XỬ LÝ BIỂU MẪU CHẤM ĐIỂM TRẮC NGHIỆM VÀ ĐẨY DỮ LIỆU VỀ GOOGLE SHEETS ---
+        document.getElementById('quizForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const submitBtn = document.getElementById('submitBtn');
+            const statusReport = document.getElementById('statusReport');
+            
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i> Hệ thống đang đồng bộ kết quả...';
+            statusReport.innerHTML = "Đang mã hóa dữ liệu truyền tải đám mây...";
+
+            const correctKey = { q1: "B", q2: "B", q3: "B", q4: "A", q5: "B" };
+            const studentName = document.getElementById('studentName').value.trim();
+            const lessonId = document.getElementById('examId').value.trim();
+            
+            let correctCounter = 0;
+            let totalQuizCount = Object.keys(correctKey).length;
+            let missedReportArray = [];
+
+            for (let questionCode in correctKey) {
+                const selectedRadio = document.querySelector(`input[name="${questionCode}"]:checked`);
+                if (selectedRadio && selectedRadio.value === correctKey[questionCode]) {
+                    correctCounter++;
+                } else {
+                    let chosenChar = selectedRadio ? selectedRadio.value : "Bỏ trống";
+                    missedReportArray.push(`${questionCode.toUpperCase()}(Chọn: ${chosenChar}|Đúng: ${correctKey[questionCode]})`);
+                }
+            }
+
+            const finalScore = ((correctCounter / totalQuizCount) * 10).toFixed(2);
+            const timeComplete = new Date();
+            const elapsedDurationSeconds = Math.floor((timeComplete - timeInit) / 1000);
+            const thoiGian = `${Math.floor(elapsedDurationSeconds / 60)} phút ${elapsedDurationSeconds % 60} giây`;
+            const cauSai = missedReportArray.length > 0 ? missedReportArray.join(", ") : "Không có (Đạt điểm tuyệt đối)";
+
+            const transmissionPayload = {
+                hoTen: studentName,
+                maDe: lessonId,
+                diem: parseFloat(finalScore),
+                thoiGian: thoiGian,
+                cauSai: cauSai
+            };
+
+            const webAppsScriptEndpoint = "https://script.google.com/macros/s/AKfycbzY7b7h4OwvhXuK5Vs6hl-aD88BPnAiAKbU5lfJobby0D4nzbIJVKT4n0AKCpAGoK0nZA/exec";
+
+            fetch(webAppsScriptEndpoint, {
+                method: "POST",
+                mode: "no-cors",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(transmissionPayload)
+            })
+            .then(() => {
+                statusReport.className = "text-xs font-bold text-emerald-500 bg-emerald-50 px-3 py-2 rounded-xl border border-emerald-200 inline-block";
+                statusReport.innerHTML = `<i class="fa-solid fa-circle-check"></i> Đã đồng bộ thành công kết quả thi: ${finalScore}/10 lên hệ thống Sheets!`;
+                alert(`Hệ thống thông báo nộp kết quả bài làm thành công!\nChào em ${studentName}, điểm số chuyên đề đạt được là: ${finalScore} / 10.`);
+                submitBtn.innerHTML = '<i class="fa-solid fa-lock"></i> Kết quả đã khóa bảo mật';
+            })
+            .catch(error => {
+                console.error("Giao dịch truyền tin thất bại:", error);
+                statusReport.className = "text-xs font-bold text-rose-500 bg-rose-50 px-3 py-2 rounded-xl border border-rose-200 inline-block";
+                statusReport.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> Lỗi kết nối mạng, vui lòng bấm nộp lại bài!';
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Thử nộp lại bài';
+            });
+        });
+    </script>
+</body>
+</html>
