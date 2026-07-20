@@ -385,106 +385,114 @@
     <script>
         const startTime = new Date();
 
-        // 1. Dựng Hình 1 JSXGraph: Sơ đồ bao hàm tập hợp số (Biểu đồ Venn) [source: 1]
-        (function initModel1() {
-            const board = JXG.JSXGraph.initBoard('box1', {
-                boundingbox: [-5, 5, 5, -5],
-                axis: false,
-                showCopyright: false,
-                showNavigation: false
-            });
-
-            // Thanh trượt mô phỏng góc nhìn bao hàm phân cấp [source: 3]
-            let s = board.create('slider', [[-4.5, 4.3], [1.5, 4.3], [1, 4, 4]], {name: 'Mở rộng cấp', color: '#4f46e5', snapWidth: 1});
-
-            let O = board.create('point', [-0.5, -0.5], {visible: false, fixed: true});
-
-            // Các đường tròn đồng tâm phân chia tập hợp số thực [source: 1]
-            let cN = board.create('circle', [O, 0.9], {
-                fillColor: '#3b82f6', fillOpacity: function() { return s.Value() >= 1 ? 0.15 : 0.02; },
-                strokeColor: '#2563eb', strokeWidth: 1.5, withLabel: true, name: 'N'
-            });
-
-            let cZ = board.create('circle', [O, 1.8], {
-                fillColor: '#f59e0b', fillOpacity: function() { return s.Value() >= 2 ? 0.12 : 0.02; },
-                strokeColor: '#d97706', strokeWidth: 1.5, withLabel: true, name: 'Z'
-            });
-
-            let cQ = board.create('circle', [O, 2.7], {
-                fillColor: '#10b981', fillOpacity: function() { return s.Value() >= 3 ? 0.10 : 0.02; },
-                strokeColor: '#059669', strokeWidth: 1.5, withLabel: true, name: 'Q'
-            });
-
-            let cR = board.create('circle', [O, 3.8], {
-                fillColor: '#a855f7', fillOpacity: function() { return s.Value() >= 4 ? 0.08 : 0.02; },
-                strokeColor: '#7e22ce', strokeWidth: 2, withLabel: true, name: 'R'
-            });
-
-            // Khu vực biệt lập cho tập hợp số vô tỉ I [source: 1]
-            let ptI = board.create('point', [2.3, 2.0], {visible: false, fixed: true});
-            let labelI = board.create('text', [2.1, 2.0, "\\(\\mathbb{I}\\) (Số vô tỉ)"], {
-                fontSize: 12, strokeColor: '#b91c1c', fontStyle: 'bold', display: 'html',
-                visible: function() { return s.Value() >= 4; }
-            });
-
-            // Phần văn bản bổ trợ hiển thị trạng thái phân cấp động [source: 3]
-            board.create('text', [-4.5, -4.2, function() {
-                let lv = s.Value();
-                if (lv === 1) return 'Cấp 1: Tập hợp số tự nhiên \\(\\mathbb{N} = \\{0; 1; 2; ...\\}\\)';
-                if (lv === 2) return 'Cấp 2: Số nguyên \\(\\mathbb{Z}\\) bao quanh số tự nhiên \\(\\mathbb{N} \\subset \\mathbb{Z}\\)';
-                if (lv === 3) return 'Cấp 3: Số hữu tỉ \\(\\mathbb{Q}\\) chứa toàn bộ số nguyên \\(\\mathbb{Z} \\subset \\mathbb{Q}\\)';
-                if (lv === 4) return 'Cấp 4: Số thực \\(\\mathbb{R} = \\mathbb{Q} \\cup \\mathbb{I}\\) lấp đầy toàn bộ không gian số';
-                return '';
-            }], {fontSize: 11, fontStyle: 'bold', strokeColor: '#1e293b', display: 'html'});
-        })();
-
-        // 2. Dựng Hình 2 JSXGraph: Trực quan hóa Khoảng cách trên trục số (Giá trị tuyệt đối) [source: 1]
-        (function initModel2() {
-            const board = JXG.JSXGraph.initBoard('box2', {
-                boundingbox: [-5, 3, 5, -3],
-                axis: false,
-                showCopyright: false,
-                showNavigation: false
-            });
-
-            // Vẽ trục số thực nằm ngang [source: 1]
-            let pStart = board.create('point', [-4.5, 0], {visible: false, fixed: true});
-            let pEnd = board.create('point', [4.5, 0], {visible: false, fixed: true});
-            board.create('line', [pStart, pEnd], {strokeColor: '#475569', strokeWidth: 2, lastArrow: true});
-
-            // Gốc tọa độ O [source: 1]
-            let O = board.create('point', [0, 0], {name: '0', color: '#1e293b', fixed: true, size: 3});
-
-            // Điểm M di động trượt trên trục số [source: 3]
-            let M = board.create('glider', [2.5, 0, board.select(function(el){return el.type === 'line';})], {
-                name: 'M (x)', color: '#2563eb', size: 4
-            });
-
-            // Điểm M' đối xứng với M qua gốc O [source: 1]
-            let M_prime = board.create('point', [
-                function() { return -M.X(); }, 0
-            ], {name: "M' (-x)", color: '#d97706', size: 3});
-
-            // Vẽ vòng cung khoảng cách từ O đến M và M' [source: 1]
-            board.create('curve', [
-                function(t) { return t; },
-                function(t) { return Math.sin((t / M.X()) * Math.PI) * 0.6; },
-                0, function() { return M.X(); }
-            ], {strokeColor: '#2563eb', strokeWidth: 1.5, dash: 2});
-
-            board.create('curve', [
-                function(t) { return t; },
-                function(t) { return Math.sin((t / -M.X()) * Math.PI) * 0.6; },
-                function() { return -M.X(); }, 0
-            ], {strokeColor: '#d97706', strokeWidth: 1.5, dash: 2});
-
-            // Hộp thoại hiển thị thông số liên hệ động [source: 3]
-            board.create('text', [-4.5, -2.0, function() {
-                let xVal = M.X().toFixed(2);
-                let absVal = Math.abs(M.X()).toFixed(2);
-                return 'Tọa độ x = ' + xVal + ' | Khoảng cách đến gốc O: |x| = |-' + xVal + '| = ' + absVal + ' (Luôn &ge; 0)';
-            }], {fontSize: 10.5, fontStyle: 'bold', strokeColor: '#0f172a'});
-        })();
+            // 1. Dựng Hình 1 JSXGraph: Sơ đồ bao hàm tập hợp số (Biểu đồ Venn)
+            (function initModel1() {
+                const board = JXG.JSXGraph.initBoard('box1', {
+                    boundingbox: [-5, 5, 5, -5],
+                    axis: false,
+                    showCopyright: false,
+                    showNavigation: false
+                });
+            
+                // Thanh trượt mô phỏng góc nhìn bao hàm phân cấp
+                let s = board.create('slider', [[-4.5, 4.3], [1.5, 4.3], [1, 4, 4]], {name: 'Mở rộng cấp', color: '#4f46e5', snapWidth: 1});
+            
+                let O = board.create('point', [-0.5, -0.5], {visible: false, fixed: true});
+            
+                // Các đường tròn đồng tâm phân chia tập hợp số thực
+                let cN = board.create('circle', [O, 0.9], {
+                    fillColor: '#3b82f6', fillOpacity: function() { return s.Value() >= 1 ? 0.15 : 0.02; },
+                    strokeColor: '#2563eb', strokeWidth: 1.5, withLabel: true, name: 'N'
+                });
+            
+                let cZ = board.create('circle', [O, 1.8], {
+                    fillColor: '#f59e0b', fillOpacity: function() { return s.Value() >= 2 ? 0.12 : 0.02; },
+                    strokeColor: '#d97706', strokeWidth: 1.5, withLabel: true, name: 'Z'
+                });
+            
+                let cQ = board.create('circle', [O, 2.7], {
+                    fillColor: '#10b981', fillOpacity: function() { return s.Value() >= 3 ? 0.10 : 0.02; },
+                    strokeColor: '#059669', strokeWidth: 1.5, withLabel: true, name: 'Q'
+                });
+            
+                let cR = board.create('circle', [O, 3.8], {
+                    fillColor: '#a855f7', fillOpacity: function() { return s.Value() >= 4 ? 0.08 : 0.02; },
+                    strokeColor: '#7e22ce', strokeWidth: 2, withLabel: true, name: 'R'
+                });
+            
+                // Khu vực biệt lập cho tập hợp số vô tỉ I
+                let ptI = board.create('point', [2.3, 2.0], {visible: false, fixed: true});
+                let labelI = board.create('text', [2.1, 2.0, "\\(\\mathbb{I}\\) (Số vô tỉ)"], {
+                    fontSize: 12, strokeColor: '#b91c1c', fontStyle: 'bold', display: 'html',
+                    visible: function() { return s.Value() >= 4; }
+                });
+            
+                // Phần văn bản bổ trợ hiển thị trạng thái phân cấp động
+                board.create('text', [-4.5, -4.2, function() {
+                    let lv = s.Value();
+                    if (lv === 1) return 'Cấp 1: Tập hợp số tự nhiên \\(\\mathbb{N} = \\{0; 1; 2; ...\\}\\)';
+                    if (lv === 2) return 'Cấp 2: Số nguyên \\(\\mathbb{Z}\\) bao quanh số tự nhiên \\(\\mathbb{N} \\subset \\mathbb{Z}\\)';
+                    if (lv === 3) return 'Cấp 3: Số hữu tỉ \\(\\mathbb{Q}\\) chứa toàn bộ số nguyên \\(\\mathbb{Z} \\subset \\mathbb{Q}\\)';
+                    if (lv === 4) return 'Cấp 4: Số thực \\(\\mathbb{R} = \\mathbb{Q} \\cup \\mathbb{I}\\) lấp đầy toàn bộ không gian số';
+                    return '';
+                }], {fontSize: 11, fontStyle: 'bold', strokeColor: '#1e293b', display: 'html'});
+            })();
+            
+            // 2. Dựng Hình 2 JSXGraph: Trực quan hóa Khoảng cách trên trục số (Giá trị tuyệt đối)
+            (function initModel2() {
+                const board = JXG.JSXGraph.initBoard('box2', {
+                    boundingbox: [-5, 3, 5, -3],
+                    axis: false,
+                    showCopyright: false,
+                    showNavigation: false
+                });
+            
+                // Vẽ trục số thực nằm ngang
+                let pStart = board.create('point', [-4.5, 0], {visible: false, fixed: true});
+                let pEnd = board.create('point', [4.5, 0], {visible: false, fixed: true});
+                // Gán đường thẳng này vào một biến rõ ràng là axisLine
+                let axisLine = board.create('line', [pStart, pEnd], {strokeColor: '#475569', strokeWidth: 2, lastArrow: true});
+            
+                // Gốc tọa độ O
+                let O = board.create('point', [0, 0], {name: '0', color: '#1e293b', fixed: true, size: 3});
+            
+                // SỬA TẠI ĐÂY: Truyền trực tiếp biến `axisLine` thay vì dùng hàm board.select phức tạp
+                let M = board.create('glider', [2.5, 0, axisLine], {
+                    name: 'M (x)', color: '#2563eb', size: 4
+                });
+            
+                // Điểm M' đối xứng với M qua gốc O
+                let M_prime = board.create('point', [
+                    function() { return -M.X(); }, 0
+                ], {name: "M' (-x)", color: '#d97706', size: 3});
+            
+                // Vẽ vòng cung khoảng cách từ O đến M và M'
+                board.create('curve', [
+                    function(t) { return t; },
+                    // Thêm hàm Math.abs hoặc điều hướng tránh chia cho 0 hoặc lỗi NaN khi M.X() tiến về góc 0
+                    function(t) { 
+                        if(Math.abs(M.X()) < 0.01) return 0;
+                        return Math.sin((t / M.X()) * Math.PI) * 0.6; 
+                    },
+                    0, function() { return M.X(); }
+                ], {strokeColor: '#2563eb', strokeWidth: 1.5, dash: 2});
+            
+                board.create('curve', [
+                    function(t) { return t; },
+                    function(t) { 
+                        if(Math.abs(M.X()) < 0.01) return 0;
+                        return Math.sin((t / -M.X()) * Math.PI) * 0.6; 
+                    },
+                    function() { return -M.X(); }, 0
+                ], {strokeColor: '#d97706', strokeWidth: 1.5, dash: 2});
+            
+                // Hộp thoại hiển thị thông số liên hệ động
+                board.create('text', [-4.5, -2.0, function() {
+                    let xVal = M.X().toFixed(2);
+                    let absVal = Math.abs(M.X()).toFixed(2);
+                    return 'Tọa độ x = ' + xVal + ' | Khoảng cách đến gốc O: |x| = |-' + xVal + '| = ' + absVal + ' (Luôn &ge; 0)';
+                }], {fontSize: 10.5, fontStyle: 'bold', strokeColor: '#0f172a'});
+            })();
 
         // 3. Xử lý biểu mẫu trắc nghiệm dữ liệu và truyền tải kết quả bất đồng bộ về server Apps Script [source: 2]
         document.getElementById('quizForm').addEventListener('submit', function(e) {
