@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buổi 14: Hình lăng trụ đứng tam giác và tứ giác - Toán 7</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    
+    <!-- FontAwesome Icons CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- MathJax CDN Config -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['\\(', '\\)']],
+                displayMath: [['\\[', '\\]']]
+            },
+            svg: {
+                fontCache: 'global'
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <!-- JSXGraph CDN Dependencies -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraph.css" />
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraphcore.js"></script>
+
+    <style>
+        @media print {
+            .no-print { display: none !important; }
+            body { background: white !important; color: black !important; }
+            .jxgbox { border: 1px solid #000 !important; }
+        }
+        .jxgbox {
+            background-color: #ffffff;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 font-sans antialiased selection:bg-indigo-600 selection:text-white">
+
+    <!-- Header & Brand Logos Area -->
+    <header class="bg-white border-b border-slate-200 py-4 px-6 sticky top-0 z-40 shadow-xs no-print">
+        <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="flex items-center gap-6">
+                <!-- Logo 1: TTBDVH -->
+                <img src="https://firebasestorage.googleapis.com/v0/b/link-anh-web.firebasestorage.app/o/ttbdvh.jpg?alt=media&token=f270aa9b-a2bc-48e8-8910-80742b542615" 
+                     alt="Logo TTBDVH" class="h-14 w-14 object-cover rounded-full border border-slate-200 shadow-xs">
+                <!-- Logo 2: HCMUS -->
+                <img src="https://hcmus.edu.vn/wp-content/uploads/2023/04/Logo-chinh-e1681638380305.png" 
+                     alt="Logo HCMUS" class="h-12 object-contain">
+            </div>
+            <div class="text-center sm:text-right">
+                <span class="text-xs font-bold uppercase tracking-wider text-indigo-600 block mb-0.5">Hệ thống bài giảng số chất lượng cao</span>
+                <h1 class="text-lg font-extrabold text-slate-800">Toán học 7 &bull; Hình học trực quan không gian</h1>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container Content -->
+    <main class="max-w-4xl mx-auto px-4 sm:px-6 py-8 bg-white my-6 shadow-xs rounded-2xl border border-slate-100 print:shadow-none print:border-none print:my-0">
+        
+        <!-- Document Header Title -->
+        <div class="border-b-2 border-slate-900 pb-5 mb-8">
+            <h2 class="text-2xl sm:text-3xl font-black text-slate-900 flex items-center gap-3">
+                <i class="fas fa-shapes text-indigo-600"></i>
+                Buổi 14: Hình lăng trụ đứng tam giác và tứ giác
+            </h2>
+            <p class="text-slate-500 mt-2 text-sm">Tiếp nối chương trình, dưới đây là nội dung lý thuyết chi tiết kết hợp mô hình tương tác 3D bám sát khung chương trình Giáo dục phổ thông mới.</p>
+        </div>
+
+        <!-- Section: Interactive JSXGraph Models (Teacher & Student Workspace) -->
+        <section class="mb-12 no-print bg-slate-50 p-6 rounded-2xl border border-slate-200 space-y-8">
+            <div class="flex items-center gap-2 pb-2 border-b border-slate-200">
+                <i class="fas fa-cube text-emerald-500 text-xl"></i>
+                <h3 class="text-base font-bold text-slate-800 uppercase tracking-wide">💡 GỢI Ý MÔ HÌNH TRỰC QUAN KHÔNG GIAN (ỨNG DỤNG JSXGRAPH)</h3>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Model 1 Workspace -->
+                <div class="flex flex-col bg-white p-4 rounded-xl shadow-xs border border-slate-200">
+                    <span class="font-bold text-sm text-indigo-600 mb-1"><i class="fas fa-scissors mr-1"></i> Mô hình 1: Khai triển hình lăng trụ (Từ 3D về 2D)</span>
+                    <p class="text-xs text-slate-500 mb-3">Kéo thanh trượt để trải phẳng các mặt bên và đáy của lăng trụ tam giác từ khối 3D giả lập hạ dần xuống mặt phẳng lưới dẹt 2D.</p>
+                    <div id="box1" class="w-full h-64 jxgbox"></div>
+                </div>
+
+                <!-- Model 2 Workspace -->
+                <div class="flex flex-col bg-white p-4 rounded-xl shadow-xs border border-slate-200">
+                    <span class="font-bold text-sm text-indigo-600 mb-1"><i class="fas fa-layer-group mr-1"></i> Mô hình 2: Trực quan hóa Thể tích bằng các lớp cắt quét</span>
+                    <p class="text-xs text-slate-500 mb-3">Kéo thanh trượt để thay đổi chiều cao mặt phẳng quét chất lỏng bên trong khối lăng trụ tứ giác, thể hiện trực quan cấu trúc \(V = S_{đáy} \cdot h\).</p>
+                    <div id="box2" class="w-full h-64 jxgbox"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section: Theoretical Content Part divided into 3 levels -->
+        <section class="space-y-12">
+            
+            <!-- LEVEL 1 CONTENT -->
+            <div class="bg-slate-50/60 p-6 rounded-xl border-l-4 border-sky-500 shadow-2xs">
+                <h3 class="text-lg font-bold text-sky-900 flex items-center gap-2 mb-3">
+                    <span class="bg-sky-500 text-white text-xs px-2 py-0.5 rounded font-mono">CẤP ĐỘ 1</span>
+                    CƠ BẢN: Nhận diện các yếu tố và Áp dụng công thức trực tiếp
+                </h3>
+                <p class="text-xs text-slate-500 mb-4 italic font-medium"><i class="fas fa-bullseye mr-1"></i> Mục tiêu: Học sinh gọi tên đúng đỉnh, cạnh, mặt của hai loại lăng trụ và tính được \(S_{xq}\), \(V\) khi biết đủ số đo.</p>
+
+                <div class="space-y-4 text-sm text-justify leading-relaxed text-slate-700">
+                    <div>
+                        <h4 class="font-bold text-slate-800 flex items-center gap-1.5 mb-1"><i class="fas fa-tags text-xs text-sky-500"></i> 1. Nhận diện các yếu tố của hình lăng trụ đứng</h4>
+                        <ul class="list-disc list-inside pl-3 space-y-1">
+                            <li><strong>Hình lăng trụ đứng tam giác:</strong> Có \(6\) đỉnh; có \(2\) mặt đáy song song với nhau là hình tam giác; \(3\) mặt bên là hình chữ nhật; \(3\) cạnh bên bằng nhau và song song với nhau.</li>
+                            <li><strong>Hình lăng trụ đứng tứ giác:</strong> Có \(8\) đỉnh; có \(2\) mặt đáy song song với nhau là hình tứ giác; \(4\) mặt bên là hình chữ nhật; \(4\) cạnh bên bằng nhau và song song với nhau.</li>
+                            <li><strong>Chiều cao:</strong> Độ dài của một cạnh bên được gọi là chiều cao của hình lăng trụ đứng. <em>(Lưu ý: Hình hộp chữ nhật và hình lập phương thực chất cũng chính là những hình lăng trụ đứng tứ giác đặc biệt).</em></li>
+                        </ul>
+                    </div>
+
+                    <div class="mt-4">
+                        <h4 class="font-bold text-slate-800 flex items-center gap-1.5 mb-1"><i class="fas fa-square-root-variable text-xs text-sky-500"></i> 2. Công thức tính Diện tích xung quanh và Thể tích</h4>
+                        <ul class="list-disc list-inside pl-6 space-y-2">
+                            <li><strong>Diện tích xung quanh (\(S_{xq}\)):</strong> Bằng chu vi đáy nhân với chiều cao lăng trụ.
+                                <span class="text-indigo-600 font-bold font-serif text-center block my-1">\(S_{xq} = C_{đáy} \cdot h\)</span>
+                            </li>
+                            <li><strong>Thể tích (\(V\)):</strong> Bằng diện tích toàn bộ mặt đáy nhân với chiều cao tương ứng.
+                                <span class="text-indigo-600 font-bold font-serif text-center block my-1">\(V = S_{đáy} \cdot h\)</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Example Box 1 -->
+                    <div class="bg-white p-5 rounded-lg border border-slate-200 mt-4 shadow-3xs">
+                        <span class="inline-block bg-sky-100 text-sky-800 text-xs px-2 py-0.5 rounded font-bold mb-2">Ví dụ minh họa (Cấp độ 1)</span>
+                        <p class="font-semibold text-slate-800 mb-2">
+                            Cho một hình lăng trụ đứng tam giác có chu vi đáy là \(10\text{ cm}\), diện tích đáy là \(6\text{ cm}^2\) và chiều cao lăng trụ đạt \(5\text{ cm}\). Tính diện tích xung quanh và thể tích của hình lăng trụ đó.
+                        </p>
+                        
+                        <details class="mt-3 group">
+                            <summary class="text-xs font-bold text-indigo-600 cursor-pointer select-none hover:underline flex items-center gap-1">
+                                <i class="fas fa-chevron-right group-open:rotate-90 transition-transform"></i> Bấm để xem gợi ý lời giải ẩn
+                            </summary>
+                            <div class="mt-3 p-4 bg-slate-50 rounded border-l-2 border-indigo-500 text-xs text-slate-700 space-y-2">
+                                <p><strong>Lời giải chi tiết:</strong></p>
+                                <p>&bull; Diện tích xung quanh của hình lăng trụ đứng tam giác là:</p>
+                                <p class="font-serif pl-4 text-slate-900">\(S_{xq} = C_{đáy} \cdot h = 10 \cdot 5 = 50 \text{ (cm}^2\text{)}\).</p>
+                                <p>&bull; Thể tích của hình lăng trụ đứng tam giác đó là:</p>
+                                <p class="font-serif pl-4 text-slate-900">\(V = S_{đáy} \cdot h = 6 \cdot 5 = 30 \text{ (cm}^3\text{)}\).</p>
+                                <p class="text-emerald-700 font-semibold">&bull; Đáp số: \(S_{xq} = 50\text{ cm}^2\); \(V = 30\text{ cm}^3\).</p>
+                            </div>
+                        </details>
+                    </div>
+                </div>
+            </div>
+
+            <!-- LEVEL 2 CONTENT -->
+            <div class="bg-slate-50/60 p-6 rounded-xl border-l-4 border-amber-500 shadow-2xs">
+                <h3 class="text-lg font-bold text-amber-900 flex items-center gap-2 mb-3">
+                    <span class="bg-amber-500 text-white text-xs px-2 py-0.5 rounded font-mono">CẤP ĐỘ 2</span>
+                    NÂNG CAO: Tính Diện tích toàn phần & Bài toán suy luận ngược kích thước
+                </h3>
+                <p class="text-xs text-slate-500 mb-4 italic font-medium"><i class="fas fa-bullseye mr-1"></i> Mục tiêu: Học sinh tính được diện tích toàn bộ các mặt của lăng trụ và biết cách suy ngược lại độ dài cạnh/chiều cao khi biết dữ kiện Thể tích.</p>
+
+                <div class="space-y-4 text-sm text-justify leading-relaxed text-slate-700">
+                    <div>
+                        <h4 class="font-bold text-slate-800 flex items-center gap-1.5 mb-1"><i class="fas fa-folder-plus text-xs text-amber-500"></i> 1. Diện tích toàn phần (\(S_{tp}\))</h4>
+                        <p>Diện tích toàn phần của lăng trụ đứng bằng tổng diện tích bao quanh 4 mặt bên và diện tích của hai mặt đáy (đáy trên và đáy dưới).</p>
+                        <div class="bg-white p-3 border rounded-lg text-center font-serif text-indigo-600 font-bold my-2">
+                            \(S_{tp} = S_{xq} + 2 \cdot S_{đáy}\)
+                        </div>
+                    </div>
+
+                    <div>
+                        <h4 class="font-bold text-slate-800 flex items-center gap-1.5 mb-1"><i class="fas fa-reply-all text-xs text-amber-500"></i> 2. Bài toán suy luận biến đổi hình học đảo ngược</h4>
+                        <p>Dựa vào công thức gốc, chúng ta có thể suy luận logic để tìm các đại lượng kích thước còn thiếu:</p>
+                        <ul class="list-disc list-inside pl-3 space-y-1">
+                            <li>Nếu biết trước Thể tích (\(V\)) và chiều cao cạnh bên (\(h\)), diện tích đáy là: <span class="font-serif font-bold text-indigo-600">\(S_{đáy} = \frac{V}{h}\)</span></li>
+                            <li>Nếu biết trước Thể tích (\(V\)) và diện tích mặt đáy (\(S_{đáy}\)), chiều cao lăng trụ là: <span class="font-serif font-bold text-indigo-600">\(h = \frac{V}{S_{đáy}}\)</span></li>
+                        </ul>
+                    </div>
+
+                    <!-- Example Box 2 -->
+                    <div class="bg-white p-5 rounded-lg border border-slate-200 mt-4 shadow-3xs">
+                        <span class="inline-block bg-amber-100 text-amber-800 text-xs px-2 py-0.5 rounded font-bold mb-2">Ví dụ minh họa (Cấp độ 2)</span>
+                        <p class="font-semibold text-slate-800 mb-2">
+                            Cho hình lăng trụ đứng tam giác vuông có kích thước hai cạnh góc vuông ở đáy lần lượt là \(3\text{ cm}, 4\text{ cm}\) và cạnh huyền đáy đạt \(5\text{ cm}\). Thể tích đo được của khối lăng trụ là \(42\text{ cm}^3\). <br>
+                            a) Tính chiều cao của lăng trụ. &nbsp;&nbsp;&nbsp;&nbsp; b) Tính diện tích toàn phần của lăng trụ.
+                        </p>
+                        
+                        <details class="mt-3 group">
+                            <summary class="text-xs font-bold text-indigo-600 cursor-pointer select-none hover:underline flex items-center gap-1">
+                                <i class="fas fa-chevron-right group-open:rotate-90 transition-transform"></i> Bấm để xem gợi ý lời giải ẩn
+                            </summary>
+                            <div class="mt-3 p-4 bg-slate-50 rounded border-l-2 border-indigo-500 text-xs text-slate-700 space-y-2">
+                                <p><strong>Lời giải chi tiết:</strong></p>
+                                <p><strong>Câu a:</strong></p>
+                                <p class="pl-2">&bull; Diện tích mặt đáy (tam giác vuông) là: \(S_{đáy} = \frac{3 \cdot 4}{2} = 6 \text{ (cm}^2\text{)}\).</p>
+                                <p class="pl-2">&bull; Chiều cao lăng trụ đứng áp dụng công thức suy ngược: \(h = \frac{V}{S_{đáy}} = \frac{42}{6} = 7 \text{ (cm)}\).</p>
+                                <p><strong>Câu b:</strong></p>
+                                <p class="pl-2">&bull; Chu vi hình tam giác đáy là: \(C_{đáy} = 3 + 4 + 5 = 12 \text{ (cm)}\).</p>
+                                <p class="pl-2">&bull; Diện tích xung quanh lăng trụ: \(S_{xq} = C_{đáy} \cdot h = 12 \cdot 7 = 84 \text{ (cm}^2\text{)}\).</p>
+                                <p class="pl-2">&bull; Diện tích toàn phần khối lăng trụ: \(S_{tp} = S_{xq} + 2 \cdot S_{đáy} = 84 + 2 \cdot 6 = 96 \text{ (cm}^2\text{)}\).</p>
+                                <p class="text-emerald-700 font-semibold">&bull; Đáp số: a) \(h = 7\text{ cm}\); b) \(S_{tp} = 96\text{ cm}^2\).</p>
+                            </div>
+                        </details>
+                    </div>
+                </div>
+            </div>
+
+            <!-- LEVEL 3 CONTENT -->
+            <div class="bg-slate-50/60 p-6 rounded-xl border-l-4 border-emerald-500 shadow-2xs">
+                <h3 class="text-lg font-bold text-emerald-900 flex items-center gap-2 mb-3">
+                    <span class="bg-emerald-500 text-white text-xs px-2 py-0.5 rounded font-mono">CẤP ĐỘ 3</span>
+                    VẬN DỤNG: Giải quyết bài toán mô hình thực tế đời sống
+                </h3>
+                <p class="text-xs text-slate-500 mb-4 italic font-medium"><i class="fas fa-bullseye mr-1"></i> Mục tiêu: Áp dụng công thức lăng trụ để giải quyết các vật thể trong không gian thực như lều trại, lịch để bàn, khối bê tông công nghiệp.</p>
+
+                <div class="space-y-4 text-sm text-justify leading-relaxed text-slate-700">
+                    <div class="bg-emerald-50 text-emerald-950 text-xs p-3 rounded-lg border border-emerald-200 flex items-start gap-2 mb-2">
+                        <i class="fas fa-graduation-cap text-base text-emerald-600 mt-0.5"></i>
+                        <span><strong>Phương pháp thực tế cốt lõi:</strong> Học sinh cần quan sát hình thể vật thể thực tế để xác định chính xác bộ phận mặt nào đóng vai trò là mặt đáy. Đáy lăng trụ đứng bắt buộc là hai đa giác song song, bằng nhau hoàn toàn (thường nằm ở mặt trước/sau trong hình vẽ thực tế). Đồng thời cần lưu ý loại bỏ diện tích mặt đất tiếp xúc khi tính lượng bạt sơn bao quanh vật thể.</span>
+                    </div>
+
+                    <!-- Example Box 3 -->
+                    <div class="bg-white p-5 rounded-lg border border-slate-200 mt-4 shadow-3xs">
+                        <span class="inline-block bg-emerald-100 text-emerald-800 text-xs px-2 py-0.5 rounded font-bold mb-2">Ví dụ minh họa (Cấp độ 3)</span>
+                        <p class="font-semibold text-slate-800 mb-2">
+                            Chi đội của bạn Trang dựng một chiếc lều ở trại hè dạng hình lăng trụ đứng tam giác. Kích thước mặt đáy là một tam giác cân có cạnh đáy dài \(3,2\text{ m}\), đường cao đáy tương ứng đo được \(1,2\text{ m}\); hai cạnh bên của tam giác đáy đều dài \(2\text{ m}\). Chiều dài của lều (chiều cao lăng trụ) thiết kế dài \(5\text{ m}\). <br>
+                            a) Tính thể tích khoảng không khí bên trong lều. <br>
+                            b) Biết lều phủ bạt kín cả 4 phía (mặt trước, mặt sau và hai mái nghiêng), trừ mặt nền tiếp đất. Tính diện tích vải bạt cần dùng. [source: 1]
+                        </p>
+                        
+                        <details class="mt-3 group">
+                            <summary class="text-xs font-bold text-indigo-600 cursor-pointer select-none hover:underline flex items-center gap-1">
+                                <i class="fas fa-chevron-right group-open:rotate-90 transition-transform"></i> Bấm để xem gợi ý lời giải ẩn
+                            </summary>
+                            <div class="mt-3 p-4 bg-slate-50 rounded border-l-2 border-indigo-500 text-xs text-slate-700 space-y-2">
+                                <p><strong>Lời giải chi tiết:</strong></p>
+                                <p><strong>Câu a:</strong></p>
+                                <p class="pl-2">&bull; Diện tích mặt tam giác đáy của lều bạt là: \(S_{đáy} = \frac{3,2 \cdot 1,2}{2} = 1,92 \text{ (m}^2\text{)}\).</p>
+                                <p class="pl-2">&bull; Thể tích khoảng không khí chứa bên trong chiếc lều là: \(V = S_{đáy} \cdot h = 1,92 \cdot 5 = 9,6 \text (m}^3\text{)}\).</p>
+                                
+                                <p><strong>Câu b:</strong></p>
+                                <p class="pl-2">&bull; Chu vi mặt tam giác đáy là: \(C_{đáy} = 2 + 2 + 3,2 = 7,2 \text{ (m)}\).</p>
+                                <p class="pl-2">&bull; Diện tích bao quanh lăng trụ đứng: \(S_{xq} = C_{đáy} \cdot h = 7,2 \cdot 5 = 36 \text{ (m}^2\text{)}\).</p>
+                                <p class="pl-2">&bull; Diện tích toàn phần lý thuyết khối hình lều: \(S_{tp} = S_{xq} + 2 \cdot S_{đáy} = 36 + 2 \cdot 1,92 = 39,84 \text{ (m}^2\text{)}\).</p>
+                                <p class="pl-2">&bull; Tuy nhiên, diện tích mặt tiếp nền đất hình chữ nhật có kích thước \(3,2\text{ m} \times 5\text{ m}\) chiếm: \(3,2 \cdot 5 = 16 \text{ (m}^2\text{)}\).</p>
+                                <p class="pl-2">&bull; Vậy tổng diện tích vải bạt may bao quanh thực tế cần dùng là: \(S_{bạt} = 39,84 - 16 = 23,84 \text{ (m}^2\text{)}\). [source: 1]</p>
+                                <p class="text-emerald-700 font-semibold">&bull; Đáp số: a) \(V = 9,6\text{ m}^3\); b) \(S_{bạt} = 23,84\text{ m}^2\).</p>
+                            </div>
+                        </details>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section: Interactive Live Quiz Assessment Form Area -->
+        <section class="mt-16 bg-slate-50 border border-slate-200 rounded-2xl p-6 shadow-2xs no-print">
+            <div class="border-b border-slate-200 pb-3 mb-6">
+                <h3 class="text-lg font-black text-slate-900 flex items-center gap-2 uppercase tracking-wide">
+                    <i class="fas fa-check-to-slot text-indigo-600"></i>
+                    BÀI TẬP ĐÁNH GIÁ NĂNG LỰC TẠI LỚP (Trắc nghiệm 5 câu)
+                </h3>
+                <p class="text-xs text-slate-500 mt-1">Học sinh hoàn thành chọn đáp án trực tuyến, kết quả điểm số sẽ được truyền về hệ thống xử lý học thuật để lưu giữ.</p>
+            </div>
+
+            <form id="quizForm" class="space-y-6">
+                <!-- User Identifiers Inputs -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 bg-white p-4 rounded-xl border border-slate-200">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wide mb-1">Họ và Tên Học Sinh <span class="text-red-500">*</span></label>
+                        <input type="text" id="studentName" required placeholder="Nhập họ tên đầy đủ..." 
+                               class="w-full bg-slate-50 border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-indigo-600 focus:bg-white transition-all">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wide mb-1">Mã Buổi Học / Mã Đề</label>
+                        <input type="text" id="examId" value="Buoi14_LangTru_Toan7" readonly
+                               class="w-full bg-slate-100 border border-slate-200 text-slate-500 rounded-lg px-3 py-2 text-sm cursor-not-allowed font-mono">
+                    </div>
+                </div>
+
+                <!-- Questions Container Box -->
+                <div class="space-y-4 mt-6">
+                    <!-- Q1 -->
+                    <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-3xs">
+                        <p class="text-sm font-semibold text-slate-900 mb-2.5">Câu 1: Hình lăng trụ đứng tam giác có cấu trúc bao nhiêu đỉnh và bao nhiêu mặt bên bao quanh?</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-slate-700">
+                            <label class="flex items-center gap-2 p-2 rounded border border-slate-100 hover:bg-slate-50 cursor-pointer"><input type="radio" name="q1" value="A" required> A. Có 6 đỉnh và 3 mặt bên hình chữ nhật</label>
+                            <label class="flex items-center gap-2 p-2 rounded border border-slate-100 hover:bg-slate-50 cursor-pointer"><input type="radio" name="q1" value="B"> B. Có 8 đỉnh và 4 mặt bên hình chữ nhật</label>
+                            <label class="flex items-center gap-2 p-2 rounded border border-slate-100 hover:bg-slate-50 cursor-pointer"><input type="radio" name="q1" value="C"> C. Có 6 đỉnh và 3 mặt bên hình tam giác</label>
+                            <label class="flex items-center gap-2 p-2 rounded border border-slate-100 hover:bg-slate-50 cursor-pointer"><input type="radio" name="q1" value="D"> D. Có 6 đỉnh và 5 mặt vuông</label>
+                        </div>
+                    </div>
+
+                    <!-- Q2 -->
+                    <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-3xs">
+                        <p class="text-sm font-semibold text-slate-900 mb-2.5">Câu 2: Công thức chính xác để tính diện tích xung quanh (\(S_{xq}\)) của hình lăng trụ đứng đa giác là gì?</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-slate-700">
+                            <label class="flex items-center gap-2 p-2 rounded border border-slate-100 hover:bg-slate-50 cursor-pointer"><input type="radio" name="q2" value="A" required> A. \(S_{xq} = S_{đáy} \cdot h\)</label>
+                            <label class="flex items-center gap-2 p-2 rounded border border-slate-100 hover:bg-slate-50 cursor-pointer"><input type="radio" name="q2" value="B"> B. \(S_{xq} = C_{đáy} \cdot h\)</label>
+                            <label class="flex items-center gap-2 p-2 rounded border border-slate-100 hover:bg-slate-50 cursor-pointer"><input type="radio" name="q2" value="C"> C. \(S_{xq} = C_{đáy} + h\)</label>
+                            <label class="flex items-center gap-2 p-2 rounded border border-slate-100 hover:bg-slate-50 cursor-pointer"><input type="radio" name="q2" value="D"> D. \(S_{xq} = 2 \cdot S_{đáy} \cdot h\)</label>
+                        </div>
+                    </div>
+
+                    <!-- Q3 -->
+                    <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-3xs">
+                        <p class="text-sm font-semibold text-slate-900 mb-2.5">Câu 3: Một hình lăng trụ đứng tam giác có diện tích mặt đáy bằng \(12\text{ cm}^2\) và chiều cao lăng trụ bằng \(6\text{ cm}\). Thể tích của khối lăng trụ này bằng bao nhiêu?</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-slate-700">
+                            <label class="flex items-center gap-2 p-2 rounded border border-slate-100 hover:bg-slate-50 cursor-pointer"><input type="radio" name="q3" value="A" required> A. \(36\text{ cm}^3\)</label>
+                            <label class="flex items-center gap-2 p-2 rounded border border-slate-100 hover:bg-slate-50 cursor-pointer"><input type="radio" name="q3" value="B"> B. \(24\text{ cm}^3\)</label>
+                            <label class="flex items-center gap-2 p-2 rounded border border-slate-100 hover:bg-slate-50 cursor-pointer"><input type="radio" name="q3" value="C"> C. \(72\text{ cm}^3\)</label>
+                            <label class="flex items-center gap-2 p-2 rounded border border-slate-100 hover:bg-slate-50 cursor-pointer"><input type="radio" name="q3" value="D"> D. \(18\text{ cm}^3\)</label>
+                        </div>
+                    </div>
+
+                    <!-- Q4 -->
+                    <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-3xs">
+                        <p class="text-sm font-semibold text-slate-900 mb-2.5">Câu 4: Khi biết Thể tích \(V\) và diện tích đáy \(S_{đáy}\) của hình lăng trụ đứng, công thức tìm chiều cao \(h\) suy luận ngược là:</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-slate-700">
+                            <label class="flex items-center gap-2 p-2 rounded border border-slate-100 hover:bg-slate-50 cursor-pointer"><input type="radio" name="q4" value="A" required> A. \(h = V \cdot S_{đáy}\)</label>
+                            <label class="flex items-center gap-2 p-2 rounded border border-slate-100 hover:bg-slate-50 cursor-pointer"><input type="radio" name="q4" value="B"> B. \(h = \frac{V}{S_{đáy}}\)</label>
+                            <label class="flex items-center gap-2 p-2 rounded border border-slate-100 hover:bg-slate-50 cursor-pointer"><input type="radio" name="q4" value="C"> C. \(h = \frac{S_{đáy}}{V}\)</label>
+                            <label class="flex items-center gap-2 p-2 rounded border border-slate-100 hover:bg-slate-50 cursor-pointer"><input type="radio" name="q4" value="D"> D. \(h = V - S_{đáy}\)</label>
+                        </div>
+                    </div>
+
+                    <!-- Q5 -->
+                    <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-3xs">
+                        <p class="text-sm font-semibold text-slate-900 mb-2.5">Câu 5: Diện tích toàn phần (\(S_{tp}\)) của hình lăng trụ đứng tam giác hoặc tứ giác được xác định bởi hệ thức nào?</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-slate-700">
+                            <label class="flex items-center gap-2 p-2 rounded border border-slate-100 hover:bg-slate-50 cursor-pointer"><input type="radio" name="q5" value="A" required> A. \(S_{tp} = S_{xq} + S_{đáy}\)</label>
+                            <label class="flex items-center gap-2 p-2 rounded border border-slate-100 hover:bg-slate-50 cursor-pointer"><input type="radio" name="q5" value="B"> B. \(S_{tp} = S_{xq} + 2 \cdot S_{đáy}\)</label>
+                            <label class="flex items-center gap-2 p-2 rounded border border-slate-100 hover:bg-slate-50 cursor-pointer"><input type="radio" name="q5" value="C"> C. \(S_{tp} = 2 \cdot S_{xq} + S_{đáy}\)</label>
+                            <label class="flex items-center gap-2 p-2 rounded border border-slate-100 hover:bg-slate-50 cursor-pointer"><input type="radio" name="q5" value="D"> D. \(S_{tp} = C_{đáy} \cdot h\)</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Submit Button Area -->
+                <div class="text-right pt-2">
+                    <button type="submit" id="submitBtn" 
+                            class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-6 py-2.5 rounded-lg shadow-sm text-xs cursor-pointer transition-all">
+                        <i class="fas fa-paper-plane mr-1.5"></i> Nộp Bài Lên Hệ Thống
+                    </button>
+                </div>
+            </form>
+
+            <!-- Quiz Grading Server Results Feedback Display Box -->
+            <div id="quizResult" class="hidden mt-6 p-4 rounded-xl text-xs text-center font-bold"></div>
+        </section>
+
+        <!-- Footer Intellectual Copyright Signature Area -->
+        <footer class="mt-16 pt-6 border-t border-slate-200 text-center text-xs text-slate-500 space-y-2">
+            <p class="font-bold text-slate-700">@ Bản quyền thuộc ThS. Đinh Quốc Tuấn - Mục đích phi lợi nhuận - Vì giáo dục.</p>
+            <p>Tài liệu số hóa cấu trúc hình thể không gian tương tác trực quan hỗ trợ học sinh tự học chuyên sâu.</p>
+        </footer>
+    </main>
+
+    <!-- MANDATORY INJECTED SAFE PRINT DOCUMENT BUTTON & SCRIPT CORE BLOCK -->
+    <button id="btn-print-doc" onclick="safePrint()" class="fixed bottom-5 right-5 bg-gray-900 text-white px-4 py-2 rounded-lg shadow-lg hover:bg-gray-700 print:hidden z-50 cursor-pointer">
+        <i class="fas fa-print mr-2"></i> In Tài Liệu
+    </button>
+
+    <script>
+        function safePrint() {
+            const printBtn = document.getElementById('btn-print-doc');
+            printBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Đang chuẩn bị...';
+            
+            // Đảm bảo MathJax đã render xong mọi công thức trước khi gọi hộp thoại in
+            if (window.MathJax && window.MathJax.typesetPromise) {
+                MathJax.typesetPromise().then(() => {
+                    printBtn.innerHTML = '<i class="fas fa-print mr-2"></i> In Tài Liệu';
+                    window.print();
+                });
+            } else {
+                // Fallback nếu không có công thức toán
+                setTimeout(() => {
+                    printBtn.innerHTML = '<i class="fas fa-print mr-2"></i> In Tài Liệu';
+                    window.print();
+                }, 500); 
+            }
+        }
+    </script>
+
+    <!-- Main Geometry Control and Async AJAX Data Transmit Engine Script System -->
+    <script>
+        const startTime = new Date();
+
+        // 1. Dựng Mô hình 1 JSXGraph: Khai triển lăng trụ đứng tam giác (Phối cảnh mở rộng mặt phẳng)
+        (function initModel1() {
+            const board = JXG.JSXGraph.initBoard('box1', {
+                boundingbox: [-4, 5, 4, -5],
+                axis: false,
+                showCopyright: false,
+                showNavigation: false
+            });
+
+            // Thanh trượt điều khiển biên độ đóng mở hình học (0: Co lại dạng khối 3D dẹt, 1: Bung phẳng dẹt ra thành lưới 2D)
+            let s = board.create('slider', [[-3, 4], [1, 4], [0, 1, 1]], {name: 'Độ mở lưới', snapWidth: 0.02});
+
+            let x0 = -0.6, y0 = -1.5, w = 1.2, h = 3.0;
+
+            // Hàm tạo lập các mặt phẳng chữ nhật hoặc tam giác biến đổi động theo thanh trượt s
+            function createFace(xOffFn, yOffFn, type, color, name) {
+                let points = [];
+                if (type === 'rect') {
+                    points.push(board.create('point', [function() { return x0 + xOffFn(0); }, function() { return y0 + yOffFn(0); }], {visible: false}));
+                    points.push(board.create('point', [function() { return x0 + xOffFn(1); }, function() { return y0 + yOffFn(1); }], {visible: false}));
+                    points.push(board.create('point', [function() { return x0 + xOffFn(2); }, function() { return y0 + yOffFn(2); }], {visible: false}));
+                    points.push(board.create('point', [function() { return x0 + xOffFn(3); }, function() { return y0 + yOffFn(3); }], {visible: false}));
+                } else if (type === 'tri') {
+                    points.push(board.create('point', [function() { return x0 + xOffFn(0); }, function() { return y0 + yOffFn(0); }], {visible: false}));
+                    points.push(board.create('point', [function() { return x0 + xOffFn(1); }, function() { return y0 + yOffFn(1); }], {visible: false}));
+                    points.push(board.create('point', [function() { return x0 + xOffFn(2); }, function() { return y0 + yOffFn(2); }], {visible: false}));
+                }
+                board.create('polygon', points, {fillColor: color, fillOpacity: 0.55, strokeColor: '#1e293b', strokeWidth: 1.5, withLabel: true, name: name});
+            }
+
+            // Mặt bên trung tâm (Mặt chữ nhật 1 cố định)
+            createFace(
+                function(i){ return [0, w, w, 0][i]; },
+                function(i){ return [0, 0, h, h][i]; },
+                'rect', '#cbd5e1', 'Mặt bên'
+            );
+
+            // Mặt bên bên trái lật ra (Biến đổi phụ thuộc góc s) [source: 3]
+            createFace(
+                function(i){ return [-w * s.Value(), 0, 0, -w * s.Value()][i]; },
+                function(i){ return [0, 0, h, h][i]; },
+                'rect', '#fca5a5', 'Mặt bên'
+            );
+
+            // Mặt bên bên phải lật ra (Biến đổi phụ thuộc góc s) [source: 3]
+            createFace(
+                function(i){ return [w, w + w * s.Value(), w + w * s.Value(), w][i]; },
+                function(i){ return [0, 0, h, h][i]; },
+                'rect', '#93c5fd', 'Mặt bên'
+            );
+
+            // Mặt đáy tam giác phía dưới lật xuống (Dựa trên slider s) [source: 3]
+            createFace(
+                function(i){ return [0, w, w/2][i]; },
+                function(i){ return [0, 0, -w * s.Value()][i]; },
+                'tri', '#fef08a', 'Đáy dưới'
+            );
+
+            // Mặt đáy tam giác phía trên lật lên (Dựa trên slider s) [source: 3]
+            createFace(
+                function(i){ return [0, w, w/2][i]; },
+                function(i){ return [h, h, h + w * s.Value()][i]; },
+                'tri', '#fef08a', 'Đáy trên'
+            );
+        })();
+
+        // 2. Dựng Mô hình 2 JSXGraph: Trực quan hóa lớp cắt quét thể tích của lăng trụ đứng tứ giác
+        (function initModel2() {
+            const board = JXG.JSXGraph.initBoard('box2', {
+                boundingbox: [-2, 5, 5, -2],
+                axis: false,
+                showCopyright: false,
+                showNavigation: false
+            });
+
+            // Thanh trượt điều chỉnh vị trí chiều cao lớp quét h chất lỏng dâng lên
+            let sh = board.create('slider', [[-1, 4.2], [2, 4.2], [0, 1.5, 3]], {name: 'Mực nước (h)', color: '#10b981'});
+
+            // Hệ số góc và hệ số biến dạng phối cảnh nghiêng (Oblique Projection)
+            let alpha = Math.PI / 6;
+            let k = 0.55;
+
+            function project(x, y, z) {
+                return [
+                    x + k * y * Math.cos(alpha),
+                    z + k * y * Math.sin(alpha)
+                ];
+            }
+
+            // Kích thước lăng trụ tứ giác đáy hình thang cố định
+            let H = 3.2; // Tổng chiều cao khối
+
+            // Khởi tạo các đỉnh 3D chiếu của khung lăng trụ
+            let baseA = project(0, 0, 0), baseB = project(3, 0, 0), baseC = project(2.2, 1.8, 0), baseD = project(0.5, 1.8, 0);
+            let topA = project(0, 0, H), topB = project(3, 0, H), topC = project(2.2, 1.8, H), topD = project(0.5, 1.8, H);
+
+            let ptBaseA = board.create('point', baseA, {visible: false}), ptBaseB = board.create('point', baseB, {visible: false});
+            let ptBaseC = board.create('point', baseC, {visible: false}), ptBaseD = board.create('point', baseD, {visible: false});
+            let ptTopA = board.create('point', topA, {visible: false}), ptTopB = board.create('point', topB, {visible: false});
+            let ptTopC = board.create('point', topC, {visible: false}), ptTopD = board.create('point', topD, {visible: false});
+
+            // Vẽ các đường cạnh khung xương cấu trúc
+            board.create('segment', [ptBaseA, ptBaseB], {strokeColor: '#64748b', strokeWidth: 1.5});
+            board.create('segment', [ptBaseB, ptBaseC], {strokeColor: '#64748b', strokeWidth: 1.5});
+            board.create('segment', [ptBaseC, ptBaseD], {strokeColor: '#64748b', strokeWidth: 1, dash: 2});
+            board.create('segment', [ptBaseD, ptBaseA], {strokeColor: '#64748b', strokeWidth: 1, dash: 2});
+
+            board.create('segment', [ptTopA, ptTopB], {strokeColor: '#334155', strokeWidth: 2});
+            board.create('segment', [ptTopB, ptTopC], {strokeColor: '#334155', strokeWidth: 2});
+            board.create('segment', [ptTopC, ptTopD], {strokeColor: '#334155', strokeWidth: 2});
+            board.create('segment', [ptTopD, ptTopA], {strokeColor: '#334155', strokeWidth: 2});
+
+            board.create('segment', [ptBaseA, ptTopA], {strokeColor: '#334155', strokeWidth: 2});
+            board.create('segment', [ptBaseB, ptTopB], {strokeColor: '#334155', strokeWidth: 2});
+            board.create('segment', [ptBaseC, ptTopC], {strokeColor: '#334155', strokeWidth: 2});
+            board.create('segment', [ptBaseD, ptTopD], {strokeColor: '#64748b', strokeWidth: 1, dash: 2});
+
+            // Dựng lớp đa diện quét chất lỏng dâng cao động theo giá trị sh
+            let wA = board.create('point', function() { return project(0, 0, sh.Value()); }, {visible: false});
+            let wB = board.create('point', function() { return project(3, 0, sh.Value()); }, {visible: false});
+            let wC = board.create('point', function() { return project(2.2, 1.8, sh.Value()); }, {visible: false});
+            let wD = board.create('point', function() { return project(0.5, 1.8, sh.Value()); }, {visible: false});
+
+            // Mặt phẳng nước phẳng ở trên cùng
+            board.create('polygon', [wA, wB, wC, wD], {fillColor: '#a855f7', fillOpacity: 0.65, strokeColor: '#7e22ce', strokeWidth: 1});
+            // Khối nước dâng bao phủ mặt trước trực quan
+            board.create('polygon', [ptBaseA, ptBaseB, wB, wA], {fillColor: '#c084fc', fillOpacity: 0.35, strokeColor: 'none'});
+
+            // Nhãn hiển thị tích hợp công thức trực quan dưới chân mô hình
+            board.create('text', [-1.5, -1.2, function() {
+                let areaBase = 4.25; // Giả lập diện tích đáy
+                let currentV = (areaBase * sh.Value()).toFixed(2);
+                return 'Diện tích đáy S = ' + areaBase + ' cm² | Chiều cao lớp h = ' + sh.Value().toFixed(2) + ' cm &rArr; V = ' + currentV + ' cm³';
+            }], {fontSize: 11, fontStyle: 'bold', strokeColor: '#1e293b'});
+        })();
+
+        // 3. Xử lý logic kiểm tra trắc nghiệm và truyền POST dữ liệu về Apps Script Google Sheets [source: 2]
+        document.getElementById('quizForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const submitBtn = document.getElementById('submitBtn');
+            const resultDiv = document.getElementById('quizResult');
+            
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Đang tải dữ liệu lên hệ thống...';
+
+            // Key mapping bộ đáp án đúng chuẩn học thuật
+            const correctAnswers = { q1: 'A', q2: 'B', q3: 'C', q4: 'B', q5: 'B' };
+            let rawScore = 0;
+            let totalQ = 5;
+            let detailedWrongs = [];
+
+            // Chạy chuỗi vòng lặp kiểm tra so khớp đáp án [source: 2]
+            for(let i = 1; i <= totalQ; i++) {
+                let key = 'q' + i;
+                let checkedOption = document.querySelector(`input[name="${key}"]:checked`);
+                
+                if (checkedOption) {
+                    if (checkedOption.value === correctAnswers[key]) {
+                        rawScore += 10 / totalQ;
+                    } else {
+                        detailedWrongs.push(`Câu ${i}: Chọn ${checkedOption.value} (Đúng: ${correctAnswers[key]})`);
+                    }
+                } else {
+                    detailedWrongs.push(`Câu ${i}: Bỏ trống (Đúng: ${correctAnswers[key]})`);
+                }
+            }
+
+            // Hoàn thiện thang điểm và đo đạc thông số thời gian chạy bài làm [source: 2]
+            let finalScore = Math.round(rawScore * 10) / 10;
+            const endTime = new Date();
+            const elapsedSec = Math.round((endTime - startTime) / 1000);
+            const formattedDuration = `${Math.floor(elapsedSec / 60)} phút ${elapsedSec % 60} giây`;
+
+            // Đóng gói cấu trúc định dạng Payload chuẩn dữ liệu của Apps Script nhận [source: 2]
+            const payloadData = {
+                hoTen: document.getElementById('studentName').value,
+                maDe: document.getElementById('examId').value,
+                diem: finalScore,
+                thoiGian: formattedDuration,
+                cauSai: detailedWrongs.join('; ') || 'Hoàn hảo 100%'
+            };
+
+            const targetScriptUrl = "https://script.google.com/macros/s/AKfycbzY7b7h4OwvhXuK5Vs6hl-aD88BPnAiAKbU5lfJobby0D4nzbIJVKT4n0AKCpAGoK0nZA/exec";
+
+            // Thực thi gửi Fetch dữ liệu bất đồng bộ sang API máy chủ Sheets [source: 2]
+            fetch(targetScriptUrl, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payloadData)
+            })
+            .then(() => {
+                // UI cập nhật trả kết quả thành công rực rỡ
+                resultDiv.className = "mt-6 p-4 rounded-xl text-xs text-center font-bold bg-emerald-100 text-emerald-800 border border-emerald-200";
+                resultDiv.innerHTML = `<i class="fas fa-circle-check mr-1.5"></i> Kết quả: ${finalScore}/10 điểm. Đồng bộ bảng tính Google Sheets thành công! Thời gian làm bài: ${formattedDuration}.`;
+                resultDiv.classList.remove('hidden');
+                submitBtn.innerHTML = '<i class="fas fa-check-double"></i> Đã nộp thành công';
+            })
+            .catch(err => {
+                console.error('Data Transmission Error:', err);
+                // Cứu hộ hiển thị kết quả tại chỗ nếu đường truyền mạng gặp gián đoạn cục bộ
+                resultDiv.className = "mt-6 p-4 rounded-xl text-xs text-center font-bold bg-amber-100 text-amber-800 border border-amber-200";
+                resultDiv.innerHTML = `<i class="fas fa-exclamation-triangle mr-1.5"></i> Trục trặc kết nối máy chủ. Kết quả ghi nhận tại chỗ: ${finalScore}/10 điểm. (Thời gian: ${formattedDuration}).`;
+                resultDiv.classList.remove('hidden');
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="fas fa-paper-plane mr-1.5"></i> Thử nộp lại bài';
+            });
+        });
+    </script>
+</body>
+</html>
