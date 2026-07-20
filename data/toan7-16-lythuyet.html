@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buổi 16: Đại lượng tỉ lệ thuận - Toán 7</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    
+    <!-- FontAwesome Icons CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- MathJax Configuration and Script CDN -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['\\(', '\\)']],
+                displayMath: [['\\[', '\\]']]
+            },
+            svg: {
+                fontCache: 'global'
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <!-- JSXGraph CDN Dependencies -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraph.css" />
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraphcore.js"></script>
+
+    <style>
+        @media print {
+            .no-print { display: none !important; }
+            body { background: white !important; color: black !important; }
+            .jxgbox { border: 1px solid #000 !important; }
+        }
+        .jxgbox {
+            background-color: #ffffff;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 font-sans antialiased selection:bg-indigo-600 selection:text-white">
+
+    <!-- Header & Brand Logos Section -->
+    <header class="bg-white border-b border-slate-200 py-4 px-6 sticky top-0 z-40 shadow-xs no-print">
+        <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="flex items-center gap-6">
+                <!-- Logo 1: TTBDVH -->
+                <img src="https://firebasestorage.googleapis.com/v0/b/link-anh-web.firebasestorage.app/o/ttbdvh.jpg?alt=media&token=f270aa9b-a2bc-48e8-8910-80742b542615" 
+                     alt="Logo TTBDVH" class="h-14 w-14 object-cover rounded-full border border-slate-200 shadow-xs">
+                <!-- Logo 2: HCMUS -->
+                <img src="https://hcmus.edu.vn/wp-content/uploads/2023/04/Logo-chinh-e1681638380305.png" 
+                     alt="Logo HCMUS" class="h-12 object-contain">
+            </div>
+            <div class="text-center sm:text-right">
+                <span class="text-xs font-bold uppercase tracking-wider text-indigo-600 block mb-0.5">Hệ thống bài giảng số chất lượng cao</span>
+                <h1 class="text-lg font-extrabold text-slate-800">Toán học 7 &bull; Đại số trực quan</h1>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container Content -->
+    <main class="max-w-4xl mx-auto px-4 sm:px-6 py-8 bg-white my-6 shadow-xs rounded-2xl border border-slate-100 print:shadow-none print:border-none print:my-0">
+        
+        <!-- Document Header Title -->
+        <div class="border-b-2 border-slate-900 pb-5 mb-8">
+            <h2 class="text-2xl sm:text-3xl font-black text-slate-900 flex items-center gap-3">
+                <i class="fas fa-arrow-trend-up text-indigo-600"></i>
+                Buổi 16: Đại lượng tỉ lệ thuận
+            </h2>
+            <p class="text-slate-500 mt-2 text-sm">Nội dung lý thuyết chi tiết, kịch bản minh họa trực quan sinh động và hệ thống bài tập đánh giá năng lực chuẩn hóa.</p>
+        </div>
+
+        <!-- Section: Interactive JSXGraph Models (Teacher & Student Workspace) -->
+        <section class="mb-12 no-print bg-slate-50 p-6 rounded-2xl border border-slate-200 space-y-8">
+            <div class="flex items-center gap-2 pb-2 border-b border-slate-200">
+                <i class="fas fa-desktop text-emerald-500 text-xl"></i>
+                <h3 class="text-base font-bold text-slate-800 uppercase tracking-wide">💡 GỢI Ý MÔ HÌNH TRỰC QUAN (PHÙ HỢP ỨNG DỤNG JSXGRAPH)</h3>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Model 1 Workspace -->
+                <div class="flex flex-col bg-white p-4 rounded-xl shadow-xs border border-slate-200">
+                    <span class="font-bold text-sm text-indigo-600 mb-1"><i class="fas fa-line-chart mr-1"></i> Mô hình 1: Sự thẳng hàng của Đại lượng tỉ lệ thuận (Đồ thị)</span>
+                    <p class="text-xs text-slate-500 mb-3">Thay đổi thanh trượt hệ số \(k\). Hãy rê chuột kéo điểm \(M\) chạy dọc trên đường thẳng để kiểm chứng tỉ số \(\frac{y}{x}\) luôn là một hằng số bất biến.</p>
+                    <div id="box1" class="w-full h-64 JXGbox"></div>
+                </div>
+
+                <!-- Model 2 Workspace -->
+                <div class="flex flex-col bg-white p-4 rounded-xl shadow-xs border border-slate-200">
+                    <span class="font-bold text-sm text-indigo-600 mb-1"><i class="fas fa-faucet-drip mr-1"></i> Mô hình 2: Bơm nước vào bể (Trực quan hóa thực tế)</span>
+                    <p class="text-xs text-slate-500 mb-3">Nhấn nút điều khiển dưới đây để kích hoạt dòng chảy nước vào lòng bể kính. Quan sát mối tương quan tỉ lệ thuận giữa thời gian \(t\) và thể tích \(V\).</p>
+                    <div id="box2" class="w-full h-64 JXGbox"></div>
+                    <div class="mt-3 text-center flex justify-center gap-2">
+                        <button type="button" id="btn-toggle-pump" onclick="toggleWaterPump()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs px-4 py-2 rounded shadow-xs transition-colors cursor-pointer">
+                            <i class="fas fa-play mr-1"></i> Bắt đầu bơm
+                        </button>
+                        <button type="button" onclick="resetWaterPump()" class="bg-slate-500 hover:bg-slate-600 text-white font-bold text-xs px-4 py-2 rounded shadow-xs transition-colors cursor-pointer">
+                            <i class="fas fa-rotate-left mr-1"></i> Làm mới bể
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section: Theoretical Content Part divided into 3 levels -->
+        <section class="space-y-12">
+            
+            <!-- LEVEL 1 CONTENT -->
+            <div class="bg-slate-50/60 p-6 rounded-xl border-l-4 border-sky-500 shadow-2xs">
+                <h3 class="text-lg font-bold text-sky-900 flex items-center gap-2 mb-3">
+                    <span class="bg-sky-500 text-white text-xs px-2 py-0.5 rounded font-mono">CẤP ĐỘ 1</span>
+                    CƠ BẢN: Định nghĩa và Hệ số tỉ lệ
+                </h3>
+                <p class="text-xs text-slate-500 mb-4 italic font-medium"><i class="fas fa-bullseye mr-1"></i> Mục tiêu: Học sinh nắm được định nghĩa đại lượng tỉ lệ thuận, hệ số tỉ lệ và các tính chất cốt lõi về tỉ số.</p>
+
+                <div class="space-y-4 text-sm text-justify leading-relaxed text-slate-700">
+                    <div>
+                        <h4 class="font-bold text-slate-800 flex items-center gap-1.5 mb-1"><i class="fas fa-bookmark text-xs text-sky-500"></i> 1. Khái niệm cốt lõi</h4>
+                        <ul class="list-disc list-inside pl-3 space-y-1">
+                            <li>Nếu đại lượng \(y\) liên hệ với đại lượng \(x\) theo công thức \(y = kx\) (với \(k\) là một hằng số khác \(0\)) thì ta nói \(y\) tỉ lệ thuận với \(x\) theo hệ số tỉ lệ \(k\).</li>
+                            <li><strong>Chú ý sự tương hỗ:</strong> Nếu \(y\) tỉ lệ thuận với \(x\) theo hệ số tỉ lệ \(k\) thì ngược lại, \(x\) cũng tỉ lệ thuận với \(y\) theo hệ số tỉ lệ nghịch đảo là \(\frac{1}{k}\).</li>
+                        </ul>
+                    </div>
+
+                    <div class="mt-4">
+                        <h4 class="font-bold text-slate-800 flex items-center gap-1.5 mb-1"><i class="fas fa-properties text-xs text-sky-500"></i> 2. Tính chất cốt lõi</h4>
+                        <p class="mb-2">Nếu hai đại lượng tỉ lệ thuận với nhau thì:</p>
+                        <ul class="list-disc list-inside pl-6 space-y-1">
+                            <li>Tỉ số hai giá trị tương ứng của chúng luôn luôn không đổi và bằng chính hệ số tỉ lệ: <span class="text-indigo-600 font-bold font-serif">$$\frac{y_1}{x_1} = \frac{y_2}{x_2} = \frac{y_3}{x_3} = ... = k$$</span></li>
+                            <li>Tỉ số hai giá trị bất kì của đại lượng này bằng tỉ số hai giá trị tương ứng của đại lượng kia: <span class="text-indigo-600 font-bold font-serif">$$\frac{x_1}{x_2} = \frac{y_1}{y_2}; \quad \frac{x_1}{x_3} = \frac{y_1}{y_3}$$</span></li>
+                        </ul>
+                    </div>
+
+                    <!-- Example Box 1 -->
+                    <div class="bg-white p-5 rounded-lg border border-slate-200 mt-4 shadow-3xs">
+                        <span class="inline-block bg-sky-100 text-sky-800 text-xs px-2 py-0.5 rounded font-bold mb-2">Ví dụ minh họa (Cấp độ 1)</span>
+                        <p class="font-semibold text-slate-800 mb-2">
+                            Cho biết \(x\) và \(y\) là hai đại lượng tỉ lệ thuận với nhau và khi \(x = 5\) thì \(y = 18\). Tìm hệ số tỉ lệ của \(y\) đối với \(x\) và viết công thức biểu diễn hành vi toán học trên.
+                        </p>
+                        
+                        <details class="mt-3 group">
+                            <summary class="text-xs font-bold text-indigo-600 cursor-pointer select-none hover:underline flex items-center gap-1">
+                                <i class="fas fa-chevron-right group-open:rotate-90 transition-transform"></i> Bấm để xem gợi ý lời giải ẩn
+                            </summary>
+                            <div class="mt-3 p-4 bg-slate-50 rounded border-l-2 border-indigo-500 text-xs text-slate-700 space-y-2">
+                                <p><strong>Lời giải chi tiết:</strong></p>
+                                <p>Gọi \(k\) là hệ số tỉ lệ cần tìm của đại lượng \(y\) đối với \(x\). Từ định nghĩa cơ bản, ta có hệ thức liên hệ: \(y = kx\).</p>
+                                <p>Vì khi cho \(x = 5\) thì giá trị thu được tương ứng là \(y = 18\), thế số liệu vào phương trình ta được:</p>
+                                <p class="font-serif pl-4 text-slate-900">$$18 = k \cdot 5 \implies k = \frac{18}{5} = 3,6$$</p>
+                                <p>Vậy kết luận hệ số tỉ lệ \(k = 3,6\) và công thức biểu diễn toán học cho mối quan hệ này là: <strong class="text-emerald-700">\(y = 3,6x\)</strong>.</p>
+                            </div>
+                        </details>
+                    </div>
+                </div>
+            </div>
+
+            <!-- LEVEL 2 CONTENT -->
+            <div class="bg-slate-50/60 p-6 rounded-xl border-l-4 border-amber-500 shadow-2xs">
+                <h3 class="text-lg font-bold text-amber-900 flex items-center gap-2 mb-3">
+                    <span class="bg-amber-500 text-white text-xs px-2 py-0.5 rounded font-mono">CẤP ĐỘ 2</span>
+                    NÂNG CAO: Mối liên hệ với Dãy tỉ số bằng nhau
+                </h3>
+                <p class="text-xs text-slate-500 mb-4 italic font-medium"><i class="fas fa-bullseye mr-1"></i> Mục tiêu: Biết cách chuyển đổi ngôn ngữ thực tế "tỉ lệ với" thành các phân số và kết hợp chặt chẽ tính chất dãy tỉ số bằng nhau để tìm nhiều ẩn số.</p>
+
+                <div class="space-y-4 text-sm text-justify leading-relaxed text-slate-700">
+                    <div>
+                        <h4 class="font-bold text-slate-800 flex items-center gap-1.5 mb-1"><i class="fas fa-bezier-curve text-xs text-amber-500"></i> Phương pháp giải toán mô hình hóa rộng</h4>
+                        <ul class="list-decimal list-inside pl-3 space-y-1.5">
+                            <li>Khi bài toán phát biểu: Các đại lượng \(x, y, z\) tỉ lệ thuận với các số tỉ lệ cho trước \(a, b, c\), ta ngay lập tức chuyển đổi ngôn ngữ thành dãy phân số hệ thức: <span class="text-indigo-600 font-bold">$$\frac{x}{a} = \frac{y}{b} = \frac{z}{c}$$</span></li>
+                            <li>Tiếp theo, phân tích đề bài nhằm trích xuất thêm dữ kiện liên kết về mặt Tổng hoặc Hiệu (ví dụ: \(x + y + z = K\) hoặc \(x - y = H\)).</li>
+                            <li>Áp dụng linh hoạt tính chất của dãy tỉ số bằng nhau để giải bài toán một cách nhanh chóng.</li>
+                        </ul>
+                    </div>
+
+                    <!-- Example Box 2 -->
+                    <div class="bg-white p-5 rounded-lg border border-slate-200 mt-4 shadow-3xs">
+                        <span class="inline-block bg-amber-100 text-amber-800 text-xs px-2 py-0.5 rounded font-bold mb-2">Ví dụ minh họa (Cấp độ 2 - Bài toán chia số lượng cây trồng)</span>
+                        <p class="font-semibold text-slate-800 mb-2">
+                            Hưởng ứng phong trào "Tết trồng cây", các học sinh lớp 7A và 7B cùng tham gia trồng cây xanh. Hai lớp trồng được tất cả là \(300\) cây; biết rằng số cây của lớp 7A trồng và số cây của lớp 7B trồng lần lượt tỉ lệ thuận với \(7\) và \(8\). Tính số cây cụ thể mỗi lớp đã trồng được.
+                        </p>
+                        
+                        <details class="mt-3 group">
+                            <summary class="text-xs font-bold text-indigo-600 cursor-pointer select-none hover:underline flex items-center gap-1">
+                                <i class="fas fa-chevron-right group-open:rotate-90 transition-transform"></i> Bấm để xem gợi ý lời giải ẩn
+                            </summary>
+                            <div class="mt-3 p-4 bg-slate-50 rounded border-l-2 border-indigo-500 text-xs text-slate-700 space-y-2">
+                                <p><strong>Lời giải chi tiết:</strong></p>
+                                <p>Gọi số lượng cây trồng được thực tế của lớp 7A và 7B lần lượt là các ẩn số \(x, y\) (đơn vị tính: cây; điều kiện hình thể: \(x, y \in \mathbb{N}^*\)).</p>
+                                <p>Vì số cây xanh trồng được của hai tập thể tỉ lệ thuận với bộ số \(7\) và \(8\) nên ta lập dãy phân số: \(\frac{x}{7} = \frac{y}{8}\).</p>
+                                <p>Tổng số lượng cây cả hai lớp đóng góp hoàn thành đạt \(300\) cây, suy ra hệ thức ràng buộc: \(x + y = 300\).</p>
+                                <p>Áp dụng tính chất của dãy tỉ số bằng nhau nâng cao, ta có:</p>
+                                <p class="text-center font-serif font-bold text-slate-900">$$\frac{x}{7} = \frac{y}{8} = \frac{x+y}{7+8} = \frac{300}{15} = 20$$</p>
+                                <p>Từ hằng số tỉ lệ cơ sở bằng \(20\), ta nhân ngược tìm nghiệm gốc đại số:</p>
+                                <ul class="list-none pl-4 space-y-1 font-semibold">
+                                    <li>&bull; Số cây lớp 7A: \(x = 7 \cdot 20 = 140\) (cây)</li>
+                                    <li>&bull; Số cây lớp 7B: \(y = 8 \cdot 20 = 160\) (cây)</li>
+                                </ul>
+                                <p class="text-emerald-700 font-bold mt-2">&bull; Kết luận: Lớp 7A hoàn thành trồng \(140\) cây, lớp 7B hoàn thành trồng \(160\) cây.</p>
+                            </div>
+                        </details>
+                    </div>
+                </div>
+            </div>
+
+            <!-- LEVEL 3 CONTENT -->
+            <div class="bg-slate-50/60 p-6 rounded-xl border-l-4 border-emerald-500 shadow-2xs">
+                <h3 class="text-lg font-bold text-emerald-900 flex items-center gap-2 mb-3">
+                    <span class="bg-emerald-500 text-white text-xs px-2 py-0.5 rounded font-mono">CẤP ĐỘ 3</span>
+                    VẬN DỤNG: Xử lý tình huống thực tế phức tạp đời sống
+                </h3>
+                <p class="text-xs text-slate-500 mb-4 italic font-medium"><i class="fas fa-bullseye mr-1"></i> Mục tiêu: Nhận diện nhạy bén các đại lượng tỉ lệ thuận ẩn giấu trong các mô hình bài toán đời sống (tiền lương, năng suất lao động, góp vốn thương mại, phân chia lợi nhuận) và tự thiết lập hệ thống quan hệ.</p>
+
+                <div class="space-y-4 text-sm text-justify leading-relaxed text-slate-700">
+                    <div>
+                        <h4 class="font-bold text-slate-800 flex items-center gap-1.5 mb-1"><i class="fas fa-lightbulb text-xs text-emerald-500"></i> Các cặp mô hình đại lượng tỉ lệ thuận phổ biến</h4>
+                        <ul class="list-disc list-inside pl-3 space-y-1">
+                            <li><strong>Quãng đường chuyển động</strong> (\(s\)) tỉ lệ thuận với <strong>Thời gian di chuyển</strong> (\(t\)) khi giữ nguyên vận tốc không đổi (\(v\)).</li>
+                            <li><strong>Giá trị số tiền mua hàng</strong> tỉ lệ thuận với <strong>Khối lượng/Số lượng hàng hóa</strong> thu mua khi giữ nguyên đơn giá thị trường.</li>
+                            <li><strong>Lợi nhuận cổ tức nhận về</strong> tỉ lệ thuận hoàn toàn với <strong>Giá trị dòng vốn cổ phần đóng góp</strong> lúc ban đầu.</li>
+                        </ul>
+                    </div>
+
+                    <!-- Example Box 3 -->
+                    <div class="bg-white p-5 rounded-lg border border-slate-200 mt-4 shadow-3xs">
+                        <span class="inline-block bg-emerald-100 text-emerald-800 text-xs px-2 py-0.5 rounded font-bold mb-2">Ví dụ minh họa (Cấp độ 3 - Bài toán chia tiền thưởng năng suất)</span>
+                        <p class="font-semibold text-slate-800 mb-2">
+                            Tiến, Hùng và Mạnh cùng tổ chức đi câu cá giải trí. Tiến câu được \(12\) con, Hùng câu được \(8\) con và Mạnh câu được \(10\) con. [source: 1] Toàn bộ số cá thu hoạch đem bán thu về tổng số tiền thương mại đạt \(180\) nghìn đồng. Hỏi nếu đem phân chia số tiền này một cách sòng phẳng tỉ lệ thuận hoàn toàn với năng suất số cá mà từng cá nhân câu được thì mỗi bạn sẽ nhận về bao nhiêu tiền? [source: 1]
+                        </p>
+                        
+                        <details class="mt-3 group">
+                            <summary class="text-xs font-bold text-indigo-600 cursor-pointer select-none hover:underline flex items-center gap-1">
+                                <i class="fas fa-chevron-right group-open:rotate-90 transition-transform"></i> Bấm để xem gợi ý lời giải ẩn
+                            </summary>
+                            <div class="mt-3 p-4 bg-slate-50 rounded border-l-2 border-indigo-500 text-xs text-slate-700 space-y-2">
+                                <p><strong>Lời giải chi tiết:</strong></p>
+                                <p>Gọi số tiền thực tế Tiến, Hùng, Mạnh xứng đáng nhận về lần lượt là các biến phân phối \(x, y, z\) (đơn vị: nghìn đồng; điều kiện: \(x, y, z > 0\)). [source: 1]</p>
+                                <p>Do quy ước phân chia tài chính tỉ lệ thuận với năng suất câu được tương ứng là bộ số (\(12; 8; 10\)), ta thiết lập cấu trúc toán học: [source: 1]</p>
+                                <p class="text-center font-serif font-bold text-slate-900">$$\frac{x}{12} = \frac{y}{8} = \frac{z}{10} \quad \text{và phương trình tổng: } x + y + z = 180$$</p>
+                                <p>Áp dụng tính chất của hệ thống dãy tỉ số bằng nhau:</p>
+                                <p class="text-center font-serif font-bold text-slate-900">$$\frac{x}{12} = \frac{y}{8} = \frac{z}{10} = \frac{x+y+z}{12+8+10} = \frac{180}{30} = 6$$ [source: 1]</p>
+                                <p>Từ hằng số cơ sở này, suy ra giá trị phân phối tiền tệ cụ thể của mỗi người là:</p>
+                                <ul class="list-none pl-4 space-y-1">
+                                    <li>+ Số tiền thưởng của Tiến: \(x = 12 \cdot 6 = 72\) (nghìn đồng). [source: 1]</li>
+                                    <li>+ Số tiền thưởng của Hùng: \(y = 8 \cdot 6 = 48\) (nghìn đồng). [source: 1]</li>
+                                    <li>+ Số tiền thưởng của Mạnh: \(z = 10 \cdot 6 = 60\) (nghìn đồng). [source: 1]</li>
+                                </ul>
+                                <p class="text-emerald-700 font-bold mt-2">&bull; Kết luận: Tiến nhận về \(72.000\) đồng, Hùng nhận về \(48.000\) đồng, Mạnh nhận về \(60.000\) đồng. [source: 1]</p>
+                            </div>
+                        </details>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section: Interactive Live Quiz Assessment Form Area -->
+        <section class="mt-16 bg-slate-50 border border-slate-200 rounded-2xl p-6 shadow-2xs no-print">
+            <div class="border-b border-slate-200 pb-3 mb-6">
+                <h3 class="text-lg font-black text-slate-900 flex items-center gap-2 uppercase tracking-wide">
+                    <i class="fas fa-square-poll-horizontal text-indigo-600"></i>
+                    BÀI TẬP ĐÁNH GIÁ NĂNG LỰC TẠI LỚP (Trắc nghiệm 5 câu)
+                </h3>
+                <p class="text-xs text-slate-500 mt-1">Học sinh hoàn thành chọn đáp án trực tuyến, kết quả điểm số sẽ được truyền về hệ thống xử lý học thuật để lưu giữ.</p>
+            </div>
+
+            <form id="quizForm" class="space-y-6">
+                <!-- User Identifiers Inputs -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 bg-white p-4 rounded-xl border border-slate-200">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wide mb-1">Họ và Tên Học Sinh <span class="text-red-500">*</span></label>
+                        <input type="text" id="studentName" required placeholder="Nhập họ tên đầy đủ..." 
+                               class="w-full bg-slate-50 border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-indigo-600 focus:bg-white transition-all">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wide mb-1">Mã Buổi Học / Mã Đề</label>
+                        <input type="text" id="examId" value="Buoi16_TiLeThuan_Toan7" readonly
+                               class="w-full bg-slate-100 border border-slate-200 text-slate-500 rounded-lg px-3 py-2 text-sm cursor-not-allowed font-mono">
+                    </div>
+                </div>
+
+                <!-- Questions Container Box -->
+                <div class="space-y-4 mt-6">
+                    <!-- Q1 -->
+                    <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-3xs">
+                        <p class="text-sm font-semibold text-slate-900 mb-2.5">Câu 1: Nếu đại lượng \(y\) liên hệ với đại lượng \(x\) theo công thức \(y = 3x\) thì ta nói:</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-slate-700">
+                            <label class="flex items-center gap-2 p-2 rounded border border-slate-100 hover:bg-slate-50 cursor-pointer"><input type="radio" name="q1" value="A" required> A. \(y\) tỉ lệ thuận với \(x\) theo hệ số tỉ lệ \(\frac{1}{3}\)</label>
+                            <label class="flex items-center gap-2 p-2 rounded border border-slate-100 hover:bg-slate-50 cursor-pointer"><input type="radio" name="q1" value="B"> B. \(y\) tỉ lệ thuận với \(x\) theo hệ số tỉ lệ 3</label>
+                            <label class="flex items-center gap-2 p-2 rounded border border-slate-100 hover:bg-slate-50 cursor-pointer"><input type="radio" name="q1" value="C"> C. \(x\) tỉ lệ thuận với \(y\) theo hệ số tỉ lệ 3</label>
+                            <label class="flex items-center gap-2 p-2 rounded border border-slate-100 hover:bg-slate-50 cursor-pointer"><input type="radio" name="q1" value="D"> D. \(y\) tỉ lệ nghịch với \(x\) theo hệ số tỉ lệ 3</label>
+                        </div>
+                    </div>
+
+                    <!-- Q2 -->
+                    <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-3xs">
+                        <p class="text-sm font-semibold text-slate-900 mb-2.5">Câu 2: Nếu đại lượng \(y\) tỉ lệ thuận với đại lượng \(x\) theo hệ số tỉ lệ \(k = 2\) thì ngược lại, \(x\) tỉ lệ thuận với \(y\) theo hệ số tỉ lệ nào?</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-slate-700">
+                            <label class="flex items-center gap-2 p-2 rounded border border-slate-100 hover:bg-slate-50 cursor-pointer"><input type="radio" name="q2" value="A" required> A. 2</label>
+                            <label class="flex items-center gap-2 p-2 rounded border border-slate-100 hover:bg-slate-50 cursor-pointer"><input type="radio" name="q2" value="B"> B. -2</label>
+                            <label class="flex items-center gap-2 p-2 rounded border border-slate-100 hover:bg-slate-50 cursor-pointer"><input type="radio" name="q2" value="C"> C. \(\frac{1}{2}\) (hay 0,5)</label>
+                            <label class="flex items-center gap-2 p-2 rounded border border-slate-100 hover:bg-slate-50 cursor-pointer"><input type="radio" name="q2" value="D"> D. 4</label>
+                        </div>
+                    </div>
+
+                    <!-- Q3 -->
+                    <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-3xs">
+                        <p class="text-sm font-semibold text-slate-900 mb-2.5">Câu 3: Cho biết \(x\) và \(y\) tỉ lệ thuận với nhau. Khi \(x = 2\) thì \(y = 6\). Hỏi khi ta gán giá trị \(x = 5\) thì giá trị tương ứng của \(y\) bằng bao nhiêu?</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-slate-700">
+                            <label class="flex items-center gap-2 p-2 rounded border border-slate-100 hover:bg-slate-50 cursor-pointer"><input type="radio" name="q3" value="A" required> A. 15</label>
+                            <label class="flex items-center gap-2 p-2 rounded border border-slate-100 hover:bg-slate-50 cursor-pointer"><input type="radio" name="q3" value="B"> B. 10</label>
+                            <label class="flex items-center gap-2 p-2 rounded border border-slate-100 hover:bg-slate-50 cursor-pointer"><input type="radio" name="q3" value="C"> C. 12</label>
+                            <label class="flex items-center gap-2 p-2 rounded border border-slate-100 hover:bg-slate-50 cursor-pointer"><input type="radio" name="q3" value="D"> D. 18</label>
+                        </div>
+                    </div>
+
+                    <!-- Q4 -->
+                    <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-3xs">
+                        <p class="text-sm font-semibold text-slate-900 mb-2.5">Câu 4: Hai thanh kim loại đồng chất có thể tích lần lượt là \(10\text{ cm}^3\) và \(15\text{ cm}^3\). Biết thanh thứ hai nặng hơn thanh thứ nhất \(40\text{ g}\). Khối lượng của thanh thứ hai là bao nhiêu?</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-slate-700">
+                            <label class="flex items-center gap-2 p-2 rounded border border-slate-100 hover:bg-slate-50 cursor-pointer"><input type="radio" name="q4" value="A" required> A. 80 g</label>
+                            <label class="flex items-center gap-2 p-2 rounded border border-slate-100 hover:bg-slate-50 cursor-pointer"><input type="radio" name="q4" value="B"> B. 120 g</label>
+                            <label class="flex items-center gap-2 p-2 rounded border border-slate-100 hover:bg-slate-50 cursor-pointer"><input type="radio" name="q4" value="C"> C. 60 g</label>
+                            <label class="flex items-center gap-2 p-2 rounded border border-slate-100 hover:bg-slate-50 cursor-pointer"><input type="radio" name="q4" value="D"> D. 100 g</label>
+                        </div>
+                    </div>
+
+                    <!-- Q5 -->
+                    <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-3xs">
+                        <p class="text-sm font-semibold text-slate-900 mb-2.5">Câu 5: Cặp đại lượng thực tế nào sau đây KHÔNG tỉ lệ thuận với nhau?</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-slate-700">
+                            <label class="flex items-center gap-2 p-2 rounded border border-slate-100 hover:bg-slate-50 cursor-pointer"><input type="radio" name="q5" value="A" required> A. Quãng đường đi được và thời gian di chuyển (vận tốc không đổi)</label>
+                            <label class="flex items-center gap-2 p-2 rounded border border-slate-100 hover:bg-slate-50 cursor-pointer"><input type="radio" name="q5" value="B"> B. Số tiền mua hàng và số lượng hàng hóa cùng loại thu mua (đơn giá không đổi)</label>
+                            <label class="flex items-center gap-2 p-2 rounded border border-slate-100 hover:bg-slate-50 cursor-pointer"><input type="radio" name="q5" value="C"> C. Chiều dài và chiều rộng của một hình chữ nhật có diện tích cố định</label>
+                            <label class="flex items-center gap-2 p-2 rounded border border-slate-100 hover:bg-slate-50 cursor-pointer"><input type="radio" name="q5" value="D"> D. Chu vi hình vuông và độ dài một cạnh của chính nó</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Submit Button Area -->
+                <div class="text-right pt-2">
+                    <button type="submit" id="submitBtn" 
+                            class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-6 py-2.5 rounded-lg shadow-sm text-xs cursor-pointer transition-all">
+                        <i class="fas fa-paper-plane mr-1.5"></i> Nộp Bài Lên Hệ Thống
+                    </button>
+                </div>
+            </form>
+
+            <!-- Quiz Grading Server Results Feedback Display Box -->
+            <div id="quizResult" class="hidden mt-6 p-4 rounded-xl text-xs text-center font-bold"></div>
+        </section>
+
+        <!-- Footer Intellectual Copyright Signature Area -->
+        <footer class="mt-16 pt-6 border-t border-slate-200 text-center text-xs text-slate-500 space-y-2">
+            <p class="font-bold text-slate-700">@ Bản quyền thuộc ThS. Đinh Quốc Tuấn - Mục đích phi lợi nhuận - Vì giáo dục.</p>
+            <p>Tài liệu số hóa tương tác hình học và đại số hỗ trợ học sinh học tập chuyên sâu trực tuyến.</p>
+        </footer>
+    </main>
+
+    <!-- FLOATING MANDATORY INJECTED SAFE PRINT DOCUMENT BUTTON & SCRIPT CORE BLOCK -->
+    <button id="btn-print-doc" onclick="safePrint()" class="fixed bottom-5 right-5 bg-gray-900 text-white px-4 py-2 rounded-lg shadow-lg hover:bg-gray-700 print:hidden z-50 cursor-pointer">
+        <i class="fas fa-print mr-2"></i> In Tài Liệu
+    </button>
+
+    <script>
+        function safePrint() {
+            const printBtn = document.getElementById('btn-print-doc');
+            printBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Đang chuẩn bị...';
+            
+            // Đảm bảo MathJax đã render xong mọi công thức trước khi gọi hộp thoại in công văn
+            if (window.MathJax && window.MathJax.typesetPromise) {
+                MathJax.typesetPromise().then(() => {
+                    printBtn.innerHTML = '<i class="fas fa-print mr-2"></i> In Tài Liệu';
+                    window.print();
+                });
+            } else {
+                // Fallback nếu không có công thức toán học hoặc MathJax chưa tải
+                setTimeout(() => {
+                    printBtn.innerHTML = '<i class="fas fa-print mr-2"></i> In Tài Liệu';
+                    window.print();
+                }, 500); 
+            }
+        }
+    </script>
+
+    <!-- Main Geometry Control and Async AJAX Data Transmit Engine Script System -->
+    <script>
+        const startTime = new Date();
+        let board2, liquidRect, textTimeVolume;
+        let pumpInterval = null;
+        let pumpTime = 0;
+        const maxPumpTime = 10; // Giới hạn giây bơm nước đầy bể
+        const flowRateK = 0.35; // Hệ số tỉ lệ V = k * t
+
+        // 1. Dựng Mô hình 1 JSXGraph: Biểu diễn hình học đại lượng tỉ lệ thuận trên trục tọa độ Oxy [source: 3]
+        (function initModel1() {
+            const board = JXG.JSXGraph.initBoard('box1', {
+                boundingbox: [-1, 7, 7, -1],
+                axis: true,
+                showCopyright: false,
+                showNavigation: false
+            });
+
+            // Slider điều phối thay đổi hệ số tỉ lệ k [source: 3]
+            let sliderK = board.create('slider', [[1, 6.2], [4.5, 6.2], [0.5, 1.2, 2.5]], {name: 'Hệ số k', snapWidth: 0.1, color: '#4f46e5'});
+
+            // Đường thẳng đi qua gốc tọa độ O có phương trình y = k * x [source: 3]
+            let line = board.create('line', [[0,0], function() { return [1, sliderK.Value()]; }], {
+                strokeColor: '#3b82f6', 
+                strokeWidth: 2,
+                name: function() { return 'y = ' + sliderK.Value().toFixed(1) + 'x'; },
+                withLabel: true,
+                label: {position: 'urt', color: '#1d4ed8'}
+            });
+
+            // Điểm M tự do trượt trên đường thẳng [source: 3]
+            let M = board.create('glider', [2.5, 3, line], {name: 'M (x, y)', color: '#ef4444', size: 4});
+
+            // Hộp thoại text động hiển thị dữ liệu phép chia y/x đồng bộ [source: 3]
+            board.create('text', [0.5, -0.6, function() {
+                let xVal = M.X();
+                let yVal = M.Y();
+                let ratio = xVal !== 0 ? (yVal / xVal).toFixed(2) : sliderK.Value().toFixed(2);
+                return 'Tọa độ hiện tại M: x = ' + xVal.toFixed(2) + ', y = ' + yVal.toFixed(2) + ' | Tỉ số y/x = ' + ratio + ' (Không đổi = k)';
+            }], {fontSize: 11, fontStyle: 'bold', strokeColor: '#1e293b'});
+        })();
+
+        // 2. Dựng Mô hình 2 JSXGraph: Bơm nước vào bể kính thực tế tương tác thời gian thực
+        (function initModel2() {
+            board2 = JXG.JSXGraph.initBoard('box2', {
+                boundingbox: [-1, 5, 6, -1],
+                axis: false,
+                showCopyright: false,
+                showNavigation: false
+            });
+
+            // Vẽ khung hình chữ nhật tượng trưng bể nước rỗng
+            // Kích thước bể đáy x chạy từ 1 đến 4 (rộng = 3), chiều cao y từ 0.5 đến 4 (cao = 3.5)
+            let p1 = board2.create('point', [1, 0.5], {visible: false});
+            let p2 = board2.create('point', [4, 0.5], {visible: false});
+            let p3 = board2.create('point', [4, 4.0], {visible: false});
+            let p4 = board2.create('point', [1, 4.0], {visible: false});
+            board2.create('polygon', [p1, p2, p3, p4], {fillColor: 'none', strokeColor: '#475569', strokeWidth: 3, fixed: true});
+
+            // Dựng khối nước đa diện màu xanh dâng cao biến đổi theo biến thời gian thực pumpTime
+            let w1 = board2.create('point', [1, 0.5], {visible: false});
+            let w2 = board2.create('point', [4, 0.5], {visible: false});
+            let w3 = board2.create('point', [4, function() { return 0.5 + (pumpTime * flowRateK); }], {visible: false});
+            let w4 = board2.create('point', [1, function() { return 0.5 + (pumpTime * flowRateK); }], {visible: false});
+            liquidRect = board2.create('polygon', [w1, w2, w3, w4], {fillColor: '#38bdf8', fillOpacity: 0.75, strokeColor: '#0284c7', strokeWidth: 1});
+
+            // Vòi nước chảy trang trí sinh động
+            let faucet = board2.create('point', [1.2, 4.3], {name: 'Vòi cấp nước', size: 1, color: '#334155', fixed: true});
+            
+            // Text hiển thị đồng hồ đo đạc
+            textTimeVolume = board2.create('text', [1.2, -0.6, function() {
+                let currentVolume = (pumpTime * flowRateK * 10).toFixed(1); // Quy đổi giả lập dung tích lít
+                return 'Thời gian bơm t = ' + pumpTime.toFixed(1) + ' phút | Thể tích nước V = ' + currentVolume + ' lít (V = 3.5 × t)';
+            }], {fontSize: 11, fontStyle: 'bold', strokeColor: '#0f172a'});
+        })();
+
+        // Hàm điều phối hoạt động khởi chạy hoặc tạm dừng dòng nước máy bơm
+        function toggleWaterPump() {
+            const btn = document.getElementById('btn-toggle-pump');
+            if (pumpInterval) {
+                // Đang chạy -> Tạm dừng
+                clearInterval(pumpInterval);
+                pumpInterval = null;
+                btn.innerHTML = '<i class="fas fa-play mr-1"></i> Tiếp tục bơm';
+                btn.className = "bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs px-4 py-2 rounded shadow-xs transition-colors cursor-pointer";
+            } else {
+                // Đang dừng -> Khởi chạy vòng lặp tịnh tiến
+                if (pumpTime >= maxPumpTime) { pumpTime = 0; } // Tự động reset nếu bể đã đầy tràn
+                btn.innerHTML = '<i class="fas fa-pause mr-1"></i> Tạm dừng bơm';
+                btn.className = "bg-amber-600 hover:bg-amber-700 text-white font-bold text-xs px-4 py-2 rounded shadow-xs transition-colors cursor-pointer";
+                
+                pumpInterval = setInterval(() => {
+                    pumpTime += 0.1;
+                    if (pumpTime >= maxPumpTime) {
+                        pumpTime = maxPumpTime;
+                        clearInterval(pumpInterval);
+                        pumpInterval = null;
+                        btn.innerHTML = '<i class="fas fa-play mr-1"></i> Bắt đầu bơm';
+                        btn.className = "bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs px-4 py-2 rounded shadow-xs transition-colors cursor-pointer";
+                    }
+                    board2.update();
+                }, 100);
+            }
+        }
+
+        // Khôi phục bể nước về trạng thái rỗng ban đầu
+        function resetWaterPump() {
+            if (pumpInterval) {
+                clearInterval(pumpInterval);
+                pumpInterval = null;
+            }
+            pumpTime = 0;
+            document.getElementById('btn-toggle-pump').innerHTML = '<i class="fas fa-play mr-1"></i> Bắt đầu bơm';
+            document.getElementById('btn-toggle-pump').className = "bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs px-4 py-2 rounded shadow-xs transition-colors cursor-pointer";
+            board2.update();
+        }
+
+        // 3. Xử lý dữ liệu nộp bài trắc nghiệm truyền POST về Apps Script Google Sheets [source: 2]
+        document.getElementById('quizForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const submitBtn = document.getElementById('submitBtn');
+            const resultDiv = document.getElementById('quizResult');
+            
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Đang tải dữ liệu lên hệ thống...';
+
+            // Bộ đáp án chuẩn học thuật của bài toán đại lượng tỉ lệ thuận
+            const correctAnswers = { q1: 'B', q2: 'C', q3: 'A', q4: 'B', q5: 'C' };
+            let rawScore = 0;
+            let totalQ = 5;
+            let detailedWrongs = [];
+
+            // Vòng lặp so khớp kiểm tra kết quả bài làm [source: 2]
+            for(let i = 1; i <= totalQ; i++) {
+                let key = 'q' + i;
+                let checkedOption = document.querySelector(`input[name="${key}"]:checked`);
+                
+                if (checkedOption) {
+                    if (checkedOption.value === correctAnswers[key]) {
+                        rawScore += 10 / totalQ;
+                    } else {
+                        detailedWrongs.push(`Câu ${i}: Chọn ${checkedOption.value} (Đúng: ${correctAnswers[key]})`);
+                    }
+                } else {
+                    detailedWrongs.push(`Câu ${i}: Bỏ trống (Đúng: ${correctAnswers[key]})`);
+                }
+            }
+
+            // Quy đổi thang điểm và đo lường thời gian thi [source: 2]
+            let finalScore = Math.round(rawScore * 10) / 10;
+            const endTime = new Date();
+            const elapsedSec = Math.round((endTime - startTime) / 1000);
+            const formattedDuration = `${Math.floor(elapsedSec / 60)} phút ${elapsedSec % 60} giây`;
+
+            // Đóng gói cấu trúc Payload đồng bộ hoàn toàn mã code gs Apps Script [source: 2]
+            const payloadData = {
+                hoTen: document.getElementById('studentName').value,
+                maDe: document.getElementById('examId').value,
+                diem: finalScore,
+                thoiGian: formattedDuration,
+                cauSai: detailedWrongs.join('; ') || 'Hoàn hảo 100%'
+            };
+
+            const targetScriptUrl = "https://script.google.com/macros/s/AKfycbzY7b7h4OwvhXuK5Vs6hl-aD88BPnAiAKbU5lfJobby0D4nzbIJVKT4n0AKCpAGoK0nZA/exec";
+
+            // Thực thi gửi Fetch dữ liệu sang API máy chủ Sheets [source: 2]
+            fetch(targetScriptUrl, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payloadData)
+            })
+            .then(() => {
+                // UI cập nhật trả kết quả thành công
+                resultDiv.className = "mt-6 p-4 rounded-xl text-xs text-center font-bold bg-emerald-100 text-emerald-800 border border-emerald-200";
+                resultDiv.innerHTML = `<i class="fas fa-circle-check mr-1.5"></i> Kết quả ghi nhận thành công! Điểm số bài làm: ${finalScore}/10 điểm. Tổng thời gian: ${formattedDuration}. Dữ liệu đã truyền đồng bộ về bảng tính Google Sheets.`;
+                resultDiv.classList.remove('hidden');
+                submitBtn.innerHTML = '<i class="fas fa-check-double"></i> Đã nộp thành công';
+            })
+            .catch(err => {
+                console.error('Data Transmission Grid Error:', err);
+                // Cứu hộ hiển thị điểm số tại chỗ cho học sinh nếu mạng gián đoạn
+                resultDiv.className = "mt-6 p-4 rounded-xl text-xs text-center font-bold bg-amber-100 text-amber-800 border border-amber-200";
+                resultDiv.innerHTML = `<i class="fas fa-exclamation-triangle mr-1.5"></i> Kết nối máy chủ trục trặc. Điểm số ghi nhận tại chỗ của em: ${finalScore}/10 điểm. (Thời gian: ${formattedDuration}).`;
+                resultDiv.classList.remove('hidden');
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="fas fa-paper-plane mr-1.5"></i> Thử nộp lại bài';
+            });
+        });
+    </script>
+</body>
+</html>
