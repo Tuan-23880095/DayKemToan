@@ -1,1 +1,740 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chuyên Đề: Chứng Minh Quy Nạp Toán Học — ThS. Đinh Quốc Tuấn</title>
+    
+    <!-- Tailwind CSS (Giao diện hiện đại) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- MathJax cho Công thức Toán học -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['\\(', '\\)']],
+                displayMath: [['\\[', '\\]']]
+            },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <!-- JSXGraph cho Hình học động -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraph.css" />
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraphcore.js"></script>
 
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #f8fafc;
+            color: #0f172a;
+        }
+        .jxgbox {
+            background-color: #ffffff !important;
+            border-radius: 1rem;
+            overflow: hidden;
+            border: 1px solid #e2e8f0;
+            box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.05);
+        }
+        /* Custom print optimization styles */
+        @media print {
+            .print\:hidden { display: none !important; }
+            body { background: white !important; color: black !important; }
+            details { display: block !important; }
+            details summary { display: none !important; }
+            .page-break { page-break-before: always; }
+            .card-border { box-shadow: none !important; border: 1px solid #e5e7eb !important; }
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col antialiased selection:bg-indigo-100">
+
+    <!-- Header học thuật cao cấp -->
+    <header class="border-b border-slate-200 sticky top-0 bg-white/95 backdrop-blur-md z-40 print:hidden">
+        <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 px-6 py-4">
+            <div class="flex items-center gap-4">
+                <img src="https://hcmus.edu.vn/wp-content/uploads/2023/04/Logo-chinh-e1681638380305.png" alt="Logo HCMUS" class="h-14 w-auto object-contain">
+                <div class="border-l-2 border-slate-300 pl-4">
+                    <span class="text-xs font-bold tracking-widest text-indigo-600 uppercase block mb-0.5">Tài liệu số hóa tương tác</span>
+                    <span class="text-base font-extrabold text-slate-800">Chuyên đề Toán học nâng cao lớp 10</span>
+                </div>
+            </div>
+            <div class="flex items-center gap-3 sm:text-right">
+                <div class="hidden sm:block">
+                    <p class="text-xs text-slate-400 font-semibold">Chủ biên chuyên đề:</p>
+                    <p class="text-sm font-extrabold text-slate-800">ThS. Đinh Quốc Tuấn</p>
+                </div>
+                <img src="https://firebasestorage.googleapis.com/v0/b/link-anh-web.firebasestorage.app/o/ttbdvh.jpg?alt=media&token=f270aa9b-a2bc-48e8-8910-80742b542615" 
+                     alt="Logo TTBDVH" class="h-14 w-14 object-cover rounded-full border border-slate-200 shadow-inner">
+            </div>
+        </div>
+    </header>
+
+    <!-- Thư gửi học sinh & Lời khuyên sư phạm -->
+    <div class="bg-gradient-to-r from-indigo-50 via-slate-50 to-emerald-50 border-b border-slate-200 py-10 print:hidden">
+        <div class="max-w-4xl mx-auto px-6 space-y-4">
+            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-indigo-100 text-indigo-800 border border-indigo-200 shadow-xs">
+                <i class="fa-solid fa-graduation-cap mr-1.5 text-indigo-600"></i> Không gian học tập tương tác
+            </span>
+            <h1 class="text-2xl sm:text-4xl font-black tracking-tight text-slate-900 leading-tight">
+                Hệ Thống Bài Tập Luyện Tập: Quy Nạp Toán Học
+            </h1>
+            <p class="text-slate-600 text-sm sm:text-base font-medium leading-relaxed text-justify">
+                Chào các em! Thầy rất vui khi thấy các em mong muốn đào sâu vào phương pháp <strong>Chứng minh quy nạp toán học</strong>. 
+                Dựa trên các tài liệu chuyên đề học tập Toán 10 mới nhất, thầy đã chắt lọc và biên soạn hệ thống 15 bài tập chi tiết, 
+                được chia thành 3 cấp độ: Cơ bản, Nâng cao và Vận dụng. Các bài tập này không chỉ giúp các em luyện kỹ năng biến đổi đại số 
+                mà còn thấy được ứng dụng của quy nạp trong hình học và bài toán thực tế.
+            </p>
+            <div class="p-4 bg-amber-50/60 rounded-xl border border-amber-200 text-xs text-amber-900 font-semibold flex gap-2">
+                <i class="fa-solid fa-lightbulb text-base text-amber-600 mt-0.5"></i>
+                <span>Lời khuyên của thầy: Khi làm các bài tập từ mức độ 2 trở đi, các em cần nháp thật kỹ biểu thức cần chứng minh ở bước \(k+1\), sau đó dùng các kỹ thuật thêm/bớt, nhóm nhân tử chung để làm xuất hiện đúng cụm biểu thức của bước \(k\) nhé. Chúc các em học tốt!</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Không gian làm việc chính -->
+    <main class="max-w-4xl mx-auto px-6 py-10 flex-grow w-full space-y-16">
+        
+        <!-- ================= KHÔNG GIAN MÔ HÌNH HÌNH HỌC TƯƠNG TÁC JSXGRAPH ================= -->
+        <section class="space-y-8 print:hidden bg-slate-100 p-6 rounded-3xl border border-slate-200">
+            <div class="border-b border-slate-200 pb-3">
+                <h2 class="text-lg font-black text-slate-800 flex items-center uppercase tracking-wide">
+                    <i class="fa-solid fa-compass-drafting mr-2.5 text-indigo-600 text-xl"></i> 💡 Hệ thống mô hình trực quan hình học
+                </h2>
+                <p class="text-xs text-slate-500 mt-1">Sử dụng các thanh trượt và điểm kéo động để kiểm chứng các hệ thức quy nạp toán học một cách trực quan.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Mô hình 1 -->
+                <div class="flex flex-col bg-white p-5 rounded-2xl border border-slate-200 shadow-xs">
+                    <h3 class="font-bold text-slate-900 text-sm mb-1 flex items-center gap-1.5">
+                        <i class="fa-solid fa-square-poll-vertical text-rose-500"></i> Mô hình 1: Tổng số lẻ liên tiếp \(n^2\)
+                    </h3>
+                    <p class="text-xs text-slate-500 mb-3">Kéo thanh trượt để mở rộng số lượng các lớp số lẻ. Mỗi lớp màu mới cấu thành một diện tích hình vuông lớn hơn hoàn chỉnh.</p>
+                    <div id="box1" class="w-full h-64 jxgbox"></div>
+                </div>
+
+                <!-- Mô hình 2 -->
+                <div class="flex flex-col bg-white p-5 rounded-2xl border border-slate-200 shadow-xs">
+                    <h3 class="font-bold text-slate-900 text-sm mb-1 flex items-center gap-1.5">
+                        <i class="fa-solid fa-draw-polygon text-emerald-500"></i> Mô hình 2: Phân chia cấu trúc đa giác lồi
+                    </h3>
+                    <p class="text-xs text-slate-500 mb-3">Trực quan hóa bước chuyển đổi quy nạp từ đa giác \(k\) cạnh lên đa giác \((k+1)\) cạnh bằng cách bao hàm thêm một tam giác mới từ đỉnh \(A_1\).</p>
+                    <div id="box2" class="w-full h-64 jxgbox"></div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ================= CẤP ĐỘ 1: CƠ BẢN ================= -->
+        <section class="space-y-6">
+            <div class="flex items-center gap-3 border-b pb-3 border-slate-200">
+                <span class="bg-sky-600 text-white text-xs font-black px-3 py-1 rounded-md uppercase tracking-wider">Cấp độ 1</span>
+                <h2 class="text-xl font-extrabold text-slate-900">CƠ BẢN (5 Bài toán Đẳng thức & Chia hết cơ bản)</h2>
+            </div>
+            <p class="text-xs font-bold text-sky-800 bg-sky-50 px-3 py-2 rounded-lg inline-block">
+                Mục tiêu: Nắm vững 2 bước của phương pháp quy nạp (Khởi tạo \(n=1\) và Giả thiết quy nạp từ \(k\) suy ra \(k+1\)).
+            </p>
+
+            <div class="space-y-4">
+                <!-- Bài 1 -->
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-3"><strong>Bài 1.</strong> Chứng minh rằng với mọi số tự nhiên \(n \ge 1\), ta có đẳng thức tính tổng các số lẻ: <br> \[1 + 3 + 5 + 7 + ... + (2n - 1) = n^2\]</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý lời giải</span>
+                        </summary>
+                        <div class="mt-4 p-4 bg-emerald-50/40 rounded-xl border-l-4 border-emerald-500 text-xs text-slate-700 leading-relaxed space-y-2">
+                            <p><strong>Lời giải:</strong></p>
+                            <p>&bull; Bước 1: Với \(n = 1\), vế trái bằng \(1\), vế phải bằng \(1^2 = 1\). Đẳng thức đúng.</p>
+                            <p>&bull; Bước 2: Giả sử đẳng thức đúng với \(n = k \ge 1\), tức là: \(1 + 3 + 5 + ... + (2k-1) = k^2\).</p>
+                            <p>&bull; Ta cần chứng minh đẳng thức đúng với \(n = k + 1\), tức là: \(1 + 3 + 5 + ... + (2k-1) + [2(k+1)-1] = (k+1)^2\).</p>
+                            <p>&bull; Thật vậy, từ giả thiết quy nạp ta có: \(VT = k^2 + (2k + 1) = (k+1)^2 = VP\) (đpcm).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 2 -->
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-3"><strong>Bài 2.</strong> Chứng minh rằng với mọi số tự nhiên \(n \in \mathbb{N}^*\), ta có: <br> \[1.2 + 2.3 + 3.4 + ... + n(n+1) = \frac{n(n+1)(n+2)}{3}\]</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý lời giải</span>
+                        </summary>
+                        <div class="mt-4 p-4 bg-emerald-50/40 rounded-xl border-l-4 border-emerald-500 text-xs text-slate-700 leading-relaxed space-y-2">
+                            <p><strong>Lời giải:</strong></p>
+                            <p>&bull; Với \(n=1\): \(VT = 1.2 = 2\); \(VP = \frac{1.2.3}{3} = 2\). Hệ thức đúng.</p>
+                            <p>&bull; Giả sử đúng với \(n=k\). Khi \(n=k+1\), ta cộng thêm phần tử \((k+1)(k+2)\) vào giả thiết quy nạp:</p>
+                            <p class="font-serif pl-4 text-indigo-700">\(VT = \frac{k(k+1)(k+2)}{3} + (k+1)(k+2) = (k+1)(k+2)\left(\frac{k}{3} + 1\right) = \frac{(k+1)(k+2)(k+3)}{3} = VP\) (đpcm).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 3 -->
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-3"><strong>Bài 3.</strong> Chứng minh đẳng thức phân số sau đúng với mọi \(n \in \mathbb{N}^*\): <br> \[\frac{1}{1.2} + \frac{1}{2.3} + ... + \frac{1}{n(n+1)} = \frac{n}{n+1}\]</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý lời giải</span>
+                        </summary>
+                        <div class="mt-4 p-4 bg-emerald-50/40 rounded-xl border-l-4 border-emerald-500 text-xs text-slate-700 leading-relaxed space-y-2">
+                            <p><strong>Lời giải:</strong></p>
+                            <p>&bull; Với \(n=1\): \(\frac{1}{1.2} = \frac{1}{2} = \frac{1}{1+1}\) (Đúng).</p>
+                            <p>&bull; Giả thiết quy nạp đến bước \(k\): \(S_k = \frac{k}{k+1}\).</p>
+                            <p>&bull; Với bước \(k+1\): \(S_{k+1} = \frac{k}{k+1} + \frac{1}{(k+1)(k+2)} = \frac{k(k+2)+1}{(k+1)(k+2)} = \frac{k^2+2k+1}{(k+1)(k+2)} = \frac{(k+1)^2}{(k+1)(k+2)} = \frac{k+1}{(k+1)+1} = VP\) (đpcm).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 4 -->
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-3"><strong>Bài 4.</strong> Cho \(q\) là số thực khác 1. Chứng minh công thức tổng của cấp số nhân sau đúng với mọi \(n \in \mathbb{N}^*\): <br> \[1 + q + q^2 + q^3 + ... + q^{n-1} = \frac{1 - q^n}{1 - q}\]</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý lời giải</span>
+                        </summary>
+                        <div class="mt-4 p-4 bg-emerald-50/40 rounded-xl border-l-4 border-emerald-500 text-xs text-slate-700 leading-relaxed space-y-2">
+                            <p><strong>Lời giải:</strong></p>
+                            <p>&bull; Với \(n=1\): \(1 = \frac{1-q^1}{1-q} = 1\) (Đúng).</p>
+                            <p>&bull; Giả sử đúng với \(k\). Với bước \((k+1)\): Ta có tổng bằng \(\frac{1-q^k}{1-q} + q^k\).</p>
+                            <p>&bull; Quy đồng mẫu số: \(\frac{1-q^k + q^k(1-q)}{1-q} = \frac{1-q^k+q^k-q^{k+1}}{1-q} = \frac{1-q^{k+1}}{1-q}\) (đpcm).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 5 -->
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-3"><strong>Bài 5.</strong> Bằng phương pháp quy nạp toán học, hãy chứng minh rằng: <br> \(n^3 - n\) luôn chia hết cho 3 với mọi \(n \in \mathbb{N}^*\).</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý lời giải</span>
+                        </summary>
+                        <div class="mt-4 p-4 bg-emerald-50/40 rounded-xl border-l-4 border-emerald-500 text-xs text-slate-700 leading-relaxed space-y-2">
+                            <p><strong>Lời giải:</strong></p>
+                            <p>&bull; Với \(n=1\): \(1^3 - 1 = 0 \vdots 3\) (Đúng).</p>
+                            <p>&bull; Giả sử đúng với \(n=k\), nghĩa là \((k^3-k) \vdots 3\).</p>
+                            <p>&bull; Với \(n=k+1\), xét biểu thức: \((k+1)^3 - (k+1) = k^3 + 3k^2 + 3k + 1 - k - 1 = (k^3 - k) + 3(k^2 + k)\).</p>
+                            <p>&bull; Vì \((k^3-k) \vdots 3\) và \(3(k^2+k) \vdots 3\) nên tổng trên chia hết cho 3 (đpcm).</p>
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ================= CẤP ĐỘ 2: NÂNG CAO ================= -->
+        <section class="space-y-6">
+            <div class="flex items-center gap-3 border-b pb-3 border-slate-200">
+                <span class="bg-amber-600 text-white text-xs font-black px-3 py-1 rounded-md uppercase tracking-wider">Cấp độ 2</span>
+                <h2 class="text-xl font-extrabold text-slate-900">NÂNG CAO (Chia hết phức tạp & Quy nạp Bất đẳng thức)</h2>
+            </div>
+            <p class="text-xs font-bold text-amber-800 bg-amber-50 px-3 py-2 rounded-lg inline-block">
+                Mục tiêu: Đòi hỏi sự khéo léo trong tách ghép biểu thức và kiểm soát chặt chẽ điều kiện biên cơ sở \(n \ge p\).
+            </p>
+
+            <div class="space-y-4">
+                <!-- Bài 6 -->
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-3"><strong>Bài 6.</strong> Chứng minh tính chia hết phức tạp: Với mọi \(n \in \mathbb{N}^*\float\), ta có: <br> \(3^{2n+2} - 8n - 9\) chia hết cho 64.</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý lời giải</span>
+                        </summary>
+                        <div class="mt-4 p-4 bg-emerald-50/40 rounded-xl border-l-4 border-emerald-500 text-xs text-slate-700 leading-relaxed space-y-2">
+                            <p><strong>Lời giải:</strong></p>
+                            <p>&bull; Với \(n=1\): \(3^4 - 8(1) - 9 = 81 - 17 = 64 \vdots 64\) (Đúng).</p>
+                            <p>&bull; Giả sử biểu thức chia hết cho 64 với \(n=k\). Xét bước \(n=k+1\):</p>
+                            <p class="font-serif pl-4 text-slate-900">\(3^{2(k+1)+2} - 8(k+1) - 9 = 3^{2k+4} - 8k - 17 = 9 \cdot 3^{2k+2} - 8k - 17\)</p>
+                            <p class="font-serif pl-4 text-indigo-700">\(= 9(3^{2k+2} - 8k - 9) + 72k + 81 - 8k - 17 = 9(3^{2k+2} - 8k - 9) + 64k + 64\).</p>
+                            <p>&bull; Do cụm trong ngoặc chia hết cho 64 (giả thiết quy nạp) và \((64k + 64) \vdots 64\), hệ thức hoàn toàn được chứng minh.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 7 -->
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-3"><strong>Bài 7.</strong> Chứng minh rằng với mọi \(n \in \mathbb{N}^*\), ta có: <br> \(16^n - 15n - 1\) chia hết cho 225.</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý lời giải</span>
+                        </summary>
+                        <div class="mt-4 p-4 bg-emerald-50/40 rounded-xl border-l-4 border-emerald-500 text-xs text-slate-700 leading-relaxed space-y-2">
+                            <p><strong>Lời giải:</strong></p>
+                            <p>&bull; Với \(n=1\): \(16^1 - 15(1) - 1 = 0 \vdots 225\) (Đúng).</p>
+                            <p>&bull; Giả sử đúng với \(n=k\). Xét với \(n=k+1\):</p>
+                            <p class="font-serif pl-4 text-slate-900">\(16^{k+1} - 15(k+1) - 1 = 16 \cdot 16^k - 15k - 16\)</p>
+                            <p class="font-serif pl-4 text-indigo-700">\(= 16(16^k - 15n - 1) + 240n + 16 - 15n - 16 = 16(16^k - 15n - 1) + 225n\).</p>
+                            <p>&bull; Vì cả hai số hạng đều chia hết cho 225 nên mệnh đề đúng với \(n=k+1\).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 8 -->
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-3"><strong>Bài 8.</strong> Chứng minh bất đẳng thức sau đúng với mọi số tự nhiên \(n \ge 5\): <br> \[2^n > n^2\]</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý lời giải</span>
+                        </summary>
+                        <div class="mt-4 p-4 bg-emerald-50/40 rounded-xl border-l-4 border-emerald-500 text-xs text-slate-700 leading-relaxed space-y-2">
+                            <p><strong>Lời giải:</strong></p>
+                            <p>&bull; Bước 1 (Khởi tạo): Với \(n=5\), ta có \(2^5 = 32 > 5^2 = 25\) (Đúng).</p>
+                            <p>&bull; Bước 2: Giả sử đúng với \(n=k \ge 5\), tức là \(2^k > k^2\). Ta cần chứng minh \(2^{k+1} > (k+1)^2\).</p>
+                            <p>&bull; Thật vậy, \(2^{k+1} = 2 \cdot 2^k > 2k^2\). Ta chỉ cần chỉ ra thêm \(2k^2 > (k+1)^2 \Leftrightarrow k^2 - 2k - 1 > 0 \Leftrightarrow (k-1)^2 > 2\), hệ thức này luôn đúng hiển nhiên với mọi \(k \ge 5\).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 9 -->
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-3"><strong>Bài 9.</strong> Chứng minh bất đẳng thức sau đúng với mọi số tự nhiên \(n \ge 3\): <br> \[2^n > 2n + 1\]</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý lời giải</span>
+                        </summary>
+                        <div class="mt-4 p-4 bg-emerald-50/40 rounded-xl border-l-4 border-emerald-500 text-xs text-slate-700 leading-relaxed space-y-2">
+                            <p><strong>Lời giải:</strong></p>
+                            <p>&bull; Với \(n=3\): \(2^3 = 8 > 2(3)+1 = 7\) (Đúng).</p>
+                            <p>&bull; Giả sử đúng với \(k \ge 3\), ta chứng minh với bước \(k+1\):</p>
+                            <p class="font-serif pl-4 text-slate-900">\(2^{k+1} = 2 \cdot 2^k > 2(2k + 1) = 4k + 2 = (2k + 3) + (2k - 1)\).</p>
+                            <p>&bull; Vì \(k \ge 3 \Rightarrow 2k - 1 > 0\) nên rõ ràng \(2^{k+1} > 2k + 3 = 2(k+1) + 1\) (đpcm).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 10 -->
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-3"><strong>Bài 10 (Bất đẳng thức Bernoulli).</strong> Cho số thực \(x > -1\). Bằng phương pháp quy nạp toán học, hãy chứng minh rằng với mọi \(n \in \mathbb{N}^*\), ta luôn có: <br> \[(1 + x)^n \ge 1 + nx\]</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý lời giải</span>
+                        </summary>
+                        <div class="mt-4 p-4 bg-emerald-50/40 rounded-xl border-l-4 border-emerald-500 text-xs text-slate-700 leading-relaxed space-y-2">
+                            <p><strong>Lời giải:</strong></p>
+                            <p>&bull; Với \(n=1\): \((1+x)^1 \ge 1 + 1.x \Leftrightarrow 1+x \ge 1+x\) (Luôn đúng).</p>
+                            <p>&bull; Giả sử đúng với \(n=k\), tức là \((1+x)^k \ge 1+kx\). Do \(x > -1 \Rightarrow 1+x > 0\), nhân cả hai vế bất đẳng thức cho \((1+x)\):</p>
+                            <p class="font-serif pl-4 text-indigo-700">\((1+x)^{k+1} \ge (1+kx)(1+x) = 1 + x + kx + kx^2 = 1 + (k+1)x + kx^2\).</p>
+                            <p>&bull; Do \(kx^2 \ge 0\) nên hiển nhiên \(1 + (k+1)x + kx^2 \ge 1 + (k+1)x\) (đpcm).</p>
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ================= CẤP ĐỘ 3: VẬN DỤNG ================= -->
+        <section class="space-y-6">
+            <div class="flex items-center gap-3 border-b pb-3 border-slate-200">
+                <span class="bg-emerald-600 text-white text-xs font-black px-3 py-1 rounded-md uppercase tracking-wider">Cấp độ 3</span>
+                <h2 class="text-xl font-extrabold text-slate-900">VẬN DỤNG (Đếm Hình học, Lãi kép Thực tế & Bẫy tư duy Logic)</h2>
+            </div>
+            <p class="text-xs font-bold text-emerald-800 bg-emerald-50 px-3 py-2 rounded-lg inline-block">
+                Mục tiêu: Dùng quy nạp giải quyết các cấu trúc tổ hợp phức tạp và rèn luyện tư duy phản biện lập luận chặt chẽ.
+            </p>
+
+            <div class="space-y-4">
+                <!-- Bài 11 -->
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-3"><strong>Bài 11 (Vận dụng Hình học).</strong> Sử dụng phương pháp quy nạp toán học, chứng minh rằng tổng các góc trong của một đa giác lồi \(n\) cạnh (\(n \ge 3\)) luôn bằng \((n - 2) \cdot 180^\circ\).</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý lời giải</span>
+                        </summary>
+                        <div class="mt-4 p-4 bg-emerald-50/40 rounded-xl border-l-4 border-emerald-500 text-xs text-slate-700 leading-relaxed space-y-2">
+                            <p><strong>Lời giải:</strong></p>
+                            <p>&bull; Với \(n=3\): Tổng các góc của một tam giác bằng \(180^\circ = (3-2) \cdot 180^\circ\) (Đúng).</p>
+                            <p>&bull; Giả sử đúng với đa giác lồi \(k\) cạnh. Xét đa giác lồi \((k+1)\) cạnh \(A_1A_2...A_{k+1}\).</p>
+                            <p>&bull; Nối đường chéo \(A_1A_k\), ta chia khối đa giác này thành 2 phần biệt lập: Đa giác \(k\) cạnh \(A_1A_2...A_k\) và một tam giác đơn \(A_1A_kA_{k+1}\).</p>
+                            <p>&bull; Tổng các góc lúc này bằng tổng góc đa giác \(k\) cạnh cộng thêm góc tam giác: \((k-2) \cdot 180^\circ + 180^\circ = (k-1) \cdot 180^\circ = [(k+1)-2] \cdot 180^\circ\) (đpcm).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 12 -->
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-3"><strong>Bài 12 (Vận dụng Hình học).</strong> Sử dụng phương pháp quy nạp toán học, chứng minh rằng số đường chéo của một đa giác lồi \(n\) cạnh (\(n \ge 4\)) được tính bằng công thức: \[\frac{n(n - 3)}{2}\]</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý lời giải</span>
+                        </summary>
+                        <div class="mt-4 p-4 bg-emerald-50/40 rounded-xl border-l-4 border-emerald-500 text-xs text-slate-700 leading-relaxed space-y-2">
+                            <p><strong>Lời giải:</strong></p>
+                            <p>&bull; Với \(n=4\) (tứ giác lồi): Số đường chéo bằng \(\frac{4(4-3)}{2} = 2\) (Hoàn toàn chính xác).</p>
+                            <p>&bull; Giả sử một đa giác \(k\) cạnh có \(\frac{k(k-3)}{2}\) đường chéo. Khi thêm đỉnh thứ \(k+1\):</p>
+                            <p class="pl-2">&bull; Cạnh bên cũ trở thành đường chéo bên trong (thêm 1 đường chéo).</p>
+                            <p class="pl-2">&bull; Đỉnh mới nối đến tất cả các đỉnh cũ trừ 2 đỉnh liền kề kế bên (thêm \(k-2\) đường chéo mới).</p>
+                            <p>&bull; Tổng số đường chéo: \(\frac{k(k-3)}{2} + 1 + k - 2 = \frac{k^2 - 3k + 2k - 2}{2} = \frac{k^2 - k - 2}{2} = \frac{(k+1)(k-2)}{2} = \frac{(k+1)[(k+1)-3]}{2}\) (đpcm).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 13 -->
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-3"><strong>Bài 13 (Vận dụng Tổ hợp - Hình học).</strong> Trong mặt phẳng, cho \(n\) đường thẳng (\(n \ge 2\)), trong đó không có hai đường thẳng nào song song và không có ba đường thẳng nào đồng quy. Chứng minh bằng quy nạp toán học rằng số giao điểm của \(n\) đường thẳng này là: \[\frac{n(n - 1)}{2}\]</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý lời giải</span>
+                        </summary>
+                        <div class="mt-4 p-4 bg-emerald-50/40 rounded-xl border-l-4 border-emerald-500 text-xs text-slate-700 leading-relaxed space-y-2">
+                            <p><strong>Lời giải:</strong></p>
+                            <p>&bull; Với \(n=2\): số giao điểm là \(\frac{2(2-1)}{2} = 1\) (Đúng vì 2 đường thẳng phân biệt không song song cắt nhau tại 1 điểm).</p>
+                            <p>&bull; Giả sử \(k\) đường thẳng có \(\frac{k(k-1)}{2}\) giao điểm. Thêm vào đường thẳng thứ \(k+1\):</p>
+                            <p>&bull; Vì đường thẳng mới không song song và không đồng quy với bất kỳ đường thẳng cũ nào, nên nó sẽ cắt chính xác cả \(k\) đường thẳng hiện tại tạo thêm đúng \(k\) giao điểm mới.</p>
+                            <p>&bull; Tổng số giao điểm: \(\frac{k(k-1)}{2} + k = \frac{k^2 - k + 2k}{2} = \frac{k^2 + k}{2} = \frac{(k+1)k}{2} = \frac{(k+1)[(k+1)-1]}{2}\) (đpcm).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 14 -->
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-3"><strong>Bài 14 (Vận dụng Thực tế - Công thức lãi kép).</strong> Một khoản tiền \(A\) đồng được gửi tiết kiệm kì hạn ở ngân hàng theo thể thức lãi kép với lãi suất \(r\%\) không đổi mỗi kì. Chứng minh tổng số tiền cả vốn lẫn lãi sau \(n\) kì hạn (\(n \in \mathbb{N}^*\)) thu được là: <br> \[T_n = A\left(1 + \frac{r}{100}\right)^n\]</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý lời giải</span>
+                        </summary>
+                        <div class="mt-4 p-4 bg-emerald-50/40 rounded-xl border-l-4 border-emerald-500 text-xs text-slate-700 leading-relaxed space-y-2">
+                            <p><strong>Lời giải:</strong></p>
+                            <p>&bull; Kì hạn thứ nhất (\(n=1\)): Tổng tiền thu về bằng tiền gốc cộng tiền lãi: \(T_1 = A + A \cdot \frac{r}{100} = A\left(1 + \frac{r}{100}\right)^1\) (Đúng).</p>
+                            <p>&bull; Giả sử công thức đúng đến kì thứ \(k\): \(T_k = A\left(1 + \frac{r}{100}\right)^k\).</p>
+                            <p>&bull; Tại kì tiếp theo \((k+1)\), tiền gốc tính lãi chính là toàn bộ số tiền của kì \(k\):</p>
+                            <p class="font-serif pl-4 text-indigo-700">\(T_{k+1} = T_k + T_k \cdot \frac{r}{100} = T_k\left(1 + \frac{r}{100}\right) = A\left(1 + \frac{r}{100}\right)^k \cdot \left(1 + \frac{r}{100}\right) = A\left(1 + \frac{r}{100}\right)^{k+1}\) (đpcm).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 15 -->
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-3 text-justify"><strong>Bài 15 (Phát hiện lỗi sai tư duy logic).</strong> Xét bài toán "chứng minh" vui sau đây: "Mọi con mèo đều có cùng màu". <br>
+                    Bước 1: Với \(n = 1\), đàn có 1 con mèo thì dĩ nhiên chúng có cùng màu. \(P(1)\) đúng. <br>
+                    Bước 2: Giả sử \(P(k)\) đúng. Xét một đàn mèo gồm \(k + 1\) con là \(M_1, M_2, ..., M_k, M_{k+1}\). <br>
+                    Bỏ con mèo \(M_{k+1}\) ra khỏi đàn, ta còn \(k\) con \(M_1, M_2, ..., M_k\). Theo giả thiết quy nạp, \(k\) con này có cùng màu. <br>
+                    Bỏ tiếp con mèo \(M_1\) ra, ta còn \(k\) con \(M_2, ..., M_{k+1}\). Theo giả thiết quy nạp, \(k\) con này cũng cùng màu. <br>
+                    Từ đó suy ra con \(M_1\) cùng màu với các con ở giữa, và con \(M_{k+1}\) cũng cùng màu với các con ở giữa. Vậy tất cả \(k + 1\) con đều cùng màu! <br>
+                    Dựa vào kiến thức quy nạp, em hãy giải thích xem lập luận trên đã sai ở bước nào?</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý lời giải</span>
+                        </summary>
+                        <div class="mt-4 p-4 bg-emerald-50/40 rounded-xl border-l-4 border-emerald-500 text-xs text-slate-700 leading-relaxed space-y-2 text-justify">
+                            <p><strong>Lời giải:</strong></p>
+                            <p>&bull; Lập luận trên bị <strong>sai ở bước chuyển đổi quy nạp từ \(n=1\) lên \(n=2\)</strong> (tức là khi \(k=1\)).</p>
+                            <p>&bull; Khi \(k=1\), đàn mèo gồm \(k+1 = 2\) con là \(\{M_1, M_2\}\). Nếu bỏ \(M_2\), tập hợp còn lại \(\{M_1\}\) cùng màu. Nếu bỏ \(M_1\), tập hợp còn lại \(\{M_2\}\) cùng màu.</p>
+                            <p>&bull; Tuy nhiên, giữa hai tập hợp này <strong>không hề có "các con mèo ở giữa"</strong> để làm cầu nối trung gian so sánh màu sắc (phần giao của hai tập hợp sau khi bỏ hai đầu là rỗng). Do đó, không thể kết luận được \(M_1\) và \(M_2\) có cùng màu với nhau.</p>
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ================= BÀI TẬP ĐÁNH GIÁ NĂNG LỰC TRẮC NGHIỆM ================= -->
+        <section class="border-t border-slate-200 pt-10 page-break">
+            <div class="bg-gradient-to-br from-slate-900 via-slate-800 to-indigo-950 text-white rounded-3xl p-6 sm:p-8 shadow-xl relative overflow-hidden card-border">
+                <div class="absolute -right-10 -bottom-10 opacity-5 pointer-events-none text-white">
+                    <i class="fa-solid fa-square-check text-[14rem]"></i>
+                </div>
+                
+                <div class="max-w-xl space-y-2">
+                    <span class="text-xs font-bold uppercase tracking-widest text-emerald-400 bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-500/20 inline-block">Đánh giá trực tuyến tại lớp</span>
+                    <h2 class="text-xl sm:text-2xl font-black tracking-tight">BÀI TẬP ĐÁNH GIÁ NĂNG LỰC TẠI LỚP</h2>
+                    <p class="text-slate-400 text-xs sm:text-sm">Học sinh hoàn thành chọn đáp án trực tuyến, kết quả điểm số sẽ được gửi tự động về Google Sheets của nhà trường.</p>
+                </div>
+
+                <form id="quizForm" class="mt-8 space-y-6 text-slate-900">
+                    <!-- Khối thông tin cá nhân -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div class="bg-white p-4 rounded-xl shadow-inner border border-slate-100">
+                            <label class="block text-xs font-bold text-slate-400 uppercase tracking-wide mb-1"><i class="fa-solid fa-user mr-1 text-indigo-500"></i> Họ và tên học sinh</label>
+                            <input type="text" id="studentName" required placeholder="Nhập họ tên đầy đủ..." class="w-full bg-white border-b-2 border-slate-200 focus:border-indigo-500 outline-none py-1 text-sm font-bold text-slate-900 transition-colors">
+                        </div>
+                        <div class="bg-white p-4 rounded-xl shadow-inner border border-slate-100">
+                            <label class="block text-xs font-bold text-slate-400 uppercase tracking-wide mb-1"><i class="fa-solid fa-file-code mr-1 text-indigo-500"></i> Mã chuyên đề bài học</label>
+                            <input type="text" id="examId" readonly value="Buoi15_QuyNap_Toan10" class="w-full bg-slate-50 border-b-2 border-slate-200 outline-none py-1 text-sm font-bold text-slate-500 cursor-not-allowed">
+                        </div>
+                    </div>
+
+                    <!-- Khối câu hỏi -->
+                    <div class="space-y-5 mt-6">
+                        <!-- Câu 1 -->
+                        <div class="bg-white p-5 rounded-2xl shadow-sm space-y-3">
+                            <p class="text-sm font-bold text-slate-900"><span class="text-indigo-600">Câu 1:</span> Trong phương pháp quy nạp toán học để chứng minh mệnh đề đúng với mọi \(n \ge 1\), bước "Khởi tạo" ứng với việc kiểm tra tính đúng đắn tại giá trị nào?</p>
+                            <div class="grid grid-cols-1 gap-2 text-xs font-semibold text-slate-700">
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q1" value="A" required class="text-indigo-600 h-4 w-4"> <span>A. Giá trị ngẫu nhiên \(n = k\)</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q1" value="B" class="text-indigo-600 h-4 w-4"> <span>B. Giá trị cơ sở nhỏ nhất \(n = 1\)</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q1" value="C" class="text-indigo-600 h-4 w-4"> <span>C. Giá trị vô cực \(n \rightarrow \infty\)</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Câu 2 -->
+                        <div class="bg-white p-5 rounded-2xl shadow-sm space-y-3">
+                            <p class="text-sm font-bold text-slate-900"><span class="text-indigo-600">Câu 2:</span> Giả thiết quy nạp cho phép ta thừa nhận tính đúng đắn của mệnh đề \(P(n)\) tại mốc nào trước khi chứng minh cho bước tiếp theo?</p>
+                            <div class="grid grid-cols-1 gap-2 text-xs font-semibold text-slate-700">
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q2" value="A" required class="text-indigo-600 h-4 w-4"> <span>A. Tại \(n = k+1\)</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q2" value="B" class="text-indigo-600 h-4 w-4"> <span>B. Tại mọi số thực bất kỳ</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q2" value="C" class="text-indigo-600 h-4 w-4"> <span>C. Tại một số tự nhiên bất kỳ \(n = k \ge 1\)</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Câu 3 -->
+                        <div class="bg-white p-5 rounded-2xl shadow-sm space-y-3">
+                            <p class="text-sm font-bold text-slate-900"><span class="text-indigo-600">Câu 3:</span> Tổng của \(n\) số lẻ liên tiếp đầu tiên: \(1 + 3 + 5 + ... + (2n-1)\) có kết quả rút gọn bằng:</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs font-semibold text-slate-700">
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q3" value="A" required class="text-indigo-600 h-4 w-4"> <span>A. \(\frac{n(n+1)}{2}\)</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q3" value="B" class="text-indigo-600 h-4 w-4"> <span>B. \(n^2\)</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q3" value="C" class="text-indigo-600 h-4 w-4"> <span>C. \(2n^2\)</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q3" value="D" class="text-indigo-600 h-4 w-4"> <span>D. \(n(n-1)\)</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Câu 4 -->
+                        <div class="bg-white p-5 rounded-2xl shadow-sm space-y-3">
+                            <p class="text-sm font-bold text-slate-900"><span class="text-indigo-600">Câu 4:</span> Biểu thức \(n^3 - n\) chia hết cho số nguyên nào sau đây với mọi số tự nhiên \(n \in \mathbb{N}^*\)?</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs font-semibold text-slate-700">
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q4" value="A" required class="text-indigo-600 h-4 w-4"> <span>A. 3</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q4" value="B" class="text-indigo-600 h-4 w-4"> <span>B. 5</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q4" value="C" class="text-indigo-600 h-4 w-4"> <span>C. 7</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Câu 5 -->
+                        <div class="bg-white p-5 rounded-2xl shadow-sm space-y-3">
+                            <p class="text-sm font-bold text-slate-900"><span class="text-indigo-600">Câu 5:</span> Khi chứng minh bất đẳng thức \(2^n > n^2\) bằng quy nạp, mốc khởi tạo cơ sở \(n\) nhỏ nhất phải bằng bao nhiêu?</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs font-semibold text-slate-700">
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q5" value="A" required class="text-indigo-600 h-4 w-4"> <span>A. \(n = 3\)</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q5" value="B" class="text-indigo-600 h-4 w-4"> <span>B. \(n = 4\)</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q5" value="C" class="text-indigo-600 h-4 w-4"> <span>C. \(n = 5\)</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Nút nộp bài -->
+                    <div class="pt-2 flex flex-col sm:flex-row items-center justify-between gap-4">
+                        <button type="submit" id="submitBtn" class="w-full sm:w-auto bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-sm px-8 py-3.5 rounded-xl shadow-lg transition-all flex items-center justify-center space-x-2 cursor-pointer">
+                            <i class="fa-solid fa-cloud-arrow-up"></i> <span>Nộp Bài Chấm Điểm</span>
+                        </button>
+                        <div id="statusReport" class="text-xs font-bold text-slate-400"></div>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer bản quyền -->
+    <footer class="bg-slate-900 text-slate-400 py-8 text-center text-xs font-medium px-4 mt-auto">
+        <p class="font-bold text-slate-300">@ Bản quyền thuộc ThS. Đinh Quốc Tuấn - Mục đích phi lợi nhuận - Vì giáo dục.</p>
+        <p class="text-slate-500 mt-2">Hệ thống hỗ trợ trực tuyến phát triển tư duy toán học phổ thông tích hợp đồ họa tương tác.</p>
+    </footer>
+
+    <!-- NÚT IN TÀI LIỆU CỐ ĐỊNH -->
+    <button id="btn-print-doc" onclick="safePrint()" class="fixed bottom-5 right-5 bg-gray-900 text-white px-4 py-2 rounded-lg shadow-lg hover:bg-gray-700 print:hidden z-50 cursor-pointer">
+        <i class="fas fa-print mr-2"></i> In Tài Liệu
+    </button>
+
+    <!-- Kịch bản điều khiển in ấn an toàn -->
+    <script>
+        function safePrint() {
+            const printBtn = document.getElementById('btn-print-doc');
+            printBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Đang chuẩn bị...';
+            
+            // Đảm bảo MathJax đã render xong mọi công thức trước khi gọi hộp thoại in
+            if (window.MathJax && window.MathJax.typesetPromise) {
+                MathJax.typesetPromise().then(() => {
+                    printBtn.innerHTML = '<i class="fas fa-print mr-2"></i> In Tài Liệu';
+                    window.print();
+                });
+            } else {
+                // Fallback nếu không có công thức toán
+                setTimeout(() => {
+                    printBtn.innerHTML = '<i class="fas fa-print mr-2"></i> In Tài Liệu';
+                    window.print();
+                }, 500); 
+            }
+        }
+    </script>
+
+    <!-- Kịch bản render Mô hình Hình học (JSXGraph) và Xử lý Form qua Apps Script -->
+    <script>
+        // Hệ thống quản lý thời gian
+        const timeInit = new Date();
+
+        document.addEventListener("DOMContentLoaded", function() {
+            
+            // --- MÔ HÌNH 1: TỔNG SỐ LẺ LIÊN TIẾP (HIỆU ỨNG DIỆN TÍCH) ---
+            const b1 = JXG.JSXGraph.initBoard('box1', {
+                boundingbox: [-0.5, 5.5, 5.5, -0.5], axis: false, showNavigation: false, showCopyright: false
+            });
+            
+            // Thanh trượt cấp độ n
+            let s1 = b1.create('slider', [[0.5, 5.0], [3.5, 5.0], [1, 4, 5]], {name: 'Cấp độ n', snapWidth: 1, color: '#4f46e5'});
+            let colors = ['#cbd5e1', '#fca5a5', '#93c5fd', '#fef08a', '#c084fc'];
+            
+            // Render lưới ô vuông động phụ thuộc giá trị thanh trượt s1
+            for (let i = 0; i < 5; i++) {
+                let c = colors[i];
+                let currentLevel = i + 1;
+                
+                // Hàm bọc quản lý độ mờ phụ thuộc giá trị slider
+                let opacityFunc = (function(lvl) {
+                    return function() { return s1.Value() >= lvl ? 0.75 : 0.05; };
+                })(currentLevel);
+
+                if (i === 0) {
+                    b1.create('polygon', [[0,0], [1,0], [1,1], [0,1]], {fillColor: c, fillOpacity: opacityFunc, border:{strokeColor:'white', strokeWidth: 1.5}});
+                } else {
+                    for (let j = 0; j < i; j++) {
+                        b1.create('polygon', [[j,i], [j+1,i], [j+1,i+1], [j,i+1]], {fillColor: c, fillOpacity: opacityFunc, border:{strokeColor:'white', strokeWidth: 1.5}});
+                    }
+                    b1.create('polygon', [[i,i], [i+1,i], [i+1,i+1], [i,i+1]], {fillColor: c, fillOpacity: opacityFunc, border:{strokeColor:'white', strokeWidth: 1.5}});
+                    for (let j = 0; j < i; j++) {
+                        b1.create('polygon', [[i,j], [i+1,j], [i+1,j+1], [i,j+1]], {fillColor: c, fillOpacity: opacityFunc, border:{strokeColor:'white', strokeWidth: 1.5}});
+                    }
+                }
+            }
+            
+            b1.create('text', [0.5, 4.3, function() {
+                let n = Math.round(s1.Value());
+                return 'Diện tích tổng: ' + n + '² = ' + (n*n) + ' ô';
+            }], {fontSize: 11, fontStyle: 'bold', strokeColor: '#1e293b'});
+
+
+            // --- MÔ HÌNH 2: PHÂN CHIA ĐA GIÁC LỒI (BƯỚC QUY NẠP K+1) ---
+            const b2 = JXG.JSXGraph.initBoard('box2', {
+                boundingbox: [-4.5, 4.5, 4.5, -4.5], axis: false, showNavigation: false, showCopyright: false
+            });
+            
+            // Điểm cố định tạo hệ trục hình đa giác lồi mẫu
+            let p1 = b2.create('point', [0, 3.5], {name:'A₁', size:3, color: '#1e293b', fixed: true});
+            let p2 = b2.create('point', [2.5, 2.2], {name:'A₂', size:3, color: '#1e293b', fixed: true});
+            let p3 = b2.create('point', [3.5, -1], {name:'A₃', size:3, color: '#1e293b', fixed: true});
+            let p4 = b2.create('point', [1.5, -3.5], {name:'A_k', size:3, color: '#1e293b', fixed: true});
+            let p5 = b2.create('point', [-1.5, -3.5], {name:'A_{k+1}', size:3, color: '#4f46e5', size: 4});
+            let p6 = b2.create('point', [-3.5, -0.8], {name:'', size:2, color: '#94a3b8', fixed: true});
+            let p7 = b2.create('point', [-2.5, 2.2], {name:'', size:2, color: '#94a3b8', fixed: true});
+            
+            // Vẽ đa giác lồi tổng thể k+1 cạnh
+            b2.create('polygon', [p1, p2, p3, p4, p5, p6, p7], {fillColor: '#f1f5f9', fillOpacity: 0.5, border: {strokeWidth: 2, strokeColor: '#64748b'}});
+            
+            // Đường chéo phân tách bước quy nạp nối từ A1 đến Ak
+            b2.create('segment', [p1, p4], {dash: 2, strokeColor: '#ef4444', strokeWidth: 2.5});
+            
+            // Tô màu highlight phần tam giác dôi ra đại diện cho bước tăng cấp (k+1)
+            b2.create('polygon', [p1, p4, p5], {fillColor: '#fca5a5', fillOpacity: 0.4, border: {visible: false}});
+            b2.create('text', [-0.5, -1.8, 'Tam giác thêm vào ở bước (k+1)'], {fontSize: 10, fontStyle: 'bold', color: '#b91c1c'});
+        });
+
+        // --- XỬ LÝ BIỂU MẪU TRẮC NGHIỆM ĐỒNG BỘ GOOGLE SHEETS ---
+        document.getElementById('quizForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            const submitBtn = document.getElementById('submitBtn');
+            const statusReport = document.getElementById('statusReport');
+            
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i> Đang nộp bài...';
+            statusReport.innerHTML = "Đang mã hóa kết nối đồng bộ đám mây...";
+
+            // Bảng đáp án chuẩn
+            const correctKey = { q1: "B", q2: "C", q3: "B", q4: "A", q5: "C" };
+            const studentName = document.getElementById('studentName').value.trim();
+            const lessonId = document.getElementById('examId').value.trim();
+            
+            let correctCounter = 0;
+            let totalQuizCount = Object.keys(correctKey).length;
+            let missedReportArray = [];
+
+            // Chấm điểm tự động
+            for (let questionCode in correctKey) {
+                const selectedRadio = document.querySelector(`input[name="${questionCode}"]:checked`);
+                if (selectedRadio && selectedRadio.value === correctKey[questionCode]) {
+                    correctCounter++;
+                } else {
+                    let chosenChar = selectedRadio ? selectedRadio.value : "Bỏ trống";
+                    missedReportArray.push(`${questionCode.toUpperCase()}(Chọn: ${chosenChar}|Đúng: ${correctKey[questionCode]})`);
+                }
+            }
+
+            // Tính toán thông số nộp bài
+            const finalScore = ((correctCounter / totalQuizCount) * 10).toFixed(2);
+            const timeComplete = new Date();
+            const elapsedDurationSeconds = Math.floor((timeComplete - timeInit) / 1000);
+            const thoiGian = `${Math.floor(elapsedDurationSeconds / 60)} phút ${elapsedDurationSeconds % 60} giây`;
+            const cauSai = missedReportArray.length > 0 ? missedReportArray.join(", ") : "Không có (Đạt điểm tuyệt đối)";
+
+            // Đóng gói Payload tương thích tuyệt đối mã code Apps Script của bạn
+            const transmissionPayload = {
+                hoTen: studentName,
+                maDe: lessonId,
+                diem: parseFloat(finalScore),
+                thoiGian: thoiGian,
+                cauSai: cauSai
+            };
+
+            const webAppsScriptEndpoint = "https://script.google.com/macros/s/AKfycbzY7b7h4OwvhXuK5Vs6hl-aD88BPnAiAKbU5lfJobby0D4nzbIJVKT4n0AKCpAGoK0nZA/exec";
+
+            // Truyền dữ liệu qua fetch API phương thức POST bất đồng bộ
+            fetch(webAppsScriptEndpoint, {
+                method: "POST",
+                mode: "no-cors",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(transmissionPayload)
+            })
+            .then(() => {
+                statusReport.className = "text-xs font-bold text-emerald-500 bg-emerald-50 px-3 py-1.5 rounded-lg border border-emerald-200 shadow-inner";
+                statusReport.innerHTML = `<i class="fa-solid fa-circle-check"></i> Đã đồng bộ điểm số: ${finalScore}/10 lên hệ thống thành công!`;
+                alert(`Chúc mừng em ${studentName} đã hoàn thành bài đánh giá!\nĐiểm số đạt được: ${finalScore} / 10.\nThời gian làm bài: ${thoiGian}.`);
+                submitBtn.innerHTML = '<i class="fa-solid fa-lock"></i> Hệ thống đã khóa kết quả';
+            })
+            .catch(error => {
+                console.error("Giao dịch truyền tin thất bại:", error);
+                statusReport.className = "text-xs font-bold text-rose-500 bg-rose-50 px-3 py-1.5 rounded-lg border border-rose-200 shadow-inner";
+                statusReport.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> Lỗi đường truyền, vui lòng bấm nộp lại!';
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="fa-solid fa-rotate-right"></i> Thử nộp lại bài';
+            });
+        });
+    </script>
+</body>
+</html>
