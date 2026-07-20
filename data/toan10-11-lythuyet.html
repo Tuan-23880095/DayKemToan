@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buổi 11: Đại cương về giá trị lượng giác từ 0° đến 180° — ThS. Đinh Quốc Tuấn</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- FontAwesome Icons CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts: Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- MathJax Configuration & Library -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['\\(', '\\)']],
+                displayMath: [['\\[', '\\]']]
+            },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <!-- JSXGraph CSS & Core Engine -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraph.css" />
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraphcore.js"></script>
+
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #f8fafc;
+            color: #0f172a;
+        }
+        .jxgbox {
+            background-color: #ffffff !important;
+            border-radius: 1rem;
+            overflow: hidden;
+            border: 1px solid #e2e8f0;
+        }
+        @media print {
+            .print\:hidden { display: none !important; }
+            body { background: white !important; color: black !important; }
+            details { display: block !important; }
+            details summary { display: none !important; }
+            .page-break { page-break-before: always; }
+            .card-border { box-shadow: none !important; border: 1px solid #e5e7eb !important; }
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col antialiased selection:bg-indigo-100">
+
+    <!-- Header học thuật -->
+    <header class="border-b border-slate-200 sticky top-0 bg-white/95 backdrop-blur-md z-40 print:hidden">
+        <div class="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 px-6 py-4">
+            <div class="flex items-center gap-4">
+                <img src="https://hcmus.edu.vn/wp-content/uploads/2023/04/Logo-chinh-e1681638380305.png" alt="Logo HCMUS" class="h-14 w-auto object-contain">
+                <div class="border-l-2 border-slate-300 pl-4">
+                    <span class="text-xs font-bold tracking-widest text-indigo-600 uppercase block mb-0.5">Tài liệu số hóa tương tác</span>
+                    <span class="text-base font-extrabold text-slate-800">Hình học phẳng & Hệ thức lượng lớp 10</span>
+                </div>
+            </div>
+            <div class="flex items-center gap-3 sm:text-right">
+                <div class="hidden sm:block">
+                    <p class="text-xs text-slate-400 font-semibold">Giảng viên biên soạn:</p>
+                    <p class="text-sm font-extrabold text-slate-800">ThS. Đinh Quốc Tuấn</p>
+                </div>
+                <img src="https://firebasestorage.googleapis.com/v0/b/link-anh-web.firebasestorage.app/o/ttbdvh.jpg?alt=media&token=f270aa9b-a2bc-48e8-8910-80742b542615" 
+                     alt="Logo TTBDVH" class="h-14 w-14 object-cover rounded-full border border-slate-200 shadow-inner">
+            </div>
+        </div>
+    </header>
+
+    <!-- Banner nhập môn -->
+    <div class="bg-gradient-to-r from-indigo-50 via-slate-50 to-emerald-50 border-b border-slate-200 py-10 print:hidden">
+        <div class="max-w-4xl mx-auto px-6 space-y-4">
+            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-indigo-100 text-indigo-800 border border-indigo-200 shadow-xs">
+                <i class="fa-solid fa-circle-notch mr-1.5 text-indigo-600"></i> Không gian lượng giác mở rộng
+            </span>
+            <h1 class="text-2xl sm:text-4xl font-black tracking-tight text-slate-900 leading-tight">
+                Buổi 11: Đại Cương Về Giá Trị Lượng Giác Từ 0° Đến 180°
+            </h1>
+            <p class="text-slate-600 text-sm sm:text-base font-medium leading-relaxed text-justify">
+                Chào các em! Thầy rất vui được đồng hành cùng các em trong Buổi học thứ 11. Ở cấp THCS, các em đã làm quen với các giá trị lượng giác (Sin, Cos, Tan, Cot) nhưng chỉ giới hạn trong các góc nhọn (từ \(0^\circ\) đến \(90^\circ\)) của tam giác vuông. Trong thực tế và hình học phẳng, chúng ta thường xuyên gặp những góc tù (lớn hơn \(90^\circ\) và nhỏ hơn \(180^\circ\)). Do đó, hôm nay chúng ta sẽ mở rộng khái niệm này thông qua một công cụ cực kì mạnh mẽ: <strong>Nửa đường tròn đơn vị</strong>. Dưới đây là nội dung lý thuyết chi tiết được chia thành 3 cấp độ, kèm theo gợi ý mô hình trực quan để các em dễ dàng nắm bắt.
+            </p>
+        </div>
+    </div>
+
+    <!-- Không gian làm việc chính -->
+    <main class="max-w-4xl mx-auto px-4 sm:px-6 py-10 flex-grow w-full space-y-16">
+        
+        <!-- ================= HỆ THỐNG MÔ HÌNH TRỰC QUAN JSXGRAPH ================= -->
+        <section class="space-y-8 print:hidden bg-slate-100 p-6 rounded-3xl border border-slate-200">
+            <div class="border-b border-slate-200 pb-3">
+                <h2 class="text-lg font-black text-slate-800 flex items-center uppercase tracking-wide">
+                    <i class="fa-solid fa-shapes mr-2.5 text-indigo-600 text-xl"></i> Mô hình trực quan lượng giác tương tác
+                </h2>
+                <p class="text-xs text-slate-500 mt-1">Dùng chuột thao tác trực tiếp trên các cấu trúc hình học để khám phá các định lý và hệ thức toán học.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Mô hình 1 -->
+                <div class="flex flex-col bg-white p-4 rounded-2xl border border-slate-200 shadow-2xs">
+                    <h3 class="font-bold text-slate-900 text-xs mb-1 flex items-center gap-1.5">
+                        <i class="fa-solid fa-circle-nodes text-indigo-600"></i> Mô hình 1: Nửa đường tròn đơn vị
+                    </h3>
+                    <p class="text-[11px] text-slate-500 mb-3">Kéo điểm M dọc theo cung tròn để quan sát sự thay đổi của tọa độ hình chiếu \((x_0; y_0)\) tương ứng với giá trị \(\cos\alpha\) và \(\sin\alpha\).</p>
+                    <div id="box1" class="w-full h-56 jxgbox"></div>
+                    <div id="status-box1" class="text-[11px] font-bold p-2 mt-2 bg-indigo-50 border border-indigo-100 rounded-lg text-center text-indigo-950">
+                        Xoay điểm M để bắt đầu tính toán...
+                    </div>
+                </div>
+
+                <!-- Mô hình 2 -->
+                <div class="flex flex-col bg-white p-4 rounded-2xl border border-slate-200 shadow-2xs">
+                    <h3 class="font-bold text-slate-900 text-xs mb-1 flex items-center gap-1.5">
+                        <i class="fa-solid fa-shuffle text-amber-500"></i> Mô hình 2: Góc bù nhau đối xứng
+                    </h3>
+                    <p class="text-[11px] text-slate-500 mb-3">Kéo điểm M ở góc nhọn, điểm M' đối xứng qua trục tung đại diện cho góc bẹt bù \((180^\circ - \alpha)\) sẽ tự động đồng bộ giá trị hình chiếu.</p>
+                    <div id="box2" class="w-full h-56 jxgbox"></div>
+                    <div id="status-box2" class="text-[11px] font-bold p-2 mt-2 bg-amber-50 border border-amber-100 rounded-lg text-center text-amber-950">
+                        Gióng trục tung chứng minh hình học...
+                    </div>
+                </div>
+
+                <!-- Mô hình 3 -->
+                <div class="flex flex-col bg-white p-4 rounded-2xl border border-slate-200 shadow-2xs">
+                    <h3 class="font-bold text-slate-900 text-xs mb-1 flex items-center gap-1.5">
+                        <i class="fa-solid fa-sun text-emerald-500"></i> Mô hình 3: Hệ thức đo bóng Mặt Trời
+                    </h3>
+                    <p class="text-[11px] text-slate-500 mb-3">Kéo slider góc nghiêng để mô phỏng tia nắng. Chiều dài bóng đen trên mặt đất sẽ tự động co giãn tuân theo hàm số \(\tan\alpha\).</p>
+                    <div id="box3" class="w-full h-56 jxgbox"></div>
+                    <div id="status-box3" class="text-[11px] font-bold p-2 mt-2 bg-emerald-50 border border-emerald-100 rounded-lg text-center text-emerald-950">
+                        Góc nghiêng Mặt Trời: 45.0°
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= PHẦN 1: MỨC ĐỘ CƠ BẢN ================= -->
+        <section class="space-y-6">
+            <div class="flex items-center gap-3 border-b pb-3 border-slate-200">
+                <span class="bg-sky-600 text-white text-xs font-black px-3 py-1 rounded-md uppercase tracking-wider">Cấp độ 1</span>
+                <h2 class="text-xl font-extrabold text-slate-900">PHẦN 1: MỨC ĐỘ CƠ BẢN (ĐỊNH NGHĨA BẰNG NỬA ĐƯỜNG TRÒN ĐƠN VỊ VÀ TÍNH CHẤT)</h2>
+            </div>
+            <p class="text-xs font-bold text-sky-800 bg-sky-50 px-3 py-2 rounded-lg inline-block">
+                Mục tiêu: Biểu diễn được một góc bất kì từ \(0^\circ\) đến \(180^\circ\) trên hệ trục tọa độ và thuộc các hệ thức liên hệ giữa các góc đặc biệt.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm leading-relaxed text-slate-700">
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs space-y-3">
+                    <h3 class="font-bold text-slate-800 text-base flex items-center gap-2 text-sky-700"><i class="fa-solid fa-chart-line"></i> 1. Định nghĩa mới về Giá trị lượng giác</h3>
+                    <p>&bull; <strong>Nửa đường tròn đơn vị:</strong> Là nửa đường tròn tâm \(O\), bán kính \(R = 1\) nằm phía trên trục hoành.</p>
+                    <p>&bull; Với mỗi góc \(\alpha\) (\(0^\circ \le \alpha \le 180^\circ\)), ta luôn xác định được một điểm \(M(x_0; y_0)\) duy nhất trên nửa đường tròn đơn vị sao cho \(\widehat{xOM} = \alpha\). Khi đó:</p>
+                    <ul class="list-disc list-inside pl-4 space-y-1 text-xs">
+                        <li>Tung độ \(y_0\) của \(M\) được gọi là sin của góc \(\alpha\), kí hiệu là <strong>\(\sin\alpha = y_0\)</strong>.</li>
+                        <li>Hoành độ \(x_0\) của \(M\) được gọi là côsin của góc \(\alpha\), kí hiệu là <strong>\(\cos\alpha = x_0\)</strong>.</li>
+                        <li>Tỉ số \(\frac{y_0}{x_0}\) (\(x_0 \neq 0\)) là tang của \(\alpha\), kí hiệu <strong>\(\tan\alpha = \frac{y_0}{x_0}\)</strong>.</li>
+                        <li>Tỉ số \(\frac{x_0}{y_0}\) (\(y_0 \neq 0\)) là côtang của \(\alpha\), kí hiệu <strong>\(\cot\alpha = \frac{x_0}{y_0}\)</strong>.</li>
+                    </ul>
+                </div>
+
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs space-y-3">
+                    <h3 class="font-bold text-slate-800 text-base flex items-center gap-2 text-sky-700"><i class="fa-solid fa-link"></i> 2. Mối liên hệ giữa các góc đặc biệt</h3>
+                    <div>
+                        <p class="font-bold text-xs text-slate-800">&bull; Hai góc bù nhau (\(\alpha\) và \(180^\circ - \alpha\)):</p>
+                        <p class="text-xs bg-slate-50 p-2 rounded border font-mono text-center my-1">
+                            \(\sin(180^\circ - \alpha) = \sin\alpha\) <br>
+                            \(\cos(180^\circ - \alpha) = -\cos\alpha\) <br>
+                            \(\tan(180^\circ - \alpha) = -\tan\alpha\) &nbsp;|&nbsp; \(\u\cot(180^\circ - \alpha) = -\cot\alpha\)
+                        </p>
+                    </div>
+                    <div>
+                        <p class="font-bold text-xs text-slate-800">&bull; Hai góc phụ nhau (\(\alpha\) và \(90^\circ - \alpha\)):</p>
+                        <p class="text-xs bg-slate-50 p-2 rounded border font-mono text-center my-1">
+                            \(\sin(90^\circ - \alpha) = \cos\alpha\) &nbsp;|&nbsp; \(\cos(90^\circ - \alpha) = \sin\alpha\) <br>
+                            \(\tan(90^\circ - \alpha) = \cot\alpha\) &nbsp;|&nbsp; \(\cot(90^\circ - \alpha) = \tan\alpha\)
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ví dụ 1 -->
+            <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                <span class="bg-sky-100 text-sky-800 text-xs font-bold px-2 py-0.5 rounded">Ví dụ minh họa 1 (Cơ bản)</span>
+                <p class="text-sm font-semibold text-slate-800 mt-2">Dùng nửa đường tròn đơn vị, hãy tìm các giá trị lượng giác của góc \(135^\circ\).</p>
+                
+                <details class="group mt-3">
+                    <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                        <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý lời giải ẩn</span>
+                    </summary>
+                    <div class="mt-3 p-4 bg-emerald-50/40 rounded-xl border-l-4 border-emerald-500 text-xs text-slate-700 leading-relaxed space-y-2">
+                        <p><strong>Giải:</strong> Lấy điểm \(M\) trên nửa đường tròn đơn vị sao cho \(\widehat{xOM} = 135^\circ\). Dựa vào tính chất đối xứng tâm hình học và tam giác vuông cân trục phân giác phân tư II, ta tìm được tọa độ điểm \(M\) cụ thể là \(\left(-\frac{\sqrt{2}}{2}; \frac{\sqrt{2}}{2}\right)\).</p>
+                        <p>Theo định nghĩa gốc tọa độ lượng giác, ta thu được kết quả:</p>
+                        <p class="font-mono bg-white p-2 border rounded text-center text-slate-900 font-bold">
+                            \(\sin 135^\circ = \frac{\sqrt{2}}{2}\) &nbsp;|&nbsp; \(\cos 135^\circ = -\frac{\sqrt{2}}{2}\) &nbsp;|&nbsp; \(\tan 135^\circ = -1\) &nbsp;|&nbsp; \(\cot 135^\circ = -1\)
+                        </p>
+                    </div>
+                </details>
+            </div>
+        </section>
+
+
+        <!-- ================= PHẦN 2: MỨC ĐỘ NÂNG CAO ================= -->
+        <section class="space-y-6">
+            <div class="flex items-center gap-3 border-b pb-3 border-slate-200">
+                <span class="bg-amber-600 text-white text-xs font-black px-3 py-1 rounded-md uppercase tracking-wider">Cấp độ 2</span>
+                <h2 class="text-xl font-extrabold text-slate-900">PHẦN 2: MỨC ĐỘ NÂNG CAO (HỆ THỨC LƯỢNG GIÁC CƠ BẢN VÀ XẾT DẤU)</h2>
+            </div>
+            <p class="text-xs font-bold text-amber-800 bg-amber-50 px-3 py-2 rounded-lg inline-block">
+                Mục tiêu: Sử dụng thành thạo các hệ thức lượng giác cơ bản để tính toán biến đổi các giá trị biểu thức mà không phụ thuộc máy tính.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm leading-relaxed text-slate-700">
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs space-y-2">
+                    <h3 class="font-bold text-slate-800 text-base flex items-center gap-2 text-amber-700 mb-1"><i class="fa-solid fa-square-root-variable"></i> 1. Bốn hệ thức lượng giác kinh điển</h3>
+                    <p>Từ định nghĩa bằng tọa độ hình chiếu phẳng và định lí Pythagore trong tam giác vuông, ta có:</p>
+                    <div class="bg-slate-50 p-3 rounded-xl font-mono text-xs text-center space-y-1 text-slate-900 font-bold border">
+                        <p>\(\sin^2\alpha + \cos^2\alpha = 1\)</p>
+                        <p>\(1 + \tan^2\alpha = \frac{1}{\cos^2\alpha}\) &nbsp;(\(\alpha \neq 90^\circ\))</p>
+                        <p>\(1 + \cot^2\alpha = \frac{1}{\sin^2\alpha}\) &nbsp;(\(0^\circ < \alpha < 180^\circ\))</p>
+                        <p>\(\tan\alpha \cdot \cot\alpha = 1\) &nbsp;(\(\alpha \notin \{0^\circ; 90^\circ; 180^\circ\}\))</p>
+                    </div>
+                </div>
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs space-y-2">
+                    <h3 class="font-bold text-slate-800 text-base flex items-center gap-2 text-amber-700 mb-1"><i class="fa-solid fa-plus-minus"></i> 2. Quy luật xét dấu bảng lượng giác</h3>
+                    <p>&bull; <strong>Nếu \(\alpha\) là góc nhọn (\(0^\circ < \alpha < 90^\circ\)):</strong> Điểm M thuộc góc phần tư I. Cả 4 giá trị \(\sin\alpha, \cos\alpha, \tan\alpha, \cot\alpha\) đều mang dấu <strong>DƯƠNG (+)</strong>.</p>
+                    <p>&bull; <strong>Nếu \(\alpha\) là góc tù (\(90^\circ < \alpha < 180^\circ\)):</strong> Điểm M nằm bên trái trục tung (góc phần tư II). Chỉ có duy nhất <strong>\(\sin\alpha\) mang dấu DƯƠNG (+)</strong>, 3 đại lượng còn lại đều nhận dấu <strong>ÂM (-)</strong>.</p>
+                </div>
+            </div>
+
+            <!-- Ví dụ 2 -->
+            <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                <span class="bg-amber-100 text-amber-800 text-xs font-bold px-2 py-0.5 rounded">Ví dụ minh họa 2 (Nâng cao)</span>
+                <p class="text-sm font-semibold text-slate-800 mt-2">Cho góc \(\alpha\) thỏa mãn \(0^\circ < \alpha < 180^\circ\) và \(\cos\alpha = -\frac{1}{3}\). Tính các giá trị lượng giác còn lại của \(\alpha\).</p>
+                
+                <details class="group mt-3">
+                    <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                        <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem hướng dẫn giải hệ thức</span>
+                    </summary>
+                    <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-2 leading-relaxed">
+                        <p>&bull; Vì \(\cos\alpha = -\frac{1}{3} < 0\) nên \(\alpha\) phải là một góc tù (\(90^\circ < \alpha < 180^\circ\)), do đó theo tính chất dấu ta chắc chắn có <strong>\(\sin\alpha > 0\)</strong>.</p>
+                        <p>&bull; Áp dụng hệ thức Pythagore: \(\sin^2\alpha + \cos^2\alpha = 1 \Rightarrow \sin^2\alpha = 1 - \left(-\frac{1}{3}\right)^2 = \frac{8}{9}\).</p>
+                        <p>&bull; Do \(\sin\alpha > 0\) nên khai căn ta thu được: <strong>\(\sin\alpha = \frac{\sqrt{8}}{3} = \frac{2\sqrt{2}}{3}\)</strong>.</p>
+                        <p>&bull; Tính toán giá trị còn lại theo định nghĩa tỉ số đại số mẫu số:</p>
+                        <p class="pl-4 font-mono font-bold text-indigo-950">&bull; \(\tan\alpha = \frac{\sin\alpha}{\cos\alpha} = \frac{2\sqrt{2}/3}{-1/3} = -2\sqrt{2}\)</p>
+                        <p class="pl-4 font-mono font-bold text-indigo-950">&bull; \(\cot\alpha = \frac{1}{\tan\alpha} = \frac{1}{-2\sqrt{2}} = -\frac{\sqrt{2}}{4}\)</p>
+                    </div>
+                </details>
+            </div>
+        </section>
+
+
+        <!-- ================= PHẦN 3: MỨC ĐỘ VẬN DỤNG ================= -->
+        <section class="space-y-6">
+            <div class="flex items-center gap-3 border-b pb-3 border-slate-200">
+                <span class="bg-emerald-600 text-white text-xs font-black px-3 py-1 rounded-md uppercase tracking-wider">Cấp độ 3</span>
+                <h2 class="text-xl font-extrabold text-slate-900">PHẦN 3: MỨC ĐỘ VẬN DỤNG (BÀI TOÁN THỰC TẾ)</h2>
+            </div>
+            <p class="text-xs font-bold text-emerald-800 bg-emerald-50 px-3 py-2 rounded-lg inline-block">
+                Mục tiêu: Đưa các kích thước đo đạc, góc nâng thực tế bên ngoài không gian phẳng về cấu trúc tam giác giải tích lượng giác.
+            </p>
+
+            <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs text-sm leading-relaxed text-slate-700">
+                <h3 class="font-bold text-slate-800 text-base flex items-center gap-2 text-emerald-700 mb-1"><i class="fa-solid fa-mountain text-sm"></i> Phương pháp mô hình hóa lượng giác thực tế</h3>
+                <p>Ta biểu diễn các vật thể thực tế (chiều cao cái cây, tòa nhà, cột cờ...) về các đoạn thẳng vuông góc của tam giác. Từ góc quan sát (góc nâng của tia sáng mặt trời), ta linh hoạt dùng hàm số \(\tan\alpha\) hoặc \(\cot\alpha\) để tính độ dài tương ứng.</p>
+            </div>
+
+            <!-- Ví dụ 3 -->
+            <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                <span class="bg-emerald-100 text-emerald-800 text-xs font-bold px-2 py-0.5 rounded">Ví dụ minh họa 3 (Vận dụng cao)</span>
+                <p class="text-sm font-semibold text-slate-800 mt-2 text-justify">Góc nghiêng của Mặt Trời tại một vị trí trên Trái Đất là góc giữa tia nắng và mặt đất. Để đo góc này, vào giữa trưa, một học sinh dựng một chiếc thước thẳng dài \(1\text{ m}\) vuông góc với mặt đất. Sau đó, em đo được độ dài bóng của chiếc thước trên mặt đất là \(0,8\text{ m}\). Tính góc nghiêng của Mặt Trời tại thời điểm đó (làm tròn đến phút).</p>
+                
+                <details class="group mt-3">
+                    <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                        <i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform mr-1"></i> Xem hướng dẫn giải mô hình hóa
+                    </summary>
+                    <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-2 text-justify">
+                        <p>&bull; Gọi \(\alpha\) là góc nghiêng của Mặt Trời cần tính toán.</p>
+                        <p>&bull; Mô hình hóa bài toán thành một cấu trúc tam giác vuông, trong đó cạnh đối đứng (thước thẳng) dài \(1\text{ m}\), cạnh kề ngang (độ dài bóng đổ trên đất) dài \(0,8\text{ m}\).</p>
+                        <p>&bull; Áp dụng hệ thức tỉ số lượng giác Tang:</p>
+                        <p class="text-center font-serif font-bold text-indigo-950 py-1">
+                            \(\tan\alpha = \frac{\text{Cạnh đối}}{\text{Cạnh kề}} = \frac{1}{0,8} = 1,25\)
+                        </p>
+                        <p>&bull; Sử dụng chức năng trên máy tính cầm tay Casio (Ấn tổ hợp lệnh: \(\text{SHIFT} \rightarrow \tan \rightarrow 1,25\)), ta quy đổi được cung góc xấp xỉ đạt: <strong>\(\alpha \approx 51^\circ 20'\)</strong>.</p>
+                        <p class="text-emerald-700 font-bold">&bull; Lời dặn của thầy Đinh Quốc Tuấn: Công cụ nửa đường tròn đơn vị là một bước tiến cực kì quan trọng. Từ nay về sau, khi nhắc đến \(\sin, \cos\) của góc tù, các em hãy ngay lập tức tưởng tượng đến tọa độ của một điểm nằm ở phần tư thứ II của hệ trục tọa độ Oxy nhé!</p>
+                    </div>
+                </details>
+            </div>
+        </section>
+
+
+        <!-- ================= BÀI TẬP ĐÁNH GIÁ NĂNG LỰC TRẮC NGHIỆM ================= -->
+        <section class="border-t border-slate-200 pt-10 page-break">
+            <div class="bg-gradient-to-br from-slate-900 via-slate-800 to-indigo-950 text-white rounded-3xl p-6 sm:p-8 shadow-xl relative overflow-hidden card-border">
+                <div class="absolute -right-10 -bottom-10 opacity-5 pointer-events-none text-white">
+                    <i class="fa-solid fa-square-check text-[14rem]"></i>
+                </div>
+                
+                <div class="max-w-xl space-y-2">
+                    <span class="text-xs font-bold uppercase tracking-widest text-emerald-400 bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-500/20 inline-block">Đánh giá trực tuyến tại lớp</span>
+                    <h2 class="text-xl sm:text-2xl font-black tracking-tight">BÀI TẬP ĐÁNH GIÁ NĂNG LỰC TẠI LỚP</h2>
+                    <p class="text-slate-400 text-xs sm:text-sm">Học sinh hoàn thành chọn đáp án trực tuyến, kết quả điểm số sẽ được gửi đồng bộ tự động về Google Sheets hệ thống.</p>
+                </div>
+
+                <form id="quizForm" class="mt-8 space-y-6 text-slate-900">
+                    <!-- Khối định danh cá nhân -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div class="bg-white p-4 rounded-xl shadow-inner border border-slate-100">
+                            <label class="block text-xs font-bold text-slate-400 uppercase tracking-wide mb-1"><i class="fa-solid fa-user-graduate mr-1 text-indigo-500"></i> Họ và tên học sinh</label>
+                            <input type="text" id="studentName" required placeholder="Nhập họ tên đầy đủ..." class="w-full bg-white border-b-2 border-slate-200 focus:border-indigo-500 outline-none py-1 text-sm font-bold text-slate-900 transition-colors">
+                        </div>
+                        <div class="bg-white p-4 rounded-xl shadow-inner border border-slate-100">
+                            <label class="block text-xs font-bold text-slate-400 uppercase tracking-wide mb-1"><i class="fa-solid fa-file-code mr-1 text-indigo-500"></i> Mã chuyên đề bài học</label>
+                            <input type="text" id="examId" readonly value="Buoi11_LuongGiacDaiCuong_Toan10" class="w-full bg-slate-50 border-b-2 border-slate-200 outline-none py-1 text-sm font-bold text-slate-500 cursor-not-allowed">
+                        </div>
+                    </div>
+
+                    <!-- Khối câu hỏi trắc nghiệm -->
+                    <div class="space-y-5 mt-6">
+                        <!-- Câu 1 -->
+                        <div class="bg-white p-5 rounded-2xl shadow-sm space-y-3">
+                            <p class="text-sm font-bold text-slate-900"><span class="text-indigo-600">Câu 1:</span> Trên nửa đường tròn đơn vị phẳng Oxy, giá trị côsin (\(\cos\alpha\)) của một góc bất kì được xác định bởi yếu tố tọa độ nào của điểm M?</p>
+                            <div class="grid grid-cols-1 gap-2 text-xs font-semibold text-slate-700">
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q1" value="A" required class="text-indigo-600 h-4 w-4"> <span>A. Tung độ \(y_0\) của điểm M</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q1" value="B" class="text-indigo-600 h-4 w-4"> <span>B. Hoành độ \(x_0\) của điểm M</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q1" value="C" class="text-indigo-600 h-4 w-4"> <span>C. Tỉ số bình phương diện tích nửa bán kính</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Câu 2 -->
+                        <div class="bg-white p-5 rounded-2xl shadow-sm space-y-3">
+                            <p class="text-sm font-bold text-slate-900"><span class="text-indigo-600">Câu 2:</span> Nếu góc \(\alpha\) là một góc tù (\(90^\circ < \alpha < 180^\circ\)), giá trị lượng giác nào sau đây nhận dấu <strong>DƯƠNG (+)</strong>?</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs font-semibold text-slate-700">
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q2" value="A" required class="text-indigo-600 h-4 w-4"> <span>A. \(\cos\alpha\)</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q2" value="B" class="text-indigo-600 h-4 w-4"> <span>B. \(\sin\alpha\)</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q2" value="C" class="text-indigo-600 h-4 w-4"> <span>C. \(\tan\alpha\)</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q2" value="D" class="text-indigo-600 h-4 w-4"> <span>D. Cả 4 giá trị đều mang dấu âm (-)</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Câu 3 -->
+                        <div class="bg-white p-5 rounded-2xl shadow-sm space-y-3">
+                            <p class="text-sm font-bold text-slate-900"><span class="text-indigo-600">Câu 3:</span> Hệ thức lượng giác nào sau đây là hệ thức cấu trúc logic ĐÚNG với mọi góc \(\alpha \neq 90^\circ\)?</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs font-semibold text-slate-700">
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q3" value="A" required class="text-indigo-600 h-4 w-4"> <span>A. \(\sin\alpha + \cos\alpha = 1\)</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q3" value="B" class="text-indigo-600 h-4 w-4"> <span>B. \(\sin^2\alpha + \cos^2\alpha = 1\)</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q3" value="C" class="text-indigo-600 h-4 w-4"> <span>C. \(1 + \tan^2\alpha = \frac{1}{\sin^2\alpha}\)</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Câu 4 -->
+                        <div class="bg-white p-5 rounded-2xl shadow-sm space-y-3">
+                            <p class="text-sm font-bold text-slate-900"><span class="text-indigo-600">Câu 4:</span> Theo mối quan hệ giữa hai góc bù nhau, biểu thức \(\cos(180^\circ - \alpha)\) bằng giá trị nào?</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs font-semibold text-slate-700">
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q4" value="A" required class="text-indigo-600 h-4 w-4"> <span>A. \(\cos\alpha\)</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q4" value="B" class="text-indigo-600 h-4 w-4"> <span>B. \(-\cos\alpha\)</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q4" value="C" class="text-indigo-600 h-4 w-4"> <span>C. \(\sin\alpha\)</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Câu 5 -->
+                        <div class="bg-white p-5 rounded-2xl shadow-sm space-y-3">
+                            <p class="text-sm font-bold text-slate-900"><span class="text-indigo-600">Câu 5:</span> Giá trị lượng giác \(\tan 135^\circ\) thu được ở Ví dụ minh họa 1 bằng bao nhiêu?</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs font-semibold text-slate-700">
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q5" value="A" required class="text-indigo-600 h-4 w-4"> <span>A. 1</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q5" value="B" class="text-indigo-600 h-4 w-4"> <span>B. -1</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q5" value="C" class="text-indigo-600 h-4 w-4"> <span>C. \(-\frac{\sqrt{2}}{2}\)</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Khu vực nút nộp bài toán -->
+                    <div class="pt-2 flex flex-col sm:flex-row items-center justify-between gap-4">
+                        <button type="submit" id="submitBtn" class="w-full sm:w-auto bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-sm px-8 py-3.5 rounded-xl shadow-lg transition-all flex items-center justify-center space-x-2 cursor-pointer">
+                            <i class="fa-solid fa-cloud-arrow-up"></i> <span>Nộp Bài Chấm Điểm</span>
+                        </button>
+                        <div id="statusReport" class="text-xs font-bold text-slate-400"></div>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer bản quyền -->
+    <footer class="bg-slate-900 text-slate-400 py-8 text-center text-xs font-medium px-4 mt-auto">
+        <p class="font-bold text-slate-300">@ Bản quyền thuộc ThS. Đinh Quốc Tuấn - Mục đích phi lợi nhuận - Vì giáo dục.</p>
+        <p class="text-slate-500 mt-2">Hệ thống bài giảng số hóa lượng giác phẳng nâng cao tích hợp thư viện tương tác đồ họa.</p>
+    </footer>
+
+    <!-- NÚT IN TÀI LIỆU CỐ ĐỊNH -->
+    <button id="btn-print-doc" onclick="safePrint()" class="fixed bottom-5 right-5 bg-gray-900 text-white px-4 py-2 rounded-lg shadow-lg hover:bg-gray-700 print:hidden z-50 cursor-pointer">
+        <i class="fas fa-print mr-2"></i> In Tài Liệu
+    </button>
+
+    <script>
+        function safePrint() {
+            const printBtn = document.getElementById('btn-print-doc');
+            printBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Đang chuẩn bị...';
+            
+            if (window.MathJax && window.MathJax.typesetPromise) {
+                MathJax.typesetPromise().then(() => {
+                    printBtn.innerHTML = '<i class="fas fa-print mr-2"></i> In Tài Liệu';
+                    window.print();
+                });
+            } else {
+                setTimeout(() => {
+                    printBtn.innerHTML = '<i class="fas fa-print mr-2"></i> In Tài Liệu';
+                    window.print();
+                }, 500); 
+            }
+        }
+    </script>
+
+    <!-- HỆ THỐNG KỊCH BẢN ĐIỀU KHIỂN ĐỒ HỌA ĐỘNG JSXGRAPH -->
+    <script>
+        const timeInit = new Date();
+
+        document.addEventListener("DOMContentLoaded", function() {
+            
+            // --- MÔ HÌNH 1: NỬA ĐƯỜNG TRÒN ĐƠN VỊ ---
+            const b1 = JXG.JSXGraph.initBoard('box1', {
+                boundingbox: [-1.3, 1.4, 1.3, -0.3], axis: true, showNavigation: false, showCopyright: false
+            });
+
+            // Vẽ cung tròn nửa đơn vị R = 1
+            let semiCircle1 = b1.create('curve', [
+                function(t) { return Math.cos(t); },
+                function(t) { return Math.sin(t); },
+                0, Math.PI
+            ], {strokeColor: '#475569', strokeWidth: 2});
+
+            // Tạo glider di động trên nửa đường tròn
+            let M1 = b1.create('glider', [0.7, 0.7, semiCircle1], {name: 'M', color: '#4f46e5', size: 4});
+
+            // Dựng các điểm dóng hoành độ, tung độ
+            let ptX = b1.create('point', [function() { return M1.X(); }, 0], {visible: false});
+            let ptY = b1.create('point', [0, function() { return M1.Y(); }], {visible: false});
+            
+            b1.create('segment', [M1, ptX], {dash: 2, strokeColor: '#94a3b8'});
+            b1.create('segment', [M1, ptY], {dash: 2, strokeColor: '#94a3b8'});
+            b1.create('segment', [[0,0], M1], {strokeColor: '#4f46e5', strokeWidth: 1.5});
+
+            let statusBox1 = document.getElementById('status-box1');
+            M1.on('update', function() {
+                let x = M1.X();
+                let y = M1.Y();
+                let rad = Math.atan2(y, x);
+                if (rad < 0) rad += 2 * Math.PI;
+                let angleDeg = rad * 180 / Math.PI;
+
+                statusBox1.innerHTML = `Góc &alpha; = ${angleDeg.toFixed(1)}° &rArr; sin&alpha; = ${y.toFixed(3)} | cos&alpha; = ${x.toFixed(3)}`;
+            });
+            M1.trigger('update');
+
+
+            // --- MÔ HÌNH 2: GÓC BÙ NHAU ĐỐI XỨNG QUA OY ---
+            const b2 = JXG.JSXGraph.initBoard('box2', {
+                boundingbox: [-1.3, 1.4, 1.3, -0.3], axis: true, showNavigation: false, showCopyright: false
+            });
+
+            let semiCircle2 = b2.create('curve', [
+                function(t) { return Math.cos(t); },
+                function(t) { return Math.sin(t); },
+                0, Math.PI
+            ], {strokeColor: '#cbd5e1', strokeWidth: 1.5});
+
+            // M là góc nhọn tự do di chuyển bên phải góc phần tư I
+            let M2 = b2.create('glider', [0.8, 0.6, semiCircle2], {name: 'M (α)', color: '#2563eb', size: 4});
+            
+            // M' đối xứng với M qua trục Oy mô tả góc bẹt bù (180 - alpha)
+            let M2_prime = b2.create('point', [
+                function() { return -M2.X(); },
+                function() { return M2.Y(); }
+            ], {name: "M' (180°-α)", color: '#d97706', size: 4});
+
+            b2.create('segment', [[0,0], M2], {strokeColor: '#2563eb', strokeWidth: 1.5});
+            b2.create('segment', [[0,0], M2_prime], {strokeColor: '#d97706', strokeWidth: 1.5});
+
+            // Vẽ chung một đoạn thẳng dóng ngang minh họa sin bằng nhau hoàn toàn
+            b2.create('segment', [M2, M2_prime], {dash: 2, strokeColor: '#4f46e5', strokeWidth: 1.5});
+
+            let statusBox2 = document.getElementById('status-box2');
+            M2.on('update', function() {
+                let yShared = M2.Y();
+                statusBox2.innerHTML = `Trục tung Oy trùng khít: sin(&alpha;) = sin(180°-&alpha;) = ${yShared.toFixed(3)}`;
+            });
+            M2.trigger('update');
+
+
+            // --- MÔ HÌNH 3: BẤT ĐẲNG THỨC ĐO BÓNG MẶT TRỜI ---
+            const b3 = JXG.JSXGraph.initBoard('box3', {
+                boundingbox: [-2.2, 2.5, 1.5, -0.5], axis: false, showNavigation: false, showCopyright: false
+            });
+
+            // Vẽ mặt đất nằm ngang
+            let ground = b3.create('line', [[-2.5,0], [2.5,0]], {strokeColor: '#64748b', strokeWidth: 2, fixed: true});
+
+            // Slider góc nghiêng alpha chạy từ 20 đến 75 độ
+            let slAlpha = b3.create('slider', [[-2.0, 2.2], [-0.2, 2.2], [20, 45, 75]], {name: 'Goc nghieng', snapWidth: 1, color: '#10b981'});
+
+            // Thước kẻ thẳng đứng dài cố định 1 đơn vị
+            let rootRuler = b3.create('point', [0, 0], {visible: false, fixed: true});
+            let topRuler = b3.create('point', [0, 1], {name: 'Thước: 1m', color: '#0f172a', size: 2, fixed: true});
+            b3.create('segment', [rootRuler, topRuler], {strokeColor: '#0f172a', strokeWidth: 4});
+
+            // Tính toán vị trí bóng đổ dạt sang bên trái Ox dựa trên Tan(alpha)
+            let shadowPoint = b3.create('point', [
+                function() { 
+                    let rad = slAlpha.Value() * Math.PI / 180;
+                    return -1 / Math.tan(rad); 
+                },
+                0
+            ], {name: 'Bóng', color: '#059669', size: 3});
+
+            // Tạo đa diện phản dải tia nắng mặt trời màu vàng cam mờ
+            b3.create('polygon', [topRuler, rootRuler, shadowPoint], {fillColor: '#f59e0b', fillOpacity: 0.25, strokeColor: 'none'});
+            b3.create('segment', [topRuler, shadowPoint], {strokeColor: '#f59e0b', strokeWidth: 1.5, dash: 1});
+
+            let statusBox3 = document.getElementById('status-box3');
+            slAlpha.on('update', function() {
+                let deg = slAlpha.Value();
+                let shadowLen = Math.abs(shadowPoint.X());
+                statusBox3.innerHTML = `Góc nghiêng: ${deg.toFixed(0)}° &rArr; Chiều dài bóng thực tế: ${shadowLen.toFixed(2)}m`;
+            });
+            slAlpha.trigger('update');
+        });
+
+        // --- XỬ LÝ LƯU TRỮ VÀ GỬI DỮ LIỆU ĐỒNG BỘ POST LÊN GOOGLE SHEETS VIA APPS SCRIPT ---
+        document.getElementById('quizForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const submitBtn = document.getElementById('submitBtn');
+            const statusReport = document.getElementById('statusReport');
+            
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i> Hệ thống đang đồng bộ dữ liệu...';
+            statusReport.innerHTML = "Đang kết nối cổng dữ liệu đám mây học thuật...";
+
+            // Bảng khóa đáp án chính xác
+            const correctKey = { q1: "B", iq2: "B", q3: "B", q4: "B", q5: "B" };
+            // Note: Cần đồng bộ chính xác name input radio sang question code
+            const studentName = document.getElementById('studentName').value.trim();
+            const lessonId = document.getElementById('examId').value.trim();
+            
+            let correctCounter = 0;
+            let totalQuizCount = 5;
+            let missedReportArray = [];
+
+            // Duyệt chấm điểm tự động vòng lặp
+            let quizKeys = ['q1', 'q2', 'q3', 'q4', 'q5'];
+            let answerMapping = { q1: 'B', q2: 'B', q3: 'B', q4: 'B', q5: 'B' };
+
+            for (let i = 0; i < quizKeys.length; i++) {
+                let key = quizKeys[i];
+                const selectedRadio = document.querySelector(`input[name="${key}"]:checked`);
+                if (selectedRadio && selectedRadio.value === answerMapping[key]) {
+                    correctCounter++;
+                } else {
+                    let chosenChar = selectedRadio ? selectedRadio.value : "Bỏ trống";
+                    missedReportArray.push(`${key.toUpperCase()}(Chọn: ${chosenChar}|Đúng: ${answerMapping[key]})`);
+                }
+            }
+
+            const finalScore = ((correctCounter / totalQuizCount) * 10).toFixed(2);
+            const timeComplete = new Date();
+            const elapsedDurationSeconds = Math.floor((timeComplete - timeInit) / 1000);
+            const thoiGian = `${Math.floor(elapsedDurationSeconds / 60)} phút ${elapsedDurationSeconds % 60} giây`;
+            const cauSai = missedReportArray.length > 0 ? missedReportArray.join(", ") : "Không có (Đạt điểm tuyệt đối 10/10)";
+
+            const transmissionPayload = {
+                hoTen: studentName,
+                maDe: lessonId,
+                diem: parseFloat(finalScore),
+                thoiGian: thoiGian,
+                cauSai: cauSai
+            };
+
+            const webAppsScriptEndpoint = "https://script.google.com/macros/s/AKfycbzY7b7h4OwvhXuK5Vs6hl-aD88BPnAiAKbU5lfJobby0D4nzbIJVKT4n0AKCpAGoK0nZA/exec";
+
+            fetch(webAppsScriptEndpoint, {
+                method: "POST",
+                mode: "no-cors",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(transmissionPayload)
+            })
+            .then(() => {
+                statusReport.className = "text-xs font-bold text-emerald-500 bg-emerald-50 px-3 py-2 rounded-xl border border-emerald-200 inline-block";
+                statusReport.innerHTML = `<i class="fa-solid fa-circle-check"></i> Đã đồng bộ kết quả thành công: ${finalScore}/10.`;
+                alert(`Hệ thống thông báo nộp kết quả bài làm thành công!\nChào em ${studentName}, điểm số chuyên đề đạt được là: ${finalScore} / 10.`);
+                submitBtn.innerHTML = '<i class="fa-solid fa-lock"></i> Kết quả đã khóa bảo mật';
+            })
+            .catch(error => {
+                console.error("Giao dịch truyền tin thất bại:", error);
+                statusReport.className = "text-xs font-bold text-rose-500 bg-rose-50 px-3 py-2 rounded-xl border border-rose-200 inline-block";
+                statusReport.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> Trục trặc mạng, vui lòng bấm nộp lại!';
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Thử nộp lại bài';
+            });
+        });
+    </script>
+</body>
+</html>
