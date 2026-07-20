@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buổi 17: Đại lượng tỉ lệ nghịch - Toán 7</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    
+    <!-- FontAwesome Icons CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- MathJax Configuration and Script CDN -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['\\(', '\\)']],
+                displayMath: [['\\[', '\\]'], ['$$', '$$']]
+            },
+            svg: {
+                fontCache: 'global'
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <!-- JSXGraph CDN Dependencies -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraph.css" />
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraphcore.js"></script>
+
+    <style>
+        @media print {
+            .no-print { display: none !important; }
+            body { background: white !important; color: black !important; }
+            .jxgbox { border: 1px solid #000 !important; }
+        }
+        .jxgbox {
+            background-color: #ffffff;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 font-sans antialiased selection:bg-indigo-600 selection:text-white">
+
+    <!-- Header & Brand Logos Section -->
+    <header class="bg-white border-b border-slate-200 py-4 px-6 sticky top-0 z-40 shadow-xs no-print">
+        <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="flex items-center gap-6">
+                <!-- Logo 1: TTBDVH -->
+                <img src="https://firebasestorage.googleapis.com/v0/b/link-anh-web.firebasestorage.app/o/ttbdvh.jpg?alt=media&token=f270aa9b-a2bc-48e8-8910-80742b542615" 
+                     alt="Logo TTBDVH" class="h-14 w-14 object-cover rounded-full border border-slate-200 shadow-xs">
+                <!-- Logo 2: HCMUS -->
+                <img src="https://hcmus.edu.vn/wp-content/uploads/2023/04/Logo-chinh-e1681638380305.png" 
+                     alt="Logo HCMUS" class="h-12 object-contain">
+            </div>
+            <div class="text-center sm:text-right">
+                <span class="text-xs font-bold uppercase tracking-wider text-indigo-600 block mb-0.5">Hệ thống bài giảng số chất lượng cao</span>
+                <h1 class="text-lg font-extrabold text-slate-800">Toán học 7 &bull; Đại số trực quan không gian</h1>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container Content -->
+    <main class="max-w-4xl mx-auto px-4 sm:px-6 py-8 bg-white my-6 shadow-xs rounded-2xl border border-slate-100 print:shadow-none print:border-none print:my-0">
+        
+        <!-- Document Header Title -->
+        <div class="border-b-2 border-slate-900 pb-5 mb-8">
+            <h2 class="text-2xl sm:text-3xl font-black text-slate-900 flex items-center gap-3">
+                <i class="fas fa-arrows-spin text-indigo-600 animate-spin-slow"></i>
+                Buổi 17: Đại lượng tỉ lệ nghịch
+            </h2>
+            <p class="text-slate-500 mt-2 text-sm">Nội dung lý thuyết chi tiết 3 cấp độ, kịch bản minh họa trực quan sinh động phục vụ công tác giảng dạy và tự học hiệu quả.</p>
+        </div>
+
+        <!-- Section: Interactive JSXGraph Models (Teacher & Student Workspace) -->
+        <section class="mb-12 no-print bg-slate-50 p-6 rounded-2xl border border-slate-200 space-y-8">
+            <div class="flex items-center gap-2 pb-2 border-b border-slate-200">
+                <i class="fas fa-desktop text-emerald-500 text-xl"></i>
+                <h3 class="text-base font-bold text-slate-800 uppercase tracking-wide">💡 GỢI Ý MÔ HÌNH TRỰC QUAN (PHÙ HỢP ỨNG DỤNG JSXGRAPH)</h3>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Model 1 Workspace -->
+                <div class="flex flex-col bg-white p-4 rounded-xl shadow-xs border border-slate-200">
+                    <span class="font-bold text-sm text-indigo-600 mb-1"><i class="fas fa-chart-curve mr-1"></i> Mô hình 1: Đồ thị Hypebol và "Diện tích hình chữ nhật bất biến"</span>
+                    <p class="text-xs text-slate-500 mb-3">Thay đổi thanh trượt hệ số \(a\). Kéo điểm \(M\) di chuyển tự do dọc theo đường cong Hypebol để nhận thấy diện tích hình chữ nhật (\(S = x \cdot y\)) luôn cố định.</p>
+                    <div id="box1" class="w-full h-64 JXGbox"></div>
+                </div>
+
+                <!-- Model 2 Workspace -->
+                <div class="flex flex-col bg-white p-4 rounded-xl shadow-xs border border-slate-200">
+                    <span class="font-bold text-sm text-indigo-600 mb-1"><i class="fas fa-person-digging mr-1"></i> Mô hình 2: Trực quan hoá Bài toán Năng suất (Xây tường)</span>
+                    <p class="text-xs text-slate-500 mb-3">Điều chỉnh thanh trượt số lượng công nhân và bấm nút xây dựng. Càng nhiều công nhân tham gia, thời gian hoàn thành bức tường càng rút ngắn lại.</p>
+                    <div id="box2" class="w-full h-64 JXGbox"></div>
+                    <div class="mt-3 text-center flex justify-center gap-2">
+                        <button type="button" id="btn-start-build" onclick="startBuildingWall()" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs px-4 py-2 rounded shadow-xs transition-colors cursor-pointer">
+                            <i class="fas fa-hammer mr-1"></i> Bắt đầu xây
+                        </button>
+                        <button type="button" onclick="resetWallSimulation()" class="bg-slate-500 hover:bg-slate-600 text-white font-bold text-xs px-4 py-2 rounded shadow-xs transition-colors cursor-pointer">
+                            <i class="fas fa-rotate-left mr-1"></i> Thiết lập lại
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section: Theoretical Content Part divided into 3 levels -->
+        <section class="space-y-12">
+            
+            <!-- LEVEL 1 CONTENT -->
+            <div class="bg-slate-50/60 p-6 rounded-xl border-l-4 border-sky-500 shadow-2xs">
+                <h3 class="text-lg font-bold text-sky-900 flex items-center gap-2 mb-3">
+                    <span class="bg-sky-500 text-white text-xs px-2 py-0.5 rounded font-mono">CẤP ĐỘ 1</span>
+                    CƠ BẢN: Định nghĩa, Tính chất và Hệ số tỉ lệ
+                </h3>
+                <p class="text-xs text-slate-500 mb-4 italic font-medium"><i class="fas fa-bullseye mr-1"></i> Mục tiêu: Học sinh nắm được định nghĩa, công thức đại lượng tỉ lệ nghịch và biết cách tìm hệ số tỉ lệ trực tiếp.</p>
+
+                <div class="space-y-4 text-sm text-justify leading-relaxed text-slate-700">
+                    <div>
+                        <h4 class="font-bold text-slate-800 flex items-center gap-1.5 mb-1"><i class="fas fa-bookmark text-xs text-sky-500"></i> 1. Khái niệm toán học</h4>
+                        <p>Nếu đại lượng \(y\) liên hệ với đại lượng \(x\) theo công thức \(y = \frac{a}{x}\) hay \(x \cdot y = a\) (với \(a\) là một hằng số khác \(0\)) thì ta nói \(y\) tỉ lệ nghịch với \(x\) theo hệ số tỉ lệ \(a\).</p>
+                        <p class="mt-2 text-xs italic text-slate-600 bg-white p-2 rounded border border-slate-100"><i class="fas fa-circle-info mr-1 text-indigo-500"></i><strong>Chú ý:</strong> Khi đại lượng \(y\) tỉ lệ nghịch với \(x\) theo hệ số tỉ lệ \(a\) thì ngược lại, \(x\) cũng tỉ lệ nghịch với \(y\) theo đúng hệ số tỉ lệ là \(a\).</p>
+                    </div>
+
+                    <div class="mt-4">
+                        <h4 class="font-bold text-slate-800 flex items-center gap-1.5 mb-1"><i class="fas fa-list text-xs text-sky-500"></i> 2. Tính chất cơ bản</h4>
+                        <p class="mb-1">Nếu hai đại lượng tỉ lệ nghịch với nhau thì:</p>
+                        <ul class="list-disc list-inside pl-3 space-y-1.5">
+                            <li>Tích hai giá trị tương ứng của chúng luôn luôn không đổi (bằng chính hệ số tỉ lệ):
+                                <div class="text-center my-2 font-serif font-bold text-indigo-600 bg-white p-2 rounded shadow-3xs max-w-sm mx-auto">
+                                    \(x_1y_1 = x_2y_2 = x_3y_3 = ... = a\)
+                                </div>
+                            </li>
+                            <li>Tỉ số hai giá trị bất kì của đại lượng này bằng nghịch đảo của tỉ số hai giá trị tương ứng của đại lượng kia:
+                                <div class="text-center my-2 font-serif font-bold text-indigo-600 bg-white p-2 rounded shadow-3xs max-w-sm mx-auto">
+                                    \(\frac{x_1}{x_2} = \frac{y_2}{y_1}\) hoặc \(\frac{x_1}{x_3} = \frac{y_3}{y_1}\)
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Example Box 1 -->
+                    <div class="bg-white p-5 rounded-lg border border-slate-200 mt-4 shadow-3xs">
+                        <span class="inline-block bg-sky-100 text-sky-800 text-xs px-2 py-0.5 rounded font-bold mb-2">Ví dụ minh họa (Cấp độ 1)</span>
+                        <p class="font-semibold text-slate-800 mb-2">
+                            Cho biết hai đại lượng \(a\) và \(b\) tỉ lệ nghịch với nhau và khi \(a = 3\) thì \(b = -10\). <br>
+                            a) Tìm hệ số tỉ lệ của hai đại lượng trên. <br>
+                            b) Tính giá trị tương ứng của đại lượng \(a\) khi biến \(b = 2\).
+                        </p>
+                        
+                        <details class="mt-3 group">
+                            <summary class="text-xs font-bold text-indigo-600 cursor-pointer select-none hover:underline flex items-center gap-1">
+                                <i class="fas fa-chevron-right group-open:rotate-90 transition-transform"></i> Bấm để xem gợi ý lời giải ẩn
+                            </summary>
+                            <div class="mt-3 p-4 bg-slate-50 rounded border-l-2 border-indigo-500 text-xs text-slate-700 space-y-3">
+                                <div>
+                                    <p class="font-bold">a) Tìm hệ số tỉ lệ:</p>
+                                    <p class="pl-2">Vì hai đại lượng \(a\) và \(b\) tỉ lệ nghịch với nhau nên hệ số tỉ lệ được xác định theo tính chất tích:</p>
+                                    <p class="text-center font-serif font-bold my-1 text-slate-900">\(k = a \cdot b = 3 \cdot (-10) = -30\)</p>
+                                </div>
+                                <div class="border-t border-slate-200 pt-2">
+                                    <p class="font-bold">b) Tính giá trị của \(a\) khi \(b = 2\):</p>
+                                    <p class="pl-2">Dựa trên hệ số tỉ lệ đã tìm được, ta có biểu thức liên hệ: \(a \cdot b = -30\).</p>
+                                    <p class="pl-2">Khi gán giá trị \(b = 2\), ta suy ra phương trình đại số:</p>
+                                    <p class="text-center font-serif font-bold my-1 text-slate-900">\(a \cdot 2 = -30 \implies a = \frac{-30}{2} = -15\)</p>
+                                </div>
+                                <p class="text-emerald-700 font-bold">&bull; Đáp số: a) Hệ số tỉ lệ \(k = -30\); b) \(a = -15\).</p>
+                            </div>
+                        </details>
+                    </div>
+                </div>
+            </div>
+
+            <!-- LEVEL 2 CONTENT -->
+            <div class="bg-slate-50/60 p-6 rounded-xl border-l-4 border-amber-500 shadow-2xs">
+                <h3 class="text-lg font-bold text-amber-900 flex items-center gap-2 mb-3">
+                    <span class="bg-amber-500 text-white text-xs px-2 py-0.5 rounded font-mono">CẤP ĐỘ 2</span>
+                    NÂNG CAO: Kết hợp linh hoạt Tính chất dãy tỉ số bằng nhau
+                </h3>
+                <p class="text-xs text-slate-500 mb-4 italic font-medium"><i class="fas fa-bullseye mr-1"></i> Mục tiêu: Đưa bài toán tỉ lệ nghịch về dạng quen thuộc của dãy tỉ số bằng nhau bằng phương pháp chia nghịch đảo hoặc quy đồng hệ số.</p>
+
+                <div class="space-y-4 text-sm text-justify leading-relaxed text-slate-700">
+                    <div>
+                        <h4 class="font-bold text-slate-800 flex items-center gap-1.5 mb-1"><i class="fas fa-gears text-xs text-amber-500"></i> Phương pháp quy đổi cấu trúc cốt lõi</h4>
+                        <p class="mb-2">Nếu đề bài cho biết ba ẩn số \(x, y, z\) tỉ lệ nghịch với các hệ số tương ứng \(a, b, c\), ta thiết lập đẳng thức tích: <strong class="text-slate-900">\(a \cdot x = b \cdot y = c \cdot z\)</strong>.</p>
+                        <p class="mb-2">Để giải quyết, ta có 2 hướng đưa về dạng dãy phân số bằng nhau:</p>
+                        <ul class="list-disc list-inside pl-3 space-y-1.5">
+                            <li><strong>Cách 1 (Chia nghịch đảo):</strong> Chuyển đổi thành dãy tỉ số bằng nhau dạng phân số: \(\frac{x}{\frac{1}{a}} = \frac{y}{\frac{1}{b}} = \frac{z}{\frac{1}{c}}\).</li>
+                            <li><strong>Cách 2 (Chia cho BCNN):</strong> Chia tất cả các vế của đẳng thức cho Bội chung nhỏ nhất của bộ ba số \((a, b, c)\) nhằm tối giản mẫu số thành các số nguyên.</li>
+                        </ul>
+                    </div>
+
+                    <!-- Example Box 2 -->
+                    <div class="bg-white p-5 rounded-lg border border-slate-200 mt-4 shadow-3xs">
+                        <span class="inline-block bg-amber-100 text-amber-800 text-xs px-2 py-0.5 rounded font-bold mb-2">Ví dụ minh họa (Cấp độ 2)</span>
+                        <p class="font-semibold text-slate-800 mb-2">
+                            Một người mua tổng cộng \(65\) quả trứng gà gồm \(3\) loại phân tách: loại 1 có giá giá kinh tế là \(4\) nghìn đồng/quả, loại 2 có giá \(3\) nghìn đồng/quả và loại 3 có giá rẻ hơn là \(2\) nghìn đồng/quả. Hỏi người đó đã mua bao nhiêu quả trứng mỗi loại, biết rằng tổng số tiền phải chi trả cho mỗi loại trứng là hoàn toàn bằng nhau?
+                        </p>
+                        
+                        <details class="mt-3 group">
+                            <summary class="text-xs font-bold text-indigo-600 cursor-pointer select-none hover:underline flex items-center gap-1">
+                                <i class="fas fa-chevron-right group-open:rotate-90 transition-transform"></i> Bấm để xem gợi ý lời giải ẩn
+                            </summary>
+                            <div class="mt-3 p-4 bg-slate-50 rounded border-l-2 border-indigo-500 text-xs text-slate-700 space-y-2">
+                                <p><strong>Lời giải chi tiết:</strong></p>
+                                <p>&bull; Gọi số quả trứng mua được của loại 1, loại 2, loại 3 lần lượt là các biến \(x, y, z\) (quả) (Điều kiện: \(x, y, z \in \mathbb{N}^*\)). Tổng số lượng trứng lập phương trình: \(x + y + z = 65\).</p>
+                                <p>&bull; Do số tiền chi trả mua cho mỗi loại trứng bằng nhau, nên số lượng quả trứng mua được và giá tiền đơn lẻ một quả là hai đại lượng tỉ lệ nghịch. Ta lập được hệ thức tích:</p>
+                                <p class="text-center font-serif font-bold my-1 text-slate-900">\(4x = 3y = 2z\)</p>
+                                <p>&bull; Tiến hành chia các vế cho \(12\) (chính là BCNN của bộ số \(4, 3, 2\)), ta chuyển về dãy phân số:</p>
+                                <p class="text-center font-serif font-bold my-1 text-indigo-600">$$\frac{4x}{12} = \frac{3y}{12} = \frac{2z}{12} \implies \frac{x}{3} = \frac{y}{4} = \frac{z}{6}$$</p>
+                                <p>&bull; Áp dụng toán học tính chất của dãy tỉ số bằng nhau tiêu chuẩn:</p>
+                                <p class="text-center font-serif font-bold my-1 text-slate-950">$$\frac{x}{3} = \frac{y}{4} = \frac{z}{6} = \frac{x+y+z}{3+4+6} = \frac{65}{13} = 5$$</p>
+                                <p>&bull; Từ giá trị hằng số chung bằng \(5\), ta nhân ngược tìm số lượng trứng từng phân khúc:</p>
+                                <ul class="list-none pl-4 space-y-1 font-mono text-xs">
+                                    <li>+ Loại 1: \(x = 3 \cdot 5 = 15\) (quả)</li>
+                                    <li>+ Loại 2: \(y = 4 \cdot 5 = 20\) (quả)</li>
+                                    <li>+ Loại 3: \(z = 6 \cdot 5 = 30\) (quả)</li>
+                                </ul>
+                                <p class="text-emerald-700 font-bold mt-2">&bull; Kết luận: Số trứng loại 1, loại 2 và loại 3 lần lượt là \(15\) quả, \(20\) quả và \(30\) quả.</p>
+                            </div>
+                        </details>
+                    </div>
+                </div>
+            </div>
+
+            <!-- LEVEL 3 CONTENT -->
+            <div class="bg-slate-50/60 p-6 rounded-xl border-l-4 border-emerald-500 shadow-2xs">
+                <h3 class="text-lg font-bold text-emerald-900 flex items-center gap-2 mb-3">
+                    <span class="bg-emerald-500 text-white text-xs px-2 py-0.5 rounded font-mono">CẤP ĐỘ 3</span>
+                    VẬN DỤNG: Giải quyết bài toán thực tế phức tạp (Năng suất & Chuyển động)
+                </h3>
+                <p class="text-xs text-slate-500 mb-4 italic font-medium"><i class="fas fa-bullseye mr-1"></i> Mục tiêu: Học sinh tự nhận diện được mối quan hệ tỉ lệ nghịch trong đời sống, đặc biệt là các bài toán về năng suất lao động và chuyển động cơ học cơ sở.</p>
+
+                <div class="space-y-4 text-sm text-justify leading-relaxed text-slate-700">
+                    <div>
+                        <h4 class="font-bold text-slate-800 flex items-center gap-1.5 mb-1"><i class="fas fa-lightbulb text-xs text-emerald-500"></i> Các mô hình đại lượng tỉ lệ nghịch phổ biến trong đời sống</h4>
+                        <ul class="list-disc list-inside pl-3 space-y-1.5">
+                            <li><strong>Vận tốc (\(v\)) và Thời gian chuyển động (\(t\)):</strong> Trên cùng một quãng đường hành trình cố định \(S\), vận tốc di chuyển phương tiện càng tăng thì thời gian đi đường càng giảm nghịch biến (\(v \cdot t = S\)).</li>
+                            <li><strong>Số lượng nhân lực công nhân (\(x\)) và Thời gian thi công hoàn thành (\(y\)):</strong> Cùng một khối lượng công việc, càng nhiều nhân lực tham gia làm việc với năng suất như nhau thì thời gian cán đích công trình càng ngắn lại (\(x \cdot y = \text{Tổng khối lượng công việc}\)).</li>
+                        </ul>
+                    </div>
+
+                    <!-- Example Box 3 -->
+                    <div class="bg-white p-5 rounded-lg border border-slate-200 mt-4 shadow-3xs">
+                        <span class="inline-block bg-emerald-100 text-emerald-800 text-xs px-2 py-0.5 rounded font-bold mb-2">Ví dụ minh họa (Cấp độ 3)</span>
+                        <p class="font-semibold text-slate-800 mb-2">
+                            Khi tham gia thi công một dự án đường cao tốc trọng điểm, một đội công nhân kỹ thuật gồm \(18\) người dự định sẽ hoàn thành phần việc được giao trong vòng \(12\) ngày. Tuy nhiên, nhằm đẩy nhanh tiến độ cán đích, khi bắt đầu triển khai, đội đã được bổ sung thêm nhân lực để tổng số người đạt thành \(27\) công nhân. Giả sử năng suất lao động của từng người là như nhau, hỏi đội sẽ hoàn thành phần việc được giao trong bao nhiêu ngày thực tế? [source: 1]
+                        </p>
+                        
+                        <details class="mt-3 group">
+                            <summary class="text-xs font-bold text-indigo-600 cursor-pointer select-none hover:underline flex items-center gap-1">
+                                <i class="fas fa-chevron-right group-open:rotate-90 transition-transform"></i> Bấm để xem gợi ý lời giải ẩn
+                            </summary>
+                            <div class="mt-3 p-4 bg-slate-50 rounded border-l-2 border-indigo-500 text-xs text-slate-700 space-y-2">
+                                <p><strong>Lời giải chi tiết:</strong></p>
+                                <p>&bull; Gọi thời gian thực tế để \(27\) công nhân sau khi bổ sung hoàn thành xong toàn bộ công trình là ẩn số \(x\) (đơn vị tính: ngày; điều kiện: \(x > 0\)). [source: 1]</p>
+                                <p>&bull; Vì tổng khối lượng hạng mục công việc xây dựng là không đổi và năng suất lao động của mỗi nhân sự như nhau, nên số lượng công nhân và số ngày hoàn thành tương ứng là hai đại lượng tỉ lệ nghịch với nhau. [source: 1]</p>
+                                <p>&bull; Áp dụng hệ thức tính chất tích của đại lượng tỉ lệ nghịch, ta lập phương trình: [source: 1]</p>
+                                <p class="text-center font-serif font-bold my-1 text-slate-900">\(27 \cdot x = 18 \cdot 12\) [source: 1]</p>
+                                <p class="text-center font-serif font-bold my-1 text-indigo-600">$$\implies 27x = 216 \implies x = 216 : 27 = 8 \text{ (ngày)}$$ [source: 1]</p>
+                                <p class="text-emerald-700 font-bold mt-2">&bull; Kết luận: Sau khi điều phối thêm người, đội công nhân sẽ hoàn thành xuất sắc hạng mục chỉ trong vòng \(8\) ngày làm việc thực tế. [source: 1]</p>
+                            </div>
+                        </details>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section: Interactive Live Quiz Assessment Form Area -->
+        <section class="mt-16 bg-slate-50 border border-slate-200 rounded-2xl p-6 shadow-2xs no-print">
+            <div class="border-b border-slate-200 pb-3 mb-6">
+                <h3 class="text-lg font-black text-slate-900 flex items-center gap-2 uppercase tracking-wide">
+                    <i class="fas fa-square-poll-vertical text-indigo-600"></i>
+                    BÀI TẬP ĐÁNH GIÁ NĂNG LỰC TẠI LỚP (Trắc nghiệm 5 câu)
+                </h3>
+                <p class="text-xs text-slate-500 mt-1">Học sinh hoàn thành chọn đáp án trực tuyến, kết quả điểm số sẽ được truyền về hệ thống máy chủ dữ liệu học tập cá nhân.</p>
+            </div>
+
+            <form id="quizForm" class="space-y-6">
+                <!-- User Identifiers Inputs -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 bg-white p-4 rounded-xl border border-slate-200">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wide mb-1">Họ và Tên Học Sinh <span class="text-red-500">*</span></label>
+                        <input type="text" id="studentName" required placeholder="Nhập họ tên đầy đủ..." 
+                               class="w-full bg-slate-50 border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-indigo-600 focus:bg-white transition-all">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wide mb-1">Mã Buổi Học / Mã Đề</label>
+                        <input type="text" id="examId" value="Buoi17_TiLeNghich_Toan7" readonly
+                               class="w-full bg-slate-100 border border-slate-200 text-slate-500 rounded-lg px-3 py-2 text-sm cursor-not-allowed font-mono">
+                    </div>
+                </div>
+
+                <!-- Questions Container Box -->
+                <div class="space-y-4 mt-6">
+                    <!-- Q1 -->
+                    <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-3xs">
+                        <p class="text-sm font-semibold text-slate-900 mb-2.5">Câu 1: Đại lượng \(y\) tỉ lệ nghịch với đại lượng \(x\) theo công thức liên hệ nào dưới đây (với hằng số hệ số \(a \neq 0\))?</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-slate-700">
+                            <label class="flex items-center gap-2 p-2 rounded border border-slate-100 hover:bg-slate-50 cursor-pointer"><input type="radio" name="q1" value="A" required> A. \(y = a \cdot x\)</label>
+                            <label class="flex items-center gap-2 p-2 rounded border border-slate-100 hover:bg-slate-50 cursor-pointer"><input type="radio" name="q1" value="B"> B. \(y = \frac{a}{x}\)</label>
+                            <label class="flex items-center gap-2 p-2 rounded border border-slate-100 hover:bg-slate-50 cursor-pointer"><input type="radio" name="q1" value="C"> C. \(y = \frac{x}{a}\)</label>
+                            <label class="flex items-center gap-2 p-2 rounded border border-slate-100 hover:bg-slate-50 cursor-pointer"><input type="radio" name="q1" value="D"> D. \(x + y = a\)</label>
+                        </div>
+                    </div>
+
+                    <!-- Q2 -->
+                    <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-3xs">
+                        <p class="text-sm font-semibold text-slate-900 mb-2.5">Câu 2: Phát biểu tính chất nào sau đây là ĐÚNG khi nói về mối tương quan giữa hai đại lượng tỉ lệ nghịch?</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-slate-700">
+                            <label class="flex items-center gap-2 p-2 rounded border border-slate-100 hover:bg-slate-50 cursor-pointer"><input type="radio" name="q2" value="A" required> A. Tỉ số hai giá trị tương ứng luôn không đổi</label>
+                            <label class="flex items-center gap-2 p-2 rounded border border-slate-100 hover:bg-slate-50 cursor-pointer"><input type="radio" name="q2" value="B"> B. Tổng hai giá trị tương ứng là một hằng số</label>
+                            <label class="flex items-center gap-2 p-2 rounded border border-slate-100 hover:bg-slate-50 cursor-pointer"><input type="radio" name="q2" value="C"> C. Tích hai giá trị tương ứng của chúng luôn không đổi</label>
+                            <label class="flex items-center gap-2 p-2 rounded border border-slate-100 hover:bg-slate-50 cursor-pointer"><input type="radio" name="q2" value="D"> D. Hiệu hai giá trị tương ứng luôn luôn cố định</label>
+                        </div>
+                    </div>
+
+                    <!-- Q3 -->
+                    <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-3xs">
+                        <p class="text-sm font-semibold text-slate-900 mb-2.5">Câu 3: Biết \(x\) và \(y\) tỉ lệ nghịch với nhau, khi \(x = 3\) thì đại lượng \(y = -10\). Khi gán giá trị biến \(y = 2\) thì giá trị tương ứng của \(x\) bằng:</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-slate-700">
+                            <label class="flex items-center gap-2 p-2 rounded border border-slate-100 hover:bg-slate-50 cursor-pointer"><input type="radio" name="q3" value="A" required> A. \(-15\)</label>
+                            <label class="flex items-center gap-2 p-2 rounded border border-slate-100 hover:bg-slate-50 cursor-pointer"><input type="radio" name="q3" value="B"> B. \(15\)</label>
+                            <label class="flex items-center gap-2 p-2 rounded border border-slate-100 hover:bg-slate-50 cursor-pointer"><input type="radio" name="q3" value="C"> C. \(-30\)</label>
+                            <label class="flex items-center gap-2 p-2 rounded border border-slate-100 hover:bg-slate-50 cursor-pointer"><input type="radio" name="q3" value="D"> D. \(-5\)</label>
+                        </div>
+                    </div>
+
+                    <!-- Q4 -->
+                    <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-3xs">
+                        <p class="text-sm font-semibold text-slate-900 mb-2.5">Câu 4: Nếu ba số \(x, y, z\) tỉ lệ nghịch với ba hệ số \(4, 3, 2\) thì đẳng thức thiết lập nào sau đây mô tả đúng bản chất?</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-slate-700">
+                            <label class="flex items-center gap-2 p-2 rounded border border-slate-100 hover:bg-slate-50 cursor-pointer"><input type="radio" name="q4" value="A" required> A. \(\frac{x}{4} = \frac{y}{3} = \frac{z}{2}\)</label>
+                            <label class="flex items-center gap-2 p-2 rounded border border-slate-100 hover:bg-slate-50 cursor-pointer"><input type="radio" name="q4" value="B"> B. \(4x = 3y = 2z\)</label>
+                            <label class="flex items-center gap-2 p-2 rounded border border-slate-100 hover:bg-slate-50 cursor-pointer"><input type="radio" name="q4" value="C"> C. \(x + 4 = y + 3 = z + 2\)</label>
+                            <label class="flex items-center gap-2 p-2 rounded border border-slate-100 hover:bg-slate-50 cursor-pointer"><input type="radio" name="q4" value="D"> D. \(\frac{4}{x} = \frac{3}{y} = \frac{2}{z}\)</label>
+                        </div>
+                    </div>
+
+                    <!-- Q5 -->
+                    <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-3xs">
+                        <p class="text-sm font-semibold text-slate-900 mb-2.5">Câu 5: Cặp đại lượng đời sống thực tế nào sau đây có mối tương quan tuân theo quy luật TỈ LỆ NGHỊCH?</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-slate-700">
+                            <label class="flex items-center gap-2 p-2 rounded border border-slate-100 hover:bg-slate-50 cursor-pointer"><input type="radio" name="q5" value="A" required> A. Quãng đường hành trình đi được và thời gian di chuyển (vận tốc không đổi)</label>
+                            <label class="flex items-center gap-2 p-2 rounded border border-slate-100 hover:bg-slate-50 cursor-pointer"><input type="radio" name="q5" value="B"> B. Số tiền bỏ ra mua hàng hóa và khối lượng thực phẩm thu về (đơn giá cố định)</label>
+                            <label class="flex items-center gap-2 p-2 rounded border border-slate-100 hover:bg-slate-50 cursor-pointer"><input type="radio" name="q5" value="C"> C. Vận tốc chuyển động phương tiện và thời gian hành trình trên cùng một quãng đường cố định</label>
+                            <label class="flex items-center gap-2 p-2 rounded border border-slate-100 hover:bg-slate-50 cursor-pointer"><input type="radio" name="q5" value="D"> D. Số tiền góp vốn đầu tư ban đầu và lợi nhuận cổ tức thu về cuối năm</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Submit Button Area -->
+                <div class="text-right pt-2">
+                    <button type="submit" id="submitBtn" 
+                            class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-6 py-2.5 rounded-lg shadow-sm text-xs cursor-pointer transition-all">
+                        <i class="fas fa-paper-plane mr-1.5"></i> Nộp Bài Lên Hệ Thống
+                    </button>
+                </div>
+            </form>
+
+            <!-- Quiz Grading Server Results Feedback Display Box -->
+            <div id="quizResult" class="hidden mt-6 p-4 rounded-xl text-xs text-center font-bold"></div>
+        </section>
+
+        <!-- Footer Intellectual Copyright Signature Area -->
+        <footer class="mt-16 pt-6 border-t border-slate-200 text-center text-xs text-slate-500 space-y-2">
+            <p class="font-bold text-slate-700">@ Bản quyền thuộc ThS. Đinh Quốc Tuấn - Mục đích phi lợi nhuận - Vì giáo dục.</p>
+            <p>Tài liệu số hóa toán học tương tác đại số hỗ trợ học sinh tự học trực tuyến chuyên sâu.</p>
+        </footer>
+    </main>
+
+    <!-- FLOATING FIXED SAFE PRINT DOCUMENT BUTTON & SCRIPT CORE BLOCK -->
+    <button id="btn-print-doc" onclick="safePrint()" class="fixed bottom-5 right-5 bg-gray-900 text-white px-4 py-2 rounded-lg shadow-lg hover:bg-gray-700 print:hidden z-50 cursor-pointer text-sm">
+        <i class="fas fa-print mr-2"></i> In Tài Liệu
+    </button>
+
+    <script>
+        function safePrint() {
+            const printBtn = document.getElementById('btn-print-doc');
+            printBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Đang chuẩn bị...';
+            
+            // Đảm bảo MathJax đã render xong mọi công thức trước khi gọi hộp thoại in công văn
+            if (window.MathJax && window.MathJax.typesetPromise) {
+                MathJax.typesetPromise().then(() => {
+                    printBtn.innerHTML = '<i class="fas fa-print mr-2"></i> In Tài Liệu';
+                    window.print();
+                });
+            } else {
+                // Fallback nếu không có công thức toán học hoặc MathJax chưa tải
+                setTimeout(() => {
+                    printBtn.innerHTML = '<i class="fas fa-print mr-2"></i> In Tài Liệu';
+                    window.print();
+                }, 500); 
+            }
+        }
+    </script>
+
+    <!-- Main Geometry Control and Async AJAX Data Transmit Engine Script System -->
+    <script>
+        const startTime = new Date();
+        let board2, progressBlock, textNangSuat;
+        let animationTimer = null;
+        let timeElapsed = 0;
+
+        // 1. Dựng Hình 1 JSXGraph: Biểu diễn hình học đại lượng tỉ lệ nghịch (Hypebol & Diện tích cố định) [source: 3]
+        (function initModel1() {
+            const board = JXG.JSXGraph.initBoard('box1', {
+                boundingbox: [-1, 7, 7, -1],
+                axis: true,
+                showCopyright: false,
+                showNavigation: false
+            });
+
+            // Thanh trượt điều khiển thay đổi hệ số tỉ lệ nghịch k (a) [source: 3]
+            let sliderA = board.create('slider', [[1, 6.2], [4.5, 6.2], [2.0, 4.0, 6.0]], {name: 'Hệ số a', color: '#4f46e5', snapWidth: 0.2});
+
+            // Hàm đồ thị curve phương trình y = a / x [source: 3]
+            let hyperbolaCurve = board.create('curve', [
+                function(t) { return t; },
+                function(t) { return t !== 0 ? sliderA.Value() / t : 0; },
+                0.1, 10
+            ], {strokeColor: '#3b82f6', strokeWidth: 3});
+
+            // Điểm M di động trượt tự do trên đường cong Hypebol [source: 3]
+            let M = board.create('glider', [3, 1.5, hyperbolaCurve], {name: 'M(x, y)', color: '#ef4444', size: 4});
+
+            // Dựng hình chữ nhật liên kết hệ tọa độ biến thiên diện tích bất biến [source: 3]
+            let pO = board.create('point', [0, 0], {visible: false, fixed: true});
+            let pX = board.create('point', [function() { return M.X(); }, 0], {visible: false});
+            let pY = board.create('point', [0, function() { return M.Y(); }], {visible: false});
+            
+            board.create('polygon', [pO, pX, M, pY], {fillColor: '#cbd5e1', fillOpacity: 0.4, strokeColor: '#475569', strokeWidth: 1.5});
+
+            // Nhãn hiển thị chứng minh toán học thời gian thực
+            board.create('text', [0.5, -0.6, function() {
+                let xVal = M.X().toFixed(2);
+                let yVal = M.Y().toFixed(2);
+                let areaS = (M.X() * M.Y()).toFixed(2);
+                return 'Tọa độ M: x = ' + xVal + ', y = ' + yVal + ' &rArr; Diện tích chữ nhật S = x.y = ' + areaS + ' (Không đổi = a)';
+            }], {fontSize: 10.5, fontStyle: 'bold', strokeColor: '#0f172a'});
+        })();
+
+        // 2. Dựng Hình 2 JSXGraph: Trực quan hóa Bài toán Năng suất Xây tường thực tế
+        (function initModel2() {
+            board2 = JXG.JSXGraph.initBoard('box2', {
+                boundingbox: [-1, 5, 6, -1],
+                axis: false,
+                showCopyright: false,
+                showNavigation: false
+            });
+
+            // Thiết kế thanh trượt điều chỉnh số lượng nhân lực tham gia xây dựng
+            let sliderX = board2.create('slider', [[0.5, 4.3], [3.5, 4.3], [5, 12, 30]], {name: 'Công nhân (x)', color: '#d97706', snapWidth: 1});
+
+            // Vẽ khung viền bức tường trống ban đầu (Rộng x: từ 0.5 đến 4.5; Cao y: từ 0.5 đến 3.5)
+            let b1 = board2.create('point', [0.5, 0.5], {visible: false, fixed: true});
+            let b2 = board2.create('point', [4.5, 0.5], {visible: false, fixed: true});
+            let b3 = board2.create('point', [4.5, 3.5], {visible: false, fixed: true});
+            let b4 = board2.create('point', [0.5, 3.5], {visible: false, fixed: true});
+            board2.create('polygon', [b1, b2, b3, b4], {fillColor: 'none', strokeColor: '#94a3b8', strokeWidth: 2, fixed: true});
+
+            // Tạo khối đa diện màu gạch đỏ dâng cao đại diện cho tiến trình xây xong tường
+            let w1 = board2.create('point', [0.5, 0.5], {visible: false});
+            let w2 = board2.create('point', [4.5, 0.5], {visible: false});
+            let w3 = board2.create('point', [4.5, function() { return 0.5 + Math.min(3.0, timeElapsed); }], {visible: false});
+            let w4 = board2.create('point', [0.5, function() { return 0.5 + Math.min(3.0, timeElapsed); }], {visible: false});
+            progressBlock = board2.create('polygon', [w1, w2, w3, w4], {fillColor: '#ea580c', fillOpacity: 0.8, strokeColor: '#b91c1c', strokeWidth: 1});
+
+            // Đồng hồ đo đạc thông số động
+            textNangSuat = board2.create('text', [0.5, -0.6, function() {
+                // Tốc độ dâng tỷ lệ thuận với số công nhân x
+                let workers = sliderX.Value();
+                let mathTime = (60 / workers).toFixed(1); // Quy đổi tượng trưng thời gian cần thiết nghịch biến
+                return 'Số công nhân x = ' + workers + ' người &rArr; Thời gian dự kiến thi công xong y = ' + mathTime + ' ngày';
+            }], {fontSize: 11, fontStyle: 'bold', strokeColor: '#1e293b'});
+
+            // Gắn sliderX vào phạm vi tham chiếu toàn cục để hàm kích hoạt sử dụng
+            window.currentWorkersSlider = sliderX;
+        })();
+
+        // Hàm kích hoạt giả lập tiến trình xây tường tỷ lệ nghịch
+        function startBuildingWall() {
+            if (animationTimer) { clearInterval(animationTimer); }
+            timeElapsed = 0;
+            
+            let workersCount = window.currentWorkersSlider.Value();
+            // Hệ số vận tốc dâng cao tỷ lệ thuận với số người (càng nhiều người dâng càng nhanh)
+            let speedStep = 0.02 * workersCount; 
+
+            animationTimer = setInterval(() => {
+                timeElapsed += speedStep;
+                if (timeElapsed >= 3.0) {
+                    timeElapsed = 3.0;
+                    clearInterval(animationTimer);
+                    animationTimer = null;
+                }
+                board2.update();
+            }, 50);
+        }
+
+        // Đưa mô phỏng bức tường về trạng thái ban đầu
+        function resetWallSimulation() {
+            if (animationTimer) {
+                clearInterval(animationTimer);
+                animationTimer = null;
+            }
+            timeElapsed = 0;
+            board2.update();
+        }
+
+        // 3. Xử lý dữ liệu nộp bài trắc nghiệm truyền POST về Apps Script Google Sheets [source: 2]
+        document.getElementById('quizForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const submitBtn = document.getElementById('submitBtn');
+            const resultDiv = document.getElementById('quizResult');
+            
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Đang truyền dữ liệu bài làm...';
+
+            // Key mapping bộ đáp án đúng chuẩn học thuật đại số lớp 7
+            const correctAnswers = { q1: 'B', q2: 'C', q3: 'A', q4: 'B', q5: 'C' };
+            let rawScore = 0;
+            let totalQ = 5;
+            let detailedWrongs = [];
+
+            // Chạy chuỗi vòng lặp so khớp kiểm tra đáp án học sinh chọn [source: 2]
+            for(let i = 1; i <= totalQ; i++) {
+                let key = 'q' + i;
+                let checkedOption = document.querySelector(`input[name="${key}"]:checked`);
+                
+                if (checkedOption) {
+                    if (checkedOption.value === correctAnswers[key]) {
+                        rawScore += 10 / totalQ;
+                    } else {
+                        detailedWrongs.push(`Câu ${i}: Chọn ${checkedOption.value} (Đúng: ${correctAnswers[key]})`);
+                    }
+                } else {
+                    detailedWrongs.push(`Câu ${i}: Chưa chọn (Đúng: ${correctAnswers[key]})`);
+                }
+            }
+
+            // Hoàn thiện quy đổi thang điểm và đo đạc thông số thời gian [source: 2]
+            let finalScore = Math.round(rawScore * 10) / 10;
+            const endTime = new Date();
+            const elapsedSec = Math.round((endTime - startTime) / 1000);
+            const formattedDuration = `${Math.floor(elapsedSec / 60)} phút ${elapsedSec % 60} giây`;
+
+            // Đóng gói cấu trúc định dạng Payload khớp cấu trúc tệp Apps Script nhận dạng [source: 2]
+            const payloadData = {
+                hoTen: document.getElementById('studentName').value,
+                maDe: document.getElementById('examId').value,
+                diem: finalScore,
+                thoiGian: formattedDuration,
+                cauSai: detailedWrongs.join('; ') || 'Hoàn hảo 100%'
+            };
+
+            const targetScriptUrl = "https://script.google.com/macros/s/AKfycbzY7b7h4OwvhXuK5Vs6hl-aD88BPnAiAKbU5lfJobby0D4nzbIJVKT4n0AKCpAGoK0nZA/exec";
+
+            // Thực thi truyền tải dữ liệu Fetch POST (giao thức mode no-cors tránh chặn máy chủ) [source: 2]
+            fetch(targetScriptUrl, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payloadData)
+            })
+            .then(() => {
+                // UI cập nhật trả kết quả đồng bộ thành công rực rỡ về màn hình
+                resultDiv.className = "mt-6 p-4 rounded-xl text-xs text-center font-bold bg-emerald-100 text-emerald-800 border border-emerald-200";
+                resultDiv.innerHTML = `<i class="fas fa-circle-check mr-1.5"></i> Hệ thống đã ghi nhận bài làm thành công! Điểm số: ${finalScore}/10 điểm. Tổng thời gian làm bài: ${formattedDuration}. Kết quả đã tự động lưu trữ lên Google Sheets.`;
+                resultDiv.classList.remove('hidden');
+                submitBtn.innerHTML = '<i class="fas fa-check-double"></i> Đồng bộ thành công';
+            })
+            .catch(err => {
+                console.error('Data Transmission Error:', err);
+                // Cứu hộ hiển thị điểm số tại chỗ cho học sinh nếu mạng gián đoạn cục bộ
+                resultDiv.className = "mt-6 p-4 rounded-xl text-xs text-center font-bold bg-amber-100 text-amber-800 border border-amber-200";
+                resultDiv.innerHTML = `<i class="fas fa-triangle-exclamation mr-1.5"></i> Kết nối máy chủ bị nghẽn, điểm số ghi nhận tại chỗ của em: ${finalScore}/10 điểm. (Thời gian: ${formattedDuration}).`;
+                resultDiv.classList.remove('hidden');
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="fas fa-paper-plane mr-1.5"></i> Thử nộp lại bài';
+            });
+        });
+    </script>
+</body>
+</html>
