@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buổi 5: Bất phương trình bậc nhất hai ẩn — ThS. Đinh Quốc Tuấn</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- FontAwesome Icons CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts: Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- MathJax Configuration & Library -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['\\(', '\\)']],
+                displayMath: [['\\[', '\\]']]
+            },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <!-- JSXGraph CSS & Core Engine -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraph.css" />
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraphcore.js"></script>
+
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #f8fafc;
+            color: #0f172a;
+        }
+        .jxgbox {
+            background-color: #ffffff !important;
+            border-radius: 1rem;
+            overflow: hidden;
+            border: 1px solid #e2e8f0;
+        }
+        @media print {
+            .print\:hidden { display: none !important; }
+            body { background: white !important; color: black !important; }
+            details { display: block !important; }
+            details summary { display: none !important; }
+            .page-break { page-break-before: always; }
+            .card-border { box-shadow: none !important; border: 1px solid #e5e7eb !important; }
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col antialiased selection:bg-indigo-100">
+
+    <!-- Header học thuật -->
+    <header class="border-b border-slate-200 sticky top-0 bg-white/95 backdrop-blur-md z-40 print:hidden">
+        <div class="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 px-6 py-4">
+            <div class="flex items-center gap-4">
+                <img src="https://hcmus.edu.vn/wp-content/uploads/2023/04/Logo-chinh-e1681638380305.png" alt="Logo HCMUS" class="h-14 w-auto object-contain">
+                <div class="border-l-2 border-slate-300 pl-4">
+                    <span class="text-xs font-bold tracking-widest text-indigo-600 uppercase block mb-0.5">Tài liệu số hóa tương tác</span>
+                    <span class="text-base font-extrabold text-slate-800">Chuyên đề Toán học Đại số lớp 10</span>
+                </div>
+            </div>
+            <div class="flex items-center gap-3 sm:text-right">
+                <div class="hidden sm:block">
+                    <p class="text-xs text-slate-400 font-semibold">Giảng viên biên soạn:</p>
+                    <p class="text-sm font-extrabold text-slate-800">ThS. Đinh Quốc Tuấn</p>
+                </div>
+                <img src="https://firebasestorage.googleapis.com/v0/b/link-anh-web.firebasestorage.app/o/ttbdvh.jpg?alt=media&token=f270aa9b-a2bc-48e8-8910-80742b542615" 
+                     alt="Logo TTBDVH" class="h-14 w-14 object-cover rounded-full border border-slate-200 shadow-inner">
+            </div>
+        </div>
+    </header>
+
+    <!-- Banner nhập môn thư gửi học sinh -->
+    <div class="bg-gradient-to-r from-indigo-50 via-slate-50 to-emerald-50 border-b border-slate-200 py-10 print:hidden">
+        <div class="max-w-4xl mx-auto px-6 space-y-4">
+            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-indigo-100 text-indigo-800 border border-indigo-200 shadow-xs">
+                <i class="fa-solid fa-graduation-cap mr-1.5 text-indigo-600"></i> Không gian toán học trực quan
+            </span>
+            <h1 class="text-2xl sm:text-4xl font-black tracking-tight text-slate-900 leading-tight">
+                Buổi 5: Bất Phương Trình Bậc Nhất Hai Ẩn
+            </h1>
+            <p class="text-slate-600 text-sm sm:text-base font-medium leading-relaxed text-justify">
+                Chào các em! Rất vui được gặp lại các em trong Buổi học thứ 5. Hôm nay thầy trò chúng ta sẽ bước sang một chuyên đề hoàn toàn mới và cực kì quan trọng: <strong>Bất phương trình bậc nhất hai ẩn</strong>. Kiến thức này không chỉ giúp các em giải quyết các bài toán đại số, hình học mà còn là công cụ đắc lực để tối ưu hóa trong kinh tế và đời sống (như việc tính toán chi phí rẻ nhất hay lợi nhuận cao nhất). Với kinh nghiệm 15 năm giảng dạy, thầy đã hệ thống hóa lý thuyết bài học thành 3 cấp độ từ Cơ bản đến Vận dụng, kèm theo các mô hình trực quan để các em dễ dàng nắm bắt nhất.
+            </p>
+        </div>
+    </div>
+
+    <!-- Nội dung không gian làm việc chính -->
+    <main class="max-w-4xl mx-auto px-6 py-10 flex-grow w-full space-y-16">
+        
+        <!-- ================= PHẦN 1: MỨC ĐỘ CƠ BẢN ================= -->
+        <section class="space-y-6">
+            <div class="flex items-center gap-3 border-b pb-3 border-slate-200">
+                <span class="bg-sky-600 text-white text-xs font-black px-3 py-1 rounded-md uppercase tracking-wider">Cấp độ 1</span>
+                <h2 class="text-xl font-extrabold text-slate-900">MỨC ĐỘ CƠ BẢN (KHÁI NIỆM VÀ CÁCH BIỂU DIỄN MIỀN NGHIỆM)</h2>
+            </div>
+            <p class="text-xs font-bold text-sky-800 bg-sky-50 px-3 py-2 rounded-lg inline-block">
+                Mục tiêu: Nhận diện hình dáng bất phương trình bậc nhất hai ẩn và nắm vững 3 bước vẽ tìm miền nghiệm.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm leading-relaxed text-slate-700">
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs space-y-3">
+                    <h3 class="font-bold text-slate-800 text-base flex items-center gap-2 text-sky-700"><i class="fa-solid fa-book"></i> 1. Khái niệm cơ bản</h3>
+                    <p>&bull; Bất phương trình bậc nhất hai ẩn \(x, y\) là bất phương trình có một trong các dạng tổng quát: \(ax + by + c < 0\); \(ax + by + c > 0\); \(ax + by + c \le 0\); \(ax + by + c \ge 0\), trong đó \(a, b, c\) là những số thực cho trước, \(a\) và \(b\) không đồng thời bằng 0.</p>
+                    <p>&bull; <strong>Nghiệm:</strong> Mỗi cặp số \((x_0; y_0)\) thỏa mãn bất phương trình được gọi là một nghiệm của bất phương trình đó.</p>
+                    <p>&bull; <strong>Miền nghiệm:</strong> Trong mặt phẳng tọa độ \(Oxy\), tập hợp tất cả các điểm \(M(x_0; y_0)\) có tọa độ là nghiệm được gọi là miền nghiệm của bất phương trình.</p>
+                </div>
+
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs space-y-2">
+                    <h3 class="font-bold text-slate-800 text-base flex items-center gap-2 text-sky-700"><i class="fa-solid fa-list-check"></i> 2. Cách biểu diễn miền nghiệm</h3>
+                    <p>Để biểu diễn miền nghiệm của bất phương trình (ví dụ dạng \(ax + by + c < 0\)), ta thực hiện 3 bước sau:</p>
+                    <p><strong>Bước 1:</strong> Vẽ đường thẳng bờ \(d: ax + by + c = 0\) trên mặt phẳng tọa độ \(Oxy\). Đường thẳng này chia mặt phẳng thành hai nửa.</p>
+                    <p><strong>Bước 2:</strong> Lấy một điểm \(M(x_0; y_0)\) bất kỳ không nằm trên \(d\) (Thầy khuyên các em nên ưu tiên chọn ngay gốc tọa độ \(O(0; 0)\) nếu \(c \neq 0\) để tính toán thuận tiện nhất).</p>
+                    <p><strong>Bước 3 (Kết luận):</strong> Nếu \(ax_0 + by_0 + c < 0\) thì nửa mặt phẳng chứa điểm \(M\) là miền nghiệm. Ngược lại, nửa mặt phẳng không chứa điểm \(M\) là miền nghiệm.</p>
+                    <p class="text-xs bg-amber-50 text-amber-800 p-2 rounded border border-amber-200 font-semibold"><i class="fa-solid fa-triangle-exclamation mr-1"></i> Đặc biệt lưu ý: Nếu chứa dấu "\(<\)" hoặc "\(>\)" thì miền nghiệm không kể bờ \(d\) (vẽ nét đứt). Nếu có dấu "\(\le\)" hoặc "\(\ge\)" thì miền nghiệm kể cả bờ \(d\) (vẽ nét liền).</p>
+                </div>
+            </div>
+
+            <!-- Ví dụ 1 & Mô hình 1 -->
+            <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border space-y-6">
+                <div>
+                    <span class="bg-sky-100 text-sky-800 text-xs font-bold px-2 py-0.5 rounded">Ví dụ 1</span>
+                    <p class="text-sm font-semibold text-slate-800 mt-2">Biều diễn miền nghiệm của bất phương trình \(x + 2y < 3\).</p>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+                    <div class="space-y-3">
+                        <details class="group">
+                            <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                                <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem hướng dẫn giải từ thầy</span>
+                            </summary>
+                            <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 leading-relaxed space-y-2">
+                                <p>&bull; Vẽ đường thẳng \(d: x + 2y = 3\). Đường thẳng đi qua hai điểm \((3; 0)\) và \((0; 1,5)\).</p>
+                                <p>&bull; Lấy gốc tọa độ \(O(0; 0)\). Ta thấy \(0 + 2.0 = 0 < 3\) (Mệnh đề đúng).</p>
+                                <p>&bull; <strong>Kết luận:</strong> Miền nghiệm là nửa mặt phẳng chứa điểm \(O(0; 0)\) và không kể đường thẳng \(d\) (biểu diễn bằng miền tô màu xanh bên phải).</p>
+                            </div>
+                        </details>
+                        <div id="status-box1" class="text-xs font-bold p-3 bg-indigo-50 border border-indigo-100 rounded-xl text-center">
+                            <i class="fa-solid fa-circle-info text-indigo-600 mr-1.5"></i> Kéo thử điểm M trên đồ thị để kiểm tra nghiệm!
+                        </div>
+                    </div>
+                    <div>
+                        <div id="box1" class="w-full h-64 jxgbox"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= PHẦN 2: MỨC ĐỘ NÂNG CAO ================= -->
+        <section class="space-y-6">
+            <div class="flex items-center gap-3 border-b pb-3 border-slate-200">
+                <span class="bg-amber-600 text-white text-xs font-black px-3 py-1 rounded-md uppercase tracking-wider">Cấp độ 2</span>
+                <h2 class="text-xl font-extrabold text-slate-900">MỨC ĐỘ NÂNG CAO (BÀI TOÁN NGƯỢC - XÁC ĐỊNH BẤT PHƯƠNG TRÌNH TỪ ĐỒ THỊ)</h2>
+            </div>
+            <p class="text-xs font-bold text-amber-800 bg-amber-50 px-3 py-2 rounded-lg inline-block">
+                Mục tiêu: Rèn luyện kỹ năng tư duy phản nghịch, xác định chính xác biểu thức gốc khi biết sơ đồ miền nghiệm.
+            </p>
+
+            <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs text-sm leading-relaxed text-slate-700">
+                <h3 class="font-bold text-slate-800 text-base flex items-center gap-2 text-amber-700 mb-2"><i class="fa-solid fa-rotate-left"></i> Phương pháp thực hiện</h3>
+                <p><strong>Bước 1:</strong> Xác định phương trình đường thẳng bờ \(d\) chia mặt phẳng thành hai phần. Ta lập phương trình dạng \(ax + by = c\) dựa vào các giao điểm trục tọa độ.</p>
+                <p><strong>Bước 2:</strong> Chọn một điểm \(M_0\) bất kỳ thuộc miền nghiệm (phần trắng không bị gạch). Thay tọa độ vào biểu thức bờ để kiểm tra dấu lớn/nhỏ của hệ thức lăng trụ đứng (chú ý nét liền/nét đứt để lấy dấu có bằng).</p>
+            </div>
+
+            <!-- Ví dụ 2 & Mô hình 2 -->
+            <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border space-y-6">
+                <div>
+                    <span class="bg-amber-100 text-amber-800 text-xs font-bold px-2 py-0.5 rounded">Ví dụ 2</span>
+                    <p class="text-sm font-semibold text-slate-800 mt-2">Cho mặt phẳng tọa độ, một đường thẳng nét đứt \(d\) đi qua 2 điểm \((2; 0)\) và \((0; -2)\). Nửa mặt phẳng không chứa gốc tọa độ \(O\) là miền nghiệm. Hãy xác định bất phương trình đó.</p>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                    <div class="space-y-4">
+                        <details class="group">
+                            <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                                <i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform mr-1"></i> Xem hướng dẫn giải
+                            </summary>
+                            <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-2">
+                                <p>&bull; Phương trình đường thẳng qua \((2;0)\) và \((0;-2)\) là: \(y = 1x - 2 \Leftrightarrow x - y = 2\).</p>
+                                <p>&bull; Lấy điểm mẫu \(M(3; -1)\) thuộc phần không bị gạch. Thay vào: \(3 - (-1) = 4 > 2\).</p>
+                                <p>&bull; Vì bờ nét đứt nên bất phương trình cần tìm là: <strong>\(x - y > 2\)</strong>.</p>
+                            </div>
+                        </details>
+
+                        <!-- Panel Tương Tác Dựng Hình Đảo Ngược -->
+                        <div class="p-4 bg-slate-100 rounded-xl border border-slate-200 space-y-3">
+                            <span class="text-xs font-bold text-slate-600 uppercase block tracking-wider"><i class="fa-solid fa-gamepad text-indigo-500"></i> Hộp kiểm chứng tương tác tại lớp:</span>
+                            <div class="flex flex-wrap items-center gap-2 text-xs">
+                                <span class="font-mono bg-white p-2 border rounded font-bold shadow-2xs text-slate-700">x - y</span>
+                                <select id="operatorSelect" class="bg-white border p-1.5 rounded font-bold focus:ring-2 focus:ring-indigo-500 outline-none shadow-2xs cursor-pointer">
+                                    <option value="">Chọn dấu...</option>
+                                    <option value="<">&lt;</option>
+                                    <option value=">">&gt;</option>
+                                    <option value="<=">&le;</option>
+                                    <option value=">=">&ge;</option>
+                                </select>
+                                <span class="font-mono bg-white p-2 border rounded font-bold shadow-2xs text-slate-700">2</span>
+                                <button type="button" onclick="checkInverseBPT()" class="bg-indigo-600 text-white font-bold px-3 py-2 rounded-lg hover:bg-indigo-700 transition-colors shadow-xs cursor-pointer">Kiểm tra</button>
+                            </div>
+                            <div id="checkReport" class="text-xs font-bold hidden mt-1"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div id="box2" class="w-full h-64 jxgbox"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= PHẦN 3: MỨC ĐỘ VẬN DỤNG ================= -->
+        <section class="space-y-6">
+            <div class="flex items-center gap-3 border-b pb-3 border-slate-200">
+                <span class="bg-emerald-600 text-white text-xs font-black px-3 py-1 rounded-md uppercase tracking-wider">Cấp độ 3</span>
+                <h2 class="text-xl font-extrabold text-slate-900">MỨC ĐỘ VẬN DỤNG (MÔ HÌNH HÓA TOÁN HỌC TỪ BÀI TOÁN THỰC TẾ)</h2>
+            </div>
+            <p class="text-xs font-bold text-emerald-800 bg-emerald-50 px-3 py-2 rounded-lg inline-block">
+                Mục tiêu: Dịch thuật ngữ văn bản thực tế đời sống thành các hệ thức toán học ràng buộc chuẩn mực.
+            </p>
+
+            <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs text-sm leading-relaxed text-slate-700 space-y-2">
+                <h3 class="font-bold text-slate-800 text-base flex items-center gap-2 text-emerald-700 mb-1"><i class="fa-solid fa-chart-pie"></i> Phương pháp thực hiện (Mô hình hóa)</h3>
+                <p>Nhiều tình huống thực tiễn đời sống liên quan đến tìm điều kiện của các đại lượng thay thế cho nhau trong một mức giới hạn (tiền bạc, khối lượng nguyên liệu). Việc lập bất phương trình đại lượng để biểu thị chúng được gọi là mô hình hóa.</p>
+                <p><strong>Bước 1:</strong> Gọi \(x, y\) là các đại lượng chưa biết cần tìm (điều kiện thường là \(x \ge 0, y \ge 0\)).</p>
+                <p><strong>Bước 2:</strong> Lập các biểu thức liên hệ (chi phí, khối lượng...) theo \(x, y\) và ghép với dấu bất đẳng thức theo ràng buộc của đề bài (như "không vượt quá", "tối thiểu").</p>
+            </div>
+
+            <!-- Ví dụ 3 & Mô hình 3 -->
+            <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border space-y-6">
+                <div>
+                    <span class="bg-emerald-100 text-emerald-800 text-xs font-bold px-2 py-0.5 rounded">Ví dụ 3</span>
+                    <p class="text-sm font-semibold text-slate-800 mt-2">Bạn Nam để dành được 700 nghìn đồng. Trong một đợt ủng hộ các bạn học sinh vùng bị bão lụt, Nam đã ủng hộ \(x\) tờ tiền loại 20 nghìn đồng và \(y\) tờ tiền loại 50 nghìn đồng. Hãy viết bất phương trình biểu diễn giới hạn số tiền Nam có thể ủng hộ.</p>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                    <div class="space-y-4 text-xs text-slate-700 leading-relaxed">
+                        <details class="group">
+                            <summary class="list-none flex items-center font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                                <i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform mr-1"></i> Xem hướng dẫn giải
+                            </summary>
+                            <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-slate-700 space-y-2">
+                                <p>&bull; Tổng số tiền Nam ủng hộ tính theo \(x\) và \(y\) là: \(20x + 50y\) (nghìn đồng).</p>
+                                <p>&bull; Vì Nam chỉ có tối đa 700 nghìn đồng, nên số tiền ủng hộ không được vượt quá số tiền này. Ta có bất phương trình: <strong>\(20x + 50y \le 700 \Leftrightarrow 2x + 50y \le 70\)</strong>.</p>
+                                <p>&bull; Ràng buộc thực tế: Vì \(x, y\) là số tờ tiền nên phải có thêm điều kiện nguyên dương: \(x \ge 0, y \ge 0\) và \(x, y \in \mathbb{N}\).</p>
+                            </div>
+                        </details>
+                        
+                        <div class="p-4 bg-emerald-50 rounded-xl border border-emerald-200 text-emerald-950">
+                            <span class="font-bold block mb-1 text-emerald-800"><i class="fa-solid fa-chalkboard-user"></i> Lời dặn của thầy Đinh Quốc Tuấn:</span>
+                            Để vẽ thành thạo miền nghiệm, các em nhớ nguyên tắc "Thử điểm O": Nếu \(O\) thỏa mãn thì giữ phần có \(O\); nếu \(O\) không thỏa mãn thì gạch bỏ phần có \(O\). Các em hãy chép kĩ 3 ví dụ trên vào vở, tiết sau chúng ta sẽ luyện tập giải hệ bất phương trình dựa trên nền tảng này nhé! Chúc các em học tốt!
+                        </div>
+                    </div>
+                    <div>
+                        <!-- Box 3: Biểu diễn lưới điểm nghiệm nguyên thực tế -->
+                        <div id="box3" class="w-full h-64 jxgbox"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ================= BÀI TẬP ĐÁNH GIÁ NĂNG LỰC TRẮC NGHIỆM ================= -->
+        <section class="border-t border-slate-200 pt-10 page-break">
+            <div class="bg-gradient-to-br from-slate-900 via-slate-800 to-indigo-950 text-white rounded-3xl p-6 sm:p-8 shadow-xl relative overflow-hidden card-border">
+                <div class="absolute -right-10 -bottom-10 opacity-5 pointer-events-none text-white">
+                    <i class="fa-solid fa-square-check text-[14rem]"></i>
+                </div>
+                
+                <div class="max-w-xl space-y-2">
+                    <span class="text-xs font-bold uppercase tracking-widest text-emerald-400 bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-500/20 inline-block">Đánh giá trực tuyến tại lớp</span>
+                    <h2 class="text-xl sm:text-2xl font-black tracking-tight">BÀI TẬP ĐÁNH GIÁ NĂNG LỰC TẠI LỚP</h2>
+                    <p class="text-slate-400 text-xs sm:text-sm">Học sinh hoàn thành chọn đáp án trực tuyến, kết quả điểm số sẽ được gửi tự động về Google Sheets của nhà trường.</p>
+                </div>
+
+                <form id="quizForm" class="mt-8 space-y-6 text-slate-900">
+                    <!-- Khối thông tin học sinh -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div class="bg-white p-4 rounded-xl shadow-inner border border-slate-100">
+                            <label class="block text-xs font-bold text-slate-400 uppercase tracking-wide mb-1"><i class="fa-solid fa-user mr-1 text-indigo-500"></i> Họ và tên học sinh</label>
+                            <input type="text" id="studentName" required placeholder="Nhập họ tên đầy đủ..." class="w-full bg-white border-b-2 border-slate-200 focus:border-indigo-500 outline-none py-1 text-sm font-bold text-slate-900 transition-colors">
+                        </div>
+                        <div class="bg-white p-4 rounded-xl shadow-inner border border-slate-100">
+                            <label class="block text-xs font-bold text-slate-400 uppercase tracking-wide mb-1"><i class="fa-solid fa-file-code mr-1 text-indigo-500"></i> Mã chuyên đề bài học</label>
+                            <input type="text" id="examId" readonly value="Buoi05_BPT_BacNhat2An_Toan10" class="w-full bg-slate-50 border-b-2 border-slate-200 outline-none py-1 text-sm font-bold text-slate-500 cursor-not-allowed">
+                        </div>
+                    </div>
+
+                    <!-- Khối các câu hỏi trắc nghiệm -->
+                    <div class="space-y-5 mt-6">
+                        <!-- Câu 1 -->
+                        <div class="bg-white p-5 rounded-2xl shadow-sm space-y-3">
+                            <p class="text-sm font-bold text-slate-900"><span class="text-indigo-600">Câu 1:</span> Bất phương trình nào sau đây là bất phương trình bậc nhất hai ẩn?</p>
+                            <div class="grid grid-cols-1 gap-2 text-xs font-semibold text-slate-700">
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q1" value="A" required class="text-indigo-600 h-4 w-4"> <span>A. \(2x^2 + 3y > 5\)</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q1" value="B" class="text-indigo-600 h-4 w-4"> <span>B. \(3x - y + 2 \le 0\)</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q1" value="C" class="text-indigo-600 h-4 w-4"> <span>C. \(xy + x < 3\)</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q1" value="D" class="text-indigo-600 h-4 w-4"> <span>D. \(x + z - 2y \ge 0\)</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Câu 2 -->
+                        <div class="bg-white p-5 rounded-2xl shadow-sm space-y-3">
+                            <p class="text-sm font-bold text-slate-900"><span class="text-indigo-600">Câu 2:</span> Điểm nào sau đây thuộc miền nghiệm của bất phương trình \(x + 2y < 3\)?</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs font-semibold text-slate-700">
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q2" value="A" required class="text-indigo-600 h-4 w-4"> <span>A. \(O(0; 0)\)</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q2" value="B" class="text-indigo-600 h-4 w-4"> <span>B. \(A(3; 0)\)</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q2" value="C" class="text-indigo-600 h-4 w-4"> <span>C. \(B(1; 2)\)</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q2" value="D" class="text-indigo-600 h-4 w-4"> <span>D. \(C(0; 2)\)</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Câu 3 -->
+                        <div class="bg-white p-5 rounded-2xl shadow-sm space-y-3">
+                            <p class="text-sm font-bold text-slate-900"><span class="text-indigo-600">Câu 3:</span> Khi bất phương trình chứa dấu "\(<\)" hoặc "\(>\)", đường thẳng bờ \(d\) được vẽ bằng nét gì?</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs font-semibold text-slate-700">
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q3" value="A" required class="text-indigo-600 h-4 w-4"> <span>A. Nét liền đậm</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q3" value="B" class="text-indigo-600 h-4 w-4"> <span>B. Nét đứt</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q3" value="C" class="text-indigo-600 h-4 w-4"> <span>C. Nét chấm sọc gạch</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q3" value="D" class="text-indigo-600 h-4 w-4"> <span>D. Không cần vẽ bờ</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Câu 4 -->
+                        <div class="bg-white p-5 rounded-2xl shadow-sm space-y-3">
+                            <p class="text-sm font-bold text-slate-900"><span class="text-indigo-600">Câu 4:</span> Bất phương trình tương ứng được xác định từ đồ thị bờ nét đứt ở Ví dụ 2 phần nâng cao là:</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs font-semibold text-slate-700">
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q4" value="A" required class="text-indigo-600 h-4 w-4"> <span>A. \(x - y \ge 2\)</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q4" value="B" class="text-indigo-600 h-4 w-4"> <span>B. \(x - y < 2\)</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q4" value="C" class="text-indigo-600 h-4 w-4"> <span>C. \(x - y > 2\)</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q4" value="D" class="text-indigo-600 h-4 w-4"> <span>D. \(x - y \le 2\)</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Câu 5 -->
+                        <div class="bg-white p-5 rounded-2xl shadow-sm space-y-3">
+                            <p class="text-sm font-bold text-slate-900"><span class="text-indigo-600">Câu 5:</span> Trong bài toán quy hoạch thực tế của Nam, bất phương trình giới hạn số tiền Nam có thể dùng ủng hộ là:</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs font-semibold text-slate-700">
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q5" value="A" required class="text-indigo-600 h-4 w-4"> <span>A. \(20x + 50y > 700\)</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q5" value="B" class="text-indigo-600 h-4 w-4"> <span>B. \(20x + 50y \le 700\)</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q5" value="C" class="text-indigo-600 h-4 w-4"> <span>C. \(20x + 50y \ge 700\)</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q5" value="D" class="text-indigo-600 h-4 w-4"> <span>D. \(20x + 50y = 700\)</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Khu vực nút nộp bài toán -->
+                    <div class="pt-2 flex flex-col sm:flex-row items-center justify-between gap-4">
+                        <button type="submit" id="submitBtn" class="w-full sm:w-auto bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-sm px-8 py-3.5 rounded-xl shadow-lg transition-all flex items-center justify-center space-x-2 cursor-pointer">
+                            <i class="fa-solid fa-cloud-arrow-up"></i> <span>Nộp Bài Chấm Điểm</span>
+                        </button>
+                        <div id="statusReport" class="text-xs font-bold text-slate-400"></div>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer học thuật bản quyền -->
+    <footer class="bg-slate-900 text-slate-400 py-8 text-center text-xs font-medium px-4 mt-auto">
+        <p class="font-bold text-slate-300">@ Bản quyền thuộc ThS. Đinh Quốc Tuấn - Mục đích phi lợi nhuận - Vì giáo dục.</p>
+        <p class="text-slate-500 mt-2">Hệ thống tài liệu học tập số hóa đồng bộ tương tác đồ họa trực quan phẳng Oxy.</p>
+    </footer>
+
+    <!-- NÚT IN TÀI LIỆU CỐ ĐỊNH -->
+    <button id="btn-print-doc" onclick="safePrint()" class="fixed bottom-5 right-5 bg-gray-900 text-white px-4 py-2 rounded-lg shadow-lg hover:bg-gray-700 print:hidden z-50 cursor-pointer">
+        <i class="fas fa-print mr-2"></i> In Tài Liệu
+    </button>
+
+    <script>
+        function safePrint() {
+            const printBtn = document.getElementById('btn-print-doc');
+            printBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Đang chuẩn bị...';
+            
+            if (window.MathJax && window.MathJax.typesetPromise) {
+                MathJax.typesetPromise().then(() => {
+                    printBtn.innerHTML = '<i class="fas fa-print mr-2"></i> In Tài Liệu';
+                    window.print();
+                });
+            } else {
+                setTimeout(() => {
+                    printBtn.innerHTML = '<i class="fas fa-print mr-2"></i> In Tài Liệu';
+                    window.print();
+                }, 500); 
+            }
+        }
+    </script>
+
+    <!-- HỆ THỐNG KỊCH BẢN ĐIỀU KHIỂN HÌNH HỌC ĐỘNG JSXGRAPH -->
+    <script>
+        const timeInit = new Date();
+
+        document.addEventListener("DOMContentLoaded", function() {
+            
+            // --- MÔ HÌNH 1: BIỂU DIỄN MIỀN NGHIỆM X + 2Y < 3 ---
+            const b1 = JXG.JSXGraph.initBoard('box1', {
+                boundingbox: [-2, 4, 5, -2], axis: true, showNavigation: false, showCopyright: false
+            });
+            
+            // Vẽ đường thẳng d nét đứt (vì dấu < không kể bờ)
+            let p1 = b1.create('point', [3, 0], {visible: false});
+            let p2 = b1.create('point', [0, 1.5], {visible: false});
+            let line1 = b1.create('line', [p1, p2], {strokeColor: '#3b82f6', strokeWidth: 2, dash: 2});
+
+            // Tô gạch sọc/mờ một bên biểu diễn bất phương trình
+            b1.create('inequality', [line1], {inverse: true, fillColor: '#2563eb', fillOpacity: 0.15});
+
+            // Tạo glider di động tự do để kiểm tra điểm nghiệm
+            let M = b1.create('point', [1, 0.5], {name: 'M', color: '#4f46e5', size: 4});
+            
+            // Cập nhật nhãn báo trạng thái động
+            let statusBox = document.getElementById('status-box1');
+            M.on('drag', function() {
+                let checkValue = M.X() + 2 * M.Y();
+                if (checkValue < 3) {
+                    statusBox.className = "text-xs font-bold p-3 bg-emerald-50 border border-emerald-200 rounded-xl text-center text-emerald-800 animate-pulse";
+                    statusBox.innerHTML = `<i class="fa-solid fa-circle-check text-emerald-600"></i> M(${M.X().toFixed(1)}; ${M.Y().toFixed(1)}) -> ${checkValue.toFixed(2)} < 3 (Thỏa mãn BPT)`;
+                } else {
+                    statusBox.className = "text-xs font-bold p-3 bg-rose-50 border border-rose-200 rounded-xl text-center text-rose-800";
+                    statusBox.innerHTML = `<i class="fa-solid fa-circle-xmark text-rose-600"></i> M(${M.X().toFixed(1)}; ${M.Y().toFixed(1)}) -> ${checkValue.toFixed(2)} &ge; 3 (Không thỏa mãn)`;
+                }
+            });
+
+
+            // --- MÔ HÌNH 2: BÀI TOÁN NGƯỢC X - Y > 2 ---
+            const b2 = JXG.JSXGraph.initBoard('box2', {
+                boundingbox: [-2, 3, 5, -4], axis: true, showNavigation: false, showCopyright: false
+            });
+            
+            let pA = b2.create('point', [2, 0], {visible: false});
+            let pB = b2.create('point', [0, -2], {visible: false});
+            let line2 = b2.create('line', [pA, pB], {strokeColor: '#ef4444', strokeWidth: 2, dash: 2});
+            
+            // Gạch bỏ (hatch) miền chứa gốc tọa độ O(0,0)
+            b2.create('inequality', [line2], {inverse: true, fillColor: '#94a3b8', fillOpacity: 0.3, hatch: 6});
+
+
+            // --- MÔ HÌNH 3: NGHIỆM NGUYÊN BÀI TOÁN THỰC TẾ 20X + 50Y <= 700 ---
+            // Quy đổi tỉ lệ trục để vừa khung hình: Đồ thị hóa 2x + 5y <= 70
+            const b3 = JXG.JSXGraph.initBoard('box3', {
+                boundingbox: [-5, 20, 45, -5], axis: true, showNavigation: false, showCopyright: false
+            });
+
+            let pX = b3.create('point', [35, 0], {visible: false});
+            let pY = b3.create('point', [0, 14], {visible: false});
+            let line3 = b3.create('line', [pX, pY], {strokeColor: '#10b981', strokeWidth: 2.5});
+            
+            // Gạch bỏ nửa mặt phẳng lớn hơn 700
+            b3.create('inequality', [line3], {inverse: false, fillColor: '#94a3b8', fillOpacity: 0.25, hatch: 6});
+
+            // Rải hệ thống điểm tròn đại diện cho các nghiệm nguyên (x;y) thực tế trong tam giác vuông
+            for (let x = 0; x <= 35; x += 5) {
+                for (let y = 0; y <= 14; y += 2) {
+                    if (2 * x + 5 * y <= 70 && (x !== 0 || y !== 0)) {
+                        b3.create('point', [x, y], {
+                            name: '', size: 2, color: '#059669', fixed: true, withLabel: false
+                        });
+                    }
+                }
+            }
+        });
+
+        // HÀM KIỂM TRA TRẠNG THÁI CHỌN ĐÁP ÁN BÀI TOÁN NGƯỢC
+        function checkInverseBPT() {
+            let userSelect = document.getElementById('operatorSelect').value;
+            let reportDiv = document.getElementById('checkReport');
+            reportDiv.classList.remove('hidden');
+
+            if (userSelect === '>') {
+                reportDiv.className = "text-xs font-bold mt-2 text-emerald-600 bg-emerald-50 p-2 rounded border border-emerald-200";
+                reportDiv.innerHTML = "<i class='fa-solid fa-square-check'></i> Chúc mừng em! Kết quả chính xác. BPT hoàn chỉnh là: x - y > 2";
+            } else {
+                reportDiv.className = "text-xs font-bold mt-2 text-rose-600 bg-rose-50 p-2 rounded border border-rose-200";
+                reportDiv.innerHTML = "<i class='fa-solid fa-triangle-exclamation'></i> Chưa chính xác rồi, hãy thử lại bằng việc thay thế điểm M(3;-1) vào bờ em nhé!";
+            }
+        }
+
+        // --- XỬ LÝ BIỂU MẪU CHẤM ĐIỂM TRẮC NGHIỆM VÀ ĐẨY DỮ LIỆU VỀ GOOGLE SHEETS ---
+        document.getElementById('quizForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const submitBtn = document.getElementById('submitBtn');
+            const statusReport = document.getElementById('statusReport');
+            
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i> Đang tải dữ liệu thi...';
+            statusReport.innerHTML = "Đang xử lý kết nối máy chủ dữ liệu học thuật...";
+
+            const correctKey = { q1: "B", q2: "A", q3: "B", q4: "C", q5: "B" };
+            const studentName = document.getElementById('studentName').value.trim();
+            const lessonId = document.getElementById('examId').value.trim();
+            
+            let correctCounter = 0;
+            let totalQuizCount = Object.keys(correctKey).length;
+            let missedReportArray = [];
+
+            for (let questionCode in correctKey) {
+                const selectedRadio = document.querySelector(`input[name="${questionCode}"]:checked`);
+                if (selectedRadio && selectedRadio.value === correctKey[questionCode]) {
+                    correctCounter++;
+                } else {
+                    let chosenChar = selectedRadio ? selectedRadio.value : "Bỏ trống";
+                    missedReportArray.push(`${questionCode.toUpperCase()}(Chọn: ${chosenChar}|Đúng: ${correctKey[questionCode]})`);
+                }
+            }
+
+            const finalScore = ((correctCounter / totalQuizCount) * 10).toFixed(2);
+            const timeComplete = new Date();
+            const elapsedDurationSeconds = Math.floor((timeComplete - timeInit) / 1000);
+            const thoiGian = `${Math.floor(elapsedDurationSeconds / 60)} phút ${elapsedDurationSeconds % 60} giây`;
+            const cauSai = missedReportArray.length > 0 ? missedReportArray.join(", ") : "Không có (Đạt điểm tối đa)";
+
+            const transmissionPayload = {
+                hoTen: studentName,
+                maDe: lessonId,
+                diem: parseFloat(finalScore),
+                thoiGian: thoiGian,
+                cauSai: cauSai
+            };
+
+            const webAppsScriptEndpoint = "https://script.google.com/macros/s/AKfycbzY7b7h4OwvhXuK5Vs6hl-aD88BPnAiAKbU5lfJobby0D4nzbIJVKT4n0AKCpAGoK0nZA/exec";
+
+            fetch(webAppsScriptEndpoint, {
+                method: "POST",
+                mode: "no-cors",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(transmissionPayload)
+            })
+            .then(() => {
+                statusReport.className = "text-xs font-bold text-emerald-500 bg-emerald-50 px-3 py-2 rounded-xl border border-emerald-200 inline-block";
+                statusReport.innerHTML = `<i class="fa-solid fa-circle-check"></i> Đã đồng bộ thành công kết quả thi: ${finalScore}/10 lên hệ thống Sheets!`;
+                alert(`Hệ thống thông báo nộp kết quả bài làm thành công!\nChào em ${studentName}, điểm số chuyên đề đạt được là: ${finalScore} / 10.`);
+                submitBtn.innerHTML = '<i class="fa-solid fa-lock"></i> Đã lưu kết quả thi';
+            })
+            .catch(error => {
+                console.error("Giao dịch truyền tin thất bại:", error);
+                statusReport.className = "text-xs font-bold text-rose-500 bg-rose-50 px-3 py-2 rounded-xl border border-rose-200 inline-block";
+                statusReport.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> Lỗi đường truyền, vui lòng bấm nộp lại bài!';
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Thử nộp lại bài';
+            });
+        });
+    </script>
+</body>
+</html>
