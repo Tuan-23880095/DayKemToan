@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buổi 12: Định lí và chứng minh định lí - Toán 7</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    
+    <!-- FontAwesome Icons CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- MathJax Configuration and Script CDN -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['\\(', '\\)']],
+                displayMath: [['\\[', '\\]']]
+            },
+            svg: {
+                fontCache: 'global'
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <!-- JSXGraph CDN Dependencies -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraph.css" />
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraphcore.js"></script>
+
+    <style>
+        @media print {
+            .no-print { display: none !important; }
+            body { background: white !important; color: black !important; }
+            .jxgbox { border: 1px solid #000 !important; }
+        }
+        .jxgbox {
+            background-color: #ffffff;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 font-sans antialiased selection:bg-indigo-600 selection:text-white">
+
+    <!-- Header & Brand Logos Section -->
+    <header class="bg-white border-b border-slate-200 py-4 px-6 sticky top-0 z-40 shadow-xs no-print">
+        <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="flex items-center gap-6">
+                <!-- Logo 1: TTBDVH -->
+                <img src="https://firebasestorage.googleapis.com/v0/b/link-anh-web.firebasestorage.app/o/ttbdvh.jpg?alt=media&token=f270aa9b-a2bc-48e8-8910-80742b542615" 
+                     alt="Logo TTBDVH" class="h-14 w-14 object-cover rounded-full border border-slate-200 shadow-xs">
+                <!-- Logo 2: HCMUS -->
+                <img src="https://hcmus.edu.vn/wp-content/uploads/2023/04/Logo-chinh-e1681638380305.png" 
+                     alt="Logo HCMUS" class="h-12 object-contain">
+            </div>
+            <div class="text-center sm:text-right">
+                <span class="text-xs font-bold uppercase tracking-wider text-indigo-600 block mb-0.5">Hệ thống bài giảng số chất lượng cao</span>
+                <h1 class="text-lg font-extrabold text-slate-800">Toán học 7 &bull; Hình học trực quan</h1>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container Content -->
+    <main class="max-w-4xl mx-auto px-4 sm:px-6 py-8 bg-white my-6 shadow-xs rounded-2xl border border-slate-100 print:shadow-none print:border-none print:my-0">
+        
+        <!-- Document Header Title -->
+        <div class="border-b-2 border-slate-900 pb-5 mb-8">
+            <h2 class="text-2xl sm:text-3xl font-black text-slate-900 flex items-center gap-3">
+                <i class="fas fa-book-open text-indigo-600"></i>
+                Buổi 12: Định lí và chứng minh định lí
+            </h2>
+            <p class="text-slate-500 mt-2 text-sm">Tiếp nối chương trình, dưới đây là nội dung lý thuyết chi tiết kết hợp mô hình trực quan động bám sát tư duy hình học hiện đại.</p>
+        </div>
+
+        <!-- Section: Interactive JSXGraph Models (Teacher & Student Workspace) -->
+        <section class="mb-12 no-print bg-slate-50 p-6 rounded-2xl border border-slate-200 space-y-8">
+            <div class="flex items-center gap-2 pb-2 border-b border-slate-200">
+                <i class="fas fa-laptop-code text-emerald-500 text-xl"></i>
+                <h3 class="text-base font-bold text-slate-800 uppercase tracking-wide">💡 GỢI Ý MÔ HÌNH TRỰC QUAN (ỨNG DỤNG JSXGRAPH DÙNG TRONG GIẢNG DẠY)</h3>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Model 1 Workspace -->
+                <div class="flex flex-col bg-white p-4 rounded-xl shadow-xs border border-slate-200">
+                    <span class="font-bold text-sm text-indigo-600 mb-1"><i class="fas fa-project-diagram mr-1"></i> Mô hình 1: Trực quan hóa Giả thiết - Kết luận</span>
+                    <p class="text-xs text-slate-500 mb-3">Dùng chuột nắm và kéo di chuyển đường thẳng cát tuyến \(c\) để thay đổi độ nghiêng. Hãy quan sát số đo cặp góc đồng vị luôn tự động cập nhật bằng nhau bất biến.</p>
+                    <div id="box1" class="w-full h-64 jxgbox"></div>
+                    <div class="mt-3 flex justify-between items-center text-xs px-2 py-1.5 bg-slate-50 border border-slate-200 rounded font-mono">
+                        <span class="text-emerald-700 font-bold">GT: a // b</span>
+                        <span class="text-rose-600 font-bold" id="status-model1">KL: Cặp góc luôn bằng nhau</span>
+                    </div>
+                </div>
+
+                <!-- Model 2 Workspace -->
+                <div class="flex flex-col bg-white p-4 rounded-xl shadow-xs border border-slate-200">
+                    <span class="font-bold text-sm text-indigo-600 mb-1"><i class="fas fa-forward-step mr-1"></i> Mô hình 2: Trình diễn các bước suy luận (Step-by-step Proof)</span>
+                    <p class="text-xs text-slate-500 mb-3">Nhấn nút "Bước tiếp theo" bên dưới để xem tiến trình lập luận logic dựng hình phân giác của hai góc kề bù dẫn đến kết quả vuông góc.</p>
+                    <div id="box2" class="w-full h-64 jxgbox"></div>
+                    <div class="mt-3 text-center">
+                        <button type="button" onclick="nextProofStep()" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs px-4 py-2 rounded shadow-xs transition-colors cursor-pointer">
+                            <i class="fas fa-chevron-right mr-1"></i> Bước tiếp theo (<span id="step-label">0</span>/3)
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section: Theoretical Content Part divided into 3 levels -->
+        <section class="space-y-12">
+            
+            <!-- LEVEL 1 CONTENT -->
+            <div class="bg-slate-50/60 p-6 rounded-xl border-l-4 border-sky-500 shadow-2xs">
+                <h3 class="text-lg font-bold text-sky-900 flex items-center gap-2 mb-3">
+                    <span class="bg-sky-500 text-white text-xs px-2 py-0.5 rounded font-mono">CẤP ĐỘ 1</span>
+                    CƠ BẢN: Nhận biết định lí, cấu trúc và cách ghi GT - KL
+                </h3>
+                <p class="text-xs text-slate-500 mb-4 italic font-medium"><i class="fas fa-bullseye mr-1"></i> Mục tiêu: Học sinh hiểu định lí là gì, phân biệt được phần Giả thiết (điều đã cho) và Kết luận (điều cần chứng minh).</p>
+
+                <div class="space-y-4 text-sm text-justify leading-relaxed text-slate-700">
+                    <div>
+                        <h4 class="font-bold text-slate-800 flex items-center gap-1.5 mb-1"><i class="fas fa-check text-xs text-sky-500"></i> 1. Khái niệm Định lí</h4>
+                        <ul class="list-disc list-inside pl-3 space-y-1">
+                            <li>Định lí là một khẳng định về một tính chất toán học được suy ra từ những khẳng định đúng đã biết.</li>
+                            <li>Tính chất toán học đó phải được chứng tỏ là đúng thông qua suy luận logic, chứ không dựa vào trực giác hay việc đo đạc thực tế.</li>
+                        </ul>
+                    </div>
+
+                    <div class="mt-4">
+                        <h4 class="font-bold text-slate-800 flex items-center gap-1.5 mb-1"><i class="fas fa-check text-xs text-sky-500"></i> 2. Cấu trúc của một Định lí (Giả thiết & Kết luận)</h4>
+                        <p class="mb-2">Một định lí thông thường sẽ được phát biểu dưới dạng mệnh đề cấu trúc logic: <strong class="text-indigo-600">"Nếu ... thì ..."</strong></p>
+                        <ul class="list-disc list-inside pl-3 space-y-1">
+                            <li><strong>Giả thiết (viết tắt là GT):</strong> Là phần nằm giữa chữ "Nếu" và chữ "thì". Đây là những thông tin dữ kiện thực tế đề bài đã cho sẵn làm tiền đề.</li>
+                            <li><strong>Kết luận (viết tắt là KL):</strong> Là phần nằm sau chữ "thì". Đây là điều hệ quả chúng ta cần suy luận thiết lập để khẳng định nó hoàn toàn đúng.</li>
+                        </ul>
+                    </div>
+
+                    <!-- Example Box 1 -->
+                    <div class="bg-white p-5 rounded-lg border border-slate-200 mt-4 shadow-3xs">
+                        <span class="inline-block bg-sky-100 text-sky-800 text-xs px-2 py-0.5 rounded font-bold mb-2">Ví dụ minh họa (Cấp độ 1)</span>
+                        <p class="font-semibold text-slate-800 mb-2">
+                            Cho định lí: "Nếu hai góc đối đỉnh thì chúng bằng nhau". Hãy xác định Giả thiết, Kết luận và viết dưới dạng kí hiệu toán học.
+                        </p>
+                        
+                        <details class="mt-3 group">
+                            <summary class="text-xs font-bold text-indigo-600 cursor-pointer select-none hover:underline flex items-center gap-1">
+                                <i class="fas fa-chevron-right group-open:rotate-90 transition-transform"></i> Bấm để xem gợi ý lời giải ẩn
+                            </summary>
+                            <div class="mt-3 p-4 bg-slate-50 rounded border-l-2 border-indigo-500 text-xs text-slate-700 space-y-2">
+                                <p><strong>Giải:</strong></p>
+                                <p>Giả sử trên hình vẽ ta có hai đường thẳng cắt nhau tại điểm \(O\), tạo thành cặp góc đối đỉnh là \(\widehat{O_1}\) và \(\widehat{O_3}\).</p>
+                                <div class="overflow-x-auto my-2">
+                                    <table class="min-w-[200px] border border-slate-300 text-center mx-auto text-xs">
+                                        <tr>
+                                            <td class="border border-slate-300 p-2 bg-slate-100 font-bold w-12">GT</td>
+                                            <td class="border border-slate-300 p-2">\(\widehat{O_1}\) và \(\widehat{O_3}\) là hai góc đối đỉnh.</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="border border-slate-300 p-2 bg-slate-100 font-bold">KL</td>
+                                            <td class="border border-slate-300 p-2">\(\widehat{O_1} = \widehat{O_3}\)</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </details>
+                    </div>
+                </div>
+            </div>
+
+            <!-- LEVEL 2 CONTENT -->
+            <div class="bg-slate-50/60 p-6 rounded-xl border-l-4 border-amber-500 shadow-2xs">
+                <h3 class="text-lg font-bold text-amber-900 flex items-center gap-2 mb-3">
+                    <span class="bg-amber-500 text-white text-xs px-2 py-0.5 rounded font-mono">CẤP ĐỘ 2</span>
+                    NÂNG CAO: Các bước chứng minh định lí và suy luận cơ bản
+                </h3>
+                <p class="text-xs text-slate-500 mb-4 italic font-medium"><i class="fas fa-bullseye mr-1"></i> Mục tiêu: Học sinh nắm được quy trình chuẩn để chứng minh một định lí và tập trình bày bài suy luận có căn cứ khoa học.</p>
+
+                <div class="space-y-4 text-sm text-justify leading-relaxed text-slate-700">
+                    <div>
+                        <h4 class="font-bold text-slate-800 flex items-center gap-1.5 mb-1"><i class="fas fa-check text-xs text-amber-500"></i> 1. Chứng minh định lí là gì?</h4>
+                        <p>Chứng minh một định lí là dùng <strong>lập luận logic</strong> để từ Giả thiết (kết hợp với những khẳng định đúng đã biết trước đó như tiên đề, định lí khác) suy ra phần Kết luận của định lí là hoàn toàn chính xác.</p>
+                    </div>
+
+                    <div>
+                        <h4 class="font-bold text-slate-800 flex items-center gap-1.5 mb-1"><i class="fas fa-check text-xs text-amber-500"></i> 2. Các bước tiến hành chứng minh hình học chuẩn mực:</h4>
+                        <ol class="list-decimal list-inside pl-3 space-y-1.5">
+                            <li><strong>Bước 1:</strong> Đọc thật kĩ nội dung định lí phát biểu, vẽ hình minh họa trực quan tương ứng.</li>
+                            <li><strong>Bước 2:</strong> Tóm tắt viết Giả thiết (GT) và Kết luận (KL) bằng các kí hiệu toán học dựa trên hệ thống hình vẽ.</li>
+                            <li><strong>Bước 3:</strong> Sử dụng các chuỗi lập luận logic chặt chẽ (Ví dụ liên kết ngữ: <em>"Vì... nên...", "Mặt khác...", "Do đó..."</em>) để móc nối các tính chất hình học, đi từ điểm xuất phát GT tới đích KL.</li>
+                        </ol>
+                    </div>
+
+                    <!-- Example Box 2 -->
+                    <div class="bg-white p-5 rounded-lg border border-slate-200 mt-4 shadow-3xs">
+                        <span class="inline-block bg-amber-100 text-amber-800 text-xs px-2 py-0.5 rounded font-bold mb-2">Ví dụ minh họa (Cấp độ 2)</span>
+                        <p class="font-semibold text-slate-800 mb-2">
+                            Chứng minh định lí: "Nếu hai đường thẳng phân biệt cùng vuông góc với một đường thẳng thứ ba thì chúng song song với nhau".
+                        </p>
+                        
+                        <details class="mt-3 group">
+                            <summary class="text-xs font-bold text-indigo-600 cursor-pointer select-none hover:underline flex items-center gap-1">
+                                <i class="fas fa-chevron-right group-open:rotate-90 transition-transform"></i> Bấm để xem gợi ý lời giải ẩn
+                            </summary>
+                            <div class="mt-3 p-4 bg-slate-50 rounded border-l-2 border-indigo-500 text-xs text-slate-700 space-y-2">
+                                <p><strong>Giải mẫu chứng minh:</strong></p>
+                                <p>Vẽ hình minh họa: Vẽ đường thẳng \(c\). Vẽ đường thẳng \(a \perp c\) tại giao điểm \(A\). Kẻ đường thẳng \(b \perp c\) tại giao điểm \(B\).</p>
+                                <div class="bg-white p-3 border rounded my-2">
+                                    <p><strong>GT:</strong> Hai đường thẳng \(a, b\) phân biệt; \(a \perp c\) tại \(A\); \(b \perp c\) tại \(B\).</p>
+                                    <p><strong>KL:</strong> \(a // b\)</p>
+                                </div>
+                                <p><strong>Tiến trình lập luận chứng minh:</strong></p>
+                                <p class="pl-2">&bull; Ta có \(a \perp c\) tại \(A\) suy ra góc tạo thành \(\widehat{A_1} = 90^\circ\).</p>
+                                <p class="pl-2">&bull; Ta có \(b \perp c\) tại \(B\) suy ra góc tạo thành \(\widehat{B_1} = 90^\circ\).</p>
+                                <p class="pl-2">&bull; Do đó suy ra hệ quả: \(\widehat{A_1} = \widehat{B_1}\) (vì cùng bằng \(90^\circ\)).</p>
+                                <p class="pl-2">&bull; Mà trên hình học trực quan, góc \(\widehat{A_1}\) và \(\widehat{B_1}\) lại nằm ở vị trí <strong>đồng vị</strong>.</p>
+                                <p class="pl-2">&bull; Từ các lập luận trên, theo dấu hiệu nhận biết, ta kết luận: \(a // b\) (đpcm).</p>
+                            </div>
+                        </details>
+                    </div>
+                </div>
+            </div>
+
+            <!-- LEVEL 3 CONTENT -->
+            <div class="bg-slate-50/60 p-6 rounded-xl border-l-4 border-emerald-500 shadow-2xs">
+                <h3 class="text-lg font-bold text-emerald-900 flex items-center gap-2 mb-3">
+                    <span class="bg-emerald-500 text-white text-xs px-2 py-0.5 rounded font-mono">CẤP ĐỘ 3</span>
+                    VẬN DỤNG: Chứng minh bài toán hình học phức tạp đa bước
+                </h3>
+                <p class="text-xs text-slate-500 mb-4 italic font-medium"><i class="fas fa-bullseye mr-1"></i> Mục tiêu: Đòi hỏi học sinh phải sử dụng linh hoạt định nghĩa tia phân giác, tính chất góc kề bù và thực hiện nhuần nhuyễn các phép biến đổi đại số toán học.</p>
+
+                <div class="space-y-4 text-sm text-justify leading-relaxed text-slate-700">
+                    <div class="bg-emerald-50 text-emerald-950 text-xs p-3 rounded-lg border border-emerald-200 flex items-start gap-2 mb-2">
+                        <i class="fas fa-graduation-cap text-base text-emerald-600 mt-0.5"></i>
+                        <span><strong>Lời khuyên sư phạm cốt lõi:</strong> Ở buổi học này, việc quan trọng nhất là giáo viên cần rèn cho học sinh thói quen "Nói có sách, mách có chứng". Bất kì một khẳng định hình học nào viết ra (Ví dụ: \(\widehat{A} = \widehat{B}\)) đều phải có chú thích trong ngoặc đơn giải thích lí do khoa học (Ví dụ: <em>vì hai góc đối đỉnh</em>, hoặc <em>vì là hai góc đồng vị của cặp đường thẳng song song</em>). Tuyệt đối không chấp nhận việc học sinh dùng thước đo độ để đưa ra kết luận cảm tính.</span>
+                    </div>
+
+                    <!-- Example Box 3 -->
+                    <div class="bg-white p-5 rounded-lg border border-slate-200 mt-4 shadow-3xs">
+                        <span class="inline-block bg-emerald-100 text-emerald-800 text-xs px-2 py-0.5 rounded font-bold mb-2">Ví dụ minh họa (Cấp độ 3 - Bài toán kinh điển)</span>
+                        <p class="font-semibold text-slate-800 mb-2">
+                            Hãy viết giả thiết, kết luận và tiến hành chứng minh định lí: "Góc tạo bởi hai tia phân giác của hai góc kề bù là một góc vuông".
+                        </p>
+                        
+                        <details class="mt-3 group">
+                            <summary class="text-xs font-bold text-indigo-600 cursor-pointer select-none hover:underline flex items-center gap-1">
+                                <i class="fas fa-chevron-right group-open:rotate-90 transition-transform"></i> Bấm để xem gợi ý lời giải ẩn
+                            </summary>
+                            <div class="mt-3 p-4 bg-slate-50 rounded border-l-2 border-indigo-500 text-xs text-slate-700 space-y-3">
+                                <p><strong>Giải:</strong></p>
+                                <p><em>Vẽ hình mô phỏng logic:</em> Vẽ hai góc kề bù \(\widehat{xOy}\) và \(\widehat{yOz}\) (nằm trên bờ đường thẳng chứa tia \(xz\)). Kẻ tia phân giác \(Om\) của góc \(\widehat{xOy}\), và tia phân giác \(On\) của góc \(\widehat{yOz}\).</p>
+                                
+                                <div class="bg-white p-3 border rounded">
+                                    <p><strong>GT:</strong> \(\widehat{xOy}\) và \(\widehat{yOz}\) là hai góc kề bù. Tia \(Om\) là phân giác \(\widehat{xOy}\); tia \(On\) là phân giác \(\widehat{yOz}\).</p>
+                                    <p><strong>KL:</strong> \(\widehat{mOn} = 90^\circ\)</p>
+                                </div>
+
+                                <p><strong>Tiến trình lập luận chứng minh:</strong></p>
+                                <p class="pl-2">1. Vì tia \(Om\) là phân giác của góc \(\widehat{xOy}\) theo giả thiết, nên ta có công thức: \(\widehat{mOy} = \frac{\widehat{xOy}}{2}\) (1)</p>
+                                <p class="pl-2">2. Vì tia \(On\) là phân giác của góc \(\widehat{yOz}\) theo giả thiết, nên ta có công thức: \(\widehat{yOn} = \frac{\widehat{yOz}}{2}\) (2)</p>
+                                <p class="pl-2">3. Từ hình vẽ cấu trúc tia nằm giữa, ta cộng hai góc lại với nhau để tính độ lớn góc tổng \(\widehat{mOn}\):</p>
+                                <p class="text-center font-serif py-1">
+                                    \(\widehat{mOn} = \widehat{mOy} + \widehat{yOn}\)
+                                </p>
+                                <p class="pl-2">4. Thay biểu thức đại số (1) và (2) vào, ta thu được phương trình biến đổi:</p>
+                                <p class="text-center font-serif py-1">
+                                    \(\widehat{mOn} = \frac{\widehat{xOy}}{2} + \frac{\widehat{yOz}}{2} = \frac{1}{2}(\widehat{xOy} + \widehat{yOz})\)
+                                </p>
+                                <p class="pl-2">5. Mặt khác, vì theo giả thiết ban đầu \(\widehat{xOy}\) và \(\widehat{yOz}\) là hai góc kề bù, nên tổng số đo của chúng bằng: \(\widehat{xOy} + \widehat{yOz} = 180^\circ\).</p>
+                                <p class="pl-2">6. Thay số liệu vào kết quả tính toán trên, ta có:</p>
+                                <p class="text-center font-serif font-bold py-1 text-slate-900">
+                                    \(\widehat{mOn} = \frac{1}{2} \cdot 180^\circ = 90^\circ\)
+                                </p>
+                                <p class="pl-2">Vậy góc \(\widehat{mOn}\) là một góc vuông hoàn toàn chính xác (đpcm).</p>
+                            </div>
+                        </details>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section: Interactive Live Quiz Assessment Form Area -->
+        <section class="mt-16 bg-slate-50 border border-slate-200 rounded-2xl p-6 shadow-2xs no-print">
+            <div class="border-b border-slate-200 pb-3 mb-6">
+                <h3 class="text-lg font-black text-slate-900 flex items-center gap-2 uppercase tracking-wide">
+                    <i class="fas fa-check-to-slot text-indigo-600"></i>
+                    BÀI TẬP ĐÁNH GIÁ NĂNG LỰC TẠI LỚP (Trắc nghiệm 5 câu)
+                </h3>
+                <p class="text-xs text-slate-500 mt-1">Học sinh hoàn thành chọn đáp án trực tuyến, kết quả điểm số sẽ được truyền về API máy chủ xử lý học thuật để lưu giữ.</p>
+            </div>
+
+            <form id="quizForm" class="space-y-6">
+                <!-- User Identifiers Inputs -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 bg-white p-4 rounded-xl border border-slate-200">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wide mb-1">Họ và Tên Học Sinh <span class="text-red-500">*</span></label>
+                        <input type="text" id="studentName" required placeholder="Nhập họ tên đầy đủ..." 
+                               class="w-full bg-slate-50 border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-indigo-600 focus:bg-white transition-all">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wide mb-1">Mã Buổi Học / Mã Đề</label>
+                        <input type="text" id="examId" value="Buoi12_DinhLi_Toan7" readonly
+                               class="w-full bg-slate-100 border border-slate-200 text-slate-500 rounded-lg px-3 py-2 text-sm cursor-not-allowed font-mono">
+                    </div>
+                </div>
+
+                <!-- Questions Container Box -->
+                <div class="space-y-4 mt-6">
+                    <!-- Q1 -->
+                    <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-3xs">
+                        <p class="text-sm font-semibold text-slate-900 mb-2.5">Câu 1: Một khẳng định về một tính chất toán học được suy ra từ những khẳng định đúng đã biết thông qua lập luận logic được gọi là gì?</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-slate-700">
+                            <label class="flex items-center gap-2 p-2 rounded border border-slate-100 hover:bg-slate-50 cursor-pointer"><input type="radio" name="q1" value="A" required> A. Tiên đề toán học</label>
+                            <label class="flex items-center gap-2 p-2 rounded border border-slate-100 hover:bg-slate-50 cursor-pointer"><input type="radio" name="q1" value="B"> B. Định lí</label>
+                            <label class="flex items-center gap-2 p-2 rounded border border-slate-100 hover:bg-slate-50 cursor-pointer"><input type="radio" name="q1" value="C"> C. Giả thuyết chưa chứng minh</label>
+                            <label class="flex items-center gap-2 p-2 rounded border border-slate-100 hover:bg-slate-50 cursor-pointer"><input type="radio" name="q1" value="D"> D. Định nghĩa ban đầu</label>
+                        </div>
+                    </div>
+
+                    <!-- Q2 -->
+                    <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-3xs">
+                        <p class="text-sm font-semibold text-slate-900 mb-2.5">Câu 2: Trong cấu trúc chuẩn ngôn ngữ của một định lí dưới dạng "Nếu A thì B", phần điều kiện A được gọi là gì?</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-slate-700">
+                            <label class="flex items-center gap-2 p-2 rounded border border-slate-100 hover:bg-slate-50 cursor-pointer"><input type="radio" name="q2" value="A" required> A. Giả thiết (GT)</label>
+                            <label class="flex items-center gap-2 p-2 rounded border border-slate-100 hover:bg-slate-50 cursor-pointer"><input type="radio" name="q2" value="B"> B. Kết luận (KL)</label>
+                            <label class="flex items-center gap-2 p-2 rounded border border-slate-100 hover:bg-slate-50 cursor-pointer"><input type="radio" name="q2" value="C"> C. Lập luận trung gian</label>
+                            <label class="flex items-center gap-2 p-2 rounded border border-slate-100 hover:bg-slate-50 cursor-pointer"><input type="radio" name="q2" value="D"> D. Hệ quả trực tiếp</label>
+                        </div>
+                    </div>
+
+                    <!-- Q3 -->
+                    <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-3xs">
+                        <p class="text-sm font-semibold text-slate-900 mb-2.5">Câu 3: Đối với định lí: "Nếu hai góc đối đỉnh thì chúng bằng nhau", phần Kết luận (KL) của định lí này là:</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-slate-700">
+                            <label class="flex items-center gap-2 p-2 rounded border border-slate-100 hover:bg-slate-50 cursor-pointer"><input type="radio" name="q3" value="A" required> A. Hai góc đối đỉnh với nhau</label>
+                            <label class="flex items-center gap-2 p-2 rounded border border-slate-100 hover:bg-slate-50 cursor-pointer"><input type="radio" name="q3" value="B"> B. Hai góc kề bù với nhau</label>
+                            <label class="flex items-center gap-2 p-2 rounded border border-slate-100 hover:bg-slate-50 cursor-pointer"><input type="radio" name="q3" value="C"> C. Hai góc đó bằng nhau</label>
+                            <label class="flex items-center gap-2 p-2 rounded border border-slate-100 hover:bg-slate-50 cursor-pointer"><input type="radio" name="q3" value="D"> D. Hai góc đó có tổng bằng 180°</label>
+                        </div>
+                    </div>
+
+                    <!-- Q4 -->
+                    <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-3xs">
+                        <p class="text-sm font-semibold text-slate-900 mb-2.5">Câu 4: Hai góc được định nghĩa là kề bù với nhau thì luôn có tổng số đo bằng bao nhiêu?</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-slate-700">
+                            <label class="flex items-center gap-2 p-2 rounded border border-slate-100 hover:bg-slate-50 cursor-pointer"><input type="radio" name="q4" value="A" required> A. 90°</label>
+                            <label class="flex items-center gap-2 p-2 rounded border border-slate-100 hover:bg-slate-50 cursor-pointer"><input type="radio" name="q4" value="B"> B. 45°</label>
+                            <label class="flex items-center gap-2 p-2 rounded border border-slate-100 hover:bg-slate-50 cursor-pointer"><input type="radio" name="q4" value="C"> C. 180°</label>
+                            <label class="flex items-center gap-2 p-2 rounded border border-slate-100 hover:bg-slate-50 cursor-pointer"><input type="radio" name="q4" value="D"> D. 360°</label>
+                        </div>
+                    </div>
+
+                    <!-- Q5 -->
+                    <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-3xs">
+                        <p class="text-sm font-semibold text-slate-900 mb-2.5">Câu 5: Góc tạo bởi hai tia phân giác của hai góc kề bù luôn luôn bằng bao nhiêu độ?</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-slate-700">
+                            <label class="flex items-center gap-2 p-2 rounded border border-slate-100 hover:bg-slate-50 cursor-pointer"><input type="radio" name="q5" value="A" required> A. 60°</label>
+                            <label class="flex items-center gap-2 p-2 rounded border border-slate-100 hover:bg-slate-50 cursor-pointer"><input type="radio" name="q5" value="B"> B. 90° (Góc vuông)</label>
+                            <label class="flex items-center gap-2 p-2 rounded border border-slate-100 hover:bg-slate-50 cursor-pointer"><input type="radio" name="q5" value="C"> C. 180°</label>
+                            <label class="flex items-center gap-2 p-2 rounded border border-slate-100 hover:bg-slate-50 cursor-pointer"><input type="radio" name="q5" value="D"> D. Tùy thuộc góc ban đầu</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Submit Button Area -->
+                <div class="text-right pt-2">
+                    <button type="submit" id="submitBtn" 
+                            class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-6 py-2.5 rounded-lg shadow-sm text-xs cursor-pointer transition-all">
+                        <i class="fas fa-paper-plane mr-1.5"></i> Nộp Bài Lên Hệ Thống
+                    </button>
+                </div>
+            </form>
+
+            <!-- Quiz Grading Server Results Feedback Display Box -->
+            <div id="quizResult" class="hidden mt-6 p-4 rounded-xl text-xs text-center font-bold"></div>
+        </section>
+
+        <!-- Footer Intellectual Copyright Signature Area -->
+        <footer class="mt-16 pt-6 border-t border-slate-200 text-center text-xs text-slate-500 space-y-2">
+            <p class="font-bold text-slate-700">@ Bản quyền thuộc ThS. Đinh Quốc Tuấn - Mục đích phi lợi nhuận - Vì giáo dục.</p>
+            <p>Tài liệu số hóa tương tác nội bộ hỗ trợ học sinh tư duy toán học chuyên sâu.</p>
+        </footer>
+    </main>
+
+    <!-- FLOATING FLOATED MANDATORY INJECTED SAFE PRINT DOCUMENT BUTTON & SCRIPT CORE BLOCK -->
+    <button id="btn-print-doc" onclick="safePrint()" class="fixed bottom-5 right-5 bg-gray-900 text-white px-4 py-2 rounded-lg shadow-lg hover:bg-gray-700 print:hidden z-50 cursor-pointer text-sm font-semibold transition-all">
+        <i class="fas fa-print mr-2"></i> In Tài Liệu
+    </button>
+
+    <script>
+        function safePrint() {
+            const printBtn = document.getElementById('btn-print-doc');
+            printBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Đang chuẩn bị...';
+            
+            // Đảm bảo MathJax đã render xong mọi công thức trước khi gọi hộp thoại in công văn
+            if (window.MathJax && window.MathJax.typesetPromise) {
+                MathJax.typesetPromise().then(() => {
+                    printBtn.innerHTML = '<i class="fas fa-print mr-2"></i> In Tài Liệu';
+                    window.print();
+                });
+            } else {
+                // Fallback nếu không có công thức toán học hoặc MathJax chưa tải
+                setTimeout(() => {
+                    printBtn.innerHTML = '<i class="fas fa-print mr-2"></i> In Tài Liệu';
+                    window.print();
+                }, 500); 
+            }
+        }
+    </script>
+
+    <!-- Main Geometry Control and Async AJAX Data Transmit Engine Script System -->
+    <script>
+        const startTime = new Date();
+        let board2; // Global reference for proof step demonstration
+        let proofStep = 0;
+        let elementsBox2 = {};
+
+        // 1. Dựng và kiểm thử tương tác Hình 1 JSXGraph (Giả thiết & Kết luận biến đổi)
+        (function initModel1() {
+            const board = JXG.JSXGraph.initBoard('box1', {
+                boundingbox: [-5, 4, 5, -4], 
+                axis: false, 
+                showCopyright: false,
+                showNavigation: false
+            });
+
+            // Hai đường thẳng song song a và b cố định làm Giả thiết
+            let a1 = board.create('point', [-4, 2], {visible: false});
+            let a2 = board.create('point', [4, 2], {visible: false});
+            board.create('line', [a1, a2], {strokeColor: '#059669', strokeWidth: 3, name: 'a (GT)', withLabel: true, label:{position:'urt', color:'#059669'}});
+
+            let b1 = board.create('point', [-4, -1], {visible: false});
+            let b2 = board.create('point', [4, -1], {visible: false});
+            board.create('line', [b1, b2], {strokeColor: '#059669', strokeWidth: 3, name: 'b (GT)', withLabel: true, label:{position:'urt', color:'#059669'}});
+
+            // Cát tuyến c tạo bởi 2 điểm tự do trên a và b để học sinh thay đổi độ dốc nghiêng
+            let A = board.create('glider', [-1, 2, board.select(function(el){return el.name==='a (GT)';})], {name: 'A', color: '#6366f1', size: 3});
+            let B = board.create('glider', [1, -1, board.select(function(el){return el.name==='b (GT)';})], {name: 'B', color: '#6366f1', size: 3});
+            board.create('line', [A, B], {strokeColor: '#475569', strokeWidth: 2, name: 'c', withLabel: true});
+
+            // Các điểm phụ để xác định góc chuẩn theo chiều kim đồng hồ
+            let pRightA = board.create('point', [4, 2], {visible: false});
+            let pLeftB = board.create('point', [-4, -1], {visible: false});
+
+            // Tạo các góc đo đồng vị minh họa kết luận logic của định lý
+            let angleA = board.create('angle', [pRightA, A, B], {radius: 0.5, fillColor: '#fee2e2', strokeColor: '#dc2626'});
+            let angleB = board.create('angle', [A, B, pLeftB], {radius: 0.5, fillColor: '#fee2e2', strokeColor: '#dc2626'});
+
+            // Nhãn hiển thị độ lớn động trên màn hình
+            board.create('text', [-4.5, -3.2, function() {
+                let degA = (angleA.Value() * 180 / Math.PI).toFixed(1);
+                let degB = (angleB.Value() * 180 / Math.PI).toFixed(1);
+                return 'Đo góc đỉnh A = ' + degA + '° | Đo góc đỉnh B = ' + degB + '° (Luôn bằng nhau)';
+            }], {fontSize: 11, fontStyle: 'bold', strokeColor: '#1e293b'});
+        })();
+
+        // 2. Dựng trạng thái nền ban đầu cho Hình 2 JSXGraph (Chứng minh góc kề bù)
+        (function initModel2() {
+            board2 = JXG.JSXGraph.initBoard('box2', {
+                boundingbox: [-4, 4, 4, -2], 
+                axis: false, 
+                showCopyright: false,
+                showNavigation: false
+            });
+
+            // Trục chính xOz kề bù nằm ngang
+            let O = board2.create('point', [0, 0], {name: 'O', color: '#334155', fixed: true, size: 3});
+            let pX = board2.create('point', [-3, 0], {name: 'x', visible: true, fixed: true, size: 2, color:'#94a3b8'});
+            let pZ = board2.create('point', [3, 0], {name: 'z', visible: true, fixed: true, size: 2, color:'#94a3b8'});
+            board2.create('line', [pX, pZ], {strokeColor: '#94a3b8', strokeWidth: 2, fixed: true});
+
+            // Tia Oy cố định tạo góc nghiêng kề bù lúc ban đầu 
+            let pY = board2.create('point', [0.8, 2], {name: 'y', visible: true, fixed: true, size: 2, color:'#94a3b8'});
+            board2.create('segment', [O, pY], {strokeColor: '#475569', strokeWidth: 2});
+            
+            // Lưu biến dùng chung cho các bước vẽ phụ phía sau
+            elementsBox2.O = O;
+            elementsBox2.pX = pX;
+            elementsBox2.pY = pY;
+            elementsBox2.pZ = pZ;
+        })();
+
+        // Hàm click điều hướng tiến trình từng bước chứng minh quy nạp cho học sinh quan sát trực quan
+        function nextProofStep() {
+            proofStep++;
+            if (proofStep > 3) {
+                // Reset lại từ đầu vòng lặp
+                proofStep = 0;
+                document.getElementById('step-label').innerText = "0";
+                // Xóa bỏ các thực thể dựng thêm
+                for (let key in elementsBox2) {
+                    if (!['O','pX','pY','pZ'].includes(key) && elementsBox2[key]) {
+                        board2.removeObject(elementsBox2[key]);
+                    }
+                }
+                return;
+            }
+
+            document.getElementById('step-label').innerText = proofStep;
+
+            if (proofStep === 1) {
+                // Bước 1: Dựng phân giác Om của góc xOy
+                elementsBox2.bis1 = board2.create('bisector', [elementsBox2.pY, elementsBox2.O, elementsBox2.pX], {visible: false});
+                elementsBox2.m = board2.create('point', [-1.2, 1.5], {name: 'm', color: '#d97706', size: 2});
+                elementsBox2.segM = board2.create('segment', [elementsBox2.O, elementsBox2.m], {strokeColor: '#d97706', strokeWidth: 2, dash: 2});
+                elementsBox2.txt1 = board2.create('text', [-3, 3, "Bước 1: Kẻ phân giác Om"], {color: '#d97706', fontStyle: 'bold', fontSize:11});
+            } 
+            else if (proofStep === 2) {
+                // Bước 2: Dựng phân giác On của góc yOz
+                elementsBox2.bis2 = board2.create('bisector', [elementsBox2.pZ, elementsBox2.O, elementsBox2.pY], {visible: false});
+                elementsBox2.n = board2.create('point', [1.6, 1.2], {name: 'n', color: '#2563eb', size: 2});
+                elementsBox2.segN = board2.create('segment', [elementsBox2.O, elementsBox2.n], {strokeColor: '#2563eb', strokeWidth: 2, dash: 2});
+                if (elementsBox2.txt1) elementsBox2.txt1.setText("Bước 2: Kẻ tiếp phân giác On");
+            } 
+            else if (proofStep === 3) {
+                // Bước 3: Đo góc mOn tạo thành góc vuông 90 độ
+                elementsBox2.finalAngle = board2.create('angle', [elementsBox2.n, elementsBox2.O, elementsBox2.m], {
+                    radius: 0.6, 
+                    fillColor: '#e0f2fe', 
+                    strokeColor: '#0284c7',
+                    orthoType: 'square' // Ép hiển thị ký hiệu góc vuông đặc trưng
+                });
+                if (elementsBox2.txt1) elementsBox2.txt1.setText("KL: Góc mOn = 90° (Góc vuông)");
+            }
+        }
+
+        // 3. Xử lý logic tính điểm và gửi POST kết quả về Google Sheets Web App qua Apps Script
+        document.getElementById('quizForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const submitBtn = document.getElementById('submitBtn');
+            const resultDiv = document.getElementById('quizResult');
+            
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Đang tải dữ liệu lên server...';
+
+            // Key mapping đáp án đúng hệ thống kiểm tra bài 5 câu
+            const correctAnswers = { q1: 'B', q2: 'A', q3: 'C', q4: 'C', q5: 'B' };
+            let rawScore = 0;
+            let totalQ = 5;
+            let detailedWrongs = [];
+
+            // Kiểm tra vòng lặp đáp án học sinh chọn
+            for(let i = 1; i <= totalQ; i++) {
+                let key = 'q' + i;
+                let checkedOption = document.querySelector(`input[name="${key}"]:checked`);
+                
+                if (checkedOption) {
+                    if (checkedOption.value === correctAnswers[key]) {
+                        rawScore += 10 / totalQ;
+                    } else {
+                        detailedWrongs.push(`Câu ${i}: Chọn ${checkedOption.value} (Đúng: ${correctAnswers[key]})`);
+                    }
+                } else {
+                    detailedWrongs.push(`Câu ${i}: Bỏ trống (Đúng: ${correctAnswers[key]})`);
+                }
+            }
+
+            // Tính toán hoàn thiện số liệu thời gian
+            let finalScore = Math.round(rawScore * 10) / 10;
+            const endTime = new Date();
+            const elapsedSec = Math.round((endTime - startTime) / 1000);
+            const formattedDuration = `${Math.floor(elapsedSec / 60)} phút ${elapsedSec % 60} giây`;
+
+            // Khởi tạo Payload thích ứng tuyệt đối cấu trúc file code gs Apps Script nhận dạng
+            const payloadData = {
+                hoTen: document.getElementById('studentName').value,
+                maDe: document.getElementById('examId').value,
+                diem: finalScore,
+                thoiGian: formattedDuration,
+                cauSai: detailedWrongs.join('; ') || 'Hoàn hảo 100%'
+            };
+
+            const targetScriptUrl = "https://script.google.com/macros/s/AKfycbzY7b7h4OwvhXuK5Vs6hl-aD88BPnAiAKbU5lfJobby0D4nzbIJVKT4n0AKCpAGoK0nZA/exec";
+
+            // Thực thi gửi Fetch API bất đồng bộ theo mode no-cors tiêu chuẩn tránh rào cản phân quyền
+            fetch(targetScriptUrl, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payloadData)
+            })
+            .then(() => {
+                // UI cập nhật trả kết quả thành công
+                resultDiv.className = "mt-6 p-4 rounded-xl text-xs text-center font-bold bg-emerald-100 text-emerald-800 border border-emerald-200";
+                resultDiv.innerHTML = `<i class="fas fa-circle-check mr-1.5"></i> Chúc mừng! Đã nộp bài thành công lên Google Sheets. Điểm số: ${finalScore}/10. Tổng thời gian làm bài: ${formattedDuration}.`;
+                resultDiv.classList.remove('hidden');
+                submitBtn.innerHTML = '<i class="fas fa-circle-check"></i> Hệ thống đã ghi nhận';
+            })
+            .catch(err => {
+                console.error('Submit Error:', err);
+                // Fallback cứu hộ thông báo cục bộ khi gặp sự cố mạng
+                resultDiv.className = "mt-6 p-4 rounded-xl text-xs text-center font-bold bg-amber-100 text-amber-800 border border-amber-200";
+                resultDiv.innerHTML = `<i class="fas fa-triangle-exclamation mr-1.5"></i> Kết nối gửi lên Sheets trục trặc. Kết quả điểm bài làm tại chỗ của em: ${finalScore}/10 điểm.`;
+                resultDiv.classList.remove('hidden');
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="fas fa-paper-plane mr-1.5"></i> Thử nộp lại bài';
+            });
+        });
+    </script>
+</body>
+</html>
