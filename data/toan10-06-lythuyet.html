@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buổi 6: Hệ bất phương trình bậc nhất hai ẩn & Bài toán tối ưu hóa — ThS. Đinh Quốc Tuấn</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- FontAwesome Icons CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts: Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- MathJax Configuration & Library -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['\\(', '\\)']],
+                displayMath: [['\\[', '\\]']]
+            },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <!-- JSXGraph CSS & Core Engine -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraph.css" />
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraphcore.js"></script>
+
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #f8fafc;
+            color: #0f172a;
+        }
+        .jxgbox {
+            background-color: #ffffff !important;
+            border-radius: 1rem;
+            overflow: hidden;
+            border: 1px solid #e2e8f0;
+        }
+        @media print {
+            .print\:hidden { display: none !important; }
+            body { background: white !important; color: black !important; }
+            details { display: block !important; }
+            details summary { display: none !important; }
+            .page-break { page-break-before: always; }
+            .card-border { box-shadow: none !important; border: 1px solid #e5e7eb !important; }
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col antialiased selection:bg-indigo-100">
+
+    <!-- Header học thuật -->
+    <header class="border-b border-slate-200 sticky top-0 bg-white/95 backdrop-blur-md z-40 print:hidden">
+        <div class="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 px-6 py-4">
+            <div class="flex items-center gap-4">
+                <img src="https://hcmus.edu.vn/wp-content/uploads/2023/04/Logo-chinh-e1681638380305.png" alt="Logo HCMUS" class="h-14 w-auto object-contain">
+                <div class="border-l-2 border-slate-300 pl-4">
+                    <span class="text-xs font-bold tracking-widest text-indigo-600 uppercase block mb-0.5">Tài liệu số hóa tương tác</span>
+                    <span class="text-base font-extrabold text-slate-800">Chuyên đề Quy hoạch tuyến tính lớp 10</span>
+                </div>
+            </div>
+            <div class="flex items-center gap-3 sm:text-right">
+                <div class="hidden sm:block">
+                    <p class="text-xs text-slate-400 font-semibold">Giảng viên biên soạn:</p>
+                    <p class="text-sm font-extrabold text-slate-800">ThS. Đinh Quốc Tuấn</p>
+                </div>
+                <img src="https://firebasestorage.googleapis.com/v0/b/link-anh-web.firebasestorage.app/o/ttbdvh.jpg?alt=media&token=f270aa9b-a2bc-48e8-8910-80742b542615" 
+                     alt="Logo TTBDVH" class="h-14 w-14 object-cover rounded-full border border-slate-200 shadow-inner">
+            </div>
+        </div>
+    </header>
+
+    <!-- Banner nhập môn thư gửi học sinh -->
+    <div class="bg-gradient-to-r from-indigo-50 via-slate-50 to-emerald-50 border-b border-slate-200 py-10 print:hidden">
+        <div class="max-w-4xl mx-auto px-6 space-y-4">
+            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-indigo-100 text-indigo-800 border border-indigo-200 shadow-xs">
+                <i class="fa-solid fa-graduation-cap mr-1.5 text-indigo-600"></i> Kinh tế học toán học trực quan
+            </span>
+            <h1 class="text-2xl sm:text-4xl font-black tracking-tight text-slate-900 leading-tight">
+                Buổi 6: Hệ Bất Phương Trình Bậc Nhất Hai Ẩn & Bài Toán Tối Ưu Hóa
+            </h1>
+            <p class="text-slate-600 text-sm sm:text-base font-medium leading-relaxed text-justify">
+                Chào các em! Tiếp nối kiến thức của buổi trước, hôm nay thầy trò chúng ta sẽ bước sang Buổi học thứ 6. Chúng ta sẽ nâng cấp bài toán từ một bất phương trình đơn lẻ lên thành Hệ bất phương trình bậc nhất hai ẩn. Đặc biệt, phần hấp dẫn nhất của buổi học hôm nay là ứng dụng hệ bất phương trình để giải quyết các bài toán tối ưu hóa trong kinh tế và đời sống (tìm giá trị lớn nhất, nhỏ nhất). Đây là nội dung rất hay xuất hiện trong các đề thi! Dưới đây là hệ thống lý thuyết được thầy chia thành 3 cấp độ từ Cơ bản đến Vận dụng, kèm theo gợi ý mô hình trực quan.
+            </p>
+        </div>
+    </div>
+
+    <!-- Nội dung không gian làm việc chính -->
+    <main class="max-w-4xl mx-auto px-4 sm:px-6 py-10 flex-grow w-full space-y-16">
+        
+        <!-- ================= PHẦN 1: MỨC ĐỘ CƠ BẢN ================= -->
+        <section class="space-y-6">
+            <div class="flex items-center gap-3 border-b pb-3 border-slate-200">
+                <span class="bg-sky-600 text-white text-xs font-black px-3 py-1 rounded-md uppercase tracking-wider">Cấp độ 1</span>
+                <h2 class="text-xl font-extrabold text-slate-900">PHẦN 1: MỨC ĐỘ CƠ BẢN (HỆ BẤT PHƯƠNG TRÌNH VÀ MIỀN NGHIỆM)</h2>
+            </div>
+            <p class="text-xs font-bold text-sky-800 bg-sky-50 px-3 py-2 rounded-lg inline-block">
+                Mục tiêu: Nhận biết hệ bất phương trình, biết cách biểu diễn miền nghiệm của hệ bằng cách gạch bỏ phần không phải nghiệm.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm leading-relaxed text-slate-700">
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs space-y-3">
+                    <h3 class="font-bold text-slate-800 text-base flex items-center gap-2 text-sky-700"><i class="fa-solid fa-layer-group"></i> 1. Khái niệm cơ bản</h3>
+                    <p>&bull; <strong>Hệ bất phương trình bậc nhất hai ẩn:</strong> Là hệ gồm hai hay nhiều bất phương trình bậc nhất hai ẩn \(x, y\).</p>
+                    <p>&bull; <strong>Nghiệm chung:</strong> Mỗi cặp số \((x_0; y_0)\) đồng thời thỏa mãn tất cả các bất phương trình trong hệ được gọi là một nghiệm của hệ.</p>
+                    <p>&bull; <strong>Miền nghiệm:</strong> Trên mặt phẳng tọa độ \(Oxy\), tập hợp các điểm \((x_0; y_0)\) có tọa độ là nghiệm của hệ được gọi là miền nghiệm. Miền nghiệm của hệ chính là phần giao của các miền nghiệm của từng bất phương trình trong hệ.</p>
+                </div>
+
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs space-y-2">
+                    <h3 class="font-bold text-slate-800 text-base flex items-center gap-2 text-sky-700"><i class="fa-solid fa-list-check"></i> 2. Các bước biểu diễn miền nghiệm</h3>
+                    <p>Để biểu diễn miền nghiệm của hệ, ta làm như sau:</p>
+                    <p><strong>Bước 1:</strong> Trên cùng một mặt phẳng tọa độ, xác định miền nghiệm của mỗi bất phương trình trong hệ bằng cách gạch bỏ miền không phải là nghiệm.</p>
+                    <p><strong>Bước 2:</strong> Phần mặt phẳng còn lại không bị gạch (bao gồm cả đa giác lồi và phần nằm bên trong) chính là miền đa giác biểu diễn miền nghiệm của hệ.</p>
+                </div>
+            </div>
+
+            <!-- Ví dụ 1 & Mô hình 1 -->
+            <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border space-y-6">
+                <div>
+                    <span class="bg-sky-100 text-sky-800 text-xs font-bold px-2 py-0.5 rounded">Ví dụ 1</span>
+                    <p class="text-sm font-semibold text-slate-800 mt-2">Biểu diễn miền nghiệm của hệ bất phương trình: \(\begin{cases} x \ge 0 \\ y \ge 0 \\ x + y \le 2 \end{cases}\)</p>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+                    <div class="space-y-3">
+                        <details class="group">
+                            <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                                <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem hướng dẫn giải</span>
+                            </summary>
+                            <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 leading-relaxed space-y-2">
+                                <p><strong>Giải:</strong></p>
+                                <p>&bull; Đường thẳng \(x = 0\) là trục \(Oy\). Miền \(x \ge 0\) là nửa mặt phẳng bên phải trục \(Oy\), ta gạch phần bên trái.</p>
+                                <p>&bull; Đường thẳng \(y = 0\) là trục \(Ox\). Miền \(y \ge 0\) là nửa mặt phẳng bên trên trục \(Ox\), ta gạch phần bên dưới.</p>
+                                <p>&bull; Vẽ đường thẳng \(d: x + y = 2\). Thay tọa độ \(O(0;0)\) vào ta có \(0 + 0 = 0 < 2\) (đúng). Ta gạch nửa mặt phẳng bờ \(d\) không chứa gốc \(O\).</p>
+                                <p>&bull; <strong>Kết luận:</strong> Miền nghiệm của hệ là miền tam giác vuông \(OAB\) không bị gạch (vùng màu xanh nhạt trên đồ thị), với \(O(0;0), A(2;0), B(0;2)\) (tính cả các cạnh).</p>
+                            </div>
+                        </details>
+                        <div id="status-box1" class="text-xs font-bold p-3 bg-indigo-50 border border-indigo-100 rounded-xl text-center text-slate-700">
+                            <i class="fa-solid fa-circle-info text-indigo-600 mr-1.5"></i> Di chuyển điểm M để kiểm tra tính thuộc miền nghiệm của hệ!
+                        </div>
+                    </div>
+                    <div>
+                        <div id="box1" class="w-full h-64 jxgbox"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= PHẦN 2: MỨC ĐỘ NÂNG CAO ================= -->
+        <section class="space-y-6">
+            <div class="flex items-center gap-3 border-b pb-3 border-slate-200">
+                <span class="bg-amber-600 text-white text-xs font-black px-3 py-1 rounded-md uppercase tracking-wider">Cấp độ 2</span>
+                <h2 class="text-xl font-extrabold text-slate-900">PHẦN 2: MỨC ĐỘ NÂNG CAO (TÌM GTLN, GTNN TRÊN MIỀN ĐA GIÁC)</h2>
+            </div>
+            <p class="text-xs font-bold text-amber-800 bg-amber-50 px-3 py-2 rounded-lg inline-block">
+                Mục tiêu: Đánh giá trị biểu thức mục tiêu \(F(x,y)\) phẳng lồi và tìm điểm tối ưu tại các đỉnh.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm leading-relaxed text-slate-700">
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs space-y-2">
+                    <h3 class="font-bold text-slate-800 text-base flex items-center gap-2 text-amber-700 mb-1"><i class="fa-solid fa-gavel"></i> 1. Định lí tối ưu</h3>
+                    <p><strong>Lý thuyết:</strong> Cho một biểu thức mục tiêu \(F(x; y) = ax + by\). Khi cặp tọa độ \((x; y)\) thay đổi liên tục trên một miền nghiệm đa giác lồi, người ta chứng minh được rằng biểu thức \(F\) sẽ <strong>đạt giá trị lớn nhất (hoặc nhỏ nhất) tại một trong các đỉnh</strong> của đa giác đó.</p>
+                </div>
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs space-y-1">
+                    <h3 class="font-bold text-slate-800 text-base flex items-center gap-2 text-amber-700 mb-1"><i class="fa-solid fa-arrow-down-short-wide"></i> 2. Các bước tìm GTLN, GTNN</h3>
+                    <p><strong>Bước 1:</strong> Xác định miền nghiệm của hệ bất phương trình (miền đa giác).</p>
+                    <p><strong>Bước 2:</strong> Xác định tọa độ tất cả các đỉnh của đa giác (bằng cách giải hệ phương trình giao điểm của các cặp đường thẳng bờ).</p>
+                    <p><strong>Bước 3:</strong> Tính giá trị của biểu thức \(F = ax + by\) tại từng đỉnh đơn lẻ.</p>
+                    <p><strong>Bước 4:</strong> So sánh các giá trị vừa tính. Giá trị lớn nhất/nhỏ nhất trong số đó chính là kết quả tối ưu cần tìm.</p>
+                </div>
+            </div>
+
+            <!-- Ví dụ 2 & Mô hình 2 -->
+            <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border space-y-6">
+                <div>
+                    <span class="bg-amber-100 text-amber-800 text-xs font-bold px-2 py-0.5 rounded">Ví dụ 2</span>
+                    <p class="text-sm font-semibold text-slate-800 mt-2">Tìm giá trị lớn nhất của biểu thức \(F(x; y) = x + 2y\) với \((x; y)\) thuộc miền nghiệm của hệ: \(\begin{cases} x + y \le 4 \\ x \ge 0 \\ y \ge 0 \end{cases}\).</p>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                    <div class="space-y-4">
+                        <details class="group">
+                            <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                                <i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform mr-1"></i> Xem hướng dẫn giải
+                            </summary>
+                            <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-2">
+                                <p>&bull; Miền nghiệm của hệ là miền tam giác vuông \(OAB\) với các đỉnh: \(O(0; 0)\), \(A(4; 0)\) và \(B(0; 4)\).</p>
+                                <p>&bull; Tính giá trị của \(F\) tại các đỉnh cấu thành:</p>
+                                <p class="pl-4">Tại \(O(0; 0)\): \(F = 0 + 2.0 = 0\).</p>
+                                <p class="pl-4">Tại \(A(4; 0)\): \(F = 4 + 2.0 = 4\).</p>
+                                <p class="pl-4">Tại \(B(0; 4)\): \(F = 0 + 2.4 = 8\).</p>
+                                <p>&bull; <strong>Kết luận:</strong> Giá trị lớn nhất của \(F\) là <strong>\(8\)</strong>, đạt được tại đỉnh \(B(0; 4)\).</p>
+                            </div>
+                        </details>
+
+                        <div class="p-4 bg-slate-100 rounded-xl border border-slate-200 space-y-2">
+                            <span class="text-xs font-bold text-slate-600 block uppercase"><i class="fa-solid fa-sliders text-indigo-500"></i> Minh họa đường thẳng trượt mục tiêu:</span>
+                            <p class="text-xs text-slate-500">Kéo thanh trượt để thay đổi giá trị \(C\) của hàm \(x + 2y = C\). Bạn sẽ thấy đường thẳng rời khỏi tam giác chính xác tại đỉnh tối ưu \(B(0;4)\).</p>
+                        </div>
+                    </div>
+                    <div>
+                        <!-- Box 2: Trượt đường thẳng C quy hoạch tuyến tính -->
+                        <div id="box2" class="w-full h-64 jxgbox"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= PHẦN 3: MỨC ĐỘ VẬN DỤNG ================= -->
+        <section class="space-y-6">
+            <div class="flex items-center gap-3 border-b pb-3 border-slate-200">
+                <span class="bg-emerald-600 text-white text-xs font-black px-3 py-1 rounded-md uppercase tracking-wider">Cấp độ 3</span>
+                <h2 class="text-xl font-extrabold text-slate-900">PHẦN 3: MỨC ĐỘ VẬN DỤNG (GIẢI QUYẾT BÀI TOÁN THỰC TẾ)</h2>
+            </div>
+            <p class="text-xs font-bold text-emerald-800 bg-emerald-50 px-3 py-2 rounded-lg inline-block">
+                Mục tiêu: Đưa các bài toán kinh tế, sản xuất về mô hình toán học để tối ưu hóa lợi nhuận.
+            </p>
+
+            <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs text-sm leading-relaxed text-slate-700">
+                <h3 class="font-bold text-slate-800 text-base flex items-center gap-2 text-emerald-700 mb-2"><i class="fa-solid fa-boxes-packing"></i> Quy trình giải bài toán thực tế</h3>
+                <p><strong>Bước 1 (Lập mô hình):</strong> Gọi ẩn \(x, y\) là các đại lượng cần tìm (số lượng sản phẩm, diện tích đất...). Đặt điều kiện ràng buộc bổ trợ (\(x \ge 0, y \ge 0\)).</p>
+                <p><strong>Bước 2:</strong> Dựa vào các giới hạn thực tế đề bài cho (vốn, thời gian, nguyên liệu...), lập hệ bất phương trình ràng buộc ẩn.</p>
+                <p><strong>Bước 3:</strong> Thiết lập hệ thức hàm mục tiêu \(F(x,y)\) đại diện cho sản lượng lợi nhuận hoặc chi phí cần tối ưu.</p>
+                <p><strong>Bước 4:</strong> Biểu diễn hình vẽ miền nghiệm, giải hệ tìm tọa độ các đỉnh lồi và so sánh giá trị hàm \(F\) để chốt phương án cuối cùng.</p>
+            </div>
+
+            <!-- Ví dụ 3 & Mô hình 3 -->
+            <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border space-y-6">
+                <div>
+                    <span class="bg-emerald-100 text-emerald-800 text-xs font-bold px-2 py-0.5 rounded">Ví dụ 3</span>
+                    <p class="text-sm font-semibold text-slate-800 mt-2 text-justify">Bác Năm dự định trồng khoai lang và khoai mì trên mảnh đất \(8\) ha. Trồng \(1\) ha khoai lang cần \(10\) ngày công và thu \(20\) triệu đồng. Trồng \(1\) ha khoai mì cần \(15\) ngày công và thu \(25\) triệu đồng. Bác Năm chỉ có tối đa \(90\) ngày công. Hỏi bác cần trồng bao nhiêu ha mỗi loại để thu được nhiều tiền nhất?</p>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                    <div class="space-y-4 text-xs text-slate-700 leading-relaxed text-justify">
+                        <details class="group">
+                            <summary class="list-none flex items-center font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                                <i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform mr-1"></i> Xem hướng dẫn giải
+                            </summary>
+                            <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 space-y-2 text-slate-700">
+                                <p>&bull; Gọi \(x, y\) lần lượt là số ha trồng khoai lang và khoai mì (\(x \ge 0, y \ge 0\)).</p>
+                                <p>&bull; Diện tích đất không vượt quá 8 ha: \(x + y \le 8\).</p>
+                                <p>&bull; Tổng số ngày công không vượt quá 90 ngày: \(10x + 15y \le 90 \Leftrightarrow 2x + 3y \le 18\).</p>
+                                <p>&bull; Số tiền thu được thu về: \(F(x;y) = 20x + 25y\) (triệu đồng).</p>
+                                <p>&bull; Vẽ miền nghiệm hệ ta được miền tứ giác \(OABC\) với các đỉnh: \(O(0; 0), A(0; 6), B(6; 2), C(8; 0)\).</p>
+                                <p>&bull; Tính toán giá trị: \(F(O) = 0\); \(F(A) = 150\); \(F(B) = 20.6 + 25.2 = 170\); \(F(C) = 160\).</p>
+                                <p>&bull; <strong>Kết luận:</strong> Hàm đạt Max bằng \(170\). Bác Năm cần trồng <strong>6 ha khoai lang và 2 ha khoai mì</strong>.</p>
+                            </div>
+                        </details>
+                        
+                        <div class="p-4 bg-emerald-50 rounded-xl border border-emerald-200 text-emerald-950">
+                            <span class="font-bold block mb-1 text-emerald-800"><i class="fa-solid fa-chalkboard-user"></i> Lời dặn sư phạm của thầy:</span>
+                            Khó khăn lớn nhất của học sinh trong bài này không phải là việc tính toán, mà là kỹ năng vẽ đồ thị chính xác để tìm ra các đỉnh. Các em hãy chuẩn bị thước kẻ thật chuẩn và luôn kiểm tra tọa độ giao điểm bằng hệ phương trình trên máy tính cầm tay nhé!
+                        </div>
+                        <div id="status-box3" class="text-xs font-bold p-3 bg-emerald-100 rounded-xl text-center text-emerald-800 border border-emerald-200">
+                            <i class="fa-solid fa-location-crosshairs mr-1"></i> Di chuyển điểm M trong miền nghiệm tứ giác để xem biến động lợi nhuận!
+                        </div>
+                    </div>
+                    <div>
+                        <!-- Box 3: Bản đồ phân tích đa giác kinh tế sản xuất -->
+                        <div id="box3" class="w-full h-64 jxgbox"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ================= BÀI TẬP ĐÁNH GIÁ NĂNG LỰC TRẮC NGHIỆM ================= -->
+        <section class="border-t border-slate-200 pt-10 page-break">
+            <div class="bg-gradient-to-br from-slate-900 via-slate-800 to-indigo-950 text-white rounded-3xl p-6 sm:p-8 shadow-xl relative overflow-hidden card-border">
+                <div class="absolute -right-10 -bottom-10 opacity-5 pointer-events-none text-white">
+                    <i class="fa-solid fa-square-check text-[14rem]"></i>
+                </div>
+                
+                <div class="max-w-xl space-y-2">
+                    <span class="text-xs font-bold uppercase tracking-widest text-emerald-400 bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-500/20 inline-block">Đánh giá trực tuyến tại lớp</span>
+                    <h2 class="text-xl sm:text-2xl font-black tracking-tight">BÀI TẬP ĐÁNH GIÁ NĂNG LỰC TẠI LỚP</h2>
+                    <p class="text-slate-400 text-xs sm:text-sm">Học sinh hoàn thành chọn đáp án trực tuyến, kết quả điểm số sẽ được gửi tự động về Google Sheets của nhà trường.</p>
+                </div>
+
+                <form id="quizForm" class="mt-8 space-y-6 text-slate-900">
+                    <!-- Khối thông tin học sinh -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div class="bg-white p-4 rounded-xl shadow-inner border border-slate-100">
+                            <label class="block text-xs font-bold text-slate-400 uppercase tracking-wide mb-1"><i class="fa-solid fa-user mr-1 text-indigo-500"></i> Họ và tên học sinh</label>
+                            <input type="text" id="studentName" required placeholder="Nhập họ tên đầy đủ..." class="w-full bg-white border-b-2 border-slate-200 focus:border-indigo-500 outline-none py-1 text-sm font-bold text-slate-900 transition-colors">
+                        </div>
+                        <div class="bg-white p-4 rounded-xl shadow-inner border border-slate-100">
+                            <label class="block text-xs font-bold text-slate-400 uppercase tracking-wide mb-1"><i class="fa-solid fa-file-code mr-1 text-indigo-500"></i> Mã chuyên đề bài học</label>
+                            <input type="text" id="examId" readonly value="Buoi06_HeBPT_Toan10" class="w-full bg-slate-50 border-b-2 border-slate-200 outline-none py-1 text-sm font-bold text-slate-500 cursor-not-allowed">
+                        </div>
+                    </div>
+
+                    <!-- Khối các câu hỏi trắc nghiệm -->
+                    <div class="space-y-5 mt-6">
+                        <!-- Câu 1 -->
+                        <div class="bg-white p-5 rounded-2xl shadow-sm space-y-3">
+                            <p class="text-sm font-bold text-slate-900"><span class="text-indigo-600">Câu 1:</span> Miền nghiệm của một hệ bất phương trình bậc nhất hai ẩn được xác định dựa trên nguyên lý cấu trúc hình học nào?</p>
+                            <div class="grid grid-cols-1 gap-2 text-xs font-semibold text-slate-700">
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q1" value="A" required class="text-indigo-600 h-4 w-4"> <span>A. Phần hợp của các miền nghiệm độc lập</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q1" value="B" class="text-indigo-600 h-4 w-4"> <span>B. Phần giao (phần chung) của các miền nghiệm của từng bất phương trình</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q1" value="C" class="text-indigo-600 h-4 w-4"> <span>C. Đường phân giác của góc tọa độ</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Câu 2 -->
+                        <div class="bg-white p-5 rounded-2xl shadow-sm space-y-3">
+                            <p class="text-sm font-bold text-slate-900"><span class="text-indigo-600">Câu 2:</span> Biểu thức mục tiêu quy hoạch \(F(x;y) = ax+by\) đạt giá trị lớn nhất hoặc nhỏ nhất tại vị trí đặc trưng nào trên miền đa giác lồi?</p>
+                            <div class="grid grid-cols-1 gap-2 text-xs font-semibold text-slate-700">
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q2" value="A" required class="text-indigo-600 h-4 w-4"> <span>A. Luôn đạt tại tâm đường tròn nội tiếp</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q2" value="B" class="text-indigo-600 h-4 w-4"> <span>B. Đạt tại điểm chính giữa của cạnh dài nhất</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q2" value="C" class="text-indigo-600 h-4 w-4"> <span>C. Đạt tại một trong các đỉnh của đa giác miền nghiệm</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Câu 3 -->
+                        <div class="bg-white p-5 rounded-2xl shadow-sm space-y-3">
+                            <p class="text-sm font-bold text-slate-900"><span class="text-indigo-600">Câu 3:</span> Cặp tọa độ nào sau đây là một nghiệm của hệ bất phương trình ở Ví dụ 1: \(\begin{cases} x \ge 0 \\ y \ge 0 \\ x + y \le 2 \end{cases}\)?</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs font-semibold text-slate-700">
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q3" value="A" required class="text-indigo-600 h-4 w-4"> <span>A. \(M(1; 0,5)\)</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q3" value="B" class="text-indigo-600 h-4 w-4"> <span>B. \(N(2; 1)\)</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q3" value="C" class="text-indigo-600 h-4 w-4"> <span>A. \(P(-1; 1)\)</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q3" value="D" class="text-indigo-600 h-4 w-4"> <span>D. \(Q(3; -0,5)\)</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Câu 4 -->
+                        <div class="bg-white p-5 rounded-2xl shadow-sm space-y-3">
+                            <p class="text-sm font-bold text-slate-900"><span class="text-indigo-600">Câu 4:</span> Trong bài toán quy hoạch tối ưu ở Ví dụ 2, giá trị lớn nhất của hàm mục tiêu \(F(x;y) = x+2y\) đạt được bằng bao nhiêu?</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs font-semibold text-slate-700">
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q4" value="A" required class="text-indigo-600 h-4 w-4"> <span>A. 4</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q4" value="B" class="text-indigo-600 h-4 w-4"> <span>B. 6</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q4" value="C" class="text-indigo-600 h-4 w-4"> <span>C. 8</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Câu 5 -->
+                        <div class="bg-white p-5 rounded-2xl shadow-sm space-y-3">
+                            <p class="text-sm font-bold text-slate-900"><span class="text-indigo-600">Câu 5:</span> Trong bài toán sản xuất nông nghiệp của bác Năm (Ví dụ 3), phương án gieo trồng tối ưu nhất để mang về doanh thu cao nhất là:</p>
+                            <div class="grid grid-cols-1 gap-2 text-xs font-semibold text-slate-700">
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q5" value="A" required class="text-indigo-600 h-4 w-4"> <span>A. Trồng 8 ha khoai lang, 0 ha khoai mì</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q5" value="B" class="text-indigo-600 h-4 w-4"> <span>B. Trồng 6 ha khoai lang, 2 ha khoai mì</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q5" value="C" class="text-indigo-600 h-4 w-4"> <span>C. Trồng 0 ha khoai lang, 6 ha khoai mì</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Khu vực nút nộp bài toán -->
+                    <div class="pt-2 flex flex-col sm:flex-row items-center justify-between gap-4">
+                        <button type="submit" id="submitBtn" class="w-full sm:w-auto bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-sm px-8 py-3.5 rounded-xl shadow-lg transition-all flex items-center justify-center space-x-2 cursor-pointer">
+                            <i class="fa-solid fa-cloud-arrow-up"></i> <span>Nộp Bài Chấm Điểm</span>
+                        </button>
+                        <div id="statusReport" class="text-xs font-bold text-slate-400"></div>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer bản quyền -->
+    <footer class="bg-slate-900 text-slate-400 py-8 text-center text-xs font-medium px-4 mt-auto">
+        <p class="font-bold text-slate-300">@ Bản quyền thuộc ThS. Đinh Quốc Tuấn - Mục đích phi lợi nhuận - Vì giáo dục.</p>
+        <p class="text-slate-500 mt-2">Hệ thống biểu đồ tương tác hỗ trợ phát triển kỹ năng toán học phổ thông.</p>
+    </footer>
+
+    <!-- NÚT IN TÀI LIỆU CỐ ĐỊNH -->
+    <button id="btn-print-doc" onclick="safePrint()" class="fixed bottom-5 right-5 bg-gray-900 text-white px-4 py-2 rounded-lg shadow-lg hover:bg-gray-700 print:hidden z-50 cursor-pointer">
+        <i class="fas fa-print mr-2"></i> In Tài Liệu
+    </button>
+
+    <script>
+        function safePrint() {
+            const printBtn = document.getElementById('btn-print-doc');
+            printBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Đang chuẩn bị...';
+            
+            // Đảm bảo MathJax đã render xong mọi công thức trước khi gọi hộp thoại in
+            if (window.MathJax && window.MathJax.typesetPromise) {
+                MathJax.typesetPromise().then(() => {
+                    printBtn.innerHTML = '<i class="fas fa-print mr-2"></i> In Tài Liệu';
+                    window.print();
+                });
+            } else {
+                // Fallback nếu không có công thức toán
+                setTimeout(() => {
+                    printBtn.innerHTML = '<i class="fas fa-print mr-2"></i> In Tài Liệu';
+                    window.print();
+                }, 500); 
+            }
+        }
+    </script>
+
+    <!-- HỆ THỐNG ĐIỀU KHIỂN ĐỒ HỌA ĐỘNG JSXGRAPH -->
+    <script>
+        const timeInit = new Date();
+
+        document.addEventListener("DOMContentLoaded", function() {
+            
+            // --- MÔ HÌNH 1: GIAO MIỀN NGHIỆM HỆ BPT TAM GIÁC ---
+            const b1 = JXG.JSXGraph.initBoard('box1', {
+                boundingbox: [-1.5, 3.5, 3.5, -1.5], axis: true, showNavigation: false, showCopyright: false
+            });
+            
+            // Các đường thẳng bờ hệ thống
+            let lineX = b1.create('line', [[0,0], [0,1]], {visible: false});
+            let lineY = b1.create('line', [[0,0], [1,0]], {visible: false});
+            let pA = b1.create('point', [2, 0], {visible: false});
+            let pB = b1.create('point', [0, 2], {visible: false});
+            let lineSum = b1.create('line', [pA, pB], {strokeColor: '#3b82f6', strokeWidth: 2});
+
+            // Tạo gạch chéo vùng loại biên
+            b1.create('inequality', [lineX], {inverse: true, fillColor: '#94a3b8', fillOpacity: 0.15, hatch: 6});
+            b1.create('inequality', [lineY], {inverse: true, fillColor: '#94a3b8', fillOpacity: 0.15, hatch: 6});
+            b1.create('inequality', [lineSum], {inverse: false, fillColor: '#94a3b8', fillOpacity: 0.15, hatch: 6});
+
+            // Làm nổi bật các đỉnh đa giác lồi miền nghiệm
+            let vertexO = b1.create('point', [0,0], {name: 'O(0;0)', color: '#1e293b', size: 3, fixed: true});
+            let vertexA = b1.create('point', [2,0], {name: 'A(2;0)', color: '#1e293b', size: 3, fixed: true});
+            let vertexB = b1.create('point', [0,2], {name: 'B(0;2)', color: '#1e293b', size: 3, fixed: true});
+            b1.create('polygon', [vertexO, vertexA, vertexB], {fillColor: '#60a5fa', fillOpacity: 0.25, strokeWidth: 0});
+
+            // Điểm kiểm định tương tác động M
+            let M = b1.create('point', [0.5, 0.5], {name: 'M', color: '#4f46e5', size: 4});
+            let statusBox1 = document.getElementById('status-box1');
+            
+            M.on('drag', function() {
+                let x = M.X(), y = M.Y();
+                if (x >= 0 && y >= 0 && (x + y <= 2)) {
+                    statusBox1.className = "text-xs font-bold p-3 bg-emerald-50 border border-emerald-200 rounded-xl text-center text-emerald-800 animate-pulse";
+                    statusBox1.innerHTML = `<i class="fa-solid fa-circle-check"></i> M(${x.toFixed(1)}; ${y.toFixed(1)}) thuộc miền nghiệm của hệ.`;
+                } else {
+                    statusBox1.className = "text-xs font-bold p-3 bg-rose-50 border border-rose-200 rounded-xl text-center text-rose-800";
+                    statusBox1.innerHTML = `<i class="fa-solid fa-circle-xmark"></i> M(${x.toFixed(1)}; ${y.toFixed(1)}) KHÔNG thuộc miền nghiệm.`;
+                }
+            });
+
+
+            // --- MÔ HÌNH 2: THANH TRƯỢT ĐƯỜNG THẲNG MỤC TIÊU QUY HOẠCH ---
+            const b2 = JXG.JSXGraph.initBoard('box2', {
+                boundingbox: [-1, 5, 6, -1], axis: true, showNavigation: false, showCopyright: false
+            });
+
+            // Slider hằng số mục tiêu C chạy từ 0 đến 10
+            let sC = b2.create('slider', [[1, 4.5], [4, 4.5], [0, 2, 10]], {name: 'Giá trị C', snapWidth: 0.2, color: '#f59e0b'});
+
+            // Vẽ tam giác miền nghiệm cố định
+            let vO = b2.create('point', [0,0], {name: 'O', visible: false, fixed: true});
+            let vA = b2.create('point', [4,0], {name: 'A(4;0)', color: '#475569', size: 2, fixed: true});
+            let vB = b2.create('point', [0,4], {name: 'B(0;4)', color: '#475569', size: 2, fixed: true});
+            b2.create('polygon', [vO, vA, vB], {fillColor: '#f59e0b', fillOpacity: 0.15, strokeColor: '#94a3b8', strokeWidth: 1.5});
+
+            // Hàm bọc mảng tọa độ [x, y] riêng biệt tránh lỗi thư viện nhận diện undefined
+            let ptMove1 = b2.create('point', [
+                function() { return sC.Value(); },
+                0
+            ], {visible: false});
+
+            let ptMove2 = b2.create('point', [
+                0,
+                function() { return sC.Value() / 2; }
+            ], {visible: false});
+
+            // Đường quét tịnh tiến tuyến tính x + 2y = C
+            b2.create('line', [ptMove1, ptMove2], {strokeColor: '#d97706', strokeWidth: 2.5, dash: 1});
+
+
+            // --- MÔ HÌNH 3: MIỀN ĐA GIÁC KINH TẾ TRỒNG TRỌT BÁC NĂM ---
+            const b3 = JXG.JSXGraph.initBoard('box3', {
+                boundingbox: [-2, 12, 12, -2], axis: true, showNavigation: false, showCopyright: false
+            });
+
+            // Thiết lập hệ thống bờ đa giác ràng buộc: x+y=8 và 2x+3y=18
+            let ptL1_1 = b3.create('point', [8, 0], {visible: false});
+            let ptL1_2 = b3.create('point', [0, 8], {visible: false});
+            let lineLand = b3.create('line', [ptL1_1, ptL1_2], {strokeColor: '#94a3b8', strokeWidth: 1});
+
+            let ptL2_1 = b3.create('point', [9, 0], {visible: false});
+            let ptL2_2 = b3.create('point', [0, 6], {visible: false});
+            let lineLabor = b3.create('line', [ptL2_1, ptL2_2], {strokeColor: '#94a3b8', strokeWidth: 1});
+
+            // Xác định chính xác các điểm cực đỉnh tứ giác miền nghiệm
+            let polyO = b3.create('point', [0,0], {name: 'O', color: '#334155', size: 3, fixed: true});
+            let polyA = b3.create('point', [0,6], {name: 'A(0;6)', color: '#334155', size: 3, fixed: true});
+            let polyB = b3.create('point', [6,2], {name: 'B(6;2) - MAX', color: '#dc2626', size: 4, fixed: true});
+            let polyC = b3.create('point', [8,0], {name: 'C(8;0)', color: '#334155', size: 3, fixed: true});
+            b3.create('polygon', [polyO, polyA, polyB, polyC], {fillColor: '#10b981', fillOpacity: 0.2, strokeColor: '#059669', strokeWidth: 2});
+
+            // Điểm tương tác phân tích nội bộ vùng sản xuất
+            let M3 = b3.create('point', [2, 2], {name: 'M(x,y)', color: '#059669', size: 4});
+            let statusBox3 = document.getElementById('status-box3');
+
+            M3.on('drag', function() {
+                let x = M3.X(), y = M3.Y();
+                let profit = 20 * x + 25 * y;
+                
+                // Kiểm tra điều kiện điểm bám trong miền Feasible Region
+                if (x >= 0 && y >= 0 && (x + y <= 8) && (2 * x + 3 * y <= 18)) {
+                    if (Math.abs(x - 6) < 0.25 && Math.abs(y - 2) < 0.25) {
+                        statusBox3.className = "text-xs font-bold p-3 bg-rose-100 border-2 border-rose-400 rounded-xl text-center text-rose-700 animate-bounce";
+                        statusBox3.innerHTML = `🌟 ĐỈNH TỐI ƯU B(6;2) &rArr; LỢI NHUẬN TỐI ĐA: 170 TRIỆU ĐỒNG!`;
+                    } else {
+                        statusBox3.className = "text-xs font-bold p-3 bg-emerald-50 border border-emerald-200 rounded-xl text-center text-emerald-800";
+                        statusBox3.innerHTML = `Khoai lang: ${x.toFixed(1)} ha | Khoai mì: ${y.toFixed(1)} ha <br> 💰 Tổng lợi nhuận: ${profit.toFixed(1)} Triệu VND`;
+                    }
+                } else {
+                    statusBox3.className = "text-xs font-bold p-3 bg-slate-100 border border-slate-200 rounded-xl text-center text-slate-500";
+                    statusBox3.innerHTML = `<i class="fa-solid fa-ban"></i> Điểm M vượt quá giới hạn quỹ đất hoặc ngày công mẫu!`;
+                }
+            });
+        });
+
+        // --- XỬ LÝ LƯU TRỮ VÀ POST DỮ LIỆU ĐỒNG BỘ LÊN GOOGLE SHEETS VIA APPS SCRIPT ---
+        document.getElementById('quizForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const submitBtn = document.getElementById('submitBtn');
+            const statusReport = document.getElementById('statusReport');
+            
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i> Đang đồng bộ hóa dữ liệu...';
+            statusReport.innerHTML = "Đang xử lý gói tin truyền tải đám mây...";
+
+            // Bảng khóa đáp án chính xác
+            const correctKey = { q1: "B", q2: "C", q3: "A", q4: "C", q5: "B" };
+            const studentName = document.getElementById('studentName').value.trim();
+            const lessonId = document.getElementById('examId').value.trim();
+            
+            let correctCounter = 0;
+            let totalQuizCount = Object.keys(correctKey).length;
+            let missedReportArray = [];
+
+            // Duyệt chấm điểm tự động
+            for (let questionCode in correctKey) {
+                const selectedRadio = document.querySelector(`input[name="${questionCode}"]:checked`);
+                if (selectedRadio && selectedRadio.value === correctKey[questionCode]) {
+                    correctCounter++;
+                } else {
+                    let chosenChar = selectedRadio ? selectedRadio.value : "Bỏ qua";
+                    missedReportArray.push(`${questionCode.toUpperCase()}(Chọn: ${chosenChar}|Đúng: ${correctKey[questionCode]})`);
+                }
+            }
+
+            // Đo lường hoàn thiện thông số thời gian
+            const finalScore = ((correctCounter / totalQuizCount) * 10).toFixed(2);
+            const timeComplete = new Date();
+            const elapsedDurationSeconds = Math.floor((timeComplete - timeInit) / 1000);
+            const thoiGian = `${Math.floor(elapsedDurationSeconds / 60)} phút ${elapsedDurationSeconds % 60} giây`;
+            const cauSai = missedReportArray.length > 0 ? missedReportArray.join(", ") : "Không có (Đạt điểm tuyệt đối 10/10)";
+
+            // Payload thích ứng 100% cấu trúc API nhận dạng của Apps Script
+            const transmissionPayload = {
+                hoTen: studentName,
+                maDe: lessonId,
+                diem: parseFloat(finalScore),
+                thoiGian: thoiGian,
+                cauSai: cauSai
+            };
+
+            const webAppsScriptEndpoint = "https://script.google.com/macros/s/AKfycbzY7b7h4OwvhXuK5Vs6hl-aD88BPnAiAKbU5lfJobby0D4nzbIJVKT4n0AKCpAGoK0nZA/exec";
+
+            // Khởi động Fetch API truyền tải dữ liệu
+            fetch(webAppsScriptEndpoint, {
+                method: "POST",
+                mode: "no-cors",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(transmissionPayload)
+            })
+            .then(() => {
+                statusReport.className = "text-xs font-bold text-emerald-500 bg-emerald-50 px-3 py-2 rounded-xl border border-emerald-200 inline-block";
+                statusReport.innerHTML = `<i class="fa-solid fa-circle-check"></i> Đồng bộ thành công kết quả: ${finalScore}/10 lên hệ thống Google Sheets!`;
+                alert(`Hệ thống ghi nhận kết quả thành công!\nChào em ${studentName}, điểm số đánh giá đạt được là: ${finalScore} / 10.`);
+                submitBtn.innerHTML = '<i class="fa-solid fa-lock"></i> Kết quả đã khóa bảo mật';
+            })
+            .catch(error => {
+                console.error("Giao dịch truyền tin thất bại:", error);
+                statusReport.className = "text-xs font-bold text-rose-500 bg-rose-50 px-3 py-2 rounded-xl border border-rose-200 inline-block";
+                statusReport.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> Lỗi kết nối, vui lòng bấm nộp lại bài!';
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Thử nộp lại bài';
+            });
+        });
+    </script>
+</body>
+</html>
