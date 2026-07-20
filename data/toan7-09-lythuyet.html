@@ -483,6 +483,7 @@
         document.addEventListener("DOMContentLoaded", function() {
             
             // --- MÔ HÌNH 1: HAI GÓC KỀ BÙ ---
+          // --- MÔ HÌNH 1: HAI GÓC KỀ BÙ ---
             const b1 = JXG.JSXGraph.initBoard('jxg-kebu', {
                 boundingbox: [-4.5, 4, 4.5, -1], keepaspectratio: true, showNavigation: false, showCopyright: false, axis: false
             });
@@ -490,60 +491,69 @@
             const Ax = b1.create('point', [-3.5, 0], {fixed: true, name: 'x', color: '#9ca3af', size: 1});
             const Bx = b1.create('point', [3.5, 0], {fixed: true, name: 'x\'', color: '#9ca3af', size: 1});
             b1.create('line', [Ax, Bx], {straightFirst: false, straightLast: false, strokeColor: '#9ca3af', strokeWidth: 2});
-            
+             
             // Điểm tự do điều khiển góc nằm trên nửa mặt phẳng trên
             const Cy = b1.create('point', [1.5, 2.5], {
                 name: 'y', color: '#10b981', size: 4, 
                 fillColor: '#fff', strokeWidth: 3
             });
             b1.create('line', [O1, Cy], {straightFirst: false, straightLast: false, strokeColor: '#10b981', strokeWidth: 3});
-            
-                       // Đo đạc góc động
+             
+            // Đo đạc góc động (Sửa lỗi dùng setAttribute)
             const ang1 = b1.create('angle', [Bx, O1, Cy], {
-                radius: 0.8, fillColor: '#e0f2fe', strokeColor: '#0284c7',
-                name: function() { return JXG.toFixed(this.Value() * 180 / Math.PI, 1) + '°'; }
+                radius: 0.8, fillColor: '#e0f2fe', strokeColor: '#0284c7', withLabel: true
             });
-            const ang2 = b1.create('angle', [Cy, O1, Ax], {
-                radius: 0.8, fillColor: '#dcfce7', strokeColor: '#15803d',
-                name: function() { return JXG.toFixed(this.Value() * 180 / Math.PI, 1) + '°'; }
+            ang1.setAttribute({
+                name: function() { return JXG.toFixed(ang1.Value() * 180 / Math.PI, 1) + '°'; }
             });
             
+            const ang2 = b1.create('angle', [Cy, O1, Ax], {
+                radius: 0.8, fillColor: '#dcfce7', strokeColor: '#15803d', withLabel: true
+            });
+            ang2.setAttribute({
+                name: function() { return JXG.toFixed(ang2.Value() * 180 / Math.PI, 1) + '°'; }
+            });
+             
             // Văn bản tính tổng số đo động
             b1.create('text', [-4, 3.2, () => {
                 let v1 = ang1.Value() * 180 / Math.PI;
                 let v2 = ang2.Value() * 180 / Math.PI;
                 return 'Hệ thức: ' + JXG.toFixed(v1, 1) + '° + ' + JXG.toFixed(v2, 1) + '° = ' + JXG.toFixed(v1 + v2, 0) + '° (Kề bù)';
             }], {fontSize: 13, color: '#0f172a', fontWeight: 'bold'});
-
-
+            
+            
             // --- MÔ HÌNH 2: HAI GÓC ĐỐI ĐỈNH ---
             const b2 = JXG.JSXGraph.initBoard('jxg-doidinh', {
                 boundingbox: [-4, 4, 4, -4], keepaspectratio: true, showNavigation: false, showCopyright: false, axis: false
             });
             const O2 = b2.create('point', [0, 0], {fixed: true, name: 'O', color: '#1f2937', label: {offset: [8, -8]}});
-            
+             
             // Đường thẳng thứ nhất (Xanh dương)
             const pA = b2.create('point', [-3, -1], {name: 'x', color: '#2563eb', size: 3});
             const pB = b2.create('point', [3, 1], {name: 'x\'', color: '#2563eb', size: 3});
             b2.create('line', [pA, pB], {strokeColor: '#3b82f6', strokeWidth: 2});
-            
+             
             // Đường thẳng thứ hai (Đỏ)
             const pC = b2.create('point', [-1.8, 2.5], {name: 'y', color: '#dc2626', size: 3});
             const pD = b2.create('point', [1.8, -2.5], {name: 'y\'', color: '#dc2626', size: 3});
             b2.create('line', [pC, pD], {strokeColor: '#ef4444', strokeWidth: 2});
-            
-            // Tạo 2 góc đối đỉnh hiển thị số đo song song
-                      // Tạo 2 góc đối đỉnh hiển thị số đo song song
+             
+            // Tạo 2 góc đối đỉnh hiển thị số đo song song (Sửa lỗi dùng setAttribute)
             const g1 = b2.create('angle', [pB, O2, pC], {
-                radius: 0.7, fillColor: '#fee2e2', strokeColor: '#b91c1c',
-                name: function() { return JXG.toFixed(this.Value() * 180 / Math.PI, 1) + '°'; }
+                radius: 0.7, fillColor: '#fee2e2', strokeColor: '#b91c1c', withLabel: true
             });
+            g1.setAttribute({
+                name: function() { return JXG.toFixed(g1.Value() * 180 / Math.PI, 1) + '°'; }
+            });
+            
             const g2 = b2.create('angle', [pD, O2, pA], {
-                radius: 0.7, fillColor: '#fee2e2', strokeColor: '#b91c1c',
-                name: function() { return JXG.toFixed(this.Value() * 180 / Math.PI, 1) + '°'; }
+                radius: 0.7, fillColor: '#fee2e2', strokeColor: '#b91c1c', withLabel: true
             });
-
-
+            g2.setAttribute({
+                name: function() { return JXG.toFixed(g2.Value() * 180 / Math.PI, 1) + '°'; }
+            });
+            
+            
             // --- MÔ HÌNH 3: HAI TIA PHÂN GIÁC CỦA HAI GÓC KỀ BÙ ---
             const b3 = JXG.JSXGraph.initBoard('jxg-phangiac-kebu', {
                 boundingbox: [-4.5, 4, 4.5, -1], keepaspectratio: true, showNavigation: false, showCopyright: false, axis: false
@@ -552,28 +562,31 @@
             const tAx = b3.create('point', [-3.8, 0], {fixed: true, name: 'x', color: '#9ca3af', size: 1});
             const tBx = b3.create('point', [3.8, 0], {fixed: true, name: 'x\'', color: '#9ca3af', size: 1});
             b3.create('line', [tAx, tBx], {straightFirst: false, straightLast: false, strokeColor: '#9ca3af', strokeWidth: 2});
-            
+             
             const tCy = b3.create('point', [-0.8, 2.8], {name: 'y', color: '#10b981', size: 3});
             b3.create('line', [O3, tCy], {straightFirst: false, straightLast: false, strokeColor: '#10b981', strokeWidth: 2});
-            
+             
             // Dựng phân giác tự động bằng thuật toán JSXGraph
             const bis1 = b3.create('bisector', [tBx, O3, tCy], {visible: false});
             const bis2 = b3.create('bisector', [tCy, O3, tAx], {visible: false});
-            
+             
             // Vẽ tia bán thẳng biểu diễn phân giác m và n
             const tm = b3.create('line', [O3, bis1.point2], {straightFirst: false, straightLast: true, strokeColor: '#2563eb', strokeWidth: 2.5, dash: 2});
             const tn = b3.create('line', [O3, bis2.point2], {straightFirst: false, straightLast: true, strokeColor: '#d97706', strokeWidth: 2.5, dash: 2});
-            
+             
             // Gán nhãn ký hiệu tia
             b3.create('text', [() => bis1.point2.X()*1.2, () => bis1.point2.Y()*1.2, 'Om'], {color: '#2563eb', fontWeight: 'bold'});
             b3.create('text', [() => bis2.point2.X()*1.2, () => bis2.point2.Y()*1.2, 'On'], {color: '#d97706', fontWeight: 'bold'});
-            
-                       // Đo góc vuông tạo bởi 2 tia phân giác kì diệu này
+             
+            // Đo góc vuông tạo bởi 2 tia phân giác (Sửa lỗi dùng setAttribute)
             const gVuong = b3.create('angle', [bis1.point2, O3, bis2.point2], {
-                radius: 0.6, fillColor: '#fef08a', strokeColor: '#ca8a04',
-                name: function() { return '∠mOn = ' + JXG.toFixed(this.Value() * 180 / Math.PI, 0) + '°'; }
+                radius: 0.6, fillColor: '#fef08a', strokeColor: '#ca8a04', withLabel: true
             });
-
+            gVuong.setAttribute({
+                name: function() { return '∠mOn = ' + JXG.toFixed(gVuong.Value() * 180 / Math.PI, 0) + '°'; }
+            });
+            
+            
             // --- MÔ HÌNH 4: TIA PHÂN GIÁC VÀ TÍNH CHẤT PHÂN CHIA ---
             const b4 = JXG.JSXGraph.initBoard('jxg-tile-phangiac', {
                 boundingbox: [-1, 4.5, 5, -1], keepaspectratio: true, showNavigation: false, showCopyright: false, axis: false
@@ -581,25 +594,29 @@
             const O4 = b4.create('point', [0, 0], {fixed: true, name: 'O', color: '#1f2937'});
             const pM = b4.create('point', [3.5, 0.8], {name: 'A', color: '#0f766e', size: 3});
             const pN = b4.create('point', [1.2, 3.8], {name: 'B', color: '#0f766e', size: 3});
-            
+             
             b4.create('line', [O4, pM], {straightFirst: false, straightLast: false, strokeColor: '#0f766e', strokeWidth: 2});
             b4.create('line', [O4, pN], {straightFirst: false, straightLast: false, strokeColor: '#0f766e', strokeWidth: 2});
-            
+             
             // Dựng tia phân giác tự động Oz
             const bisMaster = b4.create('bisector', [pM, O4, pN], {visible: false});
             b4.create('line', [O4, bisMaster.point2], {straightFirst: false, straightLast: true, strokeColor: '#dc2626', strokeWidth: 2.5});
             b4.create('text', [() => bisMaster.point2.X()*1.1, () => bisMaster.point2.Y()*1.1, 'z'], {color: '#dc2626', fontWeight: 'bold', fontSize: 14});
-            
-            // Kiểm chứng liên tục 2 nửa góc luôn bằng khớp tuyệt đối
+             
+            // Kiểm chứng liên tục 2 nửa góc luôn bằng khớp tuyệt đối (Sửa lỗi dùng setAttribute)
             const subG1 = b4.create('angle', [pM, O4, bisMaster.point2], {
-                radius: 1.2, fillColor: '#ccfbf1', strokeColor: '#14b8a6',
-                name: function() { return JXG.toFixed(this.Value() * 180 / Math.PI, 1) + '°'; }
+                radius: 1.2, fillColor: '#ccfbf1', strokeColor: '#14b8a6', withLabel: true
             });
+            subG1.setAttribute({
+                name: function() { return JXG.toFixed(subG1.Value() * 180 / Math.PI, 1) + '°'; }
+            });
+            
             const subG2 = b4.create('angle', [bisMaster.point2, O4, pN], {
-                radius: 1.2, fillColor: '#ccfbf1', strokeColor: '#14b8a6',
-                name: function() { return JXG.toFixed(this.Value() * 180 / Math.PI, 1) + '°'; }
+                radius: 1.2, fillColor: '#ccfbf1', strokeColor: '#14b8a6', withLabel: true
             });
-        });
+            subG2.setAttribute({
+                name: function() { return JXG.toFixed(subG2.Value() * 180 / Math.PI, 1) + '°'; }
+            });
 
         // =========================================================================
         // HÀM IN ẤN AN TOÀN VÀ ĐỒNG BỘ DỮ LIỆU
