@@ -379,240 +379,238 @@
                         <div id="statusReport" class="text-xs font-bold text-slate-400"></div>
                     </div>
                 </form>
-            </div>
-        </section>
-    </main>
+            </section>
+        </main>
 
-    <!-- Footer bản quyền -->
-    <footer class="bg-slate-900 text-slate-400 py-8 text-center text-xs font-medium px-4 mt-auto">
-        <p class="font-bold text-slate-300">@ Bản quyền thuộc ThS. Đinh Quốc Tuấn - Mục đích phi lợi nhuận - Vì giáo dục.</p>
-        <p class="text-slate-500 mt-2">Hệ thống bài học tích hợp sơ đồ đồ họa động liên kết cơ sở dữ liệu bảng tính đám mây lớp 10.</p>
-    </footer>
+        <!-- Footer bản quyền -->
+        <footer class="bg-slate-900 text-slate-400 py-8 text-center text-xs font-medium px-4 mt-auto">
+            <p class="font-bold text-slate-300">@ Bản quyền thuộc ThS. Đinh Quốc Tuấn - Mục đích phi lợi nhuận - Vì giáo dục.</p>
+            <p class="text-slate-500 mt-2">Hệ thống bài học tích hợp sơ đồ đồ họa động liên kết cơ sở dữ liệu bảng tính đám mây lớp 10.</p>
+        </footer>
 
-    <!-- NÚT IN TÀI LIỆU CỐ ĐỊNH -->
-    <button id="btn-print-doc" onclick="safePrint()" class="fixed bottom-5 right-5 bg-gray-900 text-white px-4 py-2 rounded-lg shadow-lg hover:bg-gray-700 print:hidden z-50 cursor-pointer">
-        <i class="fas fa-print mr-2"></i> In Tài Liệu
-    </button>
+        <!-- NÚT IN TÀI LIỆU CỐ ĐỊNH -->
+        <button id="btn-print-doc" onclick="safePrint()" class="fixed bottom-5 right-5 bg-gray-900 text-white px-4 py-2 rounded-lg shadow-lg hover:bg-gray-700 print:hidden z-50 cursor-pointer">
+            <i class="fas fa-print mr-2"></i> In Tài Liệu
+        </button>
 
-    <script>
-        function safePrint() {
-            const printBtn = document.getElementById('btn-print-doc');
-            printBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Đang chuẩn bị...';
-            
-            // Đảm bảo MathJax đã render xong mọi công thức trước khi gọi hộp thoại in
-            if (window.MathJax && window.MathJax.typesetPromise) {
-                MathJax.typesetPromise().then(() => {
-                    printBtn.innerHTML = '<i class="fas fa-print mr-2"></i> In Tài Liệu';
-                    window.print();
-                });
-            } else {
-                // Fallback nếu không có công thức toán
-                setTimeout(() => {
-                    printBtn.innerHTML = '<i class="fas fa-print mr-2"></i> In Tài Liệu';
-                    window.print();
-                }, 500); 
-            }
-        }
-    </script>
-
-    <!-- HỆ THỐNG KỊCH BẢN ĐIỀU KHIỂN HÌNH HỌC ĐỘNG JSXGRAPH -->
-    <script>
-        const timeInit = new Date();
-
-        document.addEventListener("DOMContentLoaded", function() {
-            
-            // --- MÔ HÌNH 1: TÍNH DIỆN TÍCH S = 1/2*b*c*sinA VÀ ĐƯỜNG CAO ---
-            const b1 = JXG.JSXGraph.initBoard('box1', {
-                boundingbox: [-0.5, 4.5, 5.5, -0.5], axis: false, showNavigation: false, showCopyright: false
-            });
-
-            // Tạo các đỉnh tam giác tương tác tự do
-            let pA = b1.create('point', [0.5, 3.5], {name: 'A', color: '#4f46e5', size: 3});
-            let pC = b1.create('point', [4.5, 0.5], {name: 'C', color: '#1e293b', size: 2, fixed: true});
-            let pB = b1.create('point', [1.5, 0.5], {name: 'B', color: '#1e293b', size: 3});
-            
-            let triPoly = b1.create('polygon', [pA, pB, pC], {fillColor: '#60a5fa', fillOpacity: 0.15, strokeColor: '#2563eb', strokeWidth: 2});
-            let baseLine = b1.create('line', [pB, pC], {visible: false});
-
-            // Vẽ chân đường cao BD nét đứt vuông góc hạ từ B xuống cạnh AC
-            let sideAC = b1.create('line', [pA, pC], {visible: false});
-            let pD = b1.create('point', [
-                function() {
-                    let ax = pA.X(), ay = pA.Y();
-                    let cx = pC.X(), cy = pC.Y();
-                    let bx = pB.X(), by = pB.Y();
-                    let dx = cx - ax, dy = cy - ay;
-                    if (dx*dx + dy*dy === 0) return ax;
-                    let t = ((bx - ax) * dx + (by - ay) * dy) / (dx*dx + dy*dy);
-                    return ax + t * dx;
-                },
-                function() {
-                    let ax = pA.X(), ay = pA.Y();
-                    let cx = pC.X(), cy = pC.Y();
-                    let bx = pB.X(), by = pB.Y();
-                    let dx = cx - ax, dy = cy - ay;
-                    if (dx*dx + dy*dy === 0) return ay;
-                    let t = ((bx - ax) * dx + (by - ay) * dy) / (dx*dx + dy*dy);
-                    return ay + t * dy;
-                }
-            ], {name: 'D', visible: true, size: 2, color: '#475569'});
-            
-            b1.create('segment', [pB, pD], {dash: 2, strokeColor: '#ef4444', strokeWidth: 1.5});
-
-            // Kí hiệu nhãn góc đỉnh A
-            b1.create('angle', [pB, pA, pC], {radius: 0.4, fillColor: '#fee2e2', strokeColor: '#dc2626'});
-
-            let statusBox1 = document.getElementById('status-box1');
-            function updateMetricsModel1() {
-                let xA = pA.X(), yA = pA.Y();
-                let xB = pB.X(), yB = pB.Y();
-                let xC = pC.X(), yC = pC.Y();
-
-                let c = Math.sqrt((xA-xB)**2 + (yA-yB)**2); // AB
-                let b = Math.sqrt((xA-xC)**2 + (yA-cy=yC)**2); // AC
-                let a = Math.sqrt((xB-xC)**2 + (yB-yC)**2); // BC
+        <script>
+            function safePrint() {
+                const printBtn = document.getElementById('btn-print-doc');
+                printBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Đang chuẩn bị...';
                 
-                // Tính diện tích phẳng qua tích chéo phẳng
-                let area = 0.5 * Math.abs(xA * (xB - yC) + xB * (yC - yA) + xC * (yA - yB)); // Safe determinant area
-                let areaFormula = 0.5 * b * c * Math.sin(b1.create('angle', [pB, pA, pC]).Value());
-
-                statusBox1.innerHTML = `Độ rộng b (AC) = ${b.toFixed(2)} | c (AB) = ${c.toFixed(2)} <br> 📐 Tính toán động: S = 1/2*b*c*sinA = ${area.toFixed(2)}`;
-            }
-            pA.on('drag', updateMetricsModel1);
-            pB.on('drag', updateMetricsModel1);
-            updateMetricsModel1();
-
-
-            // --- MÔ HÌNH 2: TÂM TRÒN NỘI TIẾP I VÀ PHÂN RÃ BÁN KÍNH r ---
-            const b2 = JXG.JSXGraph.initBoard('box2', {
-                boundingbox: [-1.5, 3.5, 3.5, -1.5], axis: false, showNavigation: false, showCopyright: false
-            });
-
-            // Tam giác cố định khung hình
-            let vA = b2.create('point', [1, 2.8], {name: 'A', color: '#1e293b', size: 2, fixed: true});
-            let vB = b2.create('point', [-1, -1], {name: 'B', color: '#1e293b', size: 2, fixed: true});
-            let vC = b2.create('point', [3, -1], {name: 'C', color: '#1e293b', size: 2, fixed: true});
-            b2.create('polygon', [vA, vB, vC], {fillColor: '#f1f5f9', fillOpacity: 0.5, strokeColor: '#94a3b8'});
-
-            // Tính toán định vị tâm nội tiếp I hình học phẳng
-            let sideA = 4.0; // BC length = 4
-            let sideB = Math.sqrt((1-3)**2 + (2.8+1)**2); // AC length
-            let sideC = Math.sqrt((1+1)**2 + (2.8+1)**2); // AB length
-            let totalPerim = sideA + sideB + sideC;
-
-            let ix = (sideA * 1 + sideB * (-1) + sideC * 3) / totalPerim;
-            let iy = (sideA * 2.8 + sideB * (-1) + sideC * (-1)) / totalPerim;
-
-            let ptI = b2.create('point', [ix, iy], {name: 'I', color: '#d97706', size: 3, fixed: true});
-            
-            // Vẽ 3 đoạn phân rã tam giác nối tâm I sang 3 đỉnh
-            b2.create('segment', [ptI, vA], {strokeColor: '#3b82f6', strokeWidth: 1.5, dash: 1});
-            b2.create('segment', [ptI, vB], {strokeColor: '#ef4444', strokeWidth: 1.5, dash: 1});
-            b2.create('segment', [ptI, vC], {strokeColor: '#10b981', strokeWidth: 1.5, dash: 1});
-
-            // Vẽ đường tròn nội tiếp r
-            let inradiusVal = 2 * (0.5 * 4 * 3.8) / totalPerim; // S = 1/2 * base * height
-            b2.create('circle', [ptI, inradiusVal], {strokeColor: '#d97706', strokeWidth: 1.5});
-
-
-            // --- MÔ HÌNH 3: TRẮC ĐỊA ĐO ĐẠC KHOẢNG CÁCH AB XUYÊN HỒ NƯỚC ---
-            const b3 = JXG.JSXGraph.initBoard('box3', {
-                boundingbox: [-1, 5, 5, -1], axis: false, showNavigation: false, showCopyright: false
-            });
-
-            // Điểm mốc trắc địa bờ an toàn C đóng vai trò là gốc phẳng lồi cố định
-            let mC = b3.create('point', [0, 0], {name: 'Trạm C', color: '#111827', size: 3, fixed: true});
-            
-            // Vẽ 2 điểm A và B tạo góc nghiêng 105 độ tại đỉnh C
-            let angleRad = 105 * Math.PI / 180;
-            let mA = b3.create('point', [3.5, 0], {name: 'Mốc A (1000m)', color: '#059669', size: 3, fixed: true});
-            let mB = b3.create('point', [2.8 * Math.cos(angleRad), 2.8 * Math.sin(angleRad)], {name: 'Mốc B (800m)', color: '#059669', size: 3, fixed: true});
-
-            // Vẽ khối đa diện mô phỏng hồ nước chướng ngại vật mờ ở giữa
-            let lakeP1 = b3.create('point', [1.2, 0.5], {visible: false});
-            let lakeP2 = b3.create('point', [1.8, -0.3], {visible: false});
-            let lakeP3 = b3.create('point', [1.0, -1.2], {visible: false});
-            b3.create('polygon', [lakeP1, lakeP2, lakeP3], {fillColor: '#38bdf8', fillOpacity: 0.4, strokeColor: '#0284c7', strokeWidth: 1});
-
-            // Vẽ tuyến bờ ngắm bắn laser an toàn
-            b3.create('segment', [mC, mA], {strokeColor: '#10b981', strokeWidth: 2});
-            b3.create('segment', [mC, mB], {strokeColor: '#10b981', strokeWidth: 2});
-
-            // Đoạn thẳng cần tính toán AB xuyên qua chướng ngại vật hồ
-            b3.create('segment', [mA, mB], {strokeColor: '#d97706', strokeWidth: 2.5, dash: 2});
-
-            // Cấu hình nhãn góc đỉnh C lượng học
-            b3.create('angle', [mA, mC, mB], {radius: 0.5, fillColor: '#ccfbf1', strokeColor: '#14b8a6'});
-        });
-
-        // --- XỬ LÝ BIỂU MẪU CHẤM ĐIỂM TRẮC NGHIỆM VÀ ĐẨY DỮ LIỆU VỀ GOOGLE SHEETS ---
-        document.getElementById('quizForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-
-            const submitBtn = document.getElementById('submitBtn');
-            const statusReport = document.getElementById('statusReport');
-            
-            submitBtn.disabled = true;
-            submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i> Đang nộp bài...';
-            statusReport.innerHTML = "Đang đồng bộ kết nối hệ thống đám mây học thuật...";
-
-            // Bảng khóa điểm đáp án chuẩn
-            const correctKey = { q1: "B", q2: "B", q3: "B", q4: "A", q5: "B" };
-            const studentName = document.getElementById('studentName').value.trim();
-            const lessonId = document.getElementById('examId').value.trim();
-            
-            let correctCounter = 0;
-            let totalQuizCount = Object.keys(correctKey).length;
-            let missedReportArray = [];
-
-            for (let questionCode in correctKey) {
-                const selectedRadio = document.querySelector(`input[name="${questionCode}"]:checked`);
-                if (selectedRadio && selectedRadio.value === correctKey[questionCode]) {
-                    correctCounter++;
+                // Đảm bảo MathJax đã render xong mọi công thức trước khi gọi hộp thoại in
+                if (window.MathJax && window.MathJax.typesetPromise) {
+                    MathJax.typesetPromise().then(() => {
+                        printBtn.innerHTML = '<i class="fas fa-print mr-2"></i> In Tài Liệu';
+                        window.print();
+                    });
                 } else {
-                    let chosenChar = selectedRadio ? selectedRadio.value : "Bỏ qua";
-                    missedReportArray.push(`${questionCode.toUpperCase()}(Chọn: ${chosenChar}|Đúng: ${correctKey[questionCode]})`);
+                    // Fallback nếu không có công thức toán
+                    setTimeout(() => {
+                        printBtn.innerHTML = '<i class="fas fa-print mr-2"></i> In Tài Liệu';
+                        window.print();
+                    }, 500); 
                 }
             }
+        </script>
 
-            const finalScore = ((correctCounter / totalQuizCount) * 10).toFixed(2);
-            const timeComplete = new Date();
-            const elapsedDurationSeconds = Math.floor((timeComplete - timeInit) / 1000);
-            const thoiGian = `${Math.floor(elapsedDurationSeconds / 60)} phút ${elapsedDurationSeconds % 60} giây`;
-            const cauSai = missedReportArray.length > 0 ? missedReportArray.join(", ") : "Không có (Đạt điểm tuyệt đối)";
+        <!-- HỆ THỐNG KỊCH BẢN ĐIỀU KHIỂN HÌNH HỌC ĐỘNG JSXGRAPH -->
+        <script>
+            const timeInit = new Date();
 
-            const transmissionPayload = {
-                hoTen: studentName,
-                maDe: lessonId,
-                diem: parseFloat(finalScore),
-                thoiGian: thoiGian,
-                cauSai: cauSai
-            };
+            document.addEventListener("DOMContentLoaded", function() {
+                
+                // --- MÔ HÌNH 1: TÍNH DIỆN TÍCH S = 1/2*b*c*sinA VÀ ĐƯỜNG CAO ---
+                const b1 = JXG.JSXGraph.initBoard('box1', {
+                    boundingbox: [-0.5, 4.5, 5.5, -0.5], axis: false, showNavigation: false, showCopyright: false
+                });
 
-            const webAppsScriptEndpoint = "https://script.google.com/macros/s/AKfycbzY7b7h4OwvhXuK5Vs6hl-aD88BPnAiAKbU5lfJobby0D4nzbIJVKT4n0AKCpAGoK0nZA/exec";
+                // Tạo các đỉnh tam giác tương tác tự do
+                let pA = b1.create('point', [0.5, 3.5], {name: 'A', color: '#4f46e5', size: 3});
+                let pC = b1.create('point', [4.5, 0.5], {name: 'C', color: '#1e293b', size: 2, fixed: true});
+                let pB = b1.create('point', [1.5, 0.5], {name: 'B', color: '#1e293b', size: 3});
+                
+                let triPoly = b1.create('polygon', [pA, pB, pC], {fillColor: '#60a5fa', fillOpacity: 0.15, strokeColor: '#2563eb', strokeWidth: 2});
+                let baseLine = b1.create('line', [pB, pC], {visible: false});
 
-            fetch(webAppsScriptEndpoint, {
-                method: "POST",
-                mode: "no-cors",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(transmissionPayload)
-            })
-            .then(() => {
-                statusReport.className = "text-xs font-bold text-emerald-500 bg-emerald-50 px-3 py-2 rounded-xl border border-emerald-200 inline-block";
-                statusReport.innerHTML = `<i class="fa-solid fa-circle-check"></i> Đã đồng bộ thành công kết quả thi: ${finalScore}/10 lên hệ thống Google Sheets!`;
-                alert(`Hệ thống thông báo nộp kết quả thành công!\nChào em ${studentName}, điểm số chuyên đề đạt được là: ${finalScore} / 10.`);
-                submitBtn.innerHTML = '<i class="fa-solid fa-lock"></i> Kết quả đã khóa bảo mật';
-            })
-            .catch(error => {
-                console.error("Giao dịch truyền tin thất bại:", error);
-                statusReport.className = "text-xs font-bold text-rose-500 bg-rose-50 px-3 py-2 rounded-xl border border-rose-200 inline-block";
-                statusReport.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> Lỗi kết nối mạng, vui lòng bấm nộp lại bài!';
-                submitBtn.disabled = false;
-                submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Thử nộp lại bài';
+                // Vẽ chân đường cao BD nét đứt vuông góc hạ từ B xuống cạnh AC
+                let sideAC = b1.create('line', [pA, pC], {visible: false});
+                let pD = b1.create('point', [
+                    function() {
+                        let ax = pA.X(), ay = pA.Y();
+                        let cx = pC.X(), cy = pC.Y();
+                        let bx = pB.X(), by = pB.Y();
+                        let dx = cx - ax, dy = cy - ay;
+                        if (dx*dx + dy*dy === 0) return ax;
+                        let t = ((bx - ax) * dx + (by - ay) * dy) / (dx*dx + dy*dy);
+                        return ax + t * dx;
+                    },
+                    function() {
+                        let ax = pA.X(), ay = pA.Y();
+                        let cx = pC.X(), cy = pC.Y();
+                        let bx = pB.X(), by = pB.Y();
+                        let dx = cx - ax, dy = cy - ay;
+                        if (dx*dx + dy*dy === 0) return ay;
+                        let t = ((bx - ax) * dx + (by - ay) * dy) / (dx*dx + dy*dy);
+                        return ay + t * dy;
+                    }
+                ], {name: 'D', visible: true, size: 2, color: '#475569'});
+                
+                b1.create('segment', [pB, pD], {dash: 2, strokeColor: '#ef4444', strokeWidth: 1.5});
+
+                // Kí hiệu nhãn góc đỉnh A
+                let angleA = b1.create('angle', [pB, pA, pC], {radius: 0.4, fillColor: '#fee2e2', strokeColor: '#dc2626'});
+
+                let statusBox1 = document.getElementById('status-box1');
+                function updateMetricsModel1() {
+                    let xA = pA.X(), yA = pA.Y();
+                    let xB = pB.X(), yB = pB.Y();
+                    let xC = pC.X(), yC = pC.Y();
+
+                    let c = Math.sqrt((xA-xB)**2 + (yA-yB)**2); // AB
+                    let b = Math.sqrt((xA-xC)**2 + (yA-yC)**2); // AC
+                    let a = Math.sqrt((xB-xC)**2 + (yB-yC)**2); // BC
+                    
+                    // Tính diện tích phẳng qua tích chéo phẳng
+                    let area = 0.5 * Math.abs(xA * (xB - yC) + xB * (yC - yA) + xC * (yA - yB)); // Safe determinant area
+
+                    statusBox1.innerHTML = `Độ rộng b (AC) = ${b.toFixed(2)} | c (AB) = ${c.toFixed(2)} <br> 📐 Tính toán động: S = 1/2*b*c*sinA = ${area.toFixed(2)}`;
+                }
+                pA.on('drag', updateMetricsModel1);
+                pB.on('drag', updateMetricsModel1);
+                updateMetricsModel1();
+
+
+                // --- MÔ HÌNH 2: TÂM TRÒN NỘI TIẾP I VÀ PHÂN RÃ BÁN KÍNH r ---
+                const b2 = JXG.JSXGraph.initBoard('box2', {
+                    boundingbox: [-1.5, 3.5, 3.5, -1.5], axis: false, showNavigation: false, showCopyright: false
+                });
+
+                // Tam giác cố định khung hình
+                let vA = b2.create('point', [1, 2.8], {name: 'A', color: '#1e293b', size: 2, fixed: true});
+                let vB = b2.create('point', [-1, -1], {name: 'B', color: '#1e293b', size: 2, fixed: true});
+                let vC = b2.create('point', [3, -1], {name: 'C', color: '#1e293b', size: 2, fixed: true});
+                b2.create('polygon', [vA, vB, vC], {fillColor: '#f1f5f9', fillOpacity: 0.5, strokeColor: '#94a3b8'});
+
+                // Tính toán định vị tâm nội tiếp I hình học phẳng
+                let sideA = 4.0; // BC length = 4
+                let sideB = Math.sqrt((1-3)**2 + (2.8+1)**2); // AC length
+                let sideC = Math.sqrt((1+1)**2 + (2.8+1)**2); // AB length
+                let totalPerim = sideA + sideB + sideC;
+
+                let ix = (sideA * 1 + sideB * (-1) + sideC * 3) / totalPerim;
+                let iy = (sideA * 2.8 + sideB * (-1) + sideC * (-1)) / totalPerim;
+
+                let ptI = b2.create('point', [ix, iy], {name: 'I', color: '#d97706', size: 3, fixed: true});
+                
+                // Vẽ 3 đoạn phân rã tam giác nối tâm I sang 3 đỉnh
+                b2.create('segment', [ptI, vA], {strokeColor: '#3b82f6', strokeWidth: 1.5, dash: 1});
+                b2.create('segment', [ptI, vB], {strokeColor: '#ef4444', strokeWidth: 1.5, dash: 1});
+                b2.create('segment', [ptI, vC], {strokeColor: '#10b981', strokeWidth: 1.5, dash: 1});
+
+                // Vẽ đường tròn nội tiếp r
+                let inradiusVal = 2 * (0.5 * 4 * 3.8) / totalPerim; // S = 1/2 * base * height
+                b2.create('circle', [ptI, inradiusVal], {strokeColor: '#d97706', strokeWidth: 1.5});
+
+
+                // --- MÔ HÌNH 3: TRẮC ĐỊA ĐO ĐẠC KHOẢNG CÁCH AB XUYÊN HỒ NƯỚC ---
+                const b3 = JXG.JSXGraph.initBoard('box3', {
+                    boundingbox: [-1, 5, 5, -1], axis: false, showNavigation: false, showCopyright: false
+                });
+
+                // Điểm mốc trắc địa bờ an toàn C đóng vai trò là gốc phẳng lồi cố định
+                let mC = b3.create('point', [0, 0], {name: 'Trạm C', color: '#111827', size: 3, fixed: true});
+                
+                // Vẽ 2 điểm A và B tạo góc nghiêng 105 độ tại đỉnh C
+                let angleRad = 105 * Math.PI / 180;
+                let mA = b3.create('point', [3.5, 0], {name: 'Mốc A (1000m)', color: '#059669', size: 3, fixed: true});
+                let mB = b3.create('point', [2.8 * Math.cos(angleRad), 2.8 * Math.sin(angleRad)], {name: 'Mốc B (800m)', color: '#059669', size: 3, fixed: true});
+
+                // Vẽ khối đa diện mô phỏng hồ nước chướng ngại vật mờ ở giữa
+                let lakeP1 = b3.create('point', [1.2, 0.5], {visible: false});
+                let lakeP2 = b3.create('point', [1.8, -0.3], {visible: false});
+                let lakeP3 = b3.create('point', [1.0, -1.2], {visible: false});
+                b3.create('polygon', [lakeP1, lakeP2, lakeP3], {fillColor: '#38bdf8', fillOpacity: 0.4, strokeColor: '#0284c7', strokeWidth: 1});
+
+                // Vẽ tuyến bờ ngắm bắn laser an toàn
+                b3.create('segment', [mC, mA], {strokeColor: '#10b981', strokeWidth: 2});
+                b3.create('segment', [mC, mB], {strokeColor: '#10b981', strokeWidth: 2});
+
+                // Đoạn thẳng cần tính toán AB xuyên qua chướng ngại vật hồ
+                b3.create('segment', [mA, mB], {strokeColor: '#d97706', strokeWidth: 2.5, dash: 2});
+
+                // Cấu hình nhãn góc đỉnh C lượng học
+                b3.create('angle', [mA, mC, mB], {radius: 0.5, fillColor: '#ccfbf1', strokeColor: '#14b8a6'});
             });
-        });
-    </script>
+
+            // --- XỬ LÝ BIỂU MẪU CHẤM ĐIỂM TRẮC NGHIỆM VÀ ĐẨY DỮ LIỆU VỀ GOOGLE SHEETS ---
+            document.getElementById('quizForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+
+                const submitBtn = document.getElementById('submitBtn');
+                const statusReport = document.getElementById('statusReport');
+                
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i> Đang nộp bài...';
+                statusReport.innerHTML = "Đang đồng bộ kết nối hệ thống đám mây học thuật...";
+
+                // Bảng khóa điểm đáp án chuẩn
+                const correctKey = { q1: "B", q2: "B", q3: "B", q4: "A", q5: "B" };
+                const studentName = document.getElementById('studentName').value.trim();
+                const lessonId = document.getElementById('examId').value.trim();
+                
+                let correctCounter = 0;
+                let totalQuizCount = Object.keys(correctKey).length;
+                let missedReportArray = [];
+
+                for (let questionCode in correctKey) {
+                    const selectedRadio = document.querySelector(`input[name="${questionCode}"]:checked`);
+                    if (selectedRadio && selectedRadio.value === correctKey[questionCode]) {
+                        correctCounter++;
+                    } else {
+                        let chosenChar = selectedRadio ? selectedRadio.value : "Bỏ qua";
+                        missedReportArray.push(`${questionCode.toUpperCase()}(Chọn: ${chosenChar}|Đúng: ${correctKey[questionCode]})`);
+                    }
+                }
+
+                const finalScore = ((correctCounter / totalQuizCount) * 10).toFixed(2);
+                const timeComplete = new Date();
+                const elapsedDurationSeconds = Math.floor((timeComplete - timeInit) / 1000);
+                const thoiGian = `${Math.floor(elapsedDurationSeconds / 60)} phút ${elapsedDurationSeconds % 60} giây`;
+                const cauSai = missedReportArray.length > 0 ? missedReportArray.join(", ") : "Không có (Đạt điểm tuyệt đối)";
+
+                const transmissionPayload = {
+                    hoTen: studentName,
+                    maDe: lessonId,
+                    diem: parseFloat(finalScore),
+                    thoiGian: thoiGian,
+                    cauSai: cauSai
+                };
+
+                const webAppsScriptEndpoint = "https://script.google.com/macros/s/AKfycbzY7b7h4OwvhXuK5Vs6hl-aD88BPnAiAKbU5lfJobby0D4nzbIJVKT4n0AKCpAGoK0nZA/exec";
+
+                fetch(webAppsScriptEndpoint, {
+                    method: "POST",
+                    mode: "no-cors",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(transmissionPayload)
+                })
+                .then(() => {
+                    statusReport.className = "text-xs font-bold text-emerald-500 bg-emerald-50 px-3 py-2 rounded-xl border border-emerald-200 inline-block";
+                    statusReport.innerHTML = `<i class="fa-solid fa-circle-check"></i> Đã đồng bộ thành công kết quả thi: ${finalScore}/10 lên hệ thống Google Sheets!`;
+                    alert(`Hệ thống thông báo nộp kết quả thành công!\nChào em ${studentName}, điểm số chuyên đề đạt được là: ${finalScore} / 10.`);
+                    submitBtn.innerHTML = '<i class="fa-solid fa-lock"></i> Kết quả đã khóa bảo mật';
+                })
+                .catch(error => {
+                    console.error("Giao dịch truyền tin thất bại:", error);
+                    statusReport.className = "text-xs font-bold text-rose-500 bg-rose-50 px-3 py-2 rounded-xl border border-rose-200 inline-block";
+                    statusReport.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> Lỗi kết nối mạng, vui lòng bấm nộp lại bài!';
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Thử nộp lại bài';
+                });
+            });
+        </script>
 </body>
 </html>
