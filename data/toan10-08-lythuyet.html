@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buổi 8: Hàm số bậc hai y = ax² + bx + c — ThS. Đinh Quốc Tuấn</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- FontAwesome Icons CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts: Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- MathJax Configuration & Library -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['\\(', '\\)']],
+                displayMath: [['\\[', '\\]']]
+            },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <!-- JSXGraph CSS & Core Engine -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraph.css" />
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraphcore.js"></script>
+
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #f8fafc;
+            color: #0f172a;
+        }
+        .jxgbox {
+            background-color: #ffffff !important;
+            border-radius: 1rem;
+            overflow: hidden;
+            border: 1px solid #e2e8f0;
+        }
+        @media print {
+            .print\:hidden { display: none !important; }
+            body { background: white !important; color: black !important; }
+            details { display: block !important; }
+            details summary { display: none !important; }
+            .page-break { page-break-before: always; }
+            .card-border { box-shadow: none !important; border: 1px solid #e5e7eb !important; }
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col antialiased selection:bg-indigo-100">
+
+    <!-- Header học thuật -->
+    <header class="border-b border-slate-200 sticky top-0 bg-white/95 backdrop-blur-md z-40 print:hidden">
+        <div class="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 px-6 py-4">
+            <div class="flex items-center gap-4">
+                <img src="https://hcmus.edu.vn/wp-content/uploads/2023/04/Logo-chinh-e1681638380305.png" alt="Logo HCMUS" class="h-14 w-auto object-contain">
+                <div class="border-l-2 border-slate-300 pl-4">
+                    <span class="text-xs font-bold tracking-widest text-indigo-600 uppercase block mb-0.5">Tài liệu số hóa tương tác</span>
+                    <span class="text-base font-extrabold text-slate-800">Chuyên đề Đại số & Hàm số lớp 10</span>
+                </div>
+            </div>
+            <div class="flex items-center gap-3 sm:text-right">
+                <div class="hidden sm:block">
+                    <p class="text-xs text-slate-400 font-semibold">Giảng viên biên soạn:</p>
+                    <p class="text-sm font-extrabold text-slate-800">ThS. Đinh Quốc Tuấn</p>
+                </div>
+                <img src="https://firebasestorage.googleapis.com/v0/b/link-anh-web.firebasestorage.app/o/ttbdvh.jpg?alt=media&token=f270aa9b-a2bc-48e8-8910-80742b542615" 
+                     alt="Logo TTBDVH" class="h-14 w-14 object-cover rounded-full border border-slate-200 shadow-inner">
+            </div>
+        </div>
+    </header>
+
+    <!-- Banner nhập môn thư gửi học sinh -->
+    <div class="bg-gradient-to-r from-indigo-50 via-slate-50 to-emerald-50 border-b border-slate-200 py-10 print:hidden">
+        <div class="max-w-4xl mx-auto px-6 space-y-4">
+            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-indigo-100 text-indigo-800 border border-indigo-200 shadow-xs">
+                <i class="fa-solid fa-chart-area mr-1.5 text-indigo-600"></i> Không gian hình học đại số phẳng
+            </span>
+            <h1 class="text-2xl sm:text-4xl font-black tracking-tight text-slate-900 leading-tight">
+                Buổi 8: Hàm Số Bậc Hai \(y = ax^2 + bx + c\)
+            </h1>
+            <p class="text-slate-600 text-sm sm:text-base font-medium leading-relaxed text-justify">
+                Chào các em! Thầy rất vui được đồng hành cùng các em bước sang Buổi học thứ 8. Hôm nay chúng ta sẽ khám phá chi tiết về Hàm số bậc hai \(y = ax^2 + bx + c\). Ở lớp 9, các em đã làm quen với dạng đơn giản nhất của Parabol là \(y = ax^2\). Hôm nay, ta sẽ "mở khóa" dạng tổng quát của nó, học cách tìm các yếu tố đặc trưng và vẽ đồ thị một cách chuyên nghiệp. Kiến thức này có ứng dụng cực kỳ rộng rãi trong vật lý (quỹ đạo chuyển động) và kinh tế (bài toán tối ưu). Dưới đây là nội dung lý thuyết được chia thành 3 cấp độ kèm theo các gợi ý mô hình trực quan.
+            </p>
+        </div>
+    </div>
+
+    <!-- Nội dung không gian làm việc chính -->
+    <main class="max-w-4xl mx-auto px-4 sm:px-6 py-10 flex-grow w-full space-y-16">
+        
+        <!-- ================= PHẦN 1: MỨC ĐỘ CƠ BẢN ================= -->
+        <section class="space-y-6">
+            <div class="flex items-center gap-3 border-b pb-3 border-slate-200">
+                <span class="bg-sky-600 text-white text-xs font-black px-3 py-1 rounded-md uppercase tracking-wider">Cấp độ 1</span>
+                <h2 class="text-xl font-extrabold text-slate-900">PHẦN 1: MỨC ĐỘ CƠ BẢN (NHẮC LẠI LỚP 9, KHÁI NIỆM & CÁC YẾU TỐ CỦA PARABOL)</h2>
+            </div>
+            <p class="text-xs font-bold text-sky-800 bg-sky-50 px-3 py-2 rounded-lg inline-block">
+                Mục tiêu: Gợi nhớ lại hình dáng Parabol cơ bản, nhận biết dạng tổng quát và các công thức tìm tọa độ đỉnh, trục đối xứng.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm leading-relaxed text-slate-700">
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs space-y-2">
+                    <h3 class="font-bold text-slate-800 text-base flex items-center gap-2 text-sky-700"><i class="fa-solid fa-clock-rotate-left"></i> 1. Nhắc lại kiến thức lớp 9</h3>
+                    <p>&bull; Hàm số \(y = ax^2\) (\(a \neq 0\)) có đồ thị là một đường cong đối xứng gọi là Parabol.</p>
+                    <p>&bull; Đỉnh của Parabol này luôn là gốc tọa độ \(O(0; 0)\).</p>
+                    <p>&bull; Trục đối xứng là trục tung \(Oy\) (có phương trình biểu diễn \(x = 0\)).</p>
+                </div>
+
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs space-y-1">
+                    <h3 class="font-bold text-slate-800 text-base flex items-center gap-2 text-sky-700"><i class="fa-solid fa-square-root-variable"></i> 2. Hàm số bậc hai tổng quát</h3>
+                    <p>&bull; <strong>Định nghĩa:</strong> Hàm số bậc hai là hàm số được cho bởi công thức \(y = ax^2 + bx + c\) (\(a \neq 0\)). Tập xác định \(D = \mathbb{R}\).</p>
+                    <p>&bull; <strong>Tọa độ đỉnh:</strong> \(S\left(-\frac{b}{2a}; -\frac{\Delta}{4a}\right)\) với \(\Delta = b^2 - 4ac\). <em>(Mẹo: Có thể tính nhanh tung độ \(y_S\) bằng cách lấy hoành độ \(x_S = -\frac{b}{2a}\) thay vào hàm số).</em></p>
+                    <p>&bull; <strong>Trục đối xứng:</strong> Là đường thẳng đứng đi qua đỉnh \(S\): \(x = -\frac{b}{2a}\).</p>
+                    <p>&bull; <strong>Bề lõm:</strong> Nếu \(a > 0\), quay lên trên. Nếu \(a < 0\), quay xuống dưới.</p>
+                </div>
+            </div>
+
+            <!-- Ví dụ 1 & Mô hình 1 -->
+            <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border space-y-6">
+                <div>
+                    <span class="bg-sky-100 text-sky-800 text-xs font-bold px-2 py-0.5 rounded">Ví dụ minh họa 1</span>
+                    <p class="text-sm font-semibold text-slate-800 mt-2">Xác định tọa độ đỉnh, phương trình trục đối xứng và hướng bề lõm của Parabol \(y = x^2 - 4x + 3\).</p>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+                    <div class="space-y-3">
+                        <details class="group">
+                            <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                                <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem hướng dẫn giải từ thầy</span>
+                            </summary>
+                            <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 leading-relaxed space-y-2">
+                                <p><strong>Giải:</strong> Ta có \(a = 1, b = -4, c = 3\).</p>
+                                <p>&bull; Vì \(a = 1 > 0\) nên Parabol có bề lõm quay lên trên.</p>
+                                <p>&bull; Hoành độ đỉnh \(x_S = -\frac{-4}{2.1} = 2\).</p>
+                                <p>&bull; Tung độ đỉnh \(y_S = f(2) = 2^2 - 4(2) + 3 = -1\). Vậy đỉnh \(S(2; -1)\).</p>
+                                <p>&bull; Trục đối xứng là đường thẳng \(x = 2\).</p>
+                            </div>
+                        </details>
+                        <div class="p-4 bg-slate-100 rounded-xl border border-slate-200 text-xs text-slate-600">
+                            <span class="font-bold text-indigo-600 block mb-1"><i class="fa-solid fa-sliders"></i> Bảng điều khiển tương tác mô hình 1:</span>
+                            Thay đổi các thanh trượt hệ số để xem đồ thị chuyển động. Đường nét đứt cố định đại diện cho Parabol cơ sở \(y = x^2\).
+                        </div>
+                    </div>
+                    <div>
+                        <div id="box1" class="w-full h-64 jxgbox"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ================= PHẦN 2: MỨC ĐỘ NÂNG CAO ================= -->
+        <section class="space-y-6">
+            <div class="flex items-center gap-3 border-b pb-3 border-slate-200">
+                <span class="bg-amber-600 text-white text-xs font-black px-3 py-1 rounded-md uppercase tracking-wider">Cấp độ 2</span>
+                <h2 class="text-xl font-extrabold text-slate-900">PHẦN 2: MỨC ĐỘ NÂNG CAO (CÁCH VẼ ĐỒ THỊ PARABOL TỔNG QUÁT & SỰ BIẾN THIÊN)</h2>
+            </div>
+            <p class="text-xs font-bold text-amber-800 bg-amber-50 px-3 py-2 rounded-lg inline-block">
+                Mục tiêu: Nắm vững quy trình dựng ảnh qua 4 bước chuẩn mực và làm chủ quy luật bảng biến thiên.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm leading-relaxed text-slate-700">
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs space-y-2">
+                    <h3 class="font-bold text-slate-800 text-base flex items-center gap-2 text-amber-700 mb-1"><i class="fa-solid fa-compass-drafting"></i> 1. Cách vẽ đồ thị Parabol tổng quát</h3>
+                    <p><strong>Bước 1:</strong> Xác định tọa độ đỉnh \(S\left(-\frac{b}{2a}; -\frac{\Delta}{4a}\right)\).</p>
+                    <p><strong>Bước 2:</strong> Vẽ trục đối xứng \(x = -\frac{b}{2a}\) bằng nét đứt.</p>
+                    <p><strong>Bước 3:</strong> Tìm một số điểm đặc biệt: Giao điểm trục tung \((0; c)\) và điểm đối trưng qua trục \(\left(-\frac{b}{a}; c\right)\); tìm các giao điểm trục hoành nếu có bằng phương trình \(ax^2+bx+c=0\).</p>
+                    <p><strong>Bước 4:</strong> Vẽ đường cong Parabol đối xứng mượt mà qua các điểm.</p>
+                </div>
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs space-y-2">
+                    <h3 class="font-bold text-slate-800 text-base flex items-center gap-2 text-amber-700 mb-1"><i class="fa-solid fa-chart-line"></i> 2. Sự biến thiên của hàm số</h3>
+                    <p>&bull; <strong>Trường hợp \(a > 0\):</strong> Hàm số nghịch biến trên khoảng \(\left(-\infty; -\frac{b}{2a}\right)\) và đồng biến trên khoảng \(\left(-\frac{b}{2a}; +\infty\right)\). Đạt giá trị nhỏ nhất tại đỉnh.</p>
+                    <p>&bull; <strong>Trường hợp \(a < 0\):</strong> Hàm số đồng biến trên khoảng \(\left(-\infty; -\frac{b}{2a}\right)\) và nghịch biến trên khoảng \(\left(-\frac{b}{2a}; +\infty\right)\). Đạt giá trị lớn nhất tại đỉnh.</p>
+                </div>
+            </div>
+
+            <!-- Ví dụ 2 & Mô hình 2 -->
+            <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border space-y-6">
+                <div>
+                    <span class="bg-amber-100 text-amber-800 text-xs font-bold px-2 py-0.5 rounded">Ví dụ minh họa 2 (Nâng cao)</span>
+                    <p class="text-sm font-semibold text-slate-800 mt-2">Vẽ đồ thị và lập bảng biến thiên của hàm số \(y = -x^2 + 2x + 3\).</p>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                    <div class="space-y-4">
+                        <details class="group">
+                            <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                                <i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform mr-1"></i> Xem hướng dẫn giải và bảng biến thiên
+                            </summary>
+                            <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-2 leading-relaxed">
+                                <p>&bull; Vì \(a = -1 < 0\) nên đồ thị quay bề lõm xuống dưới.</p>
+                                <p>&bull; Tọa độ đỉnh: \(x_S = 1; y_S = -(1)^2 + 2(1) + 3 = 4 \Rightarrow S(1; 4)\).</p>
+                                <p>&bull; Trục đối xứng: Đường thẳng đứng \(x = 1\).</p>
+                                <p>&bull; Điểm đặc biệt: Cắt \(Oy\) tại \((0;3)\); điểm đối xứng là \((2;3)\). Cước Ox tại hai nghiệm \((-1;0)\) và \((3;0)\).</p>
+                                <p>&bull; <strong>Bảng biến thiên:</strong> Hàm số đồng biến tăng từ \(-\infty\) lên đỉnh đạt cực đại bằng 4, sau đó nghịch biến rơi xuống \(-\infty\).</p>
+                            </div>
+                        </details>
+
+                        <div class="p-4 bg-slate-100 rounded-xl border border-slate-200 space-y-3">
+                            <span class="text-xs font-bold text-slate-600 block uppercase"><i class="fa-solid fa-layer-group text-indigo-500"></i> Điều khiển mô phỏng dựng hình từng bước:</span>
+                            <button type="button" onclick="nextDrawingStep()" class="bg-indigo-600 text-white font-bold text-xs px-4 py-2 rounded-lg hover:bg-indigo-700 transition-colors shadow-xs cursor-pointer">
+                                <i class="fa-solid fa-forward-step mr-1"></i> Nhấp để vẽ bước tiếp theo (<span id="step-label">0</span>/4)
+                            </button>
+                        </div>
+                    </div>
+                    <div>
+                        <div id="box2" class="w-full h-64 jxgbox"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ================= PHẦN 3: MỨC ĐỘ VẬN DỤNG ================= -->
+        <section class="space-y-6">
+            <div class="flex items-center gap-3 border-b pb-3 border-slate-200">
+                <span class="bg-emerald-600 text-white text-xs font-black px-3 py-1 rounded-md uppercase tracking-wider">Cấp độ 3</span>
+                <h2 class="text-xl font-extrabold text-slate-900">PHẦN 3: MỨC ĐỘ VẬN DỤNG (XÁC ĐỊNH HÀM SỐ & GIẢI TOÁN THỰC TẾ)</h2>
+            </div>
+            <p class="text-xs font-bold text-emerald-800 bg-emerald-50 px-3 py-2 rounded-lg inline-block">
+                Mục tiêu: Tìm chính xác các hệ số \(a, b, c\) và ứng dụng mô hình hóa giải quyết các bài toán quỹ đạo bay thực tế.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm leading-relaxed text-slate-700">
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs space-y-2">
+                    <h3 class="font-bold text-slate-800 text-base flex items-center gap-2 text-emerald-700 mb-1"><i class="fa-solid fa-fingerprint"></i> 1. Kỹ thuật xác định công thức hàm số bậc hai</h3>
+                    <p>&bull; Đồ thị đi qua điểm \(M(x_0; y_0)\) thì tọa độ thỏa mãn: \(ax_0^2 + bx_0 + c = y_0\).</p>
+                    <p>&bull; Đồ thị có đỉnh cụ thể \(I(x_I; y_I)\) thì cung cấp hệ 2 điều kiện ràng buộc: Hoành độ trục tâm \(x_I = -\frac{b}{2a}\) và điểm \(I\) thuộc đồ thị.</p>
+                </div>
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs space-y-2">
+                    <h3 class="font-bold text-slate-800 text-base flex items-center gap-2 text-emerald-700 mb-1"><i class="fa-solid fa-basketball"></i> 2. Ứng dụng thực tế không gian</h3>
+                    <p>Rất nhiều hiện tượng vật lý như ném bóng, tia nước vòi phun, hay kiến trúc vòm cầu đều có dạng Parabol. Bằng cách chọn hệ trục tọa độ thích hợp, ta sẽ tìm được phương trình quỹ đạo parabol ném xiên để tính toán chiều cao.</p>
+                </div>
+            </div>
+
+            <!-- Ví dụ 3 & Mô hình 3 -->
+            <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border space-y-6">
+                <div>
+                    <span class="bg-emerald-100 text-emerald-800 text-xs font-bold px-2 py-0.5 rounded">Ví dụ minh họa 3 (Vận dụng)</span>
+                    <p class="text-sm font-semibold text-slate-800 mt-2 text-justify">Giả thiết rằng một quả bóng được đá lên từ mặt đất. Sau khoảng \(2\) giây, quả bóng lên đến vị trí cao nhất là \(8\) mét. Tính độ cao của quả bóng so với mặt đất sau khi đá lên được \(3\) giây.</p>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                    <div class="space-y-4 text-xs text-slate-700 leading-relaxed text-justify">
+                        <details class="group">
+                            <summary class="list-none flex items-center font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                                <i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform mr-1"></i> Xem hướng dẫn giải chi tiết
+                            </summary>
+                            <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-2">
+                                <p>&bull; Gọi hàm số biểu thị độ cao theo thời gian là: \(h(t) = at^2 + bt + c\) (\(a \neq 0\)).</p>
+                                <p>&bull; Bóng đá lên từ mặt đất tại thời điểm xuất phát \(t=0 \Rightarrow h(0)=0 \Rightarrow c = 0\).</p>
+                                <p>&bull; Sau \(2\)s đạt cao nhất là \(8\)m, suy ra đồ thị có đỉnh quỹ đạo là \(S(2; 8)\).</p>
+                                <p>&bull; Trục hoành độ đỉnh: \(-\frac{b}{2a} = 2 \Rightarrow b = -4a\).</p>
+                                <p>&bull; Tung độ đỉnh: \(h(2) = 4a + 2b = 8\). Thay \(b = -4a\) vào ta được: \(a = -2 \Rightarrow b = 8\).</p>
+                                <p>&bull; Công thức hàm số hoàn chỉnh: \(h(t) = -2t^2 + 8t\).</p>
+                                <p>&bull; Độ cao quả bóng sau \(3\) giây đạt: \(h(3) = -2(3)^2 + 8(3) = 6\) mét.</p>
+                            </div>
+                        </details>
+                        
+                        <div class="p-4 bg-emerald-50 rounded-xl border border-emerald-200 text-emerald-950">
+                            <span class="font-bold block mb-1 text-emerald-800"><i class="fa-solid fa-circle-exclamation"></i> Lời dặn của thầy Đinh Quốc Tuấn:</span>
+                            Phần vẽ đồ thị, các em học sinh hay quên tìm điểm đối xứng để có đủ \(5\) điểm vẽ cho đẹp. Đừng quên điều này nhé. Đặc biệt, thuộc lòng công thức tọa độ đỉnh \(-\frac{b}{2a}\) chính là "chìa khóa" để giải gần như mọi bài tập hàm số bậc hai!
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <button type="button" onclick="playBallAnimation()" class="bg-emerald-600 text-white font-bold px-4 py-2 rounded-lg hover:bg-emerald-700 transition-colors shadow-xs cursor-pointer">
+                                <i class="fa-solid fa-circle-play mr-1"></i> Bút sút thử bóng (Mô phỏng)
+                            </button>
+                            <span id="ball-timer" class="font-mono font-bold text-slate-500">Thời gian: 0.00 giây</span>
+                        </div>
+                    </div>
+                    <div>
+                        <div id="box3" class="w-full h-64 jxgbox"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ================= BÀI TẬP ĐÁNH GIÁ NĂNG LỰC TRẮC NGHIỆM ================= -->
+        <section class="border-t border-slate-200 pt-10 page-break">
+            <div class="bg-gradient-to-br from-slate-900 via-slate-800 to-indigo-950 text-white rounded-3xl p-6 sm:p-8 shadow-xl relative overflow-hidden card-border">
+                <div class="absolute -right-10 -bottom-10 opacity-5 pointer-events-none text-white">
+                    <i class="fa-solid fa-square-check text-[14rem]"></i>
+                </div>
+                
+                <div class="max-w-xl space-y-2">
+                    <span class="text-xs font-bold uppercase tracking-widest text-emerald-400 bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-500/20 inline-block">Đánh giá trực tuyến tại lớp</span>
+                    <h2 class="text-xl sm:text-2xl font-black tracking-tight">BÀI TẬP ĐÁNH GIÁ NĂNG LỰC TẠI LỚP</h2>
+                    <p class="text-slate-400 text-xs sm:text-sm">Học sinh hoàn thành chọn đáp án trực tuyến, kết quả điểm số sẽ được gửi tự động về Google Sheets của nhà trường.</p>
+                </div>
+
+                <form id="quizForm" class="mt-8 space-y-6 text-slate-900">
+                    <!-- Khối thông tin học sinh -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div class="bg-white p-4 rounded-xl shadow-inner border border-slate-100">
+                            <label class="block text-xs font-bold text-slate-400 uppercase tracking-wide mb-1"><i class="fa-solid fa-user mr-1 text-indigo-500"></i> Họ và tên học sinh</label>
+                            <input type="text" id="studentName" required placeholder="Nhập họ tên đầy đủ..." class="w-full bg-white border-b-2 border-slate-200 focus:border-indigo-500 outline-none py-1 text-sm font-bold text-slate-900 transition-colors">
+                        </div>
+                        <div class="bg-white p-4 rounded-xl shadow-inner border border-slate-100">
+                            <label class="block text-xs font-bold text-slate-400 uppercase tracking-wide mb-1"><i class="fa-solid fa-file-code mr-1 text-indigo-500"></i> Mã chuyên đề bài học</label>
+                            <input type="text" id="examId" readonly value="Buoi08_HamSoBacHai_Toan10" class="w-full bg-slate-50 border-b-2 border-slate-200 outline-none py-1 text-sm font-bold text-slate-500 cursor-not-allowed">
+                        </div>
+                    </div>
+
+                    <!-- Khối các câu hỏi trắc nghiệm -->
+                    <div class="space-y-5 mt-6">
+                        <!-- Câu 1 -->
+                        <div class="bg-white p-5 rounded-2xl shadow-sm space-y-3">
+                            <p class="text-sm font-bold text-slate-900"><span class="text-indigo-600">Câu 1:</span> Đồ thị hàm số bậc hai tổng quát \(y = ax^2 + bx + c\) (\(a \neq 0\)) có phương trình trục đối xứng là:</p>
+                            <div class="grid grid-cols-1 gap-2 text-xs font-semibold text-slate-700">
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q1" value="A" required class="text-indigo-600 h-4 w-4"> <span>A. \(x = -\frac{b}{a}\)</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q1" value="B" class="text-indigo-600 h-4 w-4"> <span>B. \(x = -\frac{b}{2a}\)</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q1" value="C" class="text-indigo-600 h-4 w-4"> <span>C. \(y = -\frac{\Delta}{4a}\)</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Câu 2 -->
+                        <div class="bg-white p-5 rounded-2xl shadow-sm space-y-3">
+                            <p class="text-sm font-bold text-slate-900"><span class="text-indigo-600">Câu 2:</span> Điểm đỉnh \(S\) của Parabol cho ở Ví dụ 1 (\(y = x^2 - 4x + 3\)) có tọa độ chính xác là:</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs font-semibold text-slate-700">
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q2" value="A" required class="text-indigo-600 h-4 w-4"> <span>A. \(S(2; 1)\)</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q2" value="B" class="text-indigo-600 h-4 w-4"> <span>B. \(S(2; -1)\)</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q2" value="C" class="text-indigo-600 h-4 w-4"> <span>C. \(S(-2; -1)\)</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Câu 3 -->
+                        <div class="bg-white p-5 rounded-2xl shadow-sm space-y-3">
+                            <p class="text-sm font-bold text-slate-900"><span class="text-indigo-600">Câu 3:</span> Xét hàm số bậc hai có hệ số \(a < 0\), khẳng định nào sau đây diễn tả đúng sự biến thiên?</p>
+                            <div class="grid grid-cols-1 gap-2 text-xs font-semibold text-slate-700">
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q3" value="A" required class="text-indigo-600 h-4 w-4"> <span>A. Hàm số đồng biến trên khoảng \(\left(-\infty; -\frac{b}{2a}\right)\) và nghịch biến trên \(\left(-\frac{b}{2a}; +\infty\right)\)</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q3" value="B" class="text-indigo-600 h-4 w-4"> <span>B. Hàm số nghịch biến trên khoảng \(\left(-\infty; -\frac{b}{2a}\right)\) và đồng biến trên \(\left(-\frac{b}{2a}; +\infty\right)\)</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q3" value="C" class="text-indigo-600 h-4 w-4"> <span>C. Hàm số đồng biến trên toàn bộ khoảng số thực R</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Câu 4 -->
+                        <div class="bg-white p-5 rounded-2xl shadow-sm space-y-3">
+                            <p class="text-sm font-bold text-slate-900"><span class="text-indigo-600">Câu 4:</span> Giao điểm của đường cong Parabol \(y = -x^2 + 2x + 3\) (Ví dụ 2) với trục hoành \(Ox\) gồm bộ hai điểm là:</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs font-semibold text-slate-700">
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q4" value="A" required class="text-indigo-600 h-4 w-4"> <span>A. \((0; 3)\) và \((2; 3)\)</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q4" value="B" class="text-indigo-600 h-4 w-4"> <span>B. \((-1; 0)\) và \((3; 0)\)</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q4" value="C" class="text-indigo-600 h-4 w-4"> <span>C. \((1; 4)\) và \((0; 0)\)</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Câu 5 -->
+                        <div class="bg-white p-5 rounded-2xl shadow-sm space-y-3">
+                            <p class="text-sm font-bold text-slate-900"><span class="text-indigo-600">Câu 5:</span> Dựa vào hàm số quỹ đạo ném bóng ở Ví dụ 3, độ cao của quả bóng thu được tại giây thứ 3 sau khi sút là:</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs font-semibold text-slate-700">
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q5" value="A" required class="text-indigo-600 h-4 w-4"> <span>A. 4 mét</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q5" value="B" class="text-indigo-600 h-4 w-4"> <span>B. 6 mét</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q5" value="C" class="text-indigo-600 h-4 w-4"> <span>C. 8 mét</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Khu vực nút nộp bài toán -->
+                    <div class="pt-2 flex flex-col sm:flex-row items-center justify-between gap-4">
+                        <button type="submit" id="submitBtn" class="w-full sm:w-auto bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-sm px-8 py-3.5 rounded-xl shadow-lg transition-all flex items-center justify-center space-x-2 cursor-pointer">
+                            <i class="fa-solid fa-cloud-arrow-up"></i> <span>Nộp Bài Chấm Điểm</span>
+                        </button>
+                        <div id="statusReport" class="text-xs font-bold text-slate-400"></div>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer bản quyền -->
+    <footer class="bg-slate-900 text-slate-400 py-8 text-center text-xs font-medium px-4 mt-auto">
+        <p class="font-bold text-slate-300">@ Bản quyền thuộc ThS. Đinh Quốc Tuấn - Mục đích phi lợi nhuận - Vì giáo dục.</p>
+        <p class="text-slate-500 mt-2">Hệ thống số hóa hỗ trợ phát triển kỹ năng toán giải tích phổ thông trực quan.</p>
+    </footer>
+
+    <!-- NÚT IN TÀI LIỆU CỐ ĐỊNH -->
+    <button id="btn-print-doc" onclick="safePrint()" class="fixed bottom-5 right-5 bg-gray-900 text-white px-4 py-2 rounded-lg shadow-lg hover:bg-gray-700 print:hidden z-50 cursor-pointer">
+        <i class="fas fa-print mr-2"></i> In Tài Liệu
+    </button>
+
+    <script>
+        function safePrint() {
+            const printBtn = document.getElementById('btn-print-doc');
+            printBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Đang chuẩn bị...';
+            
+            // Đảm bảo MathJax đã render xong mọi công thức trước khi gọi hộp thoại in
+            if (window.MathJax && window.MathJax.typesetPromise) {
+                MathJax.typesetPromise().then(() => {
+                    printBtn.innerHTML = '<i class="fas fa-print mr-2"></i> In Tài Liệu';
+                    window.print();
+                });
+            } else {
+                // Fallback nếu không có công thức toán
+                setTimeout(() => {
+                    printBtn.innerHTML = '<i class="fas fa-print mr-2"></i> In Tài Liệu';
+                    window.print();
+                }, 500); 
+            }
+        }
+    </script>
+
+    <!-- HỆ THỐNG KỊCH BẢN ĐIỀU KHIỂN HÌNH HỌC ĐỘNG JSXGRAPH -->
+    <script>
+        const timeInit = new Date();
+        let board2, currentDrawingStep = 0, elementsBox2 = {};
+        let board3, ballPoint, animationInterval, animationTime = 0;
+
+        document.addEventListener("DOMContentLoaded", function() {
+            
+            // --- MÔ HÌNH 1: ĐỘNG LỰC BIẾN ĐỔI HỆ SỐ PARABOL ---
+            const b1 = JXG.JSXGraph.initBoard('box1', {
+                boundingbox: [-4, 6, 6, -4], axis: true, showNavigation: false, showCopyright: false
+            });
+
+            // Tạo các thanh trượt hệ số a, b, c độc lập
+            let slA = b1.create('slider', [[-3.5, 5.2], [1.0, 5.2], [-2, 1, 3]], {name: 'a', snapWidth: 0.1, color: '#3b82f6'});
+            let slB = b1.create('slider', [[-3.5, 4.4], [1.0, 4.4], [-6, -4, 4]], {name: 'b', snapWidth: 0.2, color: '#ef4444'});
+            let slC = b1.create('slider', [[-3.5, 3.6], [1.0, 3.6], [-3, 3, 5]], {name: 'c', snapWidth: 0.2, color: '#10b981'});
+
+            // Vẽ đồ thị gốc nét đứt y = x^2 làm chuẩn so sánh
+            b1.create('functiongraph', [function(x) { return x * x; }], {strokeColor: '#cbd5e1', strokeWidth: 1.5, dash: 2});
+
+            // Vẽ đồ thị động nét liền cập nhật theo slider
+            b1.create('functiongraph', [function(x) {
+                let a = slA.Value();
+                let b = slB.Value();
+                let c = slC.Value();
+                return a * x * x + b * x + c;
+            }], {strokeColor: '#2563eb', strokeWidth: 3});
+
+            // Khai báo điểm đỉnh dạng mảng tọa độ [f(x), f(y)] riêng biệt chống lỗi unpack
+            let vertexS = b1.create('point', [
+                function() {
+                    let a = slA.Value();
+                    let b = slB.Value();
+                    return a !== 0 ? -b / (2 * a) : 0;
+                },
+                function() {
+                    let a = slA.Value();
+                    let b = slB.Value();
+                    let c = slC.Value();
+                    let xs = a !== 0 ? -b / (2 * a) : 0;
+                    return a * xs * xs + b * xs + c;
+                }
+            ], {name: 'S', color: '#dc2626', size: 3});
+
+            // Trục đối xứng nét đứt bám theo hoành độ của đỉnh S
+            b1.create('line', [
+                vertexS,
+                [function() { return vertexS.X(); }, function() { return vertexS.Y() + 1; }]
+            ], {dash: 1, strokeColor: '#ef4444', strokeWidth: 1.5});
+
+
+            // --- MÔ HÌNH 2: KHỞI TẠO NỀN CHO QUY TRÌNH 4 BƯỚC DỰNG PARABOL ---
+            board2 = JXG.JSXGraph.initBoard('box2', {
+                boundingbox: [-2.5, 5.5, 4.5, -2], axis: true, showNavigation: false, showCopyright: false
+            });
+
+
+            // --- MÔ HÌNH 3: PHÂN TÍCH QUỸ ĐẠO BÓNG NÉM XÊN ---
+            board3 = JXG.JSXGraph.initBoard('box3', {
+                boundingbox: [-0.5, 9.5, 4.5, -1.5], axis: true, showNavigation: false, showCopyright: false
+            });
+
+            // Quỹ đạo chuyển động lý thuyết h(t) = -2t^2 + 8t
+            board3.create('functiongraph', [function(t) {
+                return (t >= 0 && t <= 4) ? -2 * t * t + 8 * t : NaN;
+            }, 0, 4], {strokeColor: '#10b981', strokeWidth: 2, dash: 2});
+
+            // Đánh dấu điểm đỉnh lồi cao nhất quỹ đạo thực nghiệm
+            board3.create('point', [2, 8], {name: 'Max: 8m (2s)', color: '#dc2626', size: 3, fixed: true});
+
+            // Khởi tạo điểm bóng động chạy dọc theo phương trình thời gian
+            ballPoint = board3.create('point', [
+                function() { return animationTime; },
+                function() { return -2 * animationTime * animationTime + 8 * animationTime; }
+            ], {name: '⚽', color: '#4f46e5', size: 5});
+        });
+
+        // HÀM TIẾN TRÌNH VẼ TỪNG BƯỚC MÔ HÌNH 2
+        function nextDrawingStep() {
+            currentDrawingStep++;
+            if (currentDrawingStep > 4) {
+                // Khởi động chu trình dọn dẹp reset
+                currentDrawingStep = 0;
+                document.getElementById('step-label').innerText = "0";
+                for (let key in elementsBox2) {
+                    if (elementsBox2[key]) board2.removeObject(elementsBox2[key]);
+                }
+                elementsBox2 = {};
+                return;
+            }
+
+            document.getElementById('step-label').innerText = currentDrawingStep;
+
+            if (currentDrawingStep === 1) {
+                // Bước 1: Dựng điểm đỉnh S(1;4)
+                elementsBox2.S = board2.create('point', [1, 4], {name: 'S(1;4)', color: '#dc2626', size: 4});
+            } 
+            else if (currentDrawingStep === 2) {
+                // Bước 2: Kẻ trục đối xứng thẳng đứng nét đứt x = 1
+                let ptTop = board2.create('point', [1, 5], {visible: false});
+                elementsBox2.axis = board2.create('line', [elementsBox2.S, ptTop], {dash: 2, strokeColor: '#64748b', strokeWidth: 1.5});
+            } 
+            else if (currentDrawingStep === 3) {
+                // Bước 3: Định vị các giao điểm trục Oxy đặc trưng
+                elementsBox2.pOy = board2.create('point', [0, 3], {name: '(0;3)', color: '#2563eb', size: 3});
+                elementsBox2.pSym = board2.create('point', [2, 3], {name: '(2;3)', color: '#2563eb', size: 3});
+                elementsBox2.pOx1 = board2.create('point', [-1, 0], {name: '(-1;0)', color: '#059669', size: 3});
+                elementsBox2.pOx2 = board2.create('point', [3, 0], {name: '(3;0)', color: '#059669', size: 3});
+            } 
+            else if (currentDrawingStep === 4) {
+                // Bước 4: Khai triển quét đường cong đồ thị mượt mà
+                elementsBox2.graph = board2.create('functiongraph', [function(x) {
+                    return -x * x + 2 * x + 3;
+                }, -2.5, 4.5], {strokeColor: '#2563eb', strokeWidth: 3});
+            }
+        }
+
+        // HÀM CHẠY HOẠT ẢNH QUẢ BÓNG MÔ HÌNH 3
+        function playBallAnimation() {
+            clearInterval(animationInterval);
+            animationTime = 0;
+            let totalSteps = 50;
+            let counter = 0;
+            let deltaT = 4 / totalSteps; // Tổng thời gian bay chạm đất là 4 giây
+
+            animationInterval = setInterval(() => {
+                counter++;
+                animationTime += deltaT;
+                
+                document.getElementById('ball-timer').innerText = `Thời gian: ${animationTime.toFixed(2)} giây`;
+                board3.update();
+
+                if (counter >= totalSteps) {
+                    clearInterval(animationInterval);
+                    animationTime = 4; // Ép mốc cố định cuối cùng
+                    board3.update();
+                }
+            }, 45);
+        }
+
+        // --- XỬ LÝ LƯU TRỮ VÀ GỬI DỮ LIỆU ĐỒNG BỘ POST LÊN GOOGLE SHEETS VIA APPS SCRIPT ---
+        document.getElementById('quizForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const submitBtn = document.getElementById('submitBtn');
+            const statusReport = document.getElementById('statusReport');
+            
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i> Hệ thống đang truyền tải gói tin...';
+            statusReport.innerHTML = "Đang xử lý kết nối đồng bộ cơ sở dữ liệu học thuật...";
+
+            const correctKey = { q1: "B", q2: "B", q3: "A", q4: "B", q5: "B" };
+            const studentName = document.getElementById('studentName').value.trim();
+            const lessonId = document.getElementById('examId').value.trim();
+            
+            let correctCounter = 0;
+            let totalQuizCount = Object.keys(correctKey).length;
+            let missedReportArray = [];
+
+            for (let questionCode in correctKey) {
+                const selectedRadio = document.querySelector(`input[name="${questionCode}"]:checked`);
+                if (selectedRadio && selectedRadio.value === correctKey[questionCode]) {
+                    correctCounter++;
+                } else {
+                    let chosenChar = selectedRadio ? selectedRadio.value : "Bỏ trống";
+                    missedReportArray.push(`${questionCode.toUpperCase()}(Chọn: ${chosenChar}|Đúng: ${correctKey[questionCode]})`);
+                }
+            }
+
+            const finalScore = ((correctCounter / totalQuizCount) * 10).toFixed(2);
+            const timeComplete = new Date();
+            const elapsedDurationSeconds = Math.floor((timeComplete - timeInit) / 1000);
+            const thoiGian = `${Math.floor(elapsedDurationSeconds / 60)} phút ${elapsedDurationSeconds % 60} giây`;
+            const cauSai = missedReportArray.length > 0 ? missedReportArray.join(", ") : "Không có (Đạt điểm tuyệt đối)";
+
+            const transmissionPayload = {
+                hoTen: studentName,
+                maDe: lessonId,
+                diem: parseFloat(finalScore),
+                thoiGian: thoiGian,
+                cauSai: cauSai
+            };
+
+            const webAppsScriptEndpoint = "https://script.google.com/macros/s/AKfycbzY7b7h4OwvhXuK5Vs6hl-aD88BPnAiAKbU5lfJobby0D4nzbIJVKT4n0AKCpAGoK0nZA/exec";
+
+            fetch(webAppsScriptEndpoint, {
+                method: "POST",
+                mode: "no-cors",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(transmissionPayload)
+            })
+            .then(() => {
+                statusReport.className = "text-xs font-bold text-emerald-500 bg-emerald-50 px-3 py-2 rounded-xl border border-emerald-200 inline-block";
+                statusReport.innerHTML = `<i class="fa-solid fa-circle-check"></i> Đã đồng bộ thành công kết quả thi: ${finalScore}/10 lên hệ thống Google Sheets!`;
+                alert(`Hệ thống thông báo nộp kết quả thành công!\nChào em ${studentName}, điểm số chuyên đề đạt được là: ${finalScore} / 10.`);
+                submitBtn.innerHTML = '<i class="fa-solid fa-lock"></i> Kết quả đã khóa bảo mật';
+            })
+            .catch(error => {
+                console.error("Giao dịch truyền tin thất bại:", error);
+                statusReport.className = "text-xs font-bold text-rose-500 bg-rose-50 px-3 py-2 rounded-xl border border-rose-200 inline-block";
+                statusReport.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> Lỗi kết nối mạng nội bộ, vui lòng bấm nộp lại bài!';
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Thử nộp lại bài';
+            });
+        });
+    </script>
+</body>
+</html>
