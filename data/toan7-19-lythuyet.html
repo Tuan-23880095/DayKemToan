@@ -92,7 +92,7 @@
                 <!-- Model 2 Workspace -->
                 <div class="flex flex-col bg-white p-4 rounded-xl shadow-sm border border-slate-200">
                     <span class="font-bold text-sm text-indigo-600 mb-1"><i class="fas fa-spinner mr-1"></i> Mô hình 2: Vòng quay may mắn (Mô phỏng đếm số kết quả)</span>
-                    <p class="text-xs text-slate-500 mb-3">Bấm nút "Quay ngẫu nhiên" để xoay vòng tròn gồm 8 ô màu (3 Xanh, 4 Đỏ, 1 Vàng). Mũi tên cố định ở đỉnh trên sẽ chỉ ra kết quả thực tế.</p>
+                    <p class="text-xs text-slate-500 mb-3">Bấm nút "Quay ngẫu nhiên" để xoay vòng tròn gồm 8 ô màu (3 Xanh, 4 Đỏ, 1 Vàng).</p>
                     <div id="box2" class="w-full h-64 jxgbox"></div>
                     <div class="mt-3 text-center">
                         <button type="button" id="spinBtn" onclick="spinWheel()" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs px-4 py-2 rounded shadow transition-colors cursor-pointer">
@@ -171,7 +171,7 @@
                         <p class="pl-3">Để đánh giá định lượng khả năng xảy ra của một biến cố, ta dùng một con số có giá trị nằm trong đoạn từ \(0\) đến \(1\), gọi là <strong>xác suất của biến cố</strong>.</p>
                         <ul class="list-disc list-inside pl-6 space-y-1 text-xs text-slate-600">
                             <li>Biến cố không thể có xác suất bằng \(0\).</li>
-                            <li>Biến cố chắc chắn có xác suất bằng \(1\) (tương đương \(100\%\)).</li>
+                            <li>Biến cố chắc chắn có xác suất bằng \(1\).</li>
                         </ul>
                     </div>
 
@@ -195,7 +195,7 @@
                                     </summary>
                                     <div class="mt-2 p-3 bg-slate-50 rounded border-l-2 border-indigo-500 text-xs text-slate-700">
                                         Tập hợp các kết quả có thể xảy ra là \(\{\text{Mặt sấp}; \text{Mặt ngửa}\}\) (có tất cả \(2\) kết quả). Chỉ có \(1\) kết quả thuận lợi là Mặt sấp. <br>
-                                        Do đó, xác suất của biến cố là: \(P = \frac{1}{2} = 0,5\) (hoặc \(50\%\)).
+                                        Do đó, xác suất của biến cố là: \(P = \frac{1}{2} = 0,5\).
                                     </div>
                                 </details>
                             </div>
@@ -325,7 +325,7 @@
                     <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-2xs">
                         <p class="text-sm font-semibold text-slate-900 mb-2.5">Câu 4: Một hộp chứa 10 chiếc thẻ cùng loại được đánh số từ 1 đến 10. Rút ngẫu nhiên một thẻ. Xác suất để rút được thẻ ghi số nguyên tố là:</p>
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-slate-700">
-                            <label class="flex items-center gap-2 p-2 rounded border border-slate-100 hover:bg-slate-50 cursor-pointer"><input type="radio" name="q4" value="A" required> A. \(\frac{2}{5}\) (gồm bộ số 2, 3, 5, 7)</label>
+                            <label class="flex items-center gap-2 p-2 rounded border border-slate-100 hover:bg-slate-50 cursor-pointer"><input type="radio" name="q4" value="A" required> A. \(\frac{2}{5}\)</label>
                             <label class="flex items-center gap-2 p-2 rounded border border-slate-100 hover:bg-slate-50 cursor-pointer"><input type="radio" name="q4" value="B"> B. \(\frac{1}{2}\)</label>
                             <label class="flex items-center gap-2 p-2 rounded border border-slate-100 hover:bg-slate-50 cursor-pointer"><input type="radio" name="q4" value="C"> C. \(\frac{3}{10}\)</label>
                             <label class="flex items-center gap-2 p-2 rounded border border-slate-100 hover:bg-slate-50 cursor-pointer"><input type="radio" name="q4" value="D"> D. \(\frac{1}{5}\)</label>
@@ -405,16 +405,17 @@
                 showNavigation: false
             });
 
-            // Vẽ đoạn thẳng nền biểu diễn trục số từ 0 đến 4 (tương ứng giá trị xác suất từ 0 đến 1)
+            // Vẽ đoạn thẳng nền biểu diễn trục số từ 0 đến 4
             let pStart = board.create('point', [0, 0], {name: '0 (Không thể)', fixed: true, size: 3, color: '#ef4444'});
             let pEnd = board.create('point', [4, 0], {name: '1 (Chắc chắn)', fixed: true, size: 3, color: '#10b981'});
-            board.create('segment', [pStart, pEnd], {strokeColor: '#475569', strokeWidth: 3});
+            // SỬA TẠI ĐÂY: Gán trực tiếp đoạn thẳng này vào một biến rõ ràng tên là trackSegment
+            let trackSegment = board.create('segment', [pStart, pEnd], {strokeColor: '#475569', strokeWidth: 3});
 
             // Tạo điểm trung vị 0.5 để đánh dấu cột mốc
             board.create('point', [2, 0], {name: '0.5', fixed: true, size: 2, color: '#f59e0b'});
 
-            // Tạo glider P di chuyển linh hoạt trên đoạn thẳng [source: 3]
-            let P = board.create('glider', [1.2, 0, board.select(function(el){return el.type === 'segment';})], {
+            // SỬA TẠI ĐÂY: Truyền trực tiếp biến `trackSegment` thay vì dùng hàm board.select quét mảng phức tạp [source: 3]
+            let P = board.create('glider', [1.2, 0, trackSegment], {
                 name: 'P (Xác suất)', 
                 color: '#4f46e5', 
                 size: 5
@@ -484,8 +485,6 @@
             // Bảng dữ liệu đếm kết quả thống kê tích hợp trực tiếp cạnh vòng quay [source: 3]
             boardWheel.create('text', [2.3, 1.5, function() {
                 // Xác định cung mặt quạt nào đang nằm ở vị trí kim chỉ (90 độ)
-                // Cung i nằm ở khoảng [i*45, (i+1)*45]. Kim ở vị trí cố định 90 độ.
-                // Góc quay hiệu dụng thực tế: (90 - currentRotationAngle) mod 360
                 let targetedAngle = (90 - currentRotationAngle) % 360;
                 if (targetedAngle < 0) targetedAngle += 360;
                 
@@ -523,7 +522,7 @@
             }, 30);
         }
 
-        // 3. Xử lý biểu mẫu trắc nghiệm tính điểm và đẩy truyền tải dữ liệu POST bất đồng bộ về server Apps Script [source: 2]
+        // 3. Xử lý biểu mẫu trắc nghiệm tính điểm và đẩy truyền tải dữ liệu POST [source: 2]
         document.getElementById('quizForm').addEventListener('submit', function(e) {
             e.preventDefault();
 
@@ -533,13 +532,11 @@
             submitBtn.disabled = true;
             submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Hệ thống đang truyền dữ liệu bài làm...';
 
-            // Khởi tạo bảng khóa đáp án đúng chuẩn học thuật đại số lớp 7
             const correctAnswers = { q1: 'C', q2: 'B', q3: 'B', q4: 'A', q5: 'C' };
             let rawScore = 0;
             let totalQ = 5;
             let detailedWrongs = [];
 
-            // Chạy chu kỳ vòng lặp kiểm tra so khớp đáp án bài thi [source: 2]
             for(let i = 1; i <= totalQ; i++) {
                 let key = 'q' + i;
                 let checkedOption = document.querySelector(`input[name="${key}"]:checked`);
@@ -555,13 +552,11 @@
                 }
             }
 
-            // Hoàn thiện quy đổi thang điểm và tính toán thông số thời gian chạy [source: 2]
             let finalScore = Math.round(rawScore * 10) / 10;
             const endTime = new Date();
             const elapsedSec = Math.round((endTime - startTime) / 1000);
             const formattedDuration = `${Math.floor(elapsedSec / 60)} phút ${elapsedSec % 60} giây`;
 
-            // Cấu trúc gói Payload thích ứng tương thích hoàn toàn file cấu hình code gs Apps Script [source: 2]
             const payloadData = {
                 hoTen: document.getElementById('studentName').value,
                 maDe: document.getElementById('examId').value,
@@ -572,7 +567,6 @@
 
             const targetScriptUrl = "https://script.google.com/macros/s/AKfycbzY7b7h4OwvhXuK5Vs6hl-aD88BPnAiAKbU5lfJobby0D4nzbIJVKT4n0AKCpAGoK0nZA/exec";
 
-            // Thực thi gửi Fetch POST bất đồng bộ (giao thức mode no-cors kết nối Google Web App mặc định) [source: 2]
             fetch(targetScriptUrl, {
                 method: 'POST',
                 mode: 'no-cors',
@@ -580,7 +574,6 @@
                 body: JSON.stringify(payloadData)
             })
             .then(() => {
-                // UI cập nhật thông báo nộp bài thành công rực rỡ lên màn hình học sinh
                 resultDiv.className = "mt-6 p-4 rounded-xl text-xs text-center font-bold bg-emerald-100 text-emerald-800 border border-emerald-200";
                 resultDiv.innerHTML = `<i class="fas fa-circle-check mr-1.5"></i> Kết quả ghi nhận thành công! Điểm số bài làm: ${finalScore}/10 điểm. Tổng thời gian hoàn thành: ${formattedDuration}. Số liệu học tập đã được đồng bộ hóa đồng thời lên Google Sheets.`;
                 resultDiv.classList.remove('hidden');
@@ -588,7 +581,6 @@
             })
             .catch(err => {
                 console.error('Data Send Error Grid:', err);
-                // Cứu hộ hiển thị điểm số tại chỗ cho học sinh nếu đường truyền mạng nội bộ gián đoạn
                 resultDiv.className = "mt-6 p-4 rounded-xl text-xs text-center font-bold bg-amber-100 text-amber-800 border border-amber-200";
                 resultDiv.innerHTML = `<i class="fas fa-triangle-exclamation mr-1.5"></i> Đường truyền máy chủ gián đoạn, kết quả tại chỗ: ${finalScore}/10 điểm. (Thời gian thực hiện: ${formattedDuration}).`;
                 resultDiv.classList.remove('hidden');
