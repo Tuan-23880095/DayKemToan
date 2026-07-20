@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buổi 13: Hình hộp chữ nhật và Hình lập phương — Toán 7</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    
+    <!-- FontAwesome Icons CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- MathJax Configuration and Script CDN -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['\\(', '\\)']],
+                displayMath: [['\\[', '\\]']]
+            },
+            svg: {
+                fontCache: 'global'
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <!-- JSXGraph CDN Dependencies -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraph.css" />
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraphcore.js"></script>
+
+    <style>
+        @media print {
+            .no-print { display: none !important; }
+            body { background: white !important; color: black !important; }
+            .jxgbox { border: 1px solid #000 !important; }
+        }
+        .jxgbox {
+            background-color: #ffffff;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 font-sans antialiased selection:bg-indigo-600 selection:text-white">
+
+    <!-- Header & Brand Logos Section -->
+    <header class="bg-white border-b border-slate-200 py-4 px-6 sticky top-0 z-40 shadow-xs no-print">
+        <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="flex items-center gap-6">
+                <!-- Logo 1: TTBDVH -->
+                <img src="https://firebasestorage.googleapis.com/v0/b/link-anh-web.firebasestorage.app/o/ttbdvh.jpg?alt=media&token=f270aa9b-a2bc-48e8-8910-80742b542615" 
+                     alt="Logo TTBDVH" class="h-14 w-14 object-cover rounded-full border border-slate-200 shadow-xs">
+                <!-- Logo 2: HCMUS -->
+                <img src="https://hcmus.edu.vn/wp-content/uploads/2023/04/Logo-chinh-e1681638380305.png" 
+                     alt="Logo HCMUS" class="h-12 object-contain">
+            </div>
+            <div class="text-center sm:text-right">
+                <span class="text-xs font-bold uppercase tracking-wider text-indigo-600 block mb-0.5">Hệ thống bài giảng số chất lượng cao</span>
+                <h1 class="text-lg font-extrabold text-slate-800">Toán học 7 &bull; Hình học trực quan không gian</h1>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container Content -->
+    <main class="max-w-4xl mx-auto px-4 sm:px-6 py-8 bg-white my-6 shadow-xs rounded-2xl border border-slate-100 print:shadow-none print:border-none print:my-0">
+        
+        <!-- Document Header Title -->
+        <div class="border-b-2 border-slate-900 pb-5 mb-8">
+            <h2 class="text-2xl sm:text-3xl font-black text-slate-900 flex items-center gap-3">
+                <i class="fas fa-cubes text-indigo-600"></i>
+                Buổi 13: Hình hộp chữ nhật và Hình lập phương
+            </h2>
+            <p class="text-slate-500 mt-2 text-sm">Nội dung lý thuyết chi tiết kết hợp mô hình tương tác 3D bám sát khung chương trình Giáo dục phổ thông mới.</p>
+        </div>
+
+        <!-- Section: Interactive JSXGraph Models (Teacher & Student Workspace) -->
+        <section class="mb-12 no-print bg-slate-50 p-6 rounded-2xl border border-slate-200 space-y-8">
+            <div class="flex items-center gap-2 pb-2 border-b border-slate-200">
+                <i class="fas fa-laptop-code text-emerald-500 text-xl"></i>
+                <h3 class="text-base font-bold text-slate-800 uppercase tracking-wide">💡 GỢI Ý MÔ HÌNH TRỰC QUAN (ỨNG DỤNG JSXGRAPH)</h3>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Model 1 Workspace -->
+                <div class="flex flex-col bg-white p-4 rounded-xl shadow-xs border border-slate-200">
+                    <span class="font-bold text-sm text-indigo-600 mb-1"><i class="fas fa-scissors mr-1"></i> Mô hình 1: Đóng/Mở hình khai triển (Net Development)</span>
+                    <p class="text-xs text-slate-500 mb-3">Kéo thanh trượt để thay đổi trạng thái từ khối hộp lập phương kín (3D) mở bung ra mặt phẳng dẹt (2D) chứa đủ 6 mặt vuông cấu thành.</p>
+                    <div id="box1" class="w-full h-64 jxgbox"></div>
+                </div>
+
+                <!-- Model 2 Workspace -->
+                <div class="flex flex-col bg-white p-4 rounded-xl shadow-xs border border-slate-200">
+                    <span class="font-bold text-sm text-indigo-600 mb-1"><i class="fas fa-water mr-1"></i> Mô hình 2: Đổ nước vào bể (Minh họa Thể tích)</span>
+                    <p class="text-xs text-slate-500 mb-3">Điều chỉnh thanh trượt chiều cao để bơm đầy nước vào lòng khối hộp, giúp trực quan hóa mối tương quan tỉ lệ thuận của thể tích chứa.</p>
+                    <div id="box2" class="w-full h-64 jxgbox"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section: Theoretical Content Part divided into 3 levels -->
+        <section class="space-y-12">
+            
+            <!-- LEVEL 1 CONTENT -->
+            <div class="bg-slate-50/60 p-6 rounded-xl border-l-4 border-sky-500 shadow-2xs">
+                <h3 class="text-lg font-bold text-sky-900 flex items-center gap-2 mb-3">
+                    <span class="bg-sky-500 text-white text-xs px-2 py-0.5 rounded font-mono">CẤP ĐỘ 1</span>
+                    CƠ BẢN: Nhận biết các yếu tố và Áp dụng công thức trực tiếp
+                </h3>
+                <p class="text-xs text-slate-500 mb-4 italic font-medium"><i class="fas fa-bullseye mr-1"></i> Mục tiêu: Học sinh gọi tên đúng các yếu tố của hình và tính được diện tích xung quanh, thể tích dựa trên số đo cho sẵn.</p>
+
+                <div class="space-y-4 text-sm text-justify leading-relaxed text-slate-700">
+                    <div>
+                        <h4 class="font-bold text-slate-800 flex items-center gap-1.5 mb-1"><i class="fas fa-bookmark text-xs text-sky-500"></i> 1. Đặc điểm cấu tạo không gian</h4>
+                        <ul class="list-disc list-inside pl-3 space-y-1">
+                            <li><strong>Hình hộp chữ nhật:</strong> Có \(6\) mặt đều là hình chữ nhật, \(12\) cạnh, \(8\) đỉnh và \(4\) đường chéo xuyên tâm.</li>
+                            <li><strong>Hình lập phương:</strong> Có \(6\) mặt đều là hình vuông bằng nhau, \(12\) cạnh có độ dài bằng nhau, \(8\) đỉnh và \(4\) đường chéo. (Hình lập phương là trường hợp đặc biệt của hình hộp chữ nhật khi có cả 3 kích thước bằng nhau).</li>
+                        </ul>
+                    </div>
+
+                    <div class="mt-4">
+                        <h4 class="font-bold text-slate-800 flex items-center gap-1.5 mb-1"><i class="fas fa-square-root-variable text-xs text-sky-500"></i> 2. Hệ thống công thức Diện tích xung quanh và Thể tích</h4>
+                        <p class="mb-2"><strong>Với hình hộp chữ nhật</strong> (kích thước đáy là \(a\), \(b\) và chiều cao tương ứng \(h\) cùng đơn vị đo):</p>
+                        <ul class="list-disc list-inside pl-6 space-y-1">
+                            <li>Diện tích xung quanh (\(S_{xq}\)): Là tổng diện tích 4 mặt bên bao quanh. <br><span class="text-indigo-600 font-bold font-serif text-center block my-1">\(S_{xq} = 2(a + b) \cdot h\)</span> (bằng chu vi đáy nhân với chiều cao).</li>
+                            <li>Thể tích không gian chiếm chỗ (\(V\)): <br><span class="text-indigo-600 font-bold font-serif text-center block my-1">\(V = a \cdot b \cdot h\)</span> (bằng diện tích mặt đáy nhân với chiều cao).</li>
+                        </ul>
+                        <p class="mt-3 mb-2"><strong>Với hình lập phương</strong> (độ dài của một cạnh là \(a\)):</p>
+                        <ul class="list-disc list-inside pl-6 space-y-1">
+                            <li>Diện tích xung quanh (\(S_{xq}\)): <br><span class="text-indigo-600 font-bold font-serif text-center block my-1">\(S_{xq} = 4 \cdot a^2\)</span></li>
+                            <li>Thể tích không gian chiếm chỗ (\(V\)): <br><span class="text-indigo-600 font-bold font-serif text-center block my-1">\(V = a^3\)</span></li>
+                        </ul>
+                    </div>
+
+                    <!-- Example Box 1 -->
+                    <div class="bg-white p-5 rounded-lg border border-slate-200 mt-4 shadow-3xs">
+                        <span class="inline-block bg-sky-100 text-sky-800 text-xs px-2 py-0.5 rounded font-bold mb-2">Ví dụ minh họa (Cấp độ 1)</span>
+                        <p class="font-semibold text-slate-800 mb-2">
+                            Tính diện tích xung quanh và thể tích của một khối hình hộp chữ nhật có độ dài hai cạnh đáy lần lượt là \(40\text{ m}, 20\text{ m}\) và chiều cao hình hộp đạt \(50\text{ m}\).
+                        </p>
+                        
+                        <details class="mt-3 group">
+                            <summary class="text-xs font-bold text-indigo-600 cursor-pointer select-none hover:underline flex items-center gap-1">
+                                <i class="fas fa-chevron-right group-open:rotate-90 transition-transform"></i> Bấm để xem gợi ý lời giải ẩn
+                            </summary>
+                            <div class="mt-3 p-4 bg-slate-50 rounded border-l-2 border-indigo-500 text-xs text-slate-700 space-y-2">
+                                <p><strong>Lời giải chi tiết:</strong></p>
+                                <p>&bull; Diện tích xung quanh của hình hộp chữ nhật đó là:</p>
+                                <p class="font-serif pl-4 text-slate-900">\(S_{xq} = 2(40 + 20) \cdot 50 = 2 \cdot 60 \cdot 50 = 6000 \text{ (m}^2\text{)}\).</p>
+                                <p>&bull; Thể tích không gian của hình hộp chữ nhật đó là:</p>
+                                <p class="font-serif pl-4 text-slate-900">\(V = 40 \cdot 20 \cdot 50 = 40000 \text{ (m}^3\text{)}\).</p>
+                                <p class="text-emerald-700 font-semibold">&bull; Đáp số: \(S_{xq} = 6000\text{ m}^2\); \(V = 40000\text{ m}^3\).</p>
+                            </div>
+                        </details>
+                    </div>
+                </div>
+            </div>
+
+            <!-- LEVEL 2 CONTENT -->
+            <div class="bg-slate-50/60 p-6 rounded-xl border-l-4 border-amber-500 shadow-2xs">
+                <h3 class="text-lg font-bold text-amber-900 flex items-center gap-2 mb-3">
+                    <span class="bg-amber-500 text-white text-xs px-2 py-0.5 rounded font-mono">CẤP ĐỘ 2</span>
+                    NÂNG CAO: Diện tích toàn phần & Bài toán suy luận ngược kích thước
+                </h3>
+                <p class="text-xs text-slate-500 mb-4 italic font-medium"><i class="fas fa-bullseye mr-1"></i> Mục tiêu: Học sinh tính được phần diện tích bao phủ toàn bộ khối hình và biết cách suy ngược lại độ dài cạnh/chiều cao khi biết dữ kiện Thể tích.</p>
+
+                <div class="space-y-4 text-sm text-justify leading-relaxed text-slate-700">
+                    <div>
+                        <h4 class="font-bold text-slate-800 flex items-center gap-1.5 mb-1"><i class="fas fa-bookmark text-xs text-amber-500"></i> 1. Diện tích toàn phần (\(S_{tp}\))</h4>
+                        <p>Diện tích toàn phần được định nghĩa là tổng của toàn bộ diện tích xung quanh 4 mặt bên và diện tích của hai mặt đáy (đáy trên và đáy dưới).</p>
+                        <ul class="list-disc list-inside pl-3 space-y-1.5 mt-2">
+                            <li>Với hình hộp chữ nhật: <span class="font-serif text-indigo-600 font-bold">\(S_{tp} = S_{xq} + 2 \cdot S_{\text{đáy}} = 2(a + b) \cdot h + 2(a \cdot b)\)</span>.</li>
+                            <li>Với hình lập phương: <span class="font-serif text-indigo-600 font-bold">\(S_{tp} = 6 \cdot a^2\)</span> (bằng diện tích của 1 mặt nhân với 6).</li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h4 class="font-bold text-slate-800 flex items-center gap-1.5 mb-1"><i class="fas fa-reply text-xs text-amber-500"></i> 2. Bài toán tư duy đảo tính toán ngược kích thước</h4>
+                        <ul class="list-disc list-inside pl-3 space-y-1">
+                            <li>Nếu đề bài cho biết trước thể tích của khối lập phương là \(V = a^3\), ta thực hiện phép tính nhẩm lũy thừa bậc 3 (hoặc dùng căn bậc ba) nhằm truy vết lại độ dài của một cạnh \(a\).</li>
+                            <li>Nếu đề bài cho biết trước thể tích khối hộp chữ nhật cùng kích thước mặt đáy, ta tìm chiều cao chưa biết thông qua hệ thức: <span class="font-serif text-indigo-600 font-bold">\(h = V : (a \cdot b)\)</span>.</li>
+                        </ul>
+                    </div>
+
+                    <!-- Example Box 2 -->
+                    <div class="bg-white p-5 rounded-lg border border-slate-200 mt-4 shadow-3xs">
+                        <span class="inline-block bg-amber-100 text-amber-800 text-xs px-2 py-0.5 rounded font-bold mb-2">Ví dụ minh họa (Cấp độ 2)</span>
+                        <p class="font-semibold text-slate-800 mb-2">
+                            Một khối hình lập phương đặc bằng gỗ có thể tích đo được là \(125\text{ cm}^3\). Hãy tính diện tích xung quanh của khối hình lập phương đó.
+                        </p>
+                        
+                        <details class="mt-3 group">
+                            <summary class="text-xs font-bold text-indigo-600 cursor-pointer select-none hover:underline flex items-center gap-1">
+                                <i class="fas fa-chevron-right group-open:rotate-90 transition-transform"></i> Bấm để xem gợi ý lời giải ẩn
+                            </summary>
+                            <div class="mt-3 p-4 bg-slate-50 rounded border-l-2 border-indigo-500 text-xs text-slate-700 space-y-2">
+                                <p><strong>Lời giải chi tiết:</strong></p>
+                                <p>&bull; Gọi độ dài cạnh chưa biết của hình lập phương là \(a\) (đơn vị: cm).</p>
+                                <p>&bull; Dựa vào công thức thể tích, ta có mối liên hệ đại số: \(V = a^3 = 125\).</p>
+                                <p>&bull; Ta nhận thấy \(5 \cdot 5 \cdot 5 = 125\) hay \(5^3 = 125\), từ đó suy ngược ra cạnh hình lập phương đạt: \(a = 5\text{ cm}\).</p>
+                                <p>&bull; Áp dụng công thức tính diện tích xung quanh khối lập phương:</p>
+                                <p class="font-serif pl-4 text-slate-900">\(S_{xq} = 4 \cdot a^2 = 4 \cdot 5^2 = 4 \cdot 25 = 100 \text{ (cm}^2\text{)}\).</p>
+                                <p class="text-emerald-700 font-semibold">&bull; Đáp số: \(S_{xq} = 100\text{ cm}^2\).</p>
+                            </div>
+                        </details>
+                    </div>
+                </div>
+            </div>
+
+            <!-- LEVEL 3 CONTENT -->
+            <div class="bg-slate-50/60 p-6 rounded-xl border-l-4 border-emerald-500 shadow-2xs">
+                <h3 class="text-lg font-bold text-emerald-900 flex items-center gap-2 mb-3">
+                    <span class="bg-emerald-500 text-white text-xs px-2 py-0.5 rounded font-mono">CẤP ĐỘ 3</span>
+                    VẬN DỤNG: Giải quyết các bài toán thực tế tổng hợp
+                </h3>
+                <p class="text-xs text-slate-500 mb-4 italic font-medium"><i class="fas fa-bullseye mr-1"></i> Mục tiêu: Áp dụng linh hoạt các công thức vào các tình huống thực tiễn như tính dung tích bể nước, sơn căn phòng, lát gạch tường, chú ý kiểm soát sự thống nhất đơn vị đo lường.</p>
+
+                <div class="space-y-4 text-sm text-justify leading-relaxed text-slate-700">
+                    <div>
+                        <h4 class="font-bold text-slate-800 flex items-center gap-1.5 mb-1"><i class="fas fa-faucet text-xs text-emerald-500"></i> 1. Bài toán kỹ thuật về Bể chứa chất lỏng</h4>
+                        <p class="mb-2">Học sinh cần nắm vững quy tắc hoán đổi đơn vị đo lường thể tích và dung tích chuẩn sau đây để tránh nhầm lẫn số liệu:</p>
+                        <div class="bg-white p-3 border rounded text-center font-mono text-xs max-w-md mx-auto space-y-1">
+                            <p class="text-indigo-600 font-bold">1 dm³ = 1 lít nước</p>
+                            <p class="text-emerald-600 font-bold">1 m³ = 1000 dm³ = 1000 lít nước</p>
+                        </div>
+                        <p class="mt-2">&bull; Công thức xác định Thời gian bơm đầy bể nước = Thể tích khối hộp / Công suất xả của máy bơm.</p>
+                    </div>
+
+                    <div>
+                        <h4 class="font-bold text-slate-800 flex items-center gap-1.5 mb-1"><i class="fas fa-paint-roller text-xs text-emerald-500"></i> 2. Bài toán quy hoạch Sơn tường hoặc Lát gạch</h4>
+                        <ul class="list-disc list-inside pl-3 space-y-1">
+                            <li>Khi tính diện tích quét sơn tường bên trong một căn phòng dạng hộp (không tính sàn), học sinh tính Diện tích xung quanh, cộng thêm diện tích trần nhà (nếu có quét trần) rồi <span class="text-rose-600 font-bold">trừ đi tổng diện tích của các ô cửa ra vào, cửa sổ</span>.</li>
+                            <li>Số lượng viên gạch cần dùng mua = Tổng diện tích bề mặt cần thi công thực tế / Diện tích của một viên gạch đơn lẻ.</li>
+                        </ul>
+                    </div>
+
+                    <!-- Example Box 3 -->
+                    <div class="bg-white p-5 rounded-lg border border-slate-200 mt-4 shadow-3xs">
+                        <span class="inline-block bg-emerald-100 text-emerald-800 text-xs px-2 py-0.5 rounded font-bold mb-2">Ví dụ minh họa (Cấp độ 3)</span>
+                        <p class="font-semibold text-slate-800 mb-2">
+                            Một bể chứa nước dạng rỗng không có nước dạng hình hộp chữ nhật có các số đo kích thước: chiều dài \(2,2\text{ m}\), chiều rộng \(1\text{ m}\), chiều cao lòng bể đạt \(0,75\text{ m}\). Người ta mở một vòi máy bơm nước chảy vào bể với công suất xả ổn định đạt \(25\text{ lít/phút}\). Hỏi sau bao nhiêu giờ vòi nước sẽ bơm đầy toàn bộ bể? [source: 1]
+                        </p>
+                        
+                        <details class="mt-3 group">
+                            <summary class="text-xs font-bold text-indigo-600 cursor-pointer select-none hover:underline flex items-center gap-1">
+                                <i class="fas fa-chevron-right group-open:rotate-90 transition-transform"></i> Bấm để xem gợi ý lời giải ẩn
+                            </summary>
+                            <div class="mt-3 p-4 bg-slate-50 rounded border-l-2 border-indigo-500 text-xs text-slate-700 space-y-2">
+                                <p><strong>Lời giải chi tiết:</strong></p>
+                                <p><strong>Bước 1:</strong> Tính tổng dung tích thể tích chứa của bể nước hộp chữ nhật:</p>
+                                <p class="font-serif pl-4 text-slate-900">\(V = 2,2 \cdot 1 \cdot 0,75 = 1,65 \text{ (m}^3\text{)}\).</p>
+                                <p><strong>Bước 2:</strong> Tiến hành đổi đơn vị đo thể tích về đơn vị lít nước phù hợp công suất vòi chảy:</p>
+                                <p class="font-serif pl-4 text-slate-900">\(1,65\text{ m}^3 = 1,65 \cdot 1000 = 1650\text{ dm}^3 = 1650\text{ lít}\).</p>
+                                <p><strong>Bước 3:</strong> Tính thời gian vòi hoạt động để xả đầy lượng nước trên vào bể:</p>
+                                <p class="font-serif pl-4 text-slate-900">Thời gian chảy đầy bể = \(1650 : 25 = 66\text{ (phút)}\).</p>
+                                <p><strong>Bước 4:</strong> Chuyển đổi đơn vị thời gian từ phút sang đơn vị giờ theo yêu cầu câu hỏi đề bài:</p>
+                                <p class="font-serif pl-4 text-slate-900">\(66\text{ phút} = \frac{66}{60}\text{ giờ} = 1,1\text{ giờ}\).</p>
+                                <p class="text-emerald-700 font-semibold">&bull; Kết luận: Sau khoảng thời gian đúng \(1,1\text{ giờ}\), bể sẽ được vòi bơm đầy nước hoàn toàn. [source: 1]</p>
+                            </div>
+                        </details>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section: Interactive Live Quiz Assessment Form Area -->
+        <section class="mt-16 bg-slate-50 border border-slate-200 rounded-2xl p-6 shadow-2xs no-print">
+            <div class="border-b border-slate-200 pb-3 mb-6">
+                <h3 class="text-lg font-black text-slate-900 flex items-center gap-2 uppercase tracking-wide">
+                    <i class="fas fa-check-to-slot text-indigo-600"></i>
+                    BÀI TẬP ĐÁNH GIÁ NĂNG LỰC TẠI LỚP (Trắc nghiệm 5 câu)
+                </h3>
+                <p class="text-xs text-slate-500 mt-1">Học sinh hoàn thành chọn đáp án trực tuyến, kết quả điểm số sẽ được truyền về hệ thống xử lý học thuật để lưu giữ.</p>
+            </div>
+
+            <form id="quizForm" class="space-y-6">
+                <!-- User Identifiers Inputs -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 bg-white p-4 rounded-xl border border-slate-200">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wide mb-1">Họ và Tên Học Sinh <span class="text-red-500">*</span></label>
+                        <input type="text" id="studentName" required placeholder="Nhập họ tên đầy đủ..." 
+                               class="w-full bg-slate-50 border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-indigo-600 focus:bg-white transition-all">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wide mb-1">Mã Buổi Học / Mã Đề</label>
+                        <input type="text" id="examId" value="Buoi13_HinhHop_Toan7" readonly
+                               class="w-full bg-slate-100 border border-slate-200 text-slate-500 rounded-lg px-3 py-2 text-sm cursor-not-allowed font-mono">
+                    </div>
+                </div>
+
+                <!-- Questions Container Box -->
+                <div class="space-y-4 mt-6">
+                    <!-- Q1 -->
+                    <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-3xs">
+                        <p class="text-sm font-semibold text-slate-900 mb-2.5">Câu 1: Hình hộp chữ nhật và hình lập phương có chung đặc điểm nào về số lượng các đỉnh và cạnh không gian?</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-slate-700">
+                            <label class="flex items-center gap-2 p-2 rounded border border-slate-100 hover:bg-slate-50 cursor-pointer"><input type="radio" name="q1" value="A" required> A. Có 6 đỉnh và 8 cạnh</label>
+                            <label class="flex items-center gap-2 p-2 rounded border border-slate-100 hover:bg-slate-50 cursor-pointer"><input type="radio" name="q1" value="B"> B. Có 8 đỉnh và 12 cạnh</label>
+                            <label class="flex items-center gap-2 p-2 rounded border border-slate-100 hover:bg-slate-50 cursor-pointer"><input type="radio" name="q1" value="C"> C. Có 12 đỉnh và 8 cạnh</label>
+                            <label class="flex items-center gap-2 p-2 rounded border border-slate-100 hover:bg-slate-50 cursor-pointer"><input type="radio" name="q1" value="D"> D. Có 8 đỉnh và 6 cạnh</label>
+                        </div>
+                    </div>
+
+                    <!-- Q2 -->
+                    <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-3xs">
+                        <p class="text-sm font-semibold text-slate-900 mb-2.5">Câu 2: Công thức chính xác để tính diện tích xung quanh (\(S_{xq}\)) của hình hộp chữ nhật có kích thước kích thước đáy là \(a\), \(b\) và chiều cao \(h\) là:</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-slate-700">
+                            <label class="flex items-center gap-2 p-2 rounded border border-slate-100 hover:bg-slate-50 cursor-pointer"><input type="radio" name="q2" value="A" required> A. \(S_{xq} = a \cdot b \cdot h\)</label>
+                            <label class="flex items-center gap-2 p-2 rounded border border-slate-100 hover:bg-slate-50 cursor-pointer"><input type="radio" name="q2" value="B"> B. \(S_{xq} = 2(a + b) \cdot h\)</label>
+                            <label class="flex items-center gap-2 p-2 rounded border border-slate-100 hover:bg-slate-50 cursor-pointer"><input type="radio" name="q2" value="C"> C. \(S_{xq} = (a + b) \cdot h\)</label>
+                            <label class="flex items-center gap-2 p-2 rounded border border-slate-100 hover:bg-slate-50 cursor-pointer"><input type="radio" name="q2" value="D"> D. \(S_{xq} = 2(a + b) + 2h\)</label>
+                        </div>
+                    </div>
+
+                    <!-- Q3 -->
+                    <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-3xs">
+                        <p class="text-sm font-semibold text-slate-900 mb-2.5">Câu 3: Một bình chứa dạng khối lập phương có độ dài của một cạnh đạt đúng 2 dm. Hỏi thể tích chứa dung tích nước tối đa của bình là bao nhiêu lít?</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-slate-700">
+                            <label class="flex items-center gap-2 p-2 rounded border border-slate-100 hover:bg-slate-50 cursor-pointer"><input type="radio" name="q3" value="A" required> A. 4 lít nước</label>
+                            <label class="flex items-center gap-2 p-2 rounded border border-slate-100 hover:bg-slate-50 cursor-pointer"><input type="radio" name="q3" value="B"> B. 6 lít nước</label>
+                            <label class="flex items-center gap-2 p-2 rounded border border-slate-100 hover:bg-slate-50 cursor-pointer"><input type="radio" name="q3" value="C"> C. 8 lít nước</label>
+                            <label class="flex items-center gap-2 p-2 rounded border border-slate-100 hover:bg-slate-50 cursor-pointer"><input type="radio" name="q3" value="D"> D. 16 lít nước</label>
+                        </div>
+                    </div>
+
+                    <!-- Q4 -->
+                    <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-3xs">
+                        <p class="text-sm font-semibold text-slate-900 mb-2.5">Câu 4: Diện tích toàn phần (\(S_{tp}\)) của một hình lập phương có độ dài một cạnh bằng \(a\) được tính theo hệ thức nào?</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-slate-700">
+                            <label class="flex items-center gap-2 p-2 rounded border border-slate-100 hover:bg-slate-50 cursor-pointer"><input type="radio" name="q4" value="A" required> A. \(S_{tp} = 4 \cdot a^2\)</label>
+                            <label class="flex items-center gap-2 p-2 rounded border border-slate-100 hover:bg-slate-50 cursor-pointer"><input type="radio" name="q4" value="B"> B. \(S_{tp} = 6 \cdot a^2\)</label>
+                            <label class="flex items-center gap-2 p-2 rounded border border-slate-100 hover:bg-slate-50 cursor-pointer"><input type="radio" name="q4" value="C"> C. \(S_{tp} = a^3\)</label>
+                            <label class="flex items-center gap-2 p-2 rounded border border-slate-100 hover:bg-slate-50 cursor-pointer"><input type="radio" name="q4" value="D"> D. \(S_{tp} = 6 \cdot a\)</label>
+                        </div>
+                    </div>
+
+                    <!-- Q5 -->
+                    <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-3xs">
+                        <p class="text-sm font-semibold text-slate-900 mb-2.5">Câu 5: Nếu một khối hộp chữ nhật có thể tích chiếm chỗ đạt \(60\text{ cm}^3\), diện tích mặt đáy đo được \(15\text{ cm}^2\), thì chiều cao khối hộp chữ nhật bằng:</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-slate-700">
+                            <label class="flex items-center gap-2 p-2 rounded border border-slate-100 hover:bg-slate-50 cursor-pointer"><input type="radio" name="q5" value="A" required> A. 4 cm</label>
+                            <label class="flex items-center gap-2 p-2 rounded border border-slate-100 hover:bg-slate-50 cursor-pointer"><input type="radio" name="q5" value="B"> B. 5 cm</label>
+                            <label class="flex items-center gap-2 p-2 rounded border border-slate-100 hover:bg-slate-50 cursor-pointer"><input type="radio" name="q5" value="C"> C. 10 cm</label>
+                            <label class="flex items-center gap-2 p-2 rounded border border-slate-100 hover:bg-slate-50 cursor-pointer"><input type="radio" name="q5" value="D"> D. 45 cm</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Submit Button Area -->
+                <div class="text-right pt-2">
+                    <button type="submit" id="submitBtn" 
+                            class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-6 py-2.5 rounded-lg shadow-sm text-xs cursor-pointer transition-all">
+                        <i class="fas fa-paper-plane mr-1.5"></i> Nộp Bài Lên Hệ Thống
+                    </button>
+                </div>
+            </form>
+
+            <!-- Quiz Grading Server Results Feedback Display Box -->
+            <div id="quizResult" class="hidden mt-6 p-4 rounded-xl text-xs text-center font-bold"></div>
+        </section>
+
+        <!-- Footer Intellectual Copyright Signature Area -->
+        <footer class="mt-16 pt-6 border-t border-slate-200 text-center text-xs text-slate-500 space-y-2">
+            <p class="font-bold text-slate-700">@ Bản quyền thuộc ThS. Đinh Quốc Tuấn - Mục đích phi lợi nhuận - Vì giáo dục.</p>
+            <p>Tài liệu số hóa hình học không gian tương tác trực quan hỗ trợ học sinh tự học chuyên sâu.</p>
+        </footer>
+    </main>
+
+    <!-- MANDATORY INJECTED SAFE PRINT DOCUMENT BUTTON & SCRIPT CORE BLOCK -->
+    <button id="btn-print-doc" onclick="safePrint()" class="fixed bottom-5 right-5 bg-gray-900 text-white px-4 py-2 rounded-lg shadow-lg hover:bg-gray-700 print:hidden z-50 cursor-pointer">
+        <i class="fas fa-print mr-2"></i> In Tài Liệu
+    </button>
+
+    <script>
+        function safePrint() {
+            const printBtn = document.getElementById('btn-print-doc');
+            printBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Đang chuẩn bị...';
+            
+            // Đảm bảo MathJax đã render xong mọi công thức trước khi gọi hộp thoại in
+            if (window.MathJax && window.MathJax.typesetPromise) {
+                MathJax.typesetPromise().then(() => {
+                    printBtn.innerHTML = '<i class="fas fa-print mr-2"></i> In Tài Liệu';
+                    window.print();
+                });
+            } else {
+                // Fallback nếu không có công thức toán
+                setTimeout(() => {
+                    printBtn.innerHTML = '<i class="fas fa-print mr-2"></i> In Tài Liệu';
+                    window.print();
+                }, 500); 
+            }
+        }
+    </script>
+
+    <!-- Main Geometry Control and Async AJAX Data Transmit Engine Script System -->
+    <script>
+        const startTime = new Date();
+
+        // 1. Dựng Mô hình 1 JSXGraph: Đóng/mở hình khai triển khối hộp (Mô phỏng 2D mở rộng diện tích)
+        (function initModel1() {
+            const board = JXG.JSXGraph.initBoard('box1', {
+                boundingbox: [-4, 5, 4, -5],
+                axis: false,
+                showCopyright: false,
+                showNavigation: false
+            });
+
+            // Thanh trượt điều khiển biên độ đóng mở (0: co cụm trùng khít đại diện khối 3D phẳng, 1: bung trải phẳng mặt đáy diện tích)
+            let s = board.create('slider', [[-3, 4], [1, 4], [0, 1, 1]], {name: 'Độ mở lưới', snapWidth: 0.05});
+
+            // Hàm tính toán tọa độ tịnh tiến các mặt vuông dựa trên giá trị slider s
+            // Mặt đáy trung tâm cố định
+            let x0 = -0.75, y0 = -0.75, w = 1.5;
+
+            function createFace(xOffsetFn, yOffsetFn, color, labelText) {
+                let p1 = board.create('point', [function() { return x0 + xOffsetFn(); }, function() { return y0 + yOffsetFn(); }], {visible: false});
+                let p2 = board.create('point', [function() { return x0 + w + xOffsetFn(); }, function() { return y0 + yOffsetFn(); }], {visible: false});
+                let p3 = board.create('point', [function() { return x0 + w + xOffsetFn(); }, function() { return y0 + w + yOffsetFn(); }], {visible: false});
+                let p4 = board.create('point', [function() { return x0 + xOffsetFn(); }, function() { return y0 + w + yOffsetFn(); }], {visible: false});
+                
+                board.create('polygon', [p1, p2, p3, p4], {
+                    fillColor: color,
+                    fillOpacity: 0.6,
+                    strokeColor: '#334155',
+                    strokeWidth: 1.5,
+                    withLabel: true,
+                    name: labelText
+                });
+            }
+
+            // Mặt đáy chính giữa (Mặt 1)
+            createFace(function(){return 0;}, function(){return 0;}, '#cbd5e1', 'Đáy');
+            // Mặt trái dịch chuyển sang trái dựa trên slider s
+            createFace(function(){return -w * s.Value();}, function(){return 0;}, '#fca5a5', 'Bên');
+            // Mặt phải dịch chuyển sang phải dựa trên slider s
+            createFace(function(){return w * s.Value();}, function(){return 0;}, '#fca5a5', 'Bên');
+            // Mặt trên dịch chuyển lên trên dựa trên slider s
+            createFace(function(){return 0;}, function(){return w * s.Value();}, '#93c5fd', 'Bên');
+            // Mặt dưới dịch chuyển xuống dưới dựa trên slider s
+            createFace(function(){return 0;}, function(){return -w * s.Value();}, '#93c5fd', 'Bên');
+            // Mặt nắp trên cùng nối tiếp mặt dưới tịnh tiến xa hơn khi s tăng
+            createFace(function(){return 0;}, function(){return -2 * w * s.Value();}, '#fef08a', 'Nắp');
+        })();
+
+        // 2. Dựng Mô hình 2 JSXGraph: Đổ nước vào lòng bể (Phối cảnh trục đo oblique bể kính trong suốt)
+        (function initModel2() {
+            const board = JXG.JSXGraph.initBoard('box2', {
+                boundingbox: [-2, 5, 5, -2],
+                axis: false,
+                showCopyright: false,
+                showNavigation: false
+            });
+
+            // Thanh trượt kiểm soát chiều cao cột mực nước h dâng lên bên trong
+            let sh = board.create('slider', [[-1, 4.2], [2, 4.2], [0, 1.8, 3]], {name: 'Mực nước (h)', color: '#2563eb'});
+
+            // Quy ước hệ số góc phối cảnh nghiêng (Oblique Projection) sang góc 45 độ
+            let alpha = Math.PI / 4;
+            let k = 0.5; // Hệ số biến dạng cạnh chiều sâu
+
+            // Kích thước bể hình hộp cố định: dài=3.5, rộng=2, cao=3
+            let L = 3.5, W = 2, H = 3;
+
+            // Hàm chuyển đổi tọa độ 3D thành tọa độ hiển thị 2D trên JSXGraph canvas
+            function project(x, y, z) {
+                return [
+                    x + k * y * Math.cos(alpha),
+                    z + k * y * Math.sin(alpha)
+                ];
+            }
+
+            // Dựng các đỉnh của khung bể nước hình hộp
+            let p000 = board.create('point', function() { return project(0, 0, 0); }, {visible: false});
+            let pL00 = board.create('point', function() { return project(L, 0, 0); }, {visible: false});
+            let pLW0 = board.create('point', function() { return project(L, W, 0); }, {visible: false});
+            let p0W0 = board.create('point', function() { return project(0, W, 0); }, {visible: false});
+            
+            let p00H = board.create('point', function() { return project(0, 0, H); }, {visible: false});
+            let pL0H = board.create('point', function() { return project(L, 0, H); }, {visible: false});
+            let pLWH = board.create('point', function() { return project(L, W, H); }, {visible: false});
+            let p0WH = board.create('point', function() { return project(0, W, H); }, {visible: false});
+
+            // Vẽ các đường cạnh khung hình hộp chữ nhật trong suốt (Cạnh khuất vẽ đứt nét)
+            board.create('segment', [p000, pL00], {strokeColor: '#64748b', strokeWidth: 2});
+            board.create('segment', [pL00, pLW0], {strokeColor: '#64748b', strokeWidth: 2});
+            board.create('segment', [pLW0, p0W0], {strokeColor: '#64748b', strokeWidth: 1, dash: 2});
+            board.create('segment', [p0W0, p000], {strokeColor: '#64748b', strokeWidth: 1, dash: 2});
+
+            board.create('segment', [p00H, pL0H], {strokeColor: '#475569', strokeWidth: 2});
+            board.create('segment', [pL0H, pLWH], {strokeColor: '#475569', strokeWidth: 2});
+            board.create('segment', [pLWH, p0WH], {strokeColor: '#475569', strokeWidth: 2});
+            board.create('segment', [p0WH, p00H], {strokeColor: '#475569', strokeWidth: 2});
+
+            board.create('segment', [p000, p00H], {strokeColor: '#475569', strokeWidth: 2});
+            board.create('segment', [pL00, pL0H], {strokeColor: '#475569', strokeWidth: 2});
+            board.create('segment', [pLW0, pLWH], {strokeColor: '#475569', strokeWidth: 2});
+            board.create('segment', [p0W0, p0WH], {strokeColor: '#64748b', strokeWidth: 1, dash: 2});
+
+            // Dựng khối đa diện màu xanh đại diện cho khối chất lỏng dâng lên động theo thanh trượt sh
+            let w00h = board.create('point', function() { return project(0, 0, sh.Value()); }, {visible: false});
+            let wL0h = board.create('point', function() { return project(L, 0, sh.Value()); }, {visible: false});
+            let wLWh = board.create('point', function() { return project(L, W, sh.Value()); }, {visible: false});
+            let w0Wh = board.create('point', function() { return project(0, W, sh.Value()); }, {visible: false});
+
+            // Mặt nước phía trên phẳng
+            board.create('polygon', [w00h, wL0h, wLWh, w0Wh], {fillColor: '#38bdf8', fillOpacity: 0.7, strokeColor: '#0284c7', strokeWidth: 1});
+            // Khối nước mặt trước sinh động
+            board.create('polygon', [p000, pL00, wL0h, w0h], {fillColor: '#0ea5e9', fillOpacity: 0.4, strokeColor: 'none'});
+
+            // Hiển thị nhãn công thức thể tích động cập nhật ở chân mô hình
+            board.create('text', [-1.5, -1.2, function() {
+                let currentV = (L * W * sh.Value()).toFixed(2);
+                return 'Kích thước bể: 3.5m × 2.0m | Thể tích nước hiện tại V = 3.5 × 2.0 × ' + sh.Value().toFixed(2) + ' = ' + currentV + ' m³';
+            }], {fontSize: 11, fontStyle: 'bold', strokeColor: '#0f172a'});
+        })();
+
+        // 3. Xử lý logic tính điểm và gửi POST kết quả về Google Sheets Web App qua Apps Script [source: 2]
+        document.getElementById('quizForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const submitBtn = document.getElementById('submitBtn');
+            const resultDiv = document.getElementById('quizResult');
+            
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Đang tải dữ liệu lên máy chủ...';
+
+            // Key mapping đáp án đúng của hệ thống kiểm tra trắc nghiệm 5 câu
+            const correctAnswers = { q1: 'B', q2: 'B', q3: 'C', q4: 'B', q5: 'A' };
+            let rawScore = 0;
+            let totalQ = 5;
+            let detailedWrongs = [];
+
+            // Kiểm tra so khớp đáp án vòng lặp
+            for(let i = 1; i <= totalQ; i++) {
+                let key = 'q' + i;
+                let checkedOption = document.querySelector(`input[name="${key}"]:checked`);
+                
+                if (checkedOption) {
+                    if (checkedOption.value === correctAnswers[key]) {
+                        rawScore += 10 / totalQ;
+                    } else {
+                        detailedWrongs.push(`Câu ${i}: Chọn ${checkedOption.value} (Đáp án đúng: ${correctAnswers[key]})`);
+                    }
+                } else {
+                    detailedWrongs.push(`Câu ${i}: Chưa hoàn thành (Đáp án đúng: ${correctAnswers[key]})`);
+                }
+            }
+
+            // Hoàn thiện quy đổi thang điểm và đo đạc thời gian chạy bài làm [source: 2]
+            let finalScore = Math.round(rawScore * 10) / 10;
+            const endTime = new Date();
+            const elapsedSec = Math.round((endTime - startTime) / 1000);
+            const formattedDuration = `${Math.floor(elapsedSec / 60)} phút ${elapsedSec % 60} giây`;
+
+            // Đóng gói cấu trúc Payload đồng bộ hoàn toàn mã code gs Apps Script [source: 2]
+            const payloadData = {
+                hoTen: document.getElementById('studentName').value,
+                maDe: document.getElementById('examId').value,
+                diem: finalScore,
+                thoiGian: formattedDuration,
+                cauSai: detailedWrongs.join('; ') || 'Hoàn hảo 100%'
+            };
+
+            const targetScriptUrl = "https://script.google.com/macros/s/AKfycbzY7b7h4OwvhXuK5Vs6hl-aD88BPnAiAKbU5lfJobby0D4nzbIJVKT4n0AKCpAGoK0nZA/exec";
+
+            // Thực thi truyền tải API Fetch POST (mode: no-cors áp dụng cho cấu trúc Google Apps Script mặc định) [source: 2]
+            fetch(targetScriptUrl, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payloadData)
+            })
+            .then(() => {
+                // UI cập nhật báo kết quả nộp bài thành công về bảng tính
+                resultDiv.className = "mt-6 p-4 rounded-xl text-xs text-center font-bold bg-emerald-100 text-emerald-800 border border-emerald-200";
+                resultDiv.innerHTML = `<i class="fas fa-circle-check mr-1.5"></i> Hệ thống đã ghi nhận bài làm! Điểm số: ${finalScore}/10. Tổng thời gian: ${formattedDuration}. Dữ liệu đã truyền thành công về Google Sheets.`;
+                resultDiv.classList.remove('hidden');
+                submitBtn.innerHTML = '<i class="fas fa-circle-check"></i> Đã nộp thành công';
+            })
+            .catch(err => {
+                console.error('Submit Data Grid Error:', err);
+                // Cứu hộ hiển thị điểm số tại chỗ cho học sinh nếu mạng nội bộ gián đoạn
+                resultDiv.className = "mt-6 p-4 rounded-xl text-xs text-center font-bold bg-amber-100 text-amber-800 border border-amber-200";
+                resultDiv.innerHTML = `<i class="fas fa-triangle-exclamation mr-1.5"></i> Lỗi đồng bộ đường truyền, điểm số tại chỗ của em: ${finalScore}/10 điểm. (Thời gian làm bài: ${formattedDuration}).`;
+                resultDiv.classList.remove('hidden');
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="fas fa-paper-plane mr-1.5"></i> Thử nộp lại bài';
+            });
+        });
+    </script>
+</body>
+</html>
