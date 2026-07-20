@@ -9,7 +9,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     
     <!-- FontAwesome Icons CDN -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link class="print:hidden" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <!-- MathJax Configuration and Script CDN -->
     <script>
@@ -427,15 +427,18 @@
             // Hai đường thẳng song song a và b cố định làm Giả thiết
             let a1 = board.create('point', [-4, 2], {visible: false});
             let a2 = board.create('point', [4, 2], {visible: false});
-            board.create('line', [a1, a2], {strokeColor: '#059669', strokeWidth: 3, name: 'a (GT)', withLabel: true, label:{position:'urt', color:'#059669'}});
+            // ĐÃ SỬA: Gán trực tiếp vào biến lineA
+            let lineA = board.create('line', [a1, a2], {strokeColor: '#059669', strokeWidth: 3, name: 'a (GT)', withLabel: true, label:{position:'urt', color:'#059669'}});
 
             let b1 = board.create('point', [-4, -1], {visible: false});
             let b2 = board.create('point', [4, -1], {visible: false});
-            board.create('line', [b1, b2], {strokeColor: '#059669', strokeWidth: 3, name: 'b (GT)', withLabel: true, label:{position:'urt', color:'#059669'}});
+            // ĐÃ SỬA: Gán trực tiếp vào biến lineB
+            let lineB = board.create('line', [b1, b2], {strokeColor: '#059669', strokeWidth: 3, name: 'b (GT)', withLabel: true, label:{position:'urt', color:'#059669'}});
 
             // Cát tuyến c tạo bởi 2 điểm tự do trên a và b để học sinh thay đổi độ dốc nghiêng
-            let A = board.create('glider', [-1, 2, board.select(function(el){return el.name==='a (GT)';})], {name: 'A', color: '#6366f1', size: 3});
-            let B = board.create('glider', [1, -1, board.select(function(el){return el.name==='b (GT)';})], {name: 'B', color: '#6366f1', size: 3});
+            // ĐÃ SỬA: Truyền trực tiếp biến lineA và lineB thay vì dùng board.select quét chuỗi
+            let A = board.create('glider', [-1, 2, lineA], {name: 'A', color: '#6366f1', size: 3});
+            let B = board.create('glider', [1, -1, lineB], {name: 'B', color: '#6366f1', size: 3});
             board.create('line', [A, B], {strokeColor: '#475569', strokeWidth: 2, name: 'c', withLabel: true});
 
             // Các điểm phụ để xác định góc chuẩn theo chiều kim đồng hồ
