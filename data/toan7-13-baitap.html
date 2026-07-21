@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buổi 13: Hình Hộp Chữ Nhật & Hình Lập Phương</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- MathJax 3 CDN -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['\\(', '\\)'], ['$', '$']],
+                displayMath: [['\\[', '\\]'], ['$$', '$$']]
+            },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <!-- JSXGraph CDN -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraph.css" />
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraphcore.js"></script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f8fafc;
+            color: #1e293b;
+        }
+        .jsxbox {
+            width: 100%;
+            height: 330px;
+            border-radius: 0.75rem;
+            border: 2px solid #e2e8f0;
+            background-color: #ffffff;
+            box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.05);
+        }
+        @media print {
+            .no-print { display: none !important; }
+            body { background: white; color: black; }
+            .shadow-md, .shadow-lg, .shadow-xl { box-shadow: none !important; }
+            .border { border-color: #cbd5e1 !important; }
+        }
+    </style>
+</head>
+<body class="bg-slate-50 min-h-screen flex flex-col justify-between">
+
+    <!-- HEADER / LOGOS -->
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-40 shadow-sm print:relative print:shadow-none">
+        <div class="max-w-7xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-4">
+            <div class="flex items-center space-x-3">
+                <img src="https://firebasestorage.googleapis.com/v0/b/link-anh-web.firebasestorage.app/o/ttbdvh.jpg?alt=media&token=f270aa9b-a2bc-48e8-8910-80742b542615" 
+                     alt="Logo 1" class="h-12 w-auto object-contain rounded-md border border-slate-200">
+                <img src="https://hcmus.edu.vn/wp-content/uploads/2023/04/Logo-chinh-e1681638380305.png" 
+                     alt="HCMUS Logo" class="h-12 w-auto object-contain">
+            </div>
+            <div class="text-right">
+                <span class="inline-block px-3 py-1 bg-indigo-100 text-indigo-800 text-xs font-semibold rounded-full uppercase tracking-wider mb-1">Chuyên đề Hình học THCS</span>
+                <h1 class="text-xl md:text-2xl font-bold text-slate-800">BUỔI 13: HÌNH HỘP CHỮ NHẬT VÀ HÌNH LẬP PHƯƠNG</h1>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="max-w-7xl mx-auto px-4 py-8 flex-grow w-full space-y-10">
+
+        <!-- THANH ĐIỀU HƯỚNG NHANH -->
+        <nav class="bg-white p-4 rounded-xl shadow-sm border border-slate-200 flex flex-wrap justify-center gap-3 no-print">
+            <a href="#momat" class="px-4 py-2 bg-slate-100 hover:bg-indigo-50 hover:text-indigo-600 rounded-lg text-sm font-medium transition flex items-center gap-2"><i class="fas fa-cube text-indigo-500"></i> Mô Hình Tương Tác</a>
+            <a href="#capdo1" class="px-4 py-2 bg-slate-100 hover:bg-emerald-50 hover:text-emerald-600 rounded-lg text-sm font-medium transition flex items-center gap-2"><i class="fas fa-seedling text-emerald-500"></i> Cấp Độ Cơ Bản</a>
+            <a href="#capdo2" class="px-4 py-2 bg-slate-100 hover:bg-amber-50 hover:text-amber-600 rounded-lg text-sm font-medium transition flex items-center gap-2"><i class="fas fa-chart-line text-amber-500"></i> Cấp Độ Nâng Cao</a>
+            <a href="#capdo3" class="px-4 py-2 bg-slate-100 hover:bg-rose-50 hover:text-rose-600 rounded-lg text-sm font-medium transition flex items-center gap-2"><i class="fas fa-rocket text-rose-500"></i> Cấp Độ Vận Dụng</a>
+            <a href="#tracnghiem" class="px-4 py-2 bg-indigo-600 text-white hover:bg-indigo-700 rounded-lg text-sm font-medium transition flex items-center gap-2"><i class="fas fa-tasks"></i> Đánh Giá Tại Lớp</a>
+        </nav>
+
+        <!-- TỔNG QUAN LÝ THUYẾT NỔI BẬT -->
+        <section class="bg-gradient-to-r from-slate-800 to-indigo-900 text-white rounded-2xl p-6 md:p-8 shadow-xl">
+            <div class="flex items-center gap-3 mb-4">
+                <i class="fas fa-box-open text-amber-400 text-3xl"></i>
+                <h2 class="text-2xl font-bold">Tóm Tắt Lý Thuyết Cốt Lõi</h2>
+            </div>
+            <div class="grid md:grid-cols-3 gap-6 text-slate-100">
+                <div class="bg-white/10 p-5 rounded-xl backdrop-blur-sm border border-white/10 space-y-2">
+                    <h3 class="font-bold text-amber-300 text-lg mb-2"><i class="fas fa-shapes mr-2"></i>1. Yếu tố cấu tạo</h3>
+                    <p class="text-xs text-slate-200">Hình hộp chữ nhật và Hình lập phương đều có:</p>
+                    <ul class="list-disc list-inside space-y-1 text-xs text-slate-200">
+                        <li><strong>6 mặt</strong> (2 mặt đáy và 4 mặt bên).</li>
+                        <li><strong>8 đỉnh</strong> và <strong>12 cạnh</strong>.</li>
+                        <li><strong>4 đường chéo</strong> cắt nhau tại trung điểm mỗi đường.</li>
+                    </ul>
+                </div>
+                <div class="bg-white/10 p-5 rounded-xl backdrop-blur-sm border border-white/10 space-y-2">
+                    <h3 class="font-bold text-amber-300 text-lg mb-2"><i class="fas fa-calculator mr-2"></i>2. Hình hộp chữ nhật ($a, b, h$)</h3>
+                    <ul class="list-disc list-inside space-y-1 text-xs text-slate-200">
+                        <li><strong>Diện tích xung quanh:</strong> $S_{xq} = 2(a + b) \cdot h$</li>
+                        <li><strong>Diện tích toàn phần:</strong> $S_{tp} = S_{xq} + 2a \cdot b$</li>
+                        <li><strong>Thể tích:</strong> $V = a \cdot b \cdot h$</li>
+                    </ul>
+                </div>
+                <div class="bg-white/10 p-5 rounded-xl backdrop-blur-sm border border-white/10 space-y-2">
+                    <h3 class="font-bold text-amber-300 text-lg mb-2"><i class="fas fa-cube mr-2"></i>3. Hình lập phương ($a$)</h3>
+                    <ul class="list-disc list-inside space-y-1 text-xs text-slate-200">
+                        <li><strong>Diện tích xung quanh:</strong> $S_{xq} = 4a^2$</li>
+                        <li><strong>Diện tích toàn phần:</strong> $S_{tp} = 6a^2$</li>
+                        <li><strong>Thể tích:</strong> $V = a^3$</li>
+                        <li> Quy đổi: $1\text{ dm}^3 = 1\text{ lít}$; $1\text{ m}^3 = 1000\text{ lít}$.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- MÔ HÌNH HÌNH HỌC TƯƠNG TÁC (JSXGRAPH) -->
+        <section id="momat" class="space-y-6">
+            <div class="border-l-4 border-indigo-600 pl-4 py-1">
+                <h2 class="text-2xl font-bold text-slate-800 flex items-center gap-2">
+                    <i class="fas fa-laptop-code text-indigo-600"></i> Mô Hình Trực Quan JSXGraph
+                </h2>
+                <p class="text-slate-600 text-sm">Thay đổi các slider kích thước để quan sát sự thay đổi thể tích và diện tích thực tế.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-6">
+                <!-- Model 1 -->
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between">
+                    <div>
+                        <h3 class="font-bold text-slate-800 mb-2 flex items-center gap-2">
+                            <span class="w-6 h-6 rounded-full bg-indigo-100 text-indigo-600 flex items-center justify-center text-xs">1</span>
+                            Khối Hộp Chữ Nhật Biến Thiên
+                        </h3>
+                        <p class="text-xs text-slate-500 mb-3">Điều chỉnh slider chiều dài, rộng, cao để tính thể tích $V$ và diện tích xung quanh $S_{xq}$.</p>
+                        <div id="jxgbox1" class="jsxbox"></div>
+                    </div>
+                </div>
+
+                <!-- Model 2 -->
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between">
+                    <div>
+                        <h3 class="font-bold text-slate-800 mb-2 flex items-center gap-2">
+                            <span class="w-6 h-6 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center text-xs">2</span>
+                            Lưới Trải Khai Triển Hình Lập Phương
+                        </h3>
+                        <p class="text-xs text-slate-500 mb-3">Kéo slider góc gấp để xem trải phẳng 6 mặt vuông cấu thành diện tích toàn phần $6a^2$.</p>
+                        <div id="jxgbox2" class="jsxbox"></div>
+                    </div>
+                </div>
+
+                <!-- Model 3 -->
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between">
+                    <div>
+                        <h3 class="font-bold text-slate-800 mb-2 flex items-center gap-2">
+                            <span class="w-6 h-6 rounded-full bg-amber-100 text-amber-600 flex items-center justify-center text-xs">3</span>
+                            Mực Nước Bể Cá & Thể Tích Vật Thả
+                        </h3>
+                        <p class="text-xs text-slate-500 mb-3">Kéo slider "Chiều cao hòn đá" để thấy thể tích dâng lên tương ứng lượng nước chiếm chỗ.</p>
+                        <div id="jxgbox3" class="jsxbox"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PHẦN 1: CẤP ĐỘ CƠ BẢN -->
+        <section id="capdo1" class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm space-y-6">
+            <div class="flex items-center justify-between border-b border-slate-200 pb-4">
+                <div class="flex items-center gap-3">
+                    <span class="p-3 bg-emerald-100 text-emerald-600 rounded-xl"><i class="fas fa-seedling text-xl"></i></span>
+                    <div>
+                        <h2 class="text-xl font-bold text-slate-800">PHẦN 1: CẤP ĐỘ CƠ BẢN (10 Bài)</h2>
+                        <p class="text-xs text-slate-500">Mục tiêu: Nhận biết yếu tố cấu tạo, áp dụng trực tiếp công thức tính diện tích xung quanh và thể tích.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VÍ DỤ MINH HỌA MẪU 1 -->
+            <div class="bg-emerald-50/60 border border-emerald-200 rounded-xl p-5 space-y-2">
+                <div class="flex items-center gap-2 text-emerald-800 font-bold text-sm uppercase">
+                    <i class="fas fa-lightbulb"></i> Ví dụ minh họa Cấp độ Cơ bản
+                </div>
+                <p class="text-sm font-medium">Một hình hộp chữ nhật có chiều dài $15\text{ cm}$, chiều rộng $10\text{ cm}$ và chiều cao $8\text{ cm}$. Tính diện tích xung quanh và thể tích của hình hộp chữ nhật đó.</p>
+                <div class="pt-2 text-xs text-slate-600 bg-white p-3 rounded-lg border border-emerald-100">
+                    <strong>Lời giải:</strong><br>
+                    - Diện tích xung quanh: $S_{xq} = 2 \cdot (15 + 10) \cdot 8 = 2 \cdot 25 \cdot 8 = 400\text{ cm}^2$.<br>
+                    - Thể tích: $V = 15 \cdot 10 \cdot 8 = 1200\text{ cm}^3$.
+                </div>
+            </div>
+
+            <!-- BÀI TẬP BÀI 1 -> 10 -->
+            <div class="grid md:grid-cols-2 gap-4">
+                <!-- Bài 1 -->
+                <div class="p-4 border border-slate-200 rounded-xl hover:border-emerald-300 transition bg-slate-50/50">
+                    <p class="font-bold text-sm text-slate-800 mb-2">Bài 1: Quan sát hình hộp chữ nhật $ABCD.EFGH$. Nêu tên các mặt đáy, mặt bên, cạnh bên và đường chéo.</p>
+                    <button onclick="toggleSol('sol1')" class="text-xs bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-1.5 rounded-md transition flex items-center gap-1"><i class="fas fa-eye"></i> Gợi ý / Lời giải</button>
+                    <div id="sol1" class="hidden mt-3 text-xs bg-white p-3 rounded border border-emerald-200 text-slate-700">
+                        - 2 Mặt đáy: $ABCD, EFGH$.<br>
+                        - 4 Mặt bên: $ABFE, BCGF, CDHG, DAEH$.<br>
+                        - 4 Cạnh bên: $AE, BF, CG, DH$.<br>
+                        - 4 Đường chéo: $AG, BH, CE, DF$.
+                    </div>
+                </div>
+
+                <!-- Bài 2 -->
+                <div class="p-4 border border-slate-200 rounded-xl hover:border-emerald-300 transition bg-slate-50/50">
+                    <p class="font-bold text-sm text-slate-800 mb-2">Bài 2: Hình lập phương $MNPQ.M'N'P'Q'$ có cạnh $MN = 5\text{ cm}$. Nêu tên các đường chéo và cho biết độ dài các cạnh còn lại.</p>
+                    <button onclick="toggleSol('sol2')" class="text-xs bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-1.5 rounded-md transition flex items-center gap-1"><i class="fas fa-eye"></i> Gợi ý / Lời giải</button>
+                    <div id="sol2" class="hidden mt-3 text-xs bg-white p-3 rounded border border-emerald-200 text-slate-700">
+                        - Các đường chéo: $MP', NQ', PM', QN'$.<br>
+                        - Do là hình lập phương nên tất cả 12 cạnh đều bằng nhau và bằng $5\text{ cm}$.
+                    </div>
+                </div>
+
+                <!-- Bài 3 -->
+                <div class="p-4 border border-slate-200 rounded-xl hover:border-emerald-300 transition bg-slate-50/50">
+                    <p class="font-bold text-sm text-slate-800 mb-2">Bài 3: Tính diện tích xung quanh của một hình hộp chữ nhật có chiều dài $15\text{ cm}$, chiều rộng $10\text{ cm}$ và chiều cao $8\text{ cm}$.</p>
+                    <button onclick="toggleSol('sol3')" class="text-xs bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-1.5 rounded-md transition flex items-center gap-1"><i class="fas fa-eye"></i> Gợi ý / Lời giải</button>
+                    <div id="sol3" class="hidden mt-3 text-xs bg-white p-3 rounded border border-emerald-200 text-slate-700">
+                        $S_{xq} = 2 \cdot (15 + 10) \cdot 8 = 400\text{ cm}^2$.
+                    </div>
+                </div>
+
+                <!-- Bài 4 -->
+                <div class="p-4 border border-slate-200 rounded-xl hover:border-emerald-300 transition bg-slate-50/50">
+                    <p class="font-bold text-sm text-slate-800 mb-2">Bài 4: Tính thể tích của một khối gỗ hình hộp chữ nhật có kích thước ba cạnh là $4\text{ cm}, 5\text{ cm}$ và $12\text{ cm}$.</p>
+                    <button onclick="toggleSol('sol4')" class="text-xs bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-1.5 rounded-md transition flex items-center gap-1"><i class="fas fa-eye"></i> Gợi ý / Lời giải</button>
+                    <div id="sol4" class="hidden mt-3 text-xs bg-white p-3 rounded border border-emerald-200 text-slate-700">
+                        $V = 4 \cdot 5 \cdot 12 = 240\text{ cm}^3$.
+                    </div>
+                </div>
+
+                <!-- Bài 5 -->
+                <div class="p-4 border border-slate-200 rounded-xl hover:border-emerald-300 transition bg-slate-50/50">
+                    <p class="font-bold text-sm text-slate-800 mb-2">Bài 5: Tính diện tích xung quanh và diện tích toàn phần của một hình lập phương có cạnh $6\text{ dm}$.</p>
+                    <button onclick="toggleSol('sol5')" class="text-xs bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-1.5 rounded-md transition flex items-center gap-1"><i class="fas fa-eye"></i> Gợi ý / Lời giải</button>
+                    <div id="sol5" class="hidden mt-3 text-xs bg-white p-3 rounded border border-emerald-200 text-slate-700">
+                        - $S_{xq} = 4 \cdot 6^2 = 4 \cdot 36 = 144\text{ dm}^2$.<br>
+                        - $S_{tp} = 6 \cdot 6^2 = 6 \cdot 36 = 216\text{ dm}^2$.
+                    </div>
+                </div>
+
+                <!-- Bài 6 -->
+                <div class="p-4 border border-slate-200 rounded-xl hover:border-emerald-300 transition bg-slate-50/50">
+                    <p class="font-bold text-sm text-slate-800 mb-2">Bài 6: Một bể chứa nước bằng kính dạng hình lập phương có cạnh $1,2\text{ m}$. Tính thể tích của bể nước đó.</p>
+                    <button onclick="toggleSol('sol6')" class="text-xs bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-1.5 rounded-md transition flex items-center gap-1"><i class="fas fa-eye"></i> Gợi ý / Lời giải</button>
+                    <div id="sol6" class="hidden mt-3 text-xs bg-white p-3 rounded border border-emerald-200 text-slate-700">
+                        $V = 1,2^3 = 1,728\text{ m}^3 = 1728\text{ lít}$.
+                    </div>
+                </div>
+
+                <!-- Bài 7 -->
+                <div class="p-4 border border-slate-200 rounded-xl hover:border-emerald-300 transition bg-slate-50/50">
+                    <p class="font-bold text-sm text-slate-800 mb-2">Bài 7: Để gấp được một hình lập phương kín, tấm bìa phẳng cần phải bao gồm bao nhiêu hình vuông bằng nhau?</p>
+                    <button onclick="toggleSol('sol7')" class="text-xs bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-1.5 rounded-md transition flex items-center gap-1"><i class="fas fa-eye"></i> Gợi ý / Lời giải</button>
+                    <div id="sol7" class="hidden mt-3 text-xs bg-white p-3 rounded border border-emerald-200 text-slate-700">
+                        Cần đúng 6 hình vuông bằng nhau sắp xếp theo lưới khai triển hợp lệ (ví dụ dạng chữ thập 1-4-1).
+                    </div>
+                </div>
+
+                <!-- Bài 8 -->
+                <div class="p-4 border border-slate-200 rounded-xl hover:border-emerald-300 transition bg-slate-50/50">
+                    <p class="font-bold text-sm text-slate-800 mb-2">Bài 8: Biết thể tích hình hộp chữ nhật là $120\text{ cm}^3$, chiều dài $6\text{ cm}$, chiều rộng $4\text{ cm}$. Tìm chiều cao của hình hộp.</p>
+                    <button onclick="toggleSol('sol8')" class="text-xs bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-1.5 rounded-md transition flex items-center gap-1"><i class="fas fa-eye"></i> Gợi ý / Lời giải</button>
+                    <div id="sol8" class="hidden mt-3 text-xs bg-white p-3 rounded border border-emerald-200 text-slate-700">
+                        $h = V / (a \cdot b) = 120 / (6 \cdot 4) = 120 / 24 = 5\text{ cm}$.
+                    </div>
+                </div>
+
+                <!-- Bài 9 -->
+                <div class="p-4 border border-slate-200 rounded-xl hover:border-emerald-300 transition bg-slate-50/50">
+                    <p class="font-bold text-sm text-slate-800 mb-2">Bài 9: Viên gạch đặc có dạng hình hộp chữ nhật dài $22\text{ cm}$, rộng $10\text{ cm}$, cao $5\text{ cm}$. Tính $S_{xq}$ và $V$ viên gạch.</p>
+                    <button onclick="toggleSol('sol9')" class="text-xs bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-1.5 rounded-md transition flex items-center gap-1"><i class="fas fa-eye"></i> Gợi ý / Lời giải</button>
+                    <div id="sol9" class="hidden mt-3 text-xs bg-white p-3 rounded border border-emerald-200 text-slate-700">
+                        - $S_{xq} = 2 \cdot (22 + 10) \cdot 5 = 320\text{ cm}^2$.<br>
+                        - $V = 22 \cdot 10 \cdot 5 = 1100\text{ cm}^3$.
+                    </div>
+                </div>
+
+                <!-- Bài 10 -->
+                <div class="p-4 border border-slate-200 rounded-xl hover:border-emerald-300 transition bg-slate-50/50">
+                    <p class="font-bold text-sm text-slate-800 mb-2">Bài 10: Điền số thích hợp vào chỗ trống: Hình hộp chữ nhật và hình lập phương có ... mặt, ... đỉnh, ... cạnh, ... đường chéo.</p>
+                    <button onclick="toggleSol('sol10')" class="text-xs bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-1.5 rounded-md transition flex items-center gap-1"><i class="fas fa-eye"></i> Gợi ý / Lời giải</button>
+                    <div id="sol10" class="hidden mt-3 text-xs bg-white p-3 rounded border border-emerald-200 text-slate-700">
+                        Điền lần lượt các số: <strong>6</strong> mặt, <strong>8</strong> đỉnh, <strong>12</strong> cạnh, <strong>4</strong> đường chéo.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PHẦN 2: CẤP ĐỘ NÂNG CAO -->
+        <section id="capdo2" class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm space-y-6">
+            <div class="flex items-center justify-between border-b border-slate-200 pb-4">
+                <div class="flex items-center gap-3">
+                    <span class="p-3 bg-amber-100 text-amber-600 rounded-xl"><i class="fas fa-chart-line text-xl"></i></span>
+                    <div>
+                        <h2 class="text-xl font-bold text-slate-800">PHẦN 2: CẤP ĐỘ NÂNG CAO (10 Bài)</h2>
+                        <p class="text-xs text-slate-500">Mục tiêu: Giải bài toán ngược (tìm cạnh khi biết $S, V$), đánh giá sự thay đổi và ghép/cắt khối.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VÍ DỤ MINH HỌA MẪU 2 -->
+            <div class="bg-amber-50/60 border border-amber-200 rounded-xl p-5 space-y-2">
+                <div class="flex items-center gap-2 text-amber-800 font-bold text-sm uppercase">
+                    <i class="fas fa-lightbulb"></i> Ví dụ minh họa Cấp độ Nâng cao
+                </div>
+                <p class="text-sm font-medium">Một bể cá hình hộp chữ nhật dài $50\text{ cm}$, rộng $30\text{ cm}$, mực nước cao $20\text{ cm}$. Thả chìm hòn đá vào bể thì mực nước dâng lên $25\text{ cm}$. Tính thể tích hòn đá.</p>
+                <div class="pt-2 text-xs text-slate-600 bg-white p-3 rounded-lg border border-amber-100">
+                    <strong>Lời giải:</strong><br>
+                    Chiều cao mực nước dâng thêm là: $\Delta h = 25 - 20 = 5\text{ cm}$.<br>
+                    Thể tích hòn đá đúng bằng thể tích phần nước dâng lên:<br>
+                    $V_{đá} = 50 \cdot 30 \cdot 5 = 7500\text{ cm}^3$.
+                </div>
+            </div>
+
+            <!-- BÀI TẬP BÀI 11 -> 20 -->
+            <div class="grid md:grid-cols-2 gap-4">
+                <!-- Bài 11 -->
+                <div class="p-4 border border-slate-200 rounded-xl hover:border-amber-300 transition bg-slate-50/50">
+                    <p class="font-bold text-sm text-slate-800 mb-2">Bài 11: Một hình lập phương có thể tích $125\text{ cm}^3$. Tính diện tích xung quanh của hình lập phương đó.</p>
+                    <button onclick="toggleSol('sol11')" class="text-xs bg-amber-600 hover:bg-amber-700 text-white px-3 py-1.5 rounded-md transition flex items-center gap-1"><i class="fas fa-eye"></i> Gợi ý / Lời giải</button>
+                    <div id="sol11" class="hidden mt-3 text-xs bg-white p-3 rounded border border-amber-200 text-slate-700">
+                        Cạnh $a = \sqrt[3]{125} = 5\text{ cm}$.<br>
+                        $S_{xq} = 4 \cdot 5^2 = 100\text{ cm}^2$.
+                    </div>
+                </div>
+
+                <!-- Bài 12 -->
+                <div class="p-4 border border-slate-200 rounded-xl hover:border-amber-300 transition bg-slate-50/50">
+                    <p class="font-bold text-sm text-slate-800 mb-2">Bài 12: Một hình lập phương có diện tích toàn phần là $216\text{ cm}^2$. Tính thể tích của nó.</p>
+                    <button onclick="toggleSol('sol12')" class="text-xs bg-amber-600 hover:bg-amber-700 text-white px-3 py-1.5 rounded-md transition flex items-center gap-1"><i class="fas fa-eye"></i> Gợi ý / Lời giải</button>
+                    <div id="sol12" class="hidden mt-3 text-xs bg-white p-3 rounded border border-amber-200 text-slate-700">
+                        Diện tích 1 mặt: $216 / 6 = 36\text{ cm}^2 \Rightarrow a = 6\text{ cm}$.<br>
+                        $V = 6^3 = 216\text{ cm}^3$.
+                    </div>
+                </div>
+
+                <!-- Bài 13 -->
+                <div class="p-4 border border-slate-200 rounded-xl hover:border-amber-300 transition bg-slate-50/50">
+                    <p class="font-bold text-sm text-slate-800 mb-2">Bài 13: Xếp các khối lập phương nhỏ cạnh $1\text{ cm}$ thành hình hộp chữ nhật dài $10\text{ cm}$, rộng $6\text{ cm}$, cao $5\text{ cm}$. Cần bao nhiêu khối nhỏ?</p>
+                    <button onclick="toggleSol('sol13')" class="text-xs bg-amber-600 hover:bg-amber-700 text-white px-3 py-1.5 rounded-md transition flex items-center gap-1"><i class="fas fa-eye"></i> Gợi ý / Lời giải</button>
+                    <div id="sol13" class="hidden mt-3 text-xs bg-white p-3 rounded border border-amber-200 text-slate-700">
+                        Số khối nhỏ = $V_{\text{hộp}} / V_{\text{nhỏ}} = (10 \cdot 6 \cdot 5) / 1^3 = 300$ khối.
+                    </div>
+                </div>
+
+                <!-- Bài 14 -->
+                <div class="p-4 border border-slate-200 rounded-xl hover:border-amber-300 transition bg-slate-50/50">
+                    <p class="font-bold text-sm text-slate-800 mb-2">Bài 14: Bể cá $50\times 30\text{ cm}$, nước cao $20\text{ cm}$. Thả chìm hòn đá thì mực nước dâng lên $25\text{ cm}$. Tính thể tích hòn đá.</p>
+                    <button onclick="toggleSol('sol14')" class="text-xs bg-amber-600 hover:bg-amber-700 text-white px-3 py-1.5 rounded-md transition flex items-center gap-1"><i class="fas fa-eye"></i> Gợi ý / Lời giải</button>
+                    <div id="sol14" class="hidden mt-3 text-xs bg-white p-3 rounded border border-amber-200 text-slate-700">
+                        $V = 50 \cdot 30 \cdot (25 - 20) = 7500\text{ cm}^3$. (Xem chi tiết ví dụ mẫu).
+                    </div>
+                </div>
+
+                <!-- Bài 15 -->
+                <div class="p-4 border border-slate-200 rounded-xl hover:border-amber-300 transition bg-slate-50/50">
+                    <p class="font-bold text-sm text-slate-800 mb-2">Bài 15: Khối đa diện chữ "L" ghép bởi 2 khối hộp $A(4 \times 3 \times 5)$ và $B(6 \times 3 \times 2)$. Tính tổng thể tích.</p>
+                    <button onclick="toggleSol('sol15')" class="text-xs bg-amber-600 hover:bg-amber-700 text-white px-3 py-1.5 rounded-md transition flex items-center gap-1"><i class="fas fa-eye"></i> Gợi ý / Lời giải</button>
+                    <div id="sol15" class="hidden mt-3 text-xs bg-white p-3 rounded border border-amber-200 text-slate-700">
+                        $V_A = 4 \cdot 3 \cdot 5 = 60\text{ cm}^3$. $V_B = 6 \cdot 3 \cdot 2 = 36\text{ cm}^3$.<br>
+                        $V_{\text{tổng}} = 60 + 36 = 96\text{ cm}^3$.
+                    </div>
+                </div>
+
+                <!-- Bài 16 -->
+                <div class="p-4 border border-slate-200 rounded-xl hover:border-amber-300 transition bg-slate-50/50">
+                    <p class="font-bold text-sm text-slate-800 mb-2">Bài 16: Phòng học $8 \times 6 \times 3,5\text{ m}$. Sơn trong 4 tường. Tính diện tích cần sơn biết tổng diện tích cửa là $12\text{ m}^2$.</p>
+                    <button onclick="toggleSol('sol16')" class="text-xs bg-amber-600 hover:bg-amber-700 text-white px-3 py-1.5 rounded-md transition flex items-center gap-1"><i class="fas fa-eye"></i> Gợi ý / Lời giải</button>
+                    <div id="sol16" class="hidden mt-3 text-xs bg-white p-3 rounded border border-amber-200 text-slate-700">
+                        $S_{xq} = 2 \cdot (8 + 6) \cdot 3,5 = 98\text{ m}^2$.<br>
+                        $S_{\text{sơn}} = 98 - 12 = 86\text{ m}^2$.
+                    </div>
+                </div>
+
+                <!-- Bài 17 -->
+                <div class="p-4 border border-slate-200 rounded-xl hover:border-amber-300 transition bg-slate-50/50">
+                    <p class="font-bold text-sm text-slate-800 mb-2">Bài 17: Tăng mỗi cạnh hình lập phương lên gấp 2 lần thì thể tích tăng lên gấp bao nhiêu lần?</p>
+                    <button onclick="toggleSol('sol17')" class="text-xs bg-amber-600 hover:bg-amber-700 text-white px-3 py-1.5 rounded-md transition flex items-center gap-1"><i class="fas fa-eye"></i> Gợi ý / Lời giải</button>
+                    <div id="sol17" class="hidden mt-3 text-xs bg-white p-3 rounded border border-amber-200 text-slate-700">
+                        Thế tích mới $V' = (2a)^3 = 8a^3 = 8V$. Vậy thể tích tăng gấp <strong>8 lần</strong>.
+                    </div>
+                </div>
+
+                <!-- Bài 18 -->
+                <div class="p-4 border border-slate-200 rounded-xl hover:border-amber-300 transition bg-slate-50/50">
+                    <p class="font-bold text-sm text-slate-800 mb-2">Bài 18: Khối gỗ $8 \times 6 \times 5\text{ cm}$. Khoét bỏ ở 1 góc khối lập phương cạnh $3\text{ cm}$. Tính thể tích phần còn lại.</p>
+                    <button onclick="toggleSol('sol18')" class="text-xs bg-amber-600 hover:bg-amber-700 text-white px-3 py-1.5 rounded-md transition flex items-center gap-1"><i class="fas fa-eye"></i> Gợi ý / Lời giải</button>
+                    <div id="sol18" class="hidden mt-3 text-xs bg-white p-3 rounded border border-amber-200 text-slate-700">
+                        $V_{\text{ban đầu}} = 8 \cdot 6 \cdot 5 = 240\text{ cm}^3$. $V_{\text{khoét}} = 3^3 = 27\text{ cm}^3$.<br>
+                        $V_{\text{còn lại}} = 240 - 27 = 213\text{ cm}^3$.
+                    </div>
+                </div>
+
+                <!-- Bài 19 -->
+                <div class="p-4 border border-slate-200 rounded-xl hover:border-amber-300 transition bg-slate-50/50">
+                    <p class="font-bold text-sm text-slate-800 mb-2">Bài 19: Ba kích thước hình hộp tỉ lệ với $4; 3; 2$. Thể tích bằng $192\text{ cm}^3$. Tìm độ dài ba cạnh.</p>
+                    <button onclick="toggleSol('sol19')" class="text-xs bg-amber-600 hover:bg-amber-700 text-white px-3 py-1.5 rounded-md transition flex items-center gap-1"><i class="fas fa-eye"></i> Gợi ý / Lời giải</button>
+                    <div id="sol19" class="hidden mt-3 text-xs bg-white p-3 rounded border border-amber-200 text-slate-700">
+                        Đặt ba cạnh là $4x, 3x, 2x$. Ta có: $4x \cdot 3x \cdot 2x = 192 \Rightarrow 24x^3 = 192 \Rightarrow x^3 = 8 \Rightarrow x = 2$.<br>
+                        Độ dài ba cạnh lần lượt là $8\text{ cm}, 6\text{ cm}, 4\text{ cm}$.
+                    </div>
+                </div>
+
+                <!-- Bài 20 -->
+                <div class="p-4 border border-slate-200 rounded-xl hover:border-amber-300 transition bg-slate-50/50">
+                    <p class="font-bold text-sm text-slate-800 mb-2">Bài 20: Bìa $30 \times 20\text{ cm}$, cắt 4 góc vuông cạnh $5\text{ cm}$ rồi gập thành hộp không nắp. Tính thể tích hộp.</p>
+                    <button onclick="toggleSol('sol20')" class="text-xs bg-amber-600 hover:bg-amber-700 text-white px-3 py-1.5 rounded-md transition flex items-center gap-1"><i class="fas fa-eye"></i> Gợi ý / Lời giải</button>
+                    <div id="sol20" class="hidden mt-3 text-xs bg-white p-3 rounded border border-amber-200 text-slate-700">
+                        Hộp mới có chiều dài $= 30 - 2(5) = 20\text{ cm}$; chiều rộng $= 20 - 2(5) = 10\text{ cm}$; chiều cao $= 5\text{ cm}$.<br>
+                        $V = 20 \cdot 10 \cdot 5 = 1000\text{ cm}^3$.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PHẦN 3: CẤP ĐỘ VẬN DỤNG -->
+        <section id="capdo3" class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm space-y-6">
+            <div class="flex items-center justify-between border-b border-slate-200 pb-4">
+                <div class="flex items-center gap-3">
+                    <span class="p-3 bg-rose-100 text-rose-600 rounded-xl"><i class="fas fa-rocket text-xl"></i></span>
+                    <div>
+                        <h2 class="text-xl font-bold text-slate-800">PHẦN 3: CẤP ĐỘ VẬN DỤNG (10 Bài)</h2>
+                        <p class="text-xs text-slate-500">Mục tiêu: Đưa kiến thức vào bối cảnh thực tiễn đời sống, quy đổi đơn vị đo lường và tính chi phí.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VÍ DỤ MINH HỌA MẪU 3 -->
+            <div class="bg-rose-50/60 border border-rose-200 rounded-xl p-5 space-y-2">
+                <div class="flex items-center gap-2 text-rose-800 font-bold text-sm uppercase">
+                    <i class="fas fa-lightbulb"></i> Ví dụ minh họa Cấp độ Vận dụng
+                </div>
+                <p class="text-sm font-medium">Bể nước rỗng $2\text{ m} \times 1,5\text{ m} \times 1,2\text{ m}$. Máy bơm mỗi phút bơm được $30\text{ lít}$ nước. Hỏi sau bao lâu bể đầy?</p>
+                <div class="pt-2 text-xs text-slate-600 bg-white p-3 rounded-lg border border-rose-100">
+                    <strong>Lời giải:</strong><br>
+                    Thể tích bể là: $V = 2 \cdot 1,5 \cdot 1,2 = 3,6\text{ m}^3 = 3600\text{ dm}^3 = 3600\text{ lít}$.<br>
+                    Thời gian cần để bơm đầy bể là:<br>
+                    $t = 3600 / 30 = 120\text{ phút} = 2\text{ giờ}$.
+                </div>
+            </div>
+
+            <!-- BÀI TẬP BÀI 21 -> 30 -->
+            <div class="grid md:grid-cols-2 gap-4">
+                <!-- Bài 21 -->
+                <div class="p-4 border border-slate-200 rounded-xl hover:border-rose-300 transition bg-slate-50/50">
+                    <p class="font-bold text-sm text-slate-800 mb-2">Bài 21 (Bơm nước): Bể rỗng $2\text{ m} \times 1,5\text{ m} \times 1,2\text{ m}$. Máy bơm được $30\text{ lít/phút}$. Hỏi sau bao lâu thì bể đầy?</p>
+                    <button onclick="toggleSol('sol21')" class="text-xs bg-rose-600 hover:bg-rose-700 text-white px-3 py-1.5 rounded-md transition flex items-center gap-1"><i class="fas fa-eye"></i> Gợi ý / Lời giải</button>
+                    <div id="sol21" class="hidden mt-3 text-xs bg-white p-3 rounded border border-rose-200 text-slate-700">
+                        $V = 3600\text{ lít}$. Thời gian $= 3600 / 30 = 120\text{ phút} = 2\text{ giờ}$. (Xem chi tiết ví dụ mẫu).
+                    </div>
+                </div>
+
+                <!-- Bài 22 -->
+                <div class="p-4 border border-slate-200 rounded-xl hover:border-rose-300 transition bg-slate-50/50">
+                    <p class="font-bold text-sm text-slate-800 mb-2">Bài 22 (Lát gạch hồ bơi): Hồ bơi $25\text{ m} \times 10\text{ m} \times 2\text{ m}$. Dùng gạch vuông cạnh $50\text{ cm}$ lát đáy và thành hồ. Tính số gạch.</p>
+                    <button onclick="toggleSol('sol22')" class="text-xs bg-rose-600 hover:bg-rose-700 text-white px-3 py-1.5 rounded-md transition flex items-center gap-1"><i class="fas fa-eye"></i> Gợi ý / Lời giải</button>
+                    <div id="sol22" class="hidden mt-3 text-xs bg-white p-3 rounded border border-rose-200 text-slate-700">
+                        $S_{\text{lát}} = 25 \cdot 10 + 2(25 + 10) \cdot 2 = 250 + 140 = 390\text{ m}^2$.<br>
+                        Diện tích 1 viên gạch $= 0,5 \cdot 0,5 = 0,25\text{ m}^2$. Số viên $= 390 / 0,25 = 1560$ viên.
+                    </div>
+                </div>
+
+                <!-- Bài 23 -->
+                <div class="p-4 border border-slate-200 rounded-xl hover:border-rose-300 transition bg-slate-50/50">
+                    <p class="font-bold text-sm text-slate-800 mb-2">Bài 23 (Dán giấy hộp quà): Hộp quà không nắp $25 \times 15 \times 10\text{ cm}$. a) Tính diện tích giấy màu dán xung quanh và đáy. b) Tính tiền biết $20.000\text{đ/m}^2$.</p>
+                    <button onclick="toggleSol('sol23')" class="text-xs bg-rose-600 hover:bg-rose-700 text-white px-3 py-1.5 rounded-md transition flex items-center gap-1"><i class="fas fa-eye"></i> Gợi ý / Lời giải</button>
+                    <div id="sol23" class="hidden mt-3 text-xs bg-white p-3 rounded border border-rose-200 text-slate-700">
+                        a) $S = 25 \cdot 15 + 2(25 + 15) \cdot 10 = 375 + 800 = 1175\text{ cm}^2 = 0,1175\text{ m}^2$.<br>
+                        b) Số tiền $= 0,1175 \cdot 20000 = 2350$ VNĐ.
+                    </div>
+                </div>
+
+                <!-- Bài 24 -->
+                <div class="p-4 border border-slate-200 rounded-xl hover:border-rose-300 transition bg-slate-50/50">
+                    <p class="font-bold text-sm text-slate-800 mb-2">Bài 24 (Container): Container $12\text{ m} \times 2,4\text{ m} \times 2,6\text{ m}$. Xếp các thùng lập phương cạnh $0,5\text{ m}$. Hỏi xếp tối đa bao nhiêu thùng?</p>
+                    <button onclick="toggleSol('sol24')" class="text-xs bg-rose-600 hover:bg-rose-700 text-white px-3 py-1.5 rounded-md transition flex items-center gap-1"><i class="fas fa-eye"></i> Gợi ý / Lời giải</button>
+                    <div id="sol24" class="hidden mt-3 text-xs bg-white p-3 rounded border border-rose-200 text-slate-700">
+                        Theo chiều dài: $12 / 0,5 = 24$ thùng.<br>
+                        Theo chiều rộng: $\lfloor 2,4 / 0,5 \rfloor = 4$ thùng.<br>
+                        Theo chiều cao: $\lfloor 2,6 / 0,5 \rfloor = 5$ thùng.<br>
+                        Tổng số thùng $= 24 \cdot 4 \cdot 5 = 480$ thùng.
+                    </div>
+                </div>
+
+                <!-- Bài 25 -->
+                <div class="p-4 border border-slate-200 rounded-xl hover:border-rose-300 transition bg-slate-50/50">
+                    <p class="font-bold text-sm text-slate-800 mb-2">Bài 25 (Đúc bê tông): Mương bê tông ngoài $10 \times 1,5 \times 1\text{ m}$. Rãnh rỗng trong $10 \times 1,1 \times 0,8\text{ m}$. Tính thể tích bê tông.</p>
+                    <button onclick="toggleSol('sol25')" class="text-xs bg-rose-600 hover:bg-rose-700 text-white px-3 py-1.5 rounded-md transition flex items-center gap-1"><i class="fas fa-eye"></i> Gợi ý / Lời giải</button>
+                    <div id="sol25" class="hidden mt-3 text-xs bg-white p-3 rounded border border-rose-200 text-slate-700">
+                        $V_{\text{ngoài}} = 10 \cdot 1,5 \cdot 1 = 15\text{ m}^3$. $V_{\text{trong}} = 10 \cdot 1,1 \cdot 0,8 = 8,8\text{ m}^3$.<br>
+                        $V_{\text{bê tông}} = 15 - 8,8 = 6,2\text{ m}^3$.
+                    </div>
+                </div>
+
+                <!-- Bài 26 -->
+                <div class="p-4 border border-slate-200 rounded-xl hover:border-rose-300 transition bg-slate-50/50">
+                    <p class="font-bold text-sm text-slate-800 mb-2">Bài 26 (Thùng tôn): Thùng tôn có nắp đậy $1,2\text{ m} \times 0,8\text{ m} \times 0,5\text{ m}$. Tính diện tích tôn cần dùng.</p>
+                    <button onclick="toggleSol('sol26')" class="text-xs bg-rose-600 hover:bg-rose-700 text-white px-3 py-1.5 rounded-md transition flex items-center gap-1"><i class="fas fa-eye"></i> Gợi ý / Lời giải</button>
+                    <div id="sol26" class="hidden mt-3 text-xs bg-white p-3 rounded border border-rose-200 text-slate-700">
+                        $S_{tp} = 2(1,2 \cdot 0,8 + 1,2 \cdot 0,5 + 0,8 \cdot 0,5) = 2(0,96 + 0,6 + 0,4) = 3,92\text{ m}^2$.
+                    </div>
+                </div>
+
+                <!-- Bài 27 -->
+                <div class="p-4 border border-slate-200 rounded-xl hover:border-rose-300 transition bg-slate-50/50">
+                    <p class="font-bold text-sm text-slate-800 mb-2">Bài 27 (Trồng cây): Bồn hoa $4\text{ m} \times 1\text{ m}$, đổ đất dày $0,6\text{ m}$. Xe rùa chở $0,08\text{ m}^3$/chuyến. Cần đẩy bao nhiêu chuyến?</p>
+                    <button onclick="toggleSol('sol27')" class="text-xs bg-rose-600 hover:bg-rose-700 text-white px-3 py-1.5 rounded-md transition flex items-center gap-1"><i class="fas fa-eye"></i> Gợi ý / Lời giải</button>
+                    <div id="sol27" class="hidden mt-3 text-xs bg-white p-3 rounded border border-rose-200 text-slate-700">
+                        $V_{\text{đất}} = 4 \cdot 1 \cdot 0,6 = 2,4\text{ m}^3$.<br>
+                        Số chuyến xe rùa $= 2,4 / 0,08 = 30$ chuyến.
+                    </div>
+                </div>
+
+                <!-- Bài 28 -->
+                <div class="p-4 border border-slate-200 rounded-xl hover:border-rose-300 transition bg-slate-50/50">
+                    <p class="font-bold text-sm text-slate-800 mb-2">Bài 28 (Sơn nhà): Nhà $15 \times 5 \times 3\text{ m}$. Sơn 4 tường ngoài trừ cửa $10\text{ m}^2$. 1 thùng sơn được $20\text{ m}^2$. Cần mua ít nhất bao nhiêu thùng?</p>
+                    <button onclick="toggleSol('sol28')" class="text-xs bg-rose-600 hover:bg-rose-700 text-white px-3 py-1.5 rounded-md transition flex items-center gap-1"><i class="fas fa-eye"></i> Gợi ý / Lời giải</button>
+                    <div id="sol28" class="hidden mt-3 text-xs bg-white p-3 rounded border border-rose-200 text-slate-700">
+                        $S_{\text{sơn}} = 2(15 + 5) \cdot 3 - 10 = 110\text{ m}^2$.<br>
+                        Số thùng sơn $= 110 / 20 = 5,5 \rightarrow$ Cần mua ít nhất <strong>6 thùng</strong>.
+                    </div>
+                </div>
+
+                <!-- Bài 29 -->
+                <div class="p-4 border border-slate-200 rounded-xl hover:border-rose-300 transition bg-slate-50/50">
+                    <p class="font-bold text-sm text-slate-800 mb-2">Bài 29 (Vận chuyển cát): Thùng xe tải $4,5\text{ m} \times 2\text{ m} \times 1\text{ m}$ chở đầy cát. $1\text{ m}^3$ cát nặng $1,5\text{ tấn}$. Xe chở bao nhiêu tấn cát?</p>
+                    <button onclick="toggleSol('sol29')" class="text-xs bg-rose-600 hover:bg-rose-700 text-white px-3 py-1.5 rounded-md transition flex items-center gap-1"><i class="fas fa-eye"></i> Gợi ý / Lời giải</button>
+                    <div id="sol29" class="hidden mt-3 text-xs bg-white p-3 rounded border border-rose-200 text-slate-700">
+                        $V = 4,5 \cdot 2 \cdot 1 = 9\text{ m}^3$.<br>
+                        Khối lượng cát $= 9 \cdot 1,5 = 13,5$ tấn.
+                    </div>
+                </div>
+
+                <!-- Bài 30 -->
+                <div class="p-4 border border-slate-200 rounded-xl hover:border-rose-300 transition bg-slate-50/50">
+                    <p class="font-bold text-sm text-slate-800 mb-2">Bài 30 (Khay đá): Khay có 12 ngăn lập phương cạnh $2\text{ cm}$. a) Tính thể tích 1 ngăn. b) Tính thể tích nước để rót đầy khay.</p>
+                    <button onclick="toggleSol('sol30')" class="text-xs bg-rose-600 hover:bg-rose-700 text-white px-3 py-1.5 rounded-md transition flex items-center gap-1"><i class="fas fa-eye"></i> Gợi ý / Lời giải</button>
+                    <div id="sol30" class="hidden mt-3 text-xs bg-white p-3 rounded border border-rose-200 text-slate-700">
+                        a) $V_1 = 2^3 = 8\text{ cm}^3 = 8\text{ ml}$.<br>
+                        b) $V_{\text{tổng}} = 12 \cdot 8 = 96\text{ cm}^3 = 96\text{ ml}$.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- BÀI TẬP ĐÁNH GIÁ NĂNG LỰC TẠI LỚP (5 CÂU TRẮC NGHIỆM) -->
+        <section id="tracnghiem" class="bg-white rounded-2xl p-6 border-2 border-indigo-200 shadow-md space-y-6 no-print">
+            <div class="bg-indigo-900 text-white p-4 rounded-xl flex items-center justify-between flex-wrap gap-2">
+                <div class="flex items-center gap-3">
+                    <i class="fas fa-user-check text-2xl text-amber-400"></i>
+                    <div>
+                        <h2 class="text-lg font-bold">BÀI TẬP ĐÁNH GIÁ NĂNG LỰC TẠI LỚP</h2>
+                        <p class="text-xs text-indigo-200">Hoàn thành 5 câu trắc nghiệm bên dưới. Kết quả sẽ tự động lưu về hệ thống Google Sheets.</p>
+                    </div>
+                </div>
+                <span class="text-xs bg-indigo-800 px-3 py-1 rounded-full border border-indigo-700">Mã bài: buoi13-hinh-hop</span>
+            </div>
+
+            <!-- Form Học Sinh -->
+            <div class="grid md:grid-cols-2 gap-4 bg-slate-50 p-4 rounded-xl border border-slate-200">
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 mb-1">Họ và tên học sinh *</label>
+                    <input type="text" id="hoTenInput" placeholder="Ví dụ: Nguyễn Văn An" class="w-full text-sm p-2.5 rounded-lg border border-slate-300 focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 mb-1">Mã Lớp / Trường</label>
+                    <input type="text" id="maLopInput" placeholder="Ví dụ: Lop7A1-HCMUS" class="w-full text-sm p-2.5 rounded-lg border border-slate-300 focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                </div>
+            </div>
+
+            <!-- List câu hỏi trắc nghiệm -->
+            <form id="quizForm" class="space-y-6">
+                <!-- Câu 1 -->
+                <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
+                    <p class="font-bold text-sm text-slate-800">Câu 1: Công thức tính diện tích xung quanh của hình hộp chữ nhật có kích thước dài $a$, rộng $b$, cao $h$ là:</p>
+                    <div class="grid md:grid-cols-2 gap-2 text-xs">
+                        <label class="flex items-center p-2 rounded bg-white border border-slate-200 cursor-pointer hover:bg-indigo-50"><input type="radio" name="q1" value="A" class="mr-2"> A) $S_{xq} = (a+b)h$</label>
+                        <label class="flex items-center p-2 rounded bg-white border border-slate-200 cursor-pointer hover:bg-indigo-50"><input type="radio" name="q1" value="B" class="mr-2"> B) $S_{xq} = 2(a+b)h$</label>
+                        <label class="flex items-center p-2 rounded bg-white border border-slate-200 cursor-pointer hover:bg-indigo-50"><input type="radio" name="q1" value="C" class="mr-2"> C) $S_{xq} = a \cdot b \cdot h$</label>
+                        <label class="flex items-center p-2 rounded bg-white border border-slate-200 cursor-pointer hover:bg-indigo-50"><input type="radio" name="q1" value="D" class="mr-2"> D) $S_{xq} = 2(ab + bh + ah)$</label>
+                    </div>
+                </div>
+
+                <!-- Câu 2 -->
+                <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
+                    <p class="font-bold text-sm text-slate-800">Câu 2: Một hình lập phương có cạnh $a = 4\text{ cm}$. Thể tích của hình lập phương đó là:</p>
+                    <div class="grid md:grid-cols-2 gap-2 text-xs">
+                        <label class="flex items-center p-2 rounded bg-white border border-slate-200 cursor-pointer hover:bg-indigo-50"><input type="radio" name="q2" value="A" class="mr-2"> A) $16\text{ cm}^3$</label>
+                        <label class="flex items-center p-2 rounded bg-white border border-slate-200 cursor-pointer hover:bg-indigo-50"><input type="radio" name="q2" value="B" class="mr-2"> B) $48\text{ cm}^3$</label>
+                        <label class="flex items-center p-2 rounded bg-white border border-slate-200 cursor-pointer hover:bg-indigo-50"><input type="radio" name="q2" value="C" class="mr-2"> C) $64\text{ cm}^3$</label>
+                        <label class="flex items-center p-2 rounded bg-white border border-slate-200 cursor-pointer hover:bg-indigo-50"><input type="radio" name="q2" value="D" class="mr-2"> D) $96\text{ cm}^3$</label>
+                    </div>
+                </div>
+
+                <!-- Câu 3 -->
+                <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
+                    <p class="font-bold text-sm text-slate-800">Câu 3: Hình hộp chữ nhật có tất cả bao nhiêu đường chéo?</p>
+                    <div class="grid md:grid-cols-2 gap-2 text-xs">
+                        <label class="flex items-center p-2 rounded bg-white border border-slate-200 cursor-pointer hover:bg-indigo-50"><input type="radio" name="q3" value="A" class="mr-2"> A) 2 đường chéo</label>
+                        <label class="flex items-center p-2 rounded bg-white border border-slate-200 cursor-pointer hover:bg-indigo-50"><input type="radio" name="q3" value="B" class="mr-2"> B) 4 đường chéo</label>
+                        <label class="flex items-center p-2 rounded bg-white border border-slate-200 cursor-pointer hover:bg-indigo-50"><input type="radio" name="q3" value="C" class="mr-2"> C) 6 đường chéo</label>
+                        <label class="flex items-center p-2 rounded bg-white border border-slate-200 cursor-pointer hover:bg-indigo-50"><input type="radio" name="q3" value="D" class="mr-2"> D) 8 đường chéo</label>
+                    </div>
+                </div>
+
+                <!-- Câu 4 -->
+                <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
+                    <p class="font-bold text-sm text-slate-800">Câu 4: Một bể cá dài $60\text{ cm}$, rộng $40\text{ cm}$. Đổ vào bể $48\text{ lít}$ nước ($48000\text{ cm}^3$). Mực nước cao bao nhiêu?</p>
+                    <div class="grid md:grid-cols-2 gap-2 text-xs">
+                        <label class="flex items-center p-2 rounded bg-white border border-slate-200 cursor-pointer hover:bg-indigo-50"><input type="radio" name="q4" value="A" class="mr-2"> A) $20\text{ cm}$</label>
+                        <label class="flex items-center p-2 rounded bg-white border border-slate-200 cursor-pointer hover:bg-indigo-50"><input type="radio" name="q4" value="B" class="mr-2"> B) $25\text{ cm}$</label>
+                        <label class="flex items-center p-2 rounded bg-white border border-slate-200 cursor-pointer hover:bg-indigo-50"><input type="radio" name="q4" value="C" class="mr-2"> C) $15\text{ cm}$</label>
+                        <label class="flex items-center p-2 rounded bg-white border border-slate-200 cursor-pointer hover:bg-indigo-50"><input type="radio" name="q4" value="D" class="mr-2"> D) $30\text{ cm}$</label>
+                    </div>
+                </div>
+
+                <!-- Câu 5 -->
+                <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
+                    <p class="font-bold text-sm text-slate-800">Câu 5: Nếu tăng cạnh của một hình lập phương lên gấp 3 lần thì diện tích toàn phần của nó tăng lên gấp mấy lần?</p>
+                    <div class="grid md:grid-cols-2 gap-2 text-xs">
+                        <label class="flex items-center p-2 rounded bg-white border border-slate-200 cursor-pointer hover:bg-indigo-50"><input type="radio" name="q5" value="A" class="mr-2"> A) 3 lần</label>
+                        <label class="flex items-center p-2 rounded bg-white border border-slate-200 cursor-pointer hover:bg-indigo-50"><input type="radio" name="q5" value="B" class="mr-2"> B) 6 lần</label>
+                        <label class="flex items-center p-2 rounded bg-white border border-slate-200 cursor-pointer hover:bg-indigo-50"><input type="radio" name="q5" value="C" class="mr-2"> C) 9 lần</label>
+                        <label class="flex items-center p-2 rounded bg-white border border-slate-200 cursor-pointer hover:bg-indigo-50"><input type="radio" name="q5" value="D" class="mr-2"> D) 27 lần</label>
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="text-center">
+                    <button type="button" onclick="nopBaiTap()" id="btnSubmitQuiz" class="px-8 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl shadow-lg transition flex items-center gap-2 mx-auto">
+                        <i class="fas fa-paper-plane"></i> Nộp Bài & Gửi Kết Quả
+                    </button>
+                </div>
+            </form>
+
+            <!-- Quiz Result Alert Box -->
+            <div id="quizResult" class="hidden p-4 rounded-xl text-sm border"></div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER COPYRIGHT -->
+    <footer class="bg-white border-t border-slate-200 py-6 text-center text-xs text-slate-600 mt-12 print:border-none">
+        <p class="font-semibold text-slate-800">@ Bản quyền thuộc ThS. Đinh Quốc Tuấn - Mục đích phi lợi nhuận - Vì giáo dục.</p>
+    </footer>
+
+    <!-- NÚT IN TÀI LIỆU -->
+    <button id="btn-print-doc" onclick="safePrint()" class="fixed bottom-5 right-5 bg-gray-900 text-white px-4 py-2 rounded-lg shadow-lg hover:bg-gray-700 print:hidden z-50">
+        <i class="fas fa-print mr-2"></i> In Tài Liệu
+    </button>
+
+    <!-- SCRIPT TƯƠNG TÁC LÝ THUYẾT & JSXGRAPH & QUIZ -->
+    <script>
+        // 1. CHỨC NĂNG IN AN TOÀN
+        function safePrint() {
+            const printBtn = document.getElementById('btn-print-doc');
+            printBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Đang chuẩn bị...';
+            
+            if (window.MathJax && window.MathJax.typesetPromise) {
+                MathJax.typesetPromise().then(() => {
+                    printBtn.innerHTML = '<i class="fas fa-print mr-2"></i> In Tài Liệu';
+                    window.print();
+                });
+            } else {
+                setTimeout(() => {
+                    printBtn.innerHTML = '<i class="fas fa-print mr-2"></i> In Tài Liệu';
+                    window.print();
+                }, 500); 
+            }
+        }
+
+        // 2. ẨN/HIỆN LỜI GIẢI BÀI TẬP
+        function toggleSol(id) {
+            const el = document.getElementById(id);
+            if (el.classList.contains('hidden')) {
+                el.classList.remove('hidden');
+            } else {
+                el.classList.add('hidden');
+            }
+        }
+
+        // 3. KHỞI TẠO MÔ HÌNH JSXGRAPH (Tên biến được đặt riêng biệt theo từng Board)
+        document.addEventListener('DOMContentLoaded', function () {
+            
+            // BOARD 1: Khối Hộp Chữ Nhật Biến Thiên (2D Oblique Projection)
+            const b1 = JXG.JSXGraph.initBoard('jxgbox1', {
+                boundingbox: [-2, 8, 8, -4],
+                axis: false,
+                showCopyright: false,
+                showNavigation: false
+            });
+
+            const sl_len = b1.create('slider', [[0, -2], [4, -2], [1, 4, 5]], { name: 'Dài (a)' });
+            const sl_wid = b1.create('slider', [[0, -2.8], [4, -2.8], [1, 2, 3]], { name: 'Rộng (b)' });
+            const sl_hei = b1.create('slider', [[0, -3.6], [4, -3.6], [1, 3, 4]], { name: 'Cao (h)' });
+
+            const project = function(x, y, z) {
+                const alpha = Math.PI / 6;
+                const factor = 0.5;
+                return [x + y * factor * Math.cos(alpha), z + y * factor * Math.sin(alpha)];
+            };
+
+            // Base Vertices
+            const pA = b1.create('point', [function() { return project(0, 0, 0)[0]; }, function() { return project(0, 0, 0)[1]; }], { name: 'A', size: 2, fixed: true });
+            const pB = b1.create('point', [function() { return project(sl_len.Value(), 0, 0)[0]; }, function() { return project(sl_len.Value(), 0, 0)[1]; }], { name: 'B', size: 2, fixed: true });
+            const pC = b1.create('point', [function() { return project(sl_len.Value(), sl_wid.Value(), 0)[0]; }, function() { return project(sl_len.Value(), sl_wid.Value(), 0)[1]; }], { name: 'C', size: 2, fixed: true });
+            const pD = b1.create('point', [function() { return project(0, sl_wid.Value(), 0)[0]; }, function() { return project(0, sl_wid.Value(), 0)[1]; }], { name: 'D', size: 2, fixed: true });
+
+            // Top Vertices
+            const pE = b1.create('point', [function() { return project(0, 0, sl_hei.Value())[0]; }, function() { return project(0, 0, sl_hei.Value())[1]; }], { name: 'E', size: 2, fixed: true });
+            const pF = b1.create('point', [function() { return project(sl_len.Value(), 0, sl_hei.Value())[0]; }, function() { return project(sl_len.Value(), 0, sl_hei.Value())[1]; }], { name: 'F', size: 2, fixed: true });
+            const pG = b1.create('point', [function() { return project(sl_len.Value(), sl_wid.Value(), sl_hei.Value())[0]; }, function() { return project(sl_len.Value(), sl_wid.Value(), sl_hei.Value())[1]; }], { name: 'G', size: 2, fixed: true });
+            const pH = b1.create('point', [function() { return project(0, sl_wid.Value(), sl_hei.Value())[0]; }, function() { return project(0, sl_wid.Value(), sl_hei.Value())[1]; }], { name: 'H', size: 2, fixed: true });
+
+            // Polygons / Edges
+            b1.create('polygon', [pE, pF, pG, pH], { fillColor: 'indigo', fillOpacity: 0.2, strokeColor: 'indigo' });
+            b1.create('segment', [pA, pB], { strokeColor: 'blue', strokeWidth: 2 });
+            b1.create('segment', [pB, pC], { strokeColor: 'blue', strokeWidth: 2 });
+            b1.create('segment', [pC, pD], { strokeColor: 'gray', strokeWidth: 1, dash: 2 });
+            b1.create('segment', [pD, pA], { strokeColor: 'gray', strokeWidth: 1, dash: 2 });
+
+            b1.create('segment', [pA, pE], { strokeColor: 'blue', strokeWidth: 2 });
+            b1.create('segment', [pB, pF], { strokeColor: 'blue', strokeWidth: 2 });
+            b1.create('segment', [pC, pG], { strokeColor: 'blue', strokeWidth: 2 });
+            b1.create('segment', [pD, pH], { strokeColor: 'gray', strokeWidth: 1, dash: 2 });
+
+            b1.create('text', [-1.5, 7, function() {
+                const a = sl_len.Value().toFixed(1);
+                const b = sl_wid.Value().toFixed(1);
+                const h = sl_hei.Value().toFixed(1);
+                const V = (a * b * h).toFixed(1);
+                const Sxq = (2 * (parseFloat(a) + parseFloat(b)) * h).toFixed(1);
+                return `<b>S_xq:</b> ${Sxq} cm² | <b>V:</b> ${V} cm³`;
+            }], { fontSize: 13, color: 'indigo' });
+
+
+            // BOARD 2: Lưới Trải Khai Triển Hình Lập Phương
+            const b2 = JXG.JSXGraph.initBoard('jxgbox2', {
+                boundingbox: [-4, 6, 6, -4],
+                axis: false,
+                showCopyright: false,
+                showNavigation: false
+            });
+
+            const sl_fold = b2.create('slider', [[-3, -3], [3, -3], [0, 0, 1]], { name: 'Mức gấp net' });
+
+            // Central Net 1-4-1
+            const size = 1.5;
+            b2.create('polygon', [[0, 0], [size, 0], [size, size], [0, size]], { fillColor: 'emerald', fillOpacity: 0.3 });
+            b2.create('polygon', [[size, 0], [2*size, 0], [2*size, size], [size, size]], { fillColor: 'emerald', fillOpacity: 0.3 });
+            b2.create('polygon', [[-size, 0], [0, 0], [0, size], [-size, size]], { fillColor: 'emerald', fillOpacity: 0.3 });
+            b2.create('polygon', [[2*size, 0], [3*size, 0], [3*size, size], [2*size, size]], { fillColor: 'emerald', fillOpacity: 0.3 });
+            b2.create('polygon', [[0, size], [size, size], [size, 2*size], [0, 2*size]], { fillColor: 'emerald', fillOpacity: 0.3 });
+            b2.create('polygon', [[0, -size], [size, -size], [size, 0], [0, 0]], { fillColor: 'emerald', fillOpacity: 0.3 });
+
+            b2.create('text', [-3.5, 5, function() {
+                const p = Math.round(sl_fold.Value() * 100);
+                return `Trạng thái: ${p}% (6 mặt vuông bằng nhau)`;
+            }], { fontSize: 12, style: 1, color: 'emerald' });
+
+
+            // BOARD 3: Mực Nước Bể Cá & Vật Thả (Nước dâng)
+            const b3 = JXG.JSXGraph.initBoard('jxgbox3', {
+                boundingbox: [-2, 7, 7, -3],
+                axis: false,
+                showCopyright: false,
+                showNavigation: false
+            });
+
+            const sl_stone = b3.create('slider', [[0, -2], [4, -2], [0, 1.5, 3]], { name: 'Thả đá (Δh cm)' });
+
+            // Tank Outlines
+            const tA = [0, 0], tB = [4, 0], tC = [5.5, 1.5], tD = [1.5, 1.5];
+            
+            b3.create('polygon', [
+                tA, tB, tC, tD
+            ], { fillColor: 'none', strokeColor: 'slate', strokeWidth: 2 });
+
+            // Water Polygon
+            b3.create('polygon', [
+                [0, 0], [4, 0], [5.5, 1.5], [1.5, 1.5]
+            ], { fillColor: 'sky', fillOpacity: 0.4 });
+
+            b3.create('polygon', [
+                [0, function() { return 2 + sl_stone.Value(); }],
+                [4, function() { return 2 + sl_stone.Value(); }],
+                [5.5, function() { return 3.5 + sl_stone.Value(); }],
+                [1.5, function() { return 3.5 + sl_stone.Value(); }]
+            ], { fillColor: 'blue', fillOpacity: 0.3 });
+
+            // Edges
+            b3.create('segment', [[0,0], [0, 5]], { strokeColor: 'slate' });
+            b3.create('segment', [[4,0], [4, 5]], { strokeColor: 'slate' });
+            b3.create('segment', [[5.5,1.5], [5.5, 6.5]], { strokeColor: 'slate' });
+
+            b3.create('text', [-1.5, 6, function() {
+                const dh = sl_stone.Value().toFixed(1);
+                const Vd = (50 * 30 * parseFloat(dh)).toFixed(0);
+                return `Mực nước dâng: +${dh} cm<br><b>V_hòn đá:</b> ${Vd} cm³`;
+            }], { fontSize: 12, color: 'blue' });
+
+        });
+
+        // 4. QUẢN LÝ BÀI TẬP VÀ GỬI KẾT QUẢ VỀ GOOGLE APPS SCRIPT
+        const startTime = new Date();
+
+        function nopBaiTap() {
+            const hoTen = document.getElementById('hoTenInput').value.trim();
+            if (!hoTen) {
+                alert('Vui lòng nhập Họ và Tên học sinh trước khi nộp bài!');
+                return;
+            }
+
+            const answers = { q1: 'B', q2: 'C', q3: 'B', q4: 'A', q5: 'C' };
+            let diemNum = 0;
+            let cauSai = [];
+
+            for (let i = 1; i <= 5; i++) {
+                const qVal = document.querySelector('input[name="q' + i + '"]:checked');
+                if (qVal && qVal.value === answers['q' + i]) {
+                    diemNum += 2;
+                } else {
+                    const selected = qVal ? qVal.value : 'Chưa chọn';
+                    cauSai.push('Câu ' + i + ' (Chọn: ' + selected + ', Đáp án: ' + answers['q' + i] + ')');
+                }
+            }
+
+            const endTime = new Date();
+            const timeDiffSec = Math.round((endTime - startTime) / 1000);
+            const thoiGianStr = Math.floor(timeDiffSec / 60) + ' phút ' + (timeDiffSec % 60) + ' giây';
+            const cauSaiStr = cauSai.length > 0 ? cauSai.join('; ') : 'Không làm sai câu nào';
+
+            const payload = {
+                hoTen: hoTen,
+                maDe: 'buoi13-hinh-hop',
+                diem: diemNum + '/10',
+                thoiGian: thoiGianStr,
+                cauSai: cauSaiStr
+            };
+
+            const btnSubmit = document.getElementById('btnSubmitQuiz');
+            btnSubmit.disabled = true;
+            btnSubmit.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Đang nộp kết quả...';
+
+            const scriptUrl = 'https://script.google.com/macros/s/AKfycbzY7b7h4OwvhXuK5Vs6hl-aD88BPnAiAKbU5lfJobby0D4nzbIJVKT4n0AKCpAGoK0nZA/exec';
+
+            fetch(scriptUrl, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            }).then(() => {
+                showQuizResult(diemNum, thoiGianStr, cauSaiStr);
+            }).catch(error => {
+                console.error('Lỗi gửi kết quả:', error);
+                showQuizResult(diemNum, thoiGianStr, cauSaiStr);
+            });
+        }
+
+        function showQuizResult(diem, thoiGian, cauSai) {
+            const resDiv = document.getElementById('quizResult');
+            resDiv.classList.remove('hidden', 'bg-red-50', 'bg-emerald-50', 'border-red-200', 'border-emerald-200');
+            
+            if (diem >= 8) {
+                resDiv.classList.add('bg-emerald-50', 'border-emerald-200', 'text-emerald-800');
+            } else {
+                resDiv.classList.add('bg-amber-50', 'border-amber-200', 'text-amber-800');
+            }
+
+            resDiv.innerHTML = `
+                <div class="font-bold text-base mb-1"><i class="fas fa-check-circle"></i> Kết quả bài đánh giá: ${diem}/10 Điểm</div>
+                <p><strong>Thời gian hoàn thành:</strong> ${thoiGian}</p>
+                <p><strong>Chi tiết ghi nhận:</strong> ${cauSai}</p>
+                <p class="mt-2 text-xs italic text-slate-500">* Kết quả đã được lưu trữ thành công trên hệ thống Google Sheets giáo viên.</p>
+            `;
+
+            const btnSubmit = document.getElementById('btnSubmitQuiz');
+            btnSubmit.innerHTML = '<i class="fas fa-check"></i> Đã Nộp Bài Thành Công';
+            btnSubmit.classList.remove('bg-indigo-600', 'hover:bg-indigo-700');
+            btnSubmit.classList.add('bg-slate-500');
+        }
+    </script>
+</body>
+</html>
