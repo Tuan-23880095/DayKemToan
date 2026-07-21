@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buổi 9: Các góc ở vị trí đặc biệt & Tia phân giác</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- MathJax 3 CDN -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['\\(', '\\)'], ['$', '$']],
+                displayMath: [['\\[', '\\]'], ['$$', '$$']]
+            },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <!-- JSXGraph CDN -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraph.css" />
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraphcore.js"></script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f8fafc;
+            color: #1e293b;
+        }
+        .jsxbox {
+            width: 100%;
+            height: 320px;
+            border-radius: 0.75rem;
+            border: 2px solid #e2e8f0;
+            background-color: #ffffff;
+            box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.05);
+        }
+        @media print {
+            .no-print { display: none !important; }
+            body { background: white; color: black; }
+            .shadow-md, .shadow-lg, .shadow-xl { box-shadow: none !important; }
+            .border { border-color: #cbd5e1 !important; }
+        }
+    </style>
+</head>
+<body class="bg-slate-50 min-h-screen flex flex-col justify-between">
+
+    <!-- HEADER / LOGOS -->
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-40 shadow-sm print:relative print:shadow-none">
+        <div class="max-w-7xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-4">
+            <div class="flex items-center space-x-3">
+                <img src="https://firebasestorage.googleapis.com/v0/b/link-anh-web.firebasestorage.app/o/ttbdvh.jpg?alt=media&token=f270aa9b-a2bc-48e8-8910-80742b542615" 
+                     alt="Logo 1" class="h-12 w-auto object-contain rounded-md border border-slate-200">
+                <img src="https://hcmus.edu.vn/wp-content/uploads/2023/04/Logo-chinh-e1681638380305.png" 
+                     alt="HCMUS Logo" class="h-12 w-auto object-contain">
+            </div>
+            <div class="text-right">
+                <span class="inline-block px-3 py-1 bg-indigo-100 text-indigo-800 text-xs font-semibold rounded-full uppercase tracking-wider mb-1">Chuyên đề Hình học THCS</span>
+                <h1 class="text-xl md:text-2xl font-bold text-slate-800">BUỔI 9: CÁC GÓC Ở VỊ TRÍ ĐẶC BIỆT & TIA PHÂN GIÁC</h1>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="max-w-7xl mx-auto px-4 py-8 flex-grow w-full space-y-10">
+
+        <!-- THANH ĐIỀU HƯỚNG NHANH -->
+        <nav class="bg-white p-4 rounded-xl shadow-sm border border-slate-200 flex flex-wrap justify-center gap-3 no-print">
+            <a href="#momat" class="px-4 py-2 bg-slate-100 hover:bg-indigo-50 hover:text-indigo-600 rounded-lg text-sm font-medium transition flex items-center gap-2"><i class="fas fa-shapes text-indigo-500"></i> Mô Hình Tương Tác</a>
+            <a href="#capdo1" class="px-4 py-2 bg-slate-100 hover:bg-emerald-50 hover:text-emerald-600 rounded-lg text-sm font-medium transition flex items-center gap-2"><i class="fas fa-seedling text-emerald-500"></i> Cấp Độ Cơ Bản</a>
+            <a href="#capdo2" class="px-4 py-2 bg-slate-100 hover:bg-amber-50 hover:text-amber-600 rounded-lg text-sm font-medium transition flex items-center gap-2"><i class="fas fa-chart-line text-amber-500"></i> Cấp Độ Nâng Cao</a>
+            <a href="#capdo3" class="px-4 py-2 bg-slate-100 hover:bg-rose-50 hover:text-rose-600 rounded-lg text-sm font-medium transition flex items-center gap-2"><i class="fas fa-rocket text-rose-500"></i> Cấp Độ Vận Dụng</a>
+            <a href="#tracnghiem" class="px-4 py-2 bg-indigo-600 text-white hover:bg-indigo-700 rounded-lg text-sm font-medium transition flex items-center gap-2"><i class="fas fa-tasks"></i> Đánh Giá Tại Lớp</a>
+        </nav>
+
+        <!-- TỔNG QUAN LÝ THUYẾT NỔI BẬT -->
+        <section class="bg-gradient-to-r from-indigo-900 to-blue-900 text-white rounded-2xl p-6 md:p-8 shadow-xl">
+            <div class="flex items-center gap-3 mb-4">
+                <i class="fas fa-compass text-amber-400 text-3xl"></i>
+                <h2 class="text-2xl font-bold">Tóm Tắt Lý Thuyết Cốt Lõi</h2>
+            </div>
+            <div class="grid md:grid-cols-3 gap-6 text-slate-100">
+                <div class="bg-white/10 p-5 rounded-xl backdrop-blur-sm border border-white/10">
+                    <h3 class="font-bold text-amber-300 text-lg mb-2"><i class="fas fa-draw-polygon mr-2"></i>1. Hai góc kề bù</h3>
+                    <ul class="list-disc list-inside space-y-1 text-sm">
+                        <li>Là hai góc vừa kề nhau vừa bù nhau.</li>
+                        <li>Có một cạnh chung, hai cạnh còn lại là hai tia đối nhau.</li>
+                        <li>Tổng số đo bằng $180^\circ$: $\widehat{AOB} + \widehat{BOC} = 180^\circ$.</li>
+                    </ul>
+                </div>
+                <div class="bg-white/10 p-5 rounded-xl backdrop-blur-sm border border-white/10">
+                    <h3 class="font-bold text-amber-300 text-lg mb-2"><i class="fas fa-xmark mr-2"></i>2. Hai góc đối đỉnh</h3>
+                    <ul class="list-disc list-inside space-y-1 text-sm">
+                        <li>Là hai góc mà mỗi cạnh của góc này là tia đối của một cạnh của góc kia.</li>
+                        <li>Tính chất cốt lõi: <strong>Hai góc đối đỉnh thì bằng nhau</strong>.</li>
+                        <li>Ví dụ: $\widehat{AOC} = \widehat{BOD}$.</li>
+                    </ul>
+                </div>
+                <div class="bg-white/10 p-5 rounded-xl backdrop-blur-sm border border-white/10">
+                    <h3 class="font-bold text-amber-300 text-lg mb-2"><i class="fas fa-slash mr-2"></i>3. Tia phân giác của góc</h3>
+                    <ul class="list-disc list-inside space-y-1 text-sm">
+                        <li>Là tia nằm trong góc và tạo với hai cạnh của góc đó hai góc bằng nhau.</li>
+                        <li>Nếu $Oz$ là tia phân giác của $\widehat{xOy}$ thì: $\widehat{xOz} = \widehat{zOy} = \frac{\widehat{xOy}}{2}$.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- MÔ HÌNH HÌNH HỌC TƯƠNG TÁC (JSXGRAPH) -->
+        <section id="momat" class="space-y-6">
+            <div class="border-l-4 border-indigo-600 pl-4 py-1">
+                <h2 class="text-2xl font-bold text-slate-800 flex items-center gap-2">
+                    <i class="fas fa-laptop-code text-indigo-600"></i> Mô Hình Trực Quan JSXGraph
+                </h2>
+                <p class="text-slate-600 text-sm">Dùng chuột xoay các điểm để trải nghiệm sự biến đổi động của số đo góc.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-6">
+                <!-- Model 1 -->
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between">
+                    <div>
+                        <h3 class="font-bold text-slate-800 mb-2 flex items-center gap-2">
+                            <span class="w-6 h-6 rounded-full bg-indigo-100 text-indigo-600 flex items-center justify-center text-xs">1</span>
+                            Góc Đối Đỉnh & Kề Bù
+                        </h3>
+                        <p class="text-xs text-slate-500 mb-3">Kéo điểm A hoặc C để quan sát góc đối đỉnh luôn bằng nhau và góc kề bù có tổng $180^\circ$.</p>
+                        <div id="jxgbox1" class="jsxbox"></div>
+                    </div>
+                </div>
+
+                <!-- Model 2 -->
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between">
+                    <div>
+                        <h3 class="font-bold text-slate-800 mb-2 flex items-center gap-2">
+                            <span class="w-6 h-6 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center text-xs">2</span>
+                            Tia Phân Giác Động
+                        </h3>
+                        <p class="text-xs text-slate-500 mb-3">Kéo điểm M nằm trong góc hoặc bấm nút để di chuyển tia OM về vị trí phân giác.</p>
+                        <div id="jxgbox2" class="jsxbox"></div>
+                        <div class="mt-3 text-center">
+                            <button onclick="snapToBisector()" class="px-3 py-1.5 bg-emerald-600 text-white rounded text-xs font-semibold hover:bg-emerald-700 transition">
+                                <i class="fas fa-magic mr-1"></i> Tìm Phân Giác
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Model 3 -->
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between">
+                    <div>
+                        <h3 class="font-bold text-slate-800 mb-2 flex items-center gap-2">
+                            <span class="w-6 h-6 rounded-full bg-rose-100 text-rose-600 flex items-center justify-center text-xs">3</span>
+                            Phản Xạ Ánh Sáng (Vật Lý)
+                        </h3>
+                        <p class="text-xs text-slate-500 mb-3">Đường pháp tuyến luôn là tia phân giác của góc tạo bởi tia tới và tia phản xạ.</p>
+                        <div id="jxgbox3" class="jsxbox"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PHẦN 1: CẤP ĐỘ CƠ BẢN -->
+        <section id="capdo1" class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm space-y-6">
+            <div class="flex items-center justify-between border-b border-slate-200 pb-4">
+                <div class="flex items-center gap-3">
+                    <span class="p-3 bg-emerald-100 text-emerald-600 rounded-xl"><i class="fas fa-seedling text-xl"></i></span>
+                    <div>
+                        <h2 class="text-xl font-bold text-slate-800">PHẦN 1: CẤP ĐỘ CƠ BẢN (Bài 1 - Bài 12)</h2>
+                        <p class="text-xs text-slate-500">Mục tiêu: Nhận biết bằng mắt thường các loại góc, tính toán cộng trừ $180^\circ$ và chia đôi góc.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VÍ DỤ MINH HỌA MẪU 1 -->
+            <div class="bg-emerald-50/60 border border-emerald-200 rounded-xl p-5 space-y-2">
+                <div class="flex items-center gap-2 text-emerald-800 font-bold text-sm uppercase">
+                    <i class="fas fa-lightbulb"></i> Ví dụ minh họa Cấp độ Cơ bản
+                </div>
+                <p class="text-sm font-medium">Cho hai góc kề bù $\widehat{xOy}$ và $\widehat{yOz}$. Biết $\widehat{xOy} = 70^\circ$. Tính số đo góc $\widehat{yOz}$.</p>
+                <div class="pt-2 text-xs text-slate-600 bg-white p-3 rounded-lg border border-emerald-100">
+                    <strong>Lời giải:</strong> Vì $\widehat{xOy}$ và $\widehat{yOz}$ là hai góc kề bù nên tổng số đo của chúng bằng $180^\circ$:<br>
+                    $\widehat{xOy} + \widehat{yOz} = 180^\circ \Rightarrow 70^\circ + \widehat{yOz} = 180^\circ \Rightarrow \widehat{yOz} = 180^\circ - 70^\circ = 110^\circ$.
+                </div>
+            </div>
+
+            <!-- BÀI TẬP BÀI 1 -> 12 -->
+            <div class="grid md:grid-cols-2 gap-4">
+                <!-- Bài 1 -->
+                <div class="p-4 border border-slate-200 rounded-xl hover:border-emerald-300 transition bg-slate-50/50">
+                    <p class="font-bold text-sm text-slate-800 mb-2">Bài 1: Cho ba tia $Ox, Oy, Oz$ chung gốc $O$. Nêu tên các cặp góc kề nhau có trên hình vẽ.</p>
+                    <button onclick="toggleSol('sol1')" class="text-xs bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-1.5 rounded-md transition flex items-center gap-1"><i class="fas fa-eye"></i> Gợi ý / Lời giải</button>
+                    <div id="sol1" class="hidden mt-3 text-xs bg-white p-3 rounded border border-emerald-200 text-slate-700">
+                        Các cặp góc kề nhau gồm: $\widehat{xOy}$ và $\widehat{yOz}$ (có cạnh chung $Oy$); $\widehat{xOy}$ và $\widehat{xOz}$ (có cạnh chung $Ox$); $\widehat{yOz}$ và $\widehat{xOz}$ (có cạnh chung $Oz$).
+                    </div>
+                </div>
+
+                <!-- Bài 2 -->
+                <div class="p-4 border border-slate-200 rounded-xl hover:border-emerald-300 transition bg-slate-50/50">
+                    <p class="font-bold text-sm text-slate-800 mb-2">Bài 2: Hai góc $\widehat{mOn}$ và $\widehat{nOp}$ kề bù với nhau. Biết $\widehat{mOn} = 60^\circ$. Tính số đo $\widehat{nOp}$.</p>
+                    <button onclick="toggleSol('sol2')" class="text-xs bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-1.5 rounded-md transition flex items-center gap-1"><i class="fas fa-eye"></i> Gợi ý / Lời giải</button>
+                    <div id="sol2" class="hidden mt-3 text-xs bg-white p-3 rounded border border-emerald-200 text-slate-700">
+                        Vì hai góc kề bù nên $\widehat{mOn} + \widehat{nOp} = 180^\circ \Rightarrow 60^\circ + \widehat{nOp} = 180^\circ \Rightarrow \widehat{nOp} = 120^\circ$.
+                    </div>
+                </div>
+
+                <!-- Bài 3 -->
+                <div class="p-4 border border-slate-200 rounded-xl hover:border-emerald-300 transition bg-slate-50/50">
+                    <p class="font-bold text-sm text-slate-800 mb-2">Bài 3: Cho hai đường thẳng $xy$ và $zt$ cắt nhau tại $O$. Kể tên tất cả các cặp góc đối đỉnh (không kể góc bẹt).</p>
+                    <button onclick="toggleSol('sol3')" class="text-xs bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-1.5 rounded-md transition flex items-center gap-1"><i class="fas fa-eye"></i> Gợi ý / Lời giải</button>
+                    <div id="sol3" class="hidden mt-3 text-xs bg-white p-3 rounded border border-emerald-200 text-slate-700">
+                        Có 2 cặp góc đối đỉnh: $\widehat{xOz}$ và $\widehat{yOt}$; $\widehat{xOt}$ và $\widehat{zOy}$.
+                    </div>
+                </div>
+
+                <!-- Bài 4 -->
+                <div class="p-4 border border-slate-200 rounded-xl hover:border-emerald-300 transition bg-slate-50/50">
+                    <p class="font-bold text-sm text-slate-800 mb-2">Bài 4: Hai đường thẳng $AB$ và $CD$ cắt nhau tại $O$ tạo thành $\widehat{AOC} = 45^\circ$. Tính số đo các góc còn lại.</p>
+                    <button onclick="toggleSol('sol4')" class="text-xs bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-1.5 rounded-md transition flex items-center gap-1"><i class="fas fa-eye"></i> Gợi ý / Lời giải</button>
+                    <div id="sol4" class="hidden mt-3 text-xs bg-white p-3 rounded border border-emerald-200 text-slate-700">
+                        $\widehat{BOD} = \widehat{AOC} = 45^\circ$ (đối đỉnh).<br>
+                        $\widehat{COB} = 180^\circ - 45^\circ = 135^\circ$ (kề bù với $\widehat{AOC}$).<br>
+                        $\widehat{DOA} = \widehat{COB} = 135^\circ$ (đối đỉnh).
+                    </div>
+                </div>
+
+                <!-- Bài 5 -->
+                <div class="p-4 border border-slate-200 rounded-xl hover:border-emerald-300 transition bg-slate-50/50">
+                    <p class="font-bold text-sm text-slate-800 mb-2">Bài 5: Vẽ góc bẹt $\widehat{xOy}$. Vẽ tia $Oz$ sao cho $\widehat{xOz} = 50^\circ$. Tính số đo $\widehat{zOy}$.</p>
+                    <button onclick="toggleSol('sol5')" class="text-xs bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-1.5 rounded-md transition flex items-center gap-1"><i class="fas fa-eye"></i> Gợi ý / Lời giải</button>
+                    <div id="sol5" class="hidden mt-3 text-xs bg-white p-3 rounded border border-emerald-200 text-slate-700">
+                        Vì $\widehat{xOy}$ là góc bẹt ($180^\circ$) nên $\widehat{xOz}$ và $\widehat{zOy}$ là hai góc kề bù. Do đó $\widehat{zOy} = 180^\circ - 50^\circ = 130^\circ$.
+                    </div>
+                </div>
+
+                <!-- Bài 6 -->
+                <div class="p-4 border border-slate-200 rounded-xl hover:border-emerald-300 transition bg-slate-50/50">
+                    <p class="font-bold text-sm text-slate-800 mb-2">Bài 6: Khẳng định sau đúng hay sai: "Hai góc bằng nhau thì đối đỉnh"? Vẽ hình minh họa.</p>
+                    <button onclick="toggleSol('sol6')" class="text-xs bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-1.5 rounded-md transition flex items-center gap-1"><i class="fas fa-eye"></i> Gợi ý / Lời giải</button>
+                    <div id="sol6" class="hidden mt-3 text-xs bg-white p-3 rounded border border-emerald-200 text-slate-700">
+                        Khẳng định <strong>SAI</strong>. Hai góc có thể cùng bằng $30^\circ$ nằm ở hai đỉnh khác nhau hoặc kề nhau (như tia phân giác chia góc) thì không hề đối đỉnh.
+                    </div>
+                </div>
+
+                <!-- Bài 7 -->
+                <div class="p-4 border border-slate-200 rounded-xl hover:border-emerald-300 transition bg-slate-50/50">
+                    <p class="font-bold text-sm text-slate-800 mb-2">Bài 7: Cho góc $\widehat{xOy} = 80^\circ$. Tia $Om$ là tia phân giác của góc $\widehat{xOy}$. Tính số đo góc $\widehat{xOm}$ và $\widehat{mOy}$.</p>
+                    <button onclick="toggleSol('sol7')" class="text-xs bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-1.5 rounded-md transition flex items-center gap-1"><i class="fas fa-eye"></i> Gợi ý / Lời giải</button>
+                    <div id="sol7" class="hidden mt-3 text-xs bg-white p-3 rounded border border-emerald-200 text-slate-700">
+                        Vì $Om$ là phân giác nên $\widehat{xOm} = \widehat{mOy} = \frac{\widehat{xOy}}{2} = \frac{80^\circ}{2} = 40^\circ$.
+                    </div>
+                </div>
+
+                <!-- Bài 8 -->
+                <div class="p-4 border border-slate-200 rounded-xl hover:border-emerald-300 transition bg-slate-50/50">
+                    <p class="font-bold text-sm text-slate-800 mb-2">Bài 8: Lúc 3 giờ đúng, góc tạo bởi kim giờ và kim phút là bao nhiêu độ? Nếu vẽ tia phân giác thì mỗi góc nhỏ bằng bao nhiêu?</p>
+                    <button onclick="toggleSol('sol8')" class="text-xs bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-1.5 rounded-md transition flex items-center gap-1"><i class="fas fa-eye"></i> Gợi ý / Lời giải</button>
+                    <div id="sol8" class="hidden mt-3 text-xs bg-white p-3 rounded border border-emerald-200 text-slate-700">
+                        Lúc 3 giờ đúng, kim phút chỉ số 12, kim giờ chỉ số 3, tạo góc vuông $90^\circ$. Tia phân giác chia góc đó thành 2 góc nhỏ bằng nhau và bằng $45^\circ$.
+                    </div>
+                </div>
+
+                <!-- Bài 9 -->
+                <div class="p-4 border border-slate-200 rounded-xl hover:border-emerald-300 transition bg-slate-50/50">
+                    <p class="font-bold text-sm text-slate-800 mb-2">Bài 9: Cho $\widehat{AOB}$ và $\widehat{BOC}$ kề bù. Biết $\widehat{AOB} = 3\widehat{BOC}$. Tính số đo mỗi góc.</p>
+                    <button onclick="toggleSol('sol9')" class="text-xs bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-1.5 rounded-md transition flex items-center gap-1"><i class="fas fa-eye"></i> Gợi ý / Lời giải</button>
+                    <div id="sol9" class="hidden mt-3 text-xs bg-white p-3 rounded border border-emerald-200 text-slate-700">
+                        Ta có $\widehat{AOB} + \widehat{BOC} = 180^\circ \Rightarrow 3\widehat{BOC} + \widehat{BOC} = 180^\circ \Rightarrow 4\widehat{BOC} = 180^\circ \Rightarrow \widehat{BOC} = 45^\circ$.<br>
+                        Suy ra $\widehat{AOB} = 3 \cdot 45^\circ = 135^\circ$.
+                    </div>
+                </div>
+
+                <!-- Bài 10 -->
+                <div class="p-4 border border-slate-200 rounded-xl hover:border-emerald-300 transition bg-slate-50/50">
+                    <p class="font-bold text-sm text-slate-800 mb-2">Bài 10: Điền vào chỗ trống định nghĩa hai góc đối đỉnh.</p>
+                    <button onclick="toggleSol('sol10')" class="text-xs bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-1.5 rounded-md transition flex items-center gap-1"><i class="fas fa-eye"></i> Gợi ý / Lời giải</button>
+                    <div id="sol10" class="hidden mt-3 text-xs bg-white p-3 rounded border border-emerald-200 text-slate-700">
+                        Từ cần điền là: <strong>"tia đối"</strong>.<br>
+                        "Hai góc có mỗi cạnh của góc này là <em>tia đối</em> của một cạnh của góc kia được gọi là hai góc đối đỉnh".
+                    </div>
+                </div>
+
+                <!-- Bài 11 -->
+                <div class="p-4 border border-slate-200 rounded-xl hover:border-emerald-300 transition bg-slate-50/50">
+                    <p class="font-bold text-sm text-slate-800 mb-2">Bài 11: Cho 2 góc kề bù $\widehat{xOy}$ và $\widehat{yOx'}$. Tia phân giác $Oz$ của $\widehat{xOy}$. Tính $\widehat{x'Oz}$ biết $\widehat{xOy} = 100^\circ$.</p>
+                    <button onclick="toggleSol('sol11')" class="text-xs bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-1.5 rounded-md transition flex items-center gap-1"><i class="fas fa-eye"></i> Gợi ý / Lời giải</button>
+                    <div id="sol11" class="hidden mt-3 text-xs bg-white p-3 rounded border border-emerald-200 text-slate-700">
+                        Vì $Oz$ phân giác $\widehat{xOy} \Rightarrow \widehat{yOz} = 50^\circ$.<br>
+                        Góc $\widehat{yOx'} = 180^\circ - 100^\circ = 80^\circ$. Do đó $\widehat{x'Oz} = \widehat{x'Oy} + \widehat{yOz} = 80^\circ + 50^\circ = 130^\circ$.
+                    </div>
+                </div>
+
+                <!-- Bài 12 -->
+                <div class="p-4 border border-slate-200 rounded-xl hover:border-emerald-300 transition bg-slate-50/50">
+                    <p class="font-bold text-sm text-slate-800 mb-2">Bài 12: Hai đường thẳng cắt nhau tạo thành 4 góc. Có tồn tại trường hợp nào cả 4 góc đều là góc nhọn không?</p>
+                    <button onclick="toggleSol('sol12')" class="text-xs bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-1.5 rounded-md transition flex items-center gap-1"><i class="fas fa-eye"></i> Gợi ý / Lời giải</button>
+                    <div id="sol12" class="hidden mt-3 text-xs bg-white p-3 rounded border border-emerald-200 text-slate-700">
+                        Không tồn tại. Vì hai góc kề nhau luôn kề bù (tổng bằng $180^\circ$). Nếu 1 góc nhọn ($< 90^\circ$) thì góc kề bù với nó bắt buộc phải là góc tù ($> 90^\circ$).
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PHẦN 2: CẤP ĐỘ NÂNG CAO -->
+        <section id="capdo2" class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm space-y-6">
+            <div class="flex items-center justify-between border-b border-slate-200 pb-4">
+                <div class="flex items-center gap-3">
+                    <span class="p-3 bg-amber-100 text-amber-600 rounded-xl"><i class="fas fa-chart-line text-xl"></i></span>
+                    <div>
+                        <h2 class="text-xl font-bold text-slate-800">PHẦN 2: CẤP ĐỘ NÂNG CAO (Bài 13 - Bài 22)</h2>
+                        <p class="text-xs text-slate-500">Mục tiêu: Đòi hỏi học sinh lập luận logic nhiều bước, thiết lập biểu thức đại số từ hình học và chứng minh định lý.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VÍ DỤ MINH HỌA MẪU 2 -->
+            <div class="bg-amber-50/60 border border-amber-200 rounded-xl p-5 space-y-2">
+                <div class="flex items-center gap-2 text-amber-800 font-bold text-sm uppercase">
+                    <i class="fas fa-lightbulb"></i> Ví dụ minh họa Cấp độ Nâng cao
+                </div>
+                <p class="text-sm font-medium">Chứng minh định lý: Góc tạo bởi hai tia phân giác của hai góc kề bù là một góc vuông ($90^\circ$).</p>
+                <div class="pt-2 text-xs text-slate-600 bg-white p-3 rounded-lg border border-amber-100">
+                    <strong>Lời giải:</strong> Gọi hai góc kề bù là $\widehat{xOy}$ và $\widehat{yOz}$. Tia $Om$ là phân giác $\widehat{xOy}$, $On$ là phân giác $\widehat{yOz}$.<br>
+                    Ta có: $\widehat{mOy} = \frac{1}{2}\widehat{xOy}$ và $\widehat{yOn} = \frac{1}{2}\widehat{yOz}$.<br>
+                    Do đó $\widehat{mOn} = \widehat{mOy} + \widehat{yOn} = \frac{1}{2}(\widehat{xOy} + \widehat{yOz}) = \frac{1}{2} \cdot 180^\circ = 90^\circ$. (ĐPCM)
+                </div>
+            </div>
+
+            <!-- BÀI TẬP BÀI 13 -> 22 -->
+            <div class="grid md:grid-cols-2 gap-4">
+                <!-- Bài 13 -->
+                <div class="p-4 border border-slate-200 rounded-xl hover:border-amber-300 transition bg-slate-50/50">
+                    <p class="font-bold text-sm text-slate-800 mb-2">Bài 13: $xy$ và $zt$ cắt nhau tại $O$. Biết tổng số đo của 3 góc $\widehat{xOz} + \widehat{zOy} + \widehat{yOt} = 250^\circ$. Tính số đo 4 góc.</p>
+                    <button onclick="toggleSol('sol13')" class="text-xs bg-amber-600 hover:bg-amber-700 text-white px-3 py-1.5 rounded-md transition flex items-center gap-1"><i class="fas fa-eye"></i> Gợi ý / Lời giải</button>
+                    <div id="sol13" class="hidden mt-3 text-xs bg-white p-3 rounded border border-amber-200 text-slate-700">
+                        Tổng 4 góc quanh đỉnh $O$ bằng $360^\circ$.<br>
+                        Góc còn lại $\widehat{tOx} = 360^\circ - 250^\circ = 110^\circ$.<br>
+                        $\Rightarrow \widehat{zOy} = \widehat{tOx} = 110^\circ$ (đối đỉnh).<br>
+                        $\Rightarrow \widehat{xOz} = \widehat{yOt} = 180^\circ - 110^\circ = 70^\circ$.
+                    </div>
+                </div>
+
+                <!-- Bài 14 -->
+                <div class="p-4 border border-slate-200 rounded-xl hover:border-amber-300 transition bg-slate-50/50">
+                    <p class="font-bold text-sm text-slate-800 mb-2">Bài 14: Cho hai góc kề bù $\widehat{xOy}$ và $\widehat{yOz}$. Biết $\widehat{xOy} - \widehat{yOz} = 40^\circ$. Tính mỗi góc.</p>
+                    <button onclick="toggleSol('sol14')" class="text-xs bg-amber-600 hover:bg-amber-700 text-white px-3 py-1.5 rounded-md transition flex items-center gap-1"><i class="fas fa-eye"></i> Gợi ý / Lời giải</button>
+                    <div id="sol14" class="hidden mt-3 text-xs bg-white p-3 rounded border border-amber-200 text-slate-700">
+                        Ta có hệ/tổng hiệu: $\widehat{xOy} + \widehat{yOz} = 180^\circ$ và $\widehat{xOy} - \widehat{yOz} = 40^\circ$.<br>
+                        $\Rightarrow \widehat{xOy} = (180^\circ + 40^\circ) / 2 = 110^\circ$.<br>
+                        $\Rightarrow \widehat{yOz} = 180^\circ - 110^\circ = 70^\circ$.
+                    </div>
+                </div>
+
+                <!-- Bài 15 -->
+                <div class="p-4 border border-slate-200 rounded-xl hover:border-amber-300 transition bg-slate-50/50">
+                    <p class="font-bold text-sm text-slate-800 mb-2">Bài 15: Hai đường thẳng $AB$ và $CD$ cắt nhau tại $O$. Biết $\widehat{AOC} + \widehat{BOD} = 140^\circ$. Tính 4 góc.</p>
+                    <button onclick="toggleSol('sol15')" class="text-xs bg-amber-600 hover:bg-amber-700 text-white px-3 py-1.5 rounded-md transition flex items-center gap-1"><i class="fas fa-eye"></i> Gợi ý / Lời giải</button>
+                    <div id="sol15" class="hidden mt-3 text-xs bg-white p-3 rounded border border-amber-200 text-slate-700">
+                        Vì $\widehat{AOC}$ và $\widehat{BOD}$ đối đỉnh nên bằng nhau $\Rightarrow \widehat{AOC} = \widehat{BOD} = 140^\circ / 2 = 70^\circ$.<br>
+                        Hai góc còn lại: $\widehat{AOD} = \widehat{BOC} = 180^\circ - 70^\circ = 110^\circ$.
+                    </div>
+                </div>
+
+                <!-- Bài 16 -->
+                <div class="p-4 border border-slate-200 rounded-xl hover:border-amber-300 transition bg-slate-50/50">
+                    <p class="font-bold text-sm text-slate-800 mb-2">Bài 16: Hai góc kề bù $\widehat{AOB}$ và $\widehat{BOC}$ có số đo tỉ lệ với $2$ và $3$. Tính từng góc.</p>
+                    <button onclick="toggleSol('sol16')" class="text-xs bg-amber-600 hover:bg-amber-700 text-white px-3 py-1.5 rounded-md transition flex items-center gap-1"><i class="fas fa-eye"></i> Gợi ý / Lời giải</button>
+                    <div id="sol16" class="hidden mt-3 text-xs bg-white p-3 rounded border border-amber-200 text-slate-700">
+                        Ta có $\frac{\widehat{AOB}}{2} = \frac{\widehat{BOC}}{3} = \frac{180^\circ}{2+3} = 36^\circ$.<br>
+                        $\Rightarrow \widehat{AOB} = 36^\circ \cdot 2 = 72^\circ$; $\widehat{BOC} = 36^\circ \cdot 3 = 108^\circ$.
+                    </div>
+                </div>
+
+                <!-- Bài 17 -->
+                <div class="p-4 border border-slate-200 rounded-xl hover:border-amber-300 transition bg-slate-50/50">
+                    <p class="font-bold text-sm text-slate-800 mb-2">Bài 17: (Định lí) Chứng minh góc tạo bởi hai tia phân giác của hai góc kề bù là góc vuông.</p>
+                    <button onclick="toggleSol('sol17')" class="text-xs bg-amber-600 hover:bg-amber-700 text-white px-3 py-1.5 rounded-md transition flex items-center gap-1"><i class="fas fa-eye"></i> Gợi ý / Lời giải</button>
+                    <div id="sol17" class="hidden mt-3 text-xs bg-white p-3 rounded border border-amber-200 text-slate-700">
+                        Xem chi tiết lời giải mẫu của Cấp độ Nâng cao ở trên. Tổng hai nửa góc kề bù luôn bằng $180^\circ / 2 = 90^\circ$.
+                    </div>
+                </div>
+
+                <!-- Bài 18 -->
+                <div class="p-4 border border-slate-200 rounded-xl hover:border-amber-300 transition bg-slate-50/50">
+                    <p class="font-bold text-sm text-slate-800 mb-2">Bài 18: Cho $Om, On$ là hai tia phân giác của 2 góc đối đỉnh $\widehat{xOz}$ và $\widehat{yOt}$. Chứng minh $Om, On$ đối nhau.</p>
+                    <button onclick="toggleSol('sol18')" class="text-xs bg-amber-600 hover:bg-amber-700 text-white px-3 py-1.5 rounded-md transition flex items-center gap-1"><i class="fas fa-eye"></i> Gợi ý / Lời giải</button>
+                    <div id="sol18" class="hidden mt-3 text-xs bg-white p-3 rounded border border-amber-200 text-slate-700">
+                        Ta có $\widehat{xOm} = \frac{1}{2}\widehat{xOz} = \frac{1}{2}\widehat{yOt} = \widehat{tOn}$.<br>
+                        Góc $\widehat{mOn} = \widehat{mOx} + \widehat{xOt} + \widehat{tOn} = \widehat{tOn} + \widehat{xOt} + \widehat{mOx} = \widehat{xOz} + \widehat{xOt} = 180^\circ$.<br>
+                        Do $\widehat{mOn} = 180^\circ$ nên $Om$ và $On$ là hai tia đối nhau.
+                    </div>
+                </div>
+
+                <!-- Bài 19 -->
+                <div class="p-4 border border-slate-200 rounded-xl hover:border-amber-300 transition bg-slate-50/50">
+                    <p class="font-bold text-sm text-slate-800 mb-2">Bài 19: Cho $\widehat{xOy} = 120^\circ$. Tia $Oz$ trong góc sao cho $\widehat{xOz} = 30^\circ$. $Ot$ là phân giác $\widehat{zOy}$. Tính $\widehat{xOt}$.</p>
+                    <button onclick="toggleSol('sol19')" class="text-xs bg-amber-600 hover:bg-amber-700 text-white px-3 py-1.5 rounded-md transition flex items-center gap-1"><i class="fas fa-eye"></i> Gợi ý / Lời giải</button>
+                    <div id="sol19" class="hidden mt-3 text-xs bg-white p-3 rounded border border-amber-200 text-slate-700">
+                        Góc $\widehat{zOy} = 120^\circ - 30^\circ = 90^\circ$.<br>
+                        Tia phân giác $Ot \Rightarrow \widehat{zOt} = 45^\circ$.<br>
+                        Vậy $\widehat{xOt} = \widehat{xOz} + \widehat{zOt} = 30^\circ + 45^\circ = 75^\circ$.
+                    </div>
+                </div>
+
+                <!-- Bài 20 -->
+                <div class="p-4 border border-slate-200 rounded-xl hover:border-amber-300 transition bg-slate-50/50">
+                    <p class="font-bold text-sm text-slate-800 mb-2">Bài 20: Cho 3 đường thẳng phân biệt $xy, zt, mn$ cùng đi qua $O$. Có bao nhiêu cặp góc đối đỉnh nhỏ hơn góc bẹt?</p>
+                    <button onclick="toggleSol('sol20')" class="text-xs bg-amber-600 hover:bg-amber-700 text-white px-3 py-1.5 rounded-md transition flex items-center gap-1"><i class="fas fa-eye"></i> Gợi ý / Lời giải</button>
+                    <div id="sol20" class="hidden mt-3 text-xs bg-white p-3 rounded border border-amber-200 text-slate-700">
+                        Số đường thẳng $n = 3$. Công thức tính số cặp góc đối đỉnh tạo thành là $n(n - 1) = 3 \cdot 2 = 6$ cặp góc đối đỉnh.
+                    </div>
+                </div>
+
+                <!-- Bài 21 -->
+                <div class="p-4 border border-slate-200 rounded-xl hover:border-amber-300 transition bg-slate-50/50">
+                    <p class="font-bold text-sm text-slate-800 mb-2">Bài 21: Tìm $x$ biết hai góc kề bù có biểu thức là $(3x - 10)^\circ$ và $(2x + 40)^\circ$.</p>
+                    <button onclick="toggleSol('sol21')" class="text-xs bg-amber-600 hover:bg-amber-700 text-white px-3 py-1.5 rounded-md transition flex items-center gap-1"><i class="fas fa-eye"></i> Gợi ý / Lời giải</button>
+                    <div id="sol21" class="hidden mt-3 text-xs bg-white p-3 rounded border border-amber-200 text-slate-700">
+                        Vì kề bù nên $(3x - 10) + (2x + 40) = 180 \Rightarrow 5x + 30 = 180 \Rightarrow 5x = 150 \Rightarrow x = 30$.
+                    </div>
+                </div>
+
+                <!-- Bài 22 -->
+                <div class="p-4 border border-slate-200 rounded-xl hover:border-amber-300 transition bg-slate-50/50">
+                    <p class="font-bold text-sm text-slate-800 mb-2">Bài 22: Tìm $y$ biết hai góc đối đỉnh có biểu thức là $(5y - 20)^\circ$ và $(3y + 10)^\circ$.</p>
+                    <button onclick="toggleSol('sol22')" class="text-xs bg-amber-600 hover:bg-amber-700 text-white px-3 py-1.5 rounded-md transition flex items-center gap-1"><i class="fas fa-eye"></i> Gợi ý / Lời giải</button>
+                    <div id="sol22" class="hidden mt-3 text-xs bg-white p-3 rounded border border-amber-200 text-slate-700">
+                        Vì hai góc đối đỉnh nên bằng nhau: $5y - 20 = 3y + 10 \Rightarrow 2y = 30 \Rightarrow y = 15$.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PHẦN 3: CẤP ĐỘ VẬN DỤNG -->
+        <section id="capdo3" class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm space-y-6">
+            <div class="flex items-center justify-between border-b border-slate-200 pb-4">
+                <div class="flex items-center gap-3">
+                    <span class="p-3 bg-rose-100 text-rose-600 rounded-xl"><i class="fas fa-rocket text-xl"></i></span>
+                    <div>
+                        <h2 class="text-xl font-bold text-slate-800">PHẦN 3: CẤP ĐỘ VẬN DỤNG (Bài 23 - Bài 30)</h2>
+                        <p class="text-xs text-slate-500">Mục tiêu: Áp dụng vào thực tiễn, vật lí quang học, thiết kế kĩ thuật và bài toán sáng tạo.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VÍ DỤ MINH HỌA MẪU 3 -->
+            <div class="bg-rose-50/60 border border-rose-200 rounded-xl p-5 space-y-2">
+                <div class="flex items-center gap-2 text-rose-800 font-bold text-sm uppercase">
+                    <i class="fas fa-lightbulb"></i> Ví dụ minh họa Cấp độ Vận dụng
+                </div>
+                <p class="text-sm font-medium">Một tia sáng chiếu tới mặt gương phẳng tạo với mặt gương góc $30^\circ$. Tính góc tạo bởi tia tới và tia phản xạ.</p>
+                <div class="pt-2 text-xs text-slate-600 bg-white p-3 rounded-lg border border-rose-100">
+                    <strong>Lời giải:</strong> Đường pháp tuyến vuông góc với mặt gương ($90^\circ$).<br>
+                    Góc tới = $90^\circ - 30^\circ = 60^\circ$.<br>
+                    Theo định luật phản xạ ánh sáng, góc phản xạ = góc tới = $60^\circ$.<br>
+                    Đường pháp tuyến là tia phân giác, do đó góc giữa tia tới và tia phản xạ là: $60^\circ + 60^\circ = 120^\circ$.
+                </div>
+            </div>
+
+            <!-- BÀI TẬP BÀI 23 -> 30 -->
+            <div class="grid md:grid-cols-2 gap-4">
+                <!-- Bài 23 -->
+                <div class="p-4 border border-slate-200 rounded-xl hover:border-rose-300 transition bg-slate-50/50">
+                    <p class="font-bold text-sm text-slate-800 mb-2">Bài 23: La bàn: Tia $Ox$ chỉ hướng Đông, $Oy$ chỉ hướng Bắc, $Oz$ chỉ hướng Tây Bắc. Tính $\widehat{xOy}, \widehat{xOz}$. $Oy$ có là phân giác $\widehat{xOz}$ không?</p>
+                    <button onclick="toggleSol('sol23')" class="text-xs bg-rose-600 hover:bg-rose-700 text-white px-3 py-1.5 rounded-md transition flex items-center gap-1"><i class="fas fa-eye"></i> Gợi ý / Lời giải</button>
+                    <div id="sol23" class="hidden mt-3 text-xs bg-white p-3 rounded border border-rose-200 text-slate-700">
+                        $\widehat{xOy} = 90^\circ$ (Đông - Bắc). $\widehat{xOz} = 90^\circ + 45^\circ = 135^\circ$ (Đông - Tây Bắc).<br>
+                        Vì $\widehat{xOy} = 90^\circ \neq \frac{135^\circ}{2} = 67,5^\circ$ nên $Oy$ không phải là tia phân giác của $\widehat{xOz}$.
+                    </div>
+                </div>
+
+                <!-- Bài 24 -->
+                <div class="p-4 border border-slate-200 rounded-xl hover:border-rose-300 transition bg-slate-50/50">
+                    <p class="font-bold text-sm text-slate-800 mb-2">Bài 24: Kéo cắt giấy: Mở chuôi kéo tạo góc $35^\circ$. Góc giữa 2 lưỡi kéo cắt vào giấy là bao nhiêu? Giải thích.</p>
+                    <button onclick="toggleSol('sol24')" class="text-xs bg-rose-600 hover:bg-rose-700 text-white px-3 py-1.5 rounded-md transition flex items-center gap-1"><i class="fas fa-eye"></i> Gợi ý / Lời giải</button>
+                    <div id="sol24" class="hidden mt-3 text-xs bg-white p-3 rounded border border-rose-200 text-slate-700">
+                        Góc cắt giữa hai lưỡi kéo đúng bằng $35^\circ$. Giải thích: Vì hai lưỡi kéo và hai chuôi kéo tạo thành hai đường thẳng cắt nhau tại điểm chốt, góc tạo bởi hai lưỡi kéo và hai chuôi kéo là hai góc đối đỉnh nên bằng nhau.
+                    </div>
+                </div>
+
+                <!-- Bài 25 -->
+                <div class="p-4 border border-slate-200 rounded-xl hover:border-rose-300 transition bg-slate-50/50">
+                    <p class="font-bold text-sm text-slate-800 mb-2">Bài 25: (Quang học) Chiếu tia sáng hợp với gương góc $40^\circ$. Tính góc tạo bởi tia tới và tia phản xạ.</p>
+                    <button onclick="toggleSol('sol25')" class="text-xs bg-rose-600 hover:bg-rose-700 text-white px-3 py-1.5 rounded-md transition flex items-center gap-1"><i class="fas fa-eye"></i> Gợi ý / Lời giải</button>
+                    <div id="sol25" class="hidden mt-3 text-xs bg-white p-3 rounded border border-rose-200 text-slate-700">
+                        Góc tới = $90^\circ - 40^\circ = 50^\circ$.<br>
+                        Góc tạo bởi tia tới và tia phản xạ = $2 \cdot 50^\circ = 100^\circ$.
+                    </div>
+                </div>
+
+                <!-- Bài 26 -->
+                <div class="p-4 border border-slate-200 rounded-xl hover:border-rose-300 transition bg-slate-50/50">
+                    <p class="font-bold text-sm text-slate-800 mb-2">Bài 26: Giá vẽ tranh: Hai nẹp bắt chéo tạo 4 góc. Một góc tù lớn hơn góc nhọn kề nó $100^\circ$. Tính 4 góc.</p>
+                    <button onclick="toggleSol('sol26')" class="text-xs bg-rose-600 hover:bg-rose-700 text-white px-3 py-1.5 rounded-md transition flex items-center gap-1"><i class="fas fa-eye"></i> Gợi ý / Lời giải</button>
+                    <div id="sol26" class="hidden mt-3 text-xs bg-white p-3 rounded border border-rose-200 text-slate-700">
+                        Góc tù + Góc nhọn = $180^\circ$ (kề bù).<br>
+                        Góc nhọn = $(180^\circ - 100^\circ) / 2 = 40^\circ$. Góc tù = $140^\circ$.<br>
+                        Bốn góc tạo thành lần lượt là $40^\circ, 140^\circ, 40^\circ, 140^\circ$.
+                    </div>
+                </div>
+
+                <!-- Bài 27 -->
+                <div class="p-4 border border-slate-200 rounded-xl hover:border-rose-300 transition bg-slate-50/50">
+                    <p class="font-bold text-sm text-slate-800 mb-2">Bài 27: Hai đường thẳng $a, b$ cắt nhau ngoài tờ giấy bị rách. Hãy nêu cách vẽ tia phân giác trên phần giấy còn lại.</p>
+                    <button onclick="toggleSol('sol27')" class="text-xs bg-rose-600 hover:bg-rose-700 text-white px-3 py-1.5 rounded-md transition flex items-center gap-1"><i class="fas fa-eye"></i> Gợi ý / Lời giải</button>
+                    <div id="sol27" class="hidden mt-3 text-xs bg-white p-3 rounded border border-rose-200 text-slate-700">
+                        Vẽ một đường thẳng $c$ cắt cả $a$ và $b$ trên phần giấy còn lại. Xác định 2 góc trong cùng phía, vẽ các tia phân giác của hai góc đó. Giao điểm của các tia phân giác tạo thành đường phân giác cần tìm.
+                    </div>
+                </div>
+
+                <!-- Bài 28 -->
+                <div class="p-4 border border-slate-200 rounded-xl hover:border-rose-300 transition bg-slate-50/50">
+                    <p class="font-bold text-sm text-slate-800 mb-2">Bài 28: Cho $\widehat{xOy} = 60^\circ$. Vẽ $Ox', Oy'$ đối $Ox, Oy$. $Ot$ phân giác $\widehat{x'Oy}$. Tính $\widehat{xOt}$.</p>
+                    <button onclick="toggleSol('sol28')" class="text-xs bg-rose-600 hover:bg-rose-700 text-white px-3 py-1.5 rounded-md transition flex items-center gap-1"><i class="fas fa-eye"></i> Gợi ý / Lời giải</button>
+                    <div id="sol28" class="hidden mt-3 text-xs bg-white p-3 rounded border border-rose-200 text-slate-700">
+                        $\widehat{x'Oy} = 180^\circ - 60^\circ = 120^\circ \Rightarrow \widehat{yOt} = 60^\circ$.<br>
+                        Do đó $\widehat{xOt} = \widehat{xOy} + \widehat{yOt} = 60^\circ + 60^\circ = 120^\circ$.
+                    </div>
+                </div>
+
+                <!-- Bài 29 -->
+                <div class="p-4 border border-slate-200 rounded-xl hover:border-rose-300 transition bg-slate-50/50">
+                    <p class="font-bold text-sm text-slate-800 mb-2">Bài 29: Cho $\widehat{AOB} = 135^\circ$. Tia $OC$ trong góc sao cho $\widehat{BOC} = 90^\circ$. $OD$ phân giác $\widehat{AOC}$. Tính $\widehat{BOD}$.</p>
+                    <button onclick="toggleSol('sol29')" class="text-xs bg-rose-600 hover:bg-rose-700 text-white px-3 py-1.5 rounded-md transition flex items-center gap-1"><i class="fas fa-eye"></i> Gợi ý / Lời giải</button>
+                    <div id="sol29" class="hidden mt-3 text-xs bg-white p-3 rounded border border-rose-200 text-slate-700">
+                        $\widehat{AOC} = 135^\circ - 90^\circ = 45^\circ$.<br>
+                        $OD$ phân giác $\widehat{AOC} \Rightarrow \widehat{COD} = 22,5^\circ$.<br>
+                        $\widehat{BOD} = \widehat{BOC} + \widehat{COD} = 90^\circ + 22,5^\circ = 112,5^\circ$.
+                    </div>
+                </div>
+
+                <!-- Bài 30 -->
+                <div class="p-4 border border-slate-200 rounded-xl hover:border-rose-300 transition bg-slate-50/50">
+                    <p class="font-bold text-sm text-slate-800 mb-2">Bài 30: Tháp sắt Eiffel hình chữ A. Nếu góc bên trong là $75^\circ$, tính góc kề bù bên ngoài và chứng minh dây dọi thẳng đứng là phân giác góc đỉnh.</p>
+                    <button onclick="toggleSol('sol30')" class="text-xs bg-rose-600 hover:bg-rose-700 text-white px-3 py-1.5 rounded-md transition flex items-center gap-1"><i class="fas fa-eye"></i> Gợi ý / Lời giải</button>
+                    <div id="sol30" class="hidden mt-3 text-xs bg-white p-3 rounded border border-rose-200 text-slate-700">
+                        Góc bên ngoài tương ứng = $180^\circ - 75^\circ = 105^\circ$.<br>
+                        Do tính chất đối xứng của tháp hình chữ A, dây dọi thẳng đứng tạo với hai chân tháp hai góc bằng nhau ở đỉnh, do đó nó chính là tia phân giác của góc ở đỉnh tháp.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- BÀI TẬP ĐÁNH GIÁ NĂNG LỰC TẠI LỚP (5 CÂU TRẮC NGHIỆM) -->
+        <section id="tracnghiem" class="bg-white rounded-2xl p-6 border-2 border-indigo-200 shadow-md space-y-6 no-print">
+            <div class="bg-indigo-900 text-white p-4 rounded-xl flex items-center justify-between flex-wrap gap-2">
+                <div class="flex items-center gap-3">
+                    <i class="fas fa-user-check text-2xl text-amber-400"></i>
+                    <div>
+                        <h2 class="text-lg font-bold">BÀI TẬP ĐÁNH GIÁ NĂNG LỰC TẠI LỚP</h2>
+                        <p class="text-xs text-indigo-200">Hoàn thành 5 câu trắc nghiệm bên dưới. Kết quả sẽ tự động lưu về hệ thống Google Sheets.</p>
+                    </div>
+                </div>
+                <span class="text-xs bg-indigo-800 px-3 py-1 rounded-full border border-indigo-700">Mã bài: buoi9-cac-goc</span>
+            </div>
+
+            <!-- Form Học Sinh -->
+            <div class="grid md:grid-cols-2 gap-4 bg-slate-50 p-4 rounded-xl border border-slate-200">
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 mb-1">Họ và tên học sinh *</label>
+                    <input type="text" id="hoTenInput" placeholder="Ví dụ: Trần Văn Nam" class="w-full text-sm p-2.5 rounded-lg border border-slate-300 focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 mb-1">Mã Lớp / Trường</label>
+                    <input type="text" id="maLopInput" placeholder="Ví dụ: Lop7A2-HCMUS" class="w-full text-sm p-2.5 rounded-lg border border-slate-300 focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                </div>
+            </div>
+
+            <!-- List câu hỏi trắc nghiệm -->
+            <form id="quizForm" class="space-y-6">
+                <!-- Câu 1 -->
+                <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
+                    <p class="font-bold text-sm text-slate-800">Câu 1: Khẳng định nào sau đây là ĐÚNG về hai góc đối đỉnh?</p>
+                    <div class="grid md:grid-cols-2 gap-2 text-xs">
+                        <label class="flex items-center p-2 rounded bg-white border border-slate-200 cursor-pointer hover:bg-indigo-50"><input type="radio" name="q1" value="A" class="mr-2"> A) Có tổng số đo bằng $180^\circ$</label>
+                        <label class="flex items-center p-2 rounded bg-white border border-slate-200 cursor-pointer hover:bg-indigo-50"><input type="radio" name="q1" value="B" class="mr-2"> B) Luôn luôn bằng nhau</label>
+                        <label class="flex items-center p-2 rounded bg-white border border-slate-200 cursor-pointer hover:bg-indigo-50"><input type="radio" name="q1" value="C" class="mr-2"> C) Là hai góc phụ nhau</label>
+                        <label class="flex items-center p-2 rounded bg-white border border-slate-200 cursor-pointer hover:bg-indigo-50"><input type="radio" name="q1" value="D" class="mr-2"> D) Luôn luôn là góc vuông</label>
+                    </div>
+                </div>
+
+                <!-- Câu 2 -->
+                <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
+                    <p class="font-bold text-sm text-slate-800">Câu 2: Cho $\widehat{xOy} = 70^\circ$, $Ot$ là tia phân giác của $\widehat{xOy}$. Số đo góc $\widehat{xOt}$ là:</p>
+                    <div class="grid md:grid-cols-2 gap-2 text-xs">
+                        <label class="flex items-center p-2 rounded bg-white border border-slate-200 cursor-pointer hover:bg-indigo-50"><input type="radio" name="q2" value="A" class="mr-2"> A) $35^\circ$</label>
+                        <label class="flex items-center p-2 rounded bg-white border border-slate-200 cursor-pointer hover:bg-indigo-50"><input type="radio" name="q2" value="B" class="mr-2"> B) $140^\circ$</label>
+                        <label class="flex items-center p-2 rounded bg-white border border-slate-200 cursor-pointer hover:bg-indigo-50"><input type="radio" name="q2" value="C" class="mr-2"> C) $70^\circ$</label>
+                        <label class="flex items-center p-2 rounded bg-white border border-slate-200 cursor-pointer hover:bg-indigo-50"><input type="radio" name="q2" value="D" class="mr-2"> D) $110^\circ$</label>
+                    </div>
+                </div>
+
+                <!-- Câu 3 -->
+                <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
+                    <p class="font-bold text-sm text-slate-800">Câu 3: Hai góc kề bù có tổng số đo bằng:</p>
+                    <div class="grid md:grid-cols-2 gap-2 text-xs">
+                        <label class="flex items-center p-2 rounded bg-white border border-slate-200 cursor-pointer hover:bg-indigo-50"><input type="radio" name="q3" value="A" class="mr-2"> A) $90^\circ$</label>
+                        <label class="flex items-center p-2 rounded bg-white border border-slate-200 cursor-pointer hover:bg-indigo-50"><input type="radio" name="q3" value="B" class="mr-2"> B) $120^\circ$</label>
+                        <label class="flex items-center p-2 rounded bg-white border border-slate-200 cursor-pointer hover:bg-indigo-50"><input type="radio" name="q3" value="C" class="mr-2"> C) $180^\circ$</label>
+                        <label class="flex items-center p-2 rounded bg-white border border-slate-200 cursor-pointer hover:bg-indigo-50"><input type="radio" name="q3" value="D" class="mr-2"> D) $360^\circ$</label>
+                    </div>
+                </div>
+
+                <!-- Câu 4 -->
+                <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
+                    <p class="font-bold text-sm text-slate-800">Câu 4: Góc tạo bởi hai tia phân giác của hai góc kề bù có số đo bằng:</p>
+                    <div class="grid md:grid-cols-2 gap-2 text-xs">
+                        <label class="flex items-center p-2 rounded bg-white border border-slate-200 cursor-pointer hover:bg-indigo-50"><input type="radio" name="q4" value="A" class="mr-2"> A) $45^\circ$</label>
+                        <label class="flex items-center p-2 rounded bg-white border border-slate-200 cursor-pointer hover:bg-indigo-50"><input type="radio" name="q4" value="B" class="mr-2"> B) $90^\circ$</label>
+                        <label class="flex items-center p-2 rounded bg-white border border-slate-200 cursor-pointer hover:bg-indigo-50"><input type="radio" name="q4" value="C" class="mr-2"> C) $180^\circ$</label>
+                        <label class="flex items-center p-2 rounded bg-white border border-slate-200 cursor-pointer hover:bg-indigo-50"><input type="radio" name="q4" value="D" class="mr-2"> D) $60^\circ$</label>
+                    </div>
+                </div>
+
+                <!-- Câu 5 -->
+                <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
+                    <p class="font-bold text-sm text-slate-800">Câu 5: Tìm $x$ biết hai góc kề bù có số đo lần lượt là $2x^\circ$ và $3x^\circ$.</p>
+                    <div class="grid md:grid-cols-2 gap-2 text-xs">
+                        <label class="flex items-center p-2 rounded bg-white border border-slate-200 cursor-pointer hover:bg-indigo-50"><input type="radio" name="q5" value="A" class="mr-2"> A) $x = 30$</label>
+                        <label class="flex items-center p-2 rounded bg-white border border-slate-200 cursor-pointer hover:bg-indigo-50"><input type="radio" name="q5" value="B" class="mr-2"> B) $x = 45$</label>
+                        <label class="flex items-center p-2 rounded bg-white border border-slate-200 cursor-pointer hover:bg-indigo-50"><input type="radio" name="q5" value="C" class="mr-2"> C) $x = 18$</label>
+                        <label class="flex items-center p-2 rounded bg-white border border-slate-200 cursor-pointer hover:bg-indigo-50"><input type="radio" name="q5" value="D" class="mr-2"> D) $x = 36$</label>
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="text-center">
+                    <button type="button" onclick="nopBaiTap()" id="btnSubmitQuiz" class="px-8 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl shadow-lg transition flex items-center gap-2 mx-auto">
+                        <i class="fas fa-paper-plane"></i> Nộp Bài & Gửi Kết Quả
+                    </button>
+                </div>
+            </form>
+
+            <!-- Quiz Result Alert Box -->
+            <div id="quizResult" class="hidden p-4 rounded-xl text-sm border"></div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER COPYRIGHT -->
+    <footer class="bg-white border-t border-slate-200 py-6 text-center text-xs text-slate-600 mt-12 print:border-none">
+        <p class="font-semibold text-slate-800">@ Bản quyền thuộc ThS. Đinh Quốc Tuấn - Mục đích phi lợi nhuận - Vì giáo dục.</p>
+    </footer>
+
+    <!-- NÚT IN TÀI LIỆU -->
+    <button id="btn-print-doc" onclick="safePrint()" class="fixed bottom-5 right-5 bg-gray-900 text-white px-4 py-2 rounded-lg shadow-lg hover:bg-gray-700 print:hidden z-50">
+        <i class="fas fa-print mr-2"></i> In Tài Liệu
+    </button>
+
+    <!-- SCRIPT TƯƠNG TÁC LÝ THUYẾT & JSXGRAPH & QUIZ -->
+    <script>
+        // 1. CHỨC NĂNG IN AN TOÀN
+        function safePrint() {
+            const printBtn = document.getElementById('btn-print-doc');
+            printBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Đang chuẩn bị...';
+            
+            if (window.MathJax && window.MathJax.typesetPromise) {
+                MathJax.typesetPromise().then(() => {
+                    printBtn.innerHTML = '<i class="fas fa-print mr-2"></i> In Tài Liệu';
+                    window.print();
+                });
+            } else {
+                setTimeout(() => {
+                    printBtn.innerHTML = '<i class="fas fa-print mr-2"></i> In Tài Liệu';
+                    window.print();
+                }, 500); 
+            }
+        }
+
+        // 2. ẨN/HIỆN LỜI GIẢI BÀI TẬP
+        function toggleSol(id) {
+            const el = document.getElementById(id);
+            if (el.classList.contains('hidden')) {
+                el.classList.remove('hidden');
+            } else {
+                el.classList.add('hidden');
+            }
+        }
+
+        // Global variables for Board 2 animation
+        let board2, pM, pO, pX, pY;
+
+        // 3. KHỞI TẠO MÔ HÌNH JSXGRAPH
+        document.addEventListener('DOMContentLoaded', function () {
+            // BOARD 1: Góc đối đỉnh & Kề bù
+            const board1 = JXG.JSXGraph.initBoard('jxgbox1', {
+                boundingbox: [-5, 5, 5, -5],
+                axis: false,
+                showCopyright: false,
+                showNavigation: false
+            });
+            const O1 = board1.create('point', [0, 0], { name: 'O', fixed: true, color: 'black', size: 3 });
+            const A = board1.create('point', [-3, 2], { name: 'A', color: 'blue', size: 3 });
+            const B = board1.create('point', [function() { return -A.X(); }, function() { return -A.Y(); }], { name: 'B', color: 'gray', size: 2 });
+            const lineAB = board1.create('line', [A, B], { strokeColor: 'blue', strokeWidth: 2 });
+
+            const C = board1.create('point', [3, 2], { name: 'C', color: 'green', size: 3 });
+            const D = board1.create('point', [function() { return -C.X(); }, function() { return -C.Y(); }], { name: 'D', color: 'gray', size: 2 });
+            const lineCD = board1.create('line', [C, D], { strokeColor: 'green', strokeWidth: 2 });
+
+            const a1 = board1.create('angle', [C, O1, A], { name: 'α', radius: 1, color: 'red' });
+            const a2 = board1.create('angle', [B, O1, D], { name: 'α\'', radius: 1, color: 'red' });
+
+            board1.create('text', [-4.5, -4, function() {
+                return 'AOC = ' + JXG.Math.Geometry.trueAngle(C, O1, A).toFixed(1) + '°';
+            }], { fontSize: 12, color: 'blue' });
+            board1.create('text', [0.5, -4, function() {
+                return 'BOD = ' + JXG.Math.Geometry.trueAngle(B, O1, D).toFixed(1) + '° (Đối đỉnh)';
+            }], { fontSize: 12, color: 'green' });
+
+
+            // BOARD 2: Tia phân giác động
+            board2 = JXG.JSXGraph.initBoard('jxgbox2', {
+                boundingbox: [-1, 5, 5, -1],
+                axis: false,
+                showCopyright: false,
+                showNavigation: false
+            });
+            pO = board2.create('point', [0, 0], { name: 'O', fixed: true, color: 'black' });
+            pX = board2.create('point', [4, 0], { name: 'x', fixed: true, color: 'blue' });
+            pY = board2.create('point', [1, 4], { name: 'y', fixed: true, color: 'blue' });
+
+            board2.create('line', [pO, pX], { straightFirst: false, straightLast: false, strokeColor: 'blue' });
+            board2.create('line', [pO, pY], { straightFirst: false, straightLast: false, strokeColor: 'blue' });
+
+            pM = board2.create('point', [3, 1.5], { name: 'M', color: 'red', size: 4 });
+            const rayOM = board2.create('line', [pO, pM], { straightFirst: false, straightLast: false, strokeColor: 'red', dash: 2 });
+
+            const ang1 = board2.create('angle', [pX, pO, pM], { radius: 1.2, color: 'orange' });
+            const ang2 = board2.create('angle', [pM, pO, pY], { radius: 1.6, color: 'purple' });
+
+            board2.create('text', [0.2, 4.5, function() {
+                const aXOM = JXG.Math.Geometry.trueAngle(pX, pO, pM).toFixed(1);
+                const aMOY = JXG.Math.Geometry.trueAngle(pM, pO, pY).toFixed(1);
+                return 'xOM = ' + aXOM + '° | MOy = ' + aMOY + '°';
+            }], { fontSize: 12, style: 1 });
+
+
+            // BOARD 3: Phản xạ ánh sáng (Pháp tuyến = Phân giác)
+            const board3 = JXG.JSXGraph.initBoard('jxgbox3', {
+                boundingbox: [-4, 4, 4, -1],
+                axis: false,
+                showCopyright: false,
+                showNavigation: false
+            });
+            const mirror = board3.create('line', [[-4, 0], [4, 0]], { strokeColor: 'black', strokeWidth: 3, fixed: true });
+            const O3 = board3.create('point', [0, 0], { name: 'O', fixed: true, color: 'black', size: 3 });
+            const N = board3.create('point', [0, 3], { name: 'Pháp tuyến', fixed: true, color: 'gray', size: 2 });
+            board3.create('line', [O3, N], { straightFirst: false, straightLast: false, dash: 3, strokeColor: 'gray' });
+
+            const S = board3.create('point', [-3, 2.5], { name: 'Tia tới (S)', color: 'amber', size: 4 });
+            board3.create('line', [S, O3], { straightFirst: false, straightLast: false, strokeColor: 'orange', strokeWidth: 2 });
+
+            const R = board3.create('point', [function() { return -S.X(); }, function() { return S.Y(); }], { name: 'Tia phản xạ (R)', color: 'rose', fixed: true, size: 2 });
+            board3.create('line', [O3, R], { straightFirst: false, straightLast: false, strokeColor: '#e11d48', strokeWidth: 2 });
+
+            board3.create('angle', [N, O3, S], { radius: 1, color: 'orange' });
+            board3.create('angle', [R, O3, N], { radius: 1, color: 'rose' });
+
+            board3.create('text', [-3.8, -0.5, 'Gương phẳng'], { fontSize: 11, style: 2 });
+        });
+
+        function snapToBisector() {
+            // Calculate half angle of xOy
+            const totalAngle = JXG.Math.Geometry.trueAngle(pX, pO, pY) * (Math.PI / 180);
+            const halfAngle = totalAngle / 2;
+            const dist = 3.0;
+            const targetX = dist * Math.cos(halfAngle);
+            const targetY = dist * Math.sin(halfAngle);
+            
+            pM.moveTo([targetX, targetY], 1000);
+        }
+
+        // 4. QUẢN LÝ BÀI TẬP VÀ GỬI KẾT QUẢ VỀ GOOGLE APPS SCRIPT
+        const startTime = new Date();
+
+        function nopBaiTap() {
+            const hoTen = document.getElementById('hoTenInput').value.trim();
+            if (!hoTen) {
+                alert('Vui lòng nhập Họ và Tên học sinh trước khi nộp bài!');
+                return;
+            }
+
+            const answers = { q1: 'B', q2: 'A', q3: 'C', q4: 'B', q5: 'D' };
+            let diemNum = 0;
+            let cauSai = [];
+
+            for (let i = 1; i <= 5; i++) {
+                const qVal = document.querySelector('input[name="q' + i + '"]:checked');
+                if (qVal && qVal.value === answers['q' + i]) {
+                    diemNum += 2;
+                } else {
+                    const selected = qVal ? qVal.value : 'Chưa chọn';
+                    cauSai.push('Câu ' + i + ' (Chọn: ' + selected + ', Đáp án: ' + answers['q' + i] + ')');
+                }
+            }
+
+            const endTime = new Date();
+            const timeDiffSec = Math.round((endTime - startTime) / 1000);
+            const thoiGianStr = Math.floor(timeDiffSec / 60) + ' phút ' + (timeDiffSec % 60) + ' giây';
+            const cauSaiStr = cauSai.length > 0 ? cauSai.join('; ') : 'Không làm sai câu nào';
+
+            const payload = {
+                hoTen: hoTen,
+                maDe: 'buoi9-cac-goc',
+                diem: diemNum + '/10',
+                thoiGian: thoiGianStr,
+                cauSai: cauSaiStr
+            };
+
+            const btnSubmit = document.getElementById('btnSubmitQuiz');
+            btnSubmit.disabled = true;
+            btnSubmit.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Đang nộp kết quả...';
+
+            const scriptUrl = 'https://script.google.com/macros/s/AKfycbzY7b7h4OwvhXuK5Vs6hl-aD88BPnAiAKbU5lfJobby0D4nzbIJVKT4n0AKCpAGoK0nZA/exec';
+
+            fetch(scriptUrl, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            }).then(() => {
+                showQuizResult(diemNum, thoiGianStr, cauSaiStr);
+            }).catch(error => {
+                console.error('Lỗi gửi kết quả:', error);
+                showQuizResult(diemNum, thoiGianStr, cauSaiStr);
+            });
+        }
+
+        function showQuizResult(diem, thoiGian, cauSai) {
+            const resDiv = document.getElementById('quizResult');
+            resDiv.classList.remove('hidden', 'bg-red-50', 'bg-emerald-50', 'border-red-200', 'border-emerald-200');
+            
+            if (diem >= 8) {
+                resDiv.classList.add('bg-emerald-50', 'border-emerald-200', 'text-emerald-800');
+            } else {
+                resDiv.classList.add('bg-amber-50', 'border-amber-200', 'text-amber-800');
+            }
+
+            resDiv.innerHTML = `
+                <div class="font-bold text-base mb-1"><i class="fas fa-check-circle"></i> Kết quả bài đánh giá: ${diem}/10 Điểm</div>
+                <p><strong>Thời gian hoàn thành:</strong> ${thoiGian}</p>
+                <p><strong>Chi tiết ghi nhận:</strong> ${cauSai}</p>
+                <p class="mt-2 text-xs italic text-slate-500">* Kết quả đã được lưu trữ thành công trên hệ thống Google Sheets giáo viên.</p>
+            `;
+
+            const btnSubmit = document.getElementById('btnSubmitQuiz');
+            btnSubmit.innerHTML = '<i class="fas fa-check"></i> Đã Nộp Bài Thành Công';
+            btnSubmit.classList.remove('bg-indigo-600', 'hover:bg-indigo-700');
+            btnSubmit.classList.add('bg-slate-500');
+        }
+    </script>
+</body>
+</html>
