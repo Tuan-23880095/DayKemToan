@@ -157,7 +157,7 @@
                             <span class="w-6 h-6 rounded-full bg-amber-100 text-amber-600 flex items-center justify-center text-xs">3</span>
                             Từ Song Song Đến Vuông Góc
                         </h3>
-                        <p class="text-xs text-slate-500 mb-3">Kéo đường thẳng $c$: khi $c \perp a$ thì tự động $c \perp b$.</p>
+                        <p class="text-xs text-slate-500 mb-3">Khi đường thẳng $c \perp a$ và $a // b$, tự động $c \perp b$.</p>
                         <div id="jxgbox3" class="jsxbox"></div>
                     </div>
                 </div>
@@ -681,7 +681,7 @@
         // Global variables for Board 2 (Ziczac)
         let board2, auxLine, showAux = false;
 
-        // 3. KHỞI TẠO MÔ HÌNH JSXGRAPH
+        // 3. KHỞI TẠO MÔ HÌNH JSXGRAPH (Tách biệt tên biến để tránh xung đột SyntaxError)
         document.addEventListener('DOMContentLoaded', function () {
             // BOARD 1: Khám phá Tiên đề Euclid
             const board1 = JXG.JSXGraph.initBoard('jxgbox1', {
@@ -690,22 +690,22 @@
                 showCopyright: false,
                 showNavigation: false
             });
-            const pA1 = board1.create('point', [-4, -1], { visible: false });
-            const pA2 = board1.create('point', [4, -1], { visible: false });
-            const lineA = board1.create('line', [pA1, pA2], { strokeColor: 'blue', strokeWidth: 2, name: 'a', withLabel: true });
+            const pA1_b1 = board1.create('point', [-4, -1], { visible: false });
+            const pA2_b1 = board1.create('point', [4, -1], { visible: false });
+            const lineA_b1 = board1.create('line', [pA1_b1, pA2_b1], { strokeColor: 'blue', strokeWidth: 2, name: 'a', withLabel: true });
 
-            const ptM = board1.create('point', [0, 2], { name: 'M', color: 'red', fixed: true });
-            const sliderAngle = board1.create('slider', [[-4, -3.5], [2, -3.5], [-45, 0, 45]], { name: 'Góc xoay' });
+            const ptM_b1 = board1.create('point', [0, 2], { name: 'M', color: 'red', fixed: true });
+            const sliderAngle_b1 = board1.create('slider', [[-4, -3.5], [2, -3.5], [-45, 0, 45]], { name: 'Góc xoay' });
 
-            const pB = board1.create('point', [
-                function() { return 3 * Math.cos(sliderAngle.Value() * Math.PI / 180); },
-                function() { return 2 + 3 * Math.sin(sliderAngle.Value() * Math.PI / 180); }
+            const pB_board1 = board1.create('point', [
+                function() { return 3 * Math.cos(sliderAngle_b1.Value() * Math.PI / 180); },
+                function() { return 2 + 3 * Math.sin(sliderAngle_b1.Value() * Math.PI / 180); }
             ], { visible: false });
 
-            const lineB = board1.create('line', [ptM, pB], { strokeColor: 'green', strokeWidth: 2, name: 'b', withLabel: true });
+            const lineB_b1 = board1.create('line', [ptM_b1, pB_board1], { strokeColor: 'green', strokeWidth: 2, name: 'b', withLabel: true });
 
             board1.create('text', [-4.5, 4, function() {
-                const ang = Math.round(sliderAngle.Value());
+                const ang = Math.round(sliderAngle_b1.Value());
                 if (ang === 0) {
                     return '<span class="text-emerald-600 font-bold text-sm"><i class="fas fa-check-circle"></i> b // a (Đã tìm thấy đường song song duy nhất!)</span>';
                 } else {
@@ -722,20 +722,20 @@
                 showNavigation: false
             });
 
-            const pA = board2.create('point', [0, 4], { name: 'A', fixed: true, color: 'blue' });
-            const pAx = board2.create('point', [5, 4], { name: 'x', fixed: true, color: 'blue' });
-            const rayAx = board2.create('line', [pA, pAx], { straightFirst: false, straightLast: false, strokeColor: 'blue', strokeWidth: 2 });
+            const pA_board2 = board2.create('point', [0, 4], { name: 'A', fixed: true, color: 'blue' });
+            const pAx_board2 = board2.create('point', [5, 4], { name: 'x', fixed: true, color: 'blue' });
+            board2.create('line', [pA_board2, pAx_board2], { straightFirst: false, straightLast: false, strokeColor: 'blue', strokeWidth: 2 });
 
-            const pB = board2.create('point', [0, 0], { name: 'B', fixed: true, color: 'blue' });
-            const pBy = board2.create('point', [5, 0], { name: 'y', fixed: true, color: 'blue' });
-            const rayBy = board2.create('line', [pB, pBy], { straightFirst: false, straightLast: false, strokeColor: 'blue', strokeWidth: 2 });
+            const pB_board2 = board2.create('point', [0, 0], { name: 'B', fixed: true, color: 'blue' });
+            const pBy_board2 = board2.create('point', [5, 0], { name: 'y', fixed: true, color: 'blue' });
+            board2.create('line', [pB_board2, pBy_board2], { straightFirst: false, straightLast: false, strokeColor: 'blue', strokeWidth: 2 });
 
-            const pC = board2.create('point', [2, 2], { name: 'C', fixed: true, color: 'red' });
-            board2.create('line', [pA, pC], { straightFirst: false, straightLast: false, strokeColor: 'slate', strokeWidth: 2 });
-            board2.create('line', [pB, pC], { straightFirst: false, straightLast: false, strokeColor: 'slate', strokeWidth: 2 });
+            const pC_board2 = board2.create('point', [2, 2], { name: 'C', fixed: true, color: 'red' });
+            board2.create('line', [pA_board2, pC_board2], { straightFirst: false, straightLast: false, strokeColor: 'slate', strokeWidth: 2 });
+            board2.create('line', [pB_board2, pC_board2], { straightFirst: false, straightLast: false, strokeColor: 'slate', strokeWidth: 2 });
 
-            const pOz = board2.create('point', [5, 2], { visible: false });
-            auxLine = board2.create('line', [pC, pOz], { straightFirst: false, straightLast: false, strokeColor: 'red', strokeWidth: 2, dash: 2, visible: false });
+            const pOz_board2 = board2.create('point', [5, 2], { visible: false });
+            auxLine = board2.create('line', [pC_board2, pOz_board2], { straightFirst: false, straightLast: false, strokeColor: 'red', strokeWidth: 2, dash: 2, visible: false });
 
             board2.create('text', [0.2, 2.3, 'C = 70°'], { fontSize: 12, style: 1 });
 
@@ -748,12 +748,12 @@
                 showNavigation: false
             });
 
-            const l1 = board3.create('line', [[-4, 2], [4, 2]], { strokeColor: 'blue', fixed: true, name: 'a', withLabel: true });
-            const l2 = board3.create('line', [[-4, -2], [4, -2]], { strokeColor: 'blue', fixed: true, name: 'b', withLabel: true });
+            board3.create('line', [[-4, 2], [4, 2]], { strokeColor: 'blue', fixed: true, name: 'a', withLabel: true });
+            board3.create('line', [[-4, -2], [4, -2]], { strokeColor: 'blue', fixed: true, name: 'b', withLabel: true });
 
-            const pC1 = board3.create('point', [0, 4], { name: 'c1', visible: false });
-            const pC2 = board3.create('point', [0, -4], { name: 'c2', visible: false });
-            const lineC = board3.create('line', [pC1, pC2], { strokeColor: 'red', strokeWidth: 2, name: 'c', withLabel: true });
+            const pC1_b3 = board3.create('point', [0, 4], { name: 'c1', visible: false });
+            const pC2_b3 = board3.create('point', [0, -4], { name: 'c2', visible: false });
+            board3.create('line', [pC1_b3, pC2_b3], { strokeColor: 'red', strokeWidth: 2, name: 'c', withLabel: true });
 
             board3.create('text', [-4.5, -4, 'c ⊥ a ⇒ c ⊥ b'], { fontSize: 13, color: 'indigo', style: 1 });
         });
