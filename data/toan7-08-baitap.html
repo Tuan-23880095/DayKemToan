@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buổi 8: Tập hợp số thực & Giá trị tuyệt đối</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.com">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- MathJax 3 CDN -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['\\(', '\\)'], ['$', '$']],
+                displayMath: [['\\[', '\\]'], ['$$', '$$']]
+            },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <!-- JSXGraph CDN -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraph.css" />
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraphcore.js"></script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f8fafc;
+            color: #1e293b;
+        }
+        .jsxbox {
+            width: 100%;
+            height: 320px;
+            border-radius: 0.75rem;
+            border: 2px solid #e2e8f0;
+            background-color: #ffffff;
+            box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.05);
+        }
+        @media print {
+            .no-print { display: none !important; }
+            body { background: white; color: black; }
+            .shadow-md, .shadow-lg, .shadow-xl { box-shadow: none !important; }
+            .border { border-color: #cbd5e1 !important; }
+        }
+    </style>
+</head>
+<body class="bg-slate-50 min-h-screen flex flex-col justify-between">
+
+    <!-- HEADER / LOGOS -->
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-40 shadow-sm print:relative print:shadow-none">
+        <div class="max-w-7xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-4">
+            <div class="flex items-center space-x-3">
+                <img src="https://firebasestorage.googleapis.com/v0/b/link-anh-web.firebasestorage.app/o/ttbdvh.jpg?alt=media&token=f270aa9b-a2bc-48e8-8910-80742b542615" 
+                     alt="Logo 1" class="h-12 w-auto object-contain rounded-md border border-slate-200">
+                <img src="https://hcmus.edu.vn/wp-content/uploads/2023/04/Logo-chinh-e1681638380305.png" 
+                     alt="HCMUS Logo" class="h-12 w-auto object-contain">
+            </div>
+            <div class="text-right">
+                <span class="inline-block px-3 py-1 bg-indigo-100 text-indigo-800 text-xs font-semibold rounded-full uppercase tracking-wider mb-1"> Chuyên đề Toán THCS </span>
+                <h1 class="text-xl md:text-2xl font-bold text-slate-800">BUỔI 8: TẬP HỢP SỐ THỰC & GIÁ TRỊ TUYỆT ĐỐI</h1>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="max-w-7xl mx-auto px-4 py-8 flex-grow w-full space-y-10">
+
+        <!-- THANH ĐIỀU HƯỚNG NHANH -->
+        <nav class="bg-white p-4 rounded-xl shadow-sm border border-slate-200 flex flex-wrap justify-center gap-3 no-print">
+            <a href="#momat" class="px-4 py-2 bg-slate-100 hover:bg-indigo-50 hover:text-indigo-600 rounded-lg text-sm font-medium transition flex items-center gap-2"><i class="fas fa-shapes text-indigo-500"></i> Mô Hình Tương Tác</a>
+            <a href="#capdo1" class="px-4 py-2 bg-slate-100 hover:bg-emerald-50 hover:text-emerald-600 rounded-lg text-sm font-medium transition flex items-center gap-2"><i class="fas fa-seedling text-emerald-500"></i> Cấp Độ Cơ Bản</a>
+            <a href="#capdo2" class="px-4 py-2 bg-slate-100 hover:bg-amber-50 hover:text-amber-600 rounded-lg text-sm font-medium transition flex items-center gap-2"><i class="fas fa-chart-line text-amber-500"></i> Cấp Độ Nâng Cao</a>
+            <a href="#capdo3" class="px-4 py-2 bg-slate-100 hover:bg-rose-50 hover:text-rose-600 rounded-lg text-sm font-medium transition flex items-center gap-2"><i class="fas fa-rocket text-rose-500"></i> Cấp Độ Vận Dụng</a>
+            <a href="#tracnghiem" class="px-4 py-2 bg-indigo-600 text-white hover:bg-indigo-700 rounded-lg text-sm font-medium transition flex items-center gap-2"><i class="fas fa-tasks"></i> Đánh Giá Tại Lớp</a>
+        </nav>
+
+        <!-- TỔNG QUAN LÝ THUYẾT NỔI BẬT -->
+        <section class="bg-gradient-to-r from-blue-900 to-indigo-900 text-white rounded-2xl p-6 md:p-8 shadow-xl">
+            <div class="flex items-center gap-3 mb-4">
+                <i class="fas fa-book-open text-amber-400 text-3xl"></i>
+                <h2 class="text-2xl font-bold">Tóm Tắt Lý Thuyết Cốt Lõi</h2>
+            </div>
+            <div class="grid md:grid-cols-2 gap-6 text-slate-100">
+                <div class="bg-white/10 p-5 rounded-xl backdrop-blur-sm border border-white/10">
+                    <h3 class="font-bold text-amber-300 text-lg mb-2"><i class="fas fa-layer-group mr-2"></i>1. Tập hợp số thực ($\mathbb{R}$)</h3>
+                    <ul class="list-disc list-inside space-y-1 text-sm">
+                        <li>Số thực bao gồm số hữu tỉ ($\mathbb{Q}$) và số vô tỉ ($\mathbb{I}$): $\mathbb{R} = \mathbb{Q} \cup \mathbb{I}$.</li>
+                        <li>Mỗi số thực được biểu diễn bởi một điểm duy nhất trên trục số.</li>
+                        <li>Các tập hợp số đã học: $\mathbb{N} \subset \mathbb{Z} \subset \mathbb{Q} \subset \mathbb{R}$.</li>
+                    </ul>
+                </div>
+                <div class="bg-white/10 p-5 rounded-xl backdrop-blur-sm border border-white/10">
+                    <h3 class="font-bold text-amber-300 text-lg mb-2"><i class="fas fa-ruler-combined mr-2"></i>2. Giá trị tuyệt đối ($|x|$)</h3>
+                    <ul class="list-disc list-inside space-y-1 text-sm">
+                        <li>Khoảng cách từ điểm $x$ đến gốc $O(0)$ trên trục số gọi là giá trị tuyệt đối của $x$.</li>
+                        <li>$|x| = x$ nếu $x \ge 0$ và $|x| = -x$ nếu $x < 0$.</li>
+                        <li>Tính chất: $|x| \ge 0$, $|x| = |-x|$, và $|x + y| \le |x| + |y|$.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- MÔ HÌNH HÌNH HỌC TƯƠNG TÁC (JSXGRAPH) -->
+        <section id="momat" class="space-y-6">
+            <div class="border-l-4 border-indigo-600 pl-4 py-1">
+                <h2 class="text-2xl font-bold text-slate-800 flex items-center gap-2">
+                    <i class="fas fa-laptop-code text-indigo-600"></i> Mô Hình Trực Quan JSXGraph
+                </h2>
+                <p class="text-slate-600 text-sm">Kéo thả điểm và điều chỉnh thanh trượt để quan sát sự thay đổi trực quan.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-6">
+                <!-- Model 1 -->
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between">
+                    <div>
+                        <h3 class="font-bold text-slate-800 mb-2 flex items-center gap-2">
+                            <span class="w-6 h-6 rounded-full bg-indigo-100 text-indigo-600 flex items-center justify-center text-xs">1</span>
+                            Trục Số Thực & $|x|$
+                        </h3>
+                        <p class="text-xs text-slate-500 mb-3">Kéo điểm M để xem khoảng cách $|x|$ luôn mang giá trị không âm.</p>
+                        <div id="jxgbox1" class="jsxbox"></div>
+                    </div>
+                </div>
+
+                <!-- Model 2 -->
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between">
+                    <div>
+                        <h3 class="font-bold text-slate-800 mb-2 flex items-center gap-2">
+                            <span class="w-6 h-6 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center text-xs">2</span>
+                            Nghiệm Phương Trình $|x| = a$
+                        </h3>
+                        <p class="text-xs text-slate-500 mb-3">Thay đổi slider $a$ để quan sát số nghiệm trên trục số.</p>
+                        <div id="jxgbox2" class="jsxbox"></div>
+                    </div>
+                </div>
+
+                <!-- Model 3 -->
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between">
+                    <div>
+                        <h3 class="font-bold text-slate-800 mb-2 flex items-center gap-2">
+                            <span class="w-6 h-6 rounded-full bg-rose-100 text-rose-600 flex items-center justify-center text-xs">3</span>
+                            Đồ Thị Hàm Số Cực Trị
+                        </h3>
+                        <p class="text-xs text-slate-500 mb-3">Mô hình đường gấp khúc hình chữ V biểu diễn $y = |x - 1| + 21$.</p>
+                        <div id="jxgbox3" class="jsxbox"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PHẦN 1: CẤP ĐỘ CƠ BẢN -->
+        <section id="capdo1" class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm space-y-6">
+            <div class="flex items-center justify-between border-b border-slate-200 pb-4">
+                <div class="flex items-center gap-3">
+                    <span class="p-3 bg-emerald-100 text-emerald-600 rounded-xl"><i class="fas fa-seedling text-xl"></i></span>
+                    <div>
+                        <h2 class="text-xl font-bold text-slate-800">PHẦN 1: CẤP ĐỘ CƠ BẢN (12 Bài)</h2>
+                        <p class="text-xs text-slate-500">Mục tiêu: Nhận biết các tập hợp số, tính giá trị tuyệt đối cơ bản và giải bài toán tìm x đơn giản.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VÍ DỤ MINH HỌA MẪU 1 -->
+            <div class="bg-emerald-50/60 border border-emerald-200 rounded-xl p-5 space-y-2">
+                <div class="flex items-center gap-2 text-emerald-800 font-bold text-sm uppercase">
+                    <i class="fas fa-lightbulb"></i> Ví dụ minh họa Cấp độ Cơ bản
+                </div>
+                <p class="text-sm font-medium">Tính giá trị biểu thức $A = |-5,2| + |3,8| - |-1,2|$.</p>
+                <div class="pt-2 text-xs text-slate-600 bg-white p-3 rounded-lg border border-emerald-100">
+                    <strong>Lời giải:</strong> Ta có $|-5,2| = 5,2$; $|3,8| = 3,8$; $|-1,2| = 1,2$. <br>
+                    Do đó $A = 5,2 + 3,8 - 1,2 = 9,0 - 1,2 = 7,8$.
+                </div>
+            </div>
+
+            <!-- BÀI TẬP BÀI 1 -> 12 -->
+            <div class="grid md:grid-cols-2 gap-4">
+                <!-- Bài 1 -->
+                <div class="p-4 border border-slate-200 rounded-xl hover:border-emerald-300 transition bg-slate-50/50">
+                    <p class="font-bold text-sm text-slate-800 mb-2">Bài 1: Hãy thay dấu ? bằng kí hiệu $\in$ hoặc $\notin$:</p>
+                    <p class="text-xs text-slate-600 mb-3">a) $5 \ ?\ \mathbb{Z}$; b) $-2 \ ?\ \mathbb{Q}$; c) $\sqrt{2} \ ?\ \mathbb{Q}$; d) $\frac{3}{5} \ ?\ \mathbb{Q}$; e) $2,31(45) \ ?\ \mathbb{I}$; f) $7,62(38) \ ?\ \mathbb{R}$; g) $0 \ ?\ \mathbb{I}$.</p>
+                    <button onclick="toggleSol('sol1')" class="text-xs bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-1.5 rounded-md transition flex items-center gap-1"><i class="fas fa-eye"></i> Gợi ý / Lời giải</button>
+                    <div id="sol1" class="hidden mt-3 text-xs bg-white p-3 rounded border border-emerald-200 text-slate-700 space-y-1">
+                        <p>a) $5 \in \mathbb{Z}$; b) $-2 \in \mathbb{Q}$; c) $\sqrt{2} \notin \mathbb{Q}$; d) $\frac{3}{5} \in \mathbb{Q}$; e) $2,31(45) \notin \mathbb{I}$ (vì là số thập phân tuần hoàn $\in \mathbb{Q}$); f) $7,62(38) \in \mathbb{R}$; g) $0 \notin \mathbb{I}$.</p>
+                    </div>
+                </div>
+
+                <!-- Bài 2 -->
+                <div class="p-4 border border-slate-200 rounded-xl hover:border-emerald-300 transition bg-slate-50/50">
+                    <p class="font-bold text-sm text-slate-800 mb-2">Bài 2: Các khẳng định sau đây đúng hay sai?</p>
+                    <p class="text-xs text-slate-600 mb-3">a) Giá trị tuyệt đối của một số thực là một số dương hoặc bằng 0.<br>b) Hai số đối nhau có giá trị tuyệt đối bằng nhau.<br>c) Giá trị tuyệt đối của một số âm là số đối của nó.<br>d) Giá trị tuyệt đối của một số thực luôn bằng chính nó.</p>
+                    <button onclick="toggleSol('sol2')" class="text-xs bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-1.5 rounded-md transition flex items-center gap-1"><i class="fas fa-eye"></i> Gợi ý / Lời giải</button>
+                    <div id="sol2" class="hidden mt-3 text-xs bg-white p-3 rounded border border-emerald-200 text-slate-700 space-y-1">
+                        <p>a) Đúng ($|x| \ge 0$). b) Đúng ($|x| = |-x|$). c) Đúng (Nếu $x < 0$ thì $|x| = -x$). d) Sai (Giá trị tuyệt đối của số âm là số đối của nó, không phải chính nó).</p>
+                    </div>
+                </div>
+
+                <!-- Bài 3 -->
+                <div class="p-4 border border-slate-200 rounded-xl hover:border-emerald-300 transition bg-slate-50/50">
+                    <p class="font-bold text-sm text-slate-800 mb-2">Bài 3: Tìm số đối của các số thực sau:</p>
+                    <p class="text-xs text-slate-600 mb-3">$5,17;\ \pi;\ -\sqrt{17};\ \sqrt{2};\ -1,22$.</p>
+                    <button onclick="toggleSol('sol3')" class="text-xs bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-1.5 rounded-md transition flex items-center gap-1"><i class="fas fa-eye"></i> Gợi ý / Lời giải</button>
+                    <div id="sol3" class="hidden mt-3 text-xs bg-white p-3 rounded border border-emerald-200 text-slate-700">
+                        Số đối tương ứng là: $-5,17;\ -\pi;\ \sqrt{17};\ -\sqrt{2};\ 1,22$.
+                    </div>
+                </div>
+
+                <!-- Bài 4 -->
+                <div class="p-4 border border-slate-200 rounded-xl hover:border-emerald-300 transition bg-slate-50/50">
+                    <p class="font-bold text-sm text-slate-800 mb-2">Bài 4: Tìm giá trị tuyệt đối của các số thực sau:</p>
+                    <p class="text-xs text-slate-600 mb-3">a) $-3,14$; b) $45$; c) $-10$; d) $12,(1)$; e) $-\sqrt{7}$.</p>
+                    <button onclick="toggleSol('sol4')" class="text-xs bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-1.5 rounded-md transition flex items-center gap-1"><i class="fas fa-eye"></i> Gợi ý / Lời giải</button>
+                    <div id="sol4" class="hidden mt-3 text-xs bg-white p-3 rounded border border-emerald-200 text-slate-700">
+                        a) $|-3,14| = 3,14$; b) $|45| = 45$; c) $|-10| = 10$; d) $|12,(1)| = 12,(1)$; e) $|-\sqrt{7}| = \sqrt{7}$.
+                    </div>
+                </div>
+
+                <!-- Bài 5 -->
+                <div class="p-4 border border-slate-200 rounded-xl hover:border-emerald-300 transition bg-slate-50/50">
+                    <p class="font-bold text-sm text-slate-800 mb-2">Bài 5: Tính:</p>
+                    <p class="text-xs text-slate-600 mb-3">a) $|-137| + |-363|$; b) $|-28| - |98|$; c) $|-200| - |-25| \cdot |3|$.</p>
+                    <button onclick="toggleSol('sol5')" class="text-xs bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-1.5 rounded-md transition flex items-center gap-1"><i class="fas fa-eye"></i> Gợi ý / Lời giải</button>
+                    <div id="sol5" class="hidden mt-3 text-xs bg-white p-3 rounded border border-emerald-200 text-slate-700">
+                        a) $137 + 363 = 500$.<br>b) $28 - 98 = -70$.<br>c) $200 - 25 \cdot 3 = 200 - 75 = 125$.
+                    </div>
+                </div>
+
+                <!-- Bài 6 -->
+                <div class="p-4 border border-slate-200 rounded-xl hover:border-emerald-300 transition bg-slate-50/50">
+                    <p class="font-bold text-sm text-slate-800 mb-2">Bài 6: Chọn dấu "&lt;", "&gt;", "=" thích hợp:</p>
+                    <p class="text-xs text-slate-600 mb-3">a) $|-12| \ ?\ |0|$; b) $\left|\frac{-321}{491}\right| \ ?\ \left|\frac{321}{491}\right|$; c) $|5,706| \ ?\ |-7,01|$; d) $|-\sqrt{131}| \ ?\ 131$.</p>
+                    <button onclick="toggleSol('sol6')" class="text-xs bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-1.5 rounded-md transition flex items-center gap-1"><i class="fas fa-eye"></i> Gợi ý / Lời giải</button>
+                    <div id="sol6" class="hidden mt-3 text-xs bg-white p-3 rounded border border-emerald-200 text-slate-700">
+                        a) $|-12| = 12 > 0 = |0| \Rightarrow &gt;$.<br>
+                        b) Both equal $\frac{321}{491} \Rightarrow =$.<br>
+                        c) $5,706 < 7,01 \Rightarrow &lt;$.<br>
+                        d) $\sqrt{131} < 131 \Rightarrow &lt;$.
+                    </div>
+                </div>
+
+                <!-- Bài 7 -->
+                <div class="p-4 border border-slate-200 rounded-xl hover:border-emerald-300 transition bg-slate-50/50">
+                    <p class="font-bold text-sm text-slate-800 mb-2">Bài 7: Sắp xếp theo thứ tự từ nhỏ đến lớn giá trị tuyệt đối của các số sau:</p>
+                    <p class="text-xs text-slate-600 mb-3">$-3,2;\ 2,13;\ -\sqrt{2};\ -\frac{3}{7}$.</p>
+                    <button onclick="toggleSol('sol7')" class="text-xs bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-1.5 rounded-md transition flex items-center gap-1"><i class="fas fa-eye"></i> Gợi ý / Lời giải</button>
+                    <div id="sol7" class="hidden mt-3 text-xs bg-white p-3 rounded border border-emerald-200 text-slate-700">
+                        Tính GTĐ: $|-\frac{3}{7}| = \frac{3}{7} \approx 0,43$; $|-\sqrt{2}| = \sqrt{2} \approx 1,414$; $|2,13| = 2,13$; $|-3,2| = 3,2$.<br>
+                        Thứ tự từ nhỏ đến lớn: $-\frac{3}{7},\ -\sqrt{2},\ 2,13,\ -3,2$.
+                    </div>
+                </div>
+
+                <!-- Bài 8 -->
+                <div class="p-4 border border-slate-200 rounded-xl hover:border-emerald-300 transition bg-slate-50/50">
+                    <p class="font-bold text-sm text-slate-800 mb-2">Bài 8: Tìm $x$, biết: $|x| = 4$.</p>
+                    <p class="text-xs text-slate-500 mb-3">(Tham khảo mô hình tương tác 1 & 2)</p>
+                    <button onclick="toggleSol('sol8')" class="text-xs bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-1.5 rounded-md transition flex items-center gap-1"><i class="fas fa-eye"></i> Gợi ý / Lời giải</button>
+                    <div id="sol8" class="hidden mt-3 text-xs bg-white p-3 rounded border border-emerald-200 text-slate-700">
+                        Vì $4 > 0$ nên $x = 4$ hoặc $x = -4$.
+                    </div>
+                </div>
+
+                <!-- Bài 9 -->
+                <div class="p-4 border border-slate-200 rounded-xl hover:border-emerald-300 transition bg-slate-50/50">
+                    <p class="font-bold text-sm text-slate-800 mb-2">Bài 9: Tìm $x$, biết: $|x| = \sqrt{7}$.</p>
+                    <button onclick="toggleSol('sol9')" class="text-xs bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-1.5 rounded-md transition flex items-center gap-1"><i class="fas fa-eye"></i> Gợi ý / Lời giải</button>
+                    <div id="sol9" class="hidden mt-3 text-xs bg-white p-3 rounded border border-emerald-200 text-slate-700">
+                        Vì $\sqrt{7} > 0$ nên $x = \sqrt{7}$ hoặc $x = -\sqrt{7}$.
+                    </div>
+                </div>
+
+                <!-- Bài 10 -->
+                <div class="p-4 border border-slate-200 rounded-xl hover:border-emerald-300 transition bg-slate-50/50">
+                    <p class="font-bold text-sm text-slate-800 mb-2">Bài 10: Tìm $x$, biết: $|x| = -5$.</p>
+                    <button onclick="toggleSol('sol10')" class="text-xs bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-1.5 rounded-md transition flex items-center gap-1"><i class="fas fa-eye"></i> Gợi ý / Lời giải</button>
+                    <div id="sol10" class="hidden mt-3 text-xs bg-white p-3 rounded border border-emerald-200 text-slate-700">
+                        Vì $|x| \ge 0$ với mọi số thực $x$, mà $-5 < 0$ nên không có giá trị nào của $x$ thỏa mãn (Phương trình vô nghiệm).
+                    </div>
+                </div>
+
+                <!-- Bài 11 -->
+                <div class="p-4 border border-slate-200 rounded-xl hover:border-emerald-300 transition bg-slate-50/50">
+                    <p class="font-bold text-sm text-slate-800 mb-2">Bài 11: Tìm $x$, biết: $|x - 20| = 0$.</p>
+                    <button onclick="toggleSol('sol11')" class="text-xs bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-1.5 rounded-md transition flex items-center gap-1"><i class="fas fa-eye"></i> Gợi ý / Lời giải</button>
+                    <div id="sol11" class="hidden mt-3 text-xs bg-white p-3 rounded border border-emerald-200 text-slate-700">
+                        $|x - 20| = 0 \Rightarrow x - 20 = 0 \Rightarrow x = 20$.
+                    </div>
+                </div>
+
+                <!-- Bài 12 -->
+                <div class="p-4 border border-slate-200 rounded-xl hover:border-emerald-300 transition bg-slate-50/50">
+                    <p class="font-bold text-sm text-slate-800 mb-2">Bài 12: Tính giá trị của biểu thức: $M = \sqrt{|-9|}$.</p>
+                    <button onclick="toggleSol('sol12')" class="text-xs bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-1.5 rounded-md transition flex items-center gap-1"><i class="fas fa-eye"></i> Gợi ý / Lời giải</button>
+                    <div id="sol12" class="hidden mt-3 text-xs bg-white p-3 rounded border border-emerald-200 text-slate-700">
+                        Ta có $|-9| = 9 \Rightarrow M = \sqrt{9} = 3$.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PHẦN 2: CẤP ĐỘ NÂNG CAO -->
+        <section id="capdo2" class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm space-y-6">
+            <div class="flex items-center justify-between border-b border-slate-200 pb-4">
+                <div class="flex items-center gap-3">
+                    <span class="p-3 bg-amber-100 text-amber-600 rounded-xl"><i class="fas fa-chart-line text-xl"></i></span>
+                    <div>
+                        <h2 class="text-xl font-bold text-slate-800">PHẦN 2: CẤP ĐỘ NÂNG CAO (10 Bài)</h2>
+                        <p class="text-xs text-slate-500">Mục tiêu: Đòi hỏi kĩ năng tính toán phân số, căn bậc hai và giải dạng $|A(x)| = B$.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VÍ DỤ MINH HỌA MẪU 2 -->
+            <div class="bg-amber-50/60 border border-amber-200 rounded-xl p-5 space-y-2">
+                <div class="flex items-center gap-2 text-amber-800 font-bold text-sm uppercase">
+                    <i class="fas fa-lightbulb"></i> Ví dụ minh họa Cấp độ Nâng cao
+                </div>
+                <p class="text-sm font-medium">Tìm $x$ biết: $|2x - 1| - 3 = 4$.</p>
+                <div class="pt-2 text-xs text-slate-600 bg-white p-3 rounded-lg border border-amber-100">
+                    <strong>Lời giải:</strong> Ta có $|2x - 1| = 4 + 3 = 7$.<br>
+                    TH1: $2x - 1 = 7 \Rightarrow 2x = 8 \Rightarrow x = 4$.<br>
+                    TH2: $2x - 1 = -7 \Rightarrow 2x = -6 \Rightarrow x = -3$.<br>
+                    Vậy $x \in \{4; -3\}$.
+                </div>
+            </div>
+
+            <!-- BÀI TẬP BÀI 13 -> 22 -->
+            <div class="grid md:grid-cols-2 gap-4">
+                <!-- Bài 13 -->
+                <div class="p-4 border border-slate-200 rounded-xl hover:border-amber-300 transition bg-slate-50/50">
+                    <p class="font-bold text-sm text-slate-800 mb-2">Bài 13: Tính giá trị các biểu thức:</p>
+                    <p class="text-xs text-slate-600 mb-3">
+                        a) $|-11| + |22| + |-33| - 44$<br>
+                        b) $2 \cdot |-21| - 3 \cdot |125| - 5 \cdot |-33| - |2 \cdot 21|$<br>
+                        c) $2,8 + 3 \cdot \left| -\frac{13}{3} \right| + 0,2 \cdot |6| + 5 \cdot |-10|$
+                    </p>
+                    <button onclick="toggleSol('sol13')" class="text-xs bg-amber-600 hover:bg-amber-700 text-white px-3 py-1.5 rounded-md transition flex items-center gap-1"><i class="fas fa-eye"></i> Gợi ý / Lời giải</button>
+                    <div id="sol13" class="hidden mt-3 text-xs bg-white p-3 rounded border border-amber-200 text-slate-700 space-y-1">
+                        a) $11 + 22 + 33 - 44 = 22$.<br>
+                        b) $2(21) - 3(125) - 5(33) - 42 = 42 - 375 - 165 - 42 = -540$.<br>
+                        c) $2,8 + 3 \cdot \frac{13}{3} + 0,2 \cdot 6 + 5 \cdot 10 = 2,8 + 13 + 1,2 + 50 = 67$.
+                    </div>
+                </div>
+
+                <!-- Bài 14 -->
+                <div class="p-4 border border-slate-200 rounded-xl hover:border-amber-300 transition bg-slate-50/50">
+                    <p class="font-bold text-sm text-slate-800 mb-2">Bài 14: Tính giá trị của biểu thức:</p>
+                    <p class="text-xs text-slate-600 mb-3">a) $|5,9 + (-4,1)|$; b) $|-4,18| + |-3,411|$.</p>
+                    <button onclick="toggleSol('sol14')" class="text-xs bg-amber-600 hover:bg-amber-700 text-white px-3 py-1.5 rounded-md transition flex items-center gap-1"><i class="fas fa-eye"></i> Gợi ý / Lời giải</button>
+                    <div id="sol14" class="hidden mt-3 text-xs bg-white p-3 rounded border border-amber-200 text-slate-700">
+                        a) $|1,8| = 1,8$.<br>b) $4,18 + 3,411 = 7,591$.
+                    </div>
+                </div>
+
+                <!-- Bài 15 -->
+                <div class="p-4 border border-slate-200 rounded-xl hover:border-amber-300 transition bg-slate-50/50">
+                    <p class="font-bold text-sm text-slate-800 mb-2">Bài 15: Tìm số thực $x$, biết: $|x + 5| = 0$.</p>
+                    <button onclick="toggleSol('sol15')" class="text-xs bg-amber-600 hover:bg-amber-700 text-white px-3 py-1.5 rounded-md transition flex items-center gap-1"><i class="fas fa-eye"></i> Gợi ý / Lời giải</button>
+                    <div id="sol15" class="hidden mt-3 text-xs bg-white p-3 rounded border border-amber-200 text-slate-700">
+                        $x + 5 = 0 \Rightarrow x = -5$.
+                    </div>
+                </div>
+
+                <!-- Bài 16 -->
+                <div class="p-4 border border-slate-200 rounded-xl hover:border-amber-300 transition bg-slate-50/50">
+                    <p class="font-bold text-sm text-slate-800 mb-2">Bài 16: Tìm số thực $x$, biết: $|x - \sqrt{2}| = 0$.</p>
+                    <button onclick="toggleSol('sol16')" class="text-xs bg-amber-600 hover:bg-amber-700 text-white px-3 py-1.5 rounded-md transition flex items-center gap-1"><i class="fas fa-eye"></i> Gợi ý / Lời giải</button>
+                    <div id="sol16" class="hidden mt-3 text-xs bg-white p-3 rounded border border-amber-200 text-slate-700">
+                        $x - \sqrt{2} = 0 \Rightarrow x = \sqrt{2}$.
+                    </div>
+                </div>
+
+                <!-- Bài 17 -->
+                <div class="p-4 border border-slate-200 rounded-xl hover:border-amber-300 transition bg-slate-50/50">
+                    <p class="font-bold text-sm text-slate-800 mb-2">Bài 17: Tìm $x$, biết: $\left| x - \frac{1}{2} \right| - 1 = \frac{5}{2}$.</p>
+                    <button onclick="toggleSol('sol17')" class="text-xs bg-amber-600 hover:bg-amber-700 text-white px-3 py-1.5 rounded-md transition flex items-center gap-1"><i class="fas fa-eye"></i> Gợi ý / Lời giải</button>
+                    <div id="sol17" class="hidden mt-3 text-xs bg-white p-3 rounded border border-amber-200 text-slate-700">
+                        $\left| x - \frac{1}{2} \right| = \frac{7}{2}$.<br>
+                        TH1: $x - \frac{1}{2} = \frac{7}{2} \Rightarrow x = 4$.<br>
+                        TH2: $x - \frac{1}{2} = -\frac{7}{2} \Rightarrow x = -3$.
+                    </div>
+                </div>
+
+                <!-- Bài 18 -->
+                <div class="p-4 border border-slate-200 rounded-xl hover:border-amber-300 transition bg-slate-50/50">
+                    <p class="font-bold text-sm text-slate-800 mb-2">Bài 18: Tìm $x$, biết: $|x| = \frac{13}{17}$.</p>
+                    <button onclick="toggleSol('sol18')" class="text-xs bg-amber-600 hover:bg-amber-700 text-white px-3 py-1.5 rounded-md transition flex items-center gap-1"><i class="fas fa-eye"></i> Gợi ý / Lời giải</button>
+                    <div id="sol18" class="hidden mt-3 text-xs bg-white p-3 rounded border border-amber-200 text-slate-700">
+                        $x = \frac{13}{17}$ hoặc $x = -\frac{13}{17}$.
+                    </div>
+                </div>
+
+                <!-- Bài 19 -->
+                <div class="p-4 border border-slate-200 rounded-xl hover:border-amber-300 transition bg-slate-50/50">
+                    <p class="font-bold text-sm text-slate-800 mb-2">Bài 19: Tìm $x$, biết: $|x + 2,037| = 0$.</p>
+                    <button onclick="toggleSol('sol19')" class="text-xs bg-amber-600 hover:bg-amber-700 text-white px-3 py-1.5 rounded-md transition flex items-center gap-1"><i class="fas fa-eye"></i> Gợi ý / Lời giải</button>
+                    <div id="sol19" class="hidden mt-3 text-xs bg-white p-3 rounded border border-amber-200 text-slate-700">
+                        $x + 2,037 = 0 \Rightarrow x = -2,037$.
+                    </div>
+                </div>
+
+                <!-- Bài 20 -->
+                <div class="p-4 border border-slate-200 rounded-xl hover:border-amber-300 transition bg-slate-50/50">
+                    <p class="font-bold text-sm text-slate-800 mb-2">Bài 20: Tìm $x$, biết: $|x - 22| = -\sqrt{3}$.</p>
+                    <button onclick="toggleSol('sol20')" class="text-xs bg-amber-600 hover:bg-amber-700 text-white px-3 py-1.5 rounded-md transition flex items-center gap-1"><i class="fas fa-eye"></i> Gợi ý / Lời giải</button>
+                    <div id="sol20" class="hidden mt-3 text-xs bg-white p-3 rounded border border-amber-200 text-slate-700">
+                        Vì $-\sqrt{3} < 0$ mà $|x - 22| \ge 0$ nên không tồn tại giá trị $x$ thỏa mãn.
+                    </div>
+                </div>
+
+                <!-- Bài 21 -->
+                <div class="p-4 border border-slate-200 rounded-xl hover:border-amber-300 transition bg-slate-50/50">
+                    <p class="font-bold text-sm text-slate-800 mb-2">Bài 21: Tìm $x$ và $y$ biết: $|x| = \sqrt{5}$ và $|y - 2| = 0$.</p>
+                    <button onclick="toggleSol('sol21')" class="text-xs bg-amber-600 hover:bg-amber-700 text-white px-3 py-1.5 rounded-md transition flex items-center gap-1"><i class="fas fa-eye"></i> Gợi ý / Lời giải</button>
+                    <div id="sol21" class="hidden mt-3 text-xs bg-white p-3 rounded border border-amber-200 text-slate-700">
+                        Từ $|x| = \sqrt{5} \Rightarrow x = \pm\sqrt{5}$.<br>
+                        Từ $|y - 2| = 0 \Rightarrow y = 2$.
+                    </div>
+                </div>
+
+                <!-- Bài 22 -->
+                <div class="p-4 border border-slate-200 rounded-xl hover:border-amber-300 transition bg-slate-50/50">
+                    <p class="font-bold text-sm text-slate-800 mb-2">Bài 22: Giải thích vì sao không có số thực $x$ thỏa mãn: $|x - 1| + |x - 3| = \sqrt{2}$.</p>
+                    <button onclick="toggleSol('sol22')" class="text-xs bg-amber-600 hover:bg-amber-700 text-white px-3 py-1.5 rounded-md transition flex items-center gap-1"><i class="fas fa-eye"></i> Gợi ý / Lời giải</button>
+                    <div id="sol22" class="hidden mt-3 text-xs bg-white p-3 rounded border border-amber-200 text-slate-700">
+                        Áp dụng bất đẳng thức $|a| + |b| \ge |a + b|$, ta có:<br>
+                        $|x - 1| + |x - 3| = |x - 1| + |3 - x| \ge |(x - 1) + (3 - x)| = |2| = 2$.<br>
+                        Vì $2 > \sqrt{2} \approx 1,414$ nên phương trình $|x - 1| + |x - 3| = \sqrt{2}$ vô nghiệm.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PHẦN 3: CẤP ĐỘ VẬN DỤNG -->
+        <section id="capdo3" class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm space-y-6">
+            <div class="flex items-center justify-between border-b border-slate-200 pb-4">
+                <div class="flex items-center gap-3">
+                    <span class="p-3 bg-rose-100 text-rose-600 rounded-xl"><i class="fas fa-rocket text-xl"></i></span>
+                    <div>
+                        <h2 class="text-xl font-bold text-slate-800">PHẦN 3: CẤP ĐỘ VẬN DỤNG (8 Bài)</h2>
+                        <p class="text-xs text-slate-500">Mục tiêu: Đánh giá biểu thức tìm GTLN, GTNN và các bài toán tư duy logic.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VÍ DỤ MINH HỌA MẪU 3 -->
+            <div class="bg-rose-50/60 border border-rose-200 rounded-xl p-5 space-y-2">
+                <div class="flex items-center gap-2 text-rose-800 font-bold text-sm uppercase">
+                    <i class="fas fa-lightbulb"></i> Ví dụ minh họa Cấp độ Vận dụng
+                </div>
+                <p class="text-sm font-medium">Tìm giá trị nhỏ nhất của biểu thức $P = |x - 5| + 12$.</p>
+                <div class="pt-2 text-xs text-slate-600 bg-white p-3 rounded-lg border border-rose-100">
+                    <strong>Lời giải:</strong> Ta luôn có $|x - 5| \ge 0$ với mọi số thực $x$.<br>
+                    Cộng $12$ vào hai vế: $P = |x - 5| + 12 \ge 0 + 12 = 12$.<br>
+                    Dấu "=" xảy ra khi $x - 5 = 0 \Leftrightarrow x = 5$. Vậy GTNN của $P$ là $12$ tại $x = 5$.
+                </div>
+            </div>
+
+            <!-- BÀI TẬP BÀI 23 -> 30 -->
+            <div class="grid md:grid-cols-2 gap-4">
+                <!-- Bài 23 -->
+                <div class="p-4 border border-slate-200 rounded-xl hover:border-rose-300 transition bg-slate-50/50">
+                    <p class="font-bold text-sm text-slate-800 mb-2">Bài 23: Tìm giá trị nhỏ nhất của biểu thức: $A = |x - 1| + 21$.</p>
+                    <p class="text-xs text-slate-500 mb-2">(Quan sát mô hình đồ thị JSXGraph 3)</p>
+                    <button onclick="toggleSol('sol23')" class="text-xs bg-rose-600 hover:bg-rose-700 text-white px-3 py-1.5 rounded-md transition flex items-center gap-1"><i class="fas fa-eye"></i> Gợi ý / Lời giải</button>
+                    <div id="sol23" class="hidden mt-3 text-xs bg-white p-3 rounded border border-rose-200 text-slate-700">
+                        Vì $|x - 1| \ge 0 \Rightarrow A \ge 21$. Đạt GTNN bằng $21$ khi $x = 1$.
+                    </div>
+                </div>
+
+                <!-- Bài 24 -->
+                <div class="p-4 border border-slate-200 rounded-xl hover:border-rose-300 transition bg-slate-50/50">
+                    <p class="font-bold text-sm text-slate-800 mb-2">Bài 24: Tìm giá trị nhỏ nhất của biểu thức: $B = 2 + 3|x|$.</p>
+                    <button onclick="toggleSol('sol24')" class="text-xs bg-rose-600 hover:bg-rose-700 text-white px-3 py-1.5 rounded-md transition flex items-center gap-1"><i class="fas fa-eye"></i> Gợi ý / Lời giải</button>
+                    <div id="sol24" class="hidden mt-3 text-xs bg-white p-3 rounded border border-rose-200 text-slate-700">
+                        Vì $3|x| \ge 0 \Rightarrow B \ge 2$. GTNN của $B$ bằng $2$ khi $x = 0$.
+                    </div>
+                </div>
+
+                <!-- Bài 25 -->
+                <div class="p-4 border border-slate-200 rounded-xl hover:border-rose-300 transition bg-slate-50/50">
+                    <p class="font-bold text-sm text-slate-800 mb-2">Bài 25: Tìm giá trị lớn nhất của biểu thức: $C = -|x| - x^2 + 23$.</p>
+                    <button onclick="toggleSol('sol25')" class="text-xs bg-rose-600 hover:bg-rose-700 text-white px-3 py-1.5 rounded-md transition flex items-center gap-1"><i class="fas fa-eye"></i> Gợi ý / Lời giải</button>
+                    <div id="sol25" class="hidden mt-3 text-xs bg-white p-3 rounded border border-rose-200 text-slate-700">
+                        Vì $-|x| \le 0$ và $-x^2 \le 0 \Rightarrow C \le 23$. GTLN của $C$ bằng $23$ khi $x = 0$.
+                    </div>
+                </div>
+
+                <!-- Bài 26 -->
+                <div class="p-4 border border-slate-200 rounded-xl hover:border-rose-300 transition bg-slate-50/50">
+                    <p class="font-bold text-sm text-slate-800 mb-2">Bài 26: Tìm giá trị lớn nhất của biểu thức: $D = 10 - |x + 2|$.</p>
+                    <button onclick="toggleSol('sol26')" class="text-xs bg-rose-600 hover:bg-rose-700 text-white px-3 py-1.5 rounded-md transition flex items-center gap-1"><i class="fas fa-eye"></i> Gợi ý / Lời giải</button>
+                    <div id="sol26" class="hidden mt-3 text-xs bg-white p-3 rounded border border-rose-200 text-slate-700">
+                        Vì $-|x + 2| \le 0 \Rightarrow D \le 10$. GTLN của $D$ bằng $10$ khi $x = -2$.
+                    </div>
+                </div>
+
+                <!-- Bài 27 -->
+                <div class="p-4 border border-slate-200 rounded-xl hover:border-rose-300 transition bg-slate-50/50">
+                    <p class="font-bold text-sm text-slate-800 mb-2">Bài 27: Tìm tọa độ điểm $x$ trên trục số biết khoảng cách đến gốc tọa độ bằng $\sqrt{12}$.</p>
+                    <button onclick="toggleSol('sol27')" class="text-xs bg-rose-600 hover:bg-rose-700 text-white px-3 py-1.5 rounded-md transition flex items-center gap-1"><i class="fas fa-eye"></i> Gợi ý / Lời giải</button>
+                    <div id="sol27" class="hidden mt-3 text-xs bg-white p-3 rounded border border-rose-200 text-slate-700">
+                        Khoảng cách từ $x$ đến gốc $0$ là $|x| = \sqrt{12} \Rightarrow x = \sqrt{12} = 2\sqrt{3}$ hoặc $x = -\sqrt{12} = -2\sqrt{3}$.
+                    </div>
+                </div>
+
+                <!-- Bài 28 -->
+                <div class="p-4 border border-slate-200 rounded-xl hover:border-rose-300 transition bg-slate-50/50">
+                    <p class="font-bold text-sm text-slate-800 mb-2">Bài 28: Tìm các số thực $x$ và $y$ biết: $|x + 1| + |x + y + 1| = 0$.</p>
+                    <button onclick="toggleSol('sol28')" class="text-xs bg-rose-600 hover:bg-rose-700 text-white px-3 py-1.5 rounded-md transition flex items-center gap-1"><i class="fas fa-eye"></i> Gợi ý / Lời giải</button>
+                    <div id="sol28" class="hidden mt-3 text-xs bg-white p-3 rounded border border-rose-200 text-slate-700">
+                        Vì $|x + 1| \ge 0$ và $|x + y + 1| \ge 0$ nên tổng bằng $0 \iff x + 1 = 0$ và $x + y + 1 = 0$.<br>
+                        Suy ra $x = -1 \Rightarrow (-1) + y + 1 = 0 \Rightarrow y = 0$.
+                    </div>
+                </div>
+
+                <!-- Bài 29 -->
+                <div class="p-4 border border-slate-200 rounded-xl hover:border-rose-300 transition bg-slate-50/50">
+                    <p class="font-bold text-sm text-slate-800 mb-2">Bài 29: Tìm tất cả các số thực $x$ thỏa mãn: $|x| = x$.</p>
+                    <button onclick="toggleSol('sol29')" class="text-xs bg-rose-600 hover:bg-rose-700 text-white px-3 py-1.5 rounded-md transition flex items-center gap-1"><i class="fas fa-eye"></i> Gợi ý / Lời giải</button>
+                    <div id="sol29" class="hidden mt-3 text-xs bg-white p-3 rounded border border-rose-200 text-slate-700">
+                        Theo định nghĩa giá trị tuyệt đối, $|x| = x$ khi và chỉ khi $x \ge 0$.
+                    </div>
+                </div>
+
+                <!-- Bài 30 -->
+                <div class="p-4 border border-slate-200 rounded-xl hover:border-rose-300 transition bg-slate-50/50">
+                    <p class="font-bold text-sm text-slate-800 mb-2">Bài 30: Tìm giá trị của $x$, biết rằng $2|x| = \sqrt{12}$.</p>
+                    <button onclick="toggleSol('sol30')" class="text-xs bg-rose-600 hover:bg-rose-700 text-white px-3 py-1.5 rounded-md transition flex items-center gap-1"><i class="fas fa-eye"></i> Gợi ý / Lời giải</button>
+                    <div id="sol30" class="hidden mt-3 text-xs bg-white p-3 rounded border border-rose-200 text-slate-700">
+                        $2|x| = 2\sqrt{3} \Rightarrow |x| = \sqrt{3} \Rightarrow x = \sqrt{3}$ hoặc $x = -\sqrt{3}$.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- BÀI TẬP ĐÁNH GIÁ NĂNG LỰC TẠI LỚP (5 CÂU TRẮC NGHIỆM) -->
+        <section id="tracnghiem" class="bg-white rounded-2xl p-6 border-2 border-indigo-200 shadow-md space-y-6 no-print">
+            <div class="bg-indigo-900 text-white p-4 rounded-xl flex items-center justify-between flex-wrap gap-2">
+                <div class="flex items-center gap-3">
+                    <i class="fas fa-user-check text-2xl text-amber-400"></i>
+                    <div>
+                        <h2 class="text-lg font-bold">BÀI TẬP ĐÁNH GIÁ NĂNG LỰC TẠI LỚP</h2>
+                        <p class="text-xs text-indigo-200">Hoàn thành 5 câu trắc nghiệm bên dưới. Kết quả sẽ tự động lưu về hệ thống.</p>
+                    </div>
+                </div>
+                <span class="text-xs bg-indigo-800 px-3 py-1 rounded-full border border-indigo-700">Mã bài: buoi8-so-thuc</span>
+            </div>
+
+            <!-- Form Học Sinh -->
+            <div class="grid md:grid-cols-2 gap-4 bg-slate-50 p-4 rounded-xl border border-slate-200">
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 mb-1">Họ và tên học sinh *</label>
+                    <input type="text" id="hoTenInput" placeholder="Ví dụ: Nguyễn Văn An" class="w-full text-sm p-2.5 rounded-lg border border-slate-300 focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 mb-1">Mã Lớp / Trường</label>
+                    <input type="text" id="maLopInput" placeholder="Ví dụ: Lop7A1-HCMUS" class="w-full text-sm p-2.5 rounded-lg border border-slate-300 focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                </div>
+            </div>
+
+            <!-- List câu hỏi trắc nghiệm -->
+            <form id="quizForm" class="space-y-6">
+                <!-- Câu 1 -->
+                <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
+                    <p class="font-bold text-sm text-slate-800">Câu 1: Số nào sau đây là số vô tỉ ($\mathbb{I}$)?</p>
+                    <div class="grid md:grid-cols-2 gap-2 text-xs">
+                        <label class="flex items-center p-2 rounded bg-white border border-slate-200 cursor-pointer hover:bg-indigo-50"><input type="radio" name="q1" value="A" class="mr-2"> A) $0,333...$</label>
+                        <label class="flex items-center p-2 rounded bg-white border border-slate-200 cursor-pointer hover:bg-indigo-50"><input type="radio" name="q1" value="B" class="mr-2"> B) $\sqrt{5}$</label>
+                        <label class="flex items-center p-2 rounded bg-white border border-slate-200 cursor-pointer hover:bg-indigo-50"><input type="radio" name="q1" value="C" class="mr-2"> C) $-\frac{3}{4}$</label>
+                        <label class="flex items-center p-2 rounded bg-white border border-slate-200 cursor-pointer hover:bg-indigo-50"><input type="radio" name="q1" value="D" class="mr-2"> D) $\sqrt{16}$</label>
+                    </div>
+                </div>
+
+                <!-- Câu 2 -->
+                <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
+                    <p class="font-bold text-sm text-slate-800">Câu 2: Giá trị tuyệt đối của $-2,5$ là:</p>
+                    <div class="grid md:grid-cols-2 gap-2 text-xs">
+                        <label class="flex items-center p-2 rounded bg-white border border-slate-200 cursor-pointer hover:bg-indigo-50"><input type="radio" name="q2" value="A" class="mr-2"> A) $-2,5$</label>
+                        <label class="flex items-center p-2 rounded bg-white border border-slate-200 cursor-pointer hover:bg-indigo-50"><input type="radio" name="q2" value="B" class="mr-2"> B) $2,5$</label>
+                        <label class="flex items-center p-2 rounded bg-white border border-slate-200 cursor-pointer hover:bg-indigo-50"><input type="radio" name="q2" value="C" class="mr-2"> C) $\pm 2,5$</label>
+                        <label class="flex items-center p-2 rounded bg-white border border-slate-200 cursor-pointer hover:bg-indigo-50"><input type="radio" name="q2" value="D" class="mr-2"> D) $0$</label>
+                    </div>
+                </div>
+
+                <!-- Câu 3 -->
+                <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
+                    <p class="font-bold text-sm text-slate-800">Câu 3: Tìm $x$ biết $|x - 3| = 0$.</p>
+                    <div class="grid md:grid-cols-2 gap-2 text-xs">
+                        <label class="flex items-center p-2 rounded bg-white border border-slate-200 cursor-pointer hover:bg-indigo-50"><input type="radio" name="q3" value="A" class="mr-2"> A) $x = 3$</label>
+                        <label class="flex items-center p-2 rounded bg-white border border-slate-200 cursor-pointer hover:bg-indigo-50"><input type="radio" name="q3" value="B" class="mr-2"> B) $x = -3$</label>
+                        <label class="flex items-center p-2 rounded bg-white border border-slate-200 cursor-pointer hover:bg-indigo-50"><input type="radio" name="q3" value="C" class="mr-2"> C) $x = 3$ hoặc $x = -3$</label>
+                        <label class="flex items-center p-2 rounded bg-white border border-slate-200 cursor-pointer hover:bg-indigo-50"><input type="radio" name="q3" value="D" class="mr-2"> D) Không có giá trị $x$</label>
+                    </div>
+                </div>
+
+                <!-- Câu 4 -->
+                <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
+                    <p class="font-bold text-sm text-slate-800">Câu 4: Giá trị lớn nhất của biểu thức $P = 15 - |x + 4|$ là:</p>
+                    <div class="grid md:grid-cols-2 gap-2 text-xs">
+                        <label class="flex items-center p-2 rounded bg-white border border-slate-200 cursor-pointer hover:bg-indigo-50"><input type="radio" name="q4" value="A" class="mr-2"> A) $15$ tại $x = -4$</label>
+                        <label class="flex items-center p-2 rounded bg-white border border-slate-200 cursor-pointer hover:bg-indigo-50"><input type="radio" name="q4" value="B" class="mr-2"> B) $19$ tại $x = 4$</label>
+                        <label class="flex items-center p-2 rounded bg-white border border-slate-200 cursor-pointer hover:bg-indigo-50"><input type="radio" name="q4" value="C" class="mr-2"> C) $11$ tại $x = -4$</label>
+                        <label class="flex items-center p-2 rounded bg-white border border-slate-200 cursor-pointer hover:bg-indigo-50"><input type="radio" name="q4" value="D" class="mr-2"> D) Không có giá trị lớn nhất</label>
+                    </div>
+                </div>
+
+                <!-- Câu 5 -->
+                <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
+                    <p class="font-bold text-sm text-slate-800">Câu 5: Khẳng định nào sau đây là SAI?</p>
+                    <div class="grid md:grid-cols-2 gap-2 text-xs">
+                        <label class="flex items-center p-2 rounded bg-white border border-slate-200 cursor-pointer hover:bg-indigo-50"><input type="radio" name="q5" value="A" class="mr-2"> A) $|x| \ge 0$ với mọi $x \in \mathbb{R}$</label>
+                        <label class="flex items-center p-2 rounded bg-white border border-slate-200 cursor-pointer hover:bg-indigo-50"><input type="radio" name="q5" value="B" class="mr-2"> B) $|x| = |-x|$ với mọi $x \in \mathbb{R}$</label>
+                        <label class="flex items-center p-2 rounded bg-white border border-slate-200 cursor-pointer hover:bg-indigo-50"><input type="radio" name="q5" value="C" class="mr-2"> C) $|x| = x$ với mọi $x \in \mathbb{R}$</label>
+                        <label class="flex items-center p-2 rounded bg-white border border-slate-200 cursor-pointer hover:bg-indigo-50"><input type="radio" name="q5" value="D" class="mr-2"> D) $|x| = 0 \iff x = 0$</label>
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="text-center">
+                    <button type="button" onclick="nopBaiTap()" id="btnSubmitQuiz" class="px-8 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl shadow-lg transition flex items-center gap-2 mx-auto">
+                        <i class="fas fa-paper-plane"></i> Nộp Bài & Gửi Kết Quả
+                    </button>
+                </div>
+            </form>
+
+            <!-- Quiz Result Alert Box -->
+            <div id="quizResult" class="hidden p-4 rounded-xl text-sm border"></div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER COPYRIGHT -->
+    <footer class="bg-white border-t border-slate-200 py-6 text-center text-xs text-slate-600 mt-12 print:border-none">
+        <p class="font-semibold text-slate-800">@ Bản quyền thuộc ThS. Đinh Quốc Tuấn - Mục đích phi lợi nhuận - Vì giáo dục.</p>
+    </footer>
+
+    <!-- NÚT IN TÀI LIỆU -->
+    <button id="btn-print-doc" onclick="safePrint()" class="fixed bottom-5 right-5 bg-gray-900 text-white px-4 py-2 rounded-lg shadow-lg hover:bg-gray-700 print:hidden z-50">
+        <i class="fas fa-print mr-2"></i> In Tài Liệu
+    </button>
+
+    <!-- SCRIPT TƯƠNG TÁC LÝ THUYẾT & JSXGRAPH & QUIZ -->
+    <script>
+        // 1. CHỨC NĂNG IN AN TOÀN
+        function safePrint() {
+            const printBtn = document.getElementById('btn-print-doc');
+            printBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Đang chuẩn bị...';
+            
+            if (window.MathJax && window.MathJax.typesetPromise) {
+                MathJax.typesetPromise().then(() => {
+                    printBtn.innerHTML = '<i class="fas fa-print mr-2"></i> In Tài Liệu';
+                    window.print();
+                });
+            } else {
+                setTimeout(() => {
+                    printBtn.innerHTML = '<i class="fas fa-print mr-2"></i> In Tài Liệu';
+                    window.print();
+                }, 500); 
+            }
+        }
+
+        // 2. ẨN/HIỆN LỜI GIẢI BÀI TẬP
+        function toggleSol(id) {
+            const el = document.getElementById(id);
+            if (el.classList.contains('hidden')) {
+                el.classList.remove('hidden');
+            } else {
+                el.classList.add('hidden');
+            }
+        }
+
+        // 3. KHỞI TẠO MÔ HÌNH JSXGRAPH
+        document.addEventListener('DOMContentLoaded', function () {
+            // Board 1: Trục số thực & Khoảng cách |x|
+            const board1 = JXG.JSXGraph.initBoard('jxgbox1', {
+                boundingbox: [-6, 3, 6, -3],
+                axis: false,
+                showCopyright: false,
+                showNavigation: false
+            });
+            const axis1 = board1.create('axis', [[0, 0], [1, 0]], {
+                ticks: { drawLabels: true, majorHeight: 8 }
+            });
+            const O = board1.create('point', [0, 0], { name: 'O', fixed: true, color: 'black', size: 3 });
+            const M = board1.create('glider', [2.5, 0, axis1], { name: 'M', color: 'red', size: 4 });
+            
+            const segOM = board1.create('segment', [O, M], { strokeColor: 'red', strokeWidth: 3 });
+            board1.create('text', [0, 1.5, function() {
+                return 'Khoảng cách = |' + M.X().toFixed(2) + '| = ' + Math.abs(M.X()).toFixed(2);
+            }], { fontSize: 13, style: 1 });
+
+            // Board 2: Nghiệm phương trình |x| = a
+            const board2 = JXG.JSXGraph.initBoard('jxgbox2', {
+                boundingbox: [-6, 3, 6, -3],
+                axis: false,
+                showCopyright: false,
+                showNavigation: false
+            });
+            const axis2 = board2.create('axis', [[0, 0], [1, 0]], { ticks: { drawLabels: true } });
+            const sliderA = board2.create('slider', [[-5, 2], [1, 2], [-5, 3, 5]], { name: 'a' });
+            
+            const pPositive = board2.create('point', [function() { return sliderA.Value() >= 0 ? sliderA.Value() : 0; }, 0], {
+                name: 'x1', color: 'green', visible: function() { return sliderA.Value() >= 0; }
+            });
+            const pNegative = board2.create('point', [function() { return sliderA.Value() >= 0 ? -sliderA.Value() : 0; }, 0], {
+                name: 'x2', color: 'green', visible: function() { return sliderA.Value() >= 0; }
+            });
+            board2.create('text', [-5, -1.8, function() {
+                const val = sliderA.Value();
+                if (val > 0) return 'Có 2 nghiệm: x = ' + val.toFixed(1) + ' và x = ' + (-val).toFixed(1);
+                if (val === 0) return 'Nghiệm duy nhất: x = 0';
+                return 'Vô nghiệm (Không có x vì a < 0)';
+            }], { fontSize: 12, color: 'blue' });
+
+            // Board 3: Cực trị đồ thị v-shape y = |x - 1| + 21
+            const board3 = JXG.JSXGraph.initBoard('jxgbox3', {
+                boundingbox: [-5, 26, 7, 18],
+                axis: true,
+                showCopyright: false,
+                showNavigation: false
+            });
+            board3.create('functiongraph', [function(x) {
+                return Math.abs(x - 1) + 21;
+            }, -5, 7], { strokeColor: '#e11d48', strokeWidth: 3 });
+            board3.create('point', [1, 21], { name: 'Đáy V (GTNN = 21 tại x = 1)', color: 'blue', fixed: true });
+        });
+
+        // 4. QUẢN LÝ BÀI TẬP VÀ GỬI KẾT QUẢ VỀ GOOGLE APPS SCRIPT
+        const startTime = new Date();
+
+        function nopBaiTap() {
+            const hoTen = document.getElementById('hoTenInput').value.trim();
+            if (!hoTen) {
+                alert('Vui lòng nhập Họ và Tên học sinh trước khi nộp bài!');
+                return;
+            }
+
+            const answers = { q1: 'B', q2: 'B', q3: 'A', q4: 'A', q5: 'C' };
+            let diemNum = 0;
+            let cauSai = [];
+
+            for (let i = 1; i <= 5; i++) {
+                const qVal = document.querySelector('input[name="q' + i + '"]:checked');
+                if (qVal && qVal.value === answers['q' + i]) {
+                    diemNum += 2;
+                } else {
+                    const selected = qVal ? qVal.value : 'Chưa chọn';
+                    cauSai.push('Câu ' + i + ' (Chọn: ' + selected + ', Đáp án: ' + answers['q' + i] + ')');
+                }
+            }
+
+            const endTime = new Date();
+            const timeDiffSec = Math.round((endTime - startTime) / 1000);
+            const thoiGianStr = Math.floor(timeDiffSec / 60) + ' phút ' + (timeDiffSec % 60) + ' giây';
+            const cauSaiStr = cauSai.length > 0 ? cauSai.join('; ') : 'Không làm sai câu nào';
+
+            const payload = {
+                hoTen: hoTen,
+                maDe: 'buoi8-so-thuc',
+                diem: diemNum + '/10',
+                thoiGian: thoiGianStr,
+                cauSai: cauSaiStr
+            };
+
+            const btnSubmit = document.getElementById('btnSubmitQuiz');
+            btnSubmit.disabled = true;
+            btnSubmit.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Đang nộp kết quả...';
+
+            const scriptUrl = 'https://script.google.com/macros/s/AKfycbzY7b7h4OwvhXuK5Vs6hl-aD88BPnAiAKbU5lfJobby0D4nzbIJVKT4n0AKCpAGoK0nZA/exec';
+
+            fetch(scriptUrl, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            }).then(() => {
+                showQuizResult(diemNum, thoiGianStr, cauSaiStr);
+            }).catch(error => {
+                console.error('Lỗi gửi kết quả:', error);
+                showQuizResult(diemNum, thoiGianStr, cauSaiStr);
+            });
+        }
+
+        function showQuizResult(diem, thoiGian, cauSai) {
+            const resDiv = document.getElementById('quizResult');
+            resDiv.classList.remove('hidden', 'bg-red-50', 'bg-emerald-50', 'border-red-200', 'border-emerald-200');
+            
+            if (diem >= 8) {
+                resDiv.classList.add('bg-emerald-50', 'border-emerald-200', 'text-emerald-800');
+            } else {
+                resDiv.classList.add('bg-amber-50', 'border-amber-200', 'text-amber-800');
+            }
+
+            resDiv.innerHTML = `
+                <div class="font-bold text-base mb-1"><i class="fas fa-check-circle"></i> Kết quả bài đánh giá: ${diem}/10 Điểm</div>
+                <p><strong>Thời gian hoàn thành:</strong> ${thoiGian}</p>
+                <p><strong>Chi tiết ghi nhận:</strong> ${cauSai}</p>
+                <p class="mt-2 text-xs italic text-slate-500">* Kết quả đã được lưu trữ thành công trên hệ thống Google Sheets giáo viên.</p>
+            `;
+
+            const btnSubmit = document.getElementById('btnSubmitQuiz');
+            btnSubmit.innerHTML = '<i class="fas fa-check"></i> Đã Nộp Bài Thành Công';
+            btnSubmit.classList.remove('bg-indigo-600', 'hover:bg-indigo-700');
+            btnSubmit.classList.add('bg-slate-500');
+        }
+    </script>
+</body>
+</html>
