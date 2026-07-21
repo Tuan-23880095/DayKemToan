@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buổi 11: Tiên đề Euclid & Tính chất hai đường thẳng song song</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- MathJax 3 CDN -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['\\(', '\\)'], ['$', '$']],
+                displayMath: [['\\[', '\\]'], ['$$', '$$']]
+            },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <!-- JSXGraph CDN -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraph.css" />
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraphcore.js"></script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f8fafc;
+            color: #1e293b;
+        }
+        .jsxbox {
+            width: 100%;
+            height: 320px;
+            border-radius: 0.75rem;
+            border: 2px solid #e2e8f0;
+            background-color: #ffffff;
+            box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.05);
+        }
+        @media print {
+            .no-print { display: none !important; }
+            body { background: white; color: black; }
+            .shadow-md, .shadow-lg, .shadow-xl { box-shadow: none !important; }
+            .border { border-color: #cbd5e1 !important; }
+        }
+    </style>
+</head>
+<body class="bg-slate-50 min-h-screen flex flex-col justify-between">
+
+    <!-- HEADER / LOGOS -->
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-40 shadow-sm print:relative print:shadow-none">
+        <div class="max-w-7xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-4">
+            <div class="flex items-center space-x-3">
+                <img src="https://firebasestorage.googleapis.com/v0/b/link-anh-web.firebasestorage.app/o/ttbdvh.jpg?alt=media&token=f270aa9b-a2bc-48e8-8910-80742b542615" 
+                     alt="Logo 1" class="h-12 w-auto object-contain rounded-md border border-slate-200">
+                <img src="https://hcmus.edu.vn/wp-content/uploads/2023/04/Logo-chinh-e1681638380305.png" 
+                     alt="HCMUS Logo" class="h-12 w-auto object-contain">
+            </div>
+            <div class="text-right">
+                <span class="inline-block px-3 py-1 bg-indigo-100 text-indigo-800 text-xs font-semibold rounded-full uppercase tracking-wider mb-1">Chuyên đề Hình học THCS</span>
+                <h1 class="text-xl md:text-2xl font-bold text-slate-800">BUỔI 11: TIÊN ĐỀ EUCLID & TÍNH CHẤT HAI ĐƯỜNG THẲNG SONG SONG</h1>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="max-w-7xl mx-auto px-4 py-8 flex-grow w-full space-y-10">
+
+        <!-- THANH ĐIỀU HƯỚNG NHANH -->
+        <nav class="bg-white p-4 rounded-xl shadow-sm border border-slate-200 flex flex-wrap justify-center gap-3 no-print">
+            <a href="#momat" class="px-4 py-2 bg-slate-100 hover:bg-indigo-50 hover:text-indigo-600 rounded-lg text-sm font-medium transition flex items-center gap-2"><i class="fas fa-shapes text-indigo-500"></i> Mô Hình Tương Tác</a>
+            <a href="#capdo1" class="px-4 py-2 bg-slate-100 hover:bg-emerald-50 hover:text-emerald-600 rounded-lg text-sm font-medium transition flex items-center gap-2"><i class="fas fa-seedling text-emerald-500"></i> Cấp Độ Cơ Bản</a>
+            <a href="#capdo2" class="px-4 py-2 bg-slate-100 hover:bg-amber-50 hover:text-amber-600 rounded-lg text-sm font-medium transition flex items-center gap-2"><i class="fas fa-chart-line text-amber-500"></i> Cấp Độ Nâng Cao</a>
+            <a href="#capdo3" class="px-4 py-2 bg-slate-100 hover:bg-rose-50 hover:text-rose-600 rounded-lg text-sm font-medium transition flex items-center gap-2"><i class="fas fa-rocket text-rose-500"></i> Cấp Độ Vận Dụng</a>
+            <a href="#tracnghiem" class="px-4 py-2 bg-indigo-600 text-white hover:bg-indigo-700 rounded-lg text-sm font-medium transition flex items-center gap-2"><i class="fas fa-tasks"></i> Đánh Giá Tại Lớp</a>
+        </nav>
+
+        <!-- TỔNG QUAN LÝ THUYẾT NỔI BẬT -->
+        <section class="bg-gradient-to-r from-blue-900 to-indigo-900 text-white rounded-2xl p-6 md:p-8 shadow-xl">
+            <div class="flex items-center gap-3 mb-4">
+                <i class="fas fa-book-open text-amber-400 text-3xl"></i>
+                <h2 class="text-2xl font-bold">Tóm Tắt Lý Thuyết Cốt Lõi</h2>
+            </div>
+            <div class="grid md:grid-cols-3 gap-6 text-slate-100">
+                <div class="bg-white/10 p-5 rounded-xl backdrop-blur-sm border border-white/10">
+                    <h3 class="font-bold text-amber-300 text-lg mb-2"><i class="fas fa-monument mr-2"></i>1. Tiên đề Euclid</h3>
+                    <p class="text-sm">Qua một điểm ở ngoài một đường thẳng, <strong>chỉ có một</strong> đường thẳng song song với đường thẳng đó.</p>
+                    <p class="text-xs text-slate-300 mt-2"><em>Nhận xét:</em> Nếu qua $M$ có hai đường thẳng $m, n$ cùng song song với $a$ thì $m \equiv n$.</p>
+                </div>
+                <div class="bg-white/10 p-5 rounded-xl backdrop-blur-sm border border-white/10">
+                    <h3 class="font-bold text-amber-300 text-lg mb-2"><i class="fas fa-equals mr-2"></i>2. Tính chất hai đường thẳng song song</h3>
+                    <p class="text-sm">Nếu một đường thẳng cắt hai đường thẳng song song ($a // b$) thì:</p>
+                    <ul class="list-disc list-inside space-y-1 text-xs text-slate-200 mt-1">
+                        <li>Hai góc so le trong <strong>bằng nhau</strong>.</li>
+                        <li>Hai góc đồng vị <strong>bằng nhau</strong>.</li>
+                        <li>Hai góc trong cùng phía <strong>bù nhau</strong> (tổng = $180^\circ$).</li>
+                    </ul>
+                </div>
+                <div class="bg-white/10 p-5 rounded-xl backdrop-blur-sm border border-white/10">
+                    <h3 class="font-bold text-amber-300 text-lg mb-2"><i class="fas fa-link mr-2"></i>3. Quan hệ giữa tính song song & vuông góc</h3>
+                    <ul class="list-disc list-inside space-y-1 text-xs text-slate-200">
+                        <li>Nếu $a // b$ và $c \perp a \Rightarrow c \perp b$.</li>
+                        <li>Nếu $a // b$ và $b // c \Rightarrow a // c$ (ba đường thẳng song song).</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- MÔ HÌNH HÌNH HỌC TƯƠNG TÁC (JSXGRAPH) -->
+        <section id="momat" class="space-y-6">
+            <div class="border-l-4 border-indigo-600 pl-4 py-1">
+                <h2 class="text-2xl font-bold text-slate-800 flex items-center gap-2">
+                    <i class="fas fa-laptop-code text-indigo-600"></i> Mô Hình Trực Quan JSXGraph
+                </h2>
+                <p class="text-slate-600 text-sm">Thao tác kéo trượt để trực quan hóa Tiên đề Euclid và phương pháp kẻ đường phụ bài toán Ziczac.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-6">
+                <!-- Model 1 -->
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between">
+                    <div>
+                        <h3 class="font-bold text-slate-800 mb-2 flex items-center gap-2">
+                            <span class="w-6 h-6 rounded-full bg-indigo-100 text-indigo-600 flex items-center justify-center text-xs">1</span>
+                            Khám Phá Tiên Đề Euclid
+                        </h3>
+                        <p class="text-xs text-slate-500 mb-3">Xoay thanh trượt góc để thấy duy nhất 1 góc $0^\circ$ cho ra đường thẳng song song với $a$.</p>
+                        <div id="jxgbox1" class="jsxbox"></div>
+                    </div>
+                </div>
+
+                <!-- Model 2 -->
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between">
+                    <div>
+                        <h3 class="font-bold text-slate-800 mb-2 flex items-center gap-2">
+                            <span class="w-6 h-6 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center text-xs">2</span>
+                            Bài Toán Ziczac (Kẻ Đường Phụ)
+                        </h3>
+                        <p class="text-xs text-slate-500 mb-3">Bấm nút "Kẻ đường phụ" để xuất hiện tia $Oz // Ax$ giúp tách góc $C$ thành 2 góc so le trong.</p>
+                        <div id="jxgbox2" class="jsxbox"></div>
+                    </div>
+                    <div class="mt-3 text-center">
+                        <button onclick="toggleAuxLine()" id="btnAux" class="px-3 py-1.5 bg-emerald-600 text-white rounded text-xs font-semibold hover:bg-emerald-700 transition">
+                            <i class="fas fa-plus-circle mr-1"></i> Kẻ Đường Phụ Oz
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Model 3 -->
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between">
+                    <div>
+                        <h3 class="font-bold text-slate-800 mb-2 flex items-center gap-2">
+                            <span class="w-6 h-6 rounded-full bg-amber-100 text-amber-600 flex items-center justify-center text-xs">3</span>
+                            Từ Song Song Đến Vuông Góc
+                        </h3>
+                        <p class="text-xs text-slate-500 mb-3">Kéo đường thẳng $c$: khi $c \perp a$ thì tự động $c \perp b$.</p>
+                        <div id="jxgbox3" class="jsxbox"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PHẦN 1: CẤP ĐỘ CƠ BẢN -->
+        <section id="capdo1" class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm space-y-6">
+            <div class="flex items-center justify-between border-b border-slate-200 pb-4">
+                <div class="flex items-center gap-3">
+                    <span class="p-3 bg-emerald-100 text-emerald-600 rounded-xl"><i class="fas fa-seedling text-xl"></i></span>
+                    <div>
+                        <h2 class="text-xl font-bold text-slate-800">PHẦN 1: CẤP ĐỘ CƠ BẢN (Bài 1 - Bài 12)</h2>
+                        <p class="text-xs text-slate-500">Mục tiêu: Nhận biết Tiên đề Euclid, áp dụng trực tiếp tính chất hai đường thẳng song song để tính góc.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VÍ DỤ MINH HỌA MẪU 1 -->
+            <div class="bg-emerald-50/60 border border-emerald-200 rounded-xl p-5 space-y-2">
+                <div class="flex items-center gap-2 text-emerald-800 font-bold text-sm uppercase">
+                    <i class="fas fa-lightbulb"></i> Ví dụ minh họa Cấp độ Cơ bản
+                </div>
+                <p class="text-sm font-medium">Cho hai đường thẳng $a // b$ bị cắt bởi cát tuyến $c$ tại $A$ và $B$. Biết góc $\widehat{A_1} = 65^\circ$. Tính số đo góc so le trong $\widehat{B_3}$ và góc trong cùng phía $\widehat{B_2}$.</p>
+                <div class="pt-2 text-xs text-slate-600 bg-white p-3 rounded-lg border border-emerald-100">
+                    <strong>Lời giải:</strong> Vì $a // b$ nên:<br>
+                    - Góc so le trong $\widehat{B_3} = \widehat{A_1} = 65^\circ$.<br>
+                    - Góc trong cùng phía $\widehat{B_2} + \widehat{A_1} = 180^\circ \Rightarrow \widehat{B_2} = 180^\circ - 65^\circ = 115^\circ$.
+                </div>
+            </div>
+
+            <!-- BÀI TẬP BÀI 1 -> 12 -->
+            <div class="grid md:grid-cols-2 gap-4">
+                <!-- Bài 1 -->
+                <div class="p-4 border border-slate-200 rounded-xl hover:border-emerald-300 transition bg-slate-50/50">
+                    <p class="font-bold text-sm text-slate-800 mb-2">Bài 1: Trong các phát biểu sau, phát biểu nào diễn đạt đúng nội dung của Tiên đề Euclid?</p>
+                    <p class="text-xs text-slate-600 mb-3">a) Cho $M \notin a$, chỉ có duy nhất 1 đường thẳng qua $M$ song song với $a$.<br>b) Cho $M \notin a$, nếu có 2 đường qua $M$ song song $a$ thì chúng trùng nhau.<br>c) Có duy nhất 1 đường song song với đường thẳng cho trước.<br>d) Qua $M \notin a$ có ít nhất 1 đường song song $a$.</p>
+                    <button onclick="toggleSol('sol1')" class="text-xs bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-1.5 rounded-md transition flex items-center gap-1"><i class="fas fa-eye"></i> Gợi ý / Lời giải</button>
+                    <div id="sol1" class="hidden mt-3 text-xs bg-white p-3 rounded border border-emerald-200 text-slate-700">
+                        Phát biểu đúng là <strong>a)</strong> và <strong>b)</strong>. Phát biểu c) sai vì có vô số đường song song (qua các điểm khác nhau). Phát biểu d) sai vì chính xác phải là "duy nhất 1 đường".
+                    </div>
+                </div>
+
+                <!-- Bài 2 -->
+                <div class="p-4 border border-slate-200 rounded-xl hover:border-emerald-300 transition bg-slate-50/50">
+                    <p class="font-bold text-sm text-slate-800 mb-2">Bài 2: Điền vào chỗ trống để được nội dung Tiên đề Euclid:</p>
+                    <p class="text-xs text-slate-600 mb-3">a) Cho điểm $M$ nằm ngoài đường thẳng $a$. Chỉ có ... một đường thẳng đi qua $M$ và song song với $a$.<br>b) Cho điểm $M$ nằm ngoài đường thẳng $a$. Nếu có hai đường thẳng đi qua $M$ và song song với $a$ thì chúng ....</p>
+                    <button onclick="toggleSol('sol2')" class="text-xs bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-1.5 rounded-md transition flex items-center gap-1"><i class="fas fa-eye"></i> Gợi ý / Lời giải</button>
+                    <div id="sol2" class="hidden mt-3 text-xs bg-white p-3 rounded border border-emerald-200 text-slate-700">
+                        a) Từ cần điền: <strong>"duy nhất"</strong>.<br>
+                        b) Từ cần điền: <strong>"trùng nhau"</strong>.
+                    </div>
+                </div>
+
+                <!-- Bài 3 -->
+                <div class="p-4 border border-slate-200 rounded-xl hover:border-emerald-300 transition bg-slate-50/50">
+                    <p class="font-bold text-sm text-slate-800 mb-2">Bài 3: Cho điểm $A$ nằm ngoài $d$, qua $A$ vẽ đường thẳng $m // d$ và $n // d$. Ta có thể kết luận gì về $m$ và $n$?</p>
+                    <button onclick="toggleSol('sol3')" class="text-xs bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-1.5 rounded-md transition flex items-center gap-1"><i class="fas fa-eye"></i> Gợi ý / Lời giải</button>
+                    <div id="sol3" class="hidden mt-3 text-xs bg-white p-3 rounded border border-emerald-200 text-slate-700">
+                        Theo Tiên đề Euclid, qua điểm $A$ nằm ngoài $d$ chỉ có duy nhất một đường thẳng song song với $d$. Vì $m$ và $n$ cùng đi qua $A$ và song song với $d$ nên đường thẳng $m$ trùng với đường thẳng $n$ ($m \equiv n$).
+                    </div>
+                </div>
+
+                <!-- Bài 4 -->
+                <div class="p-4 border border-slate-200 rounded-xl hover:border-emerald-300 transition bg-slate-50/50">
+                    <p class="font-bold text-sm text-slate-800 mb-2">Bài 4: Cho $a // b$, $c$ cắt $a$ tại $M$. Dựa vào Tiên đề Euclid, giải thích vì sao $c$ chắc chắn cắt $b$.</p>
+                    <button onclick="toggleSol('sol4')" class="text-xs bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-1.5 rounded-md transition flex items-center gap-1"><i class="fas fa-eye"></i> Gợi ý / Lời giải</button>
+                    <div id="sol4" class="hidden mt-3 text-xs bg-white p-3 rounded border border-emerald-200 text-slate-700">
+                        Giả sử $c$ không cắt $b \Rightarrow c // b$. Qua điểm $M \notin b$, ta có hai đường thẳng $a$ và $c$ cùng song song với $b$. Theo Tiên đề Euclid, $a \equiv c$ (vô lý vì $c$ cắt $a$). Do đó $c$ bắt buộc phải cắt $b$.
+                    </div>
+                </div>
+
+                <!-- Bài 5 -->
+                <div class="p-4 border border-slate-200 rounded-xl hover:border-emerald-300 transition bg-slate-50/50">
+                    <p class="font-bold text-sm text-slate-800 mb-2">Bài 5: Cho $m // n$ bị cắt bởi cát tuyến. Biết $\widehat{F_1} = 60^\circ$. Tính $\widehat{E_2}$ (đồng vị) và $\widehat{F_4}$ (đối đỉnh).</p>
+                    <button onclick="toggleSol('sol5')" class="text-xs bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-1.5 rounded-md transition flex items-center gap-1"><i class="fas fa-eye"></i> Gợi ý / Lời giải</button>
+                    <div id="sol5" class="hidden mt-3 text-xs bg-white p-3 rounded border border-emerald-200 text-slate-700">
+                        - Vì $m // n$ nên góc đồng vị $\widehat{E_2} = \widehat{F_1} = 60^\circ$.<br>
+                        - Góc đối đỉnh $\widehat{F_4} = \widehat{F_1} = 60^\circ$.
+                    </div>
+                </div>
+
+                <!-- Bài 6 -->
+                <div class="p-4 border border-slate-200 rounded-xl hover:border-emerald-300 transition bg-slate-50/50">
+                    <p class="font-bold text-sm text-slate-800 mb-2">Bài 6: Dựa vào hình Bài 5, tính số đo góc $\widehat{E_4}$ (ở vị trí so le trong với $\widehat{F_1}$) và giải thích lí do.</p>
+                    <button onclick="toggleSol('sol6')" class="text-xs bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-1.5 rounded-md transition flex items-center gap-1"><i class="fas fa-eye"></i> Gợi ý / Lời giải</button>
+                    <div id="sol6" class="hidden mt-3 text-xs bg-white p-3 rounded border border-emerald-200 text-slate-700">
+                        Vì $m // n$ nên hai góc so le trong bằng nhau: $\widehat{E_4} = \widehat{F_1} = 60^\circ$.
+                    </div>
+                </div>
+
+                <!-- Bài 7 -->
+                <div class="p-4 border border-slate-200 rounded-xl hover:border-emerald-300 transition bg-slate-50/50">
+                    <p class="font-bold text-sm text-slate-800 mb-2">Bài 7: Cho $a // b$, cát tuyến $c$ cắt $a$ tại $A$, cắt $b$ tại $B$. Biết $\widehat{A_1} = 100^\circ$. Tìm $\widehat{B_1}$ (đồng vị) và $\widehat{B_3}$ (so le trong).</p>
+                    <button onclick="toggleSol('sol7')" class="text-xs bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-1.5 rounded-md transition flex items-center gap-1"><i class="fas fa-eye"></i> Gợi ý / Lời giải</button>
+                    <div id="sol7" class="hidden mt-3 text-xs bg-white p-3 rounded border border-emerald-200 text-slate-700">
+                        Vì $a // b$ nên:<br>
+                        - Góc đồng vị $\widehat{B_1} = \widehat{A_1} = 100^\circ$.<br>
+                        - Góc so le trong $\widehat{B_3} = \widehat{A_1} = 100^\circ$.
+                    </div>
+                </div>
+
+                <!-- Bài 8 -->
+                <div class="p-4 border border-slate-200 rounded-xl hover:border-emerald-300 transition bg-slate-50/50">
+                    <p class="font-bold text-sm text-slate-800 mb-2">Bài 8: Cho hình bình hành $ABCD$ ($AD // BC, AB // CD$). Biết $\widehat{A} = 70^\circ$. Tính $\widehat{B}$ và $\widehat{D}$.</p>
+                    <button onclick="toggleSol('sol8')" class="text-xs bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-1.5 rounded-md transition flex items-center gap-1"><i class="fas fa-eye"></i> Gợi ý / Lời giải</button>
+                    <div id="sol8" class="hidden mt-3 text-xs bg-white p-3 rounded border border-emerald-200 text-slate-700">
+                        - Do $AD // BC$, hai góc trong cùng phía $\widehat{A} + \widehat{B} = 180^\circ \Rightarrow \widehat{B} = 180^\circ - 70^\circ = 110^\circ$.<br>
+                        - Do $AB // CD$, hai góc trong cùng phía $\widehat{A} + \widehat{D} = 180^\circ \Rightarrow \widehat{D} = 180^\circ - 70^\circ = 110^\circ$.
+                    </div>
+                </div>
+
+                <!-- Bài 9 -->
+                <div class="p-4 border border-slate-200 rounded-xl hover:border-emerald-300 transition bg-slate-50/50">
+                    <p class="font-bold text-sm text-slate-800 mb-2">Bài 9: Cho $a // b$ bị cắt bởi $c$ tạo cặp góc trong cùng phía $\widehat{A_1}$ và $\widehat{B_2}$. Biết $\widehat{A_1} = 120^\circ$, tính $\widehat{B_2}$.</p>
+                    <button onclick="toggleSol('sol9')" class="text-xs bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-1.5 rounded-md transition flex items-center gap-1"><i class="fas fa-eye"></i> Gợi ý / Lời giải</button>
+                    <div id="sol9" class="hidden mt-3 text-xs bg-white p-3 rounded border border-emerald-200 text-slate-700">
+                        Vì $a // b$ nên hai góc trong cùng phía bù nhau:<br>
+                        $\widehat{A_1} + \widehat{B_2} = 180^\circ \Rightarrow \widehat{B_2} = 180^\circ - 120^\circ = 60^\circ$.
+                    </div>
+                </div>
+
+                <!-- Bài 10 -->
+                <div class="p-4 border border-slate-200 rounded-xl hover:border-emerald-300 transition bg-slate-50/50">
+                    <p class="font-bold text-sm text-slate-800 mb-2">Bài 10: Cho $a \perp c$ và $b \perp c$. Đường thẳng $d$ cắt $a, b$ tại $A, B$. Biết góc $\widehat{A_1} = 50^\circ$, tính góc đồng vị $\widehat{B_1}$.</p>
+                    <button onclick="toggleSol('sol10')" class="text-xs bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-1.5 rounded-md transition flex items-center gap-1"><i class="fas fa-eye"></i> Gợi ý / Lời giải</button>
+                    <div id="sol10" class="hidden mt-3 text-xs bg-white p-3 rounded border border-emerald-200 text-slate-700">
+                        Vì $a \perp c$ và $b \perp c \Rightarrow a // b$. Do $a // b$ nên hai góc đồng vị bằng nhau: $\widehat{B_1} = \widehat{A_1} = 50^\circ$.
+                    </div>
+                </div>
+
+                <!-- Bài 11 -->
+                <div class="p-4 border border-slate-200 rounded-xl hover:border-emerald-300 transition bg-slate-50/50">
+                    <p class="font-bold text-sm text-slate-800 mb-2">Bài 11: Khẳng định sau đúng hay sai: "Nếu đường thẳng vuông góc với 1 trong 2 đường song song thì cũng vuông góc đường còn lại"?</p>
+                    <button onclick="toggleSol('sol11')" class="text-xs bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-1.5 rounded-md transition flex items-center gap-1"><i class="fas fa-eye"></i> Gợi ý / Lời giải</button>
+                    <div id="sol11" class="hidden mt-3 text-xs bg-white p-3 rounded border border-emerald-200 text-slate-700">
+                        Khẳng định <strong>ĐÚNG</strong>. Đây chính là tính chất liên hệ giữa tính vuông góc và tính song song của ba đường thẳng.
+                    </div>
+                </div>
+
+                <!-- Bài 12 -->
+                <div class="p-4 border border-slate-200 rounded-xl hover:border-emerald-300 transition bg-slate-50/50">
+                    <p class="font-bold text-sm text-slate-800 mb-2">Bài 12: Cho 3 đường thẳng phân biệt $a, b, c$. Biết $a // b$ và $b // c$. Kết luận gì về vị trí tương đối giữa $a$ và $c$?</p>
+                    <button onclick="toggleSol('sol12')" class="text-xs bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-1.5 rounded-md transition flex items-center gap-1"><i class="fas fa-eye"></i> Gợi ý / Lời giải</button>
+                    <div id="sol12" class="hidden mt-3 text-xs bg-white p-3 rounded border border-emerald-200 text-slate-700">
+                        Hai đường thẳng phân biệt cùng song song với đường thẳng thứ ba thì song song với nhau. Do đó $a // c$.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PHẦN 2: CẤP ĐỘ NÂNG CAO -->
+        <section id="capdo2" class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm space-y-6">
+            <div class="flex items-center justify-between border-b border-slate-200 pb-4">
+                <div class="flex items-center gap-3">
+                    <span class="p-3 bg-amber-100 text-amber-600 rounded-xl"><i class="fas fa-chart-line text-xl"></i></span>
+                    <div>
+                        <h2 class="text-xl font-bold text-slate-800">PHẦN 2: CẤP ĐỘ NÂNG CAO (Bài 13 - Bài 22)</h2>
+                        <p class="text-xs text-slate-500">Mục tiêu: Đòi hỏi kết hợp tính góc kề bù, phân giác và giải phương trình góc trước khi áp dụng tính chất song song.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VÍ DỤ MINH HỌA MẪU 2 -->
+            <div class="bg-amber-50/60 border border-amber-200 rounded-xl p-5 space-y-2">
+                <div class="flex items-center gap-2 text-amber-800 font-bold text-sm uppercase">
+                    <i class="fas fa-lightbulb"></i> Ví dụ minh họa Cấp độ Nâng cao
+                </div>
+                <p class="text-sm font-medium">Qua đỉnh $A$ của $\triangle ABC$, kẻ đường thẳng $xy // BC$. Biết $\widehat{B} = 50^\circ, \widehat{C} = 60^\circ$. Tính $\widehat{BAC}$.</p>
+                <div class="pt-2 text-xs text-slate-600 bg-white p-3 rounded-lg border border-amber-100">
+                    <strong>Lời giải:</strong> Vì $xy // BC$ nên:<br>
+                    - $\widehat{xAB} = \widehat{B} = 50^\circ$ (so le trong).<br>
+                    - $\widehat{yAC} = \widehat{C} = 60^\circ$ (so le trong).<br>
+                    Vì góc bẹt $\widehat{xAy} = 180^\circ \Rightarrow \widehat{xAB} + \widehat{BAC} + \widehat{yAC} = 180^\circ \Rightarrow \widehat{BAC} = 180^\circ - (50^\circ + 60^\circ) = 70^\circ$.
+                </div>
+            </div>
+
+            <!-- BÀI TẬP BÀI 13 -> 22 -->
+            <div class="grid md:grid-cols-2 gap-4">
+                <!-- Bài 13 -->
+                <div class="p-4 border border-slate-200 rounded-xl hover:border-amber-300 transition bg-slate-50/50">
+                    <p class="font-bold text-sm text-slate-800 mb-2">Bài 13: Cho $a // b$ bị cắt bởi $c$ tại $A, B$. Biết góc nhọn tại $A$ bằng một nửa góc tù kề bù với nó. Tính các góc tại $B$.</p>
+                    <button onclick="toggleSol('sol13')" class="text-xs bg-amber-600 hover:bg-amber-700 text-white px-3 py-1.5 rounded-md transition flex items-center gap-1"><i class="fas fa-eye"></i> Gợi ý / Lời giải</button>
+                    <div id="sol13" class="hidden mt-3 text-xs bg-white p-3 rounded border border-amber-200 text-slate-700">
+                        Gọi góc nhọn là $x \Rightarrow$ góc tù kề bù là $2x$. Ta có $x + 2x = 180^\circ \Rightarrow 3x = 180^\circ \Rightarrow x = 60^\circ$.<br>
+                        Do $a // b$, bốn góc tại đỉnh $B$ gồm 2 góc nhọn bằng $60^\circ$ và 2 góc tù bằng $120^\circ$.
+                    </div>
+                </div>
+
+                <!-- Bài 14 -->
+                <div class="p-4 border border-slate-200 rounded-xl hover:border-amber-300 transition bg-slate-50/50">
+                    <p class="font-bold text-sm text-slate-800 mb-2">Bài 14: Cho $xx' // yy'$ và $zz' \perp xx'$ tại $A$. $zz'$ cắt $yy'$ tại $B$. Tính các góc tại đỉnh $B$ và chứng tỏ $zz' \perp yy'$.</p>
+                    <button onclick="toggleSol('sol14')" class="text-xs bg-amber-600 hover:bg-amber-700 text-white px-3 py-1.5 rounded-md transition flex items-center gap-1"><i class="fas fa-eye"></i> Gợi ý / Lời giải</button>
+                    <div id="sol14" class="hidden mt-3 text-xs bg-white p-3 rounded border border-amber-200 text-slate-700">
+                        Vì $xx' // yy'$ và $zz' \perp xx'$ nên theo tính chất liên hệ giữa vuông góc và song song, $zz' \perp yy'$ tại $B$. Do đó cả 4 góc tại đỉnh $B$ đều là góc vuông ($90^\circ$).
+                    </div>
+                </div>
+
+                <!-- Bài 15 -->
+                <div class="p-4 border border-slate-200 rounded-xl hover:border-amber-300 transition bg-slate-50/50">
+                    <p class="font-bold text-sm text-slate-800 mb-2">Bài 15: Chứng minh định lý: "Hai tia phân giác của hai góc so le trong tạo bởi một đường thẳng cắt hai đường thẳng song song thì song song với nhau".</p>
+                    <button onclick="toggleSol('sol15')" class="text-xs bg-amber-600 hover:bg-amber-700 text-white px-3 py-1.5 rounded-md transition flex items-center gap-1"><i class="fas fa-eye"></i> Gợi ý / Lời giải</button>
+                    <div id="sol15" class="hidden mt-3 text-xs bg-white p-3 rounded border border-amber-200 text-slate-700">
+                        Gọi 2 góc so le trong là $\widehat{A_1} = \widehat{B_1}$. Tia phân giác $Am \Rightarrow \widehat{mAB} = \frac{1}{2}\widehat{A_1}$. Tia phân giác $Bn \Rightarrow \widehat{nBA} = \frac{1}{2}\widehat{B_1}$.<br>
+                        Suy ra $\widehat{mAB} = \widehat{nBA}$. Mà hai góc này ở vị trí so le trong nên $Am // Bn$.
+                    </div>
+                </div>
+
+                <!-- Bài 16 -->
+                <div class="p-4 border border-slate-200 rounded-xl hover:border-amber-300 transition bg-slate-50/50">
+                    <p class="font-bold text-sm text-slate-800 mb-2">Bài 16: Chứng minh định lý: "Hai tia phân giác của hai góc đồng vị tạo bởi một đường thẳng cắt hai đường thẳng song song thì song song với nhau".</p>
+                    <button onclick="toggleSol('sol16')" class="text-xs bg-amber-600 hover:bg-amber-700 text-white px-3 py-1.5 rounded-md transition flex items-center gap-1"><i class="fas fa-eye"></i> Gợi ý / Lời giải</button>
+                    <div id="sol16" class="hidden mt-3 text-xs bg-white p-3 rounded border border-amber-200 text-slate-700">
+                        Gọi 2 góc đồng vị bằng nhau là $\widehat{A_1} = \widehat{B_1}$. Tương tự, một nửa của chúng bằng nhau $\Rightarrow$ Góc tạo bởi 2 tia phân giác ở vị trí đồng vị bằng nhau $\Rightarrow Am // Bn$.
+                    </div>
+                </div>
+
+                <!-- Bài 17 -->
+                <div class="p-4 border border-slate-200 rounded-xl hover:border-amber-300 transition bg-slate-50/50">
+                    <p class="font-bold text-sm text-slate-800 mb-2">Bài 17: Hình thang $ABCD$ ($AB // CD$), $\widehat{C} = 60^\circ$, góc $\widehat{D} = 60^\circ$. $AC$ là phân giác $\widehat{DAB}$. Tính $\widehat{DAC}$ và $\widehat{CAB}$.</p>
+                    <button onclick="toggleSol('sol17')" class="text-xs bg-amber-600 hover:bg-amber-700 text-white px-3 py-1.5 rounded-md transition flex items-center gap-1"><i class="fas fa-eye"></i> Gợi ý / Lời giải</button>
+                    <div id="sol17" class="hidden mt-3 text-xs bg-white p-3 rounded border border-amber-200 text-slate-700">
+                        Vì $AB // CD$ nên $\widehat{DAB} + \widehat{ADC} = 180^\circ \Rightarrow \widehat{DAB} = 180^\circ - 60^\circ = 120^\circ$.<br>
+                        Vì $AC$ là phân giác $\widehat{DAB} \Rightarrow \widehat{DAC} = \widehat{CAB} = 120^\circ / 2 = 60^\circ$.
+                    </div>
+                </div>
+
+                <!-- Bài 18 -->
+                <div class="p-4 border border-slate-200 rounded-xl hover:border-amber-300 transition bg-slate-50/50">
+                    <p class="font-bold text-sm text-slate-800 mb-2">Bài 18: Cho $AB // Cx$. Biết $\widehat{A} = 70^\circ, \widehat{B} = 60^\circ$. Tính các góc tại $C$ và chứng minh tổng 3 góc $\triangle ABC = 180^\circ$.</p>
+                    <button onclick="toggleSol('sol18')" class="text-xs bg-amber-600 hover:bg-amber-700 text-white px-3 py-1.5 rounded-md transition flex items-center gap-1"><i class="fas fa-eye"></i> Gợi ý / Lời giải</button>
+                    <div id="sol18" class="hidden mt-3 text-xs bg-white p-3 rounded border border-amber-200 text-slate-700">
+                        - $\widehat{ACx} = \widehat{A} = 70^\circ$ (so le trong).<br>
+                        - Kéo dài $BC$ thành tia $By$, góc đồng vị với $\widehat{B}$ bằng $60^\circ$.<br>
+                        - Khi đó tổng $\widehat{A} + \widehat{B} + \widehat{ACB} = 70^\circ + 60^\circ + (180^\circ - 130^\circ) = 180^\circ$.
+                    </div>
+                </div>
+
+                <!-- Bài 19 -->
+                <div class="p-4 border border-slate-200 rounded-xl hover:border-amber-300 transition bg-slate-50/50">
+                    <p class="font-bold text-sm text-slate-800 mb-2">Bài 19: Qua $A$ kẻ $xy // BC$. Biết $\widehat{B} = 50^\circ, \widehat{C} = 60^\circ$. Tính $\widehat{xAB}, \widehat{yAC}$ và $\widehat{BAC}$.</p>
+                    <button onclick="toggleSol('sol19')" class="text-xs bg-amber-600 hover:bg-amber-700 text-white px-3 py-1.5 rounded-md transition flex items-center gap-1"><i class="fas fa-eye"></i> Gợi ý / Lời giải</button>
+                    <div id="sol19" class="hidden mt-3 text-xs bg-white p-3 rounded border border-amber-200 text-slate-700">
+                        $\widehat{xAB} = \widehat{B} = 50^\circ$ (so le trong); $\widehat{yAC} = \widehat{C} = 60^\circ$ (so le trong).<br>
+                        $\widehat{BAC} = 180^\circ - (50^\circ + 60^\circ) = 70^\circ$.
+                    </div>
+                </div>
+
+                <!-- Bài 20 -->
+                <div class="p-4 border border-slate-200 rounded-xl hover:border-amber-300 transition bg-slate-50/50">
+                    <p class="font-bold text-sm text-slate-800 mb-2">Bài 20: Cho góc nhọn $\widehat{xOy}, M$ nằm trong góc. Kẻ $a // Ox$ cắt $Oy$ tại $A$; $b // Oy$ cắt $Ox$ tại $B$. Chứng minh $\widehat{AMB} = \widehat{xOy}$.</p>
+                    <button onclick="toggleSol('sol20')" class="text-xs bg-amber-600 hover:bg-amber-700 text-white px-3 py-1.5 rounded-md transition flex items-center gap-1"><i class="fas fa-eye"></i> Gợi ý / Lời giải</button>
+                    <div id="sol20" class="hidden mt-3 text-xs bg-white p-3 rounded border border-amber-200 text-slate-700">
+                        Tứ giác $OAMB$ có các cạnh đối song song ($MA // OB, MB // OA$) nên là hình bình hành. Do đó hai góc đối $\widehat{AMB} = \widehat{xOy}$.
+                    </div>
+                </div>
+
+                <!-- Bài 21 -->
+                <div class="p-4 border border-slate-200 rounded-xl hover:border-amber-300 transition bg-slate-50/50">
+                    <p class="font-bold text-sm text-slate-800 mb-2">Bài 21: Cho 2 góc nhọn $\widehat{xOy}$ và $\widehat{x'O'y'}$ có cạnh tương ứng song song ($Ox // O'x', Oy // O'y'$). Chứng minh $\widehat{xOy} = \widehat{x'O'y'}$.</p>
+                    <button onclick="toggleSol('sol21')" class="text-xs bg-amber-600 hover:bg-amber-700 text-white px-3 py-1.5 rounded-md transition flex items-center gap-1"><i class="fas fa-eye"></i> Gợi ý / Lời giải</button>
+                    <div id="sol21" class="hidden mt-3 text-xs bg-white p-3 rounded border border-amber-200 text-slate-700">
+                        Nối $O O'$. Áp dụng tính chất góc đồng vị/so le trong của các cặp đường song song $Ox // O'x'$ và $Oy // O'y'$, ta suy ra hai góc nhọn có cạnh tương ứng song song thì bằng nhau.
+                    </div>
+                </div>
+
+                <!-- Bài 22 -->
+                <div class="p-4 border border-slate-200 rounded-xl hover:border-amber-300 transition bg-slate-50/50">
+                    <p class="font-bold text-sm text-slate-800 mb-2">Bài 22: Cho $\widehat{AOB}$ và $\widehat{BOC}$ kề bù, $\widehat{AOB} = 120^\circ$. $Ox$ là phân giác $\widehat{AOB}$. $Oy$ trong $\widehat{BOC}$ sao cho $Oy // Ox$. Tính $\widehat{BOy}$.</p>
+                    <button onclick="toggleSol('sol22')" class="text-xs bg-amber-600 hover:bg-amber-700 text-white px-3 py-1.5 rounded-md transition flex items-center gap-1"><i class="fas fa-eye"></i> Gợi ý / Lời giải</button>
+                    <div id="sol22" class="hidden mt-3 text-xs bg-white p-3 rounded border border-amber-200 text-slate-700">
+                        Vì $Ox$ phân giác $\widehat{AOB} \Rightarrow \widehat{BOx} = 120^\circ / 2 = 60^\circ$.<br>
+                        Vì $Oy // Ox$, hai góc $\widehat{BOy}$ và $\widehat{BOx}$ ở vị trí so le trong (hoặc trong cùng phía tùy chiều tia) $\Rightarrow \widehat{BOy} = 60^\circ$.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PHẦN 3: CẤP ĐỘ VẬN DỤNG -->
+        <section id="capdo3" class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm space-y-6">
+            <div class="flex items-center justify-between border-b border-slate-200 pb-4">
+                <div class="flex items-center gap-3">
+                    <span class="p-3 bg-rose-100 text-rose-600 rounded-xl"><i class="fas fa-rocket text-xl"></i></span>
+                    <div>
+                        <h2 class="text-xl font-bold text-slate-800">PHẦN 3: CẤP ĐỘ VẬN DỤNG (Bài 23 - Bài 30)</h2>
+                        <p class="text-xs text-slate-500">Mục tiêu: Đạt điểm tối đa với dạng bài đường gấp khúc Ziczac (kẻ đường phụ) và ứng dụng thực tế.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VÍ DỤ MINH HỌA MẪU 3 -->
+            <div class="bg-rose-50/60 border border-rose-200 rounded-xl p-5 space-y-2">
+                <div class="flex items-center gap-2 text-rose-800 font-bold text-sm uppercase">
+                    <i class="fas fa-lightbulb"></i> Ví dụ minh họa Cấp độ Vận dụng (Phương pháp kẻ đường phụ)
+                </div>
+                <p class="text-sm font-medium">Cho $Ax // By$. Điểm $C$ tạo thành đường gấp khúc $ACB$. Biết $\widehat{CAx} = 40^\circ, \widehat{CBy} = 30^\circ$. Tính góc $\widehat{ACB}$.</p>
+                <div class="pt-2 text-xs text-slate-600 bg-white p-3 rounded-lg border border-rose-100">
+                    <strong>Lời giải:</strong> Qua $C$, kẻ tia $Ct // Ax$ (nằm giữa $CA$ và $CB$).<br>
+                    - Do $Ct // Ax \Rightarrow \widehat{C_1} = \widehat{CAx} = 40^\circ$ (so le trong).<br>
+                    - Do $Ax // By$ và $Ct // Ax \Rightarrow Ct // By \Rightarrow \widehat{C_2} = \widehat{CBy} = 30^\circ$ (so le trong).<br>
+                    - Do đó $\widehat{ACB} = \widehat{C_1} + \widehat{C_2} = 40^\circ + 30^\circ = 70^\circ$.
+                </div>
+            </div>
+
+            <!-- BÀI TẬP BÀI 23 -> 30 -->
+            <div class="grid md:grid-cols-2 gap-4">
+                <!-- Bài 23 -->
+                <div class="p-4 border border-slate-200 rounded-xl hover:border-rose-300 transition bg-slate-50/50">
+                    <p class="font-bold text-sm text-slate-800 mb-2">Bài 23 (Ziczac 1 nếp gấp nhọn): Cho $Ax // By$. $C$ tạo thành đường gấp khúc $ACB$. Biết $\widehat{CAx} = 40^\circ, \widehat{CBy} = 30^\circ$. Kẻ $Ct // Ax$ tính $\widehat{ACB}$.</p>
+                    <button onclick="toggleSol('sol23')" class="text-xs bg-rose-600 hover:bg-rose-700 text-white px-3 py-1.5 rounded-md transition flex items-center gap-1"><i class="fas fa-eye"></i> Gợi ý / Lời giải</button>
+                    <div id="sol23" class="hidden mt-3 text-xs bg-white p-3 rounded border border-rose-200 text-slate-700">
+                        Kẻ $Ct // Ax \Rightarrow \widehat{ACB} = \widehat{C_1} + \widehat{C_2} = 40^\circ + 30^\circ = 70^\circ$. (Xem ví dụ mẫu ở trên).
+                    </div>
+                </div>
+
+                <!-- Bài 24 -->
+                <div class="p-4 border border-slate-200 rounded-xl hover:border-rose-300 transition bg-slate-50/50">
+                    <p class="font-bold text-sm text-slate-800 mb-2">Bài 24 (Ziczac 1 nếp gấp tù): Cho $Ax // Dy$. Biết $\widehat{xAC} = 50^\circ, \widehat{ACD} = 110^\circ$. Kẻ tia $Ct // Ax$, hãy tính $\widehat{CDy}$.</p>
+                    <button onclick="toggleSol('sol24')" class="text-xs bg-rose-600 hover:bg-rose-700 text-white px-3 py-1.5 rounded-md transition flex items-center gap-1"><i class="fas fa-eye"></i> Gợi ý / Lời giải</button>
+                    <div id="sol24" class="hidden mt-3 text-xs bg-white p-3 rounded border border-rose-200 text-slate-700">
+                        Kẻ $Ct // Ax \Rightarrow \widehat{ACt} = \widehat{xAC} = 50^\circ$ (so le trong).<br>
+                        Suy ra $\widehat{tCD} = 110^\circ - 50^\circ = 60^\circ$.<br>
+                        Vì $Ct // Dy \Rightarrow \widehat{CDy} = \widehat{tCD} = 60^\circ$ (so le trong).
+                    </div>
+                </div>
+
+                <!-- Bài 25 -->
+                <div class="p-4 border border-slate-200 rounded-xl hover:border-rose-300 transition bg-slate-50/50">
+                    <p class="font-bold text-sm text-slate-800 mb-2">Bài 25 (Ziczac 2 nếp gấp): Cho $a // b$, đường gấp khúc $MNP$. Góc tại $M$ là $40^\circ$, góc tại $N$ là $90^\circ$. Tính góc tại $P$.</p>
+                    <button onclick="toggleSol('sol25')" class="text-xs bg-rose-600 hover:bg-rose-700 text-white px-3 py-1.5 rounded-md transition flex items-center gap-1"><i class="fas fa-eye"></i> Gợi ý / Lời giải</button>
+                    <div id="sol25" class="hidden mt-3 text-xs bg-white p-3 rounded border border-rose-200 text-slate-700">
+                        Kẻ đường phụ qua $N$ song song với $a \Rightarrow$ tách góc $N = 90^\circ$ thành $40^\circ + 50^\circ$.<br>
+                        Do đó góc tại $P$ ở vị trí so le trong bằng $50^\circ$.
+                    </div>
+                </div>
+
+                <!-- Bài 26 -->
+                <div class="p-4 border border-slate-200 rounded-xl hover:border-rose-300 transition bg-rose-50/50">
+                    <p class="font-bold text-sm text-slate-800 mb-2">Bài 26 (Khúc xạ tia sáng): Tia sáng chiếu đến gương 1 hợp với gương góc $45^\circ$, phản xạ đập vào gương 2. Hai gương song song. Tính góc tới gương 2.</p>
+                    <button onclick="toggleSol('sol26')" class="text-xs bg-rose-600 hover:bg-rose-700 text-white px-3 py-1.5 rounded-md transition flex items-center gap-1"><i class="fas fa-eye"></i> Gợi ý / Lời giải</button>
+                    <div id="sol26" class="hidden mt-3 text-xs bg-white p-3 rounded border border-rose-200 text-slate-700">
+                        Vì hai mặt gương song song, tia phản xạ đóng vai trò cát tuyến cắt hai gương. Theo tính chất góc so le trong, tia sáng hợp với mặt gương thứ hai một góc đúng bằng $45^\circ$.
+                    </div>
+                </div>
+
+                <!-- Bài 27 -->
+                <div class="p-4 border border-slate-200 rounded-xl hover:border-rose-300 transition bg-slate-50/50">
+                    <p class="font-bold text-sm text-slate-800 mb-2">Bài 27 (Nếp gấp giấy): Mép $a // b$. Nếp gấp $c$ tạo với mép $a$ góc nhọn $35^\circ$. Tìm góc tù tạo bởi $c$ và mép $b$ (góc trong cùng phía).</p>
+                    <button onclick="toggleSol('sol27')" class="text-xs bg-rose-600 hover:bg-rose-700 text-white px-3 py-1.5 rounded-md transition flex items-center gap-1"><i class="fas fa-eye"></i> Gợi ý / Lời giải</button>
+                    <div id="sol27" class="hidden mt-3 text-xs bg-white p-3 rounded border border-rose-200 text-slate-700">
+                        Vì hai mép giấy $a // b$, hai góc trong cùng phía bù nhau. Góc tù tạo bởi nếp gấp $c$ và mép $b$ bằng: $180^\circ - 35^\circ = 145^\circ$.
+                    </div>
+                </div>
+
+                <!-- Bài 28 -->
+                <div class="p-4 border border-slate-200 rounded-xl hover:border-rose-300 transition bg-slate-50/50">
+                    <p class="font-bold text-sm text-slate-800 mb-2">Bài 28 (Cầu thang thực tế): Thanh trụ lan can $\perp$ đất. Tay vịn song song mũi bậc thang. Góc nghiêng cầu thang $38^\circ$. Tính góc giữa trụ đứng và tay vịn.</p>
+                    <button onclick="toggleSol('sol28')" class="text-xs bg-rose-600 hover:bg-rose-700 text-white px-3 py-1.5 rounded-md transition flex items-center gap-1"><i class="fas fa-eye"></i> Gợi ý / Lời giải</button>
+                    <div id="sol28" class="hidden mt-3 text-xs bg-white p-3 rounded border border-rose-200 text-slate-700">
+                        Trong tam giác vuông tạo bởi thanh trụ đứng, phương ngang và tay vịn:<br>
+                        Góc giữa thanh trụ và tay vịn = $90^\circ - 38^\circ = 52^\circ$.
+                    </div>
+                </div>
+
+                <!-- Bài 29 -->
+                <div class="p-4 border border-slate-200 rounded-xl hover:border-rose-300 transition bg-slate-50/50">
+                    <p class="font-bold text-sm text-slate-800 mb-2">Bài 29: Cho $xx' // yy' // zz'$. Đường $d$ cắt $xx', yy', zz'$ tại $A, B, C$. Tia phân giác góc tại $A$ cắt $yy'$ tại $M$. Tính các góc $\triangle ABM$.</p>
+                    <button onclick="toggleSol('sol29')" class="text-xs bg-rose-600 hover:bg-rose-700 text-white px-3 py-1.5 rounded-md transition flex items-center gap-1"><i class="fas fa-eye"></i> Gợi ý / Lời giải</button>
+                    <div id="sol29" class="hidden mt-3 text-xs bg-white p-3 rounded border border-rose-200 text-slate-700">
+                        Do $xx' // yy'$, góc so le trong $\widehat{AMB} = \widehat{xAM}$. Mà $AM$ là phân giác $\Rightarrow \widehat{xAM} = \widehat{MAB} \Rightarrow \widehat{AMB} = \widehat{MAB}$. Tam giác $ABM$ cân tại $B$.
+                    </div>
+                </div>
+
+                <!-- Bài 30 -->
+                <div class="p-4 border border-slate-200 rounded-xl hover:border-rose-300 transition bg-slate-50/50">
+                    <p class="font-bold text-sm text-slate-800 mb-2">Bài 30: Cho hình bình hành $ABCD$. Lấy $O$ bên trong, kẻ $OM // AB, ON // AD$. Chứng minh tổng các góc xung quanh điểm $O$ bằng $360^\circ$.</p>
+                    <button onclick="toggleSol('sol30')" class="text-xs bg-rose-600 hover:bg-rose-700 text-white px-3 py-1.5 rounded-md transition flex items-center gap-1"><i class="fas fa-eye"></i> Gợi ý / Lời giải</button>
+                    <div id="sol30" class="hidden mt-3 text-xs bg-white p-3 rounded border border-rose-200 text-slate-700">
+                        Kéo dài các tia xuất phát từ $O$. Sử dụng tính chất các góc kề bù và góc trong cùng phía do các đường thẳng song song tạo thành để suy ra tổng 4 góc liên tiếp quanh đỉnh $O$ bằng $2 \cdot 180^\circ = 360^\circ$.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- BÀI TẬP ĐÁNH GIÁ NĂNG LỰC TẠI LỚP (5 CÂU TRẮC NGHIỆM) -->
+        <section id="tracnghiem" class="bg-white rounded-2xl p-6 border-2 border-indigo-200 shadow-md space-y-6 no-print">
+            <div class="bg-indigo-900 text-white p-4 rounded-xl flex items-center justify-between flex-wrap gap-2">
+                <div class="flex items-center gap-3">
+                    <i class="fas fa-user-check text-2xl text-amber-400"></i>
+                    <div>
+                        <h2 class="text-lg font-bold">BÀI TẬP ĐÁNH GIÁ NĂNG LỰC TẠI LỚP</h2>
+                        <p class="text-xs text-indigo-200">Hoàn thành 5 câu trắc nghiệm bên dưới. Kết quả sẽ tự động lưu về hệ thống Google Sheets.</p>
+                    </div>
+                </div>
+                <span class="text-xs bg-indigo-800 px-3 py-1 rounded-full border border-indigo-700">Mã bài: buoi11-euclid-song-song</span>
+            </div>
+
+            <!-- Form Học Sinh -->
+            <div class="grid md:grid-cols-2 gap-4 bg-slate-50 p-4 rounded-xl border border-slate-200">
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 mb-1">Họ và tên học sinh *</label>
+                    <input type="text" id="hoTenInput" placeholder="Ví dụ: Phạm Minh Hoàng" class="w-full text-sm p-2.5 rounded-lg border border-slate-300 focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 mb-1">Mã Lớp / Trường</label>
+                    <input type="text" id="maLopInput" placeholder="Ví dụ: Lop7A4-HCMUS" class="w-full text-sm p-2.5 rounded-lg border border-slate-300 focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                </div>
+            </div>
+
+            <!-- List câu hỏi trắc nghiệm -->
+            <form id="quizForm" class="space-y-6">
+                <!-- Câu 1 -->
+                <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
+                    <p class="font-bold text-sm text-slate-800">Câu 1: Qua một điểm $M$ nằm ngoài đường thẳng $a$, có bao nhiêu đường thẳng song song với $a$?</p>
+                    <div class="grid md:grid-cols-2 gap-2 text-xs">
+                        <label class="flex items-center p-2 rounded bg-white border border-slate-200 cursor-pointer hover:bg-indigo-50"><input type="radio" name="q1" value="A" class="mr-2"> A) Vô số đường thẳng</label>
+                        <label class="flex items-center p-2 rounded bg-white border border-slate-200 cursor-pointer hover:bg-indigo-50"><input type="radio" name="q1" value="B" class="mr-2"> B) Duy nhất 1 đường thẳng</label>
+                        <label class="flex items-center p-2 rounded bg-white border border-slate-200 cursor-pointer hover:bg-indigo-50"><input type="radio" name="q1" value="C" class="mr-2"> C) Đúng 2 đường thẳng</label>
+                        <label class="flex items-center p-2 rounded bg-white border border-slate-200 cursor-pointer hover:bg-indigo-50"><input type="radio" name="q1" value="D" class="mr-2"> D) Không có đường thẳng nào</label>
+                    </div>
+                </div>
+
+                <!-- Câu 2 -->
+                <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
+                    <p class="font-bold text-sm text-slate-800">Câu 2: Cho $a // b$, biết một góc so le trong $\widehat{A_1} = 75^\circ$. Số đo góc so le trong còn lại $\widehat{B_3}$ là:</p>
+                    <div class="grid md:grid-cols-2 gap-2 text-xs">
+                        <label class="flex items-center p-2 rounded bg-white border border-slate-200 cursor-pointer hover:bg-indigo-50"><input type="radio" name="q2" value="A" class="mr-2"> A) $105^\circ$</label>
+                        <label class="flex items-center p-2 rounded bg-white border border-slate-200 cursor-pointer hover:bg-indigo-50"><input type="radio" name="q2" value="B" class="mr-2"> B) $75^\circ$</label>
+                        <label class="flex items-center p-2 rounded bg-white border border-slate-200 cursor-pointer hover:bg-indigo-50"><input type="radio" name="q2" value="C" class="mr-2"> C) $15^\circ$</label>
+                        <label class="flex items-center p-2 rounded bg-white border border-slate-200 cursor-pointer hover:bg-indigo-50"><input type="radio" name="q2" value="D" class="mr-2"> D) $180^\circ$</label>
+                    </div>
+                </div>
+
+                <!-- Câu 3 -->
+                <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
+                    <p class="font-bold text-sm text-slate-800">Câu 3: Cho $a // b$, góc $\widehat{A_1} = 110^\circ$. Số đo góc trong cùng phía với nó $\widehat{B_2}$ là:</p>
+                    <div class="grid md:grid-cols-2 gap-2 text-xs">
+                        <label class="flex items-center p-2 rounded bg-white border border-slate-200 cursor-pointer hover:bg-indigo-50"><input type="radio" name="q3" value="A" class="mr-2"> A) $110^\circ$</label>
+                        <label class="flex items-center p-2 rounded bg-white border border-slate-200 cursor-pointer hover:bg-indigo-50"><input type="radio" name="q3" value="B" class="mr-2"> B) $70^\circ$</label>
+                        <label class="flex items-center p-2 rounded bg-white border border-slate-200 cursor-pointer hover:bg-indigo-50"><input type="radio" name="q3" value="C" class="mr-2"> C) $80^\circ$</label>
+                        <label class="flex items-center p-2 rounded bg-white border border-slate-200 cursor-pointer hover:bg-indigo-50"><input type="radio" name="q3" value="D" class="mr-2"> D) $90^\circ$</label>
+                    </div>
+                </div>
+
+                <!-- Câu 4 -->
+                <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
+                    <p class="font-bold text-sm text-slate-800">Câu 4: Cho $Ax // By$. Góc $\widehat{CAx} = 30^\circ, \widehat{CBy} = 40^\circ$ (như bài toán ziczac nhọn). Số đo $\widehat{ACB}$ là:</p>
+                    <div class="grid md:grid-cols-2 gap-2 text-xs">
+                        <label class="flex items-center p-2 rounded bg-white border border-slate-200 cursor-pointer hover:bg-indigo-50"><input type="radio" name="q4" value="A" class="mr-2"> A) $70^\circ$</label>
+                        <label class="flex items-center p-2 rounded bg-white border border-slate-200 cursor-pointer hover:bg-indigo-50"><input type="radio" name="q4" value="B" class="mr-2"> B) $10^\circ$</label>
+                        <label class="flex items-center p-2 rounded bg-white border border-slate-200 cursor-pointer hover:bg-indigo-50"><input type="radio" name="q4" value="C" class="mr-2"> C) $110^\circ$</label>
+                        <label class="flex items-center p-2 rounded bg-white border border-slate-200 cursor-pointer hover:bg-indigo-50"><input type="radio" name="q4" value="D" class="mr-2"> D) $120^\circ$</label>
+                    </div>
+                </div>
+
+                <!-- Câu 5 -->
+                <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
+                    <p class="font-bold text-sm text-slate-800">Câu 5: Cho $a // b$ và $c \perp a$. Kết luận nào sau đây ĐÚNG?</p>
+                    <div class="grid md:grid-cols-2 gap-2 text-xs">
+                        <label class="flex items-center p-2 rounded bg-white border border-slate-200 cursor-pointer hover:bg-indigo-50"><input type="radio" name="q5" value="A" class="mr-2"> A) $c // b$</label>
+                        <label class="flex items-center p-2 rounded bg-white border border-slate-200 cursor-pointer hover:bg-indigo-50"><input type="radio" name="q5" value="B" class="mr-2"> B) $c \perp b$</label>
+                        <label class="flex items-center p-2 rounded bg-white border border-slate-200 cursor-pointer hover:bg-indigo-50"><input type="radio" name="q5" value="C" class="mr-2"> C) $c$ trùng $b$</label>
+                        <label class="flex items-center p-2 rounded bg-white border border-slate-200 cursor-pointer hover:bg-indigo-50"><input type="radio" name="q5" value="D" class="mr-2"> D) $c$ không cắt $b$</label>
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="text-center">
+                    <button type="button" onclick="nopBaiTap()" id="btnSubmitQuiz" class="px-8 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl shadow-lg transition flex items-center gap-2 mx-auto">
+                        <i class="fas fa-paper-plane"></i> Nộp Bài & Gửi Kết Quả
+                    </button>
+                </div>
+            </form>
+
+            <!-- Quiz Result Alert Box -->
+            <div id="quizResult" class="hidden p-4 rounded-xl text-sm border"></div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER COPYRIGHT -->
+    <footer class="bg-white border-t border-slate-200 py-6 text-center text-xs text-slate-600 mt-12 print:border-none">
+        <p class="font-semibold text-slate-800">@ Bản quyền thuộc ThS. Đinh Quốc Tuấn - Mục đích phi lợi nhuận - Vì giáo dục.</p>
+    </footer>
+
+    <!-- NÚT IN TÀI LIỆU -->
+    <button id="btn-print-doc" onclick="safePrint()" class="fixed bottom-5 right-5 bg-gray-900 text-white px-4 py-2 rounded-lg shadow-lg hover:bg-gray-700 print:hidden z-50">
+        <i class="fas fa-print mr-2"></i> In Tài Liệu
+    </button>
+
+    <!-- SCRIPT TƯƠNG TÁC LÝ THUYẾT & JSXGRAPH & QUIZ -->
+    <script>
+        // 1. CHỨC NĂNG IN AN TOÀN
+        function safePrint() {
+            const printBtn = document.getElementById('btn-print-doc');
+            printBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Đang chuẩn bị...';
+            
+            if (window.MathJax && window.MathJax.typesetPromise) {
+                MathJax.typesetPromise().then(() => {
+                    printBtn.innerHTML = '<i class="fas fa-print mr-2"></i> In Tài Liệu';
+                    window.print();
+                });
+            } else {
+                setTimeout(() => {
+                    printBtn.innerHTML = '<i class="fas fa-print mr-2"></i> In Tài Liệu';
+                    window.print();
+                }, 500); 
+            }
+        }
+
+        // 2. ẨN/HIỆN LỜI GIẢI BÀI TẬP
+        function toggleSol(id) {
+            const el = document.getElementById(id);
+            if (el.classList.contains('hidden')) {
+                el.classList.remove('hidden');
+            } else {
+                el.classList.add('hidden');
+            }
+        }
+
+        // Global variables for Board 2 (Ziczac)
+        let board2, auxLine, showAux = false;
+
+        // 3. KHỞI TẠO MÔ HÌNH JSXGRAPH
+        document.addEventListener('DOMContentLoaded', function () {
+            // BOARD 1: Khám phá Tiên đề Euclid
+            const board1 = JXG.JSXGraph.initBoard('jxgbox1', {
+                boundingbox: [-5, 5, 5, -5],
+                axis: false,
+                showCopyright: false,
+                showNavigation: false
+            });
+            const pA1 = board1.create('point', [-4, -1], { visible: false });
+            const pA2 = board1.create('point', [4, -1], { visible: false });
+            const lineA = board1.create('line', [pA1, pA2], { strokeColor: 'blue', strokeWidth: 2, name: 'a', withLabel: true });
+
+            const ptM = board1.create('point', [0, 2], { name: 'M', color: 'red', fixed: true });
+            const sliderAngle = board1.create('slider', [[-4, -3.5], [2, -3.5], [-45, 0, 45]], { name: 'Góc xoay' });
+
+            const pB = board1.create('point', [
+                function() { return 3 * Math.cos(sliderAngle.Value() * Math.PI / 180); },
+                function() { return 2 + 3 * Math.sin(sliderAngle.Value() * Math.PI / 180); }
+            ], { visible: false });
+
+            const lineB = board1.create('line', [ptM, pB], { strokeColor: 'green', strokeWidth: 2, name: 'b', withLabel: true });
+
+            board1.create('text', [-4.5, 4, function() {
+                const ang = Math.round(sliderAngle.Value());
+                if (ang === 0) {
+                    return '<span class="text-emerald-600 font-bold text-sm"><i class="fas fa-check-circle"></i> b // a (Đã tìm thấy đường song song duy nhất!)</span>';
+                } else {
+                    return '<span class="text-slate-600">Đường b cắt đường a. Xoay góc về 0°...</span>';
+                }
+            }], { fontSize: 12 });
+
+
+            // BOARD 2: Ziczac Kẻ đường phụ
+            board2 = JXG.JSXGraph.initBoard('jxgbox2', {
+                boundingbox: [-1, 5, 6, -1],
+                axis: false,
+                showCopyright: false,
+                showNavigation: false
+            });
+
+            const pA = board2.create('point', [0, 4], { name: 'A', fixed: true, color: 'blue' });
+            const pAx = board2.create('point', [5, 4], { name: 'x', fixed: true, color: 'blue' });
+            const rayAx = board2.create('line', [pA, pAx], { straightFirst: false, straightLast: false, strokeColor: 'blue', strokeWidth: 2 });
+
+            const pB = board2.create('point', [0, 0], { name: 'B', fixed: true, color: 'blue' });
+            const pBy = board2.create('point', [5, 0], { name: 'y', fixed: true, color: 'blue' });
+            const rayBy = board2.create('line', [pB, pBy], { straightFirst: false, straightLast: false, strokeColor: 'blue', strokeWidth: 2 });
+
+            const pC = board2.create('point', [2, 2], { name: 'C', fixed: true, color: 'red' });
+            board2.create('line', [pA, pC], { straightFirst: false, straightLast: false, strokeColor: 'slate', strokeWidth: 2 });
+            board2.create('line', [pB, pC], { straightFirst: false, straightLast: false, strokeColor: 'slate', strokeWidth: 2 });
+
+            const pOz = board2.create('point', [5, 2], { visible: false });
+            auxLine = board2.create('line', [pC, pOz], { straightFirst: false, straightLast: false, strokeColor: 'red', strokeWidth: 2, dash: 2, visible: false });
+
+            board2.create('text', [0.2, 2.3, 'C = 70°'], { fontSize: 12, style: 1 });
+
+
+            // BOARD 3: Từ song song đến vuông góc
+            const board3 = JXG.JSXGraph.initBoard('jxgbox3', {
+                boundingbox: [-5, 5, 5, -5],
+                axis: false,
+                showCopyright: false,
+                showNavigation: false
+            });
+
+            const l1 = board3.create('line', [[-4, 2], [4, 2]], { strokeColor: 'blue', fixed: true, name: 'a', withLabel: true });
+            const l2 = board3.create('line', [[-4, -2], [4, -2]], { strokeColor: 'blue', fixed: true, name: 'b', withLabel: true });
+
+            const pC1 = board3.create('point', [0, 4], { name: 'c1', visible: false });
+            const pC2 = board3.create('point', [0, -4], { name: 'c2', visible: false });
+            const lineC = board3.create('line', [pC1, pC2], { strokeColor: 'red', strokeWidth: 2, name: 'c', withLabel: true });
+
+            board3.create('text', [-4.5, -4, 'c ⊥ a ⇒ c ⊥ b'], { fontSize: 13, color: 'indigo', style: 1 });
+        });
+
+        function toggleAuxLine() {
+            showAux = !showAux;
+            auxLine.setAttribute({ visible: showAux });
+            const btn = document.getElementById('btnAux');
+            if (showAux) {
+                btn.innerHTML = '<i class="fas fa-eye-slash mr-1"></i> Ẩn Đường Phụ Oz';
+                btn.classList.remove('bg-emerald-600', 'hover:bg-emerald-700');
+                btn.classList.add('bg-slate-600', 'hover:bg-slate-700');
+            } else {
+                btn.innerHTML = '<i class="fas fa-plus-circle mr-1"></i> Kẻ Đường Phụ Oz';
+                btn.classList.remove('bg-slate-600', 'hover:bg-slate-700');
+                btn.classList.add('bg-emerald-600', 'hover:bg-emerald-700');
+            }
+            board2.update();
+        }
+
+        // 4. QUẢN LÝ BÀI TẬP VÀ GỬI KẾT QUẢ VỀ GOOGLE APPS SCRIPT
+        const startTime = new Date();
+
+        function nopBaiTap() {
+            const hoTen = document.getElementById('hoTenInput').value.trim();
+            if (!hoTen) {
+                alert('Vui lòng nhập Họ và Tên học sinh trước khi nộp bài!');
+                return;
+            }
+
+            const answers = { q1: 'B', q2: 'B', q3: 'B', q4: 'A', q5: 'B' };
+            let diemNum = 0;
+            let cauSai = [];
+
+            for (let i = 1; i <= 5; i++) {
+                const qVal = document.querySelector('input[name="q' + i + '"]:checked');
+                if (qVal && qVal.value === answers['q' + i]) {
+                    diemNum += 2;
+                } else {
+                    const selected = qVal ? qVal.value : 'Chưa chọn';
+                    cauSai.push('Câu ' + i + ' (Chọn: ' + selected + ', Đáp án: ' + answers['q' + i] + ')');
+                }
+            }
+
+            const endTime = new Date();
+            const timeDiffSec = Math.round((endTime - startTime) / 1000);
+            const thoiGianStr = Math.floor(timeDiffSec / 60) + ' phút ' + (timeDiffSec % 60) + ' giây';
+            const cauSaiStr = cauSai.length > 0 ? cauSai.join('; ') : 'Không làm sai câu nào';
+
+            const payload = {
+                hoTen: hoTen,
+                maDe: 'buoi11-euclid-song-song',
+                diem: diemNum + '/10',
+                thoiGian: thoiGianStr,
+                cauSai: cauSaiStr
+            };
+
+            const btnSubmit = document.getElementById('btnSubmitQuiz');
+            btnSubmit.disabled = true;
+            btnSubmit.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Đang nộp kết quả...';
+
+            const scriptUrl = 'https://script.google.com/macros/s/AKfycbzY7b7h4OwvhXuK5Vs6hl-aD88BPnAiAKbU5lfJobby0D4nzbIJVKT4n0AKCpAGoK0nZA/exec';
+
+            fetch(scriptUrl, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            }).then(() => {
+                showQuizResult(diemNum, thoiGianStr, cauSaiStr);
+            }).catch(error => {
+                console.error('Lỗi gửi kết quả:', error);
+                showQuizResult(diemNum, thoiGianStr, cauSaiStr);
+            });
+        }
+
+        function showQuizResult(diem, thoiGian, cauSai) {
+            const resDiv = document.getElementById('quizResult');
+            resDiv.classList.remove('hidden', 'bg-red-50', 'bg-emerald-50', 'border-red-200', 'border-emerald-200');
+            
+            if (diem >= 8) {
+                resDiv.classList.add('bg-emerald-50', 'border-emerald-200', 'text-emerald-800');
+            } else {
+                resDiv.classList.add('bg-amber-50', 'border-amber-200', 'text-amber-800');
+            }
+
+            resDiv.innerHTML = `
+                <div class="font-bold text-base mb-1"><i class="fas fa-check-circle"></i> Kết quả bài đánh giá: ${diem}/10 Điểm</div>
+                <p><strong>Thời gian hoàn thành:</strong> ${thoiGian}</p>
+                <p><strong>Chi tiết ghi nhận:</strong> ${cauSai}</p>
+                <p class="mt-2 text-xs italic text-slate-500">* Kết quả đã được lưu trữ thành công trên hệ thống Google Sheets giáo viên.</p>
+            `;
+
+            const btnSubmit = document.getElementById('btnSubmitQuiz');
+            btnSubmit.innerHTML = '<i class="fas fa-check"></i> Đã Nộp Bài Thành Công';
+            btnSubmit.classList.remove('bg-indigo-600', 'hover:bg-indigo-700');
+            btnSubmit.classList.add('bg-slate-500');
+        }
+    </script>
+</body>
+</html>
