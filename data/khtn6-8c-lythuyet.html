@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thí nghiệm: Tách sắc tố lá cây bằng sắc ký giấy - KHTN 6</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- MathJax CDN -->
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <!-- JSXGraph CDN -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraph.css" />
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraph.js"></script>
+
+    <style>
+        @media print {
+            .no-print { display: none !important; }
+            body { background: white !important; color: black !important; }
+            .shadow-xl, .shadow-md, .shadow-sm { box-shadow: none !important; }
+            .border { border-color: #ccc !important; }
+        }
+        .jxgbox { border-radius: 0.75rem; overflow: hidden; }
+    </style>
+</head>
+<body class="bg-slate-100 text-slate-800 font-sans min-h-screen flex flex-col justify-between selection:bg-emerald-200">
+
+    <!-- HEADER / NAVIGATION -->
+    <header class="bg-white border-b border-slate-200 shadow-sm sticky top-0 z-40 print:relative">
+        <div class="max-w-6xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-4">
+            <!-- Logos -->
+            <div class="flex items-center space-x-3">
+                <img src="https://firebasestorage.googleapis.com/v0/b/link-anh-web.firebasestorage.app/o/ttbdvh.jpg?alt=media&token=f270aa9b-a2bc-48e8-8910-80742b542615" 
+                     alt="Logo Trung tâm" class="h-12 w-auto object-contain rounded border border-slate-100">
+                <div class="h-8 w-px bg-slate-300"></div>
+                <img src="https://hcmus.edu.vn/wp-content/uploads/2023/04/Logo-chinh-e1681638380305.png" 
+                     alt="Logo HCMUS" class="h-12 w-auto object-contain">
+            </div>
+
+            <!-- Title Header -->
+            <div class="text-right flex-1 min-w-[250px]">
+                <span class="inline-block bg-emerald-100 text-emerald-800 text-xs font-semibold px-2.5 py-0.5 rounded-full mb-1">
+                    <i class="fas fa-flask mr-1"></i> Khoa Học Tự Nhiên 6
+                </span>
+                <h1 class="text-lg md:text-xl font-bold text-slate-900 leading-tight">
+                    TÁCH SẮC TỐ LÁ CÂY BẰNG SẮC KÝ GIẤY
+                </h1>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT CONTAINER -->
+    <main class="max-w-6xl mx-auto px-4 py-8 flex-grow space-y-8">
+
+        <!-- INTRO HERO BANNER -->
+        <div class="bg-gradient-to-r from-emerald-600 via-teal-600 to-indigo-600 rounded-2xl p-6 md:p-8 text-white shadow-lg relative overflow-hidden">
+            <div class="relative z-10 space-y-3">
+                <div class="flex items-center space-x-2 text-emerald-200 text-sm font-medium">
+                    <i class="fas fa-leaf"></i>
+                    <span>Thí nghiệm sinh học & hóa học thực hành</span>
+                </div>
+                <h2 class="text-2xl md:text-3xl font-extrabold">Khám Phá Sắc Tố Ẩn Trong Lá Cây</h2>
+                <p class="text-emerald-50 text-sm md:text-base max-w-3xl leading-relaxed">
+                    Đây là thí nghiệm sinh động giúp học sinh THCS quan sát các dải màu sắc tố khác nhau (Chlorophyll a, b, Carotene, Xanthophyll) được tách ra từ lá dứa hoặc lá ngót nhờ phương pháp sắc ký giấy.
+                </p>
+            </div>
+            <i class="fas fa-seedling absolute -right-6 -bottom-6 text-9xl text-white/10 pointer-events-none"></i>
+        </div>
+
+        <!-- SECTION I: MỤC TIÊU -->
+        <section class="bg-white rounded-xl p-6 shadow-sm border border-slate-200">
+            <h3 class="text-xl font-bold text-slate-900 flex items-center mb-4 text-emerald-600">
+                <i class="fas fa-bullseye text-2xl mr-3"></i> I. Mục tiêu thí nghiệm
+            </h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="bg-emerald-50 border border-emerald-100 rounded-lg p-4 flex items-start space-x-3">
+                    <div class="bg-emerald-500 text-white p-2 rounded-lg mt-1 shrink-0"><i class="fas fa-eye"></i></div>
+                    <div>
+                        <h4 class="font-bold text-emerald-900 text-sm">Quan sát thực tế</h4>
+                        <p class="text-slate-600 text-xs mt-1">Nhận biết lá cây không chỉ có một màu xanh đơn điệu mà chứa nhiều loại sắc tố.</p>
+                    </div>
+                </div>
+                <div class="bg-teal-50 border border-teal-100 rounded-lg p-4 flex items-start space-x-3">
+                    <div class="bg-teal-500 text-white p-2 rounded-lg mt-1 shrink-0"><i class="fas fa-layer-group"></i></div>
+                    <div>
+                        <h4 class="font-bold text-teal-900 text-sm">Phân loại sắc tố</h4>
+                        <p class="text-slate-600 text-xs mt-1">Phân biệt các nhóm sắc tố chính: Chlorophyll a, b, Carotene, Xanthophyll.</p>
+                    </div>
+                </div>
+                <div class="bg-indigo-50 border border-indigo-100 rounded-lg p-4 flex items-start space-x-3">
+                    <div class="bg-indigo-500 text-white p-2 rounded-lg mt-1 shrink-0"><i class="fas fa-vial"></i></div>
+                    <div>
+                        <h4 class="font-bold text-indigo-900 text-sm">Ứng dụng phương pháp</h4>
+                        <p class="text-slate-600 text-xs mt-1">Hiểu nguyên lý cơ bản của kỹ thuật sắc ký giấy trong đời sống và nghiên cứu.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-4 inline-flex items-center text-xs font-semibold bg-amber-100 text-amber-800 px-3 py-1 rounded-full">
+                <i class="far fa-clock mr-1.5"></i> Thời gian thực hiện: 20 – 30 phút (Dành cho nhóm 4–5 học sinh)
+            </div>
+        </section>
+
+        <!-- SECTION II & III: CHUẨN BỊ DỤNG CỤ & NGUYÊN LIỆU -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Dụng cụ -->
+            <section class="bg-white rounded-xl p-6 shadow-sm border border-slate-200">
+                <h3 class="text-lg font-bold text-slate-900 flex items-center mb-4 text-indigo-600">
+                    <i class="fas fa-tools mr-2"></i> II. Dụng cụ chuẩn bị
+                </h3>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-sm text-left border-collapse">
+                        <thead>
+                            <tr class="bg-slate-100 text-slate-700 font-semibold border-b">
+                                <th class="p-2.5">Dụng cụ</th>
+                                <th class="p-2.5">Quy cách</th>
+                                <th class="p-2.5 text-center">Số lượng</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-100">
+                            <tr><td class="p-2.5 font-medium">Cốc thủy tinh</td><td class="p-2.5 text-slate-500">100–250 mL</td><td class="p-2.5 text-center">1</td></tr>
+                            <tr><td class="p-2.5 font-medium">Cối và chày nhỏ</td><td class="p-2.5 text-slate-500">Sứ hoặc thủy tinh</td><td class="p-2.5 text-center">1</td></tr>
+                            <tr><td class="p-2.5 font-medium">Giấy sắc ký / Lọc cà phê</td><td class="p-2.5 text-slate-500">15 × 2 cm</td><td class="p-2.5 text-center">1–2 dải</td></tr>
+                            <tr><td class="p-2.5 font-medium">Kéo & Bút chì HB</td><td class="p-2.5 text-slate-500">Kéo nhỏ, bút chì kẻ vạch</td><td class="p-2.5 text-center">1 cái/loại</td></tr>
+                            <tr><td class="p-2.5 font-medium">Kẹp giấy & Ống nhỏ giọt</td><td class="p-2.5 text-slate-500">Hoặc tăm tre</td><td class="p-2.5 text-center">1 cái/loại</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Nguyên liệu -->
+            <section class="bg-white rounded-xl p-6 shadow-sm border border-slate-200">
+                <h3 class="text-lg font-bold text-slate-900 flex items-center mb-4 text-emerald-600">
+                    <i class="fas fa-mortar-pestle mr-2"></i> III. Nguyên liệu thí nghiệm
+                </h3>
+                <div class="space-y-3">
+                    <div class="p-3 bg-slate-50 rounded-lg flex justify-between items-center border border-slate-200">
+                        <span class="font-semibold text-slate-700"><i class="fas fa-leaf text-emerald-500 mr-2"></i>Lá dứa hoặc lá ngót tươi</span>
+                        <span class="text-xs bg-emerald-100 text-emerald-800 font-bold px-2 py-1 rounded">3–5 g (3–5 lá)</span>
+                    </div>
+                    <div class="p-3 bg-slate-50 rounded-lg flex justify-between items-center border border-slate-200">
+                        <span class="font-semibold text-slate-700"><i class="fas fa-wine-bottle text-purple-500 mr-2"></i>Cồn thực phẩm (70–90%)</span>
+                        <span class="text-xs bg-purple-100 text-purple-800 font-bold px-2 py-1 rounded">10 mL</span>
+                    </div>
+                    <div class="p-3 bg-slate-50 rounded-lg flex justify-between items-center border border-slate-200">
+                        <span class="font-semibold text-slate-700"><i class="fas fa-tint text-blue-500 mr-2"></i>Nước sạch</span>
+                        <span class="text-xs bg-blue-100 text-blue-800 font-bold px-2 py-1 rounded">5 mL (nếu cần)</span>
+                    </div>
+
+                    <div class="p-3 bg-rose-50 border-l-4 border-rose-500 text-rose-800 text-xs rounded-r-lg mt-2">
+                        <p class="font-bold mb-1"><i class="fas fa-exclamation-triangle mr-1"></i> CẢNH BÁO AN TOÀN:</p>
+                        Cồn chỉ dùng để chiết sắc tố và phải có giáo viên giám sát. Tuyệt đối không dùng gần nguồn lửa hoặc bếp cồn.
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- INTERACTIVE JSXGRAPH SIMULATION -->
+        <section class="bg-white rounded-xl p-6 shadow-sm border border-slate-200 space-y-4">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-2">
+                <div>
+                    <h3 class="text-lg font-bold text-slate-900 flex items-center text-teal-600">
+                        <i class="fas fa-play-circle mr-2"></i> Mô phỏng trực quan sắc ký giấy (JSXGraph)
+                    </h3>
+                    <p class="text-xs text-slate-500">Kéo thanh trượt Thời gian để xem quá trình các sắc tố tách khỏi vạch xuất phát.</p>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <button onclick="startSimulation()" class="bg-emerald-600 text-white text-xs px-3 py-1.5 rounded-lg hover:bg-emerald-700 shadow-sm transition">
+                        <i class="fas fa-play mr-1"></i> Tự động chạy
+                    </button>
+                    <button onclick="resetSimulation()" class="bg-slate-200 text-slate-700 text-xs px-3 py-1.5 rounded-lg hover:bg-slate-300 transition">
+                        <i class="fas fa-undo mr-1"></i> Đặt lại
+                    </button>
+                </div>
+            </div>
+
+            <!-- JSXGraph Container -->
+            <div id="jxgbox" class="jxgbox w-full h-[380px] bg-slate-50 border border-slate-200"></div>
+        </section>
+
+        <!-- SECTION IV - VII: QUY TRÌNH TIẾN HÀNH -->
+        <section class="bg-white rounded-xl p-6 shadow-sm border border-slate-200">
+            <h3 class="text-xl font-bold text-slate-900 flex items-center mb-6 text-amber-600">
+                <i class="fas fa-list-ol mr-3"></i> Quy trình thực hiện thí nghiệm
+            </h3>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Bước 1 & 2 -->
+                <div class="space-y-4">
+                    <div class="p-4 rounded-lg bg-amber-50/60 border border-amber-200 relative">
+                        <span class="absolute -top-3 left-3 bg-amber-500 text-white font-bold text-xs px-2 py-0.5 rounded">Bước 1</span>
+                        <h4 class="font-bold text-amber-900 text-base mt-1">Chiết sắc tố lá cây</h4>
+                        <ol class="list-disc list-inside text-sm text-slate-700 space-y-1 mt-2">
+                            <li>Cắt nhỏ 3–5g lá cây (lá ngót/lá dứa) cho vào cối.</li>
+                            <li>Thêm khoảng 10 mL cồn thực phẩm 70–90%.</li>
+                            <li>Nghiền đều tay trong 2–3 phút đến khi dung dịch chuyển màu xanh đậm.</li>
+                            <li>Lọc qua giấy lọc hoặc vải mỏng để thu dịch chiết.</li>
+                        </ol>
+                    </div>
+
+                    <div class="p-4 rounded-lg bg-emerald-50/60 border border-emerald-200 relative">
+                        <span class="absolute -top-3 left-3 bg-emerald-500 text-white font-bold text-xs px-2 py-0.5 rounded">Bước 2</span>
+                        <h4 class="font-bold text-emerald-900 text-base mt-1">Chuẩn bị giấy sắc ký</h4>
+                        <ol class="list-disc list-inside text-sm text-slate-700 space-y-1 mt-2">
+                            <li>Cắt dải giấy kích thước 15 cm × 2 cm.</li>
+                            <li>Kẻ 1 đường thẳng bằng bút chì cách mép dưới 2 cm (Vạch xuất phát).</li>
+                            <li>Dùng tăm tre chấm 1 giọt nhỏ dịch chiết lên chính giữa vạch chì.</li>
+                            <li>Đợi khô rồi chấm đè lại 3–5 lần để tăng mật độ sắc tố.</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <!-- Bước 3 & 4 -->
+                <div class="space-y-4">
+                    <div class="p-4 rounded-lg bg-blue-50/60 border border-blue-200 relative">
+                        <span class="absolute -top-3 left-3 bg-blue-500 text-white font-bold text-xs px-2 py-0.5 rounded">Bước 3</span>
+                        <h4 class="font-bold text-blue-900 text-base mt-1">Chuẩn bị dung môi chạy sắc ký</h4>
+                        <p class="text-sm text-slate-700 mt-2">Pha dung môi đơn giản cho trường học:</p>
+                        <div class="bg-white p-2.5 rounded border border-blue-100 text-xs font-mono mt-1 text-blue-900">
+                            Cồn thực phẩm: 15 mL (Hoặc Cồn 70%: 10 mL + Nước: 5 mL)
+                        </div>
+                        <p class="text-xs text-rose-600 font-medium mt-1">⚠️ Dung môi chỉ rót vào cốc cao khoảng 5 mm (không ngập vạch chấm màu).</p>
+                    </div>
+
+                    <div class="p-4 rounded-lg bg-indigo-50/60 border border-indigo-200 relative">
+                        <span class="absolute -top-3 left-3 bg-indigo-500 text-white font-bold text-xs px-2 py-0.5 rounded">Bước 4</span>
+                        <h4 class="font-bold text-indigo-900 text-base mt-1">Chạy sắc ký</h4>
+                        <ol class="list-disc list-inside text-sm text-slate-700 space-y-1 mt-2">
+                            <li>Thả dải giấy vào cốc sao cho mép dưới chạm vào dung môi.</li>
+                            <li>Cố định giấy bằng kẹp giấy ở miệng cốc.</li>
+                            <li>Đậy hờ miệng cốc để hạn chế dung môi bay hơi.</li>
+                            <li>Giữ yên cốc và chờ khoảng 10–20 phút để quan sát hiện tượng.</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION VIII & IX: KẾT QUẢ MONG ĐỢI & GIẢI THÍCH -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Kết quả mong đợi -->
+            <section class="bg-white rounded-xl p-6 shadow-sm border border-slate-200">
+                <h3 class="text-lg font-bold text-slate-900 flex items-center mb-4 text-pink-600">
+                    <i class="fas fa-palette mr-2"></i> VIII. Kết quả mong đợi
+                </h3>
+                <p class="text-xs text-slate-500 mb-3">Các dải sắc tố tách ra theo thứ tự từ trên xuống dưới trên dải giấy:</p>
+                <div class="space-y-2">
+                    <div class="flex items-center justify-between p-2.5 bg-orange-50 border border-orange-200 rounded-lg">
+                        <div class="flex items-center space-x-2">
+                            <span class="w-4 h-4 rounded-full bg-orange-500 inline-block"></span>
+                            <span class="font-bold text-sm text-slate-800">Carotene</span>
+                        </div>
+                        <span class="text-xs font-semibold text-orange-700 bg-orange-100 px-2 py-0.5 rounded">Màu vàng cam (Nằm trên cùng)</span>
+                    </div>
+                    <div class="flex items-center justify-between p-2.5 bg-yellow-50 border border-yellow-200 rounded-lg">
+                        <div class="flex items-center space-x-2">
+                            <span class="w-4 h-4 rounded-full bg-yellow-400 inline-block"></span>
+                            <span class="font-bold text-sm text-slate-800">Xanthophyll</span>
+                        </div>
+                        <span class="text-xs font-semibold text-yellow-700 bg-yellow-100 px-2 py-0.5 rounded">Màu vàng</span>
+                    </div>
+                    <div class="flex items-center justify-between p-2.5 bg-emerald-50 border border-emerald-200 rounded-lg">
+                        <div class="flex items-center space-x-2">
+                            <span class="w-4 h-4 rounded-full bg-emerald-500 inline-block"></span>
+                            <span class="font-bold text-sm text-slate-800">Chlorophyll a</span>
+                        </div>
+                        <span class="text-xs font-semibold text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded">Màu xanh lục đậm/lam</span>
+                    </div>
+                    <div class="flex items-center justify-between p-2.5 bg-green-50 border border-green-200 rounded-lg">
+                        <div class="flex items-center space-x-2">
+                            <span class="w-4 h-4 rounded-full bg-green-300 border border-green-500 inline-block"></span>
+                            <span class="font-bold text-sm text-slate-800">Chlorophyll b</span>
+                        </div>
+                        <span class="text-xs font-semibold text-green-700 bg-green-100 px-2 py-0.5 rounded">Màu xanh lục nhạt</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Giải thích cho HS lớp 6 -->
+            <section class="bg-white rounded-xl p-6 shadow-sm border border-slate-200">
+                <h3 class="text-lg font-bold text-slate-900 flex items-center mb-4 text-blue-600">
+                    <i class="fas fa-comment-dots mr-2"></i> IX. Giải thích cho học sinh lớp 6
+                </h3>
+                <div class="bg-blue-50 border border-blue-200 rounded-xl p-4 text-sm text-blue-900 leading-relaxed space-y-3">
+                    <p class="font-semibold text-base">💬 Lời giảng gợi ý:</p>
+                    <blockquote class="italic border-l-4 border-blue-400 pl-3">
+                        "Trong lá cây không chỉ có một chất màu xanh mà có nhiều chất màu khác nhau. Khi dung môi thấm dâng lên giấy, mỗi chất màu sẽ di chuyển nhanh hay chậm khác nhau, vì vậy chúng tách ra thành các dải màu riêng biệt."
+                    </blockquote>
+                    <div class="text-xs text-slate-600 bg-white p-2.5 rounded border border-blue-100">
+                        <i class="fas fa-info-circle text-blue-500 mr-1"></i> <strong>Lưu ý sư phạm:</strong> Đối với lớp 6, không cần đi sâu vào khái niệm cấu trúc phân tử, độ phân cực hay tương tác mao dẫn phức tạp.
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- SECTION X & XI: BẢNG SO SÁNH & ĐÁNH GIÁ -->
+        <section class="bg-white rounded-xl p-6 shadow-sm border border-slate-200 space-y-6">
+            <h3 class="text-xl font-bold text-slate-900 flex items-center text-purple-600">
+                <i class="fas fa-balance-scale mr-3"></i> X & XI. So sánh & Đánh giá phương pháp
+            </h3>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Bảng 1: Lá dứa vs Lá ngót -->
+                <div>
+                    <h4 class="font-bold text-slate-800 text-sm mb-2 flex items-center">
+                        <i class="fas fa-leaf text-emerald-500 mr-2"></i> So sánh Lá Dứa và Lá Ngót
+                    </h4>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-xs text-left border border-slate-200 rounded-lg overflow-hidden">
+                            <thead class="bg-slate-100 text-slate-700 font-bold">
+                                <tr>
+                                    <th class="p-2 border-b">Tiêu chí</th>
+                                    <th class="p-2 border-b text-center">Lá dứa</th>
+                                    <th class="p-2 border-b text-center">Lá ngót</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-100">
+                                <tr><td class="p-2 font-medium">Dễ kiếm</td><td class="p-2 text-center text-amber-500">⭐⭐⭐⭐</td><td class="p-2 text-center text-amber-500">⭐⭐⭐⭐⭐</td></tr>
+                                <tr><td class="p-2 font-medium">Nhiều chlorophyll</td><td class="p-2 text-center text-amber-500">⭐⭐⭐⭐</td><td class="p-2 text-center text-amber-500">⭐⭐⭐⭐⭐</td></tr>
+                                <tr><td class="p-2 font-medium">Màu sắc rõ</td><td class="p-2 text-center text-amber-500">⭐⭐⭐⭐</td><td class="p-2 text-center text-amber-500">⭐⭐⭐⭐</td></tr>
+                                <tr><td class="p-2 font-medium">Dễ nghiền</td><td class="p-2 text-center text-amber-500">⭐⭐⭐</td><td class="p-2 text-center text-amber-500">⭐⭐⭐⭐⭐</td></tr>
+                                <tr><td class="p-2 font-medium bg-emerald-50">Phù hợp lớp 6</td><td class="p-2 text-center text-amber-500 bg-emerald-50">⭐⭐⭐⭐</td><td class="p-2 text-center text-amber-500 bg-emerald-50">⭐⭐⭐⭐⭐</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p class="text-xs text-emerald-700 mt-2 font-semibold"><i class="fas fa-check-circle mr-1"></i>Khuyên dùng: Lá ngót dễ nghiền hơn và cho dịch chiết đậm màu hơn.</p>
+                </div>
+
+                <!-- Bảng 2: Mực bút lông vs Lá cây -->
+                <div>
+                    <h4 class="font-bold text-slate-800 text-sm mb-2 flex items-center">
+                        <i class="fas fa-pen-nib text-indigo-500 mr-2"></i> Mực bút lông vs Sắc tố lá cây
+                    </h4>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-xs text-left border border-slate-200 rounded-lg overflow-hidden">
+                            <thead class="bg-slate-100 text-slate-700 font-bold">
+                                <tr>
+                                    <th class="p-2 border-b">Tiêu chí</th>
+                                    <th class="p-2 border-b text-center">Mực bút lông</th>
+                                    <th class="p-2 border-b text-center">Sắc tố lá cây</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-100">
+                                <tr><td class="p-2 font-medium">Chuẩn bị</td><td class="p-2 text-center">Rất đơn giản</td><td class="p-2 text-center">Phức tạp hơn</td></tr>
+                                <tr><td class="p-2 font-medium">Thời gian</td><td class="p-2 text-center">10 phút</td><td class="p-2 text-center">20–30 phút</td></tr>
+                                <tr><td class="p-2 font-medium">Tỷ lệ thành công</td><td class="p-2 text-center">Rất cao</td><td class="p-2 text-center">Trung bình đến cao</td></tr>
+                                <tr><td class="p-2 font-medium">Màu sắc</td><td class="p-2 text-center">Rất rõ</td><td class="p-2 text-center">Phụ thuộc kỹ thuật</td></tr>
+                                <tr><td class="p-2 font-medium bg-indigo-50">Phù hợp KHTN 6</td><td class="p-2 text-center text-amber-500 bg-indigo-50">⭐⭐⭐⭐⭐</td><td class="p-2 text-center text-amber-500 bg-indigo-50">⭐⭐⭐⭐</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Expandable Hint/Gợi ý giảng dạy -->
+            <details class="bg-slate-50 border border-slate-200 rounded-lg p-4 cursor-pointer group">
+                <summary class="font-bold text-slate-800 text-sm flex items-center justify-between">
+                    <span><i class="fas fa-lightbulb text-amber-500 mr-2"></i> Gợi ý sư phạm cho giáo viên (Bấm để xem)</span>
+                    <i class="fas fa-chevron-down text-slate-400 group-open:rotate-180 transition-transform"></i>
+                </summary>
+                <p class="text-xs text-slate-600 mt-3 leading-relaxed">
+                    Nếu mục tiêu bài học chỉ đơn thuần giới thiệu <strong>phương pháp tách chất</strong>, nên dùng mực bút lông vì thao tác nhanh và tỉ lệ thành công 100%. Nếu bài học hướng tới <strong>liên hệ sinh học và quá trình quang hợp</strong>, hãy sử dụng lá ngót hoặc lá dứa như bài mở rộng hoặc giáo viên làm mẫu biểu diễn.
+                </p>
+            </details>
+        </section>
+
+        <!-- SECTION: QUIZ TRẮC NGHIỆM ĐÁNH GIÁ NĂNG LỰC -->
+        <section class="bg-white rounded-2xl p-6 md:p-8 shadow-md border border-slate-200 space-y-6">
+            <div class="border-b border-slate-200 pb-4">
+                <div class="flex items-center space-x-2 text-indigo-600 font-bold text-xs uppercase tracking-wider mb-1">
+                    <i class="fas fa-clipboard-check"></i> Kiểm tra kiến thức
+                </div>
+                <h3 class="text-2xl font-extrabold text-slate-900">BÀI TẬP ĐÁNH GIÁ NĂNG LỰC TẠI LỚP</h3>
+                <p class="text-xs text-slate-500 mt-1">Hoàn thành 5 câu hỏi trắc nghiệm dưới đây để củng cố bài học. Kết quả sẽ được lưu trực tiếp vào hệ thống.</p>
+            </div>
+
+            <!-- Form Thông tin Học sinh -->
+            <form id="quizForm" onsubmit="submitQuiz(event)" class="space-y-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 bg-slate-50 p-4 rounded-xl border border-slate-200">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 mb-1">Họ và tên học sinh <span class="text-rose-500">*</span></label>
+                        <input type="text" id="studentName" required placeholder="Ví dụ: Nguyễn Văn An" 
+                               class="w-full px-3 py-2 text-sm rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 mb-1">Lớp / Trường <span class="text-rose-500">*</span></label>
+                        <input type="text" id="studentClass" required placeholder="Ví dụ: Lớp 6A1 - THCS Nguyễn Du" 
+                               class="w-full px-3 py-2 text-sm rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                    </div>
+                </div>
+
+                <!-- Danh sách 5 câu hỏi -->
+                <div class="space-y-6">
+                    <!-- Câu 1 -->
+                    <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-3">
+                        <p class="font-bold text-sm text-slate-800">Câu 1: Sắc tố nào di chuyển xa nhất và nằm ở dải trên cùng của dải giấy sắc ký?</p>
+                        <div class="space-y-2 text-sm">
+                            <label class="flex items-center space-x-2 p-2 bg-white rounded-lg border border-slate-200 hover:bg-indigo-50 cursor-pointer">
+                                <input type="radio" name="q1" value="A" required class="text-indigo-600"> <span>A. Chlorophyll a</span>
+                            </label>
+                            <label class="flex items-center space-x-2 p-2 bg-white rounded-lg border border-slate-200 hover:bg-indigo-50 cursor-pointer">
+                                <input type="radio" name="q1" value="B" class="text-indigo-600"> <span>B. Chlorophyll b</span>
+                            </label>
+                            <label class="flex items-center space-x-2 p-2 bg-white rounded-lg border border-slate-200 hover:bg-indigo-50 cursor-pointer">
+                                <input type="radio" name="q1" value="C" class="text-indigo-600"> <span>C. Carotene (Màu vàng cam)</span>
+                            </label>
+                            <label class="flex items-center space-x-2 p-2 bg-white rounded-lg border border-slate-200 hover:bg-indigo-50 cursor-pointer">
+                                <input type="radio" name="q1" value="D" class="text-indigo-600"> <span>D. Xanthophyll</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Câu 2 -->
+                    <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-3">
+                        <p class="font-bold text-sm text-slate-800">Câu 2: Vì sao lá ngót được khuyến nghị sử dụng cho học sinh lớp 6 hơn lá dứa?</p>
+                        <div class="space-y-2 text-sm">
+                            <label class="flex items-center space-x-2 p-2 bg-white rounded-lg border border-slate-200 hover:bg-indigo-50 cursor-pointer">
+                                <input type="radio" name="q2" value="A" required class="text-indigo-600"> <span>A. Lá ngót dễ nghiền hơn và cho dịch chiết đậm màu hơn</span>
+                            </label>
+                            <label class="flex items-center space-x-2 p-2 bg-white rounded-lg border border-slate-200 hover:bg-indigo-50 cursor-pointer">
+                                <input type="radio" name="q2" value="B" class="text-indigo-600"> <span>B. Lá dứa chứa độc tố không an toàn</span>
+                            </label>
+                            <label class="flex items-center space-x-2 p-2 bg-white rounded-lg border border-slate-200 hover:bg-indigo-50 cursor-pointer">
+                                <input type="radio" name="q2" value="C" class="text-indigo-600"> <span>C. Lá dứa không có chứa Chlorophyll</span>
+                            </label>
+                            <label class="flex items-center space-x-2 p-2 bg-white rounded-lg border border-slate-200 hover:bg-indigo-50 cursor-pointer">
+                                <input type="radio" name="q2" value="D" class="text-indigo-600"> <span>D. Lá ngót không cần dùng cồn để chiết</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Câu 3 -->
+                    <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-3">
+                        <p class="font-bold text-sm text-slate-800">Câu 3: Vai trò chính của cồn thực phẩm (70–90%) trong thí nghiệm này là gì?</p>
+                        <div class="space-y-2 text-sm">
+                            <label class="flex items-center space-x-2 p-2 bg-white rounded-lg border border-slate-200 hover:bg-indigo-50 cursor-pointer">
+                                <input type="radio" name="q3" value="A" required class="text-indigo-600"> <span>A. Làm cho lá cây biến đổi thành màu tím</span>
+                            </label>
+                            <label class="flex items-center space-x-2 p-2 bg-white rounded-lg border border-slate-200 hover:bg-indigo-50 cursor-pointer">
+                                <input type="radio" name="q3" value="B" class="text-indigo-600"> <span>B. Dùng làm dung môi hòa tan và chiết xuất sắc tố từ lá</span>
+                            </label>
+                            <label class="flex items-center space-x-2 p-2 bg-white rounded-lg border border-slate-200 hover:bg-indigo-50 cursor-pointer">
+                                <input type="radio" name="q3" value="C" class="text-indigo-600"> <span>C. Tăng lượng nước hòa tan trong cối</span>
+                            </label>
+                            <label class="flex items-center space-x-2 p-2 bg-white rounded-lg border border-slate-200 hover:bg-indigo-50 cursor-pointer">
+                                <input type="radio" name="q3" value="D" class="text-indigo-600"> <span>D. Khử trùng dụng cụ cối và chày</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Câu 4 -->
+                    <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-3">
+                        <p class="font-bold text-sm text-slate-800">Câu 4: Tại sao không được để dung môi ngập qua vạch chì chấm sắc tố trên giấy?</p>
+                        <div class="space-y-2 text-sm">
+                            <label class="flex items-center space-x-2 p-2 bg-white rounded-lg border border-slate-200 hover:bg-indigo-50 cursor-pointer">
+                                <input type="radio" name="q4" value="A" required class="text-indigo-600"> <span>A. Làm giấy sắc ký bị rách</span>
+                            </label>
+                            <label class="flex items-center space-x-2 p-2 bg-white rounded-lg border border-slate-200 hover:bg-indigo-50 cursor-pointer">
+                                <input type="radio" name="q4" value="B" class="text-indigo-600"> <span>B. Sắc tố sẽ tan hết ngay vào dung môi đáy cốc thay vì di chuyển theo dải giấy lên trên</span>
+                            </label>
+                            <label class="flex items-center space-x-2 p-2 bg-white rounded-lg border border-slate-200 hover:bg-indigo-50 cursor-pointer">
+                                <input type="radio" name="q4" value="C" class="text-indigo-600"> <span>C. Làm dung môi bị đổi màu xám</span>
+                            </label>
+                            <label class="flex items-center space-x-2 p-2 bg-white rounded-lg border border-slate-200 hover:bg-indigo-50 cursor-pointer">
+                                <input type="radio" name="q4" value="D" class="text-indigo-600"> <span>D. Làm cồn bốc hơi nhanh hơn</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Câu 5 -->
+                    <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-3">
+                        <p class="font-bold text-sm text-slate-800">Câu 5: Nguyên lý cốt lõi của phương pháp sắc ký giấy giúp tách các sắc tố là gì?</p>
+                        <div class="space-y-2 text-sm">
+                            <label class="flex items-center space-x-2 p-2 bg-white rounded-lg border border-slate-200 hover:bg-indigo-50 cursor-pointer">
+                                <input type="radio" name="q5" value="A" required class="text-indigo-600"> <span>A. Đốt cháy dung dịch để tạo màu</span>
+                            </label>
+                            <label class="flex items-center space-x-2 p-2 bg-white rounded-lg border border-slate-200 hover:bg-indigo-50 cursor-pointer">
+                                <input type="radio" name="q5" value="B" class="text-indigo-600"> <span>B. Các chất màu có tốc độ di chuyển nhanh / chậm khác nhau khi dung môi thấm qua giấy</span>
+                            </label>
+                            <label class="flex items-center space-x-2 p-2 bg-white rounded-lg border border-slate-200 hover:bg-indigo-50 cursor-pointer">
+                                <input type="radio" name="q5" value="C" class="text-indigo-600"> <span>C. Dùng nam hút các hạt sắc tố</span>
+                            </label>
+                            <label class="flex items-center space-x-2 p-2 bg-white rounded-lg border border-slate-200 hover:bg-indigo-50 cursor-pointer">
+                                <input type="radio" name="q5" value="D" class="text-indigo-600"> <span>D. Lọc phần bã dư thừa ra khỏi nước</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Submit Button & Result Alert -->
+                <div class="pt-4 flex flex-col items-center">
+                    <button type="submit" id="btnSubmitQuiz" 
+                            class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-8 py-3 rounded-xl shadow-lg transition transform active:scale-95 flex items-center text-sm">
+                        <i class="fas fa-paper-plane mr-2"></i> Nộp Bài Đánh Giá
+                    </button>
+                    <div id="quizResult" class="mt-4 text-center font-bold text-sm hidden w-full p-4 rounded-xl"></div>
+                </div>
+            </form>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-white border-t border-slate-200 py-6 mt-12 print:mt-4">
+        <div class="max-w-6xl mx-auto px-4 text-center text-xs text-slate-500 space-y-2">
+            <p class="font-semibold text-slate-700">
+                @ Bản quyền thuộc ThS. Đinh Quốc Tuấn - Mục đích phi lợi nhuận - Vì giáo dục.
+            </p>
+            <p>Trang web học thuật hỗ trợ giảng dạy Khoa học Tự nhiên 6 - Phát triển ứng dụng CNTT trong giáo dục.</p>
+        </div>
+    </footer>
+
+    <!-- PRINT BUTTON & SCRIPT PROVIDED -->
+    <button id="btn-print-doc" onclick="safePrint()" class="fixed bottom-5 right-5 bg-gray-900 text-white px-4 py-2 rounded-lg shadow-lg hover:bg-gray-700 print:hidden z-50 transition">
+        <i class="fas fa-print mr-2"></i> In Tài Liệu
+    </button>
+
+    <script>
+        function safePrint() {
+            const printBtn = document.getElementById('btn-print-doc');
+            printBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Đang chuẩn bị...';
+            
+            // Đảm bảo MathJax đã render xong mọi công thức trước khi gọi hộp thoại in
+            if (window.MathJax && window.MathJax.typesetPromise) {
+                MathJax.typesetPromise().then(() => {
+                    printBtn.innerHTML = '<i class="fas fa-print mr-2"></i> In Tài Liệu';
+                    window.print();
+                });
+            } else {
+                // Fallback nếu không có công thức toán
+                setTimeout(() => {
+                    printBtn.innerHTML = '<i class="fas fa-print mr-2"></i> In Tài Liệu';
+                    window.print();
+                }, 500); 
+            }
+        }
+    </script>
+
+    <!-- JSXGRAPH INTERACTIVE SETUP -->
+    <script>
+        var board = JXG.JSXGraph.initBoard('jxgbox', {
+            boundingbox: [-2, 10, 8, -1],
+            axis: false,
+            showCopyright: false,
+            showNavigation: false
+        });
+
+        // Vẽ Cốc Thủy Tinh
+        board.create('polygon', [[1, 0], [1, 8], [5, 8], [5, 0]], {
+            fillColor: 'none',
+            strokeColor: '#94a3b8',
+            strokeWidth: 3,
+            highlight: false
+        });
+
+        // Mặt dung môi (5mm)
+        board.create('polygon', [[1.1, 0.1], [1.1, 1], [4.9, 1], [4.9, 0.1]], {
+            fillColor: '#67e8f9',
+            fillOpacity: 0.3,
+            strokeColor: 'none',
+            highlight: false
+        });
+
+        // Dải giấy sắc ký
+        board.create('polygon', [[2.2, 0.5], [2.2, 9], [3.8, 9], [3.8, 0.5]], {
+            fillColor: '#f8fafc',
+            strokeColor: '#cbd5e1',
+            strokeWidth: 1,
+            highlight: false
+        });
+
+        // Vạch chì xuất phát (cách mép 2cm ~ y=2)
+        board.create('segment', [[2.2, 2], [3.8, 2]], {
+            strokeColor: '#64748b',
+            strokeWidth: 1,
+            dash: 2
+        });
+        board.create('text', [4, 2, 'Vạch xuất phát'], {fontSize: 10, color: '#64748b'});
+
+        // Thanh trượt thời gian (Chạy sắc ký)
+        var timeSlider = board.create('slider', [[0, -0.5], [5, -0.5], [0, 0, 1]], {
+            name: 'Thời gian',
+            snapWidth: 0.01
+        });
+
+        // Vị trí các dải màu động theo thanh trượt
+        // Carotene (Da cam - di chuyển xa nhất)
+        board.create('ellipse', [
+            function() { return [3, 2 + timeSlider.Value() * 5.5]; },
+            0.6,
+            function() { return 0.15 + timeSlider.Value() * 0.1; }
+        ], {fillColor: '#f97316', fillOpacity: 0.8, strokeColor: 'none'});
+
+        // Xanthophyll (Vàng)
+        board.create('ellipse', [
+            function() { return [3, 2 + timeSlider.Value() * 4.2]; },
+            0.6,
+            function() { return 0.15 + timeSlider.Value() * 0.1; }
+        ], {fillColor: '#facc15', fillOpacity: 0.8, strokeColor: 'none'});
+
+        // Chlorophyll a (Xanh lục đậm)
+        board.create('ellipse', [
+            function() { return [3, 2 + timeSlider.Value() * 2.8]; },
+            0.6,
+            function() { return 0.15 + timeSlider.Value() * 0.1; }
+        ], {fillColor: '#10b981', fillOpacity: 0.8, strokeColor: 'none'});
+
+        // Chlorophyll b (Xanh nhạt)
+        board.create('ellipse', [
+            function() { return [3, 2 + timeSlider.Value() * 1.8]; },
+            0.6,
+            function() { return 0.15 + timeSlider.Value() * 0.1; }
+        ], {fillColor: '#86efac', fillOpacity: 0.8, strokeColor: 'none'});
+
+        // Nhãn động
+        board.create('text', [4, function() { return 2 + timeSlider.Value() * 5.5; }, 'Carotene (Vàng cam)'], {
+            fontSize: 10, color: '#c2410c',
+            visible: function() { return timeSlider.Value() > 0.1; }
+        });
+        board.create('text', [4, function() { return 2 + timeSlider.Value() * 2.8; }, 'Chlorophyll a (Xanh lục đậm)'], {
+            fontSize: 10, color: '#047857',
+            visible: function() { return timeSlider.Value() > 0.1; }
+        });
+
+        // Điều khiển Animation
+        var animInterval = null;
+        function startSimulation() {
+            if (animInterval) clearInterval(animInterval);
+            timeSlider.setValue(0);
+            animInterval = setInterval(function() {
+                var v = timeSlider.Value();
+                if (v >= 1) {
+                    clearInterval(animInterval);
+                } else {
+                    timeSlider.setValue(v + 0.02);
+                    board.update();
+                }
+            }, 50);
+        }
+
+        function resetSimulation() {
+            if (animInterval) clearInterval(animInterval);
+            timeSlider.setValue(0);
+            board.update();
+        }
+    </script>
+
+    <!-- QUIZ SUBMISSION SCRIPT (APPS SCRIPT INTEGRATION) -->
+    <script>
+        const correctAnswers = { q1: 'C', q2: 'A', q3: 'B', q4: 'B', q5: 'B' };
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzY7b7h4OwvhXuK5Vs6hl-aD88BPnAiAKbU5lfJobby0D4nzbIJVKT4n0AKCpAGoK0nZA/exec";
+
+        function submitQuiz(e) {
+            e.preventDefault();
+
+            const name = document.getElementById('studentName').value.trim();
+            const studentClass = document.getElementById('studentClass').value.trim();
+            const submitBtn = document.getElementById('btnSubmitQuiz');
+            const resultDiv = document.getElementById('quizResult');
+
+            if (!name || !studentClass) {
+                alert('Vui lòng điền đầy đủ Họ tên và Lớp!');
+                return;
+            }
+
+            // Tính điểm
+            let score = 0;
+            const answers = {};
+            for (let i = 1; i <= 5; i++) {
+                const selected = document.querySelector(`input[name="q${i}"]:checked`);
+                const ans = selected ? selected.value : '';
+                answers[`q${i}`] = ans;
+                if (ans === correctAnswers[`q${i}`]) {
+                    score += 2; // Mỗi câu 2 điểm -> Thang điểm 10
+                }
+            }
+
+            // Hiệu ứng Loading
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Đang gửi kết quả...';
+
+            // Dữ liệu gửi đi
+            const payload = {
+                name: name,
+                class: studentClass,
+                score: score,
+                total: 10,
+                q1: answers.q1,
+                q2: answers.q2,
+                q3: answers.q3,
+                q4: answers.q4,
+                q5: answers.q5,
+                timestamp: new Date().toLocaleString('vi-VN')
+            };
+
+            // Gửi dữ liệu qua fetch (no-cors để tương thích với Google Apps Script Web App)
+            fetch(SCRIPT_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            })
+            .then(() => {
+                showQuizResult(score, resultDiv);
+            })
+            .catch(error => {
+                console.error('Error submitting quiz:', error);
+                // Trường hợp vẫn hoàn thành tính điểm cho HS ngay cả khi gián đoạn mạng
+                showQuizResult(score, resultDiv);
+            })
+            .finally(() => {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="fas fa-check-circle mr-2"></i> Đã Hoàn Thành';
+            });
+        }
+
+        function showQuizResult(score, resultDiv) {
+            resultDiv.classList.remove('hidden', 'bg-emerald-100', 'text-emerald-800', 'bg-amber-100', 'text-amber-800');
+            
+            if (score >= 8) {
+                resultDiv.classList.add('bg-emerald-100', 'text-emerald-800');
+                resultDiv.innerHTML = `<i class="fas fa-trophy text-xl mb-1"></i><br>Xuất sắc! Bạn đạt <strong>${score}/10 điểm</strong>. Kết quả đã được hệ thống ghi nhận.`;
+            } else if (score >= 5) {
+                resultDiv.classList.add('bg-amber-100', 'text-amber-800');
+                resultDiv.innerHTML = `<i class="fas fa-star text-xl mb-1"></i><br>Khá tốt! Bạn đạt <strong>${score}/10 điểm</strong>. Hãy đọc lại lý thuyết để làm tốt hơn nhé!`;
+            } else {
+                resultDiv.classList.add('bg-rose-100', 'text-rose-800');
+                resultDiv.innerHTML = `<i class="fas fa-redo text-xl mb-1"></i><br>Bạn đạt <strong>${score}/10 điểm</strong>. Đừng lo lắng, hãy ôn lại quy trình thí nghiệm và thử lại!`;
+            }
+        }
+    </script>
+</body>
+</html>
