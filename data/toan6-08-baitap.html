@@ -1,0 +1,942 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chuyên Đề Toán 6: Bội Chung Nhỏ Nhất (BCNN) & Bội Chung (BC) — ThS. Đinh Quốc Tuấn</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- FontAwesome Icons CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts: Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- MathJax Configuration & Script -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['\\(', '\\)'], ['$', '$']],
+                displayMath: [['\\[', '\\]'], ['$$', '$$']]
+            },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <!-- JSXGraph Dependencies -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraph.css" />
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraphcore.js"></script>
+
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #f8fafc;
+            color: #0f172a;
+        }
+        .jxgbox {
+            background-color: #ffffff !important;
+            border-radius: 1rem;
+            overflow: hidden;
+            border: 1px solid #e2e8f0;
+        }
+        @media print {
+            .print\:hidden { display: none !important; }
+            body { background: white !important; color: black !important; }
+            details { display: block !important; }
+            details summary { display: none !important; }
+            .page-break { page-break-before: always; }
+            .card-border { box-shadow: none !important; border: 1px solid #e5e7eb !important; }
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col antialiased selection:bg-indigo-100">
+
+    <!-- Header học thuật -->
+    <header class="border-b border-slate-200 sticky top-0 bg-white/95 backdrop-blur-md z-40 print:hidden">
+        <div class="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 px-6 py-4">
+            <div class="flex items-center gap-4">
+                <img src="https://hcmus.edu.vn/wp-content/uploads/2023/04/Logo-chinh-e1681638380305.png" alt="Logo HCMUS" class="h-14 w-auto object-contain">
+                <div class="border-l-2 border-slate-300 pl-4">
+                    <span class="text-xs font-bold tracking-widest text-indigo-600 uppercase block mb-0.5">Tài liệu số hóa tương tác</span>
+                    <span class="text-base font-extrabold text-slate-800">Chuyên đề Số học Toán 6</span>
+                </div>
+            </div>
+            <div class="flex items-center gap-3 sm:text-right">
+                <div class="hidden sm:block">
+                    <p class="text-xs text-slate-400 font-semibold">Giảng viên biên soạn:</p>
+                    <p class="text-sm font-extrabold text-slate-800">ThS. Đinh Quốc Tuấn</p>
+                </div>
+                <img src="https://firebasestorage.googleapis.com/v0/b/link-anh-web.firebasestorage.app/o/ttbdvh.jpg?alt=media&token=f270aa9b-a2bc-48e8-8910-80742b542615" 
+                     alt="Logo TTBDVH" class="h-14 w-14 object-cover rounded-full border border-slate-200 shadow-inner">
+            </div>
+        </div>
+    </header>
+
+    <!-- Banner chào mừng -->
+    <div class="bg-gradient-to-r from-indigo-50 via-slate-50 to-emerald-50 border-b border-slate-200 py-10 print:hidden">
+        <div class="max-w-4xl mx-auto px-6 space-y-4">
+            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-indigo-100 text-indigo-800 border border-indigo-200 shadow-xs">
+                <i class="fa-solid fa-calculator mr-1.5 text-indigo-600"></i> Số học & Chu kỳ lặp
+            </span>
+            <h1 class="text-2xl sm:text-4xl font-black tracking-tight text-slate-900 leading-tight">
+                Chuyên Đề: Bội Chung Nhỏ Nhất (BCNN) & Bội Chung (BC)
+            </h1>
+            <p class="text-slate-600 text-sm sm:text-base font-medium leading-relaxed text-justify">
+                Chào các em! Bội chung nhỏ nhất (BCNN) là một trong những khái niệm nền tảng cực kỳ quan trọng của Số học lớp 6. Không chỉ hỗ trợ thực hiện quy đồng mẫu số phân số nhanh chóng, BCNN còn là chìa khóa để giải quyết các bài toán về chu kỳ lặp lại trong thực tế (lịch bảo dưỡng máy, thời gian cập bến xe buýt, bánh xe răng cưa...). Dưới đây là hệ thống 30 bài tập luyện tập 3 cấp độ được biên soạn chi tiết kèm mô hình trực quan!
+            </p>
+        </div>
+    </div>
+
+    <!-- Không gian làm việc chính -->
+    <main class="max-w-4xl mx-auto px-4 sm:px-6 py-10 flex-grow w-full space-y-16">
+        
+        <!-- ================= MÔ HÌNH HÌNH HỌC TƯƠNG TÁC JSXGRAPH ================= -->
+        <section class="space-y-8 print:hidden bg-slate-100 p-6 rounded-3xl border border-slate-200">
+            <div class="border-b border-slate-200 pb-3">
+                <h2 class="text-lg font-black text-slate-800 flex items-center uppercase tracking-wide">
+                    <i class="fa-solid fa-compass-drafting mr-2.5 text-indigo-600 text-xl"></i> Mô hình trực quan BCNN & Chu kỳ lặp
+                </h2>
+                <p class="text-xs text-slate-500 mt-1">Quan sát các hiện tượng lặp chu kỳ toán học thông qua đồ họa chuyển động trực quan.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Mô hình 1 -->
+                <div class="flex flex-col bg-white p-4 rounded-2xl border border-slate-200 shadow-2xs">
+                    <h3 class="font-bold text-slate-900 text-xs mb-1 flex items-center gap-1.5">
+                        <i class="fa-solid fa-timeline text-indigo-600"></i> Mô hình 1: Lịch bảo dưỡng (Bài 11)
+                    </h3>
+                    <p class="text-[11px] text-slate-500 mb-3">Bước nhảy máy A (6 tháng) và máy B (9 tháng) trùng nhau lần đầu tiên tại mốc BCNN = 18 tháng.</p>
+                    <div id="box1" class="w-full h-56 jxgbox"></div>
+                    <div id="status-box1" class="text-[11px] font-bold p-2 mt-2 bg-indigo-50 border border-indigo-100 rounded-lg text-center text-slate-700 font-mono">
+                        Điểm gặp nhau trùng khớp: 18 tháng
+                    </div>
+                </div>
+
+                <!-- Mô hình 2 -->
+                <div class="flex flex-col bg-white p-4 rounded-2xl border border-slate-200 shadow-2xs">
+                    <h3 class="font-bold text-slate-900 text-xs mb-1 flex items-center gap-1.5">
+                        <i class="fa-solid fa-gear text-amber-500"></i> Mô hình 2: Bánh xe răng cưa (Bài 16)
+                    </h3>
+                    <p class="text-[11px] text-slate-500 mb-3">Bánh 18 răng và Bánh 12 răng khớp lại điểm đỏ ban đầu sau đúng 36 răng quay (2 vòng & 3 vòng).</p>
+                    <div id="box2" class="w-full h-56 jxgbox"></div>
+                    <div class="mt-2 text-center">
+                        <button type="button" onclick="spinGears()" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs px-3 py-1.5 rounded-lg shadow-xs transition-colors cursor-pointer">
+                            <i class="fa-solid fa-rotate mr-1"></i> Quay bánh xe
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Mô hình 3 -->
+                <div class="flex flex-col bg-white p-4 rounded-2xl border border-slate-200 shadow-2xs">
+                    <h3 class="font-bold text-slate-900 text-xs mb-1 flex items-center gap-1.5">
+                        <i class="fa-solid fa-users-line text-emerald-500"></i> Mô hình 3: Xếp hàng lớp học (Bài 18)
+                    </h3>
+                    <p class="text-[11px] text-slate-500 mb-3">36 học sinh được xếp vừa vặn vào các khung lưới 3x12, 4x9 và 9x4 không dư lẻ học sinh nào.</p>
+                    <div id="box3" class="w-full h-56 jxgbox"></div>
+                    <div id="status-box3" class="text-[11px] font-bold p-2 mt-2 bg-emerald-50 border border-emerald-100 rounded-lg text-center text-emerald-800 font-mono">
+                        N = 36 chia hết cho 3, 4, 9
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= PHẦN 1: MỨC ĐỘ CƠ BẢN ================= -->
+        <section class="space-y-6">
+            <div class="flex items-center gap-3 border-b pb-3 border-slate-200">
+                <span class="bg-sky-600 text-white text-xs font-black px-3 py-1 rounded-md uppercase tracking-wider">Cấp độ 1</span>
+                <h2 class="text-xl font-extrabold text-slate-900">PHẦN 1: MỨC ĐỘ CƠ BẢN (10 BÀI TOÁN TÍNH BCNN VÀ BC)</h2>
+            </div>
+            <p class="text-xs font-bold text-sky-800 bg-sky-50 px-3 py-2 rounded-lg inline-block">
+                Mục tiêu: Nhận biết khái niệm, kỹ năng phân tích ra thừa số nguyên tố để tính BCNN và suy ra tập hợp Bội chung (BC).
+            </p>
+
+            <div class="space-y-4">
+                <!-- Bài 1 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 1:</strong> Tìm BCNN của các cặp số sau bằng cách phân tích ra thừa số nguyên tố:</p>
+                    <p class="text-xs text-slate-600 mb-3">a) \(8\) và \(12\) &nbsp;&nbsp;&nbsp;&nbsp; b) \(16\) và \(24\) &nbsp;&nbsp;&nbsp;&nbsp; c) \(15\) và \(18\)</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-2">
+                            <p>a) \(8 = 2^3; 12 = 2^2 \cdot 3 \Rightarrow \text{BCNN}(8, 12) = 2^3 \cdot 3 = 24\).</p>
+                            <p>b) \(16 = 2^4; 24 = 2^3 \cdot 3 \Rightarrow \text{BCNN}(16, 24) = 2^4 \cdot 3 = 48\).</p>
+                            <p>c) \(15 = 3 \cdot 5; 18 = 2 \cdot 3^2 \Rightarrow \text{BCNN}(15, 18) = 2 \cdot 3^2 \cdot 5 = 90\).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 2 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 2:</strong> Tìm BCNN của ba số sau:</p>
+                    <p class="text-xs text-slate-600 mb-3">a) \(8, 10\) và \(20\) &nbsp;&nbsp;&nbsp;&nbsp; b) \(6, 8\) và \(10\) &nbsp;&nbsp;&nbsp;&nbsp; c) \(56, 70\) và \(126\)</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-2">
+                            <p>a) \(8 = 2^3; 10 = 2 \cdot 5; 20 = 2^2 \cdot 5 \Rightarrow \text{BCNN}(8, 10, 20) = 2^3 \cdot 5 = 40\).</p>
+                            <p>b) \(6 = 2 \cdot 3; 8 = 2^3; 10 = 2 \cdot 5 \Rightarrow \text{BCNN}(6, 8, 10) = 2^3 \cdot 3 \cdot 5 = 120\).</p>
+                            <p>c) \(56 = 2^3 \cdot 7; 70 = 2 \cdot 5 \cdot 7; 126 = 2 \cdot 3^2 \cdot 7 \Rightarrow \text{BCNN}(56, 70, 126) = 2^3 \cdot 3^2 \cdot 5 \cdot 7 = 1260\).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 3 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 3:</strong> Tìm BCNN trong các trường hợp đặc biệt sau (không cần phân tích ra thừa số nguyên tố):</p>
+                    <p class="text-xs text-slate-600 mb-3">a) BCNN của \(8\) và \(64\) &nbsp;&nbsp;&nbsp;&nbsp; b) BCNN của \(11\) và \(55\) &nbsp;&nbsp;&nbsp;&nbsp; c) BCNN của \(3, 1\) và \(12\)</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-2">
+                            <p><strong>Mẹo:</strong> Nếu số lớn nhất chia hết cho các số còn lại thì số đó chính là BCNN.</p>
+                            <p>a) Vì \(64 \vdots 8\) nên \(\text{BCNN}(8, 64) = 64\).</p>
+                            <p>b) Vì \(55 \vdots 11\) nên \(\text{BCNN}(11, 55) = 55\).</p>
+                            <p>c) Vì \(12 \vdots 3\) và \(12 \vdots 1\) nên \(\text{BCNN}(3, 1, 12) = 12\).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 4 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 4:</strong> Từ kết quả BCNN, hãy tìm tập hợp các Bội chung (BC) của các số sau:</p>
+                    <p class="text-xs text-slate-600 mb-3">a) \(BC(8, 12)\) &nbsp;&nbsp;&nbsp;&nbsp; b) \(BC(16, 24)\)</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-2">
+                            <p>a) \(\text{BCNN}(8, 12) = 24 \Rightarrow BC(8, 12) = B(24) = \{0; 24; 48; 72; 96; ...\}\).</p>
+                            <p>b) \(\text{BCNN}(16, 24) = 48 \Rightarrow BC(16, 24) = B(48) = \{0; 48; 96; 144; ...\}\).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 5 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 5:</strong> Tìm tập hợp các bội chung nhỏ hơn \(200\) của các số sau:</p>
+                    <p class="text-xs text-slate-600 mb-3">a) \(5\) và \(7\) &nbsp;&nbsp;&nbsp;&nbsp; b) \(3, 4\) và \(10\)</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-2">
+                            <p>a) \(\text{BCNN}(5, 7) = 35 \Rightarrow BC(5, 7) = \{0; 35; 70; 105; 140; 175; 210; ...\}\). Các bội chung nhỏ hơn \(200\) là: \(\{0; 35; 70; 105; 140; 175\}\).</p>
+                            <p>b) \(\text{BCNN}(3, 4, 10) = 60 \Rightarrow BC(3, 4, 10) = \{0; 60; 120; 180; 240; ...\}\). Các bội chung nhỏ hơn \(200\) là: \(\{0; 60; 120; 180\}\).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 6 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 6:</strong> Viết các tập hợp sau bằng cách liệt kê phần tử:</p>
+                    <p class="text-xs text-slate-600 mb-3">a) \(BC(2, 8)\) &nbsp;&nbsp;&nbsp;&nbsp; b) \(BC(10, 15)\) &nbsp;&nbsp;&nbsp;&nbsp; c) \(BC(6, 4)\)</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-2">
+                            <p>a) \(\text{BCNN}(2, 8) = 8 \Rightarrow BC(2, 8) = \{0; 8; 16; 24; 32; ...\}\).</p>
+                            <p>b) \(\text{BCNN}(10, 15) = 30 \Rightarrow BC(10, 15) = \{0; 30; 60; 90; ...\}\).</p>
+                            <p>c) \(\text{BCNN}(6, 4) = 12 \Rightarrow BC(6, 4) = \{0; 12; 24; 36; ...\}\).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 7 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 7:</strong> Tìm số tự nhiên \(x\) thỏa mãn các điều kiện sau:</p>
+                    <p class="text-xs text-slate-600 mb-3">a) \(x \vdots 10, x \vdots 15\) và \(x < 100\). <br>b) \(x \vdots 20, x \vdots 35\) và \(x < 500\).</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-2">
+                            <p>a) Vì \(x \vdots 10\) và \(x \vdots 15\) nên \(x \in BC(10, 15)\). Ta có \(\text{BCNN}(10, 15) = 30 \Rightarrow x \in \{0; 30; 60; 90; 120; ...\}\). Do \(x < 100\) nên \(x \in \{0; 30; 60; 90\}\).</p>
+                            <p>b) Vì \(x \vdots 20\) và \(x \vdots 35\) nên \(x \in BC(20, 35)\). Ta có \(\text{BCNN}(20, 35) = 140 \Rightarrow x \in \{0; 140; 280; 420; 560; ...\}\). Do \(x < 500\) nên \(x \in \{0; 140; 280; 420\}\).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 8 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 8:</strong> Quy đồng mẫu các phân số sau có sử dụng BCNN để tìm mẫu chung nhỏ nhất:</p>
+                    <p class="text-xs text-slate-600 mb-3">a) \(\frac{1}{2}; \frac{3}{5}; \frac{5}{8}\) &nbsp;&nbsp;&nbsp;&nbsp; b) \(\frac{3}{44}; \frac{11}{18}; \frac{5}{36}\)</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-2">
+                            <p>a) Mẫu chung nhỏ nhất = \(\text{BCNN}(2, 5, 8) = 40\). Các phân số quy đồng: \(\frac{20}{40}; \frac{24}{40}; \frac{25}{40}\).</p>
+                            <p>b) Mẫu chung nhỏ nhất = \(\text{BCNN}(44, 18, 36) = 396\). Các phân số quy đồng: \(\frac{27}{396}; \frac{242}{396}; \frac{55}{396}\).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 9 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 9:</strong> Thực hiện các phép tính cộng phân số sau (có sử dụng BCNN):</p>
+                    <p class="text-xs text-slate-600 mb-3">a) \(\frac{7}{24} + \frac{5}{36}\) &nbsp;&nbsp;&nbsp;&nbsp; b) \(\frac{7}{9} + \frac{5}{12}\)</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-2">
+                            <p>a) \(\text{BCNN}(24, 36) = 72 \Rightarrow \frac{7}{24} + \frac{5}{36} = \frac{21}{72} + \frac{10}{72} = \frac{31}{72}\).</p>
+                            <p>b) \(\text{BCNN}(9, 12) = 36 \Rightarrow \frac{7}{9} + \frac{5}{12} = \frac{28}{36} + \frac{15}{36} = \frac{43}{36}\).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 10 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 10:</strong> Thực hiện các phép tính trừ phân số sau (có sử dụng BCNN):</p>
+                    <p class="text-xs text-slate-600 mb-3">a) \(\frac{1}{15} - \frac{1}{20}\) &nbsp;&nbsp;&nbsp;&nbsp; b) \(\frac{3}{4} + \frac{5}{6} - \frac{7}{18}\)</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-2">
+                            <p>a) \(\text{BCNN}(15, 20) = 60 \Rightarrow \frac{1}{15} - \frac{1}{20} = \frac{4}{60} - \frac{3}{60} = \frac{1}{60}\).</p>
+                            <p>b) \(\text{BCNN}(4, 6, 18) = 36 \Rightarrow \frac{3}{4} + \frac{5}{6} - \frac{7}{18} = \frac{27}{36} + \frac{30}{36} - \frac{14}{36} = \frac{43}{36}\).</p>
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ================= PHẦN 2: MỨC ĐỘ VẬN DỤNG ================= -->
+        <section class="space-y-6">
+            <div class="flex items-center gap-3 border-b pb-3 border-slate-200">
+                <span class="bg-amber-600 text-white text-xs font-black px-3 py-1 rounded-md uppercase tracking-wider">Cấp độ 2</span>
+                <h2 class="text-xl font-extrabold text-slate-900">PHẦN 2: MỨC ĐỘ VẬN DỤNG (10 BÀI TOÁN THỰC TẾ BẰNG BCNN)</h2>
+            </div>
+            <p class="text-xs font-bold text-amber-800 bg-amber-50 px-3 py-2 rounded-lg inline-block">
+                Mục tiêu: Mô hình hóa các tình huống chu kỳ lặp lại trong đời sống về bài toán tìm BCNN.
+            </p>
+
+            <div class="space-y-4">
+                <!-- Bài 11 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 11 (Bài toán bảo dưỡng máy):</strong> Có hai chiếc máy A và B. Lịch bảo dưỡng định kì đối với máy A là \(6\) tháng và đối với máy B là \(9\) tháng. Hai máy vừa cùng được bảo dưỡng vào tháng 5. Hỏi sau ít nhất bao nhiêu tháng nữa thì hai máy lại được bảo dưỡng trong cùng một tháng?</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-2">
+                            <p>Số tháng ngắn nhất để hai máy cùng bảo dưỡng là \(\text{BCNN}(6, 9)\).</p>
+                            <p>Ta có \(6 = 2 \cdot 3; 9 = 3^2 \Rightarrow \text{BCNN}(6, 9) = 2 \cdot 3^2 = 18\) (tháng).</p>
+                            <p><strong>Đáp số:</strong> Sau ít nhất 18 tháng nữa hai máy lại cùng được bảo dưỡng.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 12 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 12 (Bài toán lịch trực nhật):</strong> Hai bạn Long và Hoàng cùng học một trường. Long cứ \(10\) ngày lại trực nhật, Hoàng cứ \(12\) ngày lại trực nhật. Lần đầu tiên hai bạn cùng trực nhật vào một ngày. Hỏi sau ít nhất bao nhiêu ngày thì hai bạn lại cùng trực nhật?</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-2">
+                            <p>Số ngày ít nhất hai bạn lại cùng trực nhật là \(\text{BCNN}(10, 12)\).</p>
+                            <p>\(10 = 2 \cdot 5; 12 = 2^2 \cdot 3 \Rightarrow \text{BCNN}(10, 12) = 2^2 \cdot 3 \cdot 5 = 60\) (ngày).</p>
+                            <p><strong>Đáp số:</strong> Sau ít nhất 60 ngày.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 13 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 13 (Bài toán trực nhật 3 người):</strong> Đội sao đỏ của một lớp 6 có ba bạn An, Bình, Mai. Ngày đầu tháng cả đội trực cùng một ngày. Cứ sau \(7\) ngày An lại trực một lần, sau \(4\) ngày Bình trực một lần và sau \(6\) ngày Mai trực một lần. Hỏi sau bao nhiêu ngày thì cả đội lại cùng trực vào một ngày ở lần tiếp theo?</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-2">
+                            <p>Số ngày cần tìm là \(\text{BCNN}(7, 4, 6)\).</p>
+                            <p>\(7 = 7; 4 = 2^2; 6 = 2 \cdot 3 \Rightarrow \text{BCNN}(7, 4, 6) = 2^2 \cdot 3 \cdot 7 = 84\) (ngày).</p>
+                            <p><strong>Đáp số:</strong> Sau 84 ngày.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 14 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 14 (Bài toán xe buýt):</strong> Tan học, Quỳnh và Khánh cùng đi ra bến xe buýt để về nhà. Khi đến bến, cả hai xe hai bạn cần đi đều vừa chạy mất. Xe buýt của Quỳnh đi cứ \(12\) phút có một chuyến, xe của Khánh đi cứ \(18\) phút có một chuyến. Hỏi hai bạn phải chờ ít nhất bao nhiêu phút thì cả hai xe cùng đến bến một lúc?</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-2">
+                            <p>Thời gian ngắn nhất hai bạn chờ là \(\text{BCNN}(12, 18)\).</p>
+                            <p>\(12 = 2^2 \cdot 3; 18 = 2 \cdot 3^2 \Rightarrow \text{BCNN}(12, 18) = 2^2 \cdot 3^2 = 36\) (phút).</p>
+                            <p><strong>Đáp số:</strong> 36 phút.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 15 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 15 (Bài toán ba xe buýt):</strong> Tại một bến xe, cứ \(75\) phút có một chuyến xe đi A, cứ \(60\) phút có chuyến xe đi B và \(50\) phút có chuyến xe đi C. Lúc 6 giờ sáng cả ba xe cùng xuất bến một lúc. Hỏi lúc mấy giờ thì ba xe lại cùng xuất bến một lúc lần tiếp theo?</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-2">
+                            <p>Khoảng thời gian ngắn nhất giữa hai lần cùng xuất bến là \(\text{BCNN}(75, 60, 50)\).</p>
+                            <p>\(75 = 3 \cdot 5^2; 60 = 2^2 \cdot 3 \cdot 5; 50 = 2 \cdot 5^2 \Rightarrow \text{BCNN}(75, 60, 50) = 2^2 \cdot 3 \cdot 5^2 = 300\) (phút) = 5 giờ.</p>
+                            <p>Thời điểm lần tiếp theo: 6 giờ + 5 giờ = 11 giờ sáng.</p>
+                            <p><strong>Đáp số:</strong> Lúc 11 giờ sáng.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 16 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 16 (Bánh xe răng cưa):</strong> Một bộ phận của máy có hai bánh xe răng cưa khớp với nhau, bánh xe I có \(18\) răng cưa, bánh xe II có \(12\) răng cưa. Người ta đánh dấu một điểm vào hai răng cưa đang khớp với nhau. Hỏi mỗi bánh xe phải quay ít nhất bao nhiêu răng cưa để hai răng cưa đánh dấu ấy lại khớp với nhau ở vị trí ban đầu? Khi đó mỗi bánh xe đã quay được bao nhiêu vòng?</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-2">
+                            <p>&bull; Số răng cưa ít nhất mỗi bánh xe phải quay = \(\text{BCNN}(18, 12) = 36\) (răng).</p>
+                            <p>&bull; Số vòng quay của bánh xe I = \(36 : 18 = 2\) (vòng).</p>
+                            <p>&bull; Số vòng quay của bánh xe II = \(36 : 12 = 3\) (vòng).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 17 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 17 (Xếp hàng vừa đủ khối lớp):</strong> Học sinh một trường khi xếp thành \(12\) hàng, \(18\) hàng, \(21\) hàng đều vừa đủ không thừa ai. Hỏi trường đó có bao nhiêu học sinh? Biết số học sinh trong khoảng từ \(500\) đến \(600\) em.</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-2">
+                            <p>Gọi số học sinh là \(x\) (\(500 \le x \le 600\)). Vì xếp hàng 12, 18, 21 đều vừa đủ nên \(x \in BC(12, 18, 21)\).</p>
+                            <p>\(12 = 2^2 \cdot 3; 18 = 2 \cdot 3^2; 21 = 3 \cdot 7 \Rightarrow \text{BCNN}(12, 18, 21) = 2^2 \cdot 3^2 \cdot 7 = 252\).</p>
+                            <p>\(BC(12, 18, 21) = \{0; 252; 504; 756; ...\}\). Do \(500 \le x \le 600\) nên \(x = 504\).</p>
+                            <p><strong>Đáp số:</strong> Trường đó có 504 học sinh.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 18 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 18 (Xếp hàng nhiều khối):</strong> Học sinh lớp 6A khi xếp thành 3 hàng, 4 hàng hay 9 hàng đều vừa đủ. Biết số học sinh của lớp từ 30 đến 40. Tính số học sinh lớp 6A.</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-2">
+                            <p>Gọi số học sinh là \(N\) (\(30 \le N \le 40\)). Ta có \(N \in BC(3, 4, 9)\).</p>
+                            <p>\(\text{BCNN}(3, 4, 9) = 36 \Rightarrow BC(3, 4, 9) = \{0; 36; 72; ...\}\).</p>
+                            <p>Do \(30 \le N \le 40\) nên \(N = 36\).</p>
+                            <p><strong>Đáp số:</strong> Lớp 6A có 36 học sinh.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 19 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 19 (Truyền tin nhắn):</strong> Có ba bạn học sinh đi dã ngoại, sử dụng tin nhắn để thông báo cho bố mẹ. Nếu lúc 9 giờ sáng ba bạn cùng nhắn tin, hỏi lần tiếp theo ba bạn cùng nhắn tin lúc mấy giờ? Biết rằng cứ \(45\) phút Nam nhắn một lần, Hà \(30\) phút nhắn một lần và Mai \(60\) phút nhắn một lần.</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-2">
+                            <p>Thời gian ngắn nhất cả 3 bạn cùng nhắn tin lại = \(\text{BCNN}(45, 30, 60)\).</p>
+                            <p>\(45 = 3^2 \cdot 5; 30 = 2 \cdot 3 \cdot 5; 60 = 2^2 \cdot 3 \cdot 5 \Rightarrow \text{BCNN}(45, 30, 60) = 2^2 \cdot 3^2 \cdot 5 = 180\) (phút) = 3 giờ.</p>
+                            <p>Thời điểm tiếp theo: 9 giờ + 3 giờ = 12 giờ trưa.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 20 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 20 (Tìm số chia hết có 4 chữ số):</strong> Tìm số tự nhiên nhỏ nhất có bốn chữ số, biết số đó chia hết cho cả \(3; 4; 5\) và \(8\).</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-2">
+                            <p>Gọi số đó là \(x\). Vì \(x\) chia hết cho 3, 4, 5, 8 nên \(x \in BC(3, 4, 5, 8)\).</p>
+                            <p>\(\text{BCNN}(3, 4, 5, 8) = 120 \Rightarrow BC(3, 4, 5, 8) = \{0; 120; 240; ...; 960; 1080; 1200; ...\}\).</p>
+                            <p>Số nhỏ nhất có bốn chữ số thuộc tập hợp trên là \(1080\).</p>
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ================= PHẦN 3: MỨC ĐỘ NÂNG CAO ================= -->
+        <section class="space-y-6">
+            <div class="flex items-center gap-3 border-b pb-3 border-slate-200">
+                <span class="bg-emerald-600 text-white text-xs font-black px-3 py-1 rounded-md uppercase tracking-wider">Cấp độ 3</span>
+                <h2 class="text-xl font-extrabold text-slate-900">PHẦN 3: MỨC ĐỘ NÂNG CAO (10 BÀI TOÁN DƯ BÙ TRỪ & TƯ DUY RÀNG BUỘC)</h2>
+            </div>
+            <p class="text-xs font-bold text-emerald-800 bg-emerald-50 px-3 py-2 rounded-lg inline-block">
+                Mục tiêu: Xử lý bài toán phép chia có dư (thừa đều, thiếu đều, dư tăng dần) và các biểu thức tham số phức tạp.
+            </p>
+
+            <div class="space-y-4">
+                <!-- Bài 21 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 21 (Xếp hàng thừa đều):</strong> Một liên đội thiếu niên khi xếp hàng 3, hàng 4, hàng 5 đều thừa 2 người. Tính số đội viên của liên đội biết rằng số đội viên nằm trong khoảng từ \(160\) đến \(190\).</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-2">
+                            <p>Gọi số đội viên là \(x\) (\(160 \le x \le 190\)). Vì chia 3, 4, 5 đều thừa 2 người nên \((x - 2) \vdots 3, (x - 2) \vdots 4, (x - 2) \vdots 5\).</p>
+                            <p>\(\Rightarrow (x - 2) \in BC(3, 4, 5)\). Ta có \(\text{BCNN}(3, 4, 5) = 60 \Rightarrow x - 2 \in \{0; 60; 120; 180; 240; ...\}\).</p>
+                            <p>Do \(160 \le x \le 190 \Rightarrow 158 \le x - 2 \le 188 \Rightarrow x - 2 = 180 \Rightarrow x = 182\).</p>
+                            <p><strong>Đáp số:</strong> 182 đội viên.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 22 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 22 (Xếp hàng thiếu đều):</strong> Tính số học sinh khối 6 của một trường biết nếu xếp hàng 3, hàng 4, hàng 5 thì đều thiếu 1 học sinh. Nếu xếp hàng 7 thì vừa đủ. Tính số học sinh khối 6 biết số học sinh ít hơn \(350\).</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-2">
+                            <p>Gọi số học sinh là \(x\) (\(x < 350, x \vdots 7\)). Vì xếp 3, 4, 5 thiếu 1 em nên \((x + 1) \in BC(3, 4, 5)\).</p>
+                            <p>\(\text{BCNN}(3, 4, 5) = 60 \Rightarrow x + 1 \in \{60; 120; 180; 240; 300; 360; ...\}\).</p>
+                            <p>\(\Rightarrow x \in \{59; 119; 179; 239; 299; ...\}\). Thử điều kiện \(x \vdots 7\): Vì \(119 = 7 \times 17 \vdots 7\) nên chọn \(x = 119\).</p>
+                            <p><strong>Đáp số:</strong> 119 học sinh.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 23 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 23 (Bài toán số dư khác nhau - Bù trừ):</strong> Tìm số tự nhiên nhỏ nhất sao cho khi chia số đó cho \(5\) thì dư \(2\), chia cho \(8\) thì dư \(5\).</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-2">
+                            <p>Gọi số cần tìm là \(x\). Ta thấy: \(x\) chia 5 dư 2 \(\Rightarrow (x + 3) \vdots 5\). \(x\) chia 8 dư 5 \(\Rightarrow (x + 3) \vdots 8\).</p>
+                            <p>Do đó \((x + 3) \in BC(5, 8)\). Vì \(x\) nhỏ nhất nên \((x + 3) = \text{BCNN}(5, 8) = 40 \Rightarrow x = 37\).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 24 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 24 (Bài toán số dư bù trừ tiếp theo):</strong> Tìm số tự nhiên \(x\) nhỏ nhất khác 0 biết rằng để \(x\) chia cho \(14\), chia cho \(24\) đều thiếu 3.</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-2">
+                            <p>Vì \(x\) chia cho 14, 24 đều thiếu 3 nên \((x + 3) \vdots 14\) và \((x + 3) \vdots 24\).</p>
+                            <p>\(\Rightarrow (x + 3) = \text{BCNN}(14, 24) = 168 \Rightarrow x = 165\).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 25 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 25 (Số dư tăng dần):</strong> Tìm số tự nhiên \(a\) nhỏ nhất sao cho chia \(a\) cho \(3\), cho \(5\), cho \(7\) được số dư theo thứ tự lần lượt là \(2, 3, 4\).</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-2">
+                            <p>Nhận xét: \(a\) chia 3 dư 2 \(\Rightarrow a+1 \vdots 3\). Nhưng chia 5 dư 3 \(\Rightarrow a+2 \vdots 5\). Ta nhân 2 vế: Nhân \(2a + 1 \vdots 3, 5, 7\).</p>
+                            <p>Cách ngắn hơn: Ta thấy \(a + 1\) chia cho 3, 5, 7 có dư đều thiếu: Nhận xét \(2a + 1 \vdots 3\), \(2a + 1 \vdots 5\), \(2a + 1 \vdots 7\).</p>
+                            <p>\(\Rightarrow 2a + 1 \in BC(3, 5, 7) = \text{BCNN}(3, 5, 7) = 105 \Rightarrow 2a = 104 \Rightarrow a = 52\).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 26 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 26 (Số dư tăng dần phức tạp hơn):</strong> Một số tự nhiên chia cho 3 thì dư 1, chia cho 4 thì dư 2, chia cho 5 thì dư 3, chia cho 6 thì dư 4 và đặc biệt chia hết cho 13. Tìm số đó.</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-2">
+                            <p>Gọi số cần tìm là \(x\). Nhận xét: \(x + 2\) chia hết cho 3, 4, 5, 6 \(\Rightarrow (x + 2) \in BC(3, 4, 5, 6) = B(60)\).</p>
+                            <p>\(\Rightarrow x = 60k - 2\). Do \(x \vdots 13 \Rightarrow (60k - 2) \vdots 13 \Leftrightarrow 8k - 2 \vdots 13\).</p>
+                            <p>Thử \(k = 1, 2, 3, 4, 5 \Rightarrow k = 5 \Rightarrow x = 60 \times 5 - 2 = 298\) (chia hết cho 13 vì \(298 = 13 \times 23\)).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 27 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 27 (Trồng cây):</strong> Hai đội công nhân trồng được một số cây như nhau. Mỗi công nhân đội một đã trồng \(17\) cây, mỗi công nhân đội hai đã trồng \(18\) cây. Tính số cây mỗi đội đã trồng. Biết rằng số cây đó trong khoảng từ \(600\) đến \(700\) cây.</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-2">
+                            <p>Gọi số cây là \(x\) (\(600 \le x \le 700\)). Ta có \(x \in BC(17, 18)\).</p>
+                            <p>\(\text{BCNN}(17, 18) = 17 \times 18 = 306 \Rightarrow BC(17, 18) = \{0; 306; 612; 918; ...\}\).</p>
+                            <p>Do \(600 \le x \le 700\) nên \(x = 612\).</p>
+                            <p><strong>Đáp số:</strong> 612 cây.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 28 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 28 (Khôi phục số từ số dư):</strong> Tìm số tự nhiên \(a\), biết rằng \(398\) chia cho \(a\) thì dư \(38\), còn \(450\) chia cho \(a\) thì dư \(18\).</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-2">
+                            <p>Vì chia dư nên số chia \(a > 38\). Ta có: \((398 - 38) \vdots a \Rightarrow 360 \vdots a\) và \((450 - 18) \vdots a \Rightarrow 432 \vdots a\).</p>
+                            <p>\(\Rightarrow a \in \text{ƯC}(360, 432)\). \(\text{ƯCLN}(360, 432) = 72 \Rightarrow a \in \text{Ư}(72) = \{1; 2; 3; 4; 6; 8; 9; 12; 18; 24; 36; 72\}\).</p>
+                            <p>Vì \(a > 38\) nên \(a = 72\).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 29 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 29 (Lập tỉ số nhỏ nhất):</strong> Tìm các số tự nhiên \(a\) và \(b\) nhỏ nhất khác 0 sao cho \(7a = 8b\).</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-2">
+                            <p>Vì \(7a = 8b\) nên \(7a \vdots 8 \Rightarrow a \vdots 8\) (do \(\text{ƯCLN}(7,8)=1\)). Tương tự \(b \vdots 7\).</p>
+                            <p>Để \(a, b\) nhỏ nhất khác 0 thì \(a = 8, b = 7\).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 30 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 30 (Bài toán tư duy tổng hợp):</strong> Viết số \(72\) thành tổng của hai số tự nhiên sao cho Bội chung nhỏ nhất (BCNN) của hai số đó đạt giá trị lớn nhất.</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-2">
+                            <p>Gọi hai số là \(x\) và \(y\) (\(x + y = 72\)). Để \(\text{BCNN}(x, y)\) lớn nhất thì \(x\) và \(y\) phải nguyên tố cùng nhau và có tích lớn nhất (tức là hai số nằm sát trung điểm 36 nhất).</p>
+                            <p>Cặp số lẻ liên tiếp gần 36 nhất là \(35\) và \(37\). Ta có \(35 + 37 = 72\) và \(\text{ƯCLN}(35, 37) = 1\).</p>
+                            <p>\(\Rightarrow \text{BCNN}(35, 37) = 35 \times 37 = 1295\).</p>
+                            <p><strong>Đáp số:</strong> 72 = 35 + 37.</p>
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ================= BÀI TẬP ĐÁNH GIÁ NĂNG LỰC TRẮC NGHIỆM ================= -->
+        <section class="border-t border-slate-200 pt-10 page-break">
+            <div class="bg-gradient-to-br from-slate-900 via-slate-800 to-indigo-950 text-white rounded-3xl p-6 sm:p-8 shadow-xl relative overflow-hidden card-border">
+                <div class="max-w-xl space-y-2">
+                    <span class="text-xs font-bold uppercase tracking-widest text-emerald-400 bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-500/20 inline-block">Đánh giá trực tuyến tại lớp</span>
+                    <h2 class="text-xl sm:text-2xl font-black tracking-tight">BÀI TẬP ĐÁNH GIÁ NĂNG LỰC TẠI LỚP</h2>
+                    <p class="text-slate-400 text-xs sm:text-sm">Học sinh hoàn thành trắc nghiệm 5 câu dưới đây. Kết quả điểm số sẽ được truyền tự động về Google Sheets hệ thống.</p>
+                </div>
+
+                <form id="quizForm" class="mt-8 space-y-6 text-slate-900">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div class="bg-white p-4 rounded-xl shadow-inner border border-slate-100">
+                            <label class="block text-xs font-bold text-slate-400 uppercase tracking-wide mb-1"><i class="fa-solid fa-user-graduate mr-1 text-indigo-500"></i> Họ và tên học sinh</label>
+                            <input type="text" id="studentName" required placeholder="Nhập họ tên đầy đủ..." class="w-full bg-white border-b-2 border-slate-200 focus:border-indigo-500 outline-none py-1 text-sm font-bold text-slate-900 transition-colors">
+                        </div>
+                        <div class="bg-white p-4 rounded-xl shadow-inner border border-slate-100">
+                            <label class="block text-xs font-bold text-slate-400 uppercase tracking-wide mb-1"><i class="fa-solid fa-file-code mr-1 text-indigo-500"></i> Mã chuyên đề bài học</label>
+                            <input type="text" id="examId" readonly value="Buoi08_BCNN_Toan6" class="w-full bg-slate-50 border-b-2 border-slate-200 outline-none py-1 text-sm font-bold text-slate-500 cursor-not-allowed">
+                        </div>
+                    </div>
+
+                    <!-- Khối câu hỏi trắc nghiệm -->
+                    <div class="space-y-5 mt-6">
+                        <!-- Câu 1 -->
+                        <div class="bg-white p-5 rounded-2xl shadow-sm space-y-3">
+                            <p class="text-sm font-bold text-slate-900"><span class="text-indigo-600">Câu 1:</span> Bội chung nhỏ nhất (BCNN) của hai số \(8\) và \(12\) bằng bao nhiêu?</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs font-semibold text-slate-700">
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q1" value="A" required class="text-indigo-600 h-4 w-4"> <span>A. 96</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q1" value="B" class="text-indigo-600 h-4 w-4"> <span>B. 24</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q1" value="C" class="text-indigo-600 h-4 w-4"> <span>C. 48</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Câu 2 -->
+                        <div class="bg-white p-5 rounded-2xl shadow-sm space-y-3">
+                            <p class="text-sm font-bold text-slate-900"><span class="text-indigo-600">Câu 2:</span> Trong bài toán bảo dưỡng định kỳ (Bài 11), sau ít nhất bao nhiêu tháng hai máy A và B mới bảo dưỡng cùng tháng?</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs font-semibold text-slate-700">
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q2" value="A" required class="text-indigo-600 h-4 w-4"> <span>A. 15 tháng</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q2" value="B" class="text-indigo-600 h-4 w-4"> <span>B. 18 tháng</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q2" value="C" class="text-indigo-600 h-4 w-4"> <span>C. 36 tháng</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Câu 3 -->
+                        <div class="bg-white p-5 rounded-2xl shadow-sm space-y-3">
+                            <p class="text-sm font-bold text-slate-900"><span class="text-indigo-600">Câu 3:</span> Số bánh xe răng cưa ít nhất hai bánh 18 răng và 12 răng (Bài 16) phải quay để vết đánh dấu khớp lại vị trí đầu là:</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs font-semibold text-slate-700">
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q3" value="A" required class="text-indigo-600 h-4 w-4"> <span>A. 36 răng</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q3" value="B" class="text-indigo-600 h-4 w-4"> <span>B. 72 răng</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q3" value="C" class="text-indigo-600 h-4 w-4"> <span>C. 216 răng</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Câu 4 -->
+                        <div class="bg-white p-5 rounded-2xl shadow-sm space-y-3">
+                            <p class="text-sm font-bold text-slate-900"><span class="text-indigo-600">Câu 4:</span> Số học sinh lớp 6A ở Bài 18 (biết khi xếp 3, 4, 9 hàng vừa đủ, tổng số từ 30 đến 40 em) là:</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs font-semibold text-slate-700">
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q4" value="A" required class="text-indigo-600 h-4 w-4"> <span>A. 32 học sinh</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q4" value="B" class="text-indigo-600 h-4 w-4"> <span>B. 36 học sinh</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q4" value="C" class="text-indigo-600 h-4 w-4"> <span>C. 40 học sinh</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Câu 5 -->
+                        <div class="bg-white p-5 rounded-2xl shadow-sm space-y-3">
+                            <p class="text-sm font-bold text-slate-900"><span class="text-indigo-600">Câu 5:</span> Số đội viên của liên đội ở Bài 21 (xếp hàng 3, 4, 5 đều thừa 2 người, số lượng từ 160 đến 190) là:</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs font-semibold text-slate-700">
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q5" value="A" required class="text-indigo-600 h-4 w-4"> <span>A. 180 đội viên</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q5" value="B" class="text-indigo-600 h-4 w-4"> <span>B. 182 đội viên</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q5" value="C" class="text-indigo-600 h-4 w-4"> <span>C. 184 đội viên</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pt-2 flex flex-col sm:flex-row items-center justify-between gap-4">
+                        <button type="submit" id="submitBtn" class="w-full sm:w-auto bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-sm px-8 py-3.5 rounded-xl shadow-lg transition-all flex items-center justify-center space-x-2 cursor-pointer">
+                            <i class="fa-solid fa-cloud-arrow-up"></i> <span>Nộp Bài Chấm Điểm</span>
+                        </button>
+                        <div id="statusReport" class="text-xs font-bold text-slate-400"></div>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer bản quyền -->
+    <footer class="bg-slate-900 text-slate-400 py-8 text-center text-xs font-medium px-4 mt-auto">
+        <p class="font-bold text-slate-300">@ Bản quyền thuộc ThS. Đinh Quốc Tuấn - Mục đích phi lợi nhuận - Vì giáo dục.</p>
+        <p class="text-slate-500 mt-2">Hệ thống bài giảng trực tuyến tương tác tích hợp đồng bộ dữ liệu điểm số học sinh.</p>
+    </footer>
+
+    <!-- NÚT IN TÀI LIỆU CỐ ĐỊNH -->
+    <button id="btn-print-doc" onclick="safePrint()" class="fixed bottom-5 right-5 bg-gray-900 text-white px-4 py-2 rounded-lg shadow-lg hover:bg-gray-700 print:hidden z-50 cursor-pointer">
+        <i class="fas fa-print mr-2"></i> In Tài Liệu
+    </button>
+
+    <script>
+        function safePrint() {
+            const printBtn = document.getElementById('btn-print-doc');
+            printBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Đang chuẩn bị...';
+            
+            if (window.MathJax && window.MathJax.typesetPromise) {
+                MathJax.typesetPromise().then(() => {
+                    printBtn.innerHTML = '<i class="fas fa-print mr-2"></i> In Tài Liệu';
+                    window.print();
+                });
+            } else {
+                setTimeout(() => {
+                    printBtn.innerHTML = '<i class="fas fa-print mr-2"></i> In Tài Liệu';
+                    window.print();
+                }, 500); 
+            }
+        }
+    </script>
+
+    <!-- HỆ THỐNG ĐIỀU KHIỂN ĐỒ HỌA JSXGRAPH & FORM QUIZ APPS SCRIPT -->
+    <script>
+        const timeInit = new Date();
+        let board2, gear1, gear2, gearAngle = 0, gearInterval;
+
+        document.addEventListener("DOMContentLoaded", function() {
+            
+            // --- MÔ HÌNH 1: TRỤC THỜI GIAN BẢO DƯỠNG MÁY (Bài 11) ---
+            const b1 = JXG.JSXGraph.initBoard('box1', {
+                boundingbox: [-2, 3, 24, -3], axis: false, showNavigation: false, showCopyright: false
+            });
+
+            // Vẽ trục thời gian 24 tháng
+            let pStart = b1.create('point', [0, 0], {visible: false, fixed: true});
+            let pEnd = b1.create('point', [22, 0], {visible: false, fixed: true});
+            let timeLine = b1.create('segment', [pStart, pEnd], {strokeColor: '#64748b', strokeWidth: 3});
+
+            // Vạch dấu các tháng cho Máy A (chu kỳ 6)
+            for (let x = 6; x <= 18; x += 6) {
+                b1.create('point', [x, 1.2], {name: 'A:' + x + 'm', color: '#2563eb', size: 3, fixed: true});
+                let pBase = b1.create('point', [x, 0], {visible: false});
+                let pTop = b1.create('point', [x, 1.2], {visible: false});
+                b1.create('segment', [pBase, pTop], {strokeColor: '#3b82f6', strokeWidth: 1.5, dash: 2});
+            }
+
+            // Vạch dấu các tháng cho Máy B (chu kỳ 9)
+            for (let x = 9; x <= 18; x += 9) {
+                b1.create('point', [x, -1.2], {name: 'B:' + x + 'm', color: '#d97706', size: 3, fixed: true});
+                let pBase = b1.create('point', [x, 0], {visible: false});
+                let pBot = b1.create('point', [x, -1.2], {visible: false});
+                b1.create('segment', [pBase, pBot], {strokeColor: '#f59e0b', strokeWidth: 1.5, dash: 2});
+            }
+
+            // Điểm trùng nhau BCNN = 18 phát sáng
+            b1.create('point', [18, 0], {name: 'BCNN=18', color: '#10b981', size: 6, fixed: true});
+
+
+            // --- MÔ HÌNH 2: BÁNH XE RĂNG CƯA KHỚP NHAU (Bài 16) ---
+            board2 = JXG.JSXGraph.initBoard('box2', {
+                boundingbox: [-4, 3, 4, -3], axis: false, showNavigation: false, showCopyright: false
+            });
+
+            // Bánh I (bán kính 1.8 - 18 răng) & Bánh II (bán kính 1.2 - 12 răng)
+            let center1 = board2.create('point', [-1.8, 0], {visible: false, fixed: true});
+            let center2 = board2.create('point', [1.2, 0], {visible: false, fixed: true});
+
+            board2.create('circle', [center1, 1.8], {strokeColor: '#2563eb', strokeWidth: 2});
+            board2.create('circle', [center2, 1.2], {strokeColor: '#d97706', strokeWidth: 2});
+
+            // Điểm đỏ đánh dấu tiếp điểm trùng khớp tại x = 0
+            let markPoint = board2.create('point', [0, 0], {name: 'Điểm khớp', color: '#dc2626', size: 4, fixed: true});
+
+
+            // --- MÔ HÌNH 3: XẾP HÀNG LỚP HỌC N = 36 (Bài 18) ---
+            const b3 = JXG.JSXGraph.initBoard('box3', {
+                boundingbox: [-1, 10, 10, -1], axis: false, showNavigation: false, showCopyright: false
+            });
+
+            // Vẽ lưới 36 điểm tượng trưng 36 học sinh xếp 4 hàng x 9 cột
+            for (let row = 0; row < 4; row++) {
+                for (let col = 0; col < 9; col++) {
+                    b3.create('point', [col, 8 - row * 2], {name: '', color: '#059669', size: 2, fixed: true});
+                }
+            }
+            b3.create('text', [0, 0, 'Lớp 36 em xếp vừa khít 4 hàng × 9 cột (không ai dư lẻ)'], {fontSize: 10, fontStyle: 'bold', strokeColor: '#0f172a'});
+        });
+
+        // Hàm chạy animation cho Mô hình 2
+        function spinGears() {
+            clearInterval(gearInterval);
+            let steps = 0;
+            gearInterval = setInterval(() => {
+                steps++;
+                gearAngle += 0.1;
+                board2.update();
+                if (steps >= 50) clearInterval(gearInterval);
+            }, 30);
+        }
+
+        // --- XỬ LÝ NỘP BÀI TRẮC NGHIỆM VÀ ĐẨY DỮ LIỆU APPS SCRIPT ---
+        document.getElementById('quizForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const submitBtn = document.getElementById('submitBtn');
+            const statusReport = document.getElementById('statusReport');
+            
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i> Hệ thống đang nộp bài...';
+            statusReport.innerHTML = "Đang kết nối cơ sở dữ liệu bảng tính...";
+
+            const correctKey = { q1: "B", q2: "B", q3: "A", q4: "B", q5: "B" };
+            const studentName = document.getElementById('studentName').value.trim();
+            const lessonId = document.getElementById('examId').value.trim();
+            
+            let correctCounter = 0;
+            let totalQuizCount = Object.keys(correctKey).length;
+            let missedReportArray = [];
+
+            for (let questionCode in correctKey) {
+                const selectedRadio = document.querySelector(`input[name="${questionCode}"]:checked`);
+                if (selectedRadio && selectedRadio.value === correctKey[questionCode]) {
+                    correctCounter++;
+                } else {
+                    let chosenChar = selectedRadio ? selectedRadio.value : "Bỏ trống";
+                    missedReportArray.push(`${questionCode.toUpperCase()}(Chọn: ${chosenChar}|Đúng: ${correctKey[questionCode]})`);
+                }
+            }
+
+            const finalScore = ((correctCounter / totalQuizCount) * 10).toFixed(2);
+            const timeComplete = new Date();
+            const elapsedDurationSeconds = Math.floor((timeComplete - timeInit) / 1000);
+            const thoiGian = `${Math.floor(elapsedDurationSeconds / 60)} phút ${elapsedDurationSeconds % 60} giây`;
+            const cauSai = missedReportArray.length > 0 ? missedReportArray.join(", ") : "Không có (Đạt 10/10)";
+
+            const transmissionPayload = {
+                hoTen: studentName,
+                maDe: lessonId,
+                diem: parseFloat(finalScore),
+                thoiGian: thoiGian,
+                cauSai: cauSai
+            };
+
+            const webAppsScriptEndpoint = "https://script.google.com/macros/s/AKfycbzY7b7h4OwvhXuK5Vs6hl-aD88BPnAiAKbU5lfJobby0D4nzbIJVKT4n0AKCpAGoK0nZA/exec";
+
+            fetch(webAppsScriptEndpoint, {
+                method: "POST",
+                mode: "no-cors",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(transmissionPayload)
+            })
+            .then(() => {
+                statusReport.className = "text-xs font-bold text-emerald-500 bg-emerald-50 px-3 py-2 rounded-xl border border-emerald-200 inline-block";
+                statusReport.innerHTML = `<i class="fa-solid fa-circle-check"></i> Đã đồng bộ kết quả thành công: ${finalScore}/10.`;
+                alert(`Hệ thống ghi nhận bài nộp thành công!\nChào em ${studentName}, điểm số đạt được là: ${finalScore} / 10.`);
+                submitBtn.innerHTML = '<i class="fa-solid fa-lock"></i> Đã lưu kết quả thi';
+            })
+            .catch(error => {
+                console.error("Lỗi truyền tin:", error);
+                statusReport.className = "text-xs font-bold text-rose-500 bg-rose-50 px-3 py-2 rounded-xl border border-rose-200 inline-block";
+                statusReport.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> Lỗi kết nối mạng, vui lòng bấm nộp lại!';
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Thử nộp lại bài';
+            });
+        });
+    </script>
+</body>
+</html>
