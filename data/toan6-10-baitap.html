@@ -1,0 +1,1011 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buổi 10: Phép cộng, phép trừ số nguyên và quy tắc dấu ngoặc — ThS. Đinh Quốc Tuấn</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- FontAwesome Icons CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts: Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- MathJax Configuration & Library -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['\\(', '\\)'], ['$', '$']],
+                displayMath: [['\\[', '\\]'], ['$$', '$$']]
+            },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <!-- JSXGraph CSS & Core Engine -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraph.css" />
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraphcore.js"></script>
+
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #f8fafc;
+            color: #0f172a;
+        }
+        .jxgbox {
+            background-color: #ffffff !important;
+            border-radius: 1rem;
+            overflow: hidden;
+            border: 1px solid #e2e8f0;
+        }
+        @media print {
+            .print\:hidden { display: none !important; }
+            body { background: white !important; color: black !important; }
+            details { display: block !important; }
+            details summary { display: none !important; }
+            .page-break { page-break-before: always; }
+            .card-border { box-shadow: none !important; border: 1px solid #e5e7eb !important; }
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col antialiased selection:bg-indigo-100">
+
+    <!-- Header học thuật -->
+    <header class="border-b border-slate-200 sticky top-0 bg-white/95 backdrop-blur-md z-40 print:hidden">
+        <div class="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 px-6 py-4">
+            <div class="flex items-center gap-4">
+                <img src="https://hcmus.edu.vn/wp-content/uploads/2023/04/Logo-chinh-e1681638380305.png" alt="Logo HCMUS" class="h-14 w-auto object-contain">
+                <div class="border-l-2 border-slate-300 pl-4">
+                    <span class="text-xs font-bold tracking-widest text-indigo-600 uppercase block mb-0.5">Tài liệu số hóa tương tác</span>
+                    <span class="text-base font-extrabold text-slate-800">Chuyên đề Số học Toán 6</span>
+                </div>
+            </div>
+            <div class="flex items-center gap-3 sm:text-right">
+                <div class="hidden sm:block">
+                    <p class="text-xs text-slate-400 font-semibold">Giảng viên biên soạn:</p>
+                    <p class="text-sm font-extrabold text-slate-800">ThS. Đinh Quốc Tuấn</p>
+                </div>
+                <img src="https://firebasestorage.googleapis.com/v0/b/link-anh-web.firebasestorage.app/o/ttbdvh.jpg?alt=media&token=f270aa9b-a2bc-48e8-8910-80742b542615" 
+                     alt="Logo TTBDVH" class="h-14 w-14 object-cover rounded-full border border-slate-200 shadow-inner">
+            </div>
+        </div>
+    </header>
+
+    <!-- Banner chào mừng -->
+    <div class="bg-gradient-to-r from-indigo-50 via-slate-50 to-emerald-50 border-b border-slate-200 py-10 print:hidden">
+        <div class="max-w-4xl mx-auto px-6 space-y-4">
+            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-indigo-100 text-indigo-800 border border-indigo-200 shadow-xs">
+                <i class="fa-solid fa-calculator mr-1.5 text-indigo-600"></i> Kỹ năng tính toán số nguyên
+            </span>
+            <h1 class="text-2xl sm:text-4xl font-black tracking-tight text-slate-900 leading-tight">
+                Buổi 10: Phép Cộng, Phép Trừ Số Nguyên & Quy Tắc Dấu Ngoặc
+            </h1>
+            <p class="text-slate-600 text-sm sm:text-base font-medium leading-relaxed text-justify">
+                Chào các em! Tiếp nối kiến thức làm quen với số nguyên âm ở buổi trước, hôm nay thầy trò chúng ta sẽ bước vào Buổi 10 để làm chủ các phép tính đại số đầu tiên: <strong>Phép cộng, phép trừ số nguyên và quy tắc dấu ngoặc</strong>. Hệ thống 30 bài tập luyện tập 3 cấp độ dưới đây được thầy thiết kế tỉ mỉ, đi kèm các mô hình trực quan sinh động giúp các em hình dung rõ ràng sự di chuyển hướng trên trục số và ứng dụng thực tế!
+            </p>
+        </div>
+    </div>
+
+    <!-- Không gian làm việc chính -->
+    <main class="max-w-4xl mx-auto px-4 sm:px-6 py-10 flex-grow w-full space-y-16">
+        
+        <!-- ================= MÔ HÌNH HÌNH HỌC TƯƠNG TÁC JSXGRAPH ================= -->
+        <section class="space-y-8 print:hidden bg-slate-100 p-6 rounded-3xl border border-slate-200">
+            <div class="border-b border-slate-200 pb-3">
+                <h2 class="text-lg font-black text-slate-800 flex items-center uppercase tracking-wide">
+                    <i class="fa-solid fa-compass-drafting mr-2.5 text-indigo-600 text-xl"></i> Mô hình trực quan phép tính số nguyên
+                </h2>
+                <p class="text-xs text-slate-500 mt-1">Trực quan hóa vectơ di chuyển trên trục số, cấu trúc ma phương 3x3 và bài toán giảm nhiệt độ.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Mô hình 1 -->
+                <div class="flex flex-col bg-white p-4 rounded-2xl border border-slate-200 shadow-2xs">
+                    <h3 class="font-bold text-slate-900 text-xs mb-1 flex items-center gap-1.5">
+                        <i class="fa-solid fa-[#000] fa-arrows-left-right text-indigo-600"></i> Mô hình 1: Trục số Vectơ (Bài 5)
+                    </h3>
+                    <p class="text-[11px] text-slate-500 mb-3">Mũi tên đỏ di chuyển sang trái (số âm), mũi tên xanh di chuyển sang phải (số dương) để biểu diễn phép cộng.</p>
+                    <div id="box1" class="w-full h-56 jxgbox"></div>
+                    <div class="mt-2 flex justify-center gap-1">
+                        <button onclick="setCalc('a')" class="px-2 py-1 bg-indigo-50 hover:bg-indigo-100 border border-indigo-200 text-indigo-700 text-[11px] font-bold rounded">(-3)+(-5)</button>
+                        <button onclick="setCalc('b')" class="px-2 py-1 bg-indigo-50 hover:bg-indigo-100 border border-indigo-200 text-indigo-700 text-[11px] font-bold rounded">4+(-7)</button>
+                        <button onclick="setCalc('c')" class="px-2 py-1 bg-indigo-50 hover:bg-indigo-100 border border-indigo-200 text-indigo-700 text-[11px] font-bold rounded">(-2)+6</button>
+                    </div>
+                    <div id="status-box1" class="text-[11px] font-bold p-2 mt-2 bg-indigo-50 border border-indigo-100 rounded-lg text-center text-slate-700 font-mono">
+                        Phép tính: (-3) + (-5) = -8
+                    </div>
+                </div>
+
+                <!-- Mô hình 2 -->
+                <div class="flex flex-col bg-white p-4 rounded-2xl border border-slate-200 shadow-2xs">
+                    <h3 class="font-bold text-slate-900 text-xs mb-1 flex items-center gap-1.5">
+                        <i class="fa-solid fa-table-cells text-amber-500"></i> Mô hình 2: Ma phương 3x3 (Bài 22)
+                    </h3>
+                    <p class="text-[11px] text-slate-500 mb-3">Sắp xếp các số nguyên từ -4 đến 4 vào bảng 3x3 sao cho tổng các hàng, cột và đường chéo đều bằng 0.</p>
+                    <div id="box2" class="w-full h-56 jxgbox"></div>
+                    <div id="status-box2" class="text-[11px] font-bold p-2 mt-2 bg-amber-50 border border-amber-100 rounded-lg text-center text-amber-900 font-mono">
+                        Tổng các hàng / cột / đường chéo = 0
+                    </div>
+                </div>
+
+                <!-- Mô hình 3 -->
+                <div class="flex flex-col bg-white p-4 rounded-2xl border border-slate-200 shadow-2xs">
+                    <h3 class="font-bold text-slate-900 text-xs mb-1 flex items-center gap-1.5">
+                        <i class="fa-solid fa-temperature-arrow-down text-emerald-500"></i> Mô hình 3: Nhiệt độ giảm (Bài 23)
+                    </h3>
+                    <p class="text-[11px] text-slate-500 mb-3">Ban ngày đỉnh Mẫu Sơn là -3°C. Ban đêm nhiệt độ giảm thêm 5°C nữa.</p>
+                    <div id="box3" class="w-full h-56 jxgbox"></div>
+                    <div class="mt-2 text-center">
+                        <button type="button" onclick="dropTemp()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs px-3 py-1.5 rounded-lg shadow-xs transition-colors cursor-pointer">
+                            <i class="fa-solid fa-moon mr-1"></i> Ban đêm giảm 5°C
+                        </button>
+                    </div>
+                    <div id="status-box3" class="text-[11px] font-bold p-2 mt-2 bg-emerald-50 border border-emerald-100 rounded-lg text-center text-emerald-800 font-mono">
+                        Ban ngày: -3°C
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= PHẦN 1: MỨC ĐỘ CƠ BẢN ================= -->
+        <section class="space-y-6">
+            <div class="flex items-center gap-3 border-b pb-3 border-slate-200">
+                <span class="bg-sky-600 text-white text-xs font-black px-3 py-1 rounded-md uppercase tracking-wider">Cấp độ 1</span>
+                <h2 class="text-xl font-extrabold text-slate-900">PHẦN 1: MỨC ĐỘ CƠ BẢN (12 BÀI PHÉP CỘNG, CỘNG KHÁC DẤU VÀ PHÉP TRỪ)</h2>
+            </div>
+            <p class="text-xs font-bold text-sky-800 bg-sky-50 px-3 py-2 rounded-lg inline-block">
+                Mục tiêu: Rèn luyện tính nhẩm, nắm vững quy tắc cộng cùng dấu, cộng khác dấu và chuyển phép trừ thành phép cộng với số đối.
+            </p>
+
+            <div class="space-y-4">
+                <!-- Bài 1 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 1:</strong> Thực hiện phép cộng các số nguyên cùng dấu sau:</p>
+                    <p class="text-xs text-slate-600 mb-3">a) \((-28) + (-37)\) &nbsp;&nbsp;&nbsp;&nbsp; b) \((-4) + (-7)\) &nbsp;&nbsp;&nbsp;&nbsp; c) \((-5) + (-15)\) &nbsp;&nbsp;&nbsp;&nbsp; d) \((-236) + (-1025)\)</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>a) \((-28) + (-37) = -(28 + 37) = -65\).</p>
+                            <p>b) \((-4) + (-7) = -(4 + 7) = -11\).</p>
+                            <p>c) \((-5) + (-15) = -(5 + 15) = -20\).</p>
+                            <p>d) \((-236) + (-1025) = -(236 + 1025) = -1261\).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 2 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 2:</strong> Thực hiện phép cộng các số nguyên khác dấu sau:</p>
+                    <p class="text-xs text-slate-600 mb-3">a) \((-9) + 21\) &nbsp;&nbsp;&nbsp;&nbsp; b) \(16 + (-6)\) &nbsp;&nbsp;&nbsp;&nbsp; c) \(9 + (-9)\) &nbsp;&nbsp;&nbsp;&nbsp; d) \(203 + (-195)\)</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>a) \((-9) + 21 = 21 - 9 = 12\).</p>
+                            <p>b) \(16 + (-6) = 16 - 6 = 10\).</p>
+                            <p>c) \(9 + (-9) = 0\) (Hai số đối nhau có tổng bằng 0).</p>
+                            <p>d) \(203 + (-195) = 203 - 195 = 8\).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 3 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 3:</strong> Thực hiện các phép trừ sau (chú ý chuyển thành phép cộng với số đối):</p>
+                    <p class="text-xs text-slate-600 mb-3">a) \(11 - 17\) &nbsp;&nbsp;&nbsp;&nbsp; b) \(4 - (-11)\) &nbsp;&nbsp;&nbsp;&nbsp; c) \((-3) - (-9)\) &nbsp;&nbsp;&nbsp;&nbsp; d) \(3 - (-5)\)</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>a) \(11 - 17 = 11 + (-17) = -6\).</p>
+                            <p>b) \(4 - (-11) = 4 + 11 = 15\).</p>
+                            <p>c) \((-3) - (-9) = (-3) + 9 = 6\).</p>
+                            <p>d) \(3 - (-5) = 3 + 5 = 8\).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 4 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 4:</strong> Thực hiện phép tính từ trái sang phải:</p>
+                    <p class="text-xs text-slate-600 mb-3">a) \((-9) - 8 - (-1)\) &nbsp;&nbsp;&nbsp;&nbsp; b) \(13 - (-7) - 5\) &nbsp;&nbsp;&nbsp;&nbsp; c) \(3 - 5 - (-8)\) &nbsp;&nbsp;&nbsp;&nbsp; d) \((-10) - 3 - (-5)\)</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>a) \((-9) - 8 - (-1) = (-17) + 1 = -16\).</p>
+                            <p>b) \(13 - (-7) - 5 = 20 - 5 = 15\).</p>
+                            <p>c) \(3 - 5 - (-8) = (-2) + 8 = 6\).</p>
+                            <p>d) \((-10) - 3 - (-5) = (-13) + 5 = -8\).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 5 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 5 (Minh họa bằng JSXGraph Mô hình 1):</strong> Hãy dựa vào trục số để tìm kết quả của các phép tính sau:</p>
+                    <p class="text-xs text-slate-600 mb-3">a) \((-3) + (-5)\) &nbsp;&nbsp;&nbsp;&nbsp; b) \(4 + (-7)\) &nbsp;&nbsp;&nbsp;&nbsp; c) \((-2) + 6\)</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>a) Từ 0 lùi sang trái 3 đơn vị đến -3, lùi tiếp sang trái 5 đơn vị nữa dừng lại tại <strong>-8</strong>.</p>
+                            <p>b) Từ 0 tiến sang phải 4 đơn vị đến 4, lùi sang trái 7 đơn vị dừng lại tại <strong>-3</strong>.</p>
+                            <p>c) Từ 0 lùi sang trái 2 đơn vị đến -2, tiến sang phải 6 đơn vị dừng lại tại <strong>4</strong>.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 6 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 6:</strong> Điền dấu \(> , <, =\) thích hợp vào chỗ trống để so sánh giá trị:</p>
+                    <p class="text-xs text-slate-600 mb-3">a) \((-15) + (-20) \dots -35\) &nbsp;&nbsp;&nbsp;&nbsp; b) \(9 + (-5) \dots 4\) <br>c) \((-12) + 9 \dots 0\) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; d) \(3 - 10 \dots (-10) + 3\)</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>a) \((-15) + (-20) = -35 \Rightarrow (-15) + (-20) = -35\).</p>
+                            <p>b) \(9 + (-5) = 4 \Rightarrow 9 + (-5) = 4\).</p>
+                            <p>c) \((-12) + 9 = -3 < 0 \Rightarrow (-12) + 9 < 0\).</p>
+                            <p>d) \(3 - 10 = -7\) và \((-10) + 3 = -7 \Rightarrow 3 - 10 = (-10) + 3\).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 7 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 7:</strong> Chọn khẳng định đúng trong các khẳng định sau:</p>
+                    <p class="text-xs text-slate-600 mb-3">
+                        A. Tổng hai số nguyên dương là một số nguyên dương. <br>
+                        B. Tổng hai số nguyên trái dấu là một số nguyên âm. <br>
+                        C. Tổng hai số nguyên âm là một số nguyên dương. <br>
+                        D. Hai số nguyên đối nhau có tổng là một số nguyên âm.
+                    </p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p><strong>Đáp án đúng: A.</strong> (Ví dụ: B sai vì tổng 9 + (-5) = 4 là số dương; C sai vì tổng hai số âm là số âm; D sai vì hai số đối nhau có tổng bằng 0).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 8 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 8:</strong> Cho các số \(-10; 6; 2; -6; 16\). Hãy tìm hai số trong các số đã cho để tổng của chúng bằng \(0\).</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Hai số có tổng bằng 0 là hai số đối nhau: \(6\) và \(-6\) (vì \(6 + (-6) = 0\)).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 9 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 9:</strong> Tìm \(x\), biết:</p>
+                    <p class="text-xs text-slate-600 mb-3">a) \(x = (-12) + 6\) &nbsp;&nbsp;&nbsp;&nbsp; b) \(x = 7 - (-23)\) &nbsp;&nbsp;&nbsp;&nbsp; c) \(x = (-156) - (-26)\)</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>a) \(x = -6\).</p>
+                            <p>b) \(x = 7 + 23 = 30\).</p>
+                            <p>c) \(x = (-156) + 26 = -130\).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 10 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 10:</strong> Điền số thích hợp vào bảng sau:</p>
+                    <div class="overflow-x-auto my-2">
+                        <table class="min-w-full text-xs text-center border border-slate-200">
+                            <tr class="bg-slate-100">
+                                <td class="p-2 border font-bold">Số bị trừ a</td>
+                                <td class="p-2 border">5</td>
+                                <td class="p-2 border">-8</td>
+                                <td class="p-2 border">0</td>
+                                <td class="p-2 border">-15</td>
+                            </tr>
+                            <tr class="bg-slate-50">
+                                <td class="p-2 border font-bold">Số trừ b</td>
+                                <td class="p-2 border">12</td>
+                                <td class="p-2 border">-3</td>
+                                <td class="p-2 border">7</td>
+                                <td class="p-2 border">-15</td>
+                            </tr>
+                            <tr>
+                                <td class="p-2 border font-bold text-indigo-600">Hiệu a - b</td>
+                                <td class="p-2 border font-bold text-indigo-600">-7</td>
+                                <td class="p-2 border font-bold text-indigo-600">-5</td>
+                                <td class="p-2 border font-bold text-indigo-600">-7</td>
+                                <td class="p-2 border font-bold text-indigo-600">0</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>&bull; Cột 1: \(5 - 12 = -7\).</p>
+                            <p>&bull; Cột 2: \((-8) - (-3) = -8 + 3 = -5\).</p>
+                            <p>&bull; Cột 3: \(0 - 7 = -7\).</p>
+                            <p>&bull; Cột 4: \((-15) - (-15) = -15 + 15 = 0\).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 11 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 11:</strong> Điền vào chỗ trống định nghĩa sau: <br><em>"Muốn trừ số nguyên \(a\) cho số nguyên \(b\), ta cộng \(a\) với số ... của \(b\)"</em>.</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Từ còn thiếu trong chỗ trống là: <strong>"đối"</strong> (Muốn trừ số nguyên a cho số nguyên b, ta cộng a với số đối của b: \(a - b = a + (-b)\)).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 12 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 12:</strong> Tính tổng của số nguyên âm lớn nhất có một chữ số và số nguyên dương nhỏ nhất có hai chữ số.</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>&bull; Số nguyên âm lớn nhất có một chữ số là: \(-1\).</p>
+                            <p>&bull; Số nguyên dương nhỏ nhất có hai chữ số là: \(10\).</p>
+                            <p>&bull; Tổng cần tính là: \((-1) + 10 = 9\).</p>
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ================= PHẦN 2: MỨC ĐỘ NÂNG CAO ================= -->
+        <section class="space-y-6">
+            <div class="flex items-center gap-3 border-b pb-3 border-slate-200">
+                <span class="bg-amber-600 text-white text-xs font-black px-3 py-1 rounded-md uppercase tracking-wider">Cấp độ 2</span>
+                <h2 class="text-xl font-extrabold text-slate-900">PHẦN 2: MỨC ĐỘ NÂNG CAO (10 BÀI DẤU NGOẶC, TÍNH HỢP LÍ & TÌM X)</h2>
+            </div>
+            <p class="text-xs font-bold text-amber-800 bg-amber-50 px-3 py-2 rounded-lg inline-block">
+                Mục tiêu: Ứng dụng quy tắc dấu ngoặc, tính chất giao hoán và kết hợp để tính nhanh, giải toán tìm x đa bước.
+            </p>
+
+            <div class="space-y-4">
+                <!-- Bài 13 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 13:</strong> Bỏ dấu ngoặc rồi tính:</p>
+                    <p class="text-xs text-slate-600 mb-3">a) \((29 + 37 + 13) + (10 - 37 - 13)\) <br>b) \((79 + 32 - 35) - (69 + 12 - 75)\) <br>c) \(- ( -125 + 63 + 57 ) - ( 10 - 83 - 37 )\)</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>a) \(= 29 + 37 + 13 + 10 - 37 - 13 = 29 + 10 + (37 - 37) + (13 - 13) = 39\).</p>
+                            <p>b) \(= 79 + 32 - 35 - 69 - 12 + 75 = (79 - 69) + (32 - 12) + (75 - 35) = 10 + 20 + 40 = 70\).</p>
+                            <p>c) \(= 125 - 63 - 57 - 10 + 83 + 37 = 125 - 10 - (63 + 57) + (83 + 37) = 115 - 120 + 120 = 115\).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 14 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 14:</strong> Tính một cách hợp lí:</p>
+                    <p class="text-xs text-slate-600 mb-3">a) \(283 + 531 - 282 - 531\) &nbsp;&nbsp;&nbsp;&nbsp; b) \(2575 + 37 - 2576 - 29\) <br>c) \((-2) + (-59) - (-22) + 59\) &nbsp;&nbsp;&nbsp;&nbsp; d) \(30 + (-12) + (-20) - (-12)\)</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>a) \(= (283 - 282) + (531 - 531) = 1 + 0 = 1\).</p>
+                            <p>b) \(= (2575 - 2576) + (37 - 29) = -1 + 8 = 7\).</p>
+                            <p>c) \(= -2 - 59 + 22 + 59 = (22 - 2) + (59 - 59) = 20\).</p>
+                            <p>d) \(= 30 - 12 - 20 + 12 = (30 - 20) + (12 - 12) = 10\).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 15 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 15:</strong> Thực hiện phép tính sau một cách hợp lí:</p>
+                    <p class="text-xs text-slate-600 mb-3">a) \(434 + (-100) + (-434) + 700\) <br>b) \(6830 + (-993) + 170 + (-5007)\) <br>c) \(31 + 32 + 33 + 34 + 35 - 11 - 12 - 13 - 14 - 15\)</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>a) \(= [434 + (-434)] + [700 + (-100)] = 0 + 600 = 600\).</p>
+                            <p>b) \(= (6830 + 170) + [(-993) + (-5007)] = 7000 + (-6000) = 1000\).</p>
+                            <p>c) \(= (31 - 11) + (32 - 12) + (33 - 13) + (34 - 14) + (35 - 15) = 20 + 20 + 20 + 20 + 20 = 100\).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 16 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 16:</strong> Tìm số nguyên \(x\), biết:</p>
+                    <p class="text-xs text-slate-600 mb-3">a) \(x + 13 = 32 - 76\) &nbsp;&nbsp;&nbsp;&nbsp; b) \(x + 20 = 75 - 95\) &nbsp;&nbsp;&nbsp;&nbsp; c) \(7 - x = 9 - 32\)</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>a) \(x + 13 = -44 \Rightarrow x = -44 - 13 = -57\).</p>
+                            <p>b) \(x + 20 = -20 \Rightarrow x = -20 - 20 = -40\).</p>
+                            <p>c) \(7 - x = -23 \Rightarrow x = 7 - (-23) = 30\).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 17 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 17:</strong> Tìm \(x \in \mathbb{Z}\), biết:</p>
+                    <p class="text-xs text-slate-600 mb-3">a) \(15 - (x + 2) = -8\) &nbsp;&nbsp;&nbsp;&nbsp; b) \((x - 5) - (-12) = 4\)</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>a) \(x + 2 = 15 - (-8) \Rightarrow x + 2 = 23 \Rightarrow x = 21\).</p>
+                            <p>b) \((x - 5) + 12 = 4 \Rightarrow x - 5 = 4 - 12 \Rightarrow x - 5 = -8 \Rightarrow x = -8 + 5 = -3\).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 18 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 18:</strong> Tính tổng tất cả các số nguyên \(x\) thỏa mãn:</p>
+                    <p class="text-xs text-slate-600 mb-3">a) \(-5 < x \le 5\) &nbsp;&nbsp;&nbsp;&nbsp; b) \(-7 < x < 8\)</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>a) các số nguyên \(x \in \{-4; -3; -2; -1; 0; 1; 2; 3; 4; 5\}\). Tổng = \((-4+4) + (-3+3) + (-2+2) + (-1+1) + 0 + 5 = 5\).</p>
+                            <p>b) các số nguyên \(x \in \{-6; -5; -4; -3; -2; -1; 0; 1; 2; 3; 4; 5; 6; 7\}\). Tổng = 7 (do các cặp đối triệt tiêu nhau).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 19 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 19:</strong> Tính giá trị của biểu thức: \(A = a - b + c\) biết \(a = -45, b = 175, c = -130\).</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Thay giá trị vào biểu thức: \(A = (-45) - 175 + (-130) = -45 - 175 - 130 = -350\).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 20 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 20:</strong> Rút gọn các biểu thức sau:</p>
+                    <p class="text-xs text-slate-600 mb-3">a) \((a + b - c) - (a - b + c)\) &nbsp;&nbsp;&nbsp;&nbsp; b) \(-(a - b - c) + (-a + b - c)\)</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>a) \(= a + b - c - a + b - c = (a - a) + (b + b) - (c + c) = 2b - 2c\).</p>
+                            <p>b) \(= -a + b + c - a + b - c = (-a - a) + (b + b) + (c - c) = -2a + 2b\).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 21 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 21:</strong> Thay dấu * bằng các chữ số thích hợp để có phép tính đúng:</p>
+                    <p class="text-xs text-slate-600 mb-3">a) \((-\overline{*6}) + (-34) = -100\) &nbsp;&nbsp;&nbsp;&nbsp; b) \((-789) + \overline{2**} = -515\)</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>a) Ta có \(\overline{*6} + 34 = 100 \Rightarrow \overline{*6} = 66 \Rightarrow * = 6\).</p>
+                            <p>b) Ta có \(\overline{2**} = -515 - (-789) = -515 + 789 = 274 \Rightarrow \overline{2**} = 274\).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 22 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 22 (Ma phương 3x3):</strong> Cho các số từ \(-4\) đến \(4\). Hãy điền vào hình vuông \(3\times3\) sao cho nó trở thành một "Ma phương" (tổng các hàng, cột, đường chéo bằng nhau).</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn (Tham khảo Mô hình 2)</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Cấu trúc Ma phương chuẩn số trung tâm là 0:</p>
+                            <p class="font-mono text-center font-bold bg-white p-2 border rounded">
+                                [ 1, -4,  3 ] <br>
+                                [ 2,  0, -2 ] <br>
+                                [-3,  4, -1 ]
+                            </p>
+                            <p>Tổng mỗi hàng = tổng mỗi cột = tổng mỗi đường chéo = 0.</p>
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ================= PHẦN 3: MỨC ĐỘ VẬN DỤNG ================= -->
+        <section class="space-y-6">
+            <div class="flex items-center gap-3 border-b pb-3 border-slate-200">
+                <span class="bg-emerald-600 text-white text-xs font-black px-3 py-1 rounded-md uppercase tracking-wider">Cấp độ 3</span>
+                <h2 class="text-xl font-extrabold text-slate-900">PHẦN 3: MỨC ĐỘ VẬN DỤNG THỰC TẾ & TƯ DUY (8 BÀI)</h2>
+            </div>
+            <p class="text-xs font-bold text-emerald-800 bg-emerald-50 px-3 py-2 rounded-lg inline-block">
+                Mục tiêu: Áp dụng phép cộng/trừ số nguyên vào bài toán thực tiễn (nhiệt độ, độ cao, điểm số, thời gian, tài chính).
+            </p>
+
+            <div class="space-y-4">
+                <!-- Bài 23 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 23 (Bài toán Nhiệt độ - Minh họa Mô hình 3):</strong> Nhiệt độ ban ngày ở đỉnh Mẫu Sơn vào một ngày mùa đông là \(-3^\circ\text{C}\). Nếu ban đêm giảm thêm \(5^\circ\text{C}\) nữa thì nhiệt độ ở đó sẽ là bao nhiêu?</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Nhiệt độ giảm thêm 5°C tức là cộng thêm \(-5^\circ\text{C}\): \((-3) + (-5) = -8^\circ\text{C}\).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 24 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 24 (Bài toán Tàu ngầm):</strong> Một máy thăm dò đáy biển ngày hôm trước hoạt động ở độ cao \(-946\text{ m}\) (so với mực nước biển). Ngày hôm sau người ta cho máy nổi lên \(55\text{ m}\) so với hôm trước. Hỏi ngày hôm sau máy thăm dò ở độ cao nào?</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Độ cao ngày hôm sau của máy là: \((-946) + 55 = -(946 - 55) = -891\text{ m}\).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 25 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 25 (Bài toán Điểm thi đua):</strong> Phép tính nào thể hiện cho điều sau: <em>“Bạn Bình đang bị 14 điểm xấu, và hôm nay tiếp tục bị thêm 2 điểm xấu nữa vì quên không học bài"</em>?</p>
+                    <p class="text-xs text-slate-600 mb-3">A. \(14 - 2\) &nbsp;&nbsp;&nbsp;&nbsp; B. \((-14) + (-2)\) &nbsp;&nbsp;&nbsp;&nbsp; C. \(-14 + 2\) &nbsp;&nbsp;&nbsp;&nbsp; D. \((-14) - (-2)\)</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p><strong>Đáp án đúng: B. \((-14) + (-2)\)</strong> (Điểm xấu biểu diễn bằng số nguyên âm: \(-14\) điểm xấu cộng thêm \(-2\) điểm xấu bằng \(-16\) điểm xấu).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 26 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 26 (Bài toán Chênh lệch nhiệt độ):</strong> Nhiệt độ nóng chảy của thủy ngân là \(-39^\circ\text{C}\). Nhiệt độ sôi của thủy ngân là \(357^\circ\text{C}\). Tính số độ chênh lệch giữa nhiệt độ sôi và nhiệt độ nóng chảy của thủy ngân.</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Số độ chênh lệch = Nhiệt độ sôi - Nhiệt độ nóng chảy = \(357 - (-39) = 357 + 39 = 396^\circ\text{C}\).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 27 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 27 (Bài toán Di chuyển hai hướng):</strong> Hai ca nô cùng xuất phát từ \(C\) đi về hai phía ngược nhau. Vận tốc của ca nô thứ nhất là \(15\text{ km/h}\), ca nô thứ hai là \(-12\text{ km/h}\). Hỏi sau một giờ, hai ca nô cách nhau bao nhiêu km?</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Sau 1 giờ, ca nô thứ nhất ở vị trí \(+15\text{ km}\), ca nô thứ hai ở vị trí \(-12\text{ km}\).</p>
+                            <p>Khoảng cách giữa hai ca nô = \(15 - (-12) = 15 + 12 = 27\text{ km}\).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 28 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 28 (Bài toán Trục thời gian):</strong> Nhà bác học Ác-si-mét sinh năm \(-287\) và mất năm \(-212\). Hỏi ông sống thọ bao nhiêu tuổi?</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Tuổi thọ của Ác-si-mét = Năm mất - Năm sinh = \((-212) - (-287) = -212 + 287 = 75\) (tuổi).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 29 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 29 (Tình huống Thang máy):</strong> Một thang máy xuất phát từ tầng hầm thứ 2 (tầng \(-2\)), đi lên 7 tầng, sau đó lại đi xuống 4 tầng. Hỏi hiện tại thang máy đang dừng ở tầng mấy?</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Thang máy dừng ở tầng: \((-2) + 7 - 4 = 5 - 4 = 1\) (Tầng 1).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 30 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 30 (Kinh doanh):</strong> Tháng đầu tiên cửa hàng lỗ \(15\) triệu (\(-15\)). Tháng thứ hai lãi \(20\) triệu (\(+20\)). Tháng thứ ba lỗ \(8\) triệu (\(-8\)). Hỏi sau 3 tháng cửa hàng lãi hay lỗ tổng cộng bao nhiêu?</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Tổng kết quả tài chính = \((-15) + 20 + (-8) = 5 + (-8) = -3\) (triệu đồng).</p>
+                            <p>Kết quả mang dấu âm nên sau 3 tháng cửa hàng <strong>lỗ tổng cộng 3 triệu đồng</strong>.</p>
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ================= BÀI TẬP ĐÁNH GIÁ NĂNG LỰC TRẮC NGHIỆM ================= -->
+        <section class="border-t border-slate-200 pt-10 page-break">
+            <div class="bg-gradient-to-br from-slate-900 via-slate-800 to-indigo-950 text-white rounded-3xl p-6 sm:p-8 shadow-xl relative overflow-hidden card-border">
+                <div class="max-w-xl space-y-2">
+                    <span class="text-xs font-bold uppercase tracking-widest text-emerald-400 bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-500/20 inline-block">Đánh giá trực tuyến tại lớp</span>
+                    <h2 class="text-xl sm:text-2xl font-black tracking-tight">BÀI TẬP ĐÁNH GIÁ NĂNG LỰC TẠI LỚP</h2>
+                    <p class="text-slate-400 text-xs sm:text-sm">Học sinh hoàn thành trắc nghiệm 5 câu dưới đây. Kết quả điểm số sẽ được truyền tự động về Google Sheets hệ thống.</p>
+                </div>
+
+                <form id="quizForm" class="mt-8 space-y-6 text-slate-900">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div class="bg-white p-4 rounded-xl shadow-inner border border-slate-100">
+                            <label class="block text-xs font-bold text-slate-400 uppercase tracking-wide mb-1"><i class="fa-solid fa-user-graduate mr-1 text-indigo-500"></i> Họ và tên học sinh</label>
+                            <input type="text" id="studentName" required placeholder="Nhập họ tên đầy đủ..." class="w-full bg-white border-b-2 border-slate-200 focus:border-indigo-500 outline-none py-1 text-sm font-bold text-slate-900 transition-colors">
+                        </div>
+                        <div class="bg-white p-4 rounded-xl shadow-inner border border-slate-100">
+                            <label class="block text-xs font-bold text-slate-400 uppercase tracking-wide mb-1"><i class="fa-solid fa-file-code mr-1 text-indigo-500"></i> Mã chuyên đề bài học</label>
+                            <input type="text" id="examId" readonly value="Buoi10_CongTruSoNguyen_Toan6" class="w-full bg-slate-50 border-b-2 border-slate-200 outline-none py-1 text-sm font-bold text-slate-500 cursor-not-allowed">
+                        </div>
+                    </div>
+
+                    <!-- Khối câu hỏi trắc nghiệm -->
+                    <div class="space-y-5 mt-6">
+                        <!-- Câu 1 -->
+                        <div class="bg-white p-5 rounded-2xl shadow-sm space-y-3">
+                            <p class="text-sm font-bold text-slate-900"><span class="text-indigo-600">Câu 1:</span> Kết quả của phép tính cộng hai số nguyên âm \((-28) + (-37)\) bằng bao nhiêu?</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs font-semibold text-slate-700">
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q1" value="A" required class="text-indigo-600 h-4 w-4"> <span>A. -65</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q1" value="B" class="text-indigo-600 h-4 w-4"> <span>B. 65</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q1" value="C" class="text-indigo-600 h-4 w-4"> <span>C. -9</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Câu 2 -->
+                        <div class="bg-white p-5 rounded-2xl shadow-sm space-y-3">
+                            <p class="text-sm font-bold text-slate-900"><span class="text-indigo-600">Câu 2:</span> Khi chuyển phép trừ thành phép cộng với số đối, biểu thức \(4 - (-11)\) bằng:</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs font-semibold text-slate-700">
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q2" value="A" required class="text-indigo-600 h-4 w-4"> <span>A. -7</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q2" value="B" class="text-indigo-600 h-4 w-4"> <span>B. 15</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q2" value="C" class="text-indigo-600 h-4 w-4"> <span>C. -15</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Câu 3 -->
+                        <div class="bg-white p-5 rounded-2xl shadow-sm space-y-3">
+                            <p class="text-sm font-bold text-slate-900"><span class="text-indigo-600">Câu 3:</span> Thực hiện quy tắc bỏ dấu ngoặc có dấu trừ đằng trước đối với biểu thức \(-(a - b + c)\), kết quả thu được là:</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs font-semibold text-slate-700">
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q3" value="A" required class="text-indigo-600 h-4 w-4"> <span>A. \(-a - b + c\)</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q3" value="B" class="text-indigo-600 h-4 w-4"> <span>B. \(-a + b - c\)</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q3" value="C" class="text-indigo-600 h-4 w-4"> <span>C. \(-a + b + c\)</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Câu 4 -->
+                        <div class="bg-white p-5 rounded-2xl shadow-sm space-y-3">
+                            <p class="text-sm font-bold text-slate-900"><span class="text-indigo-600">Câu 4:</span> Nhiệt độ ban ngày là \(-3^\circ\text{C}\). Ban đêm nhiệt độ giảm thêm \(5^\circ\text{C}\) nữa. Hỏi nhiệt độ ban đêm là bao nhiêu?</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs font-semibold text-slate-700">
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q4" value="A" required class="text-indigo-600 h-4 w-4"> <span>A. \(2^\circ\text{C}\)</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q4" value="B" class="text-indigo-600 h-4 w-4"> <span>B. \(-8^\circ\text{C}\)</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q4" value="C" class="text-indigo-600 h-4 w-4"> <span>C. \(-2^\circ\text{C}\)</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Câu 5 -->
+                        <div class="bg-white p-5 rounded-2xl shadow-sm space-y-3">
+                            <p class="text-sm font-bold text-slate-900"><span class="text-indigo-600">Câu 5:</span> Tổng tất cả các số nguyên \(x\) thỏa mãn điều kiện \(-5 < x \le 5\) bằng bao nhiêu?</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs font-semibold text-slate-700">
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q5" value="A" required class="text-indigo-600 h-4 w-4"> <span>A. 0</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q5" value="B" class="text-indigo-600 h-4 w-4"> <span>B. 5</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q5" value="C" class="text-indigo-600 h-4 w-4"> <span>C. -5</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pt-2 flex flex-col sm:flex-row items-center justify-between gap-4">
+                        <button type="submit" id="submitBtn" class="w-full sm:w-auto bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-sm px-8 py-3.5 rounded-xl shadow-lg transition-all flex items-center justify-center space-x-2 cursor-pointer">
+                            <i class="fa-solid fa-cloud-arrow-up"></i> <span>Nộp Bài Chấm Điểm</span>
+                        </button>
+                        <div id="statusReport" class="text-xs font-bold text-slate-400"></div>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer bản quyền -->
+    <footer class="bg-slate-900 text-slate-400 py-8 text-center text-xs font-medium px-4 mt-auto">
+        <p class="font-bold text-slate-300">@ Bản quyền thuộc ThS. Đinh Quốc Tuấn - Mục đích phi lợi nhuận - Vì giáo dục.</p>
+        <p class="text-slate-500 mt-2">Hệ thống bài giảng trực tuyến tương tác tích hợp đồng bộ dữ liệu điểm số học sinh.</p>
+    </footer>
+
+    <!-- NÚT IN TÀI LIỆU CỐ ĐỊNH -->
+    <button id="btn-print-doc" onclick="safePrint()" class="fixed bottom-5 right-5 bg-gray-900 text-white px-4 py-2 rounded-lg shadow-lg hover:bg-gray-700 print:hidden z-50 cursor-pointer">
+        <i class="fas fa-print mr-2"></i> In Tài Liệu
+    </button>
+
+    <script>
+        function safePrint() {
+            const printBtn = document.getElementById('btn-print-doc');
+            printBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Đang chuẩn bị...';
+            
+            if (window.MathJax && window.MathJax.typesetPromise) {
+                MathJax.typesetPromise().then(() => {
+                    printBtn.innerHTML = '<i class="fas fa-print mr-2"></i> In Tài Liệu';
+                    window.print();
+                });
+            } else {
+                setTimeout(() => {
+                    printBtn.innerHTML = '<i class="fas fa-print mr-2"></i> In Tài Liệu';
+                    window.print();
+                }, 500); 
+            }
+        }
+    </script>
+
+    <!-- HỆ THỐNG ĐIỀU KHIỂN ĐỒ HỌA JSXGRAPH & FORM QUIZ APPS SCRIPT -->
+    <script>
+        const timeInit = new Date();
+        let board1, arrow1, arrow2, arrowRes, pEnd1, pEnd2;
+        let board3, mercurySeg, tempPoint, currentTemp = -3;
+
+        document.addEventListener("DOMContentLoaded", function() {
+            
+            // --- MÔ HÌNH 1: TRỤC SỐ CỘNG VECTƠ (Bài 5) ---
+            board1 = JXG.JSXGraph.initBoard('box1', {
+                boundingbox: [-10, 3, 10, -3], axis: false, showNavigation: false, showCopyright: false
+            });
+
+            // Trục số chính
+            let axis1 = board1.create('line', [[-9,0], [9,0]], {strokeColor: '#64748b', strokeWidth: 2, lastArrow: true, fixed: true});
+            board1.create('point', [0,0], {name: '0', color: '#0f172a', size: 2, fixed: true});
+
+            // Vạch chia nhỏ
+            for(let i = -9; i <= 9; i++) {
+                if(i !== 0) board1.create('point', [i,0], {name: i.toString(), size: 1, color: '#94a3b8', fixed: true});
+            }
+
+            // Khởi tạo phép cộng (-3) + (-5) = -8
+            let p0 = board1.create('point', [0, 1], {visible: false, fixed: true});
+            pEnd1 = board1.create('point', [-3, 1], {visible: false, fixed: true});
+            pEnd2 = board1.create('point', [-8, 1], {visible: false, fixed: true});
+
+            arrow1 = board1.create('arrow', [p0, pEnd1], {strokeColor: '#ef4444', strokeWidth: 3});
+            arrow2 = board1.create('arrow', [pEnd1, pEnd2], {strokeColor: '#ef4444', strokeWidth: 3});
+            
+            let pResStart = board1.create('point', [0, -1], {visible: false, fixed: true});
+            let pResEnd = board1.create('point', [-8, -1], {visible: false, fixed: true});
+            arrowRes = board1.create('arrow', [pResStart, pResEnd], {strokeColor: '#8b5cf6', strokeWidth: 3, dash: 2});
+
+
+            // --- MÔ HÌNH 2: MA PHƯƠNG 3X3 (Bài 22) ---
+            const b2 = JXG.JSXGraph.initBoard('box2', {
+                boundingbox: [-0.5, 3.5, 3.5, -0.5], axis: false, showNavigation: false, showCopyright: false
+            });
+
+            // Ma phương chuẩn tổng bằng 0
+            const magicMatrix = [
+                [1, -4, 3],
+                [2, 0, -2],
+                [-3, 4, -1]
+            ];
+
+            for(let r = 0; r < 3; r++) {
+                for(let c = 0; c < 3; c++) {
+                    let val = magicMatrix[r][c];
+                    let x = c + 0.5;
+                    let y = 2.5 - r;
+                    
+                    // Ô vuông
+                    b2.create('polygon', [[c, 3-r], [c+1, 3-r], [c+1, 2-r], [c, 2-r]], {
+                        fillColor: val === 0 ? '#fef08a' : (val > 0 ? '#e0f2fe' : '#fee2e2'),
+                        fillOpacity: 0.8,
+                        strokeColor: '#94a3b8',
+                        strokeWidth: 1.5
+                    });
+                    
+                    b2.create('text', [x, y, val > 0 ? '+' + val : val.toString()], {
+                        anchorX: 'middle', anchorY: 'middle', fontSize: 12, fontStyle: 'bold', strokeColor: '#0f172a'
+                    });
+                }
+            }
+
+
+            // --- MÔ HÌNH 3: NHIỆT KẾ GIẢM ĐỘ (Bài 23) ---
+            board3 = JXG.JSXGraph.initBoard('box3', {
+                boundingbox: [-3, 5, 3, -12], axis: false, showNavigation: false, showCopyright: false
+            });
+
+            // Cột nhiệt kế
+            board3.create('line', [[0,-10], [0,3]], {strokeColor: '#cbd5e1', strokeWidth: 6, fixed: true});
+            board3.create('point', [0,0], {name: '0°C', color: '#0f172a', size: 2, fixed: true});
+
+            for(let t = -10; t <= 3; t += 2) {
+                if(t !== 0) board3.create('point', [0, t], {name: t + '°C', size: 1, color: '#64748b', fixed: true});
+            }
+
+            tempPoint = board3.create('point', [0, function() { return currentTemp; }], {name: 'Thủy ngân', color: '#059669', size: 4});
+            mercurySeg = board3.create('segment', [[0,-10], tempPoint], {strokeColor: '#ef4444', strokeWidth: 6});
+        });
+
+        // Hàm chuyển đổi toán mô hình 1
+        function setCalc(type) {
+            let status = document.getElementById('status-box1');
+            if (type === 'a') {
+                pEnd1.setPosition(JXG.COORDS_BY_USER, [-3, 1]);
+                pEnd2.setPosition(JXG.COORDS_BY_USER, [-8, 1]);
+                arrow1.setAttribute({strokeColor: '#ef4444'});
+                arrow2.setAttribute({strokeColor: '#ef4444'});
+                status.innerText = "Phép tính: (-3) + (-5) = -8";
+            } else if (type === 'b') {
+                pEnd1.setPosition(JXG.COORDS_BY_USER, [4, 1]);
+                pEnd2.setPosition(JXG.COORDS_BY_USER, [-3, 1]);
+                arrow1.setAttribute({strokeColor: '#2563eb'});
+                arrow2.setAttribute({strokeColor: '#ef4444'});
+                status.innerText = "Phép tính: 4 + (-7) = -3";
+            } else if (type === 'c') {
+                pEnd1.setPosition(JXG.COORDS_BY_USER, [-2, 1]);
+                pEnd2.setPosition(JXG.COORDS_BY_USER, [4, 1]);
+                arrow1.setAttribute({strokeColor: '#ef4444'});
+                arrow2.setAttribute({strokeColor: '#2563eb'});
+                status.innerText = "Phép tính: (-2) + 6 = 4";
+            }
+            board1.update();
+        }
+
+        // Hàm giảm nhiệt độ Mô hình 3
+        function dropTemp() {
+            currentTemp = -8;
+            board3.update();
+            document.getElementById('status-box3').innerText = "Ban đêm: (-3°C) + (-5°C) = -8°C";
+        }
+
+        // --- XỬ LÝ NỘP BÀI TRẮC NGHIỆM VÀ ĐẨY DỮ LIỆU APPS SCRIPT ---
+        document.getElementById('quizForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const submitBtn = document.getElementById('submitBtn');
+            const statusReport = document.getElementById('statusReport');
+            
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i> Hệ thống đang nộp bài...';
+            statusReport.innerHTML = "Đang kết nối cơ sở dữ liệu bảng tính...";
+
+            const correctKey = { q1: "A", q2: "B", q3: "B", q4: "B", q5: "B" };
+            const studentName = document.getElementById('studentName').value.trim();
+            const lessonId = document.getElementById('examId').value.trim();
+            
+            let correctCounter = 0;
+            let totalQuizCount = Object.keys(correctKey).length;
+            let missedReportArray = [];
+
+            for (let questionCode in correctKey) {
+                const selectedRadio = document.querySelector(`input[name="${questionCode}"]:checked`);
+                if (selectedRadio && selectedRadio.value === correctKey[questionCode]) {
+                    correctCounter++;
+                } else {
+                    let chosenChar = selectedRadio ? selectedRadio.value : "Bỏ trống";
+                    missedReportArray.push(`${questionCode.toUpperCase()}(Chọn: ${chosenChar}|Đúng: ${correctKey[questionCode]})`);
+                }
+            }
+
+            const finalScore = ((correctCounter / totalQuizCount) * 10).toFixed(2);
+            const timeComplete = new Date();
+            const elapsedDurationSeconds = Math.floor((timeComplete - timeInit) / 1000);
+            const thoiGian = `${Math.floor(elapsedDurationSeconds / 60)} phút ${elapsedDurationSeconds % 60} giây`;
+            const cauSai = missedReportArray.length > 0 ? missedReportArray.join(", ") : "Không có (Đạt 10/10)";
+
+            const transmissionPayload = {
+                hoTen: studentName,
+                maDe: lessonId,
+                diem: parseFloat(finalScore),
+                thoiGian: thoiGian,
+                cauSai: cauSai
+            };
+
+            const webAppsScriptEndpoint = "https://script.google.com/macros/s/AKfycbzY7b7h4OwvhXuK5Vs6hl-aD88BPnAiAKbU5lfJobby0D4nzbIJVKT4n0AKCpAGoK0nZA/exec";
+
+            fetch(webAppsScriptEndpoint, {
+                method: "POST",
+                mode: "no-cors",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(transmissionPayload)
+            })
+            .then(() => {
+                statusReport.className = "text-xs font-bold text-emerald-500 bg-emerald-50 px-3 py-2 rounded-xl border border-emerald-200 inline-block";
+                statusReport.innerHTML = `<i class="fa-solid fa-circle-check"></i> Đã đồng bộ kết quả thành công: ${finalScore}/10.`;
+                alert(`Hệ thống ghi nhận bài nộp thành công!\nChào em ${studentName}, điểm số đạt được là: ${finalScore} / 10.`);
+                submitBtn.innerHTML = '<i class="fa-solid fa-lock"></i> Đã lưu kết quả thi';
+            })
+            .catch(error => {
+                console.error("Lỗi truyền tin:", error);
+                statusReport.className = "text-xs font-bold text-rose-500 bg-rose-50 px-3 py-2 rounded-xl border border-rose-200 inline-block";
+                statusReport.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> Lỗi kết nối mạng, vui lòng bấm nộp lại!';
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Thử nộp lại bài';
+            });
+        });
+    </script>
+</body>
+</html>
