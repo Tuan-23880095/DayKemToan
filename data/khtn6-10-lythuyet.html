@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buổi 10: Cơ thể đơn bào & đa bào — ThS. Đinh Quốc Tuấn</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- FontAwesome Icons CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts: Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- MathJax Configuration & Script -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['\\(', '\\)'], ['$', '$']],
+                displayMath: [['\\[', '\\]'], ['$$', '$$']]
+            },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <!-- JSXGraph CSS & Core Engine -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraph.css" />
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraphcore.js"></script>
+
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #f8fafc;
+            color: #0f172a;
+        }
+        .jxgbox {
+            background-color: #ffffff !important;
+            border-radius: 1rem;
+            overflow: hidden;
+            border: 1px solid #e2e8f0;
+        }
+        @media print {
+            .print\:hidden { display: none !important; }
+            body { background: white !important; color: black !important; }
+            details { display: block !important; }
+            details summary { display: none !important; }
+            .page-break { page-break-before: always; }
+            .card-border { box-shadow: none !important; border: 1px solid #e5e7eb !important; }
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col antialiased selection:bg-emerald-100">
+
+    <!-- Header học thuật -->
+    <header class="border-b border-slate-200 sticky top-0 bg-white/95 backdrop-blur-md z-40 print:hidden">
+        <div class="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 px-6 py-4">
+            <div class="flex items-center gap-4">
+                <img src="https://hcmus.edu.vn/wp-content/uploads/2023/04/Logo-chinh-e1681638380305.png" alt="Logo HCMUS" class="h-14 w-auto object-contain">
+                <div class="border-l-2 border-slate-300 pl-4">
+                    <span class="text-xs font-bold tracking-widest text-emerald-600 uppercase block mb-0.5">Tài liệu số hóa tương tác</span>
+                    <span class="text-base font-extrabold text-slate-800">Chuyên đề Khoa Học Tự Nhiên 6 • Sinh Học</span>
+                </div>
+            </div>
+            <div class="flex items-center gap-3 sm:text-right">
+                <div class="hidden sm:block">
+                    <p class="text-xs text-slate-400 font-semibold">Giảng viên biên soạn:</p>
+                    <p class="text-sm font-extrabold text-slate-800">ThS. Đinh Quốc Tuấn</p>
+                </div>
+                <img src="https://firebasestorage.googleapis.com/v0/b/link-anh-web.firebasestorage.app/o/ttbdvh.jpg?alt=media&token=f270aa9b-a2bc-48e8-8910-80742b542615" 
+                     alt="Logo TTBDVH" class="h-14 w-14 object-cover rounded-full border border-slate-200 shadow-inner">
+            </div>
+        </div>
+    </header>
+
+    <!-- Banner chào mừng -->
+    <div class="bg-gradient-to-r from-emerald-50 via-teal-50 to-sky-50 border-b border-slate-200 py-10 print:hidden">
+        <div class="max-w-4xl mx-auto px-6 space-y-4">
+            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800 border border-emerald-200 shadow-xs">
+                <i class="fa-solid fa-tree mr-1.5 text-emerald-600"></i> Khám phá thế giới sinh vật (12 - 16 tuổi)
+            </span>
+            <h1 class="text-2xl sm:text-4xl font-black tracking-tight text-slate-900 leading-tight">
+                Buổi 10: Cơ Thể Đơn Bào & Đa Bào — Sự Lớn Lên Của Sinh Vật
+            </h1>
+            <p class="text-slate-600 text-sm sm:text-base font-medium leading-relaxed text-justify">
+                Chào các em! Trong tự nhiên có những sinh vật tí hon chỉ cấu tạo từ đúng một tế bào nhưng vẫn sống tốt, lại có những sinh vật khổng lồ được tạo nên từ hàng tỷ tế bào kết hợp lại. Bài học hôm nay sẽ giúp các em phân biệt <strong>Cơ thể đơn bào & Cơ thể đa bào</strong>, đồng thời khám phá quy luật toán học kỳ diệu $2^n$ đằng sau sự phân chia lớn lên của sinh vật!
+            </p>
+        </div>
+    </div>
+
+    <!-- Không gian nội dung chính -->
+    <main class="max-w-4xl mx-auto px-4 sm:px-6 py-10 flex-grow w-full space-y-16">
+        
+        <!-- ================= MÔ HÌNH HÌNH HỌC TƯƠNG TÁC JSXGRAPH ================= -->
+        <section class="space-y-8 print:hidden bg-slate-100 p-6 rounded-3xl border border-slate-200">
+            <div class="border-b border-slate-200 pb-3">
+                <h2 class="text-lg font-black text-slate-800 flex items-center uppercase tracking-wide">
+                    <i class="fa-solid fa-compass-drafting mr-2.5 text-emerald-600 text-xl"></i> Mô hình mô phỏng Sinh học trực quan
+                </h2>
+                <p class="text-xs text-slate-500 mt-1">Trực quan hóa cấu trúc cơ thể, chu kỳ lớn lên - phân chia tế bào và quy luật nhân đôi $2^n$.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Mô hình 1 -->
+                <div class="flex flex-col bg-white p-4 rounded-2xl border border-slate-200 shadow-2xs">
+                    <h3 class="font-bold text-slate-900 text-xs mb-1 flex items-center gap-1.5">
+                        <i class="fa-solid fa-bacteria text-amber-500"></i> Mô hình 1: Đơn bào vs Đa bào
+                    </h3>
+                    <p class="text-[11px] text-slate-500 mb-3">Nửa trái: Trùng roi (1 tế bào tự do). Nửa phải: Mô lá cây (Tập hợp mạng lưới nhiều tế bào).</p>
+                    <div id="box1" class="w-full h-56 jxgbox"></div>
+                    <div id="status-box1" class="text-[11px] font-bold p-2 mt-2 bg-amber-50 border border-amber-100 rounded-lg text-center text-amber-900 font-mono">
+                        Đơn bào (1 tế bào) vs Đa bào (Nhiều tế bào)
+                    </div>
+                </div>
+
+                <!-- Mô hình 2 -->
+                <div class="flex flex-col bg-white p-4 rounded-2xl border border-slate-200 shadow-2xs">
+                    <h3 class="font-bold text-slate-900 text-xs mb-1 flex items-center gap-1.5">
+                        <i class="fa-solid fa-up-right-and-down-left-from-center text-sky-500"></i> Mô hình 2: Tế bào lớn lên & Phân chia
+                    </h3>
+                    <p class="text-[11px] text-slate-500 mb-3">Kéo slider "Thời gian" từ 0 đến 10: Tế bào tăng kích thước rồi thắt eo tách thành 2 tế bào con.</p>
+                    <div id="box2" class="w-full h-56 jxgbox"></div>
+                    <div id="status-box2" class="text-[11px] font-bold p-2 mt-2 bg-sky-50 border border-sky-100 rounded-lg text-center text-sky-900 font-mono">
+                        Thời gian t = 0 (Tế bào ban đầu)
+                    </div>
+                </div>
+
+                <!-- Mô hình 3 -->
+                <div class="flex flex-col bg-white p-4 rounded-2xl border border-slate-200 shadow-2xs">
+                    <h3 class="font-bold text-slate-900 text-xs mb-1 flex items-center gap-1.5">
+                        <i class="fa-solid fa-sitemap text-emerald-600"></i> Mô hình 3: Quy luật phân chia $2^n$
+                    </h3>
+                    <p class="text-[11px] text-slate-500 mb-3">Kéo slider số lần phân chia $n$ (0 đến 4) để xem cây sơ đồ rẽ nhánh tế bào con.</p>
+                    <div id="box3" class="w-full h-56 jxgbox"></div>
+                    <div id="status-box3" class="text-[11px] font-bold p-2 mt-2 bg-emerald-50 border border-emerald-100 rounded-lg text-center text-emerald-900 font-mono">
+                        n = 0 phân chia &rArr; 2⁰ = 1 tế bào
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= PHẦN 1: MỨC ĐỘ CƠ BẢN ================= -->
+        <section class="space-y-6">
+            <div class="flex items-center gap-3 border-b pb-3 border-slate-200">
+                <span class="bg-sky-600 text-white text-xs font-black px-3 py-1 rounded-md uppercase tracking-wider">Cấp độ 1</span>
+                <h2 class="text-xl font-extrabold text-slate-900">PHẦN 1: MỨC ĐỘ CƠ BẢN (NHẬN BIẾT - KHÁI NIỆM CỐT LÕI)</h2>
+            </div>
+            <p class="text-xs font-bold text-sky-800 bg-sky-50 px-3 py-2 rounded-lg inline-block">
+                Mục tiêu: Nhận biết định nghĩa cơ thể đơn bào, cơ thể đa bào, quá trình lớn lên và phân chia của tế bào.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm leading-relaxed text-slate-700">
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs space-y-3">
+                    <h3 class="font-bold text-slate-800 text-base flex items-center gap-2 text-sky-700">
+                        <i class="fa-solid fa-cubes"></i> 1. Cơ thể đơn bào và Cơ thể đa bào
+                    </h3>
+                    <p>&bull; <strong>Cơ thể đơn bào:</strong> Là cơ thể được cấu tạo từ một tế bào duy nhất nhưng thực hiện được đầy đủ các chức năng sống (dinh dưỡng, hô hấp, bài tiết, sinh sản). Đa số có kích thước hiển vi. <em>(Ví dụ: Trùng roi, trùng giày, vi khuẩn E.coli, tảo lục).</em></p>
+                    <p>&bull; <strong>Cơ thể đa bào:</strong> Là cơ thể được cấu tạo từ nhiều tế bào khác nhau. Các tế bào này phối hợp và phân công trách nhiệm để thực hiện các hoạt động sống. <em>(Ví dụ: Cây lúa, con người, con chó, con ếch).</em></p>
+                </div>
+
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs space-y-3">
+                    <h3 class="font-bold text-slate-800 text-base flex items-center gap-2 text-sky-700">
+                        <i class="fa-solid fa-arrows-spin"></i> 2. Sự lớn lên và sinh sản của tế bào
+                    </h3>
+                    <p>&bull; <strong>Sự lớn lên:</strong> Tế bào hấp thụ chất dinh dưỡng để tăng nhanh về kích thước (màng tế bào giãn ra, tế bào chất nhiều thêm, nhân lớn dần).</p>
+                    <p>&bull; <strong>Sự phân chia (sinh sản):</strong> Tế bào không lớn lên mãi. Khi đạt đến kích thước nhất định, 1 tế bào mẹ ban đầu phân chia thành 2 tế bào con mới.</p>
+                    <p>&bull; <strong>Ví dụ:</strong> Em bé sơ sinh nặng 3 kg, khi trưởng thành nặng 50 kg là nhờ các tế bào liên tục hấp thụ dinh dưỡng để lớn lên và phân chia tạo thêm hàng tỷ tế bào mới.</p>
+                </div>
+            </div>
+
+            <!-- Bài tập tự luyện Cơ bản -->
+            <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border space-y-4">
+                <h3 class="text-sm font-bold text-slate-800 flex items-center gap-2 text-indigo-700">
+                    <i class="fa-solid fa-pen-to-square"></i> Bài tập củng cố nhận biết (Có gợi ý lời giải)
+                </h3>
+
+                <div class="space-y-3 text-xs">
+                    <!-- Q1 -->
+                    <div class="p-3 bg-slate-50 rounded-xl border border-slate-200 space-y-2">
+                        <p class="font-bold text-slate-800">Câu 1: Trong các sinh vật sau: Trùng giày, Cây lúa, Vi khuẩn E.coli, Con mèo, Tảo lục. Hãy phân loại chúng thành 2 nhóm: Cơ thể đơn bào và Cơ thể đa bào.</p>
+                        <details class="group">
+                            <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                                <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem đáp án ẩn</span>
+                            </summary>
+                            <div class="mt-2 p-3 bg-white rounded-lg border border-indigo-100 text-slate-700 leading-relaxed">
+                                &bull; <strong>Cơ thể đơn bào:</strong> Trùng giày, Vi khuẩn E.coli, Tảo lục.<br>
+                                &bull; <strong>Cơ thể đa bào:</strong> Cây lúa, Con mèo.
+                            </div>
+                        </details>
+                    </div>
+
+                    <!-- Q2 -->
+                    <div class="p-3 bg-slate-50 rounded-xl border border-slate-200 space-y-2">
+                        <p class="font-bold text-slate-800">Câu 2: Nhờ quá trình nào mà cơ thể sinh vật có thể tăng trưởng về chiều cao và cân nặng?</p>
+                        <details class="group">
+                            <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                                <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem đáp án ẩn</span>
+                            </summary>
+                            <div class="mt-2 p-3 bg-white rounded-lg border border-indigo-100 text-slate-700 leading-relaxed">
+                                Nhờ sự kết hợp của hai quá trình: Quá trình <strong>lớn lên về kích thước</strong> của tế bào và quá trình <strong>sinh sản (phân chia)</strong> gia tăng số lượng tế bào trong cơ thể.
+                            </div>
+                        </details>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ================= PHẦN 2: MỨC ĐỘ NÂNG CAO ================= -->
+        <section class="space-y-6">
+            <div class="flex items-center gap-3 border-b pb-3 border-slate-200">
+                <span class="bg-amber-600 text-white text-xs font-black px-3 py-1 rounded-md uppercase tracking-wider">Cấp độ 2</span>
+                <h2 class="text-xl font-extrabold text-slate-900">PHẦN 2: MỨC ĐỘ NÂNG CAO (HIỂU & PHÂN TÍCH LOGIC)</h2>
+            </div>
+            <p class="text-xs font-bold text-amber-800 bg-amber-50 px-3 py-2 rounded-lg inline-block">
+                Mục tiêu: Phân tích sự biệt hóa chức năng ở cơ thể đa bào và áp dụng công thức cấp số nhân $2^n$ tính số tế bào con.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm leading-relaxed text-slate-700">
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs space-y-3">
+                    <h3 class="font-bold text-slate-800 text-base flex items-center gap-2 text-amber-700">
+                        <i class="fa-solid fa-network-wired"></i> 1. Phân tích sự biệt hóa chức năng
+                    </h3>
+                    <p>&bull; Sự khác biệt cốt lõi giữa cơ thể đa bào và đơn bào nằm ở <strong>sự phân công lao động (biệt hóa)</strong>.</p>
+                    <p>&bull; Ở sinh vật đa bào, các tế bào có hình dạng và kích thước chuyên hóa riêng biệt để phù hợp với chức năng: Tế bào hồng cầu hình đĩa lõm để chuyển chở oxygen; tế bào cơ hình thoi thuôn dài để co giãn vận động; tế bào thần kinh dạng hình sao có nhánh vươn dài để truyền tín hiệu.</p>
+                </div>
+
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs space-y-3">
+                    <h3 class="font-bold text-slate-800 text-base flex items-center gap-2 text-amber-700">
+                        <i class="fa-solid fa-calculator"></i> 2. Quy luật tính toán phân chia $2^n$
+                    </h3>
+                    <p>&bull; <strong>Định lí:</strong> Khi một tế bào phân chia liên tiếp $n$ lần, số lượng tế bào con tạo thành tuân theo quy luật cấp số nhân với cơ số 2.</p>
+                    <p>&bull; <strong>Công thức:</strong> 
+                        $$\text{Số tế bào con} = N_0 \cdot 2^n$$
+                        <em>(Trong đó: $N_0$ là số tế bào ban đầu, $n$ là số lần phân chia).</em>
+                    </p>
+                    <p>&bull; <strong>Ví dụ:</strong> 1 tế bào phân chia $n = 4$ lần sẽ tạo ra $2^4 = 16$ tế bào con. Nếu ban đầu có 3 tế bào cùng phân chia 4 lần thì tạo ra $3 \cdot 2^4 = 48$ tế bào con.</p>
+                </div>
+            </div>
+
+            <!-- Bài tập tự luyện Nâng cao -->
+            <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border space-y-4">
+                <h3 class="text-sm font-bold text-slate-800 flex items-center gap-2 text-indigo-700">
+                    <i class="fa-solid fa-calculator"></i> Bài tập toán học phân bào (Có gợi ý lời giải)
+                </h3>
+
+                <div class="space-y-3 text-xs">
+                    <!-- Q3 -->
+                    <div class="p-3 bg-slate-50 rounded-xl border border-slate-200 space-y-2">
+                        <p class="font-bold text-slate-800">Bài toán 1: Trong điều kiện môi trường thuận lợi, 5 tế bào vi khuẩn cùng tiến hành phân chia liên tiếp 3 lần. Tính tổng số tế bào vi khuẩn thu được sau chu kỳ trên.</p>
+                        <details class="group">
+                            <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                                <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem cách giải ẩn</span>
+                            </summary>
+                            <div class="mt-2 p-3 bg-white rounded-lg border border-indigo-100 text-slate-700 leading-relaxed">
+                                Áp dụng công thức: $\text{Số tế bào con} = N_0 \cdot 2^n$.<br>
+                                Thay số với $N_0 = 5$ và $n = 3$: $\text{Số tế bào con} = 5 \cdot 2^3 = 5 \cdot 8 = 40$ (tế bào).
+                            </div>
+                        </details>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ================= PHẦN 3: MỨC ĐỘ VẬN DỤNG ================= -->
+        <section class="space-y-6">
+            <div class="flex items-center gap-3 border-b pb-3 border-slate-200">
+                <span class="bg-emerald-600 text-white text-xs font-black px-3 py-1 rounded-md uppercase tracking-wider">Cấp độ 3</span>
+                <h2 class="text-xl font-extrabold text-slate-900">PHẦN 3: MỨC ĐỘ VẬN DỤNG (LIÊN HỆ THỰC TẾ & Y HỌC)</h2>
+            </div>
+            <p class="text-xs font-bold text-emerald-800 bg-emerald-50 px-3 py-2 rounded-lg inline-block">
+                Mục tiêu: Áp dụng cơ chế phân bào giải thích hiện tượng tái sinh mô, chữa lành vết thương và bác bỏ các quan niệm sai lầm về kích thước cơ thể.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm leading-relaxed text-slate-700">
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs space-y-3">
+                    <h3 class="font-bold text-slate-800 text-base flex items-center gap-2 text-emerald-700">
+                        <i class="fa-solid fa-kit-medical"></i> 1. Ý nghĩa sự phân bào trong Tái sinh mô
+                    </h3>
+                    <p>&bull; Sự phân chia tế bào không chỉ giúp cơ thể tăng khối lượng mà còn là cơ chế cốt lõi để <strong>thay thế các tế bào già, tế bào bị tổn thương</strong>.</p>
+                    <p>&bull; <strong>Hiện tượng thực tế:</strong> Khi thằn lằn bị đứt đuôi, các tế bào ở vùng vết thương sẽ liên tục hấp thụ dinh dưỡng để phân chia tạo ra hàng loạt tế bào mới lấp đầy, giúp chiếc đuôi mọc lại hoàn chỉnh. Tương tự, khi ta bị đứt tay, vết thương tự liền lại cũng nhờ các tế bào da liên tục phân chia bù đắp.</p>
+                </div>
+
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs space-y-3">
+                    <h3 class="font-bold text-slate-800 text-base flex items-center gap-2 text-emerald-700">
+                        <i class="fa-solid fa-weight-hanging"></i> 2. Quan niệm đúng về Kích thước cơ thể
+                    </h3>
+                    <p>&bull; <strong>Sai lầm phổ biến:</strong> Nhiều người nghĩ "Con voi to lớn thì tế bào con voi phải to gấp hàng ngàn lần tế bào con chuột".</p>
+                    <p>&bull; <strong>Sự thật khoa học:</strong> Kích thước tế bào ở voi và chuột hoàn toàn tương đồng nhau (kích thước hiển vi). Con voi to lớn hơn con chuột gấp nhiều lần là do cơ thể con voi có <strong>SỐ LƯỢNG TẾ BÀO NHIỀU HƠN RẤT NHIỀU LẦN</strong> chứ không phải do tế bào nở to ra!</p>
+                </div>
+            </div>
+
+            <!-- Bài tập tự luyện Vận dụng -->
+            <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border space-y-4">
+                <h3 class="text-sm font-bold text-slate-800 flex items-center gap-2 text-indigo-700">
+                    <i class="fa-solid fa-lightbulb"></i> Bài tập tình huống thực tế (Có gợi ý lời giải)
+                </h3>
+
+                <div class="space-y-3 text-xs">
+                    <!-- Q4 -->
+                    <div class="p-3 bg-slate-50 rounded-xl border border-slate-200 space-y-2">
+                        <p class="font-bold text-slate-800">Tình huống: Một bạn học sinh vô tình bị trầy xước ở đầu gối khi đá bóng. Sau 1 tuần, vết thương khô lại và lớp da mới mịn màng xuất hiện. Hãy giải thích cơ chế sinh học đằng sau hiện tượng này.</p>
+                        <details class="group">
+                            <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                                <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem giải thích ẩn</span>
+                            </summary>
+                            <div class="mt-2 p-3 bg-white rounded-lg border border-indigo-100 text-slate-700 leading-relaxed">
+                                Khi da bị trầy xước, các tế bào da ở mép vết thương tiếp nhận tín hiệu tổn thương. Chúng tăng cường trao đổi chất, lớn lên và liên tục phân chia (sinh sản) để tạo ra hàng vạn tế bào da mới lấp đầy khoảng trống bị mất, giúp vết thương lành lại.
+                            </div>
+                        </details>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ================= BÀI TẬP ĐÁNH GIÁ NĂNG LỰC TRẮC NGHIỆM ================= -->
+        <section class="border-t border-slate-200 pt-10 page-break">
+            <div class="bg-gradient-to-br from-slate-900 via-slate-800 to-indigo-950 text-white rounded-3xl p-6 sm:p-8 shadow-xl relative overflow-hidden card-border">
+                <div class="absolute -right-10 -bottom-10 opacity-5 pointer-events-none text-white">
+                    <i class="fa-solid fa-square-check text-[14rem]"></i>
+                </div>
+                
+                <div class="max-w-xl space-y-2">
+                    <span class="text-xs font-bold uppercase tracking-widest text-emerald-400 bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-500/20 inline-block">Đánh giá trực tuyến tại lớp</span>
+                    <h2 class="text-xl sm:text-2xl font-black tracking-tight">BÀI TẬP ĐÁNH GIÁ NĂNG LỰC TẠI LỚP</h2>
+                    <p class="text-slate-400 text-xs sm:text-sm">Học sinh hoàn thành trắc nghiệm 5 câu dưới đây. Kết quả điểm số sẽ được gửi tự động về Google Sheets hệ thống.</p>
+                </div>
+
+                <form id="quizForm" class="mt-8 space-y-6 text-slate-900">
+                    <!-- Khối thông tin học sinh -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div class="bg-white p-4 rounded-xl shadow-inner border border-slate-100">
+                            <label class="block text-xs font-bold text-slate-400 uppercase tracking-wide mb-1"><i class="fa-solid fa-user-graduate mr-1 text-indigo-500"></i> Họ và tên học sinh</label>
+                            <input type="text" id="studentName" required placeholder="Nhập họ tên đầy đủ..." class="w-full bg-white border-b-2 border-slate-200 focus:border-indigo-500 outline-none py-1 text-sm font-bold text-slate-900 transition-colors">
+                        </div>
+                        <div class="bg-white p-4 rounded-xl shadow-inner border border-slate-100">
+                            <label class="block text-xs font-bold text-slate-400 uppercase tracking-wide mb-1"><i class="fa-solid fa-file-code mr-1 text-indigo-500"></i> Mã chuyên đề bài học</label>
+                            <input type="text" id="examId" readonly value="Buoi10_CoTheDonBao_DaBao_KHTN6" class="w-full bg-slate-50 border-b-2 border-slate-200 outline-none py-1 text-sm font-bold text-slate-500 cursor-not-allowed">
+                        </div>
+                    </div>
+
+                    <!-- Khối 5 câu hỏi trắc nghiệm -->
+                    <div class="space-y-5 mt-6">
+                        <!-- Câu 1 -->
+                        <div class="bg-white p-5 rounded-2xl shadow-sm space-y-3">
+                            <p class="text-sm font-bold text-slate-900"><span class="text-indigo-600">Câu 1:</span> Sinh vật nào dưới đây là cơ thể đơn bào?</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs font-semibold text-slate-700">
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q1" value="A" required class="text-indigo-600 h-4 w-4"> <span>A. Trùng giày</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q1" value="B" class="text-indigo-600 h-4 w-4"> <span>B. Cây lúa</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q1" value="C" class="text-indigo-600 h-4 w-4"> <span>C. Con mèo</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Câu 2 -->
+                        <div class="bg-white p-5 rounded-2xl shadow-sm space-y-3">
+                            <p class="text-sm font-bold text-slate-900"><span class="text-indigo-600">Câu 2:</span> Công thức tính tổng số tế bào con thu được từ 1 tế bào ban đầu sau $n$ lần phân chia liên tiếp là:</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs font-semibold text-slate-700">
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q2" value="A" required class="text-indigo-600 h-4 w-4"> <span>A. $2 \cdot n$</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q2" value="B" class="text-indigo-600 h-4 w-4"> <span>B. $2^n$</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q2" value="C" class="text-indigo-600 h-4 w-4"> <span>C. $n^2$</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Câu 3 -->
+                        <div class="bg-white p-5 rounded-2xl shadow-sm space-y-3">
+                            <p class="text-sm font-bold text-slate-900"><span class="text-indigo-600">Câu 3:</span> Một tế bào ban đầu phân chia sinh sản liên tiếp 5 lần sẽ tạo ra bao nhiêu tế bào con?</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs font-semibold text-slate-700">
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q3" value="A" required class="text-indigo-600 h-4 w-4"> <span>A. 10 tế bào</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q3" value="B" class="text-indigo-600 h-4 w-4"> <span>B. 25 tế bào</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q3" value="C" class="text-indigo-600 h-4 w-4"> <span>C. 32 tế bào</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Câu 4 -->
+                        <div class="bg-white p-5 rounded-2xl shadow-sm space-y-3">
+                            <p class="text-sm font-bold text-slate-900"><span class="text-indigo-600">Câu 4:</span> Sự tái sinh mọc lại chiếc đuôi bị đứt ở thằn lằn là nhờ vào quá trình sinh học nào?</p>
+                            <div class="grid grid-cols-1 gap-2 text-xs font-semibold text-slate-700">
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q4" value="A" required class="text-indigo-600 h-4 w-4"> <span>A. Tế bào lớn lên và phân chia tạo ra các tế bào mới bù đắp lại</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q4" value="B" class="text-indigo-600 h-4 w-4"> <span>B. Các tế bào cũ tự co giãn kéo dài ra mà không cần phân chia</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q4" value="C" class="text-indigo-600 h-4 w-4"> <span>C. Quá trình ngưng tụ hơi nước trong cơ thể thằn lằn</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Câu 5 -->
+                        <div class="bg-white p-5 rounded-2xl shadow-sm space-y-3">
+                            <p class="text-sm font-bold text-slate-900"><span class="text-indigo-600">Câu 5:</span> Vì sao cơ thể con voi to lớn gấp hàng ngàn lần cơ thể con chuột?</p>
+                            <div class="grid grid-cols-1 gap-2 text-xs font-semibold text-slate-700">
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q5" value="A" required class="text-indigo-600 h-4 w-4"> <span>A. Vì tế bào của con voi to lớn hơn tế bào con chuột hàng ngàn lần</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q5" value="B" class="text-indigo-600 h-4 w-4"> <span>B. Vì cơ thể con voi sở hữu số lượng tế bào nhiều hơn con chuột rất nhiều lần</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q5" value="C" class="text-indigo-600 h-4 w-4"> <span>C. Vì tế bào con voi chứa nhiều nhân tế bào hơn con chuột</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Khu vực nút bấm nộp bài -->
+                    <div class="pt-2 flex flex-col sm:flex-row items-center justify-between gap-4">
+                        <button type="submit" id="submitBtn" class="w-full sm:w-auto bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-sm px-8 py-3.5 rounded-xl shadow-lg transition-all flex items-center justify-center space-x-2 cursor-pointer">
+                            <i class="fa-solid fa-cloud-arrow-up"></i> <span>Nộp Bài Chấm Điểm</span>
+                        </button>
+                        <div id="statusReport" class="text-xs font-bold text-slate-400"></div>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer bản quyền -->
+    <footer class="bg-slate-900 text-slate-400 py-8 text-center text-xs font-medium px-4 mt-auto">
+        <p class="font-bold text-slate-300">@ Bản quyền thuộc ThS. Đinh Quốc Tuấn - Mục đích phi lợi nhuận - Vì giáo dục.</p>
+        <p class="text-slate-500 mt-2">Hệ thống bài giảng sinh học số hóa động tích hợp mô phỏng tương tác thiếu niên.</p>
+    </footer>
+
+    <!-- NÚT IN TÀI LIỆU CỐ ĐỊNH -->
+    <button id="btn-print-doc" onclick="safePrint()" class="fixed bottom-5 right-5 bg-gray-900 text-white px-4 py-2 rounded-lg shadow-lg hover:bg-gray-700 print:hidden z-50 cursor-pointer">
+        <i class="fas fa-print mr-2"></i> In Tài Liệu
+    </button>
+
+    <script>
+        function safePrint() {
+            const printBtn = document.getElementById('btn-print-doc');
+            printBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Đang chuẩn bị...';
+            
+            if (window.MathJax && window.MathJax.typesetPromise) {
+                MathJax.typesetPromise().then(() => {
+                    printBtn.innerHTML = '<i class="fas fa-print mr-2"></i> In Tài Liệu';
+                    window.print();
+                });
+            } else {
+                setTimeout(() => {
+                    printBtn.innerHTML = '<i class="fas fa-print mr-2"></i> In Tài Liệu';
+                    window.print();
+                }, 500); 
+            }
+        }
+    </script>
+
+    <!-- HỆ THỐNG ĐIỀU KHIỂN ĐỒ HỌA ĐỘNG JSXGRAPH -->
+    <script>
+        const timeInit = new Date();
+
+        document.addEventListener("DOMContentLoaded", function() {
+            
+            // --- MÔ HÌNH 1: ĐƠN BÀO VS ĐA BÀO (BOX 1) ---
+            const b1 = JXG.JSXGraph.initBoard('box1', {
+                boundingbox: [-5, 5, 5, -5], axis: false, showNavigation: false, showCopyright: false
+            });
+
+            // Nửa trái: Trùng roi đơn bào
+            b1.create('text', [-4.5, 4, 'ĐƠN BÀO (Trùng roi)'], {fontSize: 9, fontStyle: 'bold', strokeColor: '#d97706'});
+            b1.create('ellipse', [[-2.5, 0], 1.2, 2], {fillColor: '#fef08a', fillOpacity: 0.7, strokeColor: '#ca8a04', strokeWidth: 2});
+            b1.create('point', [-2.5, 0.5], {name: 'Nhân', color: '#dc2626', size: 3, fixed: true});
+            // Roi bơi
+            b1.create('curve', [
+                [-2.5, -2.5, -2.2, -2.8],
+                [-2, -3.2, -3.8, -4.2]
+            ], {strokeColor: '#ca8a04', strokeWidth: 2});
+
+            // Nửa phải: Mạng lưới tế bào đa bào
+            b1.create('text', [1, 4, 'ĐA BÀO (Mô lá)'], {fontSize: 9, fontStyle: 'bold', strokeColor: '#15803d'});
+            for(let r = -3; r <= 3; r += 1.8) {
+                for(let c = 1; c <= 4; c += 1.5) {
+                    b1.create('polygon', [
+                        [c, r], [c+1.3, r], [c+1.2, r+1.5], [c-0.1, r+1.5]
+                    ], {fillColor: '#86efac', fillOpacity: 0.6, strokeColor: '#166534', strokeWidth: 1});
+                    b1.create('point', [c+0.6, r+0.75], {size: 1.5, name: '', color: '#15803d', fixed: true});
+                }
+            }
+
+
+            // --- MÔ HÌNH 2: TẾ BÀO LỚN LÊN VÀ PHÂN CHIA (BOX 2) ---
+            const b2 = JXG.JSXGraph.initBoard('box2', {
+                boundingbox: [-5, 5, 5, -5], axis: false, showNavigation: false, showCopyright: false
+            });
+
+            let slTime = b2.create('slider', [[-4, -4], [2, -4], [0, 0, 10]], {
+                name: 'Thoi gian t', snapWidth: 0.5, color: '#0284c7'
+            });
+
+            // Tế bào chính
+            let pCenter = b2.create('point', [0, 0], {visible: false, fixed: true});
+            
+            // Bán kính lớn dần từ t=0 đến t=5, sau đó thắt eo phân chia từ t=5 đến t=10
+            let rCell = function() {
+                let t = slTime.Value();
+                return t <= 5 ? (1 + t * 0.3) : 2.5;
+            };
+
+            let mainCell = b2.create('circle', [pCenter, rCell], {
+                fillColor: '#e0f2fe', fillOpacity: 0.6, strokeColor: '#0284c7', strokeWidth: 2,
+                visible: function() { return slTime.Value() <= 8; }
+            });
+
+            // Nhân tế bào
+            b2.create('point', [0, 0], {
+                name: 'Nhân', color: '#dc2626', size: 4,
+                visible: function() { return slTime.Value() < 6; }
+            });
+
+            // Hai tế bào con xuất hiện sau phân chia (t > 8)
+            let pChild1 = b2.create('point', [-1.8, 0], {visible: false, fixed: true});
+            let pChild2 = b2.create('point', [1.8, 0], {visible: false, fixed: true});
+
+            b2.create('circle', [pChild1, 1.3], {
+                fillColor: '#bae6fd', fillOpacity: 0.7, strokeColor: '#0369a1', strokeWidth: 2,
+                visible: function() { return slTime.Value() > 8; }
+            });
+            b2.create('point', [-1.8, 0], {
+                name: '', color: '#dc2626', size: 3, fixed: true,
+                visible: function() { return slTime.Value() > 8; }
+            });
+
+            b2.create('circle', [pChild2, 1.3], {
+                fillColor: '#bae6fd', fillOpacity: 0.7, strokeColor: '#0369a1', strokeWidth: 2,
+                visible: function() { return slTime.Value() > 8; }
+            });
+            b2.create('point', [1.8, 0], {
+                name: '', color: '#dc2626', size: 3, fixed: true,
+                visible: function() { return slTime.Value() > 8; }
+            });
+
+            let statusBox2 = document.getElementById('status-box2');
+            slTime.on('update', function() {
+                let t = slTime.Value();
+                if (t <= 5) {
+                    statusBox2.innerHTML = `t = ${t.toFixed(0)}: Tế bào lớn lên (Đạt bán kính R = ${rCell().toFixed(1)})`;
+                } else if (t <= 8) {
+                    statusBox2.innerHTML = `t = ${t.toFixed(0)}: Tế bào thắt eo phân chia nhân & tế bào chất...`;
+                } else {
+                    statusBox2.innerHTML = `✨ t = ${t.toFixed(0)}: PHÂN CHIA XONG! 1 tế bào mẹ &rArr; 2 tế bào con!`;
+                }
+            });
+
+
+            // --- MÔ HÌNH 3: SƠ ĐỒ CÂY QUY LUẬT 2^N (BOX 3) ---
+            board3 = JXG.JSXGraph.initBoard('box3', {
+                boundingbox: [-1, 5, 5, -1], axis: false, showNavigation: false, showCopyright: false
+            });
+
+            let slN = board3.create('slider', [[0.5, 4.2], [3.5, 4.2], [0, 0, 4]], {
+                name: 'So lan n', snapWidth: 1, color: '#10b981'
+            });
+
+            let statusBox3 = document.getElementById('status-box3');
+            slN.on('update', function() {
+                let n = slN.Value();
+                let count = Math.pow(2, n);
+                statusBox3.innerHTML = `n = ${n} lần phân chia &rArr; 2<sup>${n}</sup> = ${count} tế bào con`;
+            });
+        });
+
+        // --- XỬ LÝ NỘP BÀI TRẮC NGHIỆM VÀ ĐẨY DỮ LIỆU APPS SCRIPT ---
+        document.getElementById('quizForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const submitBtn = document.getElementById('submitBtn');
+            const statusReport = document.getElementById('statusReport');
+            
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i> Hệ thống đang nộp bài...';
+            statusReport.innerHTML = "Đang kết nối cơ sở dữ liệu bảng tính...";
+
+            const correctKey = { q1: "A", q2: "B", q3: "C", q4: "A", q5: "B" };
+            const studentName = document.getElementById('studentName').value.trim();
+            const lessonId = document.getElementById('examId').value.trim();
+            
+            let correctCounter = 0;
+            let totalQuizCount = Object.keys(correctKey).length;
+            let missedReportArray = [];
+
+            for (let questionCode in correctKey) {
+                const selectedRadio = document.querySelector(`input[name="${questionCode}"]:checked`);
+                if (selectedRadio && selectedRadio.value === correctKey[questionCode]) {
+                    correctCounter++;
+                } else {
+                    let chosenChar = selectedRadio ? selectedRadio.value : "Bỏ trống";
+                    missedReportArray.push(`${questionCode.toUpperCase()}(Chọn: ${chosenChar}|Đúng: ${correctKey[questionCode]})`);
+                }
+            }
+
+            const finalScore = ((correctCounter / totalQuizCount) * 10).toFixed(2);
+            const timeComplete = new Date();
+            const elapsedDurationSeconds = Math.floor((timeComplete - timeInit) / 1000);
+            const thoiGian = `${Math.floor(elapsedDurationSeconds / 60)} phút ${elapsedDurationSeconds % 60} giây`;
+            const cauSai = missedReportArray.length > 0 ? missedReportArray.join(", ") : "Không có (Đạt 10/10)";
+
+            const transmissionPayload = {
+                hoTen: studentName,
+                maDe: lessonId,
+                diem: parseFloat(finalScore),
+                thoiGian: thoiGian,
+                cauSai: cauSai
+            };
+
+            const webAppsScriptEndpoint = "https://script.google.com/macros/s/AKfycbzY7b7h4OwvhXuK5Vs6hl-aD88BPnAiAKbU5lfJobby0D4nzbIJVKT4n0AKCpAGoK0nZA/exec";
+
+            fetch(webAppsScriptEndpoint, {
+                method: "POST",
+                mode: "no-cors",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(transmissionPayload)
+            })
+            .then(() => {
+                statusReport.className = "text-xs font-bold text-emerald-500 bg-emerald-50 px-3 py-2 rounded-xl border border-emerald-200 inline-block";
+                statusReport.innerHTML = `<i class="fa-solid fa-circle-check"></i> Đã đồng bộ kết quả thành công: ${finalScore}/10.`;
+                alert(`Hệ thống ghi nhận bài nộp thành công!\nChào em ${studentName}, điểm số đạt được là: ${finalScore} / 10.`);
+                submitBtn.innerHTML = '<i class="fa-solid fa-lock"></i> Đã lưu kết quả thi';
+            })
+            .catch(error => {
+                console.error("Lỗi truyền tin:", error);
+                statusReport.className = "text-xs font-bold text-rose-500 bg-rose-50 px-3 py-2 rounded-xl border border-rose-200 inline-block";
+                statusReport.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> Lỗi kết nối mạng, vui lòng bấm nộp lại!';
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Thử nộp lại bài';
+            });
+        });
+    </script>
+</body>
+</html>
