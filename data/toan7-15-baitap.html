@@ -1,40 +1,878 @@
-tạo trang web html chuyên nghiệp, cho học thuật và giáo dục,
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buổi 15: Tỉ lệ thức & Tính chất dãy tỉ số bằng nhau — ThS. Đinh Quốc Tuấn</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- FontAwesome Icons CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts: Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- MathJax Configuration & Script -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['\\(', '\\)'], ['$', '$']],
+                displayMath: [['\\[', '\\]'], ['$$', '$$']]
+            },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <!-- JSXGraph CSS & Core Engine -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraph.css" />
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraphcore.js"></script>
 
-
-nền trắng xám chữ đen kèm nhiều màu sắc; có thêm các icon sinh động, hình ảnh minh họa nhiều màu sắc, minh họa hình học bằng JSXGraph; 
-trang chứa hai logo:
-https://firebasestorage.googleapis.com/v0/b/link-anh-web.firebasestorage.app/o/ttbdvh.jpg?alt=media&token=f270aa9b-a2bc-48e8-8910-80742b542615
-https://hcmus.edu.vn/wp-content/uploads/2023/04/Logo-chinh-e1681638380305.png
-@ Bản quyền thuộc ThS. Đinh Quốc Tuấn - Mục đích phi lợi nhuận - Vì giáo dục.
-
-
-có nút in tài liệu cuối trang :
-
-
- “<button id="btn-print-doc" onclick="safePrint()" class="fixed bottom-5 right-5 bg-gray-900 text-white px-4 py-2 rounded-lg shadow-lg hover:bg-gray-700 print:hidden z-50">
-    <i class="fas fa-print mr-2"></i> In Tài Liệu
-</button>
-
-
-<script>
-    function safePrint() {
-        const printBtn = document.getElementById('btn-print-doc');
-        printBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Đang chuẩn bị...';
-        
-        // Đảm bảo MathJax đã render xong mọi công thức trước khi gọi hộp thoại in
-        if (window.MathJax && window.MathJax.typesetPromise) {
-            MathJax.typesetPromise().then(() => {
-                printBtn.innerHTML = '<i class="fas fa-print mr-2"></i> In Tài Liệu';
-                window.print();
-            });
-        } else {
-            // Fallback nếu không có công thức toán
-            setTimeout(() => window.print(), 500); 
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #f8fafc;
+            color: #0f172a;
         }
-    }
-</script>
-”
-yêu cầu web lý thuyết, có gợi ý lời giải được ẩn đi,
-bài tập BÀI TẬP ĐÁNH GIÁ NĂNG LỰC TẠI LỚP trắc nghiệm 5 câu và kết quả điểm gửi về “https://script.google.com/macros/s/AKfycbzY7b7h4OwvhXuK5Vs6hl-aD88BPnAiAKbU5lfJobby0D4nzbIJVKT4n0AKCpAGoK0nZA/exec";
-Phù hợp với appscrip (chi tiết trong code gs tracnghiemonline.md)
-nội dung:
+        .jxgbox {
+            background-color: #ffffff !important;
+            border-radius: 1rem;
+            overflow: hidden;
+            border: 1px solid #e2e8f0;
+        }
+        @media print {
+            .print\:hidden { display: none !important; }
+            body { background: white !important; color: black !important; }
+            details { display: block !important; }
+            details summary { display: none !important; }
+            .page-break { page-break-before: always; }
+            .card-border { box-shadow: none !important; border: 1px solid #e5e7eb !important; }
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col antialiased selection:bg-indigo-100">
+
+    <!-- Header học thuật -->
+    <header class="border-b border-slate-200 sticky top-0 bg-white/95 backdrop-blur-md z-40 print:hidden">
+        <div class="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 px-6 py-4">
+            <div class="flex items-center gap-4">
+                <img src="https://hcmus.edu.vn/wp-content/uploads/2023/04/Logo-chinh-e1681638380305.png" alt="Logo HCMUS" class="h-14 w-auto object-contain">
+                <div class="border-l-2 border-slate-300 pl-4">
+                    <span class="text-xs font-bold tracking-widest text-indigo-600 uppercase block mb-0.5">Tài liệu số hóa tương tác</span>
+                    <span class="text-base font-extrabold text-slate-800">Chuyên đề Đại số Toán 7</span>
+                </div>
+            </div>
+            <div class="flex items-center gap-3 sm:text-right">
+                <div class="hidden sm:block">
+                    <p class="text-xs text-slate-400 font-semibold">Giảng viên biên soạn:</p>
+                    <p class="text-sm font-extrabold text-slate-800">ThS. Đinh Quốc Tuấn</p>
+                </div>
+                <img src="https://firebasestorage.googleapis.com/v0/b/link-anh-web.firebasestorage.app/o/ttbdvh.jpg?alt=media&token=f270aa9b-a2bc-48e8-8910-80742b542615" 
+                     alt="Logo TTBDVH" class="h-14 w-14 object-cover rounded-full border border-slate-200 shadow-inner">
+            </div>
+        </div>
+    </header>
+
+    <!-- Banner chào mừng -->
+    <div class="bg-gradient-to-r from-indigo-50 via-slate-50 to-emerald-50 border-b border-slate-200 py-10 print:hidden">
+        <div class="max-w-4xl mx-auto px-6 space-y-4">
+            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-indigo-100 text-indigo-800 border border-indigo-200 shadow-xs">
+                <i class="fa-solid fa-scale-balanced mr-1.5 text-indigo-600"></i> Đại số & Cán cân tỉ lệ
+            </span>
+            <h1 class="text-2xl sm:text-4xl font-black tracking-tight text-slate-900 leading-tight">
+                Buổi 15: Tỉ Lệ Thức & Tính Chất Dãy Tỉ Số Bằng Nhau
+            </h1>
+            <p class="text-slate-600 text-sm sm:text-base font-medium leading-relaxed text-justify">
+                Chào các em! Tỉ lệ thức \(\frac{a}{b} = \frac{c}{d}\) và tính chất dãy tỉ số bằng nhau \(\frac{a}{b} = \frac{c}{d} = \frac{a+c}{b+d}\) là công cụ cực kỳ mạnh mẽ trong Đại số lớp 7. Nó giúp chúng ta giải quyết các bài toán chia phần tỉ lệ (chia tiền thưởng, tính chu vi hình học, phân chia sản phẩm) một cách nhanh chóng và chính xác. Dưới đây là hệ thống 30 bài tập rèn luyện 3 cấp độ kèm các mô hình mô phỏng JSXGraph trực quan!
+            </p>
+        </div>
+    </div>
+
+    <!-- Không gian nội dung chính -->
+    <main class="max-w-4xl mx-auto px-4 sm:px-6 py-10 flex-grow w-full space-y-16">
+        
+        <!-- ================= MÔ HÌNH HÌNH HỌC TƯƠNG TÁC JSXGRAPH ================= -->
+        <section class="space-y-8 print:hidden bg-slate-100 p-6 rounded-3xl border border-slate-200">
+            <div class="border-b border-slate-200 pb-3">
+                <h2 class="text-lg font-black text-slate-800 flex items-center uppercase tracking-wide">
+                    <i class="fa-solid fa-compass-drafting mr-2.5 text-indigo-600 text-xl"></i> Mô hình trực quan Tỉ lệ thức & Dãy tỉ số
+                </h2>
+                <p class="text-xs text-slate-500 mt-1">Trực quan hóa cán cân tích chéo $a \cdot d = b \cdot c$, chia phần tỉ lệ và tam giác Pythagore tỉ lệ 3:4:5.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Mô hình 1 -->
+                <div class="flex flex-col bg-white p-4 rounded-2xl border border-slate-200 shadow-2xs">
+                    <h3 class="font-bold text-slate-900 text-xs mb-1 flex items-center gap-1.5">
+                        <i class="fa-solid fa-scale-balanced text-indigo-600"></i> Mô hình 1: Cán cân Tỉ lệ thức
+                    </h3>
+                    <p class="text-[11px] text-slate-500 mb-3">Kiểm tra tính cân bằng của tích chéo $a \cdot d$ và $b \cdot c$. Cán cân sẽ nằm ngang khi lập thành Tỉ lệ thức.</p>
+                    <div id="box1" class="w-full h-56 jxgbox"></div>
+                    <div id="status-box1" class="text-[11px] font-bold p-2 mt-2 bg-indigo-50 border border-indigo-100 rounded-lg text-center text-slate-700 font-mono">
+                        Tích chéo: 3 · 20 = 4 · 15 = 60 (Thăng bằng)
+                    </div>
+                </div>
+
+                <!-- Mô hình 2 -->
+                <div class="flex flex-col bg-white p-4 rounded-2xl border border-slate-200 shadow-2xs">
+                    <h3 class="font-bold text-slate-900 text-xs mb-1 flex items-center gap-1.5">
+                        <i class="fa-solid fa-chart-column text-amber-500"></i> Mô hình 2: Phân chia theo Tỉ lệ
+                    </h3>
+                    <p class="text-[11px] text-slate-500 mb-3">Mô phỏng chia Tổng $S = 72$ thành 3 phần $x, y, z$ theo tỉ lệ $3 : 4 : 5$ (Bài 13).</p>
+                    <div id="box2" class="w-full h-56 jxgbox"></div>
+                    <div id="status-box2" class="text-[11px] font-bold p-2 mt-2 bg-amber-50 border border-amber-100 rounded-lg text-center text-amber-900 font-mono">
+                        1 phần = 72 / 12 = 6 &rArr; x=18, y=24, z=30
+                    </div>
+                </div>
+
+                <!-- Mô hình 3 -->
+                <div class="flex flex-col bg-white p-4 rounded-2xl border border-slate-200 shadow-2xs">
+                    <h3 class="font-bold text-slate-900 text-xs mb-1 flex items-center gap-1.5">
+                        <i class="fa-solid fa-shapes text-emerald-500"></i> Mô hình 3: Tam giác tỉ lệ 3:4:5 (Bài 27)
+                    </h3>
+                    <p class="text-[11px] text-slate-500 mb-3">Tam giác có 3 cạnh tỉ lệ 3:4:5 và chu vi 60 cm có độ dài 3 cạnh lần lượt là 15, 20, 25 cm.</p>
+                    <div id="box3" class="w-full h-56 jxgbox"></div>
+                    <div id="status-box3" class="text-[11px] font-bold p-2 mt-2 bg-emerald-50 border border-emerald-100 rounded-lg text-center text-emerald-800 font-mono">
+                        Cạnh: 15 cm - 20 cm - 25 cm (Tam giác vuông)
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= PHẦN 1: MỨC ĐỘ CƠ BẢN ================= -->
+        <section class="space-y-6">
+            <div class="flex items-center gap-3 border-b pb-3 border-slate-200">
+                <span class="bg-sky-600 text-white text-xs font-black px-3 py-1 rounded-md uppercase tracking-wider">Cấp độ 1</span>
+                <h2 class="text-xl font-extrabold text-slate-900">PHẦN 1: CẤP ĐỘ CƠ BẢN (10 BÀI TOÁN TỈ LỆ THỨC BẢN LỀ)</h2>
+            </div>
+            <p class="text-xs font-bold text-sky-800 bg-sky-50 px-3 py-2 rounded-lg inline-block">
+                Mục tiêu: Nhận biết tỉ lệ thức, lập tỉ lệ thức từ đẳng thức tích và tìm 1 ẩn $x$ trong tỉ lệ thức đơn giản.
+            </p>
+
+            <div class="space-y-4">
+                <!-- Bài 1 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 1:</strong> Các tỉ số sau đây có lập thành tỉ lệ thức không? Giải thích vì sao?</p>
+                    <p class="text-xs text-slate-600 mb-3">a) \(15 : 21\) và \(12,5 : 17,5\) &nbsp;&nbsp;&nbsp;&nbsp; b) \(\frac{-14}{21}\) và \(\frac{10}{-15}\)</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>a) Rút gọn: \(15 : 21 = \frac{5}{7}\) và \(12,5 : 17,5 = \frac{125}{175} = \frac{5}{7}\). Hai tỉ số bằng nhau nên <strong>có lập thành tỉ lệ thức</strong>.</p>
+                            <p>b) Rút gọn: \(\frac{-14}{21} = \frac{-2}{3}\) và \(\frac{10}{-15} = \frac{-2}{3}\). Hai tỉ số bằng nhau nên <strong>có lập thành tỉ lệ thức</strong>.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 2 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 2:</strong> Lập tất cả các tỉ lệ thức có thể thu được từ đẳng thức sau: \(3 \cdot 20 = 4 \cdot 15\).</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Bốn tỉ lệ thức lập được là:</p>
+                            <p>\(\frac{3}{4} = \frac{15}{20}\); &nbsp;&nbsp;&nbsp;&nbsp; \(\frac{3}{15} = \frac{4}{20}\); &nbsp;&nbsp;&nbsp;&nbsp; \(\frac{20}{4} = \frac{15}{3}\); &nbsp;&nbsp;&nbsp;&nbsp; \(\frac{20}{15} = \frac{4}{3}\).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 3 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 3:</strong> Lập tất cả các tỉ lệ thức có thể thu được từ đẳng thức: \((-16) \cdot 35 = 28 \cdot (-20)\).</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>\(\frac{-16}{28} = \frac{-20}{35}\); &nbsp;&nbsp;&nbsp;&nbsp; \(\frac{-16}{-20} = \frac{28}{35}\); &nbsp;&nbsp;&nbsp;&nbsp; \(\frac{35}{28} = \frac{-20}{-16}\); &nbsp;&nbsp;&nbsp;&nbsp; \(\frac{35}{-20} = \frac{28}{-16}\).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 4 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 4:</strong> Lập tất cả các tỉ lệ thức có thể có được từ 4 số sau: \(1,5;\ 2;\ 3,6;\ 4,8\).</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Nhận xét đẳng thức tích: \(1,5 \cdot 4,8 = 7,2\) và \(2 \cdot 3,6 = 7,2 \Rightarrow 1,5 \cdot 4,8 = 2 \cdot 3,6\).</p>
+                            <p>Các tỉ lệ thức: \(\frac{1,5}{2} = \frac{3,6}{4,8}\); &nbsp; \(\frac{1,5}{3,6} = \frac{2}{4,8}\); &nbsp; \(\frac{4,8}{2} = \frac{3,6}{1,5}\); &nbsp; \(\frac{4,8}{3,6} = \frac{2}{1,5}\).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 5 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 5:</strong> Tìm thành phần chưa biết \(x\) trong tỉ lệ thức sau: \(\frac{x}{-2,5} = \frac{-20}{25}\).</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Áp dụng nhân chéo: \(x = \frac{(-2,5) \cdot (-20)}{25} = \frac{50}{25} = 2\).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 6 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 6:</strong> Tìm \(x\) trong tỉ lệ thức: \(x : 8 = 5 : 4\).</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Viết dạng phân số: \(\frac{x}{8} = \frac{5}{4} \Rightarrow x = \frac{8 \cdot 5}{4} = 10\).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 7 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 7:</strong> Tìm \(x\) trong tỉ lệ thức: \(\frac{x}{3} = \frac{-2}{5}\).</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Nhân chéo: \(x = \frac{3 \cdot (-2)}{5} = \frac{-6}{5} = -1,2\).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 8 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 8:</strong> Tìm \(x\) trong tỉ lệ thức: \(\frac{x+5}{4} = \frac{-1}{2}\).</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>&bull; Bước 1: Tính khối \((x+5) = \frac{4 \cdot (-1)}{2} = -2\).</p>
+                            <p>&bull; Bước 2: \(x = -2 - 5 = -7\).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 9 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 9:</strong> Điền số thích hợp vào ô trống để được tỉ lệ thức đúng: \(\frac{5}{\Box} = \frac{125}{-100}\).</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Số cần tìm ở ô trống là: \(\frac{5 \cdot (-100)}{125} = \frac{-500}{125} = -4\).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 10 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 10:</strong> Cho đẳng thức \(5x = 7y\) (với \(x, y \neq 0\)). Hãy viết các tỉ lệ thức suy ra từ đẳng thức trên.</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Các tỉ lệ thức suy ra là: \(\frac{x}{y} = \frac{7}{5}\); &nbsp; \(\frac{x}{7} = \frac{y}{5}\); &nbsp; \(\frac{5}{y} = \frac{7}{x}\); &nbsp; \(\frac{5}{7} = \frac{y}{x}\).</p>
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ================= PHẦN 2: MỨC ĐỘ NÂNG CAO ================= -->
+        <section class="space-y-6">
+            <div class="flex items-center gap-3 border-b pb-3 border-slate-200">
+                <span class="bg-amber-600 text-white text-xs font-black px-3 py-1 rounded-md uppercase tracking-wider">Cấp độ 2</span>
+                <h2 class="text-xl font-extrabold text-slate-900">PHẦN 2: CẤP ĐỘ NÂNG CAO (10 BÀI DÃY TỈ SỐ BẰNG NHAU)</h2>
+            </div>
+            <p class="text-xs font-bold text-amber-800 bg-amber-50 px-3 py-2 rounded-lg inline-block">
+                Mục tiêu: Vận dụng tính chất \(\frac{a}{b} = \frac{c}{d} = \frac{a+c}{b+d}\) tìm 2, 3 ẩn số và biến đổi chứng minh đẳng thức.
+            </p>
+
+            <div class="space-y-4">
+                <!-- Bài 11 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 11:</strong> Tìm hai số \(x\) và \(y\), biết: \(\frac{x}{3} = \frac{y}{5}\) và \(x + y = 16\).</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Áp dụng tính chất dãy tỉ số bằng nhau: \(\frac{x}{3} = \frac{y}{5} = \frac{x+y}{3+5} = \frac{16}{8} = 2\).</p>
+                            <p>\(\Rightarrow x = 3 \cdot 2 = 6\) và \(y = 5 \cdot 2 = 10\).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 12 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 12:</strong> Tìm hai số \(x\) và \(y\), biết: \(\frac{x}{2} = \frac{y}{3}\) và \(x - y = -20\).</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Áp dụng tính chất dãy tỉ số bằng nhau: \(\frac{x}{2} = \frac{y}{3} = \frac{x-y}{2-3} = \frac{-20}{-1} = 20\).</p>
+                            <p>\(\Rightarrow x = 2 \cdot 20 = 40\) và \(y = 3 \cdot 20 = 60\).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 13 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 13 (Minh họa Mô hình 2):</strong> Tìm ba số \(x, y, z\), biết: \(x : y : z = 3 : 4 : 5\) và \(x + y + z = 72\).</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Từ đề bài ta có: \(\frac{x}{3} = \frac{y}{4} = \frac{z}{5} = \frac{x+y+z}{3+4+5} = \frac{72}{12} = 6\).</p>
+                            <p>\(\Rightarrow x = 3 \cdot 6 = 18\); &nbsp; \(y = 4 \cdot 6 = 24\); &nbsp; \(z = 5 \cdot 6 = 30\).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 14 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 14:</strong> Tìm các số \(x, y, z\) biết: \(\frac{x}{2} = \frac{y}{4} = \frac{z}{5}\) và \(x + y - z = 3\).</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Áp dụng tính chất: \(\frac{x}{2} = \frac{y}{4} = \frac{z}{5} = \frac{x+y-z}{2+4-5} = \frac{3}{1} = 3\).</p>
+                            <p>\(\Rightarrow x = 6\); &nbsp; \(y = 12\); &nbsp; \(z = 15\).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 15 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 15:</strong> Tìm hai số \(x\) và \(y\), biết: \(3x = 5y\) và \(2x + 3y = 38\).</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Từ \(3x = 5y \Rightarrow \frac{x}{5} = \frac{y}{3} \Rightarrow \frac{2x}{10} = \frac{3y}{9} = \frac{2x + 3y}{10 + 9} = \frac{38}{19} = 2\).</p>
+                            <p>\(\Rightarrow x = 5 \cdot 2 = 10\) và \(y = 3 \cdot 2 = 6\).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 16 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 16:</strong> Tìm hai số \(x, y\) biết rằng \(3x = 4y\) và \(2x + 5y = 69\).</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Từ \(3x = 4y \Rightarrow \frac{x}{4} = \frac{y}{3} \Rightarrow \frac{2x}{8} = \frac{5y}{15} = \frac{2x + 5y}{8 + 15} = \frac{69}{23} = 3\).</p>
+                            <p>\(\Rightarrow x = 4 \cdot 3 = 12\) và \(y = 3 \cdot 3 = 9\).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 17 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 17:</strong> Tìm ba số \(a, b, c\) biết rằng: \(2a = 3b;\ 5b = 7c\) và \(3a + 5c - 7b = 30\).</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>&bull; \(2a = 3b \Rightarrow \frac{a}{3} = \frac{b}{2} \Rightarrow \frac{a}{21} = \frac{b}{14}\).</p>
+                            <p>&bull; \(5b = 7c \Rightarrow \frac{b}{7} = \frac{c}{5} \Rightarrow \frac{b}{14} = \frac{c}{10}\).</p>
+                            <p>&bull; Suy ra: \(\frac{a}{21} = \frac{b}{14} = \frac{c}{10} = \frac{3a}{63} = \frac{-7b}{-98} = \frac{5c}{50} = \frac{3a + 5c - 7b}{63 + 50 - 98} = \frac{30}{15} = 2\).</p>
+                            <p>\(\Rightarrow a = 42;\ b = 28;\ c = 20\).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 18 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 18:</strong> Tìm hai số \(x\) và \(y\), biết: \(\frac{x}{2} = \frac{y}{7}\) và \(x \cdot y = 56\).</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Đặt \(\frac{x}{2} = \frac{y}{7} = k \Rightarrow x = 2k, y = 7k\).</p>
+                            <p>Thay vào: \(xy = 2k \cdot 7k = 14k^2 = 56 \Rightarrow k^2 = 4 \Rightarrow k = 2\) hoặc \(k = -2\).</p>
+                            <p>&bull; Với \(k = 2 \Rightarrow x = 4, y = 14\).</p>
+                            <p>&bull; Với \(k = -2 \Rightarrow x = -4, y = -14\).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 19 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 19:</strong> Chứng minh rằng từ tỉ lệ thức \(\frac{a}{b} = \frac{c}{d}\) ta suy ra được tỉ lệ thức \(\frac{a+b}{b} = \frac{c+d}{d}\) (với \(b, d \neq 0\)).</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Từ \(\frac{a}{b} = \frac{c}{d}\), cộng cả hai vế với 1:</p>
+                            <p>\(\frac{a}{b} + 1 = \frac{c}{d} + 1 \Rightarrow \frac{a+b}{b} = \frac{c+d}{d}\) (đpcm).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 20 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 20:</strong> Chứng minh rằng từ tỉ lệ thức \(\frac{a}{b} = \frac{c}{d}\) ta suy ra được tỉ lệ thức \(\frac{a-b}{b} = \frac{c-d}{d}\).</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Từ \(\frac{a}{b} = \frac{c}{d}\), trừ cả hai vế cho 1:</p>
+                            <p>\(\frac{a}{b} - 1 = \frac{c}{d} - 1 \Rightarrow \frac{a-b}{b} = \frac{c-d}{d}\) (đpcm).</p>
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ================= PHẦN 3: MỨC ĐỘ VẬN DỤNG ================= -->
+        <section class="space-y-6">
+            <div class="flex items-center gap-3 border-b pb-3 border-slate-200">
+                <span class="bg-emerald-600 text-white text-xs font-black px-3 py-1 rounded-md uppercase tracking-wider">Cấp độ 3</span>
+                <h2 class="text-xl font-extrabold text-slate-900">PHẦN 3: CẤP ĐỘ VẬN DỤNG THỰC TẾ & HÌNH HỌC (10 BÀI)</h2>
+            </div>
+            <p class="text-xs font-bold text-emerald-800 bg-emerald-50 px-3 py-2 rounded-lg inline-block">
+                Mục tiêu: Phân tích bài toán thực tế (chia tiền, phân chia công việc, tài chính) và ứng dụng dãy tỉ số vào hình học.
+            </p>
+
+            <div class="space-y-4">
+                <!-- Bài 21 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 21:</strong> Tỉ số số viên sỏi của Minh và Nam là \(1,25\). Hỏi mỗi bạn có bao nhiêu viên sỏi, biết rằng Minh có nhiều hơn Nam là \(10\) viên sỏi?</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Đổi tỉ số \(1,25 = \frac{5}{4}\). Gọi số sỏi của Minh và Nam lần lượt là \(x, y\).</p>
+                            <p>\(\Rightarrow \frac{x}{5} = \frac{y}{4} = \frac{x-y}{5-4} = \frac{10}{1} = 10 \Rightarrow x = 50\) (Minh), \(y = 40\) (Nam).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 22 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 22:</strong> Số quyển vở của ba bạn Ánh, Ngọc và Hằng tỉ lệ với \(9;\ 5;\ 7\). Hỏi mỗi bạn có bao nhiêu quyển vở biết cả ba bạn có tổng cộng \(63\) quyển vở?</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Gọi số vở của Ánh, Ngọc, Hằng là \(a, b, c\). Ta có \(\frac{a}{9} = \frac{b}{5} = \frac{c}{7} = \frac{a+b+c}{9+5+7} = \frac{63}{21} = 3\).</p>
+                            <p>\(\Rightarrow\) Ánh: 27 quyển; Ngọc: 15 quyển; Hằng: 21 quyển.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 23 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 23:</strong> Học sinh hai lớp 7A và 7B tham gia phong trào "Tết trồng cây" trồng được tất cả \(300\) cây. Biết số cây của 7A và 7B lần lượt tỉ lệ với 7 và 8. Tính số cây mỗi lớp trồng được.</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Gọi số cây 7A, 7B trồng là \(x, y\). Ta có: \(\frac{x}{7} = \frac{y}{8} = \frac{x+y}{7+8} = \frac{300}{15} = 20\).</p>
+                            <p>\(\Rightarrow\) Lớp 7A trồng 140 cây; Lớp 7B trồng 160 cây.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 24 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 24 (Bài toán Tài chính):</strong> Một công ty có 3 chi nhánh A, B, C. Chi nhánh A và B có lãi, chi nhánh C bị lỗ. Số tiền lãi/lỗ của 3 chi nhánh tỉ lệ với 3; 4; 2. Tính số tiền lãi/lỗ của từng chi nhánh biết tổng kết tháng công ty lãi 500 triệu đồng.</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Tổng kết quả tài chính: \(A + B - C = 500\) (triệu đồng).</p>
+                            <p>Tỉ lệ: \(\frac{A}{3} = \frac{B}{4} = \frac{C}{2} = \frac{A + B - C}{3 + 4 - 2} = \frac{500}{5} = 100\).</p>
+                            <p>\(\Rightarrow\) Chi nhánh A lãi 300 triệu; Chi nhánh B lãi 400 triệu; Chi nhánh C lỗ 200 triệu.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 25 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 25:</strong> Anh Khoa phân bổ lương hằng tháng vào các khoản chi tiêu cần thiết, tiết kiệm và chi tiêu cá nhân theo tỉ lệ \(5 : 2 : 3\). Tính số tiền hằng tháng anh Khoa dành cho mỗi khoản, biết tổng thu nhập là \(20\) triệu đồng.</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Tổng số phần = \(5 + 2 + 3 = 10\) phần. Giá trị 1 phần = \(20 : 10 = 2\) triệu đồng.</p>
+                            <p>&bull; Chi tiêu cần thiết: \(5 \cdot 2 = 10\) triệu đồng.</p>
+                            <p>&bull; Tiết kiệm: \(2 \cdot 2 = 4\) triệu đồng.</p>
+                            <p>&bull; Chi tiêu cá nhân: \(3 \cdot 2 = 6\) triệu đồng.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 26 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 26:</strong> Ba đơn vị kinh doanh góp vốn theo tỉ lệ \(3 : 5 : 7\). Hỏi mỗi đơn vị được chia bao nhiêu tiền lãi, biết tổng số tiền lãi là \(600\) triệu đồng và tiền lãi được chia tỉ lệ thuận với số vốn đã góp?</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Hệ số $k = \frac{600}{3+5+7} = \frac{600}{15} = 40$ triệu/phần.</p>
+                            <p>Tiền lãi các đơn vị: Đơn vị 1 = 120 triệu; Đơn vị 2 = 200 triệu; Đơn vị 3 = 280 triệu.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 27 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 27 (Hình học - Minh họa Mô hình 3):</strong> Một tam giác có độ dài ba cạnh tỉ lệ với \(3;\ 4;\ 5\) và có chu vi là \(60\text{ cm}\). Tính độ dài các cạnh của tam giác đó.</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Gọi 3 cạnh tam giác là \(a, b, c\). Ta có: \(\frac{a}{3} = \frac{b}{4} = \frac{c}{5} = \frac{a+b+c}{3+4+5} = \frac{60}{12} = 5\).</p>
+                            <p>\(\Rightarrow a = 15\text{ cm};\ b = 20\text{ cm};\ c = 25\text{ cm}\). (Đây là tam giác vuông vì \(15^2 + 20^2 = 25^2\)).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 28 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 28:</strong> Tính diện tích của hình chữ nhật có chu vi là \(28\text{ cm}\) và độ dài hai cạnh tỉ lệ với các số \(3;\ 4\).</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>&bull; Nửa chu vi hình chữ nhật: \(a + b = 28 : 2 = 14\text{ cm}\).</p>
+                            <p>&bull; Ta có \(\frac{a}{3} = \frac{b}{4} = \frac{a+b}{3+4} = \frac{14}{7} = 2 \Rightarrow a = 6\text{ cm}, b = 8\text{ cm}\).</p>
+                            <p>&bull; Diện tích HCN = \(6 \times 8 = 48\text{ cm}^2\).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 29 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 29:</strong> Một nhà hảo tâm tặng tổng cộng 27 máy tính để bàn cho ba trường học tỉ lệ thuận với 2; 3; 4. Tính số máy tính mỗi trường nhận được.</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Hệ số $k = \frac{27}{2+3+4} = \frac{27}{9} = 3$.</p>
+                            <p>Trường 1: 6 máy; Trường 2: 9 máy; Trường 3: 12 máy.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 30 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 30:</strong> Số đo ba góc \(\widehat{A}, \widehat{B}, \widehat{C}\) của tam giác \(ABC\) tỉ lệ với \(5;\ 6;\ 7\). Tính số đo ba góc của tam giác đó.</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Tổng 3 góc trong một tam giác = \(180^\circ\).</p>
+                            <p>Ta có: \(\frac{\widehat{A}}{5} = \frac{\widehat{B}}{6} = \frac{\widehat{C}}{7} = \frac{\widehat{A}+\widehat{B}+\widehat{C}}{5+6+7} = \frac{180^\circ}{18} = 10^\circ\).</p>
+                            <p>\(\Rightarrow \widehat{A} = 50^\circ;\ \widehat{B} = 60^\circ;\ \widehat{C} = 70^\circ\).</p>
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ================= BÀI TẬP ĐÁNH GIÁ NĂNG LỰC TRẮC NGHIỆM ================= -->
+        <section class="border-t border-slate-200 pt-10 page-break">
+            <div class="bg-gradient-to-br from-slate-900 via-slate-800 to-indigo-950 text-white rounded-3xl p-6 sm:p-8 shadow-xl relative overflow-hidden card-border">
+                <div class="max-w-xl space-y-2">
+                    <span class="text-xs font-bold uppercase tracking-widest text-emerald-400 bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-500/20 inline-block">Đánh giá trực tuyến tại lớp</span>
+                    <h2 class="text-xl sm:text-2xl font-black tracking-tight">BÀI TẬP ĐÁNH GIÁ NĂNG LỰC TẠI LỚP</h2>
+                    <p class="text-slate-400 text-xs sm:text-sm">Học sinh hoàn thành trắc nghiệm 5 câu dưới đây. Kết quả điểm số sẽ được truyền tự động về Google Sheets hệ thống.</p>
+                </div>
+
+                <form id="quizForm" class="mt-8 space-y-6 text-slate-900">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div class="bg-white p-4 rounded-xl shadow-inner border border-slate-100">
+                            <label class="block text-xs font-bold text-slate-400 uppercase tracking-wide mb-1"><i class="fa-solid fa-user-graduate mr-1 text-indigo-500"></i> Họ và tên học sinh</label>
+                            <input type="text" id="studentName" required placeholder="Nhập họ tên đầy đủ..." class="w-full bg-white border-b-2 border-slate-200 focus:border-indigo-500 outline-none py-1 text-sm font-bold text-slate-900 transition-colors">
+                        </div>
+                        <div class="bg-white p-4 rounded-xl shadow-inner border border-slate-100">
+                            <label class="block text-xs font-bold text-slate-400 uppercase tracking-wide mb-1"><i class="fa-solid fa-file-code mr-1 text-indigo-500"></i> Mã chuyên đề bài học</label>
+                            <input type="text" id="examId" readonly value="Buoi15_TiLeThuc_Toan7" class="w-full bg-slate-50 border-b-2 border-slate-200 outline-none py-1 text-sm font-bold text-slate-500 cursor-not-allowed">
+                        </div>
+                    </div>
+
+                    <!-- Khối câu hỏi trắc nghiệm -->
+                    <div class="space-y-5 mt-6">
+                        <!-- Câu 1 -->
+                        <div class="bg-white p-5 rounded-2xl shadow-sm space-y-3">
+                            <p class="text-sm font-bold text-slate-900"><span class="text-indigo-600">Câu 1:</span> Tìm $x$ trong tỉ lệ thức đơn giản $\frac{x}{3} = \frac{10}{5}$:</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs font-semibold text-slate-700">
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q1" value="A" required class="text-indigo-600 h-4 w-4"> <span>A. x = 6</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q1" value="B" class="text-indigo-600 h-4 w-4"> <span>B. x = 15</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q1" value="C" class="text-indigo-600 h-4 w-4"> <span>C. x = 2</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Câu 2 -->
+                        <div class="bg-white p-5 rounded-2xl shadow-sm space-y-3">
+                            <p class="text-sm font-bold text-slate-900"><span class="text-indigo-600">Câu 2:</span> Hai số $x$ và $y$ thỏa mãn $\frac{x}{3} = \frac{y}{5}$ và $x + y = 16$ lần lượt bằng:</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs font-semibold text-slate-700">
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q2" value="A" required class="text-indigo-600 h-4 w-4"> <span>A. x = 6, y = 10</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q2" value="B" class="text-indigo-600 h-4 w-4"> <span>B. x = 10, y = 6</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q2" value="C" class="text-indigo-600 h-4 w-4"> <span>C. x = 8, y = 8</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Câu 3 -->
+                        <div class="bg-white p-5 rounded-2xl shadow-sm space-y-3">
+                            <p class="text-sm font-bold text-slate-900"><span class="text-indigo-600">Câu 3:</span> Lớp 7A và 7B trồng được 300 cây, số cây tỉ lệ với 7 và 8. Lớp 7A trồng được bao nhiêu cây?</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs font-semibold text-slate-700">
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q3" value="A" required class="text-indigo-600 h-4 w-4"> <span>A. 140 cây</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q3" value="B" class="text-indigo-600 h-4 w-4"> <span>B. 160 cây</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q3" value="C" class="text-indigo-600 h-4 w-4"> <span>C. 150 cây</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Câu 4 -->
+                        <div class="bg-white p-5 rounded-2xl shadow-sm space-y-3">
+                            <p class="text-sm font-bold text-slate-900"><span class="text-indigo-600">Câu 4:</span> Tam giác có 3 cạnh tỉ lệ 3:4:5 và chu vi 60 cm. Độ dài CẠNH LỚN NHẤT của tam giác là:</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs font-semibold text-slate-700">
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q4" value="A" required class="text-indigo-600 h-4 w-4"> <span>A. 20 cm</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q4" value="B" class="text-indigo-600 h-4 w-4"> <span>B. 25 cm</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q4" value="C" class="text-indigo-600 h-4 w-4"> <span>C. 15 cm</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Câu 5 -->
+                        <div class="bg-white p-5 rounded-2xl shadow-sm space-y-3">
+                            <p class="text-sm font-bold text-slate-900"><span class="text-indigo-600">Câu 5:</span> Diện tích hình chữ nhật có chu vi $28\text{ cm}$ và hai cạnh tỉ lệ với $3; 4$ bằng bao nhiêu?</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs font-semibold text-slate-700">
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q5" value="A" required class="text-indigo-600 h-4 w-4"> <span>A. 48 cm²</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q5" value="B" class="text-indigo-600 h-4 w-4"> <span>B. 24 cm²</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q5" value="C" class="text-indigo-600 h-4 w-4"> <span>C. 96 cm²</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pt-2 flex flex-col sm:flex-row items-center justify-between gap-4">
+                        <button type="submit" id="submitBtn" class="w-full sm:w-auto bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-sm px-8 py-3.5 rounded-xl shadow-lg transition-all flex items-center justify-center space-x-2 cursor-pointer">
+                            <i class="fa-solid fa-cloud-arrow-up"></i> <span>Nộp Bài Chấm Điểm</span>
+                        </button>
+                        <div id="statusReport" class="text-xs font-bold text-slate-400"></div>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer bản quyền -->
+    <footer class="bg-slate-900 text-slate-400 py-8 text-center text-xs font-medium px-4 mt-auto">
+        <p class="font-bold text-slate-300">@ Bản quyền thuộc ThS. Đinh Quốc Tuấn - Mục đích phi lợi nhuận - Vì giáo dục.</p>
+        <p class="text-slate-500 mt-2">Hệ thống bài giảng trực tuyến tương tác tích hợp đồng bộ dữ liệu điểm số học sinh.</p>
+    </footer>
+
+    <!-- NÚT IN TÀI LIỆU CỐ ĐỊNH -->
+    <button id="btn-print-doc" onclick="safePrint()" class="fixed bottom-5 right-5 bg-gray-900 text-white px-4 py-2 rounded-lg shadow-lg hover:bg-gray-700 print:hidden z-50 cursor-pointer">
+        <i class="fas fa-print mr-2"></i> In Tài Liệu
+    </button>
+
+    <script>
+        function safePrint() {
+            const printBtn = document.getElementById('btn-print-doc');
+            printBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Đang chuẩn bị...';
+            
+            if (window.MathJax && window.MathJax.typesetPromise) {
+                MathJax.typesetPromise().then(() => {
+                    printBtn.innerHTML = '<i class="fas fa-print mr-2"></i> In Tài Liệu';
+                    window.print();
+                });
+            } else {
+                setTimeout(() => {
+                    printBtn.innerHTML = '<i class="fas fa-print mr-2"></i> In Tài Liệu';
+                    window.print();
+                }, 500); 
+            }
+        }
+    </script>
+
+    <!-- HỆ THỐNG ĐIỀU KHIỂN ĐỒ HỌA JSXGRAPH & FORM QUIZ APPS SCRIPT -->
+    <script>
+        const timeInit = new Date();
+
+        document.addEventListener("DOMContentLoaded", function() {
+            
+            // --- MÔ HÌNH 1: CÁN CÂN TỈ LỆ THỨC (BOX 1) ---
+            const b1 = JXG.JSXGraph.initBoard('box1', {
+                boundingbox: [-4, 3, 4, -3], axis: false, showNavigation: false, showCopyright: false
+            });
+
+            // Đế cân
+            b1.create('polygon', [[-0.4, -2], [0.4, -2], [0, -1]], {fillColor: '#94a3b8', strokeColor: '#475569'});
+            
+            // Đĩa cân 2 bên tích chéo 3*20 = 60 và 4*15 = 60
+            let pLeft = b1.create('point', [-2, 0.5], {name: '3 · 20 = 60', color: '#2563eb', size: 4, fixed: true});
+            let pRight = b1.create('point', [2, 0.5], {name: '4 · 15 = 60', color: '#059669', size: 4, fixed: true});
+            b1.create('segment', [pLeft, pRight], {strokeColor: '#0f172a', strokeWidth: 3});
+
+
+            // --- MÔ HÌNH 2: BIỂU ĐỒ MẢNG CHIA TỈ LỆ 3:4:5 (BOX 2) ---
+            const b2 = JXG.JSXGraph.initBoard('box2', {
+                boundingbox: [-0.5, 4, 12.5, -1], axis: false, showNavigation: false, showCopyright: false
+            });
+
+            // Mảng x = 3 phần (Màu xanh dương)
+            b2.create('polygon', [[0, 1], [3, 1], [3, 2.5], [0, 2.5]], {fillColor: '#6366f1', fillOpacity: 0.8, strokeColor: '#4338ca'});
+            b2.create('text', [1.5, 1.75, 'x = 18'], {anchorX: 'middle', anchorY: 'middle', fontStyle: 'bold', color: '#ffffff'});
+
+            // Mảng y = 4 phần (Màu vàng)
+            b2.create('polygon', [[3, 1], [7, 1], [7, 2.5], [3, 2.5]], {fillColor: '#f59e0b', fillOpacity: 0.8, strokeColor: '#b45309'});
+            b2.create('text', [5, 1.75, 'y = 24'], {anchorX: 'middle', anchorY: 'middle', fontStyle: 'bold', color: '#ffffff'});
+
+            // Mảng z = 5 phần (Màu xanh lá)
+            b2.create('polygon', [[7, 1], [12, 1], [12, 2.5], [7, 2.5]], {fillColor: '#10b981', fillOpacity: 0.8, strokeColor: '#047857'});
+            b2.create('text', [9.5, 1.75, 'z = 30'], {anchorX: 'middle', anchorY: 'middle', fontStyle: 'bold', color: '#ffffff'});
+
+
+            // --- MÔ HÌNH 3: TAM GIÁC VUÔNG TỈ LỆ 3:4:5 (BOX 3) ---
+            const b3 = JXG.JSXGraph.initBoard('box3', {
+                boundingbox: [-1, 6, 6, -1], axis: false, showNavigation: false, showCopyright: false
+            });
+
+            let pA = b3.create('point', [0, 0], {name: 'A', color: '#0f172a', size: 3, fixed: true});
+            let pB = b3.create('point', [4, 0], {name: 'B (20 cm)', color: '#0f172a', size: 3, fixed: true});
+            let pC = b3.create('point', [0, 3], {name: 'C (15 cm)', color: '#0f172a', size: 3, fixed: true});
+
+            b3.create('polygon', [pA, pB, pC], {fillColor: '#a7f3d0', fillOpacity: 0.5, strokeColor: '#059669', strokeWidth: 2});
+            b3.create('segment', [pB, pC], {strokeColor: '#dc2626', strokeWidth: 2}); // Cạnh huyền 25cm
+            b3.create('text', [2.2, 1.8, '25 cm'], {color: '#dc2626', fontStyle: 'bold', fontSize: 10});
+        });
+
+        // --- XỬ LÝ NỘP BÀI TRẮC NGHIỆM VÀ ĐẨY DỮ LIỆU APPS SCRIPT ---
+        document.getElementById('quizForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const submitBtn = document.getElementById('submitBtn');
+            const statusReport = document.getElementById('statusReport');
+            
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i> Hệ thống đang nộp bài...';
+            statusReport.innerHTML = "Đang kết nối cơ sở dữ liệu bảng tính...";
+
+            const correctKey = { q1: "A", q2: "A", q3: "A", q4: "B", q5: "A" };
+            const studentName = document.getElementById('studentName').value.trim();
+            const lessonId = document.getElementById('examId').value.trim();
+            
+            let correctCounter = 0;
+            let totalQuizCount = Object.keys(correctKey).length;
+            let missedReportArray = [];
+
+            for (let questionCode in correctKey) {
+                const selectedRadio = document.querySelector(`input[name="${questionCode}"]:checked`);
+                if (selectedRadio && selectedRadio.value === correctKey[questionCode]) {
+                    correctCounter++;
+                } else {
+                    let chosenChar = selectedRadio ? selectedRadio.value : "Bỏ trống";
+                    missedReportArray.push(`${questionCode.toUpperCase()}(Chọn: ${chosenChar}|Đúng: ${correctKey[questionCode]})`);
+                }
+            }
+
+            const finalScore = ((correctCounter / totalQuizCount) * 10).toFixed(2);
+            const timeComplete = new Date();
+            const elapsedDurationSeconds = Math.floor((timeComplete - timeInit) / 1000);
+            const thoiGian = `${Math.floor(elapsedDurationSeconds / 60)} phút ${elapsedDurationSeconds % 60} giây`;
+            const cauSai = missedReportArray.length > 0 ? missedReportArray.join(", ") : "Không có (Đạt 10/10)";
+
+            const transmissionPayload = {
+                hoTen: studentName,
+                maDe: lessonId,
+                diem: parseFloat(finalScore),
+                thoiGian: thoiGian,
+                cauSai: cauSai
+            };
+
+            const webAppsScriptEndpoint = "https://script.google.com/macros/s/AKfycbzY7b7h4OwvhXuK5Vs6hl-aD88BPnAiAKbU5lfJobby0D4nzbIJVKT4n0AKCpAGoK0nZA/exec";
+
+            fetch(webAppsScriptEndpoint, {
+                method: "POST",
+                mode: "no-cors",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(transmissionPayload)
+            })
+            .then(() => {
+                statusReport.className = "text-xs font-bold text-emerald-500 bg-emerald-50 px-3 py-2 rounded-xl border border-emerald-200 inline-block";
+                statusReport.innerHTML = `<i class="fa-solid fa-circle-check"></i> Đã đồng bộ kết quả thành công: ${finalScore}/10.`;
+                alert(`Hệ thống ghi nhận bài nộp thành công!\nChào em ${studentName}, điểm số đạt được là: ${finalScore} / 10.`);
+                submitBtn.innerHTML = '<i class="fa-solid fa-lock"></i> Đã lưu kết quả thi';
+            })
+            .catch(error => {
+                console.error("Lỗi truyền tin:", error);
+                statusReport.className = "text-xs font-bold text-rose-500 bg-rose-50 px-3 py-2 rounded-xl border border-rose-200 inline-block";
+                statusReport.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> Lỗi kết nối mạng, vui lòng bấm nộp lại!';
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Thử nộp lại bài';
+            });
+        });
+    </script>
+</body>
+</html>
