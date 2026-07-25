@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buổi 19: Làm quen với Biến cố và Xác suất — ThS. Đinh Quốc Tuấn</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- FontAwesome Icons CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts: Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- MathJax Configuration & Script -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['\\(', '\\)'], ['$', '$']],
+                displayMath: [['\\[', '\\]'], ['$$', '$$']]
+            },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <!-- JSXGraph CSS & Core Engine -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraph.css" />
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraphcore.js"></script>
+
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #f8fafc;
+            color: #0f172a;
+        }
+        .jxgbox {
+            background-color: #ffffff !important;
+            border-radius: 1rem;
+            overflow: hidden;
+            border: 1px solid #e2e8f0;
+        }
+        @media print {
+            .print\:hidden { display: none !important; }
+            body { background: white !important; color: black !important; }
+            details { display: block !important; }
+            details summary { display: none !important; }
+            .page-break { page-break-before: always; }
+            .card-border { box-shadow: none !important; border: 1px solid #e5e7eb !important; }
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col antialiased selection:bg-indigo-100">
+
+    <!-- Header học thuật -->
+    <header class="border-b border-slate-200 sticky top-0 bg-white/95 backdrop-blur-md z-40 print:hidden">
+        <div class="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 px-6 py-4">
+            <div class="flex items-center gap-4">
+                <img src="https://hcmus.edu.vn/wp-content/uploads/2023/04/Logo-chinh-e1681638380305.png" alt="Logo HCMUS" class="h-14 w-auto object-contain">
+                <div class="border-l-2 border-slate-300 pl-4">
+                    <span class="text-xs font-bold tracking-widest text-indigo-600 uppercase block mb-0.5">Tài liệu số hóa tương tác</span>
+                    <span class="text-base font-extrabold text-slate-800">Chuyên đề Xác suất & Thống kê Toán 7</span>
+                </div>
+            </div>
+            <div class="flex items-center gap-3 sm:text-right">
+                <div class="hidden sm:block">
+                    <p class="text-xs text-slate-400 font-semibold">Giảng viên biên soạn:</p>
+                    <p class="text-sm font-extrabold text-slate-800">ThS. Đinh Quốc Tuấn</p>
+                </div>
+                <img src="https://firebasestorage.googleapis.com/v0/b/link-anh-web.firebasestorage.app/o/ttbdvh.jpg?alt=media&token=f270aa9b-a2bc-48e8-8910-80742b542615" 
+                     alt="Logo TTBDVH" class="h-14 w-14 object-cover rounded-full border border-slate-200 shadow-inner">
+            </div>
+        </div>
+    </header>
+
+    <!-- Banner chào mừng -->
+    <div class="bg-gradient-to-r from-indigo-50 via-slate-50 to-emerald-50 border-b border-slate-200 py-10 print:hidden">
+        <div class="max-w-4xl mx-auto px-6 space-y-4">
+            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-indigo-100 text-indigo-800 border border-indigo-200 shadow-xs">
+                <i class="fa-solid fa-dice mr-1.5 text-indigo-600"></i> Toán học & Dự đoán ngẫu nhiên
+            </span>
+            <h1 class="text-2xl sm:text-4xl font-black tracking-tight text-slate-900 leading-tight">
+                Buổi 19: Làm Quen Với Biến Cố Và Xác Suất
+            </h1>
+            <p class="text-slate-600 text-sm sm:text-base font-medium leading-relaxed text-justify">
+                Chào các em! Cuộc sống quanh ta đầy ắp những sự kiện ngẫu nhiên. Làm sao để phân biệt giữa một sự kiện chắc chắn xảy ra, một điều không bao giờ xảy ra và một biến cố ngẫu nhiên? Làm thế nào để đo lường khả năng xuất hiện của chúng bằng con số? Bài học hôm nay cung cấp 30 bài tập luyện tập 3 cấp độ kèm các mô hình JSXGraph trực quan giúp các em làm chủ lý thuyết xác suất ban đầu!
+            </p>
+        </div>
+    </div>
+
+    <!-- Không gian nội dung chính -->
+    <main class="max-w-4xl mx-auto px-4 sm:px-6 py-10 flex-grow w-full space-y-16">
+        
+        <!-- ================= MÔ HÌNH HÌNH HỌC TƯƠNG TÁC JSXGRAPH ================= -->
+        <section class="space-y-8 print:hidden bg-slate-100 p-6 rounded-3xl border border-slate-200">
+            <div class="border-b border-slate-200 pb-3">
+                <h2 class="text-lg font-black text-slate-800 flex items-center uppercase tracking-wide">
+                    <i class="fa-solid fa-compass-drafting mr-2.5 text-indigo-600 text-xl"></i> Mô hình mô phỏng Xác suất tương tác
+                </h2>
+                <p class="text-xs text-slate-500 mt-1">Trực quan hóa Trục xác suất $0 \le P \le 1$, Vòng quay may mắn và Ma trận kết quả gieo 2 con xúc xắc.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Mô hình 1 -->
+                <div class="flex flex-col bg-white p-4 rounded-2xl border border-slate-200 shadow-2xs">
+                    <h3 class="font-bold text-slate-900 text-xs mb-1 flex items-center gap-1.5">
+                        <i class="fa-solid fa-ruler-horizontal text-indigo-600"></i> Mô hình 1: Trục Xác suất $0 \le P \le 1$
+                    </h3>
+                    <p class="text-[11px] text-slate-500 mb-3">Kéo điểm P trên trục từ 0 đến 1 để nhận biết vị trí của Biến cố không thể, Ngẫu nhiên và Chắc chắn.</p>
+                    <div id="box1" class="w-full h-56 jxgbox"></div>
+                    <div id="status-box1" class="text-[11px] font-bold p-2 mt-2 bg-indigo-50 border border-indigo-100 rounded-lg text-center text-slate-700 font-mono">
+                        Xác suất P = 0.50 (Biến cố ngẫu nhiên)
+                    </div>
+                </div>
+
+                <!-- Mô hình 2 -->
+                <div class="flex flex-col bg-white p-4 rounded-2xl border border-slate-200 shadow-2xs">
+                    <h3 class="font-bold text-slate-900 text-xs mb-1 flex items-center gap-1.5">
+                        <i class="fa-solid fa-dharmachakra text-amber-500"></i> Mô hình 2: Vòng quay 6 phần (Bài 8)
+                    </h3>
+                    <p class="text-[11px] text-slate-500 mb-3">Vòng quay chia 6 ô bằng nhau. Bấm nút "Quay đĩa" để kiểm tra xác suất lý thuyết $P = 1/6 \approx 16,7\%$.</p>
+                    <div id="box2" class="w-full h-56 jxgbox"></div>
+                    <div class="mt-2 text-center">
+                        <button type="button" onclick="spinWheel()" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs px-3 py-1.5 rounded-lg shadow-xs transition-colors cursor-pointer">
+                            <i class="fa-solid fa-rotate mr-1"></i> Quay đĩa
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Mô hình 3 -->
+                <div class="flex flex-col bg-white p-4 rounded-2xl border border-slate-200 shadow-2xs">
+                    <h3 class="font-bold text-slate-900 text-xs mb-1 flex items-center gap-1.5">
+                        <i class="fa-solid fa-[#000] fa-dice text-emerald-600"></i> Mô hình 3: Ma trận 2 Xúc xắc (Bài 21)
+                    </h3>
+                    <p class="text-[11px] text-slate-500 mb-3">Bảng $6 \times 6$ gồm 36 kết quả có thể. Ô màu đỏ góc dưới là kết quả duy nhất có tổng số chấm = 12.</p>
+                    <div id="box3" class="w-full h-56 jxgbox"></div>
+                    <div id="status-box3" class="text-[11px] font-bold p-2 mt-2 bg-emerald-50 border border-emerald-100 rounded-lg text-center text-emerald-900 font-mono">
+                        P(Tổng = 12) = 1 / 36 &approx; 2.78%
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= PHẦN 1: MỨC ĐỘ CƠ BẢN ================= -->
+        <section class="space-y-6">
+            <div class="flex items-center gap-3 border-b pb-3 border-slate-200">
+                <span class="bg-sky-600 text-white text-xs font-black px-3 py-1 rounded-md uppercase tracking-wider">Cấp độ 1</span>
+                <h2 class="text-xl font-extrabold text-slate-900">PHẦN 1: CẤP ĐỘ CƠ BẢN (10 BÀI NHẬN BIẾT & TÍNH XÁC SUẤT ĐƠN GIẢN)</h2>
+            </div>
+            <p class="text-xs font-bold text-sky-800 bg-sky-50 px-3 py-2 rounded-lg inline-block">
+                Mục tiêu: Phân biệt 3 loại biến cố (chắc chắn, không thể, ngẫu nhiên), nhận biết đồng khả năng và tính xác suất phép thử 1 bước.
+            </p>
+
+            <div class="space-y-4">
+                <!-- Bài 1 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 1:</strong> Trong các biến cố sau, biến cố nào là biến cố chắc chắn, biến cố không thể, biến cố ngẫu nhiên?</p>
+                    <p class="text-xs text-slate-600 mb-3">A: "Năm 2024 là một năm nhuận có 366 ngày". <br>B: "Tung một đồng xu lên cao, mặt xuất hiện của đồng xu là mặt đứng". <br>C: "Khi tung một đồng xu cân đối, mặt xuất hiện của đồng xu là mặt ngửa".</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>&bull; Biến cố A: <strong>Biến cố chắc chắn</strong> (vì năm 2024 chia hết cho 4, là năm nhuận 366 ngày).</p>
+                            <p>&bull; Biến cố B: <strong>Biến cố không thể</strong> (đồng xu luôn ngã sấp hoặc ngửa, không thể đứng thẳng).</p>
+                            <p>&bull; Biến cố C: <strong>Biến cố ngẫu nhiên</strong> (có thể ra mặt ngửa hoặc sấp).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 2 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 2:</strong> Gieo ngẫu nhiên một con xúc xắc cân đối 1 lần. Phân loại các biến cố sau:</p>
+                    <p class="text-xs text-slate-600 mb-3">A: "Gieo được mặt có số chấm nhỏ hơn 7". <br>B: "Gieo được mặt có 7 chấm". <br>C: "Gieo được mặt có số chấm là số chẵn".</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>&bull; A là <strong>Biến cố chắc chắn</strong> (các mặt có chấm từ 1 đến 6 đều nhỏ hơn 7).</p>
+                            <p>&bull; B là <strong>Biến cố không thể</strong> (con xúc xắc chỉ có từ 1 đến 6 chấm).</p>
+                            <p>&bull; C là <strong>Biến cố ngẫu nhiên</strong> (kết quả có thể là chẵn {2, 4, 6} hoặc lẻ {1, 3, 5}).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 3 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 3:</strong> Hộp chứa 9 thẻ cùng loại đánh số từ 1 đến 9. Rút ngẫu nhiên 1 thẻ. Phân loại các biến cố:</p>
+                    <p class="text-xs text-slate-600 mb-3">A: "Rút được thẻ ghi số nguyên tố". <br>B: "Rút được thẻ ghi số tự nhiên nhỏ hơn 10". <br>C: "Rút được thẻ ghi số 10".</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>&bull; A là <strong>Biến cố ngẫu nhiên</strong> (các số nguyên tố có thể rút: 2, 3, 5, 7).</p>
+                            <p>&bull; B là <strong>Biến cố chắc chắn</strong> (các số từ 1 đến 9 đều nhỏ hơn 10).</p>
+                            <p>&bull; C là <strong>Biến cố không thể</strong> (trong hộp không có thẻ số 10).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 4 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 4:</strong> Bạn Đức gieo một đồng xu cân đối hai lần ngẫu nhiên. Xét xem hai biến cố sau có đồng khả năng không?</p>
+                    <p class="text-xs text-slate-600 mb-3">A: "Cả hai lần tung cùng xuất hiện mặt sấp (S-S)". <br>B: "Cả hai lần tung cùng xuất hiện mặt ngửa (N-N)".</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Tập hợp các kết quả có thể xảy ra: $1. SS; 2. SN; 3. NS; 4. NN$.</p>
+                            <p>Biến cố A và B đều chỉ có đúng $1$ kết quả thuận lợi trong tổng số $4$ kết quả có thể xảy ra (xác suất đều bằng $1/4$). Vậy hai biến cố A và B <strong>đồng khả năng</strong>.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 5 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 5:</strong> Gieo một con xúc xắc cân đối. Tính xác suất của biến cố: "Mặt xuất hiện có 2 chấm".</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>&bull; Tổng số kết quả có thể xảy ra = 6 (các mặt từ 1 đến 6 chấm).</p>
+                            <p>&bull; Số kết quả thuận lợi = 1 (mặt 2 chấm).</p>
+                            <p>&rArr; Xác suất của biến cố là: $P = \frac{1}{6}$.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 6 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 6:</strong> Tung ngẫu nhiên một đồng xu cân đối 1 lần. Tính xác suất của biến cố: "Đồng xu xuất hiện mặt sấp".</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>&bull; Tổng số kết quả có thể xảy ra = 2 (Sấp, Ngửa).</p>
+                            <p>&rArr; Xác suất xuất hiện mặt sấp là: $P = \frac{1}{2} = 50\%$.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 7 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 7:</strong> Hộp chứa 1 quả bóng xanh, 1 quả bóng đỏ và 1 quả bóng vàng cùng kích thước. Lấy ngẫu nhiên 1 quả bóng. Tính xác suất biến cố: "Lấy được quả bóng màu đỏ".</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Tổng số bóng = 3. Số quả màu đỏ = 1 &rArr; Xác suất $P = \frac{1}{3}$.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 8 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 8 (Minh họa Mô hình 2):</strong> Đĩa tròn được chia thành 6 phần bằng nhau ghi các số 1, 2, 3, 4, 5, 6. Quay mũi tên ở tâm. Tính xác suất để mũi tên dừng ở ô số 3.</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Vì 6 ô bằng nhau nên khả năng dừng ở mỗi ô là như nhau. Xác suất dừng ở ô số 3 là: $P = \frac{1}{6}$.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 9 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 9:</strong> Chọn ngẫu nhiên một số từ tập hợp $\{1;\ 2;\ 3;\ 4;\ 5;\ 6\}$. Tính xác suất để chọn được số chia hết cho 2.</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>&bull; Tổng số phần tử = 6.</p>
+                            <p>&bull; Các số chia hết cho 2 (số chẵn) là: $\{2;\ 4;\ 6\}$ (có 3 số).</p>
+                            <p>&rArr; Xác suất $P = \frac{3}{6} = \frac{1}{2} = 50\%$.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 10 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 10:</strong> Rút ngẫu nhiên 1 thẻ từ hộp đựng 5 thẻ đánh số từ 1 đến 5. Tính xác suất để thẻ lấy ra ghi số lẻ.</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>&bull; Tập hợp thẻ = $\{1;\ 2;\ 3;\ 4;\ 5\}$ (5 thẻ).</p>
+                            <p>&bull; Thẻ số lẻ: $\{1;\ 3;\ 5\}$ (3 thẻ) &rArr; Xác suất $P = \frac{3}{5} = 60\%$.</p>
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ================= PHẦN 2: MỨC ĐỘ NÂNG CAO ================= -->
+        <section class="space-y-6">
+            <div class="flex items-center gap-3 border-b pb-3 border-slate-200">
+                <span class="bg-amber-600 text-white text-xs font-black px-3 py-1 rounded-md uppercase tracking-wider">Cấp độ 2</span>
+                <h2 class="text-xl font-extrabold text-slate-900">PHẦN 2: CẤP ĐỘ NÂNG CAO (10 BÀI LIỆT KÊ TẬP HỢP KẾT QUẢ)</h2>
+            </div>
+            <p class="text-xs font-bold text-amber-800 bg-amber-50 px-3 py-2 rounded-lg inline-block">
+                Mục tiêu: Liệt kê chính xác tập hợp các kết quả có thể xảy ra (mẫu số) và kết quả thuận lợi (tử số) với các điều kiện số học.
+            </p>
+
+            <div class="space-y-4">
+                <!-- Bài 11 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 11:</strong> Hộp đựng toàn thẻ màu đỏ. Tuấn lấy ngẫu nhiên 1 thẻ. Biến cố "Tuấn lấy được thẻ màu xanh" là biến cố gì và có xác suất bằng bao nhiêu?</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Đây là <strong>Biến cố không thể</strong>. Xác suất của biến cố không thể luôn bằng <strong>$0$</strong>.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 12 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 12:</strong> Tung đồng xu cân đối 2 lần liên tiếp. Viết tập hợp các kết quả có thể xảy ra và tính xác suất biến cố A: "Một lần sấp, một lần ngửa".</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>&bull; Tập kết quả = $\{SS;\ SN;\ NS;\ NN\}$ (4 kết quả).</p>
+                            <p>&bull; Các kết quả thuận lợi cho A = $\{SN;\ NS\}$ (2 kết quả).</p>
+                            <p>&rArr; $P(A) = \frac{2}{4} = \frac{1}{2}$.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 13 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 13:</strong> Gieo xúc xắc cân đối 1 lần. Tính xác suất biến cố B: "Số chấm xuất hiện chia hết cho 3".</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>&bull; Các mặt chia hết cho 3: $\{3;\ 6\}$ (2 mặt).</p>
+                            <p>&rArr; $P(B) = \frac{2}{6} = \frac{1}{3}$.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 14 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 14:</strong> Hộp có 10 lá thăm đánh số từ 1 đến 10. Lấy ngẫu nhiên 1 lá thăm. Tính xác suất biến cố "Lấy được lá thăm ghi số nhỏ hơn 5".</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>&bull; Các lá thăm nhỏ hơn 5: $\{1;\ 2;\ 3;\ 4\}$ (4 lá thăm).</p>
+                            <p>&rArr; Xác suất $P = \frac{4}{10} = \frac{2}{5} = 40\%$.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 15 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 15:</strong> Vòng quay may mắn chia 6 ô bằng nhau ghi các số: 97, 98, 99, 101, 102, 103. Tính xác suất biến cố "Mũi tên chỉ vào ô ghi số nguyên tố nhỏ hơn 100".</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>&bull; Các số nguyên tố trong dãy: $97$ và $101, 103$.</p>
+                            <p>&bull; Số nguyên tố vừa nhỏ hơn 100 chỉ có đúng số <strong>$97$</strong> (1 kết quả).</p>
+                            <p>&rArr; Xác suất $P = \frac{1}{6}$.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 16 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 16:</strong> Hộp chứa 20 quả bóng gồm 10 quả màu xanh và 10 quả màu vàng. Chọn ngẫu nhiên 1 quả. Tính xác suất "Chọn được quả màu vàng".</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Xác suất $P = \frac{10}{20} = \frac{1}{2} = 50\%$.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 17 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 17:</strong> Rút ngẫu nhiên 1 thẻ từ 12 thẻ đánh số $1, 2, \dots, 12$. Tính xác suất để số trên thẻ là ước của 12.</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>&bull; Tập hợp các ước của 12 từ 1 đến 12 là: $\text{Ư}(12) = \{1;\ 2;\ 3;\ 4;\ 6;\ 12\}$ (6 thẻ).</p>
+                            <p>&rArr; Xác suất $P = \frac{6}{12} = \frac{1}{2}$.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 18 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 18:</strong> Gieo 1 con xúc xắc cân đối. Liệt kê các kết quả thuận lợi cho biến cố A: "Số chấm lớn hơn 4" và tính xác suất của A.</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>&bull; Các kết quả thuận lợi cho A: $\{5;\ 6\}$ (2 kết quả).</p>
+                            <p>&rArr; $P(A) = \frac{2}{6} = \frac{1}{3}$.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 19 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 19:</strong> Lớp 7A có 20 nam và 18 nữ. Chọn ngẫu nhiên 1 bạn. Hai biến cố "Chọn được nam" và "Chọn được nữ" có đồng khả năng không? Tính xác suất chọn học sinh nam.</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>&bull; Hai biến cố <strong>không đồng khả năng</strong> vì số nam (20) khác số nữ (18).</p>
+                            <p>&bull; Tổng số học sinh = $20 + 18 = 38$ HS.</p>
+                            <p>&rArr; Xác suất chọn được nam: $P = \frac{20}{38} = \frac{10}{19}$.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 20 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 20:</strong> Cửa hàng có ba lô 4 màu: hồng, đen, xanh, ghi; mỗi màu có 2 cỡ (vừa, lớn) tổng cộng 8 mẫu cùng số lượng. Tính xác suất chọn được ba lô màu hồng cỡ vừa.</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Có 8 mẫu ba lô đồng khả năng. Mẫu "Hồng - Cỡ vừa" là $1$ kết quả thuận lợi &rArr; Xác suất $P = \frac{1}{8} = 12,5\%$.</p>
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ================= PHẦN 3: MỨC ĐỘ VẬN DỤNG ================= -->
+        <section class="space-y-6">
+            <div class="flex items-center gap-3 border-b pb-3 border-slate-200">
+                <span class="bg-emerald-600 text-white text-xs font-black px-3 py-1 rounded-md uppercase tracking-wider">Cấp độ 3</span>
+                <h2 class="text-xl font-extrabold text-slate-900">PHẦN 3: CẤP ĐỘ VẬN DỤNG THỰC TẾ (10 BÀI)</h2>
+            </div>
+            <p class="text-xs font-bold text-emerald-800 bg-emerald-50 px-3 py-2 rounded-lg inline-block">
+                Mục tiêu: Đưa xác suất vào các bài toán trò chơi 2 bước, đánh giá tính công bằng và phân tích thực đơn ngẫu nhiên.
+            </p>
+
+            <div class="space-y-4">
+                <!-- Bài 21 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 21 (Minh họa Mô hình 3):</strong> Gieo 2 con xúc xắc cân đối cùng lúc. Tính xác suất của biến cố: "Tổng số chấm xuất hiện trên 2 con xúc xắc bằng 12".</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>&bull; Tổng số kết quả gieo 2 xúc xắc = $6 \times 6 = 36$ kết quả.</p>
+                            <p>&bull; Để tổng bằng 12 chỉ có đúng 1 trường hợp duy nhất là $(6, 6)$.</p>
+                            <p>&rArr; Xác suất $P = \frac{1}{36}$.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 22 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 22 (Vòng quay không đều):</strong> Đĩa quay 4 phần: Đỏ ($50\%$), Xanh ($25\%$), Vàng ($15\%$), Tím ($10\%$). Kim dừng lại ở 4 màu có đồng khả năng không? Tính xác suất quay trúng màu Đỏ.</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>&bull; Không đồng khả năng do diện tích các hình quạt khác nhau.</p>
+                            <p>&bull; Xác suất quay trúng màu Đỏ bằng đúng diện tích phần Đỏ: $P = 50\% = 0,5 = \frac{1}{2}$.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 23 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 23 (Bốc thăm):</strong> Hộp có 10 phiếu: 1 phiếu 500k, 3 phiếu 100k, 6 phiếu 20k. Bốc ngẫu nhiên 1 phiếu, tính xác suất nhận số tiền $\ge 100$ nghìn.</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>&bull; Các phiếu $\ge 100\text{k}$: $1\text{ (500k)} + 3\text{ (100k)} = 4$ phiếu.</p>
+                            <p>&rArr; Xác suất $P = \frac{4}{10} = \frac{2}{5} = 40\%$.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 24 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 24 (Rút 2 thẻ):</strong> Hộp có 3 thẻ $\{1;\ 2;\ 3\}$. Tuấn và Hương mỗi người rút 1 thẻ (Tuấn rút xong trả lại rồi Hương mới rút). Tính xác suất biến cố A: "Tổng số ghi trên 2 thẻ bằng 4".</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>&bull; Tổng số kết quả có thể = $3 \times 3 = 9$ cặp.</p>
+                            <p>&bull; Cặp có tổng bằng 4: $\{(1, 3);\ (2, 2);\ (3, 1)\}$ (3 cặp).</p>
+                            <p>&rArr; $P(A) = \frac{3}{9} = \frac{1}{3}$.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 25 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 25:</strong> Điện tiêu thụ 5 ngày đầu tháng: $11, 8, 10, 9, 12\text{ kWh}$. Chọn ngẫu nhiên 1 ngày. Tính xác suất hộ gia đình sử dụng đúng $10\text{ kWh}$ điện.</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Số ngày dùng $10\text{ kWh}$ là $1$ ngày trong tổng số $5$ ngày &rArr; Xác suất $P = \frac{1}{5} = 20\%$.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 26 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 26:</strong> Hộp 100 thẻ đánh số 1-100 có 1 "Thẻ may mắn". Rút ngẫu nhiên 1 thẻ. <br>a) Tính xác suất lấy được Thẻ may mắn. <br>b) Biến cố "Lấy thẻ may mắn" và "Không may mắn" có đồng khả năng không?</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>a) $P = \frac{1}{100} = 1\%$.</p>
+                            <p>b) Không đồng khả năng (vì thẻ không may mắn có 99 thẻ, cơ hội $99\%$ lớn hơn nhiều).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 27 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 27 (Trò chơi công bằng):</strong> A và B gieo con xúc xắc. Nếu ra số chẵn A thắng, số lẻ B thắng. Trò chơi này có công bằng không? Tính xác suất thắng của mỗi người.</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>&bull; $P(\text{A thắng}) = \frac{3}{6} = \frac{1}{2}$; &nbsp; $P(\text{B thắng}) = \frac{3}{6} = \frac{1}{2}$.</p>
+                            <p>Vì xác suất thắng của hai người bằng nhau nên trò chơi này <strong>hoàn toàn công bằng</strong>.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 28 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 28:</strong> Hộp 1 toàn thẻ Đỏ. Hộp 2 chứa thẻ Xanh và Vàng. Rút mỗi hộp 1 thẻ. Tuấn thắng nếu có thẻ Vàng. Biến cố "Tuấn thắng" là biến cố gì?</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Là <strong>Biến cố ngẫu nhiên</strong>. Phụ thuộc vào việc ở Hộp 2 Tuấn rút trúng thẻ màu Vàng (thắng) hay thẻ màu Xanh (thua).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 29 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 29:</strong> Túi đựng quả cầu đánh số $\{12;\ 18;\ 20;\ 22;\ 24;\ 26;\ 30;\ 34\}$ (8 quả). Lấy ngẫu nhiên 1 quả. Tính xác suất biến cố: "Lấy được quả cầu ghi số chia hết cho cả 3 và 5".</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>&bull; Số chia hết cho cả 3 và 5 là số chia hết cho 15.</p>
+                            <p>&bull; Trong dãy số chỉ có duy nhất số <strong>$30$</strong> thỏa mãn (1 quả).</p>
+                            <p>&rArr; Xác suất $P = \frac{1}{8} = 12,5\%$.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 30 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 30 (Phân tích thực đơn):</strong> Gian hàng có 3 món chính (Cánh gà, Đùi gà, Phở), 2 món phụ (Khoai tây chiên, Phô mai) và 2 đồ uống (Pepsi, Cam). <br>a) Có bao nhiêu cách chọn 1 suất ăn (1 chính + 1 phụ + 1 uống)? <br>b) Tính xác suất suất ăn ngẫu nhiên có món "Khoai tây chiên".</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>a) Tổng số suất ăn tạo thành = $3 \times 2 \times 2 = 12$ cách.</p>
+                            <p>b) Số suất ăn chứa Khoai tây chiên = $3 \times 1 \times 2 = 6$ cách.</p>
+                            <p>&rArr; Xác suất $P = \frac{6}{12} = \frac{1}{2} = 50\%$.</p>
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ================= BÀI TẬP ĐÁNH GIÁ NĂNG LỰC TRẮC NGHIỆM ================= -->
+        <section class="border-t border-slate-200 pt-10 page-break">
+            <div class="bg-gradient-to-br from-slate-900 via-slate-800 to-indigo-950 text-white rounded-3xl p-6 sm:p-8 shadow-xl relative overflow-hidden card-border">
+                <div class="max-w-xl space-y-2">
+                    <span class="text-xs font-bold uppercase tracking-widest text-emerald-400 bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-500/20 inline-block">Đánh giá trực tuyến tại lớp</span>
+                    <h2 class="text-xl sm:text-2xl font-black tracking-tight">BÀI TẬP ĐÁNH GIÁ NĂNG LỰC TẠI LỚP</h2>
+                    <p class="text-slate-400 text-xs sm:text-sm">Học sinh hoàn thành trắc nghiệm 5 câu dưới đây. Kết quả điểm số sẽ được truyền tự động về Google Sheets hệ thống.</p>
+                </div>
+
+                <form id="quizForm" class="mt-8 space-y-6 text-slate-900">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div class="bg-white p-4 rounded-xl shadow-inner border border-slate-100">
+                            <label class="block text-xs font-bold text-slate-400 uppercase tracking-wide mb-1"><i class="fa-solid fa-user-graduate mr-1 text-indigo-500"></i> Họ và tên học sinh</label>
+                            <input type="text" id="studentName" required placeholder="Nhập họ tên đầy đủ..." class="w-full bg-white border-b-2 border-slate-200 focus:border-indigo-500 outline-none py-1 text-sm font-bold text-slate-900 transition-colors">
+                        </div>
+                        <div class="bg-white p-4 rounded-xl shadow-inner border border-slate-100">
+                            <label class="block text-xs font-bold text-slate-400 uppercase tracking-wide mb-1"><i class="fa-solid fa-file-code mr-1 text-indigo-500"></i> Mã chuyên đề bài học</label>
+                            <input type="text" id="examId" readonly value="Buoi19_XacSuat_Toan7" class="w-full bg-slate-50 border-b-2 border-slate-200 outline-none py-1 text-sm font-bold text-slate-500 cursor-not-allowed">
+                        </div>
+                    </div>
+
+                    <!-- Khối câu hỏi trắc nghiệm -->
+                    <div class="space-y-5 mt-6">
+                        <!-- Câu 1 -->
+                        <div class="bg-white p-5 rounded-2xl shadow-sm space-y-3">
+                            <p class="text-sm font-bold text-slate-900"><span class="text-indigo-600">Câu 1:</span> Gieo 1 con xúc xắc cân đối. Xác suất xuất hiện mặt có số chấm chia hết cho 3 là:</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs font-semibold text-slate-700">
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q1" value="A" required class="text-indigo-600 h-4 w-4"> <span>A. 1/6</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q1" value="B" class="text-indigo-600 h-4 w-4"> <span>B. 1/3</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q1" value="C" class="text-indigo-600 h-4 w-4"> <span>C. 1/2</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Câu 2 -->
+                        <div class="bg-white p-5 rounded-2xl shadow-sm space-y-3">
+                            <p class="text-sm font-bold text-slate-900"><span class="text-indigo-600">Câu 2:</span> Hộp có 10 lá thăm (1..10). Xác suất rút ngẫu nhiên được lá thăm ghi số nhỏ hơn 5 là:</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs font-semibold text-slate-700">
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q2" value="A" required class="text-indigo-600 h-4 w-4"> <span>A. 2/5</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q2" value="B" class="text-indigo-600 h-4 w-4"> <span>B. 1/2</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q2" value="C" class="text-indigo-600 h-4 w-4"> <span>C. 1/5</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Câu 3 -->
+                        <div class="bg-white p-5 rounded-2xl shadow-sm space-y-3">
+                            <p class="text-sm font-bold text-slate-900"><span class="text-indigo-600">Câu 3:</span> Gieo 2 con xúc xắc cân đối cùng lúc. Xác suất để tổng số chấm xuất hiện trên 2 con xúc xắc bằng 12 là:</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs font-semibold text-slate-700">
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q3" value="A" required class="text-indigo-600 h-4 w-4"> <span>A. 1/12</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q3" value="B" class="text-indigo-600 h-4 w-4"> <span>B. 1/36</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q3" value="C" class="text-indigo-600 h-4 w-4"> <span>C. 1/6</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Câu 4 -->
+                        <div class="bg-white p-5 rounded-2xl shadow-sm space-y-3">
+                            <p class="text-sm font-bold text-slate-900"><span class="text-indigo-600">Câu 4:</span> Trong các biến cố khi gieo 1 con xúc xắc cân đối, biến cố nào là "Biến cố không thể"?</p>
+                            <div class="grid grid-cols-1 gap-2 text-xs font-semibold text-slate-700">
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q4" value="A" required class="text-indigo-600 h-4 w-4"> <span>A. Gieo được mặt có số chấm lớn hơn 0</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q4" value="B" class="text-indigo-600 h-4 w-4"> <span>B. Gieo được mặt xuất hiện 7 chấm</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q4" value="C" class="text-indigo-600 h-4 w-4"> <span>C. Gieo được mặt có số chấm là số chẵn</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Câu 5 -->
+                        <div class="bg-white p-5 rounded-2xl shadow-sm space-y-3">
+                            <p class="text-sm font-bold text-slate-900"><span class="text-indigo-600">Câu 5:</span> Suất ăn gồm 3 món chính, 2 món phụ (có Khoai tây chiên), 2 đồ uống. Xác suất chọn ngẫu nhiên suất ăn chứa "Khoai tây chiên" là:</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs font-semibold text-slate-700">
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q5" value="A" required class="text-indigo-600 h-4 w-4"> <span>A. 1/2</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q5" value="B" class="text-indigo-600 h-4 w-4"> <span>B. 1/3</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q5" value="C" class="text-indigo-600 h-4 w-4"> <span>C. 1/4</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pt-2 flex flex-col sm:flex-row items-center justify-between gap-4">
+                        <button type="submit" id="submitBtn" class="w-full sm:w-auto bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-sm px-8 py-3.5 rounded-xl shadow-lg transition-all flex items-center justify-center space-x-2 cursor-pointer">
+                            <i class="fa-solid fa-cloud-arrow-up"></i> <span>Nộp Bài Chấm Điểm</span>
+                        </button>
+                        <div id="statusReport" class="text-xs font-bold text-slate-400"></div>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer bản quyền -->
+    <footer class="bg-slate-900 text-slate-400 py-8 text-center text-xs font-medium px-4 mt-auto">
+        <p class="font-bold text-slate-300">@ Bản quyền thuộc ThS. Đinh Quốc Tuấn - Mục đích phi lợi nhuận - Vì giáo dục.</p>
+        <p class="text-slate-500 mt-2">Hệ thống bài giảng trực tuyến tương tác tích hợp đồng bộ dữ liệu điểm số học sinh.</p>
+    </footer>
+
+    <!-- NÚT IN TÀI LIỆU CỐ ĐỊNH -->
+    <button id="btn-print-doc" onclick="safePrint()" class="fixed bottom-5 right-5 bg-gray-900 text-white px-4 py-2 rounded-lg shadow-lg hover:bg-gray-700 print:hidden z-50 cursor-pointer">
+        <i class="fas fa-print mr-2"></i> In Tài Liệu
+    </button>
+
+    <script>
+        function safePrint() {
+            const printBtn = document.getElementById('btn-print-doc');
+            printBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Đang chuẩn bị...';
+            
+            if (window.MathJax && window.MathJax.typesetPromise) {
+                MathJax.typesetPromise().then(() => {
+                    printBtn.innerHTML = '<i class="fas fa-print mr-2"></i> In Tài Liệu';
+                    window.print();
+                });
+            } else {
+                setTimeout(() => {
+                    printBtn.innerHTML = '<i class="fas fa-print mr-2"></i> In Tài Liệu';
+                    window.print();
+                }, 500); 
+            }
+        }
+    </script>
+
+    <!-- HỆ THỐNG ĐIỀU KHIỂN ĐỒ HỌA JSXGRAPH & FORM QUIZ APPS SCRIPT -->
+    <script>
+        const timeInit = new Date();
+        let board2, pSpinner, angle = 0;
+
+        document.addEventListener("DOMContentLoaded", function() {
+            
+            // --- MÔ HÌNH 1: TRỤC XÁC SUẤT 0 - 1 (BOX 1) ---
+            const b1 = JXG.JSXGraph.initBoard('box1', {
+                boundingbox: [-0.2, 2, 1.2, -2], axis: false, showNavigation: false, showCopyright: false
+            });
+
+            let axisLine = b1.create('line', [[0,0], [1,0]], {strokeColor: '#64748b', strokeWidth: 3, fixed: true});
+            b1.create('point', [0, 0], {name: '0 (Không thể)', color: '#ef4444', size: 3, fixed: true});
+            b1.create('point', [1, 0], {name: '1 (Chắc chắn)', color: '#10b981', size: 3, fixed: true});
+
+            let ptP = b1.create('glider', [0.5, 0, axisLine], {name: 'P(A)', color: '#2563eb', size: 5});
+
+            let statusBox1 = document.getElementById('status-box1');
+            ptP.on('drag', function() {
+                let p = ptP.X();
+                if (p < 0) p = 0;
+                if (p > 1) p = 1;
+                let desc = (p === 0) ? "(Biến cố KHÔNG THỂ)" : ((p === 1) ? "(Biến cố CHẮC CHẮN)" : "(Biến cố NGẪU NHIÊN)");
+                statusBox1.innerHTML = `Xác suất P = ${p.toFixed(2)} ${desc}`;
+            });
+
+
+            // --- MÔ HÌNH 2: VÒNG QUAY 6 PHẦN (BOX 2) ---
+            board2 = JXG.JSXGraph.initBoard('box2', {
+                boundingbox: [-2.5, 2.5, 2.5, -2.5], axis: false, showNavigation: false, showCopyright: false
+            });
+
+            let center2 = board2.create('point', [0, 0], {visible: false, fixed: true});
+            board2.create('circle', [center2, 1.8], {strokeColor: '#cbd5e1', strokeWidth: 1.5});
+
+            let colors = ['#ef4444', '#f59e0b', '#10b981', '#06b6d4', '#3b82f6', '#8b5cf6'];
+            for (let i = 0; i < 6; i++) {
+                let a1 = (i * 2 * Math.PI) / 6;
+                let a2 = ((i + 1) * 2 * Math.PI) / 6;
+                let p1 = board2.create('point', [1.8 * Math.cos(a1), 1.8 * Math.sin(a1)], {visible: false, fixed: true});
+                let p2 = board2.create('point', [1.8 * Math.cos(a2), 1.8 * Math.sin(a2)], {visible: false, fixed: true});
+                board2.create('sector', [center2, p1, p2], {fillColor: colors[i], fillOpacity: 0.6, strokeColor: '#ffffff'});
+                board2.create('text', [1.1 * Math.cos(a1 + Math.PI/6), 1.1 * Math.sin(a1 + Math.PI/6), (i+1).toString()], {
+                    anchorX: 'middle', anchorY: 'middle', fontStyle: 'bold', fontSize: 12, color: '#0f172a'
+                });
+            }
+
+            pSpinner = board2.create('point', [1.5 * Math.cos(0), 1.5 * Math.sin(0)], {visible: false});
+            board2.create('arrow', [center2, pSpinner], {strokeColor: '#0f172a', strokeWidth: 3});
+
+
+            // --- MÔ HÌNH 3: MA TRẬN 2 XÚC XẮC 6X6 (BOX 3) ---
+            const b3 = JXG.JSXGraph.initBoard('box3', {
+                boundingbox: [-0.5, 6.5, 6.5, -0.5], axis: false, showNavigation: false, showCopyright: false
+            });
+
+            for(let r = 1; r <= 6; r++) {
+                for(let c = 1; c <= 6; c++) {
+                    let sum = r + c;
+                    let isTwelve = (sum === 12);
+                    b3.create('polygon', [[c-1, r-1], [c, r-1], [c, r], [c-1, r]], {
+                        fillColor: isTwelve ? '#ef4444' : '#f1f5f9',
+                        fillOpacity: 0.8,
+                        strokeColor: '#cbd5e1',
+                        strokeWidth: 1
+                    });
+                    b3.create('text', [c - 0.5, r - 0.5, sum.toString()], {
+                        anchorX: 'middle', anchorY: 'middle', fontSize: 9, fontStyle: isTwelve ? 'bold' : 'normal', color: isTwelve ? '#ffffff' : '#64748b'
+                    });
+                }
+            }
+        });
+
+        // Hàm xoay đĩa cho Mô hình 2
+        function spinWheel() {
+            let randomAngle = angle + 10 + Math.random() * 15;
+            let steps = 0;
+            let interval = setInterval(() => {
+                angle += 0.2;
+                pSpinner.setPosition(JXG.COORDS_BY_USER, [1.5 * Math.cos(angle), 1.5 * Math.sin(angle)]);
+                board2.update();
+                steps++;
+                if (steps > 30) clearInterval(interval);
+            }, 30);
+        }
+
+        // --- XỬ LÝ NỘP BÀI TRẮC NGHIỆM VÀ ĐẨY DỮ LIỆU APPS SCRIPT ---
+        document.getElementById('quizForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const submitBtn = document.getElementById('submitBtn');
+            const statusReport = document.getElementById('statusReport');
+            
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i> Hệ thống đang nộp bài...';
+            statusReport.innerHTML = "Đang kết nối cơ sở dữ liệu bảng tính...";
+
+            const correctKey = { q1: "B", q2: "A", q3: "B", q4: "B", q5: "A" };
+            const studentName = document.getElementById('studentName').value.trim();
+            const lessonId = document.getElementById('examId').value.trim();
+            
+            let correctCounter = 0;
+            let totalQuizCount = Object.keys(correctKey).length;
+            let missedReportArray = [];
+
+            for (let questionCode in correctKey) {
+                const selectedRadio = document.querySelector(`input[name="${questionCode}"]:checked`);
+                if (selectedRadio && selectedRadio.value === correctKey[questionCode]) {
+                    correctCounter++;
+                } else {
+                    let chosenChar = selectedRadio ? selectedRadio.value : "Bỏ trống";
+                    missedReportArray.push(`${questionCode.toUpperCase()}(Chọn: ${chosenChar}|Đúng: ${correctKey[questionCode]})`);
+                }
+            }
+
+            const finalScore = ((correctCounter / totalQuizCount) * 10).toFixed(2);
+            const timeComplete = new Date();
+            const elapsedDurationSeconds = Math.floor((timeComplete - timeInit) / 1000);
+            const thoiGian = `${Math.floor(elapsedDurationSeconds / 60)} phút ${elapsedDurationSeconds % 60} giây`;
+            const cauSai = missedReportArray.length > 0 ? missedReportArray.join(", ") : "Không có (Đạt 10/10)";
+
+            const transmissionPayload = {
+                hoTen: studentName,
+                maDe: lessonId,
+                diem: parseFloat(finalScore),
+                thoiGian: thoiGian,
+                cauSai: cauSai
+            };
+
+            const webAppsScriptEndpoint = "https://script.google.com/macros/s/AKfycbzY7b7h4OwvhXuK5Vs6hl-aD88BPnAiAKbU5lfJobby0D4nzbIJVKT4n0AKCpAGoK0nZA/exec";
+
+            fetch(webAppsScriptEndpoint, {
+                method: "POST",
+                mode: "no-cors",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(transmissionPayload)
+            })
+            .then(() => {
+                statusReport.className = "text-xs font-bold text-emerald-500 bg-emerald-50 px-3 py-2 rounded-xl border border-emerald-200 inline-block";
+                statusReport.innerHTML = `<i class="fa-solid fa-circle-check"></i> Đã đồng bộ kết quả thành công: ${finalScore}/10.`;
+                alert(`Hệ thống ghi nhận bài nộp thành công!\nChào em ${studentName}, điểm số đạt được là: ${finalScore} / 10.`);
+                submitBtn.innerHTML = '<i class="fa-solid fa-lock"></i> Đã lưu kết quả thi';
+            })
+            .catch(error => {
+                console.error("Lỗi truyền tin:", error);
+                statusReport.className = "text-xs font-bold text-rose-500 bg-rose-50 px-3 py-2 rounded-xl border border-rose-200 inline-block";
+                statusReport.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> Lỗi kết nối mạng, vui lòng bấm nộp lại!';
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Thử nộp lại bài';
+            });
+        });
+    </script>
+</body>
+</html>
