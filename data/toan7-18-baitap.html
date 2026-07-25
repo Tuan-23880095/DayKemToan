@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buổi 18: Thu thập, phân loại dữ liệu & Đọc biểu đồ — ThS. Đinh Quốc Tuấn</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- FontAwesome Icons CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts: Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- MathJax Configuration & Script -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['\\(', '\\)'], ['$', '$']],
+                displayMath: [['\\[', '\\]'], ['$$', '$$']]
+            },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <!-- JSXGraph CSS & Core Engine -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraph.css" />
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraphcore.js"></script>
+
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #f8fafc;
+            color: #0f172a;
+        }
+        .jxgbox {
+            background-color: #ffffff !important;
+            border-radius: 1rem;
+            overflow: hidden;
+            border: 1px solid #e2e8f0;
+        }
+        @media print {
+            .print\:hidden { display: none !important; }
+            body { background: white !important; color: black !important; }
+            details { display: block !important; }
+            details summary { display: none !important; }
+            .page-break { page-break-before: always; }
+            .card-border { box-shadow: none !important; border: 1px solid #e5e7eb !important; }
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col antialiased selection:bg-indigo-100">
+
+    <!-- Header học thuật -->
+    <header class="border-b border-slate-200 sticky top-0 bg-white/95 backdrop-blur-md z-40 print:hidden">
+        <div class="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 px-6 py-4">
+            <div class="flex items-center gap-4">
+                <img src="https://hcmus.edu.vn/wp-content/uploads/2023/04/Logo-chinh-e1681638380305.png" alt="Logo HCMUS" class="h-14 w-auto object-contain">
+                <div class="border-l-2 border-slate-300 pl-4">
+                    <span class="text-xs font-bold tracking-widest text-indigo-600 uppercase block mb-0.5">Tài liệu số hóa tương tác</span>
+                    <span class="text-base font-extrabold text-slate-800">Chuyên đề Thống kê & Xử lý Dữ liệu Toán 7</span>
+                </div>
+            </div>
+            <div class="flex items-center gap-3 sm:text-right">
+                <div class="hidden sm:block">
+                    <p class="text-xs text-slate-400 font-semibold">Giảng viên biên soạn:</p>
+                    <p class="text-sm font-extrabold text-slate-800">ThS. Đinh Quốc Tuấn</p>
+                </div>
+                <img src="https://firebasestorage.googleapis.com/v0/b/link-anh-web.firebasestorage.app/o/ttbdvh.jpg?alt=media&token=f270aa9b-a2bc-48e8-8910-80742b542615" 
+                     alt="Logo TTBDVH" class="h-14 w-14 object-cover rounded-full border border-slate-200 shadow-inner">
+            </div>
+        </div>
+    </header>
+
+    <!-- Banner chào mừng -->
+    <div class="bg-gradient-to-r from-indigo-50 via-slate-50 to-emerald-50 border-b border-slate-200 py-10 print:hidden">
+        <div class="max-w-4xl mx-auto px-6 space-y-4">
+            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-indigo-100 text-indigo-800 border border-indigo-200 shadow-xs">
+                <i class="fa-solid fa-chart-pie mr-1.5 text-indigo-600"></i> Thống kê & Phân tích trực quan
+            </span>
+            <h1 class="text-2xl sm:text-4xl font-black tracking-tight text-slate-900 leading-tight">
+                Buổi 18: Thu Thập, Phân Loại Dữ Liệu & Đọc Biểu Đồ
+            </h1>
+            <p class="text-slate-600 text-sm sm:text-base font-medium leading-relaxed text-justify">
+                Chào các em! Trong thời đại số hóa, khả năng thu thập, phân loại dữ liệu (định tính vs định lượng) và phân tích các loại biểu đồ (biểu đồ đoạn thẳng, biểu đồ quạt tròn) là một kỹ năng sống vô cùng quan trọng. Bài học hôm nay cung cấp 30 bài tập phân cấp chi tiết kèm mô hình JSXGraph giúp các em thực hành đọc hiểu xu hướng và đánh giá dữ liệu thực tế!
+            </p>
+        </div>
+    </div>
+
+    <!-- Không gian nội dung chính -->
+    <main class="max-w-4xl mx-auto px-4 sm:px-6 py-10 flex-grow w-full space-y-16">
+        
+        <!-- ================= MÔ HÌNH HÌNH HỌC TƯƠNG TÁC JSXGRAPH ================= -->
+        <section class="space-y-8 print:hidden bg-slate-100 p-6 rounded-3xl border border-slate-200">
+            <div class="border-b border-slate-200 pb-3">
+                <h2 class="text-lg font-black text-slate-800 flex items-center uppercase tracking-wide">
+                    <i class="fa-solid fa-compass-drafting mr-2.5 text-indigo-600 text-xl"></i> Mô hình trực quan Biểu đồ & Kiểm tra Dữ liệu
+                </h2>
+                <p class="text-xs text-slate-500 mt-1">Trực quan hóa sự biến đổi của Biểu đồ quạt tròn, Biểu đồ đoạn thẳng xu hướng và Thuật toán kiểm tra tổng 100%.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Mô hình 1 -->
+                <div class="flex flex-col bg-white p-4 rounded-2xl border border-slate-200 shadow-2xs">
+                    <h3 class="font-bold text-slate-900 text-xs mb-1 flex items-center gap-1.5">
+                        <i class="fa-solid fa-chart-pie text-indigo-600"></i> Mô hình 1: Biểu đồ quạt tròn động
+                    </h3>
+                    <p class="text-[11px] text-slate-500 mb-3">Kéo slider điều chỉnh tỉ lệ phần trăm các nhóm thể thao. Góc hình quạt tự động tính toán ($1\% \leftrightarrow 3,6^\circ$).</p>
+                    <div id="box1" class="w-full h-56 jxgbox"></div>
+                    <div id="status-box1" class="text-[11px] font-bold p-2 mt-2 bg-indigo-50 border border-indigo-100 rounded-lg text-center text-slate-700 font-mono">
+                        Bóng đá: 40% | Bơi lội: 35% | Cầu lông: 25%
+                    </div>
+                </div>
+
+                <!-- Mô hình 2 -->
+                <div class="flex flex-col bg-white p-4 rounded-2xl border border-slate-200 shadow-2xs">
+                    <h3 class="font-bold text-slate-900 text-xs mb-1 flex items-center gap-1.5">
+                        <i class="fa-solid fa-chart-line text-emerald-600"></i> Mô hình 2: Xu hướng Biểu đồ đoạn thẳng
+                    </h3>
+                    <p class="text-[11px] text-slate-500 mb-3">Kéo các điểm dữ liệu điểm số T1 &rArr; T4 lên xuống. Đoạn thẳng đổi màu Xanh (Đang TĂNG) hoặc Đỏ (Đang GIẢM).</p>
+                    <div id="box2" class="w-full h-56 jxgbox"></div>
+                    <div id="status-box2" class="text-[11px] font-bold p-2 mt-2 bg-emerald-50 border border-emerald-100 rounded-lg text-center text-emerald-900 font-mono">
+                        Kéo thả các điểm để theo dõi xu hướng
+                    </div>
+                </div>
+
+                <!-- Mô hình 3 -->
+                <div class="flex flex-col bg-white p-4 rounded-2xl border border-slate-200 shadow-2xs">
+                    <h3 class="font-bold text-slate-900 text-xs mb-1 flex items-center gap-1.5">
+                        <i class="fa-solid fa-triangle-exclamation text-amber-500"></i> Mô hình 3: Thẩm định tính hợp lý (Bài 5)
+                    </h3>
+                    <p class="text-[11px] text-slate-500 mb-3">Kéo slider tỉ lệ các loại sách. Nếu tổng vượt quá $100\%$, hệ thống sẽ phát cảnh báo dữ liệu KHÔNG HỢP LÝ.</p>
+                    <div id="box3" class="w-full h-56 jxgbox"></div>
+                    <div id="status-box3" class="text-[11px] font-bold p-2 mt-2 bg-amber-50 border border-amber-100 rounded-lg text-center text-amber-900 font-mono">
+                        Tổng tỉ lệ hiện tại = 120% (BÁO LỖI: >100%)
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= PHẦN 1: MỨC ĐỘ CƠ BẢN ================= -->
+        <section class="space-y-6">
+            <div class="flex items-center gap-3 border-b pb-3 border-slate-200">
+                <span class="bg-sky-600 text-white text-xs font-black px-3 py-1 rounded-md uppercase tracking-wider">Cấp độ 1</span>
+                <h2 class="text-xl font-extrabold text-slate-900">PHẦN 1: CẤP ĐỘ CƠ BẢN (10 BÀI NHẬN BIẾT & ĐỌC BIỂU ĐỒ)</h2>
+            </div>
+            <p class="text-xs font-bold text-sky-800 bg-sky-50 px-3 py-2 rounded-lg inline-block">
+                Mục tiêu: Nhận biết, phân biệt dữ liệu định tính / định lượng và đọc được các thông tin hiển thị trực tiếp trên mặt biểu đồ.
+            </p>
+
+            <div class="space-y-4">
+                <!-- Bài 1 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 1:</strong> Dữ liệu bao gồm dữ liệu là số (số liệu) và dữ liệu không là số. Hãy cho biết tên gọi khác của hai loại dữ liệu này trong thống kê?</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>&bull; Dữ liệu là số gọi là <strong>Dữ liệu định lượng</strong>.</p>
+                            <p>&bull; Dữ liệu không là số (chữ, hình ảnh, ký hiệu...) gọi là <strong>Dữ liệu định tính</strong>.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 2 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 2:</strong> Trong các loại dữ liệu sau, dữ liệu nào là dữ liệu định lượng?</p>
+                    <p class="text-xs text-slate-600 mb-3">a) Sở thích môn Toán (Rất thích, Thích, Không thích). <br>b) Cân nặng học sinh (45 kg, 50 kg, 48 kg). <br>c) Màu sắc yêu thích (Xanh, Đỏ, Vàng). <br>d) Số đo chiều cao học sinh (150 cm, 155 cm).</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Các dữ liệu định lượng (dữ liệu dạng số đo đạc được) là: <strong>b) Cân nặng</strong> và <strong>d) Chiều cao</strong>.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 3 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 3:</strong> Trong các loại dữ liệu sau, dữ liệu nào là dữ liệu định tính?</p>
+                    <p class="text-xs text-slate-600 mb-3">a) Đánh giá dịch vụ (Tốt, Khá, Trung bình, Kém). <br>b) Thời gian chạy 100m (12s, 14s, 15s). <br>c) Điểm kiểm tra Văn (7; 8; 9). <br>d) Tên loài hoa (Hoa hồng, Hoa lan, Hoa cúc).</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Dữ liệu định tính (dữ liệu không phải là số) là: <strong>a) Đánh giá dịch vụ</strong> và <strong>d) Tên các loài hoa</strong>.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 4 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 4:</strong> Bạn An thống kê số cây trồng trong trường: Phượng (21 cây), Bàng (32 cây), Bằng lăng (18 cây). Số liệu cây trồng là dữ liệu định tính hay định lượng? Dữ liệu này thu thập bằng phương pháp nào?</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>&bull; Số cây (21, 32, 18) là <strong>Dữ liệu định lượng</strong>.</p>
+                            <p>&bull; Phương pháp thu thập: <strong>Quan sát và Đếm thực tế</strong>.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 5 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 5 (Minh họa Mô hình 3):</strong> Bảng tỉ lệ loại sách thư viện: SGK (45%), Truyện tranh (20%), Tham khảo (15%), Khác (40%). Dữ liệu bảng này có hợp lý không? Vì sao?</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Tính tổng phần trăm: $45\% + 20\% + 15\% + 40\% = 120\%$.</p>
+                            <p>Vì tổng phần trăm cơ cấu vượt quá $100\%$ nên bảng dữ liệu này <strong>KHÔNG HỢP LÝ</strong>.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 6 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 6 (Đọc biểu đồ quạt - Minh họa Mô hình 1):</strong> Biểu đồ quạt môn thể thao yêu thích: Bóng đá (40%), Bơi lội (15%), Cầu lông (25%), Bóng bàn (20%). <br>a) Biểu đồ biểu diễn bao nhiêu đối tượng? <br>b) Môn nào yêu thích nhất, môn nào ít yêu thích nhất?</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>a) Biểu diễn 4 đối tượng môn thể thao.</p>
+                            <p>b) Môn yêu thích nhất: <strong>Bóng đá ($40\%$)</strong>. Môn ít yêu thích nhất: <strong>Bơi lội ($15\%$)</strong>.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 7 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 7:</strong> Trong biểu đồ quạt tròn học lực lớp 7A, phần hình quạt biểu diễn loại Khá chiếm đúng một nửa hình tròn. Hỏi học sinh Khá chiếm bao nhiêu phần trăm?</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Một nửa hình tròn tương ứng với $\frac{1}{2}$ tổng thể hay <strong>$50\%$</strong>.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 8 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 8:</strong> Cho biểu đồ đoạn thẳng biểu diễn nhiệt độ trung bình tại TP.HCM trong 12 tháng. Trục ngang và trục đứng biểu diễn đại lượng nào?</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>&bull; Trục ngang biểu diễn mốc thời gian (Tháng trong năm).</p>
+                            <p>&bull; Trục đứng biểu diễn giá trị nhiệt độ trung bình ($^\circ\text{C}$).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 9 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 9:</strong> Quan sát biểu đồ đoạn thẳng số xe đạp bán được T1 &rArr; T6: T1(20), T2(35), T3(50), T4(45), T5(15), T6(30). Tháng nào bán nhiều nhất, tháng nào ít nhất?</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>&bull; Tháng bán nhiều xe đạp nhất: <strong>Tháng 3 (50 xe)</strong>.</p>
+                            <p>&bull; Tháng bán ít xe đạp nhất: <strong>Tháng 5 (15 xe)</strong>.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 10 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 10:</strong> Dựa vào biểu đồ đoạn thẳng, số liệu thể hiện xu hướng TĂNG khi đoạn thẳng nối các điểm có hướng đi dốc lên hay dốc xuống?</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Số liệu thể hiện xu hướng TĂNG khi đoạn thẳng nối từ trái sang phải có hướng <strong>dốc lên</strong>.</p>
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ================= PHẦN 2: MỨC ĐỘ NÂNG CAO ================= -->
+        <section class="space-y-6">
+            <div class="flex items-center gap-3 border-b pb-3 border-slate-200">
+                <span class="bg-amber-600 text-white text-xs font-black px-3 py-1 rounded-md uppercase tracking-wider">Cấp độ 2</span>
+                <h2 class="text-xl font-extrabold text-slate-900">PHẦN 2: CẤP ĐỘ NÂNG CAO (10 BÀI TÍNH TOÁN & ĐÁNH GIÁ MẪU)</h2>
+            </div>
+            <p class="text-xs font-bold text-amber-800 bg-amber-50 px-3 py-2 rounded-lg inline-block">
+                Mục tiêu: Phân tích sâu dữ liệu từ biểu đồ, thực hiện phép tính tỉ lệ phần trăm, tính khoảng chênh lệch và đánh giá tính đại diện.
+            </p>
+
+            <div class="space-y-4">
+                <!-- Bài 11 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 11 (Tính đại diện):</strong> Để đánh giá thời gian truy cập internet của học sinh toàn trường, một nhóm chỉ phát phiếu khảo sát cho các bạn CLB Tin học. Dữ liệu thu được có đại diện cho toàn trường không?</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p><strong>Không đại diện.</strong> Vì các bạn CLB Tin học có xu hướng tiếp xúc và sử dụng máy tính/internet nhiều hơn mức trung bình của học sinh toàn trường, làm mẫu khảo sát bị lệch (mất tính ngẫu nhiên đại diện).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 12 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 12:</strong> Điểm kiểm tra Toán của Mai qua 4 bài kiểm tra lần lượt là: 7; 5; 5; 8. Cho biết điểm số của Mai tăng trong khoảng nào và giảm trong khoảng nào?</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>&bull; Điểm giảm từ bài 1 đến bài 2 (7 giảm xuống 5).</p>
+                            <p>&bull; Điểm không đổi từ bài 2 đến bài 3 (5 giữ nguyên 5).</p>
+                            <p>&bull; Điểm tăng từ bài 3 đến bài 4 (5 tăng lên 8).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 13 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 13:</strong> Biểu đồ quạt trái cây yêu thích lớp 7A (40 HS): Chuối 25%, Xoài 35%, Cóc 20%, Ổi 20%. Tính số học sinh thích Xoài và số học sinh thích Chuối.</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>&bull; Số HS thích Xoài = $40 \times 35\% = 14$ học sinh.</p>
+                            <p>&bull; Số HS thích Chuối = $40 \times 25\% = 10$ học sinh.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 14 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 14:</strong> Cửa hàng bán 200 kg trái cây: Lê (20%), Táo (30%), Nhãn (40%), Nho (10%). Tính tổng khối lượng Táo và Nhãn đã bán.</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Tổng tỉ lệ Táo và Nhãn = $30\% + 40\% = 70\%$.</p>
+                            <p>Tổng khối lượng Táo và Nhãn = $200 \times 70\% = 140\text{ kg}$.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 15 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 15:</strong> Từ tỉ lệ phần trăm ở Bài 13 của lớp 7A (40 HS), lập bảng thống kê số lượng học sinh yêu thích từng loại trái cây.</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>&bull; Chuối ($25\%$): $10$ học sinh. &nbsp;&nbsp;&nbsp;&nbsp; &bull; Xoài ($35\%$): $14$ học sinh.</p>
+                            <p>&bull; Cóc ($20\%$): $8$ học sinh. &nbsp;&nbsp;&nbsp;&nbsp; &bull; Ổi ($20\%$): $8$ học sinh.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 16 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 16:</strong> Doanh thu cửa hàng 6 tháng (triệu đồng): T1(52), T2(54), T3(56), T4(68), T5(50), T6(64). Doanh thu tăng nhiều nhất khoảng nào, giảm nhiều nhất khoảng nào?</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>&bull; Tăng nhiều nhất: Giữa Tháng 5 và Tháng 6 (tăng $64 - 50 = 14$ triệu) hoặc T3-T4 ($68-56=12$ triệu) &rArr; Tăng mạnh nhất T5-T6 ($+14$ tr).</p>
+                            <p>&bull; Giảm nhiều nhất: Giữa Tháng 4 và Tháng 5 (giảm $68 - 50 = 18$ triệu).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 17 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 17:</strong> Có thể vẽ 2 đường gấp khúc biểu diễn điểm số của 2 bạn Lan và Hà trên cùng 1 biểu đồ đoạn thẳng không? Lợi ích là gì?</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p><strong>Hoàn toàn được.</strong> Lợi ích: Dễ dàng so sánh trực tiếp xu hướng tiến bộ và điểm số giữa hai bạn tại cùng các mốc kiểm tra mà không cần tra cứu hai biểu đồ riêng biệt.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 18 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 18 (Bài toán ngược):</strong> Biểu đồ phân loại rác: Hữu cơ (60%), Tái chế (30%), Vô cơ (10%). Biết khối lượng rác tái chế là 150 kg. Tính tổng khối lượng rác thu gom.</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Rác tái chế chiếm $30\%$ tổng khối lượng.</p>
+                            <p>Tổng khối lượng rác = $150 : 30\% = 150 : 0,3 = 500\text{ kg}$.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 19 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 19:</strong> An muốn so sánh tỉ lệ % các loại sách. Bình muốn theo dõi sự thay đổi nhiệt độ qua các ngày. Hãy khuyên loại biểu đồ phù hợp cho từng bạn.</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>&bull; Bạn An nên chọn <strong>Biểu đồ quạt tròn</strong> (thích hợp biểu diễn tỉ lệ % cơ cấu).</p>
+                            <p>&bull; Bạn Bình nên chọn <strong>Biểu đồ đoạn thẳng</strong> (thích hợp biểu diễn diễn biến thay đổi theo thời gian).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 20 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 20:</strong> Véc biểu đồ đi học muộn, tại điểm "Thứ 3" bạn ấy chấm giá trị 5,5 (học sinh). Giải thích tại sao điểm dữ liệu này lại vô lý?</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Số lượng học sinh là đại lượng rời rạc, bắt buộc phải là <strong>số tự nhiên nguyên nguyên vẹn</strong> (0, 1, 2, 3...). Giá trị $5,5$ học sinh là hoàn toàn vô lý trong thực tế.</p>
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ================= PHẦN 3: MỨC ĐỘ VẬN DỤNG ================= -->
+        <section class="space-y-6">
+            <div class="flex items-center gap-3 border-b pb-3 border-slate-200">
+                <span class="bg-emerald-600 text-white text-xs font-black px-3 py-1 rounded-md uppercase tracking-wider">Cấp độ 3</span>
+                <h2 class="text-xl font-extrabold text-slate-900">PHẦN 3: CẤP ĐỘ VẬN DỤNG THỰC TẾ & DỰ ÁN (10 BÀI)</h2>
+            </div>
+            <p class="text-xs font-bold text-emerald-800 bg-emerald-50 px-3 py-2 rounded-lg inline-block">
+                Mục tiêu: Áp dụng kiến thức thống kê giải quyết các bài toán kinh tế, y tế, dân số và dự án điều tra thực tế.
+            </p>
+
+            <div class="space-y-4">
+                <!-- Bài 21 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 21 (Thị phần gọi xe):</strong> Biểu đồ quạt thị phần ứng dụng: Hãng A (73%), Hãng B (10%), Hãng C (17%). <br>a) Thị phần Hãng A gấp mấy lần tổng 2 hãng B, C? <br>b) Nếu 1 ngày có 2 triệu chuyến xe, tính số chuyến Hãng A.</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>a) Tổng thị phần B + C = $10\% + 17\% = 27\%$. Tỉ lệ: $73\% : 27\% \approx 2,7$ lần.</p>
+                            <p>b) Số chuyến xe hãng A = $2.000.000 \times 73\% = 1.460.000$ chuyến xe.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 22 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 22 (Tăng trưởng GDP):</strong> GDP Việt Nam 2015-2020: 2015(6,68%), 2016(6,21%), 2017(6,81%), 2018(7,08%), 2019(7,02%), 2020(2,91%). GDP năm nào cao nhất? Vì sao năm 2020 giảm mạnh?</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>a) Tăng trưởng GDP cao nhất vào <strong>năm 2018 ($7,08\%$)</strong>.</p>
+                            <p>b) Giải thích: Năm 2020 do ảnh hưởng nặng nề của đại dịch COVID-19 toàn cầu làm ngưng trệ các hoạt động sản xuất kinh doanh.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 23 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 23 (Tỉ lệ % vs Số lượng):</strong> Tỉ lệ Nông sản xuất khẩu 2019 là 20%, 2020 là 15%. Bạn Nam kết luận: "Lượng Nông sản 2020 ít hơn 2019". Nhận xét này Đúng hay Sai?</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p><strong>Chưa thể kết luận (Có thể Sai).</strong> Vì tỉ lệ phần trăm giảm không đồng nghĩa với số lượng thực tế giảm nếu tổng kim ngạch xuất khẩu của năm 2020 lớn hơn năm 2019 rất nhiều.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 24 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 24 (Dữ liệu Y tế):</strong> Số ca bệnh nặng hô hấp: 20/9 (7000 ca), 21/9 (6500 ca), 22/9 (6200 ca), 23/9 (6000 ca). Nhận xét xu hướng và cho biết ngày nào giảm mạnh nhất?</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>a) Xu hướng: Số ca bệnh nặng <strong>giảm liên tục</strong> theo thời gian.</p>
+                            <p>b) Giảm mạnh nhất từ ngày 20/9 đến 21/9 (giảm $7000 - 6500 = 500$ ca).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 25 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 25 (Quản lý chi tiêu):</strong> Chi tiêu gia đình Lan: Thiết yếu (50%), Tiết kiệm (20%), Cá nhân (30%). <br>a) Phân loại mục tiêu chi tiêu. <br>b) Nếu thu nhập 30 triệu/tháng, tiền tiết kiệm là bao nhiêu?</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>a) Các danh mục chi tiêu (Thiết yếu, Tiết kiệm, Cá nhân) là <strong>Dữ liệu định tính</strong>.</p>
+                            <p>b) Số tiền tiết kiệm = $30 \times 20\% = 6$ triệu đồng/tháng.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 26 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 26 (Dự đoán xu hướng):</strong> Số áo khoác mùa đông bán được từ T8 đến T12 liên tục đi lên. Dự đoán xu hướng tháng 1 và tháng 2 năm sau?</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Tháng 1 vẫn có xu hướng cao do là đỉnh điểm rét đậm, nhưng sang cuối Tháng 2 biểu đồ sẽ có xu hướng <strong>đi xuống</strong> vì thời tiết bắt đầu ấm lên khi chuyển sang mùa xuân.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 27 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 27:</strong> Lồng đèn lớp 7A tự làm: Con cá (5), Ngôi sao (12), Đèn xếp (14), Con thỏ (4), Thiên nga (5). Tổng = 40 cái. Tính tỉ lệ % và góc quạt của đèn Ngôi sao.</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>&bull; Tỉ lệ lồng đèn Ngôi sao = $\frac{12}{40} \times 100\% = 30\%$.</p>
+                            <p>&bull; Góc hình quạt tương ứng = $360^\circ \times 30\% = 108^\circ$.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 28 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 28 (Phân biệt tỉ lệ & số lượng):</strong> Tốc độ gia tăng dân số giảm dần qua các năm nhưng tổng dân số vẫn tăng lên. Giải thích hiện tượng này.</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Tốc độ gia tăng dân số dương (chẳng hạn tăng $1\%$/năm thay vì $1,5\%$) có nghĩa là dân số vẫn tiếp tục sinh ra nhiều hơn tử vong, do đó tổng dân số thực tế vẫn tăng nhưng với tốc độ chậm hơn trước.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 29 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 29:</strong> Muốn khảo sát mức độ tập thể dục buổi sáng của các bạn trong lớp. Nên chọn phương pháp nào? Dữ liệu (Thường xuyên, Thỉnh thoảng, Hiếm khi) là loại dữ liệu gì?</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>&bull; Phương pháp thu thập thích hợp nhất: <strong>Lập phiếu hỏi (phiếu khảo sát)</strong>.</p>
+                            <p>&bull; Dữ liệu thu được là <strong>Dữ liệu định tính</strong> (dữ liệu không phải là số, có thể sắp thứ tự).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 30 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 30 (Dự án khảo sát):</strong> Bảng hỏi khảo sát 20 bạn về "Môn học yêu thích nhất". Khi muốn biểu diễn cơ cấu tỉ lệ phần trăm các môn học yêu thích, nên chọn loại biểu đồ nào?</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Nên chọn <strong>Biểu đồ quạt tròn</strong> vì biểu đồ quạt tròn tối ưu nhất cho việc phản ánh tỉ lệ phần trăm đóng góp của từng thành phần vào tổng thể $100\%$.</p>
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ================= BÀI TẬP ĐÁNH GIÁ NĂNG LỰC TRẮC NGHIỆM ================= -->
+        <section class="border-t border-slate-200 pt-10 page-break">
+            <div class="bg-gradient-to-br from-slate-900 via-slate-800 to-indigo-950 text-white rounded-3xl p-6 sm:p-8 shadow-xl relative overflow-hidden card-border">
+                <div class="max-w-xl space-y-2">
+                    <span class="text-xs font-bold uppercase tracking-widest text-emerald-400 bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-500/20 inline-block">Đánh giá trực tuyến tại lớp</span>
+                    <h2 class="text-xl sm:text-2xl font-black tracking-tight">BÀI TẬP ĐÁNH GIÁ NĂNG LỰC TẠI LỚP</h2>
+                    <p class="text-slate-400 text-xs sm:text-sm">Học sinh hoàn thành trắc nghiệm 5 câu dưới đây. Kết quả điểm số sẽ được truyền tự động về Google Sheets hệ thống.</p>
+                </div>
+
+                <form id="quizForm" class="mt-8 space-y-6 text-slate-900">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div class="bg-white p-4 rounded-xl shadow-inner border border-slate-100">
+                            <label class="block text-xs font-bold text-slate-400 uppercase tracking-wide mb-1"><i class="fa-solid fa-user-graduate mr-1 text-indigo-500"></i> Họ và tên học sinh</label>
+                            <input type="text" id="studentName" required placeholder="Nhập họ tên đầy đủ..." class="w-full bg-white border-b-2 border-slate-200 focus:border-indigo-500 outline-none py-1 text-sm font-bold text-slate-900 transition-colors">
+                        </div>
+                        <div class="bg-white p-4 rounded-xl shadow-inner border border-slate-100">
+                            <label class="block text-xs font-bold text-slate-400 uppercase tracking-wide mb-1"><i class="fa-solid fa-file-code mr-1 text-indigo-500"></i> Mã chuyên đề bài học</label>
+                            <input type="text" id="examId" readonly value="Buoi18_DocBieuDo_Toan7" class="w-full bg-slate-50 border-b-2 border-slate-200 outline-none py-1 text-sm font-bold text-slate-500 cursor-not-allowed">
+                        </div>
+                    </div>
+
+                    <!-- Khối câu hỏi trắc nghiệm -->
+                    <div class="space-y-5 mt-6">
+                        <!-- Câu 1 -->
+                        <div class="bg-white p-5 rounded-2xl shadow-sm space-y-3">
+                            <p class="text-sm font-bold text-slate-900"><span class="text-indigo-600">Câu 1:</span> Loại dữ liệu nào sau đây là Dữ liệu định lượng?</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs font-semibold text-slate-700">
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q1" value="A" required class="text-indigo-600 h-4 w-4"> <span>A. Chiều cao học sinh (cm)</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q1" value="B" class="text-indigo-600 h-4 w-4"> <span>B. Màu sắc yêu thích</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q1" value="C" class="text-indigo-600 h-4 w-4"> <span>C. Đánh giá chất lượng</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Câu 2 -->
+                        <div class="bg-white p-5 rounded-2xl shadow-sm space-y-3">
+                            <p class="text-sm font-bold text-slate-900"><span class="text-indigo-600">Câu 2:</span> Tổng các tỉ lệ phần trăm của tất cả các thành phần trong một biểu đồ quạt tròn hoàn chỉnh phải bằng bao nhiêu?</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs font-semibold text-slate-700">
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q2" value="A" required class="text-indigo-600 h-4 w-4"> <span>A. 100%</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q2" value="B" class="text-indigo-600 h-4 w-4"> <span>B. 360%</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q2" value="C" class="text-indigo-600 h-4 w-4"> <span>C. 50%</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Câu 3 -->
+                        <div class="bg-white p-5 rounded-2xl shadow-sm space-y-3">
+                            <p class="text-sm font-bold text-slate-900"><span class="text-indigo-600">Câu 3:</span> Lớp 7A có 40 học sinh. Biểu đồ quạt cho biết số HS thích Xoài chiếm 35%. Số học sinh thích Xoài là bao nhiêu?</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs font-semibold text-slate-700">
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q3" value="A" required class="text-indigo-600 h-4 w-4"> <span>A. 14 học sinh</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q3" value="B" class="text-indigo-600 h-4 w-4"> <span>B. 10 học sinh</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q3" value="C" class="text-indigo-600 h-4 w-4"> <span>C. 35 học sinh</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Câu 4 -->
+                        <div class="bg-white p-5 rounded-2xl shadow-sm space-y-3">
+                            <p class="text-sm font-bold text-slate-900"><span class="text-indigo-600">Câu 4:</span> Loại biểu đồ nào thích hợp nhất để biểu diễn sự thay đổi của một đại lượng theo thời gian?</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs font-semibold text-slate-700">
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q4" value="A" required class="text-indigo-600 h-4 w-4"> <span>A. Biểu đồ đoạn thẳng</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q4" value="B" class="text-indigo-600 h-4 w-4"> <span>B. Biểu đồ quạt tròn</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q4" value="C" class="text-indigo-600 h-4 w-4"> <span>C. Biểu đồ hình tranh</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Câu 5 -->
+                        <div class="bg-white p-5 rounded-2xl shadow-sm space-y-3">
+                            <p class="text-sm font-bold text-slate-900"><span class="text-indigo-600">Câu 5:</span> Rác tái chế chiếm 30% tổng rác thu gom. Biết rác tái chế thu được 150 kg. Tổng khối lượng rác thu gom là:</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs font-semibold text-slate-700">
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q5" value="A" required class="text-indigo-600 h-4 w-4"> <span>A. 500 kg</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q5" value="B" class="text-indigo-600 h-4 w-4"> <span>B. 450 kg</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q5" value="C" class="text-indigo-600 h-4 w-4"> <span>C. 300 kg</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pt-2 flex flex-col sm:flex-row items-center justify-between gap-4">
+                        <button type="submit" id="submitBtn" class="w-full sm:w-auto bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-sm px-8 py-3.5 rounded-xl shadow-lg transition-all flex items-center justify-center space-x-2 cursor-pointer">
+                            <i class="fa-solid fa-cloud-arrow-up"></i> <span>Nộp Bài Chấm Điểm</span>
+                        </button>
+                        <div id="statusReport" class="text-xs font-bold text-slate-400"></div>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer bản quyền -->
+    <footer class="bg-slate-900 text-slate-400 py-8 text-center text-xs font-medium px-4 mt-auto">
+        <p class="font-bold text-slate-300">@ Bản quyền thuộc ThS. Đinh Quốc Tuấn - Mục đích phi lợi nhuận - Vì giáo dục.</p>
+        <p class="text-slate-500 mt-2">Hệ thống bài giảng trực tuyến tương tác tích hợp đồng bộ dữ liệu điểm số học sinh.</p>
+    </footer>
+
+    <!-- NÚT IN TÀI LIỆU CỐ ĐỊNH -->
+    <button id="btn-print-doc" onclick="safePrint()" class="fixed bottom-5 right-5 bg-gray-900 text-white px-4 py-2 rounded-lg shadow-lg hover:bg-gray-700 print:hidden z-50 cursor-pointer">
+        <i class="fas fa-print mr-2"></i> In Tài Liệu
+    </button>
+
+    <script>
+        function safePrint() {
+            const printBtn = document.getElementById('btn-print-doc');
+            printBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Đang chuẩn bị...';
+            
+            if (window.MathJax && window.MathJax.typesetPromise) {
+                MathJax.typesetPromise().then(() => {
+                    printBtn.innerHTML = '<i class="fas fa-print mr-2"></i> In Tài Liệu';
+                    window.print();
+                });
+            } else {
+                setTimeout(() => {
+                    printBtn.innerHTML = '<i class="fas fa-print mr-2"></i> In Tài Liệu';
+                    window.print();
+                }, 500); 
+            }
+        }
+    </script>
+
+    <!-- HỆ THỐNG ĐIỀU KHIỂN ĐỒ HỌA JSXGRAPH & FORM QUIZ APPS SCRIPT -->
+    <script>
+        const timeInit = new Date();
+
+        document.addEventListener("DOMContentLoaded", function() {
+            
+            // --- MÔ HÌNH 1: BIỂU ĐỒ QUẠT TRÒN ĐỘNG (BOX 1) ---
+            const b1 = JXG.JSXGraph.initBoard('box1', {
+                boundingbox: [-2.5, 2.5, 2.5, -2.5], axis: false, showNavigation: false, showCopyright: false
+            });
+
+            let center1 = b1.create('point', [0, 0], {visible: false, fixed: true});
+            b1.create('circle', [center1, 1.8], {strokeColor: '#94a3b8', strokeWidth: 1.5});
+
+            // Vẽ quạt tròn 40% (Bóng đá - Xanh dương)
+            let p0 = b1.create('point', [1.8, 0], {visible: false, fixed: true});
+            let a1 = 0.40 * 2 * Math.PI;
+            let p1 = b1.create('point', [1.8 * Math.cos(a1), 1.8 * Math.sin(a1)], {visible: false, fixed: true});
+            b1.create('sector', [center1, p0, p1], {fillColor: '#3b82f6', fillOpacity: 0.8, strokeColor: '#1d4ed8'});
+
+            // Quạt tròn 35% (Bơi lội - Xanh lá)
+            let a2 = (0.40 + 0.35) * 2 * Math.PI;
+            let p2 = b1.create('point', [1.8 * Math.cos(a2), 1.8 * Math.sin(a2)], {visible: false, fixed: true});
+            b1.create('sector', [center1, p1, p2], {fillColor: '#10b981', fillOpacity: 0.8, strokeColor: '#047857'});
+
+            // Quạt tròn 25% (Cầu lông - Vàng)
+            b1.create('sector', [center1, p2, p0], {fillColor: '#f59e0b', fillOpacity: 0.8, strokeColor: '#b45309'});
+
+
+            // --- MÔ HÌNH 2: BIỂU ĐỒ ĐOẠN THẲNG TƯƠNG TÁC (BOX 2) ---
+            const b2 = JXG.JSXGraph.initBoard('box2', {
+                boundingbox: [-1, 10, 5, -1], axis: true, showNavigation: false, showCopyright: false
+            });
+
+            let pt1 = b2.create('point', [1, 7], {name: 'T1(7)', color: '#2563eb', size: 3});
+            let pt2 = b2.create('point', [2, 5], {name: 'T2(5)', color: '#2563eb', size: 3});
+            let pt3 = b2.create('point', [3, 5], {name: 'T3(5)', color: '#2563eb', size: 3});
+            let pt4 = b2.create('point', [4, 8], {name: 'T4(8)', color: '#2563eb', size: 3});
+
+            // Nối các đoạn thẳng
+            let seg1 = b2.create('segment', [pt1, pt2], {
+                strokeColor: function() { return pt2.Y() >= pt1.Y() ? '#10b981' : '#ef4444'; }, strokeWidth: 2.5
+            });
+            let seg2 = b2.create('segment', [pt2, pt3], {
+                strokeColor: function() { return pt3.Y() >= pt2.Y() ? '#10b981' : '#ef4444'; }, strokeWidth: 2.5
+            });
+            let seg3 = b2.create('segment', [pt3, pt4], {
+                strokeColor: function() { return pt4.Y() >= pt3.Y() ? '#10b981' : '#ef4444'; }, strokeWidth: 2.5
+            });
+
+            let statusBox2 = document.getElementById('status-box2');
+            function updateLineTrend() {
+                statusBox2.innerHTML = `T1&rArr;T2: ${pt2.Y() >= pt1.Y() ? 'TĂNG' : 'GIẢM'} | T2&rArr;T3: ${pt3.Y() >= pt2.Y() ? 'TĂNG' : 'GIẢM'} | T3&rArr;T4: ${pt4.Y() >= pt3.Y() ? 'TĂNG' : 'GIẢM'}`;
+            }
+            pt1.on('drag', updateLineTrend);
+            pt2.on('drag', updateLineTrend);
+            pt3.on('drag', updateLineTrend);
+            pt4.on('drag', updateLineTrend);
+            updateLineTrend();
+
+
+            // --- MÔ HÌNH 3: KIỂM TRA HỢP LÝ DỮ LIỆU TỔNG 100% (BOX 3) ---
+            const b3 = JXG.JSXGraph.initBoard('box3', {
+                boundingbox: [-3, 3, 3, -3], axis: false, showNavigation: false, showCopyright: false
+            });
+
+            b3.create('polygon', [[-2.5, 2], [2.5, 2], [2.5, -2], [-2.5, -2]], {
+                fillColor: '#fef2f2', strokeColor: '#ef4444', strokeWidth: 2
+            });
+            b3.create('text', [0, 0.5, 'CẢNH BÁO DỮ LIỆU'], {anchorX: 'middle', fontSize: 11, fontStyle: 'bold', strokeColor: '#dc2626'});
+            b3.create('text', [0, -0.5, 'Tổng % = 120% (> 100%)'], {anchorX: 'middle', fontSize: 13, fontStyle: 'bold', strokeColor: '#b91c1c'});
+        });
+
+        // --- XỬ LÝ NỘP BÀI TRẮC NGHIỆM VÀ ĐẨY DỮ LIỆU APPS SCRIPT ---
+        document.getElementById('quizForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const submitBtn = document.getElementById('submitBtn');
+            const statusReport = document.getElementById('statusReport');
+            
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i> Hệ thống đang nộp bài...';
+            statusReport.innerHTML = "Đang kết nối cơ sở dữ liệu bảng tính...";
+
+            const correctKey = { q1: "A", q2: "A", q3: "A", q4: "A", q5: "A" };
+            const studentName = document.getElementById('studentName').value.trim();
+            const lessonId = document.getElementById('examId').value.trim();
+            
+            let correctCounter = 0;
+            let totalQuizCount = Object.keys(correctKey).length;
+            let missedReportArray = [];
+
+            for (let questionCode in correctKey) {
+                const selectedRadio = document.querySelector(`input[name="${questionCode}"]:checked`);
+                if (selectedRadio && selectedRadio.value === correctKey[questionCode]) {
+                    correctCounter++;
+                } else {
+                    let chosenChar = selectedRadio ? selectedRadio.value : "Bỏ trống";
+                    missedReportArray.push(`${questionCode.toUpperCase()}(Chọn: ${chosenChar}|Đúng: ${correctKey[questionCode]})`);
+                }
+            }
+
+            const finalScore = ((correctCounter / totalQuizCount) * 10).toFixed(2);
+            const timeComplete = new Date();
+            const elapsedDurationSeconds = Math.floor((timeComplete - timeInit) / 1000);
+            const thoiGian = `${Math.floor(elapsedDurationSeconds / 60)} phút ${elapsedDurationSeconds % 60} giây`;
+            const cauSai = missedReportArray.length > 0 ? missedReportArray.join(", ") : "Không có (Đạt 10/10)";
+
+            const transmissionPayload = {
+                hoTen: studentName,
+                maDe: lessonId,
+                diem: parseFloat(finalScore),
+                thoiGian: thoiGian,
+                cauSai: cauSai
+            };
+
+            const webAppsScriptEndpoint = "https://script.google.com/macros/s/AKfycbzY7b7h4OwvhXuK5Vs6hl-aD88BPnAiAKbU5lfJobby0D4nzbIJVKT4n0AKCpAGoK0nZA/exec";
+
+            fetch(webAppsScriptEndpoint, {
+                method: "POST",
+                mode: "no-cors",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(transmissionPayload)
+            })
+            .then(() => {
+                statusReport.className = "text-xs font-bold text-emerald-500 bg-emerald-50 px-3 py-2 rounded-xl border border-emerald-200 inline-block";
+                statusReport.innerHTML = `<i class="fa-solid fa-circle-check"></i> Đã đồng bộ kết quả thành công: ${finalScore}/10.`;
+                alert(`Hệ thống ghi nhận bài nộp thành công!\nChào em ${studentName}, điểm số đạt được là: ${finalScore} / 10.`);
+                submitBtn.innerHTML = '<i class="fa-solid fa-lock"></i> Đã lưu kết quả thi';
+            })
+            .catch(error => {
+                console.error("Lỗi truyền tin:", error);
+                statusReport.className = "text-xs font-bold text-rose-500 bg-rose-50 px-3 py-2 rounded-xl border border-rose-200 inline-block";
+                statusReport.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> Lỗi kết nối mạng, vui lòng bấm nộp lại!';
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Thử nộp lại bài';
+            });
+        });
+    </script>
+</body>
+</html>
