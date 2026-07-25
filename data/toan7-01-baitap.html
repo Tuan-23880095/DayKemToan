@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buổi 1: Tập Hợp Các Số Hữu Tỉ — ThS. Đinh Quốc Tuấn</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- FontAwesome Icons CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts: Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- MathJax Configuration & Script -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['\\(', '\\)'], ['$', '$']],
+                displayMath: [['\\[', '\\]'], ['$$', '$$']]
+            },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <!-- JSXGraph CSS & Core Engine -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraph.css" />
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraphcore.js"></script>
+
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #f8fafc;
+            color: #0f172a;
+        }
+        .jxgbox {
+            background-color: #ffffff !important;
+            border-radius: 1rem;
+            overflow: hidden;
+            border: 1px solid #e2e8f0;
+        }
+        @media print {
+            .print\:hidden { display: none !important; }
+            body { background: white !important; color: black !important; }
+            details { display: block !important; }
+            details summary { display: none !important; }
+            .page-break { page-break-before: always; }
+            .card-border { box-shadow: none !important; border: 1px solid #e5e7eb !important; }
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col antialiased selection:bg-indigo-100">
+
+    <!-- Header học thuật -->
+    <header class="border-b border-slate-200 sticky top-0 bg-white/95 backdrop-blur-md z-40 print:hidden">
+        <div class="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 px-6 py-4">
+            <div class="flex items-center gap-4">
+                <img src="https://hcmus.edu.vn/wp-content/uploads/2023/04/Logo-chinh-e1681638380305.png" alt="Logo HCMUS" class="h-14 w-auto object-contain">
+                <div class="border-l-2 border-slate-300 pl-4">
+                    <span class="text-xs font-bold tracking-widest text-indigo-600 uppercase block mb-0.5">Tài liệu số hóa tương tác</span>
+                    <span class="text-base font-extrabold text-slate-800">Chuyên đề Đại số Toán 7</span>
+                </div>
+            </div>
+            <div class="flex items-center gap-3 sm:text-right">
+                <div class="hidden sm:block">
+                    <p class="text-xs text-slate-400 font-semibold">Giảng viên biên soạn:</p>
+                    <p class="text-sm font-extrabold text-slate-800">ThS. Đinh Quốc Tuấn</p>
+                </div>
+                <img src="https://firebasestorage.googleapis.com/v0/b/link-anh-web.firebasestorage.app/o/ttbdvh.jpg?alt=media&token=f270aa9b-a2bc-48e8-8910-80742b542615" 
+                     alt="Logo TTBDVH" class="h-14 w-14 object-cover rounded-full border border-slate-200 shadow-inner">
+            </div>
+        </div>
+    </header>
+
+    <!-- Banner chào mừng -->
+    <div class="bg-gradient-to-r from-indigo-50 via-slate-50 to-emerald-50 border-b border-slate-200 py-10 print:hidden">
+        <div class="max-w-4xl mx-auto px-6 space-y-4">
+            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-indigo-100 text-indigo-800 border border-indigo-200 shadow-xs">
+                <i class="fa-solid fa-square-root-variable mr-1.5 text-indigo-600"></i> Tập hợp số mở rộng
+            </span>
+            <h1 class="text-2xl sm:text-4xl font-black tracking-tight text-slate-900 leading-tight">
+                Buổi 1: Tập Hợp Các Số Hữu Tỉ
+            </h1>
+            <p class="text-slate-600 text-sm sm:text-base font-medium leading-relaxed text-justify">
+                Chào các em! Số hữu tỉ là tập hợp các số viết được dưới dạng phân số \(\frac{a}{b}\) (với \(a, b \in \mathbb{Z}, b \neq 0\)), bao gồm số nguyên, số tự nhiên, phân số và các số thập phân. Dưới đây là hệ thống 30 bài tập luyện tập 3 cấp độ kèm mô hình trực quan JSXGraph giúp các em hiểu thấu đáo khái niệm, cách biểu diễn trên trục số và phương pháp so sánh số hữu tỉ!
+            </p>
+        </div>
+    </div>
+
+    <!-- Không gian nội dung chính -->
+    <main class="max-w-4xl mx-auto px-4 sm:px-6 py-10 flex-grow w-full space-y-16">
+        
+        <!-- ================= MÔ HÌNH HÌNH HỌC TƯƠNG TÁC JSXGRAPH ================= -->
+        <section class="space-y-8 print:hidden bg-slate-100 p-6 rounded-3xl border border-slate-200">
+            <div class="border-b border-slate-200 pb-3">
+                <h2 class="text-lg font-black text-slate-800 flex items-center uppercase tracking-wide">
+                    <i class="fa-solid fa-compass-drafting mr-2.5 text-indigo-600 text-xl"></i> Mô hình trực quan Số hữu tỉ tương tác
+                </h2>
+                <p class="text-xs text-slate-500 mt-1">Trực quan hóa chia vạch khoảng đơn vị trên trục số, đối tính số đối qua gốc $O$ và so sánh độ dâng nước hai phân số.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Mô hình 1 -->
+                <div class="flex flex-col bg-white p-4 rounded-2xl border border-slate-200 shadow-2xs">
+                    <h3 class="font-bold text-slate-900 text-xs mb-1 flex items-center gap-1.5">
+                        <i class="fa-solid fa-sliders text-indigo-600"></i> Mô hình 1: Chia vạch Mẫu số $n$
+                    </h3>
+                    <p class="text-[11px] text-slate-500 mb-3">Kéo slider "Mẫu số n" để chia khoảng đơn vị $[0, 1]$ thành $n$ phần bằng nhau. Kéo điểm $M$ để đọc phân số tương ứng.</p>
+                    <div id="box1" class="w-full h-56 jxgbox"></div>
+                    <div id="status-box1" class="text-[11px] font-bold p-2 mt-2 bg-indigo-50 border border-indigo-100 rounded-lg text-center text-slate-700 font-mono">
+                        Vạch chia đơn vị: Mẫu số n = 4 &rArr; M = 3/4
+                    </div>
+                </div>
+
+                <!-- Mô hình 2 -->
+                <div class="flex flex-col bg-white p-4 rounded-2xl border border-slate-200 shadow-2xs">
+                    <h3 class="font-bold text-slate-900 text-xs mb-1 flex items-center gap-1.5">
+                        <i class="fa-solid fa-arrows-left-right text-amber-500"></i> Mô hình 2: Số đối qua gốc $O$
+                    </h3>
+                    <p class="text-[11px] text-slate-500 mb-3">Kéo điểm $A$ trên trục số. Điểm $A'$ tự động đối xứng qua gốc $O(0)$. Màn hình phản ánh tính chất số đối của $x$ là $-x$.</p>
+                    <div id="box2" class="w-full h-56 jxgbox"></div>
+                    <div id="status-box2" class="text-[11px] font-bold p-2 mt-2 bg-amber-50 border border-amber-100 rounded-lg text-center text-amber-900 font-mono">
+                        Tọa độ A = 2.50 &rArr; Số đối A' = -2.50
+                    </div>
+                </div>
+
+                <!-- Mô hình 3 -->
+                <div class="flex flex-col bg-white p-4 rounded-2xl border border-slate-200 shadow-2xs">
+                    <h3 class="font-bold text-slate-900 text-xs mb-1 flex items-center gap-1.5">
+                        <i class="fa-solid fa-scale-balanced text-emerald-500"></i> Mô hình 3: So sánh 2 phân số
+                    </h3>
+                    <p class="text-[11px] text-slate-500 mb-3">Đồ thị cột so sánh chiều cao của 2 phân số $\frac{-2}{5}$ và $\frac{-1}{3}$ quy đồng về mẫu chung 15.</p>
+                    <div id="box3" class="w-full h-56 jxgbox"></div>
+                    <div id="status-box3" class="text-[11px] font-bold p-2 mt-2 bg-emerald-50 border border-emerald-100 rounded-lg text-center text-emerald-800 font-mono">
+                        -6/15 < -5/15 &rArr; 2/-5 < -1/3
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= PHẦN 1: MỨC ĐỘ CƠ BẢN ================= -->
+        <section class="space-y-6">
+            <div class="flex items-center gap-3 border-b pb-3 border-slate-200">
+                <span class="bg-sky-600 text-white text-xs font-black px-3 py-1 rounded-md uppercase tracking-wider">Cấp độ 1</span>
+                <h2 class="text-xl font-extrabold text-slate-900">PHẦN 1: CẤP ĐỘ CƠ BẢN (12 BÀI NHẬN BIẾT & SỐ ĐỐI, TRỤC SỐ)</h2>
+            </div>
+            <p class="text-xs font-bold text-sky-800 bg-sky-50 px-3 py-2 rounded-lg inline-block">
+                Mục tiêu: Nhận biết ký hiệu tập hợp \(\mathbb{N}, \mathbb{Z}, \mathbb{Q}\), tìm số đối, đọc vị trí trên trục số và so sánh các số đơn giản.
+            </p>
+
+            <div class="space-y-4">
+                <!-- Bài 1 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 1 (Kí hiệu tập hợp):</strong> Điền kí hiệu \(\in\) hoặc \(\notin\) thích hợp vào ô trống:</p>
+                    <p class="text-xs text-slate-600 mb-3">
+                        a) \(-7 \ \dots\ \mathbb{N}\) &nbsp;&nbsp;&nbsp;&nbsp; 
+                        b) \(-17 \ \dots\ \mathbb{Z}\) &nbsp;&nbsp;&nbsp;&nbsp; 
+                        c) \(\frac{4}{5} \ \dots\ \mathbb{Z}\) &nbsp;&nbsp;&nbsp;&nbsp; 
+                        d) \(-38 \ \dots\ \mathbb{Q}\) &nbsp;&nbsp;&nbsp;&nbsp; 
+                        e) \(3,25 \ \dots\ \mathbb{Q}\)
+                    </p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>a) \(-7 \notin \mathbb{N}\) &nbsp;&nbsp;&nbsp;&nbsp; b) \(-17 \in \mathbb{Z}\) &nbsp;&nbsp;&nbsp;&nbsp; c) \(\frac{4}{5} \notin \mathbb{Z}\) &nbsp;&nbsp;&nbsp;&nbsp; d) \(-38 \in \mathbb{Q}\) &nbsp;&nbsp;&nbsp;&nbsp; e) \(3,25 \in \mathbb{Q}\).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 2 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 2 (Nhận biết số hữu tỉ):</strong> Vì sao các số \(12,5;\ -1,4;\ 3;\ \frac{-0}{4}\) đều là các số hữu tỉ? Hãy viết chúng dưới dạng phân số \(\frac{a}{b}\) với \(a, b \in \mathbb{Z}, b \neq 0\).</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Các số trên là số hữu tỉ vì đều viết được dưới dạng phân số \(\frac{a}{b}\) với \(a, b \in \mathbb{Z}, b \neq 0\):</p>
+                            <p>\(12,5 = \frac{125}{10} = \frac{25}{2}\); &nbsp;&nbsp; \(-1,4 = \frac{-14}{10} = \frac{-7}{5}\); &nbsp;&nbsp; \(3 = \frac{3}{1}\); &nbsp;&nbsp; \(\frac{-0}{4} = \frac{0}{1}\).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 3 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 3 (Phân loại số hữu tỉ):</strong> Cho các số hữu tỉ: \(\frac{-5}{12};\ 1\frac{2}{5};\ -5;\ \frac{0}{125};\ -0,47\).</p>
+                    <p class="text-xs text-slate-600 mb-3">a) Số nào là số hữu tỉ dương? <br>b) Số nào là số hữu tỉ âm? <br>c) Số nào không là số hữu tỉ dương cũng không là số hữu tỉ âm?</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>a) Số hữu tỉ dương: \(1\frac{2}{5} = \frac{7}{5} > 0\).</p>
+                            <p>b) Số hữu tỉ âm: \(\frac{-5}{12};\ -5;\ -0,47\).</p>
+                            <p>c) Không dương cũng không âm: \(\frac{0}{125} = 0\).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 4 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 4 (Phân số bằng nhau):</strong> Trong các phân số sau, những phân số nào cùng biểu diễn số hữu tỉ \(\frac{-5}{9}\)?</p>
+                    <p class="text-xs text-slate-600 mb-3">\(\frac{-10}{18};\ \frac{10}{18};\ \frac{15}{-27};\ -\frac{20}{36};\ \frac{-25}{27}\)</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Rút gọn các phân số về dạng tối giản:</p>
+                            <p>&bull; \(\frac{-10}{18} = \frac{-5}{9}\); &nbsp;&nbsp; \(\frac{15}{-27} = \frac{-5}{9}\); &nbsp;&nbsp; \(-\frac{20}{36} = \frac{-5}{9}\).</p>
+                            <p>Các phân số cùng biểu diễn số hữu tỉ \(\frac{-5}{9}\) là: \(\frac{-10}{18};\ \frac{15}{-27};\ -\frac{20}{36}\).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 5 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 5 (Số đối):</strong> Tìm số đối của mỗi số hữu tỉ sau:</p>
+                    <p class="text-xs text-slate-600 mb-3">\(15;\ \frac{-4}{7};\ -0,275;\ 0;\ 2\frac{1}{3}\)</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>&bull; Số đối của \(15\) là \(-15\).</p>
+                            <p>&bull; Số đối của \(\frac{-4}{7}\) là \(\frac{4}{7}\).</p>
+                            <p>&bull; Số đối của \(-0,275\) là \(0,275\).</p>
+                            <p>&bull; Số đối của \(0\) là \(0\).</p>
+                            <p>&bull; Số đối của \(2\frac{1}{3}\) là \(-2\frac{1}{3} = \frac{-7}{3}\).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 6 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 6 (Đọc trục số - Minh họa Mô hình 1):</strong> Trên trục số, khoảng cách giữa 0 và 1 chia làm 4 phần bằng nhau. Hãy xác định số hữu tỉ của các điểm $A(-3\text{ vạch}), B(-1\text{ vạch}), C(+2\text{ vạch}), D(+5\text{ vạch})$.</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Mỗi vạch nhỏ tương ứng giá trị \(\frac{1}{4}\):</p>
+                            <p>\(A = \frac{-3}{4}\); &nbsp;&nbsp; \(B = \frac{-1}{4}\); &nbsp;&nbsp; \(C = \frac{2}{4} = \frac{1}{2}\); &nbsp;&nbsp; \(D = \frac{5}{4} = 1\frac{1}{4}\).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 7 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 7 (Biểu diễn trên trục số):</strong> Vẽ một trục số và biểu diễn các số hữu tỉ sau trên cùng trục số đó: \(\frac{2}{3};\ \frac{-1}{3};\ 1,5\).</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Chia đoạn đơn vị thành 6 phần bằng nhau (mẫu chung 6):</p>
+                            <p>&bull; \(\frac{-1}{3} = \frac{-2}{6}\) (Lùi 2 vạch bên trái 0).</p>
+                            <p>&bull; \(\frac{2}{3} = \frac{4}{6}\) (Tiến 4 vạch bên phải 0).</p>
+                            <p>&bull; \(1,5 = \frac{3}{2} = \frac{9}{6}\) (Tiến 9 vạch bên phải 0).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 8 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 8 (So sánh với 0):</strong> So sánh các số hữu tỉ sau với $0$:</p>
+                    <p class="text-xs text-slate-600 mb-3">a) \(\frac{-5}{10}\) &nbsp;&nbsp;&nbsp;&nbsp; b) \(\frac{12}{-5}\) &nbsp;&nbsp;&nbsp;&nbsp; c) \(\frac{-7}{-12}\)</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>a) \(\frac{-5}{10} = -0,5 < 0\).</p>
+                            <p>b) \(\frac{12}{-5} = -2,4 < 0\).</p>
+                            <p>c) \(\frac{-7}{-12} = \frac{7}{12} > 0\).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 9 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 9 (So sánh cùng mẫu):</strong> So sánh các cặp số hữu tỉ sau bằng cách quy đồng mẫu số dương:</p>
+                    <p class="text-xs text-slate-600 mb-3">a) \(\frac{-2}{5}\) và \(\frac{-3}{5}\) &nbsp;&nbsp;&nbsp;&nbsp; b) \(\frac{-10}{18}\) và \(\frac{10}{18}\)</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>a) Vì \(-2 > -3\) nên \(\frac{-2}{5} > \frac{-3}{5}\).</p>
+                            <p>b) Vì \(-10 < 10\) nên \(\frac{-10}{18} < \frac{10}{18}\).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 10 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 10 (So sánh khác mẫu - Minh họa Mô hình 3):</strong> So sánh các cặp số hữu tỉ sau:</p>
+                    <p class="text-xs text-slate-600 mb-3">a) \(\frac{2}{-5}\) và \(\frac{-1}{3}\) &nbsp;&nbsp;&nbsp;&nbsp; b) \(\frac{-137}{200}\) và \(\frac{37}{-25}\)</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>a) Đưa về mẫu dương 15: \(\frac{2}{-5} = \frac{-6}{15}\); &nbsp; \(\frac{-1}{3} = \frac{-5}{15}\). Vì \(-6 < -5 \Rightarrow \frac{2}{-5} < \frac{-1}{3}\).</p>
+                            <p>b) \(\frac{37}{-25} = \frac{-296}{200}\). Vì \(-137 > -296 \Rightarrow \frac{-137}{200} > \frac{37}{-25}\).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 11 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 11 (So sánh phân số và thập phân):</strong> So sánh hai số hữu tỉ bằng cách đưa về cùng dạng:</p>
+                    <p class="text-xs text-slate-600 mb-3">a) \(-0,85\) và \(\frac{-17}{20}\) &nbsp;&nbsp;&nbsp;&nbsp; b) \(0,75\) và \(\frac{3}{4}\)</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>a) Đổi \(-0,85 = \frac{-85}{100} = \frac{-17}{20} \Rightarrow -0,85 = \frac{-17}{20}\).</p>
+                            <p>b) Đổi \(0,75 = \frac{75}{100} = \frac{3}{4} \Rightarrow 0,75 = \frac{3}{4}\).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 12 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 12 (Đúng / Sai):</strong> Khẳng định nào sau đây là Đúng, khẳng định nào Sai?</p>
+                    <p class="text-xs text-slate-600 mb-3">a) Số 0 là số hữu tỉ dương. <br>b) Số nguyên âm không phải là số hữu tỉ âm. <br>c) Mọi số nguyên đều là số hữu tỉ. <br>d) Số hữu tỉ âm nhỏ hơn số tự nhiên.</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>a) Sai (0 không âm cũng không dương).</p>
+                            <p>b) Sai (Mọi số nguyên âm $n < 0$ đều là số hữu tỉ âm $\frac{n}{1}$).</p>
+                            <p>c) Đúng (Mọi số nguyên $z \in \mathbb{Z}$ viết được $z = \frac{z}{1} \in \mathbb{Q}$).</p>
+                            <p>d) Đúng (Số hữu tỉ âm $< 0 \le$ Số tự nhiên).</p>
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ================= PHẦN 2: MỨC ĐỘ NÂNG CAO ================= -->
+        <section class="space-y-6">
+            <div class="flex items-center gap-3 border-b pb-3 border-slate-200">
+                <span class="bg-amber-600 text-white text-xs font-black px-3 py-1 rounded-md uppercase tracking-wider">Cấp độ 2</span>
+                <h2 class="text-xl font-extrabold text-slate-900">PHẦN 2: CẤP ĐỘ NÂNG CAO (10 BÀI QUY ĐỒNG & BIỆN LUẬN DÃY SỐ)</h2>
+            </div>
+            <p class="text-xs font-bold text-amber-800 bg-amber-50 px-3 py-2 rounded-lg inline-block">
+                Mục tiêu: Quy đồng nhiều phân số, sắp xếp thứ tự dãy số, tính chất bắc cầu và biện luận điều kiện ẩn số.
+            </p>
+
+            <div class="space-y-4">
+                <!-- Bài 13 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 13 (Sắp xếp tăng dần):</strong> Sắp xếp các số hữu tỉ sau theo thứ tự tăng dần (từ bé đến lớn):</p>
+                    <p class="text-xs text-slate-600 mb-3">\(\frac{-3}{4};\ \frac{5}{3};\ \frac{-1}{2};\ 2;\ 0;\ -0,47\)</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Đổi về số thập phân: \(\frac{-3}{4} = -0,75;\ \frac{-1}{2} = -0,5;\ -0,47;\ 0;\ \frac{5}{3} \approx 1,67;\ 2\).</p>
+                            <p>Thứ tự tăng dần: \(\frac{-3}{4} < \frac{-1}{2} < -0,47 < 0 < \frac{5}{3} < 2\).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 14 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 14 (Sắp xếp giảm dần):</strong> Sắp xếp các số hữu tỉ sau theo thứ tự giảm dần (từ lớn đến bé):</p>
+                    <p class="text-xs text-slate-600 mb-3">\(\frac{2}{15};\ \frac{2}{3};\ \frac{-7}{8};\ \frac{5}{6};\ \frac{-7}{9}\)</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>&bull; Nhóm số dương: \(\frac{5}{6} = \frac{25}{30} > \frac{2}{3} = \frac{20}{30} > \frac{2}{15} = \frac{4}{30}\).</p>
+                            <p>&bull; Nhóm số âm: \(\frac{-7}{9} = \frac{-56}{72} > \frac{-7}{8} = \frac{-63}{72}\).</p>
+                            <p>Thứ tự giảm dần: \(\frac{5}{6} > \frac{2}{3} > \frac{2}{15} > \frac{-7}{9} > \frac{-7}{8}\).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 15 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 15 (Tính chất bắc cầu):</strong> Không quy đồng mẫu số, hãy dùng số trung gian $-1$ để so sánh: \(\frac{-16}{17}\) và \(\frac{-14}{13}\).</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>So sánh với $-1$:</p>
+                            <p>&bull; \(\frac{-16}{17} > -1\) (vì tử số $-16 > -17$).</p>
+                            <p>&bull; \(\frac{-14}{13} < -1\) (vì tử số $-14 < -13$).</p>
+                            <p>&rArr; Theo tính chất bắc cầu: \(\frac{-16}{17} > \frac{-14}{13}\).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 16 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 16 (Tìm x nguyên):</strong> Tìm các số nguyên $x$ thỏa mãn điều kiện: \(\frac{-5}{6} < \frac{x}{6} < \frac{-1}{6}\).</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Vì cùng mẫu số dương 6 nên: \(-5 < x < -1\).</p>
+                            <p>Các số nguyên $x$ thỏa mãn là: \(x \in \{-4;\ -3;\ -2\}\).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 17 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 17 (Tìm x nguyên nâng cao):</strong> Tìm các số nguyên $x$ thỏa mãn: \(\frac{-3}{4} < \frac{x}{12} < \frac{-5}{6}\).</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Quy đồng mẫu số chung 12: \(\frac{-9}{12} < \frac{x}{12} < \frac{-10}{12} \Rightarrow -9 < x < -10\).</p>
+                            <p>Không có số nguyên nào nằm giữa $-9$ và $-10$. Vậy **không có giá trị $x$ nguyên nào thỏa mãn**.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 18 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 18 (Biện luận số dương):</strong> Cho số hữu tỉ \(x = \frac{a - 4}{5}\) (với $a \in \mathbb{Z}$). Tìm điều kiện của $a$ để $x$ là số hữu tỉ dương.</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Để $x$ là số hữu tỉ dương thì tử và mẫu cùng dấu.</p>
+                            <p>Vì mẫu số $5 > 0$ nên tử số $a - 4 > 0 \Leftrightarrow a > 4$.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 19 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 19 (Biện luận số âm):</strong> Cho số hữu tỉ \(y = \frac{-3}{b - 1}\) (với $b \in \mathbb{Z}, b \neq 1$). Tìm điều kiện của $b$ để $y$ là số hữu tỉ âm.</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Để $y < 0$ thì tử và mẫu trái dấu nhau.</p>
+                            <p>Vì tử số $-3 < 0$ nên mẫu số $b - 1 > 0 \Leftrightarrow b > 1$.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 20 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 20 (Biện luận bằng 0):</strong> Cho số hữu tỉ \(z = \frac{2a - 4}{3}\). Với giá trị nào của $a$ thì $z$ không là số hữu tỉ âm và cũng không là số hữu tỉ dương?</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Số không âm không dương duy nhất là số 0.</p>
+                            <p>Do đó $z = 0 \Leftrightarrow 2a - 4 = 0 \Leftrightarrow 2a = 4 \Leftrightarrow a = 2$.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 21 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 21 (Điểm xen giữa trên trục số):</strong> Tìm một số hữu tỉ $c$ nằm giữa $a = \frac{-1}{3}$ và $b = \frac{-1}{4}$.</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Quy đồng mở rộng mẫu số chung 24:</p>
+                            <p>\(a = \frac{-1}{3} = \frac{-8}{24}\); &nbsp;&nbsp; \(b = \frac{-1}{4} = \frac{-6}{24}\).</p>
+                            <p>Chọn $c = \frac{-7}{24}$ thỏa mãn: \(\frac{-8}{24} < \frac{-7}{24} < \frac{-6}{24} \Rightarrow a < c < b\).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 22 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 22 (Câu hỏi tư duy):</strong> Bạn Bình phát biểu: <em>"Số hữu tỉ là số viết được dưới dạng phân số \(\frac{a}{b}\) với $a, b \in \mathbb{Z}$"</em>. Phát biểu của Bình đúng hay sai? Tại sao?</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p><strong>Phát biểu của Bình là SAI.</strong></p>
+                            <p>Vì bạn thiếu điều kiện bắt buộc của mẫu số: <strong>\(b \neq 0\)</strong> (Mẫu số của phân số phải khác 0 thì phép chia mới có nghĩa).</p>
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ================= PHẦN 3: MỨC ĐỘ VẬN DỤNG ================= -->
+        <section class="space-y-6">
+            <div class="flex items-center gap-3 border-b pb-3 border-slate-200">
+                <span class="bg-emerald-600 text-white text-xs font-black px-3 py-1 rounded-md uppercase tracking-wider">Cấp độ 3</span>
+                <h2 class="text-xl font-extrabold text-slate-900">PHẦN 3: CẤP ĐỘ VẬN DỤNG THỰC TẾ (8 BÀI)</h2>
+            </div>
+            <p class="text-xs font-bold text-emerald-800 bg-emerald-50 px-3 py-2 rounded-lg inline-block">
+                Mục tiêu: Áp dụng so sánh số hữu tỉ âm/dương vào tốc độ máy ảnh, thể thao, tài chính, độ sâu rãnh đại dương và dự án pizza.
+            </p>
+
+            <div class="space-y-4">
+                <!-- Bài 23 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 23 (Tốc độ chụp ảnh):</strong> Tốc độ màn trập máy ảnh (tính bằng giây): \(\frac{1}{125};\ \frac{1}{15};\ 0,125;\ \frac{1}{60};\ 0,004;\ \frac{1}{4}\). Hãy sắp xếp các tốc độ này từ nhanh nhất đến chậm nhất (thời gian mở cửa càng nhỏ thì tốc độ càng nhanh).</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Đổi về cùng phân số hoặc thập phân:</p>
+                            <p>\(0,004 = \frac{1}{250}\); &nbsp; \(\frac{1}{125}\); &nbsp; \(0,125 = \frac{1}{8}\); &nbsp; \(\frac{1}{60}\); &nbsp; \(\frac{1}{15}\); &nbsp; \(\frac{1}{4}\).</p>
+                            <p>Thời gian mở nhỏ nhất &rArr; Nhanh nhất: \(0,004\text{s} \to \frac{1}{125}\text{s} \to \frac{1}{60}\text{s} \to 0,125\text{s} \to \frac{1}{15}\text{s} \to \frac{1}{4}\text{s}\).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 24 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 24 (Hiệu suất thể thao):</strong> Thống kê Lionel Messi: Mùa 18-19 (36 bàn / 34 trận); Mùa 19-20 (25 bàn / 33 trận); Mùa 20-21 (30 bàn / 35 trận). Mùa giải nào Messi ghi bàn tốt nhất?</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Tính hiệu suất bàn thắng/trận:</p>
+                            <p>&bull; Mùa 18-19: \(\frac{36}{34} \approx 1,0588\).</p>
+                            <p>&bull; Mùa 19-20: \(\frac{25}{33} \approx 0,7575\).</p>
+                            <p>&bull; Mùa 20-21: \(\frac{30}{35} \approx 0,8571\).</p>
+                            <p>Vì $1,0588 > 0,8571 > 0,7575$ nên <strong>Mùa 2018-2019 Messi ghi bàn tốt nhất</strong>.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 25 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 25 (Nhiệt độ đóng băng):</strong> Nhiệt độ New York lúc 5h chiều là $35,6^\circ\text{F}$, 10h tối là $22,64^\circ\text{F}$. Công thức $C = \frac{5}{9}(F - 32)$. Thời điểm nào nước đóng băng ($0^\circ\text{C}$)?</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>a) Đổi nhiệt độ sang độ C:</p>
+                            <p>&bull; Lúc 5h chiều: $C_1 = \frac{5}{9}(35,6 - 32) = \frac{5}{9} \cdot 3,6 = 2^\circ\text{C}$.</p>
+                            <p>&bull; Lúc 10h tối: $C_2 = \frac{5}{9}(22,64 - 32) = \frac{5}{9} \cdot (-9,36) = -5,2^\circ\text{C}$.</p>
+                            <p>b) Nước đóng băng khi $C \le 0^\circ\text{C}$. Do đó <strong>lúc 10h tối ($ -5,2^\circ\text{C} < 0^\circ\text{C} $) nước ngoài trời có thể bị đóng băng</strong>.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 26 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 26 (Độ sâu rãnh đại dương):</strong> Puerto-Rico ($-8,6\text{ km}$), Romanche ($-7,7\text{ km}$), Philippine ($-10,5\text{ km}$), Peru-Chile ($-8,0\text{ km}$). Sắp xếp từ thấp đến cao và cho biết rãnh nào sâu nhất?</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Sắp xếp độ cao từ thấp nhất (sâu nhất) đến cao nhất:</p>
+                            <p>\(-10,5\text{ km} < -8,6\text{ km} < -8,0\text{ km} < -7,7\text{ km}\).</p>
+                            <p>Rãnh sâu nhất là <strong>Rãnh Philippine (sâu $10,5\text{ km}$)</strong>.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 27 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 27 (Khảo sát sở thích):</strong> Khảo sát lớp 7A: \(\frac{2}{5}\) thích Toán, \(\frac{1}{3}\) thích Văn, \(\frac{4}{15}\) thích Tiếng Anh. Môn nào được các bạn thích nhất?</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Quy đồng mẫu chung 15:</p>
+                            <p>Toán = \(\frac{2}{5} = \frac{6}{15}\); &nbsp;&nbsp; Văn = \(\frac{1}{3} = \frac{5}{15}\); &nbsp;&nbsp; Anh = \(\frac{4}{15}\).</p>
+                            <p>Vì \(\frac{6}{15} > \frac{5}{15} > \frac{4}{15}\) nên <strong>môn Toán được các bạn thích nhất</strong>.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 28 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 28 (Quản lý tài chính):</strong> Đầu tháng số dư ngân hàng $+15,5$ triệu, cuối tháng số dư là $-2,3$ triệu đồng. Số $-2,3$ có ý nghĩa gì? So sánh hai số này.</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>&bull; Ý nghĩa: Cô Lan đang <strong>nợ ngân hàng $2,3$ triệu đồng</strong> (thấu chi thẻ tín dụng).</p>
+                            <p>&bull; So sánh: $+15,5 > -2,3$ (số dương luôn lớn hơn số âm).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 29 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 29 (Trục số tự tạo):</strong> Bàn học dài $1,2\text{ m}$ quy ước là $1$ "đơn vị bàn". Khoảng cách từ cửa đến bảng là $4,8\text{ m}$. Hãy biểu diễn khoảng cách đó theo "đơn vị bàn".</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Tỉ số khoảng cách = \(\frac{4,8}{1,2} = \frac{48}{12} = 4\) (đơn vị bàn).</p>
+                            <p>Cách vẽ: Trên trục số bắt đầu từ gốc 0, tiến về bên phải 4 khoảng đơn vị bàn.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 30 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 30 (Dự án chia bánh):</strong> 3 chiếc pizza giống hệt nhau. Nhóm A (4 bạn chia 1 bánh), Nhóm B (6 bạn chia 1 bánh), Nhóm C (8 bạn chia 1 bánh). Nhóm nào ăn được nhiều bánh nhất?</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>&bull; Nhóm A: mỗi bạn nhận \(\frac{1}{4}\) bánh.</p>
+                            <p>&bull; Nhóm B: mỗi bạn nhận \(\frac{1}{6}\) bánh.</p>
+                            <p>&bull; Nhóm C: mỗi bạn nhận \(\frac{1}{8}\) bánh.</p>
+                            <p>So sánh cùng tử số 1: \(\frac{1}{4} > \frac{1}{6} > \frac{1}{8}\) &rArr; **Thành viên Nhóm A ăn được nhiều bánh nhất**.</p>
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ================= BÀI TẬP ĐÁNH GIÁ NĂNG LỰC TRẮC NGHIỆM ================= -->
+        <section class="border-t border-slate-200 pt-10 page-break">
+            <div class="bg-gradient-to-br from-slate-900 via-slate-800 to-indigo-950 text-white rounded-3xl p-6 sm:p-8 shadow-xl relative overflow-hidden card-border">
+                <div class="max-w-xl space-y-2">
+                    <span class="text-xs font-bold uppercase tracking-widest text-emerald-400 bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-500/20 inline-block">Đánh giá trực tuyến tại lớp</span>
+                    <h2 class="text-xl sm:text-2xl font-black tracking-tight">BÀI TẬP ĐÁNH GIÁ NĂNG LỰC TẠI LỚP</h2>
+                    <p class="text-slate-400 text-xs sm:text-sm">Học sinh hoàn thành trắc nghiệm 5 câu dưới đây. Kết quả điểm số sẽ được truyền tự động về Google Sheets hệ thống.</p>
+                </div>
+
+                <form id="quizForm" class="mt-8 space-y-6 text-slate-900">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div class="bg-white p-4 rounded-xl shadow-inner border border-slate-100">
+                            <label class="block text-xs font-bold text-slate-400 uppercase tracking-wide mb-1"><i class="fa-solid fa-user-graduate mr-1 text-indigo-500"></i> Họ và tên học sinh</label>
+                            <input type="text" id="studentName" required placeholder="Nhập họ tên đầy đủ..." class="w-full bg-white border-b-2 border-slate-200 focus:border-indigo-500 outline-none py-1 text-sm font-bold text-slate-900 transition-colors">
+                        </div>
+                        <div class="bg-white p-4 rounded-xl shadow-inner border border-slate-100">
+                            <label class="block text-xs font-bold text-slate-400 uppercase tracking-wide mb-1"><i class="fa-solid fa-file-code mr-1 text-indigo-500"></i> Mã chuyên đề bài học</label>
+                            <input type="text" id="examId" readonly value="Buoi01_SoHuuTi_Toan7" class="w-full bg-slate-50 border-b-2 border-slate-200 outline-none py-1 text-sm font-bold text-slate-500 cursor-not-allowed">
+                        </div>
+                    </div>
+
+                    <!-- Khối câu hỏi trắc nghiệm -->
+                    <div class="space-y-5 mt-6">
+                        <!-- Câu 1 -->
+                        <div class="bg-white p-5 rounded-2xl shadow-sm space-y-3">
+                            <p class="text-sm font-bold text-slate-900"><span class="text-indigo-600">Câu 1:</span> Khẳng định nào sau đây là ĐÚNG?</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs font-semibold text-slate-700">
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q1" value="A" required class="text-indigo-600 h-4 w-4"> <span>A. $-5 \in \mathbb{N}$</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q1" value="B" class="text-indigo-600 h-4 w-4"> <span>B. $\frac{2}{3} \in \mathbb{Z}$</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q1" value="C" class="text-indigo-600 h-4 w-4"> <span>C. $-0,5 \in \mathbb{Q}$</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Câu 2 -->
+                        <div class="bg-white p-5 rounded-2xl shadow-sm space-y-3">
+                            <p class="text-sm font-bold text-slate-900"><span class="text-indigo-600">Câu 2:</span> Số đối của số hữu tỉ $-\frac{3}{7}$ là số nào?</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs font-semibold text-slate-700">
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q2" value="A" required class="text-indigo-600 h-4 w-4"> <span>A. $\frac{3}{7}$</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q2" value="B" class="text-indigo-600 h-4 w-4"> <span>B. $\frac{-7}{3}$</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q2" value="C" class="text-indigo-600 h-4 w-4"> <span>C. $-\frac{3}{7}$</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Câu 3 -->
+                        <div class="bg-white p-5 rounded-2xl shadow-sm space-y-3">
+                            <p class="text-sm font-bold text-slate-900"><span class="text-indigo-600">Câu 3:</span> So sánh hai số hữu tỉ $x = \frac{2}{-5}$ và $y = \frac{-1}{3}$:</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs font-semibold text-slate-700">
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q3" value="A" required class="text-indigo-600 h-4 w-4"> <span>A. $x > y$</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q3" value="B" class="text-indigo-600 h-4 w-4"> <span>B. $x < y$</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q3" value="C" class="text-indigo-600 h-4 w-4"> <span>C. $x = y$</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Câu 4 -->
+                        <div class="bg-white p-5 rounded-2xl shadow-sm space-y-3">
+                            <p class="text-sm font-bold text-slate-900"><span class="text-indigo-600">Câu 4:</span> Điểm $M$ trên trục số nằm bên trái gốc $O$ và cách $O$ khoảng $\frac{3}{4}$ đơn vị. Điểm $M$ biểu diễn số hữu tỉ nào?</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs font-semibold text-slate-700">
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q4" value="A" required class="text-indigo-600 h-4 w-4"> <span>A. $\frac{3}{4}$</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q4" value="B" class="text-indigo-600 h-4 w-4"> <span>B. $-\frac{3}{4}$</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q4" value="C" class="text-indigo-600 h-4 w-4"> <span>C. $-\frac{4}{3}$</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Câu 5 -->
+                        <div class="bg-white p-5 rounded-2xl shadow-sm space-y-3">
+                            <p class="text-sm font-bold text-slate-900"><span class="text-indigo-600">Câu 5:</span> Với giá trị nào của $a$ thì số hữu tỉ $x = \frac{a - 3}{4}$ là số hữu tỉ dương?</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs font-semibold text-slate-700">
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q5" value="A" required class="text-indigo-600 h-4 w-4"> <span>A. $a > 3$</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q5" value="B" class="text-indigo-600 h-4 w-4"> <span>B. $a < 3$</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q5" value="C" class="text-indigo-600 h-4 w-4"> <span>C. $a = 3$</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pt-2 flex flex-col sm:flex-row items-center justify-between gap-4">
+                        <button type="submit" id="submitBtn" class="w-full sm:w-auto bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-sm px-8 py-3.5 rounded-xl shadow-lg transition-all flex items-center justify-center space-x-2 cursor-pointer">
+                            <i class="fa-solid fa-cloud-arrow-up"></i> <span>Nộp Bài Chấm Điểm</span>
+                        </button>
+                        <div id="statusReport" class="text-xs font-bold text-slate-400"></div>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer bản quyền -->
+    <footer class="bg-slate-900 text-slate-400 py-8 text-center text-xs font-medium px-4 mt-auto">
+        <p class="font-bold text-slate-300">@ Bản quyền thuộc ThS. Đinh Quốc Tuấn - Mục đích phi lợi nhuận - Vì giáo dục.</p>
+        <p class="text-slate-500 mt-2">Hệ thống bài giảng trực tuyến tương tác tích hợp đồng bộ dữ liệu điểm số học sinh.</p>
+    </footer>
+
+    <!-- NÚT IN TÀI LIỆU CỐ ĐỊNH -->
+    <button id="btn-print-doc" onclick="safePrint()" class="fixed bottom-5 right-5 bg-gray-900 text-white px-4 py-2 rounded-lg shadow-lg hover:bg-gray-700 print:hidden z-50 cursor-pointer">
+        <i class="fas fa-print mr-2"></i> In Tài Liệu
+    </button>
+
+    <script>
+        function safePrint() {
+            const printBtn = document.getElementById('btn-print-doc');
+            printBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Đang chuẩn bị...';
+            
+            if (window.MathJax && window.MathJax.typesetPromise) {
+                MathJax.typesetPromise().then(() => {
+                    printBtn.innerHTML = '<i class="fas fa-print mr-2"></i> In Tài Liệu';
+                    window.print();
+                });
+            } else {
+                setTimeout(() => {
+                    printBtn.innerHTML = '<i class="fas fa-print mr-2"></i> In Tài Liệu';
+                    window.print();
+                }, 500); 
+            }
+        }
+    </script>
+
+    <!-- HỆ THỐNG ĐIỀU KHIỂN ĐỒ HỌA JSXGRAPH & FORM QUIZ APPS SCRIPT -->
+    <script>
+        const timeInit = new Date();
+
+        document.addEventListener("DOMContentLoaded", function() {
+            
+            // --- MÔ HÌNH 1: CHIA VẠCH TRỤC SỐ THEO MẪU SỐ N (BOX 1) ---
+            const b1 = JXG.JSXGraph.initBoard('box1', {
+                boundingbox: [-0.5, 2, 2.5, -2], axis: false, showNavigation: false, showCopyright: false
+            });
+
+            let line1 = b1.create('line', [[0, 0], [2, 0]], {strokeColor: '#64748b', strokeWidth: 2, lastArrow: true, fixed: true});
+            b1.create('point', [0, 0], {name: '0', color: '#0f172a', size: 3, fixed: true});
+            b1.create('point', [2, 0], {name: '1', color: '#0f172a', size: 3, fixed: true});
+
+            let slN = b1.create('slider', [[0.2, 1.3], [1.8, 1.3], [1, 4, 10]], {
+                name: 'Mau so n', snapWidth: 1, color: '#4f46e5'
+            });
+
+            let ptM = b1.create('glider', [1.5, 0, line1], {name: 'M', color: '#dc2626', size: 4});
+
+            let statusBox1 = document.getElementById('status-box1');
+            function updateBoard1() {
+                let n = slN.Value();
+                let x = ptM.X();
+                if (x < 0) x = 0;
+                if (x > 2) x = 2;
+                let k = Math.round((x / 2) * n);
+                statusBox1.innerHTML = `Vạch chia đơn vị: Mẫu số n = ${n} &rArr; Tọa độ M = ${k}/${n}`;
+            }
+            slN.on('update', updateBoard1);
+            ptM.on('drag', updateBoard1);
+
+
+            // --- MÔ HÌNH 2: SỐ ĐỐI QUA GỐC TỌA ĐỘ O (BOX 2) ---
+            const b2 = JXG.JSXGraph.initBoard('box2', {
+                boundingbox: [-5, 2, 5, -2], axis: false, showNavigation: false, showCopyright: false
+            });
+
+            let line2 = b2.create('line', [[-4, 0], [4, 0]], {strokeColor: '#64748b', strokeWidth: 2, lastArrow: true, fixed: true});
+            b2.create('point', [0, 0], {name: 'O(0)', color: '#0f172a', size: 3, fixed: true});
+
+            let ptA = b2.create('glider', [2.5, 0, line2], {name: 'A', color: '#2563eb', size: 4});
+            let ptA_prime = b2.create('point', [
+                function() { return -ptA.X(); },
+                0
+            ], {name: "A'", color: '#dc2626', size: 4});
+
+            let statusBox2 = document.getElementById('status-box2');
+            ptA.on('drag', function() {
+                let x = ptA.X().toFixed(2);
+                let opp = (-ptA.X()).toFixed(2);
+                statusBox2.innerHTML = `Tọa độ A = ${x} &rArr; Số đối A' = ${opp}`;
+            });
+
+
+            // --- MÔ HÌNH 3: SO SÁNH 2 PHÂN SỐ 2/-5 VÀ -1/3 (BOX 3) ---
+            const b3 = JXG.JSXGraph.initBoard('box3', {
+                boundingbox: [-1, 2, 3, -10], axis: true, showNavigation: false, showCopyright: false
+            });
+
+            // Cột 1: 2/-5 = -6/15
+            b3.create('polygon', [[0.2, 0], [0.8, 0], [0.8, -6], [0.2, -6]], {
+                fillColor: '#ef4444', fillOpacity: 0.7, strokeColor: '#b91c1c'
+            });
+            b3.create('text', [0.5, -7, '2/-5\n(-6/15)'], {anchorX: 'middle', fontSize: 10, fontStyle: 'bold'});
+
+            // Cột 2: -1/3 = -5/15
+            b3.create('polygon', [[1.4, 0], [2.0, 0], [2.0, -5], [1.4, -5]], {
+                fillColor: '#10b981', fillOpacity: 0.7, strokeColor: '#047857'
+            });
+            b3.create('text', [1.7, -7, '-1/3\n(-5/15)'], {anchorX: 'middle', fontSize: 10, fontStyle: 'bold'});
+        });
+
+        // --- XỬ LÝ NỘP BÀI TRẮC NGHIỆM VÀ ĐẨY DỮ LIỆU APPS SCRIPT ---
+        document.getElementById('quizForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const submitBtn = document.getElementById('submitBtn');
+            const statusReport = document.getElementById('statusReport');
+            
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i> Hệ thống đang nộp bài...';
+            statusReport.innerHTML = "Đang kết nối cơ sở dữ liệu bảng tính...";
+
+            const correctKey = { q1: "C", q2: "A", q3: "B", q4: "B", q5: "A" };
+            const studentName = document.getElementById('studentName').value.trim();
+            const lessonId = document.getElementById('examId').value.trim();
+            
+            let correctCounter = 0;
+            let totalQuizCount = Object.keys(correctKey).length;
+            let missedReportArray = [];
+
+            for (let questionCode in correctKey) {
+                const selectedRadio = document.querySelector(`input[name="${questionCode}"]:checked`);
+                if (selectedRadio && selectedRadio.value === correctKey[questionCode]) {
+                    correctCounter++;
+                } else {
+                    let chosenChar = selectedRadio ? selectedRadio.value : "Bỏ trống";
+                    missedReportArray.push(`${questionCode.toUpperCase()}(Chọn: ${chosenChar}|Đúng: ${correctKey[questionCode]})`);
+                }
+            }
+
+            const finalScore = ((correctCounter / totalQuizCount) * 10).toFixed(2);
+            const timeComplete = new Date();
+            const elapsedDurationSeconds = Math.floor((timeComplete - timeInit) / 1000);
+            const thoiGian = `${Math.floor(elapsedDurationSeconds / 60)} phút ${elapsedDurationSeconds % 60} giây`;
+            const cauSai = missedReportArray.length > 0 ? missedReportArray.join(", ") : "Không có (Đạt 10/10)";
+
+            const transmissionPayload = {
+                hoTen: studentName,
+                maDe: lessonId,
+                diem: parseFloat(finalScore),
+                thoiGian: thoiGian,
+                cauSai: cauSai
+            };
+
+            const webAppsScriptEndpoint = "https://script.google.com/macros/s/AKfycbzY7b7h4OwvhXuK5Vs6hl-aD88BPnAiAKbU5lfJobby0D4nzbIJVKT4n0AKCpAGoK0nZA/exec";
+
+            fetch(webAppsScriptEndpoint, {
+                method: "POST",
+                mode: "no-cors",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(transmissionPayload)
+            })
+            .then(() => {
+                statusReport.className = "text-xs font-bold text-emerald-500 bg-emerald-50 px-3 py-2 rounded-xl border border-emerald-200 inline-block";
+                statusReport.innerHTML = `<i class="fa-solid fa-circle-check"></i> Đã đồng bộ kết quả thành công: ${finalScore}/10.`;
+                alert(`Hệ thống ghi nhận bài nộp thành công!\nChào em ${studentName}, điểm số đạt được là: ${finalScore} / 10.`);
+                submitBtn.innerHTML = '<i class="fa-solid fa-lock"></i> Đã lưu kết quả thi';
+            })
+            .catch(error => {
+                console.error("Lỗi truyền tin:", error);
+                statusReport.className = "text-xs font-bold text-rose-500 bg-rose-50 px-3 py-2 rounded-xl border border-rose-200 inline-block";
+                statusReport.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> Lỗi kết nối mạng, vui lòng bấm nộp lại!';
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Thử nộp lại bài';
+            });
+        });
+    </script>
+</body>
+</html>
