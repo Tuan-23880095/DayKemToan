@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buổi 17: Đại Lượng Tỉ Lệ Nghịch — ThS. Đinh Quốc Tuấn</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- FontAwesome Icons CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts: Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- MathJax Configuration & Script -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['\\(', '\\)'], ['$', '$']],
+                displayMath: [['\\[', '\\]'], ['$$', '$$']]
+            },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <!-- JSXGraph CSS & Core Engine -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraph.css" />
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraphcore.js"></script>
+
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #f8fafc;
+            color: #0f172a;
+        }
+        .jxgbox {
+            background-color: #ffffff !important;
+            border-radius: 1rem;
+            overflow: hidden;
+            border: 1px solid #e2e8f0;
+        }
+        @media print {
+            .print\:hidden { display: none !important; }
+            body { background: white !important; color: black !important; }
+            details { display: block !important; }
+            details summary { display: none !important; }
+            .page-break { page-break-before: always; }
+            .card-border { box-shadow: none !important; border: 1px solid #e5e7eb !important; }
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col antialiased selection:bg-indigo-100">
+
+    <!-- Header học thuật -->
+    <header class="border-b border-slate-200 sticky top-0 bg-white/95 backdrop-blur-md z-40 print:hidden">
+        <div class="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 px-6 py-4">
+            <div class="flex items-center gap-4">
+                <img src="https://hcmus.edu.vn/wp-content/uploads/2023/04/Logo-chinh-e1681638380305.png" alt="Logo HCMUS" class="h-14 w-auto object-contain">
+                <div class="border-l-2 border-slate-300 pl-4">
+                    <span class="text-xs font-bold tracking-widest text-indigo-600 uppercase block mb-0.5">Tài liệu số hóa tương tác</span>
+                    <span class="text-base font-extrabold text-slate-800">Chuyên đề Đại số Toán 7</span>
+                </div>
+            </div>
+            <div class="flex items-center gap-3 sm:text-right">
+                <div class="hidden sm:block">
+                    <p class="text-xs text-slate-400 font-semibold">Giảng viên biên soạn:</p>
+                    <p class="text-sm font-extrabold text-slate-800">ThS. Đinh Quốc Tuấn</p>
+                </div>
+                <img src="https://firebasestorage.googleapis.com/v0/b/link-anh-web.firebasestorage.app/o/ttbdvh.jpg?alt=media&token=f270aa9b-a2bc-48e8-8910-80742b542615" 
+                     alt="Logo TTBDVH" class="h-14 w-14 object-cover rounded-full border border-slate-200 shadow-inner">
+            </div>
+        </div>
+    </header>
+
+    <!-- Banner chào mừng -->
+    <div class="bg-gradient-to-r from-indigo-50 via-slate-50 to-emerald-50 border-b border-slate-200 py-10 print:hidden">
+        <div class="max-w-4xl mx-auto px-6 space-y-4">
+            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-indigo-100 text-indigo-800 border border-indigo-200 shadow-xs">
+                <i class="fa-solid fa-[#000] fa-arrows-split-up-and-left mr-1.5 text-indigo-600"></i> Hàm số & Sự phụ thuộc tỉ lệ nghịch
+            </span>
+            <h1 class="text-2xl sm:text-4xl font-black tracking-tight text-slate-900 leading-tight">
+                Buổi 17: Đại Lượng Tỉ Lệ Nghịch
+            </h1>
+            <p class="text-slate-600 text-sm sm:text-base font-medium leading-relaxed text-justify">
+                Chào các em! Hai đại lượng $x$ và $y$ được gọi là tỉ lệ nghịch với nhau nếu đại lượng này tăng (hoặc giảm) bao nhiêu lần thì đại lượng kia lại giảm (hoặc tăng) bấy nhiêu lần. Công thức liên hệ tổng quát có dạng $y = \frac{a}{x}$ hay $x \cdot y = a$ ($a \neq 0$). Dưới đây là hệ thống 30 bài tập luyện tập 3 cấp độ kèm mô hình hình học tương tác JSXGraph giúp các em trực quan hóa bản chất bất biến của tích $x \cdot y = a$!
+            </p>
+        </div>
+    </div>
+
+    <!-- Không gian nội dung chính -->
+    <main class="max-w-4xl mx-auto px-4 sm:px-6 py-10 flex-grow w-full space-y-16">
+        
+        <!-- ================= MÔ HÌNH HÌNH HỌC TƯƠNG TÁC JSXGRAPH ================= -->
+        <section class="space-y-8 print:hidden bg-slate-100 p-6 rounded-3xl border border-slate-200">
+            <div class="border-b border-slate-200 pb-3">
+                <h2 class="text-lg font-black text-slate-800 flex items-center uppercase tracking-wide">
+                    <i class="fa-solid fa-compass-drafting mr-2.5 text-indigo-600 text-xl"></i> Mô hình trực quan Tỉ lệ nghịch tương tác
+                </h2>
+                <p class="text-xs text-slate-500 mt-1">Trực quan hóa đường cong Hypebol với diện tích hình chữ nhật bất biến $S = x \cdot y = a$ và mô hình tiến độ năng suất lao động.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Mô hình 1 -->
+                <div class="flex flex-col bg-white p-4 rounded-2xl border border-slate-200 shadow-2xs">
+                    <h3 class="font-bold text-slate-900 text-xs mb-1 flex items-center gap-1.5">
+                        <i class="fa-solid fa-chart-line text-indigo-600"></i> Mô hình 1: Hypebol & Diện tích bất biến $S = x \cdot y = a$
+                    </h3>
+                    <p class="text-[11px] text-slate-500 mb-3">Kéo điểm M(x, y) trượt trên Hypebol $y = 12/x$. Một cạnh tăng thì cạnh kia giảm, nhưng diện tích $S = x \cdot y = 12$ luôn không đổi.</p>
+                    <div id="box1" class="w-full h-64 jxgbox"></div>
+                    <div id="status-box1" class="text-[11px] font-bold p-2 mt-2 bg-indigo-50 border border-indigo-100 rounded-lg text-center text-slate-700 font-mono">
+                        Điểm M(3.0, 4.0) &rArr; Diện tích S = 3.0 · 4.0 = 12.0 (Hằng số a = 12)
+                    </div>
+                </div>
+
+                <!-- Mô hình 2 -->
+                <div class="flex flex-col bg-white p-4 rounded-2xl border border-slate-200 shadow-2xs">
+                    <h3 class="font-bold text-slate-900 text-xs mb-1 flex items-center gap-1.5">
+                        <i class="fa-solid fa-users-gear text-emerald-600"></i> Mô hình 2: Năng suất & Thời gian hoàn thành (Bài 22)
+                    </h3>
+                    <p class="text-[11px] text-slate-500 mb-3">Kéo slider "Số công nhân" để xem thời gian hoàn thành thay đổi tỉ lệ nghịch: Tăng công nhân &rArr; Giảm số ngày.</p>
+                    <div id="box2" class="w-full h-64 jxgbox"></div>
+                    <div id="status-box2" class="text-[11px] font-bold p-2 mt-2 bg-emerald-50 border border-emerald-100 rounded-lg text-center text-emerald-900 font-mono">
+                        Số công nhân: 42 người &rArr; Thời gian hoàn thành: 27 ngày
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= PHẦN 1: MỨC ĐỘ CƠ BẢN ================= -->
+        <section class="space-y-6">
+            <div class="flex items-center gap-3 border-b pb-3 border-slate-200">
+                <span class="bg-sky-600 text-white text-xs font-black px-3 py-1 rounded-md uppercase tracking-wider">Cấp độ 1</span>
+                <h2 class="text-xl font-extrabold text-slate-900">PHẦN 1: CẤP ĐỘ CƠ BẢN (10 BÀI TOÁN TỈ LỆ NGHỊCH BẢN LỀ)</h2>
+            </div>
+            <p class="text-xs font-bold text-sky-800 bg-sky-50 px-3 py-2 rounded-lg inline-block">
+                Mục tiêu: Nhận biết hai đại lượng tỉ lệ nghịch qua bảng giá trị, tìm hệ số tỉ lệ $a$, điền số còn thiếu và viết công thức liên hệ.
+            </p>
+
+            <div class="space-y-4">
+                <!-- Bài 1 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 1:</strong> Cho biết $x$ và $y$ là hai đại lượng tỉ lệ nghịch. Điền số thích hợp vào ô trống trong bảng sau và viết công thức liên hệ:</p>
+                    <div class="overflow-x-auto my-3">
+                        <table class="min-w-full text-xs text-center border border-slate-200">
+                            <tr class="bg-slate-100"><td class="p-2 border font-bold">x</td><td class="p-2 border">3</td><td class="p-2 border">1</td><td class="p-2 border">-2</td><td class="p-2 border font-bold text-indigo-600">-2/3</td><td class="p-2 border font-bold text-indigo-600">-1</td><td class="p-2 border font-bold text-indigo-600">12</td></tr>
+                            <tr class="bg-slate-50"><td class="p-2 border font-bold">y</td><td class="p-2 border">-4</td><td class="p-2 border font-bold text-indigo-600">-12</td><td class="p-2 border font-bold text-indigo-600">6</td><td class="p-2 border">18</td><td class="p-2 border">12</td><td class="p-2 border">-1</td></tr>
+                        </table>
+                    </div>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>&bull; Hệ số tỉ lệ $a = x \cdot y = 3 \cdot (-4) = -12$.</p>
+                            <p>&bull; Công thức mô tả mối quan hệ: $y = \frac{-12}{x}$ hay $x \cdot y = -12$.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 2 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 2:</strong> Theo bảng giá trị dưới đây, hai đại lượng $x$ và $y$ có phải là hai đại lượng tỉ lệ nghịch không? Vì sao?</p>
+                    <div class="overflow-x-auto my-2">
+                        <table class="min-w-full text-xs text-center border border-slate-200">
+                            <tr class="bg-slate-100"><td class="p-2 border font-bold">x</td><td class="p-2 border">20</td><td class="p-2 border">-10</td><td class="p-2 border">4</td><td class="p-2 border">2</td></tr>
+                            <tr class="bg-slate-50"><td class="p-2 border font-bold">y</td><td class="p-2 border">3</td><td class="p-2 border">-6</td><td class="p-2 border">15</td><td class="p-2 border">30</td></tr>
+                        </table>
+                    </div>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Tính các tích: $20 \cdot 3 = 60$; &nbsp; $(-10) \cdot (-6) = 60$; &nbsp; $4 \cdot 15 = 60$; &nbsp; $2 \cdot 30 = 60$.</p>
+                            <p>Vì các tích $x \cdot y$ đều bằng hằng số $60$ nên $x$ và $y$ <strong>là hai đại lượng tỉ lệ nghịch</strong>.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 3 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 3:</strong> Theo bảng giá trị dưới đây, hai đại lượng $x$ và $y$ có phải là hai đại lượng tỉ lệ nghịch không? Vì sao?</p>
+                    <div class="overflow-x-auto my-2">
+                        <table class="min-w-full text-xs text-center border border-slate-200">
+                            <tr class="bg-slate-100"><td class="p-2 border font-bold">x</td><td class="p-2 border">10</td><td class="p-2 border">-4</td><td class="p-2 border">50</td><td class="p-2 border">-100</td></tr>
+                            <tr class="bg-slate-50"><td class="p-2 border font-bold">y</td><td class="p-2 border">10</td><td class="p-2 border">25</td><td class="p-2 border">2</td><td class="p-2 border">-1</td></tr>
+                        </table>
+                    </div>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Tính tích: $10 \cdot 10 = 100$, nhưng $(-4) \cdot 25 = -100 \neq 100$.</p>
+                            <p>Vì tích $x \cdot y$ không phải hằng số không đổi nên $x$ và $y$ <strong>không phải hai đại lượng tỉ lệ nghịch</strong>.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 4 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 4:</strong> Cho biết hai đại lượng $a$ và $b$ tỉ lệ nghịch với nhau và khi $a = 3$ thì $b = -10$.</p>
+                    <p class="text-xs text-slate-600 mb-3">a) Tìm hệ số tỉ lệ. <br>b) Biểu diễn $a$ theo $b$. <br>c) Tính giá trị của $a$ khi $b = 2$, $b = 14$.</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>a) Hệ số tỉ lệ $k = a \cdot b = 3 \cdot (-10) = -30$.</p>
+                            <p>b) Biểu diễn $a$ theo $b$: $a = \frac{-30}{b}$.</p>
+                            <p>c) Khi $b = 2 \Rightarrow a = -15$; Khi $b = 14 \Rightarrow a = \frac{-30}{14} = -\frac{15}{7}$.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 5 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 5:</strong> Cho biết $x$ tỉ lệ nghịch với $y$ theo hệ số tỉ lệ $20$; $y$ tỉ lệ nghịch với $z$ theo hệ số tỉ lệ $16$. Hỏi $x$ tỉ lệ thuận hay tỉ lệ nghịch với $z$ và hệ số tỉ lệ bằng bao nhiêu?</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>&bull; $x \cdot y = 20 \Rightarrow x = \frac{20}{y}$.</p>
+                            <p>&bull; $y \cdot z = 16 \Rightarrow y = \frac{16}{z}$.</p>
+                            <p>&bull; Thay $y$ vào công thức $x$: $x = \frac{20}{\frac{16}{z}} = \frac{20}{16} \cdot z = \frac{5}{4} z = 1,25 z$.</p>
+                            <p>Vậy $x$ <strong>tỉ lệ thuận với $z$</strong> theo hệ số tỉ lệ bằng <strong>$1,25$</strong>.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 6 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 6:</strong> Một đoàn tàu lửa chuyển động đều trên quãng đường $200\text{ km}$ với vận tốc $v\text{ (km/h)}$ trong thời gian $t\text{ (h)}$. Chứng tỏ $v$ và $t$ tỉ lệ nghịch với nhau và tính $t$ theo $v$.</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Ta có công thức chuyển động: $v \cdot t = S = 200$. Vì tích $v \cdot t = 200$ là hằng số không đổi nên $v$ và $t$ tỉ lệ nghịch. Công thức tính $t$ theo $v$ là $t = \frac{200}{v}$.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 7 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 7:</strong> Bạn Lan cắt một tấm bìa hình chữ nhật diện tích $24\text{ cm}^2$. Gọi $n\text{ (cm)}$ và $d\text{ (cm)}$ là độ dài hai cạnh. Chứng tỏ $n$ và $d$ tỉ lệ nghịch và viết công thức tính $n$ theo $d$.</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Diện tích hình chữ nhật: $n \cdot d = 24$. Tích hai cạnh bằng hằng số 24 nên $n$ và $d$ tỉ lệ nghịch. Công thức tính $n$ theo $d$ là $n = \frac{24}{d}$.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 8 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 8:</strong> Giá mỗi kg gạo loại II bằng $\frac{4}{5}$ giá mỗi kg gạo loại I. Hỏi với cùng số tiền để mua $40\text{ kg}$ gạo loại I có thể mua được bao nhiêu kg gạo loại II?</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Với cùng số tiền, số lượng gạo mua được tỉ lệ nghịch với giá tiền. Tỉ số giá gạo II so với gạo I là $\frac{4}{5}$ thì tỉ số lượng gạo II mua được so với gạo I là $\frac{5}{4}$.</p>
+                            <p>Số kg gạo loại II mua được = $40 \cdot \frac{5}{4} = 50\text{ kg}$.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 9 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 9:</strong> Thể tích chai lớn bằng $\frac{5}{4}$ thể tích chai nhỏ. Hỏi với cùng một lượng nước để làm đầy 20 chai lớn thì có thể làm đầy bao nhiêu chai nhỏ?</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Số chai làm đầy tỉ lệ nghịch với thể tích mỗi chai. Tỉ số thể tích chai lớn / chai nhỏ là $\frac{5}{4}$.</p>
+                            <p>Số chai nhỏ làm đầy được = $20 \cdot \frac{5}{4} = 25$ chai.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 10 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 10:</strong> Cho biết $x$ và $y$ là hai đại lượng tỉ lệ nghịch. Điền các số thích hợp vào ô trống trong bảng sau:</p>
+                    <div class="overflow-x-auto my-2">
+                        <table class="min-w-full text-xs text-center border border-slate-200">
+                            <tr class="bg-slate-100"><td class="p-2 border font-bold">x</td><td class="p-2 border">-9</td><td class="p-2 border">-1</td><td class="p-2 border font-bold text-indigo-600">1</td><td class="p-2 border">3</td></tr>
+                            <tr class="bg-slate-50"><td class="p-2 border font-bold">y</td><td class="p-2 border font-bold text-indigo-600">-3</td><td class="p-2 border">-27</td><td class="p-2 border">27</td><td class="p-2 border font-bold text-indigo-600">9</td></tr>
+                        </table>
+                    </div>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Hệ số $a = (-1) \cdot (-27) = 27$. Do đó $y = \frac{27}{x}$.</p>
+                            <p>Các số cần điền: $x = -9 \Rightarrow y = -3$; &nbsp; $y = 27 \Rightarrow x = 1$; &nbsp; $x = 3 \Rightarrow y = 9$.</p>
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ================= PHẦN 2: MỨC ĐỘ NÂNG CAO ================= -->
+        <section class="space-y-6">
+            <div class="flex items-center gap-3 border-b pb-3 border-slate-200">
+                <span class="bg-amber-600 text-white text-xs font-black px-3 py-1 rounded-md uppercase tracking-wider">Cấp độ 2</span>
+                <h2 class="text-xl font-extrabold text-slate-900">PHẦN 2: CẤP ĐỘ NÂNG CAO (10 BÀI DÃY TỈ SỐ NGHỊCH ĐẢO)</h2>
+            </div>
+            <p class="text-xs font-bold text-amber-800 bg-amber-50 px-3 py-2 rounded-lg inline-block">
+                Mục tiêu: Đưa các bài toán tỉ lệ nghịch về dạng dãy tỉ số bằng nhau bằng phương pháp chia nghịch đảo hoặc quy đồng hệ số.
+            </p>
+
+            <div class="space-y-4">
+                <!-- Bài 11 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 11:</strong> Tìm ba số tự nhiên tỉ lệ nghịch với ba số 3; 5; 6 và tổng của ba số đó là 126.</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Gọi 3 số là $x, y, z$. Ta có $3x = 5y = 6z \Rightarrow \frac{x}{1/3} = \frac{y}{1/5} = \frac{z}{1/6} = \frac{x+y+z}{1/3 + 1/5 + 1/6} = \frac{126}{7/10} = 180$.</p>
+                            <p>&rArr; $x = 180 \cdot \frac{1}{3} = 60$; &nbsp; $y = 180 \cdot \frac{1}{5} = 36$; &nbsp; $z = 180 \cdot \frac{1}{6} = 30$.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 12 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 12:</strong> Cho biết $x, y$ tỉ lệ nghịch. Với $x_1 = 5, x_2 = 2$ có tổng giá trị tương ứng $y_1 + y_2 = 21$. Tìm $y_1, y_2$.</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Ta có $x_1 y_1 = x_2 y_2 \Rightarrow 5 y_1 = 2 y_2 \Rightarrow \frac{y_1}{2} = \frac{y_2}{5} = \frac{y_1 + y_2}{2 + 5} = \frac{21}{7} = 3$.</p>
+                            <p>&rArr; $y_1 = 2 \cdot 3 = 6$; &nbsp; $y_2 = 5 \cdot 3 = 15$.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 13 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 13:</strong> Cho $x$ và $y$ tỉ lệ nghịch. Biết $x_1=2, x_2=3, x_3=4, y_3=3$. Tìm $y_1, y_2$.</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Hệ số $a = x_3 y_3 = 4 \cdot 3 = 12$.</p>
+                            <p>&rArr; $y_1 = \frac{12}{x_1} = \frac{12}{2} = 6$; &nbsp; $y_2 = \frac{12}{x_2} = \frac{12}{3} = 4$.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 14 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 14:</strong> Cho $x$ và $y$ tỉ lệ nghịch với nhau. Biết $x_1 = 2, y_1 = 5$. Tìm $x_2$ và $y_2$, biết $y_2 - x_2 = 3$.</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Hệ số $a = x_1 y_1 = 2 \cdot 5 = 10 \Rightarrow x_2 y_2 = 10$.</p>
+                            <p>Thay $y_2 = x_2 + 3 \Rightarrow x_2(x_2 + 3) = 10 \Rightarrow x_2^2 + 3x_2 - 10 = 0 \Rightarrow (x_2 - 2)(x_2 + 5) = 0$.</p>
+                            <p>&rArr; Trường hợp 1: $x_2 = 2 \Rightarrow y_2 = 5$. Trường hợp 2: $x_2 = -5 \Rightarrow y_2 = -2$.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 15 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 15:</strong> Số đo ba góc $A, B, C$ của tam giác $ABC$ tỉ lệ nghịch với $\frac{1}{2};\ \frac{1}{3};\ \frac{1}{6}$. Tính số đo ba góc của tam giác đó.</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Nghịch đảo của $\frac{1}{2}, \frac{1}{3}, \frac{1}{6}$ là $2, 3, 6 \Rightarrow$ ba góc tỉ lệ thuận với $2;\ 3;\ 6$.</p>
+                            <p>Tổng 3 góc tam giác = $180^\circ \Rightarrow \frac{A}{2} = \frac{B}{3} = \frac{C}{6} = \frac{180^\circ}{11}$.</p>
+                            <p>&rArr; $A \approx 32,73^\circ;\ B \approx 49,09^\circ;\ C \approx 98,18^\circ$.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 16 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 16:</strong> Tốc độ máy bay I là $965\text{ km/h}$ và gấp $1,5$ lần tốc độ máy bay II. Nếu máy bay I bay hết 6 giờ thì máy bay II bay chặng đường đó hết bao nhiêu giờ?</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Trên cùng quãng đường, thời gian tỉ lệ nghịch với vận tốc. Tốc độ máy bay I gấp $1,5$ lần máy bay II nên thời gian máy bay II bay phải gấp $1,5$ lần máy bay I.</p>
+                            <p>Thời gian máy bay II bay = $6 \times 1,5 = 9$ giờ.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 17 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 17:</strong> Ba đội xe tải vận chuyển hàng xong lần lượt trong 2 giờ, 2,5 giờ và 3 giờ. Đội 1 nhiều hơn đội 3 là 10 xe. Tính số xe của mỗi đội.</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Gọi số xe 3 đội là $x_1, x_2, x_3$. Ta có $2 x_1 = 2,5 x_2 = 3 x_3 \Rightarrow \frac{x_1}{1/2} = \frac{x_2}{1/2,5} = \frac{x_3}{1/3} = \frac{x_1 - x_3}{1/2 - 1/3} = \frac{10}{1/6} = 60$.</p>
+                            <p>&rArr; Đội 1: 30 xe; Đội 2: 24 xe; Đội 3: 20 xe.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 18 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 18:</strong> Phân xưởng in có 11 máy in chia làm 3 nhóm. Nhóm 1 in xong trong 3 ngày, Nhóm 2 trong 6 ngày, Nhóm 3 trong 9 ngày. Hỏi mỗi nhóm có bao nhiêu máy in?</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Ta có $3 x_1 = 6 x_2 = 9 x_3 \Rightarrow \frac{x_1}{6} = \frac{x_2}{3} = \frac{x_3}{2} = \frac{x_1+x_2+x_3}{6+3+2} = \frac{11}{11} = 1$.</p>
+                            <p>&rArr; Nhóm 1: 6 máy; Nhóm 2: 3 máy; Nhóm 3: 2 máy.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 19 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 19:</strong> Bánh răng $a$ có 20 răng, bánh răng $b$ có 15 răng. Nếu bánh răng $a$ quay được 60 vòng/phút thì bánh răng $b$ quay được bao nhiêu vòng/phút?</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Số răng và số vòng quay tỉ lệ nghịch: $N_a \cdot w_a = N_b \cdot w_b \Rightarrow 20 \cdot 60 = 15 \cdot w_b$.</p>
+                            <p>Số vòng quay bánh $b$ = $1200 : 15 = 80$ vòng/phút.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 20 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 20:</strong> Cho $x$ tỉ lệ nghịch với $y$ theo hệ số $2$ và $y$ tỉ lệ nghịch với $z$ theo hệ số $-3$. Chứng tỏ $z$ tỉ lệ thuận với $x$ và tìm hệ số tỉ lệ đó.</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>&bull; $x \cdot y = 2 \Rightarrow y = \frac{2}{x}$.</p>
+                            <p>&bull; $y \cdot z = -3 \Rightarrow \frac{2}{x} \cdot z = -3 \Rightarrow z = -1,5 x$.</p>
+                            <p>Vậy $z$ <strong>tỉ lệ thuận với $x$</strong> theo hệ số tỉ lệ bằng <strong>$-1,5$</strong>.</p>
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ================= PHẦN 3: MỨC ĐỘ VẬN DỤNG ================= -->
+        <section class="space-y-6">
+            <div class="flex items-center gap-3 border-b pb-3 border-slate-200">
+                <span class="bg-emerald-600 text-white text-xs font-black px-3 py-1 rounded-md uppercase tracking-wider">Cấp độ 3</span>
+                <h2 class="text-xl font-extrabold text-slate-900">PHẦN 3: CẤP ĐỘ VẬN DỤNG THỰC TẾ (10 BÀI)</h2>
+            </div>
+            <p class="text-xs font-bold text-emerald-800 bg-emerald-50 px-3 py-2 rounded-lg inline-block">
+                Mục tiêu: Mô hình hóa ngôn ngữ đời sống (năng suất, thời gian, chuyển động, nhân sự) thành bài toán tỉ lệ nghịch.
+            </p>
+
+            <div class="space-y-4">
+                <!-- Bài 21 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 21 (Năng suất lao động):</strong> Hoàn thành hợp đồng xây dựng trong 12 tháng cần 280 công nhân. Muốn hoàn thành trong 10 tháng cần bao nhiêu công nhân?</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Tổng khối lượng công việc = $12 \times 280 = 3360$ công nhân-tháng.</p>
+                            <p>Số công nhân cần trong 10 tháng = $3360 : 10 = 336$ công nhân.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 22 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 22 (Điều chuyển nhân sự - Minh họa Mô hình 2):</strong> 42 công nhân làm xong việc trong 27 ngày. xưởng bổ sung công nhân để làm xong trong 21 ngày. Hỏi đã bổ sung bao nhiêu công nhân?</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Số công nhân cần để hoàn thành trong 21 ngày = $(42 \times 27) : 21 = 54$ công nhân.</p>
+                            <p>Số công nhân bổ sung thêm = $54 - 42 = 12$ công nhân.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 23 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 23 (Chuyển động):</strong> Dự định đi từ A đến B trong 6 giờ. Thực tế ô tô đi với vận tốc gấp $\frac{4}{3}$ vận tốc dự định. Tính thời gian ô tô đã đi thực tế.</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Vận tốc thực tế bằng $\frac{4}{3}$ dự định $\Rightarrow$ Thời gian thực tế bằng $\frac{3}{4}$ dự định.</p>
+                            <p>Thời gian đi thực tế = $6 \times \frac{3}{4} = 4,5$ giờ (4 giờ 30 phút).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 24 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 24 (Phân công lao động):</strong> Ba lớp 7A, 7B, 7C làm công việc như nhau lần lượt xong trong 3h, 4h, 5h. Tính số học sinh mỗi lớp biết tổng số học sinh là 94 em.</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Ta có $3 x_A = 4 x_B = 5 x_C \Rightarrow \frac{x_A}{20} = \frac{x_B}{15} = \frac{x_C}{12} = \frac{94}{20+15+12} = \frac{94}{47} = 2$.</p>
+                            <p>&rArr; Lớp 7A: 40 học sinh; Lớp 7B: 30 học sinh; Lớp 7C: 24 học sinh.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 25 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 25 (Mua sắm):</strong> Mua 65 quả trứng gồm 3 loại: Loại I (4k/quả), Loại II (3k/quả), Loại III (2k/quả). Số tiền trả cho mỗi loại bằng nhau. Hỏi mua bao nhiêu quả mỗi loại?</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Số trứng tỉ lệ nghịch đơn giá: $4 x_1 = 3 x_2 = 2 x_3 \Rightarrow \frac{x_1}{3} = \frac{x_2}{4} = \frac{x_3}{6} = \frac{65}{3+4+6} = 5$.</p>
+                            <p>&rArr; Loại I: 15 quả; Loại II: 20 quả; Loại III: 30 quả.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 26 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 26 (Cơ giới hóa):</strong> Ba đội máy cày làm 3 cánh đồng cùng diện tích xong trong 4, 6, 8 ngày. Đội 1 nhiều hơn Đội 2 là 2 máy. Tính số máy mỗi đội.</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Ta có $4 x_1 = 6 x_2 = 8 x_3 \Rightarrow \frac{x_1}{6} = \frac{x_2}{4} = \frac{x_3}{3} = \frac{x_1 - x_2}{6 - 4} = \frac{2}{2} = 1$.</p>
+                            <p>&rArr; Đội 1: 6 máy; Đội 2: 4 máy; Đội 3: 3 máy.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 27 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 27 (Khuyến mãi):</strong> Bác Minh chuẩn bị tiền mua 45 hộp bánh trung thu. Khi mua được giảm giá 10% mỗi hộp. Với số tiền đó bác mua được nhiều nhất bao nhiêu hộp?</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Giá mới = $90\% = 0,9$ giá cũ. Số hộp mua tỉ lệ nghịch với giá tiền.</p>
+                            <p>Số hộp mới mua được = $45 : 0,9 = 50$ hộp bánh.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 28 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 28 (Điều chuyển thời gian):</strong> Đội công nhân dự kiến xây nhà trong 168 ngày. Nếu điều chuyển $\frac{1}{3}$ số công nhân đi thì số còn lại xây nhà trong bao nhiêu ngày?</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Số công nhân còn lại bằng $1 - \frac{1}{3} = \frac{2}{3}$ lực lượng ban đầu.</p>
+                            <p>Thời gian cần thiết sẽ tăng lên $\frac{3}{2}$ lần: $168 \times \frac{3}{2} = 252$ ngày.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 29 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 29 (Vận chuyển vật liệu):</strong> Ba xe chở nguyên liệu di chuyển hết 10h, 15h, 25h. Vận tốc xe 1 lớn hơn xe 2 là $10\text{ km/h}$. Tính vận tốc mỗi xe.</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Ta có $10 v_1 = 15 v_2 = 25 v_3 \Rightarrow \frac{v_1}{15} = \frac{v_2}{10} = \frac{v_3}{6} = \frac{v_1 - v_2}{15 - 10} = \frac{10}{5} = 2$.</p>
+                            <p>&rArr; $v_1 = 30\text{ km/h};\ v_2 = 20\text{ km/h};\ v_3 = 12\text{ km/h}$.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 30 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 30 (Phân công xây dựng):</strong> Ba nhóm thợ xây xong nhà trong 40, 60, 50 ngày. Nhóm 3 ít hơn Nhóm 1 là 3 người thợ. Tính số người thợ mỗi nhóm.</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Ta có $40 x_1 = 60 x_2 = 50 x_3 \Rightarrow \frac{x_1}{15} = \frac{x_2}{10} = \frac{x_3}{12} = \frac{x_1 - x_3}{15 - 12} = \frac{3}{3} = 1$.</p>
+                            <p>&rArr; Nhóm 1: 15 người; Nhóm 2: 10 người; Nhóm 3: 12 người.</p>
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ================= BÀI TẬP ĐÁNH GIÁ NĂNG LỰC TRẮC NGHIỆM ================= -->
+        <section class="border-t border-slate-200 pt-10 page-break">
+            <div class="bg-gradient-to-br from-slate-900 via-slate-800 to-indigo-950 text-white rounded-3xl p-6 sm:p-8 shadow-xl relative overflow-hidden card-border">
+                <div class="max-w-xl space-y-2">
+                    <span class="text-xs font-bold uppercase tracking-widest text-emerald-400 bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-500/20 inline-block">Đánh giá trực tuyến tại lớp</span>
+                    <h2 class="text-xl sm:text-2xl font-black tracking-tight">BÀI TẬP ĐÁNH GIÁ NĂNG LỰC TẠI LỚP</h2>
+                    <p class="text-slate-400 text-xs sm:text-sm">Học sinh hoàn thành trắc nghiệm 5 câu dưới đây. Kết quả điểm số sẽ được truyền tự động về Google Sheets hệ thống.</p>
+                </div>
+
+                <form id="quizForm" class="mt-8 space-y-6 text-slate-900">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div class="bg-white p-4 rounded-xl shadow-inner border border-slate-100">
+                            <label class="block text-xs font-bold text-slate-400 uppercase tracking-wide mb-1"><i class="fa-solid fa-user-graduate mr-1 text-indigo-500"></i> Họ và tên học sinh</label>
+                            <input type="text" id="studentName" required placeholder="Nhập họ tên đầy đủ..." class="w-full bg-white border-b-2 border-slate-200 focus:border-indigo-500 outline-none py-1 text-sm font-bold text-slate-900 transition-colors">
+                        </div>
+                        <div class="bg-white p-4 rounded-xl shadow-inner border border-slate-100">
+                            <label class="block text-xs font-bold text-slate-400 uppercase tracking-wide mb-1"><i class="fa-solid fa-file-code mr-1 text-indigo-500"></i> Mã chuyên đề bài học</label>
+                            <input type="text" id="examId" readonly value="Buoi17_TiLeNghich_Toan7" class="w-full bg-slate-50 border-b-2 border-slate-200 outline-none py-1 text-sm font-bold text-slate-500 cursor-not-allowed">
+                        </div>
+                    </div>
+
+                    <!-- Khối câu hỏi trắc nghiệm -->
+                    <div class="space-y-5 mt-6">
+                        <!-- Câu 1 -->
+                        <div class="bg-white p-5 rounded-2xl shadow-sm space-y-3">
+                            <p class="text-sm font-bold text-slate-900"><span class="text-indigo-600">Câu 1:</span> Nếu đại lượng $y$ tỉ lệ nghịch với đại lượng $x$ theo hệ số $a = 12$, công thức tính $y$ theo $x$ là:</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs font-semibold text-slate-700">
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q1" value="A" required class="text-indigo-600 h-4 w-4"> <span>A. $y = 12x$</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q1" value="B" class="text-indigo-600 h-4 w-4"> <span>B. $y = \frac{12}{x}$</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q1" value="C" class="text-indigo-600 h-4 w-4"> <span>C. $y = x + 12$</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Câu 2 -->
+                        <div class="bg-white p-5 rounded-2xl shadow-sm space-y-3">
+                            <p class="text-sm font-bold text-slate-900"><span class="text-indigo-600">Câu 2:</span> Bánh răng A (20 răng) quay 60 vòng/phút khớp với bánh răng B (15 răng). Bánh B quay được bao nhiêu vòng/phút?</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs font-semibold text-slate-700">
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q2" value="A" required class="text-indigo-600 h-4 w-4"> <span>A. 80 vòng/phút</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q2" value="B" class="text-indigo-600 h-4 w-4"> <span>B. 45 vòng/phút</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q2" value="C" class="text-indigo-600 h-4 w-4"> <span>C. 50 vòng/phút</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Câu 3 -->
+                        <div class="bg-white p-5 rounded-2xl shadow-sm space-y-3">
+                            <p class="text-sm font-bold text-slate-900"><span class="text-indigo-600">Câu 3:</span> 42 công nhân làm xong việc trong 27 ngày. Muốn xong trong 21 ngày phải bổ sung THÊM bao nhiêu công nhân?</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs font-semibold text-slate-700">
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q3" value="A" required class="text-indigo-600 h-4 w-4"> <span>A. 12 công nhân</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q3" value="B" class="text-indigo-600 h-4 w-4"> <span>B. 54 công nhân</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q3" value="C" class="text-indigo-600 h-4 w-4"> <span>C. 14 công nhân</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Câu 4 -->
+                        <div class="bg-white p-5 rounded-2xl shadow-sm space-y-3">
+                            <p class="text-sm font-bold text-slate-900"><span class="text-indigo-600">Câu 4:</span> Với cùng số tiền mua 45 hộp bánh trung thu, khi giảm giá 10% mỗi hộp thì mua được tối đa bao nhiêu hộp?</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs font-semibold text-slate-700">
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q4" value="A" required class="text-indigo-600 h-4 w-4"> <span>A. 50 hộp bánh</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q4" value="B" class="text-indigo-600 h-4 w-4"> <span>B. 40 hộp bánh</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q4" value="C" class="text-indigo-600 h-4 w-4"> <span>C. 49 hộp bánh</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Câu 5 -->
+                        <div class="bg-white p-5 rounded-2xl shadow-sm space-y-3">
+                            <p class="text-sm font-bold text-slate-900"><span class="text-indigo-600">Câu 5:</span> Cho $x$ tỉ lệ nghịch với $y$ theo hệ số 20; $y$ tỉ lệ nghịch với $z$ theo hệ số 16. Khẳng định nào đúng?</p>
+                            <div class="grid grid-cols-1 gap-2 text-xs font-semibold text-slate-700">
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q5" value="A" required class="text-indigo-600 h-4 w-4"> <span>A. $x$ tỉ lệ thuận với $z$ theo hệ số $1,25$</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q5" value="B" class="text-indigo-600 h-4 w-4"> <span>B. $x$ tỉ lệ nghịch với $z$ theo hệ số 320</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q5" value="C" class="text-indigo-600 h-4 w-4"> <span>C. $x$ tỉ lệ thuận với $z$ theo hệ số 320</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pt-2 flex flex-col sm:flex-row items-center justify-between gap-4">
+                        <button type="submit" id="submitBtn" class="w-full sm:w-auto bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-sm px-8 py-3.5 rounded-xl shadow-lg transition-all flex items-center justify-center space-x-2 cursor-pointer">
+                            <i class="fa-solid fa-cloud-arrow-up"></i> <span>Nộp Bài Chấm Điểm</span>
+                        </button>
+                        <div id="statusReport" class="text-xs font-bold text-slate-400"></div>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer bản quyền -->
+    <footer class="bg-slate-900 text-slate-400 py-8 text-center text-xs font-medium px-4 mt-auto">
+        <p class="font-bold text-slate-300">@ Bản quyền thuộc ThS. Đinh Quốc Tuấn - Mục đích phi lợi nhuận - Vì giáo dục.</p>
+        <p class="text-slate-500 mt-2">Hệ thống bài giảng trực tuyến tương tác tích hợp đồng bộ dữ liệu điểm số học sinh.</p>
+    </footer>
+
+    <!-- NÚT IN TÀI LIỆU CỐ ĐỊNH -->
+    <button id="btn-print-doc" onclick="safePrint()" class="fixed bottom-5 right-5 bg-gray-900 text-white px-4 py-2 rounded-lg shadow-lg hover:bg-gray-700 print:hidden z-50 cursor-pointer">
+        <i class="fas fa-print mr-2"></i> In Tài Liệu
+    </button>
+
+    <script>
+        function safePrint() {
+            const printBtn = document.getElementById('btn-print-doc');
+            printBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Đang chuẩn bị...';
+            
+            if (window.MathJax && window.MathJax.typesetPromise) {
+                MathJax.typesetPromise().then(() => {
+                    printBtn.innerHTML = '<i class="fas fa-print mr-2"></i> In Tài Liệu';
+                    window.print();
+                });
+            } else {
+                setTimeout(() => {
+                    printBtn.innerHTML = '<i class="fas fa-print mr-2"></i> In Tài Liệu';
+                    window.print();
+                }, 500); 
+            }
+        }
+    </script>
+
+    <!-- HỆ THỐNG ĐIỀU KHIỂN ĐỒ HỌA JSXGRAPH & FORM QUIZ APPS SCRIPT -->
+    <script>
+        const timeInit = new Date();
+
+        document.addEventListener("DOMContentLoaded", function() {
+            
+            // --- MÔ HÌNH 1: HYPEBOL & DIỆN TÍCH S = X * Y = A (BOX 1) ---
+            const b1 = JXG.JSXGraph.initBoard('box1', {
+                boundingbox: [-1, 10, 8, -2], axis: true, showNavigation: false, showCopyright: false
+            });
+
+            // Vẽ nhánh Hypebol y = 12 / x cho x > 0
+            let hyperbola = b1.create('functiongraph', [function(x) { return x > 0 ? 12 / x : NaN; }, 0.5, 8], {
+                strokeColor: '#4f46e5', strokeWidth: 2.5
+            });
+
+            // Điểm M(x, y) trượt trên Hypebol
+            let ptM = b1.create('glider', [3, 4, hyperbola], {
+                name: 'M(x, y)', color: '#dc2626', size: 4
+            });
+
+            // Hình chữ nhật tạo từ O(0,0), (x,0), M(x,y), (0,y)
+            let origin = b1.create('point', [0, 0], {visible: false, fixed: true});
+            let ptX = b1.create('point', [function() { return ptM.X(); }, 0], {visible: false});
+            let ptY = b1.create('point', [0, function() { return ptM.Y(); }], {visible: false});
+
+            b1.create('polygon', [origin, ptX, ptM, ptY], {
+                fillColor: '#818cf8', fillOpacity: 0.3, strokeColor: '#4338ca', strokeWidth: 1.5
+            });
+
+            let statusBox1 = document.getElementById('status-box1');
+            ptM.on('drag', function() {
+                let mx = ptM.X().toFixed(1);
+                let my = ptM.Y().toFixed(1);
+                let area = (ptM.X() * ptM.Y()).toFixed(1);
+                statusBox1.innerHTML = `Điểm M(${mx}, ${my}) &rArr; Diện tích S = ${mx} · ${my} = ${area} (Hằng số a = 12)`;
+            });
+
+
+            // --- MÔ HÌNH 2: NĂNG SUẤT & THỜI GIAN HOÀN THÀNH (BOX 2) ---
+            const b2 = JXG.JSXGraph.initBoard('box2', {
+                boundingbox: [-5, 60, 65, -10], axis: true, showNavigation: false, showCopyright: false
+            });
+
+            b2.create('text', [35, -5, 'Số công nhân (x)'], {fontSize: 10, fontStyle: 'bold'});
+            b2.create('text', [-4, 55, 'Số ngày (y)'], {fontSize: 10, fontStyle: 'bold'});
+
+            // Slider số lượng công nhân từ 10 đến 60
+            let slWorkers = b2.create('slider', [[10, 48], [50, 48], [10, 42, 60]], {
+                name: 'Cong nhan x', snapWidth: 1, color: '#059669'
+            });
+
+            // Đồ thị Hypebol x * y = 1134 (Bài 22)
+            b2.create('functiongraph', [function(x) { return 1134 / x; }, 10, 60], {
+                strokeColor: '#10b981', strokeWidth: 2, dash: 2
+            });
+
+            // Điểm kết quả trên đồ thị
+            let ptWork = b2.create('point', [
+                function() { return slWorkers.Value(); },
+                function() { return 1134 / slWorkers.Value(); }
+            ], {name: 'Trạng thái', color: '#d97706', size: 4});
+
+            let statusBox2 = document.getElementById('status-box2');
+            slWorkers.on('update', function() {
+                let w = Math.round(slWorkers.Value());
+                let days = (1134 / w).toFixed(1);
+                statusBox2.innerHTML = `Số công nhân: ${w} người &rArr; Thời gian hoàn thành: ${days} ngày (x · y = 1134)`;
+            });
+        });
+
+        // --- XỬ LÝ NỘP BÀI TRẮC NGHIỆM VÀ ĐẨY DỮ LIỆU APPS SCRIPT ---
+        document.getElementById('quizForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const submitBtn = document.getElementById('submitBtn');
+            const statusReport = document.getElementById('statusReport');
+            
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i> Hệ thống đang nộp bài...';
+            statusReport.innerHTML = "Đang kết nối cơ sở dữ liệu bảng tính...";
+
+            const correctKey = { q1: "B", q2: "A", q3: "A", q4: "A", q5: "A" };
+            const studentName = document.getElementById('studentName').value.trim();
+            const lessonId = document.getElementById('examId').value.trim();
+            
+            let correctCounter = 0;
+            let totalQuizCount = Object.keys(correctKey).length;
+            let missedReportArray = [];
+
+            for (let questionCode in correctKey) {
+                const selectedRadio = document.querySelector(`input[name="${questionCode}"]:checked`);
+                if (selectedRadio && selectedRadio.value === correctKey[questionCode]) {
+                    correctCounter++;
+                } else {
+                    let chosenChar = selectedRadio ? selectedRadio.value : "Bỏ trống";
+                    missedReportArray.push(`${questionCode.toUpperCase()}(Chọn: ${chosenChar}|Đúng: ${correctKey[questionCode]})`);
+                }
+            }
+
+            const finalScore = ((correctCounter / totalQuizCount) * 10).toFixed(2);
+            const timeComplete = new Date();
+            const elapsedDurationSeconds = Math.floor((timeComplete - timeInit) / 1000);
+            const thoiGian = `${Math.floor(elapsedDurationSeconds / 60)} phút ${elapsedDurationSeconds % 60} giây`;
+            const cauSai = missedReportArray.length > 0 ? missedReportArray.join(", ") : "Không có (Đạt 10/10)";
+
+            const transmissionPayload = {
+                hoTen: studentName,
+                maDe: lessonId,
+                diem: parseFloat(finalScore),
+                thoiGian: thoiGian,
+                cauSai: cauSai
+            };
+
+            const webAppsScriptEndpoint = "https://script.google.com/macros/s/AKfycbzY7b7h4OwvhXuK5Vs6hl-aD88BPnAiAKbU5lfJobby0D4nzbIJVKT4n0AKCpAGoK0nZA/exec";
+
+            fetch(webAppsScriptEndpoint, {
+                method: "POST",
+                mode: "no-cors",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(transmissionPayload)
+            })
+            .then(() => {
+                statusReport.className = "text-xs font-bold text-emerald-500 bg-emerald-50 px-3 py-2 rounded-xl border border-emerald-200 inline-block";
+                statusReport.innerHTML = `<i class="fa-solid fa-circle-check"></i> Đã đồng bộ kết quả thành công: ${finalScore}/10.`;
+                alert(`Hệ thống ghi nhận bài nộp thành công!\nChào em ${studentName}, điểm số đạt được là: ${finalScore} / 10.`);
+                submitBtn.innerHTML = '<i class="fa-solid fa-lock"></i> Đã lưu kết quả thi';
+            })
+            .catch(error => {
+                console.error("Lỗi truyền tin:", error);
+                statusReport.className = "text-xs font-bold text-rose-500 bg-rose-50 px-3 py-2 rounded-xl border border-rose-200 inline-block";
+                statusReport.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> Lỗi kết nối mạng, vui lòng bấm nộp lại!';
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Thử nộp lại bài';
+            });
+        });
+    </script>
+</body>
+</html>
