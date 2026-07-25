@@ -1,0 +1,1050 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buổi 3: Lũy thừa của một số hữu tỉ - Toán 7</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- JSXGraph CDN -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraph.css" />
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraphcore.js"></script>
+
+    <!-- MathJax 3 CDN -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['\\(', '\\)']],
+                displayMath: [['\\[', '\\]']]
+            },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script type="text/javascript" id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&display=swap');
+        body {
+            font-family: 'Lexend', sans-serif;
+            background-color: #f8fafc;
+        }
+        .jxgbox {
+            border-radius: 0.75rem;
+            border: 2px solid #e2e8f0;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        details summary::-webkit-details-marker {
+            display:none;
+        }
+        @media print {
+            .no-print { display: none !important; }
+            .page-break { page-break-before: always; }
+            body { background: white !important; font-size: 12pt; }
+            .card-box { border: 1px solid #ccc !important; box-shadow: none !important; }
+        }
+    </style>
+</head>
+<body class="text-slate-800 antialiased min-h-screen flex flex-col justify-between">
+
+    <!-- HEADER / BANNER -->
+    <header class="bg-white border-b border-slate-200 shadow-sm sticky top-0 z-40 print:relative print:shadow-none">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+                <!-- Logos -->
+                <div class="flex items-center space-x-4">
+                    <img src="https://firebasestorage.googleapis.com/v0/b/link-anh-web.firebasestorage.app/o/ttbdvh.jpg?alt=media&token=f270aa9b-a2bc-48e8-8910-80742b542615" alt="Logo Trung tâm" class="h-14 w-auto object-contain rounded-lg shadow-sm">
+                    <div class="h-10 w-px bg-slate-300"></div>
+                    <img src="https://hcmus.edu.vn/wp-content/uploads/2023/04/Logo-chinh-e1681638380305.png" alt="Logo HCMUS" class="h-14 w-auto object-contain">
+                </div>
+                
+                <!-- Title -->
+                <div class="text-center md:text-right">
+                    <span class="inline-block bg-indigo-100 text-indigo-800 font-semibold px-3 py-1 rounded-full text-xs uppercase tracking-wider mb-1">Chuyên Đề Đại Số 7</span>
+                    <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">BUỔI 3: LŨY THỪA CỦA MỘT SỐ HỮU TỈ</h1>
+                    <p class="text-sm text-slate-500 font-medium">Hệ thống bài tập phân loại & Mô hình trực quan sinh động</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-grow space-y-12">
+
+        <!-- NAV NAVIGATION BAR -->
+        <nav class="bg-white rounded-2xl p-2 shadow-sm border border-slate-200 flex flex-wrap gap-2 justify-center print:hidden">
+            <a href="#jsx-section" class="px-4 py-2 rounded-xl text-sm font-semibold text-slate-600 hover:bg-indigo-50 hover:text-indigo-600 transition flex items-center gap-2"><i class="fa-solid fa-cubes text-indigo-500"></i> Mô hình JSXGraph</a>
+            <a href="#phan1" class="px-4 py-2 rounded-xl text-sm font-semibold text-slate-600 hover:bg-emerald-50 hover:text-emerald-600 transition flex items-center gap-2"><i class="fa-solid fa-seedling text-emerald-500"></i> Mức Cơ Bản</a>
+            <a href="#phan2" class="px-4 py-2 rounded-xl text-sm font-semibold text-slate-600 hover:bg-amber-50 hover:text-amber-600 transition flex items-center gap-2"><i class="fa-solid fa-fire text-amber-500"></i> Mức Nâng Cao</a>
+            <a href="#phan3" class="px-4 py-2 rounded-xl text-sm font-semibold text-slate-600 hover:bg-rose-50 hover:text-rose-600 transition flex items-center gap-2"><i class="fa-solid fa-rocket text-rose-500"></i> Mức Vận Dụng</a>
+            <a href="#trac-nghiem" class="px-4 py-2 rounded-xl text-sm font-semibold text-white bg-indigo-600 hover:bg-indigo-700 transition flex items-center gap-2 shadow-md"><i class="fa-solid fa-pen-to-square"></i> Kiểm Tra Trắc Nghiệm</a>
+        </nav>
+
+        <!-- SECTION 0: JSXGRAPH INTERACTIVE MODELS -->
+        <section id="jsx-section" class="space-y-6">
+            <div class="border-l-4 border-indigo-600 pl-4 py-1">
+                <h2 class="text-xl font-bold text-slate-900 flex items-center gap-2">
+                    <i class="fa-solid fa-shapes text-indigo-600"></i> MÔ HÌNH HÌNH HỌC TƯƠNG TÁC (JSXGRAPH)
+                </h2>
+                <p class="text-sm text-slate-600">Minh họa trực quan bản chất phép tính lũy thừa và sự tăng trưởng mũ</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <!-- Model 1 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex flex-col justify-between card-box">
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="bg-indigo-100 text-indigo-700 text-xs font-bold px-2.5 py-1 rounded-lg">Mô hình 1</span>
+                            <i class="fa-solid fa-chart-line text-indigo-500"></i>
+                        </div>
+                        <h3 class="font-bold text-slate-800 text-base mb-2">Tăng trưởng mũ $y = 2^x$</h3>
+                        <p class="text-xs text-slate-500 mb-4">Kéo thanh trượt $x$ để quan sát điểm bùng nổ theo trục tung.</p>
+                        <div id="jxgbox1" class="w-full h-64 jxgbox mb-2"></div>
+                    </div>
+                </div>
+
+                <!-- Model 2 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex flex-col justify-between card-box">
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="bg-emerald-100 text-emerald-700 text-xs font-bold px-2.5 py-1 rounded-lg">Mô hình 2</span>
+                            <i class="fa-solid fa-link text-emerald-500"></i>
+                        </div>
+                        <h3 class="font-bold text-slate-800 text-base mb-2">Nhân lũy thừa cùng cơ số</h3>
+                        <p class="text-xs text-slate-500 mb-4">Mô phỏng phép tính $x^2 \cdot x^3 = x^{2+3} = x^5$ nối chuỗi.</p>
+                        <div id="jxgbox2" class="w-full h-64 jxgbox mb-2"></div>
+                    </div>
+                </div>
+
+                <!-- Model 3 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex flex-col justify-between card-box">
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="bg-amber-100 text-amber-700 text-xs font-bold px-2.5 py-1 rounded-lg">Mô hình 3</span>
+                            <i class="fa-solid fa-boxes-stacked text-amber-500"></i>
+                        </div>
+                        <h3 class="font-bold text-slate-800 text-base mb-2">Lũy thừa của lũy thừa</h3>
+                        <p class="text-xs text-slate-500 mb-4">Minh họa công thức $(x^m)^n = x^{m \cdot n}$ qua số nhóm khối.</p>
+                        <div id="jxgbox3" class="w-full h-64 jxgbox mb-2"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 1: CẤP ĐỘ CƠ BẢN -->
+        <section id="phan1" class="space-y-6">
+            <div class="bg-gradient-to-r from-emerald-600 to-teal-600 text-white p-4 rounded-2xl shadow-md flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <span class="bg-white text-emerald-700 font-black h-10 w-10 rounded-xl flex items-center justify-center text-lg shadow-inner">01</span>
+                    <div>
+                        <h2 class="text-lg font-bold">PHẦN 1: CẤP ĐỘ CƠ BẢN (10 Bài)</h2>
+                        <p class="text-xs opacity-90">Áp dụng trực tiếp định nghĩa và quy tắc lũy thừa cơ bản</p>
+                    </div>
+                </div>
+                <i class="fa-solid fa-leaf text-2xl opacity-80"></i>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <!-- Bài 1 -->
+                <div class="bg-white p-5 rounded-2xl border border-emerald-100 shadow-sm hover:shadow-md transition card-box">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-emerald-600 font-bold text-sm"><i class="fa-regular fa-circle-question mr-1"></i> Bài 1: Tính giá trị</span>
+                        <span class="bg-emerald-50 text-emerald-700 text-xs px-2 py-0.5 rounded-full font-medium">Nhận biết</span>
+                    </div>
+                    <p class="text-slate-700 text-sm mb-3">Tính giá trị của các biểu thức lũy thừa sau:</p>
+                    <div class="grid grid-cols-2 gap-2 text-xs text-slate-800 mb-4 bg-slate-50 p-3 rounded-xl border border-slate-100">
+                        <div>a) \(\left(\frac{-1}{2}\right)^4\)</div>
+                        <div>b) \((-2)^3\)</div>
+                        <div>c) \((0,5)^2\)</div>
+                        <div>d) \(\left(\frac{-2}{3}\right)^3\)</div>
+                    </div>
+                    <details class="group">
+                        <summary class="cursor-pointer bg-emerald-50 text-emerald-700 text-xs font-semibold px-3 py-2 rounded-xl flex items-center justify-between hover:bg-emerald-100 transition print:hidden">
+                            <span><i class="fa-solid fa-lightbulb mr-1.5"></i> Xem Gợi Ý / Lời Giải</span>
+                            <i class="fa-solid fa-chevron-down group-open:rotate-180 transition-transform"></i>
+                        </summary>
+                        <div class="mt-3 p-3 bg-emerald-50/50 text-xs text-slate-700 rounded-xl space-y-1 border border-emerald-100">
+                            <p>a) \(\left(\frac{-1}{2}\right)^4 = \frac{(-1)^4}{2^4} = \frac{1}{16}\)</p>
+                            <p>b) \((-2)^3 = -8\)</p>
+                            <p>c) \((0,5)^2 = 0,25\)</p>
+                            <p>d) \(\left(\frac{-2}{3}\right)^3 = \frac{(-2)^3}{3^3} = \frac{-8}{27}\)</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 2 -->
+                <div class="bg-white p-5 rounded-2xl border border-emerald-100 shadow-sm hover:shadow-md transition card-box">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-emerald-600 font-bold text-sm"><i class="fa-regular fa-circle-question mr-1"></i> Bài 2: Số mũ đặc biệt</span>
+                        <span class="bg-emerald-50 text-emerald-700 text-xs px-2 py-0.5 rounded-full font-medium">Nhận biết</span>
+                    </div>
+                    <p class="text-slate-700 text-sm mb-3">Tính giá trị lũy thừa số mũ 0 và 1:</p>
+                    <div class="grid grid-cols-2 gap-2 text-xs text-slate-800 mb-4 bg-slate-50 p-3 rounded-xl border border-slate-100">
+                        <div>a) \(\left(\frac{3}{4}\right)^1\)</div>
+                        <div>b) \((-5,7)^0\)</div>
+                        <div>c) \(\left(\frac{2024}{2025}\right)^0\)</div>
+                        <div>d) \(1^{2024}\)</div>
+                    </div>
+                    <details class="group">
+                        <summary class="cursor-pointer bg-emerald-50 text-emerald-700 text-xs font-semibold px-3 py-2 rounded-xl flex items-center justify-between hover:bg-emerald-100 transition print:hidden">
+                            <span><i class="fa-solid fa-lightbulb mr-1.5"></i> Xem Gợi Ý / Lời Giải</span>
+                            <i class="fa-solid fa-chevron-down group-open:rotate-180 transition-transform"></i>
+                        </summary>
+                        <div class="mt-3 p-3 bg-emerald-50/50 text-xs text-slate-700 rounded-xl space-y-1 border border-emerald-100">
+                            <p>Ghi nhớ: \(x^1 = x\), \(x^0 = 1\) (với \(x \neq 0\)).</p>
+                            <p>a) \(\frac{3}{4}\); b) \(1\); c) \(1\); d) \(1\)</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 3 -->
+                <div class="bg-white p-5 rounded-2xl border border-emerald-100 shadow-sm hover:shadow-md transition card-box">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-emerald-600 font-bold text-sm"><i class="fa-regular fa-circle-question mr-1"></i> Bài 3: Nhân hai lũy thừa</span>
+                        <span class="bg-emerald-50 text-emerald-700 text-xs px-2 py-0.5 rounded-full font-medium">Thông hiểu</span>
+                    </div>
+                    <p class="text-slate-700 text-sm mb-3">Viết kết quả dưới dạng một lũy thừa:</p>
+                    <div class="space-y-1 text-xs text-slate-800 mb-4 bg-slate-50 p-3 rounded-xl border border-slate-100">
+                        <p>a) \(\left(\frac{1}{3}\right)^2 \cdot \left(\frac{1}{3}\right)^3\)</p>
+                        <p>b) \((-0,25)^4 \cdot (-0.25)^2\)</p>
+                        <p>c) \(2^3 \cdot 2^5\)</p>
+                    </div>
+                    <details class="group">
+                        <summary class="cursor-pointer bg-emerald-50 text-emerald-700 text-xs font-semibold px-3 py-2 rounded-xl flex items-center justify-between hover:bg-emerald-100 transition print:hidden">
+                            <span><i class="fa-solid fa-lightbulb mr-1.5"></i> Xem Gợi Ý / Lời Giải</span>
+                            <i class="fa-solid fa-chevron-down group-open:rotate-180 transition-transform"></i>
+                        </summary>
+                        <div class="mt-3 p-3 bg-emerald-50/50 text-xs text-slate-700 rounded-xl space-y-1 border border-emerald-100">
+                            <p>Áp dụng: \(x^m \cdot x^n = x^{m+n}\)</p>
+                            <p>a) \(\left(\frac{1}{3}\right)^{2+3} = \left(\frac{1}{3}\right)^5\)</p>
+                            <p>b) \((-0,25)^{4+2} = (-0,25)^6\)</p>
+                            <p>c) \(2^{3+5} = 2^8\)</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 4 -->
+                <div class="bg-white p-5 rounded-2xl border border-emerald-100 shadow-sm hover:shadow-md transition card-box">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-emerald-600 font-bold text-sm"><i class="fa-regular fa-circle-question mr-1"></i> Bài 4: Chia hai lũy thừa</span>
+                        <span class="bg-emerald-50 text-emerald-700 text-xs px-2 py-0.5 rounded-full font-medium">Thông hiểu</span>
+                    </div>
+                    <p class="text-slate-700 text-sm mb-3">Viết kết quả dưới dạng một lũy thừa:</p>
+                    <div class="space-y-1 text-xs text-slate-800 mb-4 bg-slate-50 p-3 rounded-xl border border-slate-100">
+                        <p>a) \(\left(\frac{-3}{5}\right)^6 : \left(\frac{-3}{5}\right)^2\)</p>
+                        <p>b) \((0,5)^5 : (0,5)^4\)</p>
+                        <p>c) \(\left(\frac{2}{7}\right)^4 : \left(\frac{2}{7}\right)^4\)</p>
+                    </div>
+                    <details class="group">
+                        <summary class="cursor-pointer bg-emerald-50 text-emerald-700 text-xs font-semibold px-3 py-2 rounded-xl flex items-center justify-between hover:bg-emerald-100 transition print:hidden">
+                            <span><i class="fa-solid fa-lightbulb mr-1.5"></i> Xem Gợi Ý / Lời Giải</span>
+                            <i class="fa-solid fa-chevron-down group-open:rotate-180 transition-transform"></i>
+                        </summary>
+                        <div class="mt-3 p-3 bg-emerald-50/50 text-xs text-slate-700 rounded-xl space-y-1 border border-emerald-100">
+                            <p>Áp dụng: \(x^m : x^n = x^{m-n}\)</p>
+                            <p>a) \(\left(\frac{-3}{5}\right)^{6-2} = \left(\frac{-3}{5}\right)^4\)</p>
+                            <p>b) \((0,5)^{5-4} = (0,5)^1 = 0,5\)</p>
+                            <p>c) \(\left(\frac{2}{7}\right)^{4-4} = \left(\frac{2}{7}\right)^0 = 1\)</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 5 -->
+                <div class="bg-white p-5 rounded-2xl border border-emerald-100 shadow-sm hover:shadow-md transition card-box">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-emerald-600 font-bold text-sm"><i class="fa-regular fa-circle-question mr-1"></i> Bài 5: Lũy thừa của lũy thừa</span>
+                        <span class="bg-emerald-50 text-emerald-700 text-xs px-2 py-0.5 rounded-full font-medium">Thông hiểu</span>
+                    </div>
+                    <p class="text-slate-700 text-sm mb-3">Rút gọn thành một lũy thừa duy nhất:</p>
+                    <div class="space-y-1 text-xs text-slate-800 mb-4 bg-slate-50 p-3 rounded-xl border border-slate-100">
+                        <p>a) \(\left[ \left(\frac{1}{2}\right)^3 \right]^2\)</p>
+                        <p>b) \(\left[ (-0,2)^2 \right]^3\)</p>
+                        <p>c) \(\left[ \left(\frac{-3}{4}\right)^4 \right]^5\)</p>
+                    </div>
+                    <details class="group">
+                        <summary class="cursor-pointer bg-emerald-50 text-emerald-700 text-xs font-semibold px-3 py-2 rounded-xl flex items-center justify-between hover:bg-emerald-100 transition print:hidden">
+                            <span><i class="fa-solid fa-lightbulb mr-1.5"></i> Xem Gợi Ý / Lời Giải</span>
+                            <i class="fa-solid fa-chevron-down group-open:rotate-180 transition-transform"></i>
+                        </summary>
+                        <div class="mt-3 p-3 bg-emerald-50/50 text-xs text-slate-700 rounded-xl space-y-1 border border-emerald-100">
+                            <p>Áp dụng: \((x^m)^n = x^{m \cdot n}\)</p>
+                            <p>a) \(\left(\frac{1}{2}\right)^{3 \cdot 2} = \left(\frac{1}{2}\right)^6\)</p>
+                            <p>b) \((-0,2)^{2 \cdot 3} = (-0,2)^6\)</p>
+                            <p>c) \(\left(\frac{-3}{4}\right)^{4 \cdot 5} = \left(\frac{-3}{4}\right)^{20}\)</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 6 -->
+                <div class="bg-white p-5 rounded-2xl border border-emerald-100 shadow-sm hover:shadow-md transition card-box">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-emerald-600 font-bold text-sm"><i class="fa-regular fa-circle-question mr-1"></i> Bài 6: Tìm số mũ</span>
+                        <span class="bg-emerald-50 text-emerald-700 text-xs px-2 py-0.5 rounded-full font-medium">Thông hiểu</span>
+                    </div>
+                    <p class="text-slate-700 text-sm mb-3">Tìm số mũ còn thiếu ? để được đẳng thức đúng:</p>
+                    <div class="space-y-1 text-xs text-slate-800 mb-4 bg-slate-50 p-3 rounded-xl border border-slate-100">
+                        <p>a) \(\left(\frac{1}{2}\right)^3 \cdot \left(\frac{1}{2}\right)^? = \left(\frac{1}{2}\right)^7\)</p>
+                        <p>b) \(\left(\frac{-2}{3}\right)^? : \left(\frac{-2}{3}\right)^2 = \left(\frac{-2}{3}\right)^3\)</p>
+                    </div>
+                    <details class="group">
+                        <summary class="cursor-pointer bg-emerald-50 text-emerald-700 text-xs font-semibold px-3 py-2 rounded-xl flex items-center justify-between hover:bg-emerald-100 transition print:hidden">
+                            <span><i class="fa-solid fa-lightbulb mr-1.5"></i> Xem Gợi Ý / Lời Giải</span>
+                            <i class="fa-solid fa-chevron-down group-open:rotate-180 transition-transform"></i>
+                        </summary>
+                        <div class="mt-3 p-3 bg-emerald-50/50 text-xs text-slate-700 rounded-xl space-y-1 border border-emerald-100">
+                            <p>a) \(3 + ? = 7 \Rightarrow ? = 4\)</p>
+                            <p>b) \(? - 2 = 3 \Rightarrow ? = 5\)</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 7 -->
+                <div class="bg-white p-5 rounded-2xl border border-emerald-100 shadow-sm hover:shadow-md transition card-box">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-emerald-600 font-bold text-sm"><i class="fa-regular fa-circle-question mr-1"></i> Bài 7: Chuỗi phép tính</span>
+                        <span class="bg-emerald-50 text-emerald-700 text-xs px-2 py-0.5 rounded-full font-medium">Thông hiểu</span>
+                    </div>
+                    <p class="text-slate-700 text-sm mb-3">Tính giá trị biểu thức kết hợp nhân lũy thừa:</p>
+                    <p class="text-xs font-mono text-center bg-slate-50 p-2 rounded-xl mb-4 border border-slate-100">\(\left(\frac{-1}{3}\right)^2 \cdot \left(\frac{-1}{3}\right) \cdot \left(\frac{-1}{3}\right)^3\)</p>
+                    <details class="group">
+                        <summary class="cursor-pointer bg-emerald-50 text-emerald-700 text-xs font-semibold px-3 py-2 rounded-xl flex items-center justify-between hover:bg-emerald-100 transition print:hidden">
+                            <span><i class="fa-solid fa-lightbulb mr-1.5"></i> Xem Gợi Ý / Lời Giải</span>
+                            <i class="fa-solid fa-chevron-down group-open:rotate-180 transition-transform"></i>
+                        </summary>
+                        <div class="mt-3 p-3 bg-emerald-50/50 text-xs text-slate-700 rounded-xl space-y-1 border border-emerald-100">
+                            <p>\(= \left(\frac{-1}{3}\right)^{2+1+3} = \left(\frac{-1}{3}\right)^6 = \frac{1}{729}\)</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 8 -->
+                <div class="bg-white p-5 rounded-2xl border border-emerald-100 shadow-sm hover:shadow-md transition card-box">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-emerald-600 font-bold text-sm"><i class="fa-regular fa-circle-question mr-1"></i> Bài 8: Đưa về cùng cơ số</span>
+                        <span class="bg-emerald-50 text-emerald-700 text-xs px-2 py-0.5 rounded-full font-medium">Thông hiểu</span>
+                    </div>
+                    <p class="text-slate-700 text-sm mb-3">Viết các số sau dưới dạng lũy thừa của cơ số \(0,5\):</p>
+                    <div class="grid grid-cols-3 gap-2 text-xs text-center font-mono mb-4 bg-slate-50 p-2 rounded-xl border border-slate-100">
+                        <div>a) 0,25</div>
+                        <div>b) 0,125</div>
+                        <div>c) 0,0625</div>
+                    </div>
+                    <details class="group">
+                        <summary class="cursor-pointer bg-emerald-50 text-emerald-700 text-xs font-semibold px-3 py-2 rounded-xl flex items-center justify-between hover:bg-emerald-100 transition print:hidden">
+                            <span><i class="fa-solid fa-lightbulb mr-1.5"></i> Xem Gợi Ý / Lời Giải</span>
+                            <i class="fa-solid fa-chevron-down group-open:rotate-180 transition-transform"></i>
+                        </summary>
+                        <div class="mt-3 p-3 bg-emerald-50/50 text-xs text-slate-700 rounded-xl space-y-1 border border-emerald-100">
+                            <p>a) \(0,25 = (0,5)^2\)</p>
+                            <p>b) \(0,125 = (0,5)^3\)</p>
+                            <p>c) \(0,0625 = (0,5)^4\)</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 9 -->
+                <div class="bg-white p-5 rounded-2xl border border-emerald-100 shadow-sm hover:shadow-md transition card-box">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-emerald-600 font-bold text-sm"><i class="fa-regular fa-circle-question mr-1"></i> Bài 9: Khẳng định Đúng/Sai</span>
+                        <span class="bg-emerald-50 text-emerald-700 text-xs px-2 py-0.5 rounded-full font-medium">Nhận biết</span>
+                    </div>
+                    <p class="text-slate-700 text-sm mb-2">Xét tính Đúng / Sai và sửa lại nếu sai:</p>
+                    <div class="text-xs space-y-1 bg-slate-50 p-2 rounded-xl mb-4 border border-slate-100">
+                        <p>a) \((2^3)^2 = 2^5\)</p>
+                        <p>b) \(\left(\frac{-1}{2}\right)^3 \cdot \left(\frac{-1}{2}\right) = \left(\frac{-1}{2}\right)^4\)</p>
+                        <p>c) \(x^0 = 1\) (\(\forall x \in \mathbb{Q}, x \neq 0\))</p>
+                    </div>
+                    <details class="group">
+                        <summary class="cursor-pointer bg-emerald-50 text-emerald-700 text-xs font-semibold px-3 py-2 rounded-xl flex items-center justify-between hover:bg-emerald-100 transition print:hidden">
+                            <span><i class="fa-solid fa-lightbulb mr-1.5"></i> Xem Gợi Ý / Lời Giải</span>
+                            <i class="fa-solid fa-chevron-down group-open:rotate-180 transition-transform"></i>
+                        </summary>
+                        <div class="mt-3 p-3 bg-emerald-50/50 text-xs text-slate-700 rounded-xl space-y-1 border border-emerald-100">
+                            <p>a) <b>Sai</b>. Sửa: \((2^3)^2 = 2^{3 \cdot 2} = 2^6\).</p>
+                            <p>b) <b>Đúng</b>.</p>
+                            <p>c) <b>Đúng</b>.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 10 -->
+                <div class="bg-white p-5 rounded-2xl border border-emerald-100 shadow-sm hover:shadow-md transition card-box">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-emerald-600 font-bold text-sm"><i class="fa-regular fa-circle-question mr-1"></i> Bài 10: Sửa lỗi sai</span>
+                        <span class="bg-emerald-50 text-emerald-700 text-xs px-2 py-0.5 rounded-full font-medium">Thông hiểu</span>
+                    </div>
+                    <p class="text-slate-700 text-sm mb-2">Bạn An tính: \(\left(\frac{-3}{4}\right)^5 : \left(\frac{-3}{4}\right)^2 = \left(\frac{-3}{4}\right)^{5:2} = \left(\frac{-3}{4}\right)^{2,5}\).</p>
+                    <p class="text-xs text-slate-500 mb-4">Em hãy tìm lỗi sai của bạn An và giải lại cho đúng.</p>
+                    <details class="group">
+                        <summary class="cursor-pointer bg-emerald-50 text-emerald-700 text-xs font-semibold px-3 py-2 rounded-xl flex items-center justify-between hover:bg-emerald-100 transition print:hidden">
+                            <span><i class="fa-solid fa-lightbulb mr-1.5"></i> Xem Gợi Ý / Lời Giải</span>
+                            <i class="fa-solid fa-chevron-down group-open:rotate-180 transition-transform"></i>
+                        </summary>
+                        <div class="mt-3 p-3 bg-emerald-50/50 text-xs text-slate-700 rounded-xl space-y-1 border border-emerald-100">
+                            <p><b>Lỗi sai:</b> Khi chia hai lũy thừa cùng cơ số, An đã lấy hai số mũ chia cho nhau thay vì lấy hiệu số mũ.</p>
+                            <p><b>Lời giải đúng:</b> \(\left(\frac{-3}{4}\right)^{5-2} = \left(\frac{-3}{4}\right)^3 = \frac{-27}{64}\).</p>
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 2: CẤP ĐỘ NÂNG CAO -->
+        <section id="phan2" class="space-y-6">
+            <div class="bg-gradient-to-r from-amber-500 to-orange-600 text-white p-4 rounded-2xl shadow-md flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <span class="bg-white text-amber-700 font-black h-10 w-10 rounded-xl flex items-center justify-center text-lg shadow-inner">02</span>
+                    <div>
+                        <h2 class="text-lg font-bold">PHẦN 2: CẤP ĐỘ NÂNG CAO (10 Bài)</h2>
+                        <p class="text-xs opacity-90">Biến đổi linh hoạt, rút gọn phân thức phức tạp và tìm x</p>
+                    </div>
+                </div>
+                <i class="fa-solid fa-fire text-2xl opacity-80"></i>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <!-- Bài 11 -->
+                <div class="bg-white p-5 rounded-2xl border border-amber-100 shadow-sm hover:shadow-md transition card-box">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-amber-600 font-bold text-sm"><i class="fa-regular fa-circle-question mr-1"></i> Bài 11: Rút gọn cơ số 2</span>
+                        <span class="bg-amber-50 text-amber-700 text-xs px-2 py-0.5 rounded-full font-medium">Vận dụng</span>
+                    </div>
+                    <p class="text-slate-700 text-sm mb-3">Tính giá trị biểu thức bằng cách đưa về cơ số 2:</p>
+                    <p class="text-sm font-mono text-center bg-slate-50 p-2 rounded-xl mb-4 border border-slate-100">\(A = \frac{4^2 \cdot 4^3}{2^{10}}\)</p>
+                    <details class="group">
+                        <summary class="cursor-pointer bg-amber-50 text-amber-700 text-xs font-semibold px-3 py-2 rounded-xl flex items-center justify-between hover:bg-amber-100 transition print:hidden">
+                            <span><i class="fa-solid fa-lightbulb mr-1.5"></i> Xem Gợi Ý / Lời Giải</span>
+                            <i class="fa-solid fa-chevron-down group-open:rotate-180 transition-transform"></i>
+                        </summary>
+                        <div class="mt-3 p-3 bg-amber-50/50 text-xs text-slate-700 rounded-xl space-y-1 border border-amber-100">
+                            <p>\(A = \frac{(2^2)^2 \cdot (2^2)^3}{2^{10}} = \frac{2^4 \cdot 2^6}{2^{10}} = \frac{2^{10}}{2^{10}} = 1\)</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 12 -->
+                <div class="bg-white p-5 rounded-2xl border border-amber-100 shadow-sm hover:shadow-md transition card-box">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-amber-600 font-bold text-sm"><i class="fa-regular fa-circle-question mr-1"></i> Bài 12: Cơ số nguyên tố</span>
+                        <span class="bg-amber-50 text-amber-700 text-xs px-2 py-0.5 rounded-full font-medium">Vận dụng</span>
+                    </div>
+                    <p class="text-slate-700 text-sm mb-3">Phân tích đưa về cơ số nguyên tố 2 và 3:</p>
+                    <p class="text-sm font-mono text-center bg-slate-50 p-2 rounded-xl mb-4 border border-slate-100">\(B = \frac{2^7 \cdot 9^3}{6^5 \cdot 8^2}\)</p>
+                    <details class="group">
+                        <summary class="cursor-pointer bg-amber-50 text-amber-700 text-xs font-semibold px-3 py-2 rounded-xl flex items-center justify-between hover:bg-amber-100 transition print:hidden">
+                            <span><i class="fa-solid fa-lightbulb mr-1.5"></i> Xem Gợi Ý / Lời Giải</span>
+                            <i class="fa-solid fa-chevron-down group-open:rotate-180 transition-transform"></i>
+                        </summary>
+                        <div class="mt-3 p-3 bg-amber-50/50 text-xs text-slate-700 rounded-xl space-y-1 border border-amber-100">
+                            <p>\(B = \frac{2^7 \cdot (3^2)^3}{(2 \cdot 3)^5 \cdot (2^3)^2} = \frac{2^7 \cdot 3^6}{2^5 \cdot 3^5 \cdot 2^6} = \frac{2^7 \cdot 3^6}{2^{11} \cdot 3^5} = \frac{3}{2^4} = \frac{3}{16}\)</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 13 -->
+                <div class="bg-white p-5 rounded-2xl border border-amber-100 shadow-sm hover:shadow-md transition card-box">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-amber-600 font-bold text-sm"><i class="fa-regular fa-circle-question mr-1"></i> Bài 13: Rút gọn biểu thức lớn</span>
+                        <span class="bg-amber-50 text-amber-700 text-xs px-2 py-0.5 rounded-full font-medium">Vận dụng</span>
+                    </div>
+                    <p class="text-slate-700 text-sm mb-3">Tính giá trị (đưa về cơ số 2 và 5):</p>
+                    <p class="text-sm font-mono text-center bg-slate-50 p-2 rounded-xl mb-4 border border-slate-100">\(C = \frac{5^4 \cdot 20^4}{25^5 \cdot 4^5}\)</p>
+                    <details class="group">
+                        <summary class="cursor-pointer bg-amber-50 text-amber-700 text-xs font-semibold px-3 py-2 rounded-xl flex items-center justify-between hover:bg-amber-100 transition print:hidden">
+                            <span><i class="fa-solid fa-lightbulb mr-1.5"></i> Xem Gợi Ý / Lời Giải</span>
+                            <i class="fa-solid fa-chevron-down group-open:rotate-180 transition-transform"></i>
+                        </summary>
+                        <div class="mt-3 p-3 bg-amber-50/50 text-xs text-slate-700 rounded-xl space-y-1 border border-amber-100">
+                            <p>\(C = \frac{5^4 \cdot (2^2 \cdot 5)^4}{(5^2)^5 \cdot (2^2)^5} = \frac{5^4 \cdot 2^8 \cdot 5^4}{5^{10} \cdot 2^{10}} = \frac{5^8 \cdot 2^8}{5^{10} \cdot 2^{10}} = \frac{1}{5^2 \cdot 2^2} = \frac{1}{100}\)</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 14 -->
+                <div class="bg-white p-5 rounded-2xl border border-amber-100 shadow-sm hover:shadow-md transition card-box">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-amber-600 font-bold text-sm"><i class="fa-regular fa-circle-question mr-1"></i> Bài 14: Biến đổi thập phân</span>
+                        <span class="bg-amber-50 text-amber-700 text-xs px-2 py-0.5 rounded-full font-medium">Vận dụng cao</span>
+                    </div>
+                    <p class="text-slate-700 text-sm mb-3">Tính giá trị biểu thức số thập phân:</p>
+                    <p class="text-sm font-mono text-center bg-slate-50 p-2 rounded-xl mb-4 border border-slate-100">\(D = \frac{(0,3)^5 \cdot (0,04)^3}{(0,09)^4 \cdot (0,2)^4}\)</p>
+                    <details class="group">
+                        <summary class="cursor-pointer bg-amber-50 text-amber-700 text-xs font-semibold px-3 py-2 rounded-xl flex items-center justify-between hover:bg-amber-100 transition print:hidden">
+                            <span><i class="fa-solid fa-lightbulb mr-1.5"></i> Xem Gợi Ý / Lời Giải</span>
+                            <i class="fa-solid fa-chevron-down group-open:rotate-180 transition-transform"></i>
+                        </summary>
+                        <div class="mt-3 p-3 bg-amber-50/50 text-xs text-slate-700 rounded-xl space-y-1 border border-amber-100">
+                            <p>Đổi về phân số: \(0,3 = \frac{3}{10}\); \(0,04 = \frac{4}{100}\); \(0,09 = \frac{9}{100}\); \(0,2 = \frac{2}{10}\).</p>
+                            <p>\(D = \frac{(3/10)^5 \cdot (4/100)^3}{(9/100)^4 \cdot (2/10)^4} = \dots = \frac{40}{27}\)</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 15 -->
+                <div class="bg-white p-5 rounded-2xl border border-amber-100 shadow-sm hover:shadow-md transition card-box">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-amber-600 font-bold text-sm"><i class="fa-regular fa-circle-question mr-1"></i> Bài 15: Tìm x trong phép chia</span>
+                        <span class="bg-amber-50 text-amber-700 text-xs px-2 py-0.5 rounded-full font-medium">Thông hiểu</span>
+                    </div>
+                    <p class="text-slate-700 text-sm mb-3">Tìm số hữu tỉ \(x\), biết:</p>
+                    <p class="text-sm font-mono text-center bg-slate-50 p-2 rounded-xl mb-4 border border-slate-100">\(x : \left(\frac{-1}{2}\right)^3 = \frac{-1}{2}\)</p>
+                    <details class="group">
+                        <summary class="cursor-pointer bg-amber-50 text-amber-700 text-xs font-semibold px-3 py-2 rounded-xl flex items-center justify-between hover:bg-amber-100 transition print:hidden">
+                            <span><i class="fa-solid fa-lightbulb mr-1.5"></i> Xem Gợi Ý / Lời Giải</span>
+                            <i class="fa-solid fa-chevron-down group-open:rotate-180 transition-transform"></i>
+                        </summary>
+                        <div class="mt-3 p-3 bg-amber-50/50 text-xs text-slate-700 rounded-xl space-y-1 border border-amber-100">
+                            <p>\(x = \left(\frac{-1}{2}\right) \cdot \left(\frac{-1}{2}\right)^3 = \left(\frac{-1}{2}\right)^4 = \frac{1}{16}\)</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 16 -->
+                <div class="bg-white p-5 rounded-2xl border border-amber-100 shadow-sm hover:shadow-md transition card-box">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-amber-600 font-bold text-sm"><i class="fa-regular fa-circle-question mr-1"></i> Bài 16: Tìm x trong phép nhân</span>
+                        <span class="bg-amber-50 text-amber-700 text-xs px-2 py-0.5 rounded-full font-medium">Thông hiểu</span>
+                    </div>
+                    <p class="text-slate-700 text-sm mb-3">Tìm số hữu tỉ \(x\), biết:</p>
+                    <p class="text-sm font-mono text-center bg-slate-50 p-2 rounded-xl mb-4 border border-slate-100">\(\left(\frac{3}{5}\right)^5 \cdot x = \left(\frac{3}{5}\right)^7\)</p>
+                    <details class="group">
+                        <summary class="cursor-pointer bg-amber-50 text-amber-700 text-xs font-semibold px-3 py-2 rounded-xl flex items-center justify-between hover:bg-amber-100 transition print:hidden">
+                            <span><i class="fa-solid fa-lightbulb mr-1.5"></i> Xem Gợi Ý / Lời Giải</span>
+                            <i class="fa-solid fa-chevron-down group-open:rotate-180 transition-transform"></i>
+                        </summary>
+                        <div class="mt-3 p-3 bg-amber-50/50 text-xs text-slate-700 rounded-xl space-y-1 border border-amber-100">
+                            <p>\(x = \left(\frac{3}{5}\right)^7 : \left(\frac{3}{5}\right)^5 = \left(\frac{3}{5}\right)^2 = \frac{9}{25}\)</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 17 -->
+                <div class="bg-white p-5 rounded-2xl border border-amber-100 shadow-sm hover:shadow-md transition card-box">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-amber-600 font-bold text-sm"><i class="fa-regular fa-circle-question mr-1"></i> Bài 17: Tìm x lũy thừa lẻ</span>
+                        <span class="bg-amber-50 text-amber-700 text-xs px-2 py-0.5 rounded-full font-medium">Vận dụng</span>
+                    </div>
+                    <p class="text-slate-700 text-sm mb-3">Tìm số hữu tỉ \(x\), biết:</p>
+                    <p class="text-sm font-mono text-center bg-slate-50 p-2 rounded-xl mb-4 border border-slate-100">\(\left(x - \frac{1}{3}\right)^3 = \frac{-8}{27}\)</p>
+                    <details class="group">
+                        <summary class="cursor-pointer bg-amber-50 text-amber-700 text-xs font-semibold px-3 py-2 rounded-xl flex items-center justify-between hover:bg-amber-100 transition print:hidden">
+                            <span><i class="fa-solid fa-lightbulb mr-1.5"></i> Xem Gợi Ý / Lời Giải</span>
+                            <i class="fa-solid fa-chevron-down group-open:rotate-180 transition-transform"></i>
+                        </summary>
+                        <div class="mt-3 p-3 bg-amber-50/50 text-xs text-slate-700 rounded-xl space-y-1 border border-amber-100">
+                            <p>Ta có: \(\frac{-8}{27} = \left(\frac{-2}{3}\right)^3\)</p>
+                            <p>\(\Rightarrow x - \frac{1}{3} = \frac{-2}{3} \Rightarrow x = \frac{-2}{3} + \frac{1}{3} = \frac{-1}{3}\)</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 18 -->
+                <div class="bg-white p-5 rounded-2xl border border-amber-100 shadow-sm hover:shadow-md transition card-box">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-amber-600 font-bold text-sm"><i class="fa-regular fa-circle-question mr-1"></i> Bài 18: Tìm x lũy thừa chẵn</span>
+                        <span class="bg-amber-50 text-amber-700 text-xs px-2 py-0.5 rounded-full font-medium">Vận dụng cao</span>
+                    </div>
+                    <p class="text-slate-700 text-sm mb-3">Tìm số hữu tỉ \(x\), biết:</p>
+                    <p class="text-sm font-mono text-center bg-slate-50 p-2 rounded-xl mb-4 border border-slate-100">\(\left(2x + 1\right)^2 = \frac{25}{36}\)</p>
+                    <details class="group">
+                        <summary class="cursor-pointer bg-amber-50 text-amber-700 text-xs font-semibold px-3 py-2 rounded-xl flex items-center justify-between hover:bg-amber-100 transition print:hidden">
+                            <span><i class="fa-solid fa-lightbulb mr-1.5"></i> Xem Gợi Ý / Lời Giải</span>
+                            <i class="fa-solid fa-chevron-down group-open:rotate-180 transition-transform"></i>
+                        </summary>
+                        <div class="mt-3 p-3 bg-amber-50/50 text-xs text-slate-700 rounded-xl space-y-1 border border-amber-100">
+                            <p>Vì mũ chẵn nên xét 2 trường hợp: \(\frac{25}{36} = \left(\pm \frac{5}{6}\right)^2\)</p>
+                            <p><b>TH1:</b> \(2x + 1 = \frac{5}{6} \Rightarrow 2x = -\frac{1}{6} \Rightarrow x = -\frac{1}{12}\)</p>
+                            <p><b>TH2:</b> \(2x + 1 = -\frac{5}{6} \Rightarrow 2x = -\frac{11}{6} \Rightarrow x = -\frac{11}{12}\)</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 19 -->
+                <div class="bg-white p-5 rounded-2xl border border-amber-100 shadow-sm hover:shadow-md transition card-box">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-amber-600 font-bold text-sm"><i class="fa-regular fa-circle-question mr-1"></i> Bài 19: Tìm số tự nhiên n</span>
+                        <span class="bg-amber-50 text-amber-700 text-xs px-2 py-0.5 rounded-full font-medium">Vận dụng</span>
+                    </div>
+                    <p class="text-slate-700 text-sm mb-3">Tìm số tự nhiên \(n\), biết:</p>
+                    <p class="text-sm font-mono text-center bg-slate-50 p-2 rounded-xl mb-4 border border-slate-100">\(3^{n} \cdot 3^2 = 243\)</p>
+                    <details class="group">
+                        <summary class="cursor-pointer bg-amber-50 text-amber-700 text-xs font-semibold px-3 py-2 rounded-xl flex items-center justify-between hover:bg-amber-100 transition print:hidden">
+                            <span><i class="fa-solid fa-lightbulb mr-1.5"></i> Xem Gợi Ý / Lời Giải</span>
+                            <i class="fa-solid fa-chevron-down group-open:rotate-180 transition-transform"></i>
+                        </summary>
+                        <div class="mt-3 p-3 bg-amber-50/50 text-xs text-slate-700 rounded-xl space-y-1 border border-amber-100">
+                            <p>Ta có: \(243 = 3^5\).</p>
+                            <p>\(3^{n+2} = 3^5 \Rightarrow n + 2 = 5 \Rightarrow n = 3\).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 20 -->
+                <div class="bg-white p-5 rounded-2xl border border-amber-100 shadow-sm hover:shadow-md transition card-box">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-amber-600 font-bold text-sm"><i class="fa-regular fa-circle-question mr-1"></i> Bài 20: So sánh hai lũy thừa lớn</span>
+                        <span class="bg-amber-50 text-amber-700 text-xs px-2 py-0.5 rounded-full font-medium">Vận dụng cao</span>
+                    </div>
+                    <p class="text-slate-700 text-sm mb-3">So sánh không qua tính toán cụ thể:</p>
+                    <p class="text-sm font-mono text-center bg-slate-50 p-2 rounded-xl mb-4 border border-slate-100">\(2^{300}\) và \(3^{200}\)</p>
+                    <details class="group">
+                        <summary class="cursor-pointer bg-amber-50 text-amber-700 text-xs font-semibold px-3 py-2 rounded-xl flex items-center justify-between hover:bg-amber-100 transition print:hidden">
+                            <span><i class="fa-solid fa-lightbulb mr-1.5"></i> Xem Gợi Ý / Lời Giải</span>
+                            <i class="fa-solid fa-chevron-down group-open:rotate-180 transition-transform"></i>
+                        </summary>
+                        <div class="mt-3 p-3 bg-amber-50/50 text-xs text-slate-700 rounded-xl space-y-1 border border-amber-100">
+                            <p>Đưa về cùng số mũ 100:</p>
+                            <p>\(2^{300} = (2^3)^{100} = 8^{100}\)</p>
+                            <p>\(3^{200} = (3^2)^{100} = 9^{100}\)</p>
+                            <p>Vì \(8 < 9 \Rightarrow 8^{100} < 9^{100} \Rightarrow 2^{300} < 3^{200}\).</p>
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 3: CẤP ĐỘ VẬN DỤNG THỰC TẾ -->
+        <section id="phan3" class="space-y-6">
+            <div class="bg-gradient-to-r from-rose-500 to-pink-600 text-white p-4 rounded-2xl shadow-md flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <span class="bg-white text-rose-700 font-black h-10 w-10 rounded-xl flex items-center justify-center text-lg shadow-inner">03</span>
+                    <div>
+                        <h2 class="text-lg font-bold">PHẦN 3: CẤP ĐỘ VẬN DỤNG THỰC TẾ (10 Bài)</h2>
+                        <p class="text-xs opacity-90">Mô hình hóa lũy thừa vào khoa học, tài chính và công nghệ</p>
+                    </div>
+                </div>
+                <i class="fa-solid fa-rocket text-2xl opacity-80"></i>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <!-- Bài 21 -->
+                <div class="bg-white p-5 rounded-2xl border border-rose-100 shadow-sm hover:shadow-md transition card-box">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-rose-600 font-bold text-sm"><i class="fa-solid fa-meteor mr-1"></i> Bài 21: Khoảng cách thiên văn</span>
+                        <span class="bg-rose-50 text-rose-700 text-xs px-2 py-0.5 rounded-full font-medium">Thiên văn học</span>
+                    </div>
+                    <p class="text-slate-700 text-xs leading-relaxed mb-3">Khoảng cách Trái Đất - Mộc tinh khoảng \(5,88 \cdot 10^8\) km. Trái Đất - Mặt Trời khoảng \(1,5 \cdot 10^8\) km. Hỏi khoảng cách nào lớn hơn và gấp bao nhiêu lần?</p>
+                    <details class="group">
+                        <summary class="cursor-pointer bg-rose-50 text-rose-700 text-xs font-semibold px-3 py-2 rounded-xl flex items-center justify-between hover:bg-rose-100 transition print:hidden">
+                            <span><i class="fa-solid fa-lightbulb mr-1.5"></i> Xem Gợi Ý / Lời Giải</span>
+                            <i class="fa-solid fa-chevron-down group-open:rotate-180 transition-transform"></i>
+                        </summary>
+                        <div class="mt-3 p-3 bg-rose-50/50 text-xs text-slate-700 rounded-xl space-y-1 border border-rose-100">
+                            <p>Mộc tinh xa Trái Đất hơn Mặt Trời.</p>
+                            <p>Tỷ lệ: \(\frac{5,88 \cdot 10^8}{1,5 \cdot 10^8} = \frac{5,88}{1,5} = 3,92\) (lần).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 22 -->
+                <div class="bg-white p-5 rounded-2xl border border-rose-100 shadow-sm hover:shadow-md transition card-box">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-rose-600 font-bold text-sm"><i class="fa-solid fa-copy mr-1"></i> Bài 22: Kỳ diệu việc gấp giấy</span>
+                        <span class="bg-rose-50 text-rose-700 text-xs px-2 py-0.5 rounded-full font-medium">Trải nghiệm</span>
+                    </div>
+                    <p class="text-slate-700 text-xs leading-relaxed mb-3">Tờ giấy dày $0,1$ mm. Tính độ dày giấy sau 10 lần gấp đôi liên tiếp (biết $2^{10} = 1024$). So sánh với chiều cao học sinh lớp 7 (khoảng 1,5m)?</p>
+                    <details class="group">
+                        <summary class="cursor-pointer bg-rose-50 text-rose-700 text-xs font-semibold px-3 py-2 rounded-xl flex items-center justify-between hover:bg-rose-100 transition print:hidden">
+                            <span><i class="fa-solid fa-lightbulb mr-1.5"></i> Xem Gợi Ý / Lời Giải</span>
+                            <i class="fa-solid fa-chevron-down group-open:rotate-180 transition-transform"></i>
+                        </summary>
+                        <div class="mt-3 p-3 bg-rose-50/50 text-xs text-slate-700 rounded-xl space-y-1 border border-rose-100">
+                            <p>Độ dày sau 10 lần gấp: \(d = 0,1 \cdot 2^{10} = 0,1 \cdot 1024 = 102,4 \text{ mm} = 10,24 \text{ cm}\).</p>
+                            <p>Độ dày này (\(\approx 10,24\text{ cm}\)) vẫn chưa lớn hơn chiều cao học sinh lớp 7.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 23 -->
+                <div class="bg-white p-5 rounded-2xl border border-rose-100 shadow-sm hover:shadow-md transition card-box">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-rose-600 font-bold text-sm"><i class="fa-solid fa-globe mr-1"></i> Bài 23: Lan truyền Internet</span>
+                        <span class="bg-rose-50 text-rose-700 text-xs px-2 py-0.5 rounded-full font-medium">Mạng xã hội</span>
+                    </div>
+                    <p class="text-slate-700 text-xs leading-relaxed mb-3">Một website tuần đầu có 3 lượt truy cập. Các tuần sau số truy cập gấp 3 lần tuần trước. Viết lũy thừa biểu thị số truy cập tuần thứ 6?</p>
+                    <details class="group">
+                        <summary class="cursor-pointer bg-rose-50 text-rose-700 text-xs font-semibold px-3 py-2 rounded-xl flex items-center justify-between hover:bg-rose-100 transition print:hidden">
+                            <span><i class="fa-solid fa-lightbulb mr-1.5"></i> Xem Gợi Ý / Lời Giải</span>
+                            <i class="fa-solid fa-chevron-down group-open:rotate-180 transition-transform"></i>
+                        </summary>
+                        <div class="mt-3 p-3 bg-rose-50/50 text-xs text-slate-700 rounded-xl space-y-1 border border-rose-100">
+                            <p>Số lượt truy cập tuần thứ 6 là: \(3^6 = 729\) (lượt).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 24 -->
+                <div class="bg-white p-5 rounded-2xl border border-rose-100 shadow-sm hover:shadow-md transition card-box">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-rose-600 font-bold text-sm"><i class="fa-solid fa-hard-drive mr-1"></i> Bài 24: Lưu trữ máy tính</span>
+                        <span class="bg-rose-50 text-rose-700 text-xs px-2 py-0.5 rounded-full font-medium">Tin học</span>
+                    </div>
+                    <p class="text-slate-700 text-xs leading-relaxed mb-3">Biết \(1 \text{ GB} = 2^{10} \text{ MB}\), \(1 \text{ MB} = 2^{10} \text{ KB}\). Biểu diễn $1 \text{ GB}$ theo đơn vị $\text{KB}$ dưới dạng lũy thừa cơ số 2?</p>
+                    <details class="group">
+                        <summary class="cursor-pointer bg-rose-50 text-rose-700 text-xs font-semibold px-3 py-2 rounded-xl flex items-center justify-between hover:bg-rose-100 transition print:hidden">
+                            <span><i class="fa-solid fa-lightbulb mr-1.5"></i> Xem Gợi Ý / Lời Giải</span>
+                            <i class="fa-solid fa-chevron-down group-open:rotate-180 transition-transform"></i>
+                        </summary>
+                        <div class="mt-3 p-3 bg-rose-50/50 text-xs text-slate-700 rounded-xl space-y-1 border border-rose-100">
+                            <p>\(1 \text{ GB} = 2^{10} \cdot 2^{10} \text{ KB} = 2^{20} \text{ KB} = 1.048.576 \text{ KB}\).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 25 -->
+                <div class="bg-white p-5 rounded-2xl border border-rose-100 shadow-sm hover:shadow-md transition card-box">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-rose-600 font-bold text-sm"><i class="fa-solid fa-dna mr-1"></i> Bài 25: Phân bào vi khuẩn</span>
+                        <span class="bg-rose-50 text-rose-700 text-xs px-2 py-0.5 rounded-full font-medium">Sinh học</span>
+                    </div>
+                    <p class="text-slate-700 text-xs leading-relaxed mb-3">Mỗi 20 phút vi khuẩn E.coli phân đôi 1 lần. Ban đầu có 1 vi khuẩn, hỏi sau 2 giờ (120 phút) sẽ có bao nhiêu tế bào vi khuẩn?</p>
+                    <details class="group">
+                        <summary class="cursor-pointer bg-rose-50 text-rose-700 text-xs font-semibold px-3 py-2 rounded-xl flex items-center justify-between hover:bg-rose-100 transition print:hidden">
+                            <span><i class="fa-solid fa-lightbulb mr-1.5"></i> Xem Gợi Ý / Lời Giải</span>
+                            <i class="fa-solid fa-chevron-down group-open:rotate-180 transition-transform"></i>
+                        </summary>
+                        <div class="mt-3 p-3 bg-rose-50/50 text-xs text-slate-700 rounded-xl space-y-1 border border-rose-100">
+                            <p>Số lần phân chia: \(120 : 20 = 6\) (lần).</p>
+                            <p>Số tế bào vi khuẩn tạo thành: \(2^6 = 64\) (tế bào).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 26 -->
+                <div class="bg-white p-5 rounded-2xl border border-rose-100 shadow-sm hover:shadow-md transition card-box">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-rose-600 font-bold text-sm"><i class="fa-solid fa-sack-dollar mr-1"></i> Bài 26: Lãi suất tiết kiệm</span>
+                        <span class="bg-rose-50 text-rose-700 text-xs px-2 py-0.5 rounded-full font-medium">Tài chính</span>
+                    </div>
+                    <p class="text-slate-700 text-xs leading-relaxed mb-3">Gửi 10 triệu với lãi 10%/năm. Số tiền cả gốc lẫn lãi sau $n$ năm là \(T = 10 \cdot (1 + 0,1)^n\) triệu. Tính tổng số tiền nhận được sau 3 năm?</p>
+                    <details class="group">
+                        <summary class="cursor-pointer bg-rose-50 text-rose-700 text-xs font-semibold px-3 py-2 rounded-xl flex items-center justify-between hover:bg-rose-100 transition print:hidden">
+                            <span><i class="fa-solid fa-lightbulb mr-1.5"></i> Xem Gợi Ý / Lời Giải</span>
+                            <i class="fa-solid fa-chevron-down group-open:rotate-180 transition-transform"></i>
+                        </summary>
+                        <div class="mt-3 p-3 bg-rose-50/50 text-xs text-slate-700 rounded-xl space-y-1 border border-rose-100">
+                            <p>\(T = 10 \cdot (1,1)^3 = 10 \cdot 1,331 = 13,31\) (triệu đồng).</p>
+                            <p>Tương ứng $13.310.000$ VNĐ.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 27 -->
+                <div class="bg-white p-5 rounded-2xl border border-rose-100 shadow-sm hover:shadow-md transition card-box">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-rose-600 font-bold text-sm"><i class="fa-solid fa-weight-hanging mr-1"></i> Bài 27: Khối lượng thiên thể</span>
+                        <span class="bg-rose-50 text-rose-700 text-xs px-2 py-0.5 rounded-full font-medium">Vật lý</span>
+                    </div>
+                    <p class="text-slate-700 text-xs leading-relaxed mb-3">Trái Đất nặng \(\approx 6 \cdot 10^{24}\) kg, Sao Mộc nặng \(\approx 2 \cdot 10^{27}\) kg. Khối lượng Sao Mộc gấp khoảng bao nhiêu lần Trái Đất?</p>
+                    <details class="group">
+                        <summary class="cursor-pointer bg-rose-50 text-rose-700 text-xs font-semibold px-3 py-2 rounded-xl flex items-center justify-between hover:bg-rose-100 transition print:hidden">
+                            <span><i class="fa-solid fa-lightbulb mr-1.5"></i> Xem Gợi Ý / Lời Giải</span>
+                            <i class="fa-solid fa-chevron-down group-open:rotate-180 transition-transform"></i>
+                        </summary>
+                        <div class="mt-3 p-3 bg-rose-50/50 text-xs text-slate-700 rounded-xl space-y-1 border border-rose-100">
+                            <p>Tỷ lệ: \(\frac{2 \cdot 10^{27}}{6 \cdot 10^{24}} = \frac{1}{3} \cdot 10^3 \approx 333,33\) (lần).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 28 -->
+                <div class="bg-white p-5 rounded-2xl border border-rose-100 shadow-sm hover:shadow-md transition card-box">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-rose-600 font-bold text-sm"><i class="fa-solid fa-cube mr-1"></i> Bài 28: Thể tích khối Rubik</span>
+                        <span class="bg-rose-50 text-rose-700 text-xs px-2 py-0.5 rounded-full font-medium">Hình học</span>
+                    </div>
+                    <p class="text-slate-700 text-xs leading-relaxed mb-3">Khối Rubik lập phương cạnh $5,5$ cm. Lập biểu thức lũy thừa tính thể tích và tính giá trị cụ thể ra $\text{cm}^3$?</p>
+                    <details class="group">
+                        <summary class="cursor-pointer bg-rose-50 text-rose-700 text-xs font-semibold px-3 py-2 rounded-xl flex items-center justify-between hover:bg-rose-100 transition print:hidden">
+                            <span><i class="fa-solid fa-lightbulb mr-1.5"></i> Xem Gợi Ý / Lời Giải</span>
+                            <i class="fa-solid fa-chevron-down group-open:rotate-180 transition-transform"></i>
+                        </summary>
+                        <div class="mt-3 p-3 bg-rose-50/50 text-xs text-slate-700 rounded-xl space-y-1 border border-rose-100">
+                            <p>\(V = (5,5)^3 = \left(\frac{11}{2}\right)^3 = \frac{1331}{8} = 166,375 \text{ cm}^3\).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 29 -->
+                <div class="bg-white p-5 rounded-2xl border border-rose-100 shadow-sm hover:shadow-md transition card-box">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-rose-600 font-bold text-sm"><i class="fa-solid fa-chess-board mr-1"></i> Bài 29: Hạt gạo trên bàn cờ</span>
+                        <span class="bg-rose-50 text-rose-700 text-xs px-2 py-0.5 rounded-full font-medium">Toán cổ</span>
+                    </div>
+                    <p class="text-slate-700 text-xs leading-relaxed mb-3">Ô 1: $1$ hạt ($2^0$), Ô 2: $2$ hạt ($2^1$), Ô 3: $4$ hạt ($2^2$)... Hãy biểu diễn dưới dạng lũy thừa số hạt gạo ở ô thứ 10 và ô thứ 20?</p>
+                    <details class="group">
+                        <summary class="cursor-pointer bg-rose-50 text-rose-700 text-xs font-semibold px-3 py-2 rounded-xl flex items-center justify-between hover:bg-rose-100 transition print:hidden">
+                            <span><i class="fa-solid fa-lightbulb mr-1.5"></i> Xem Gợi Ý / Lời Giải</span>
+                            <i class="fa-solid fa-chevron-down group-open:rotate-180 transition-transform"></i>
+                        </summary>
+                        <div class="mt-3 p-3 bg-rose-50/50 text-xs text-slate-700 rounded-xl space-y-1 border border-rose-100">
+                            <p>Ô thứ 10: \(2^9 = 512\) hạt.</p>
+                            <p>Ô thứ 20: \(2^{19} = 524.288\) hạt.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 30 -->
+                <div class="bg-white p-5 rounded-2xl border border-rose-100 shadow-sm hover:shadow-md transition card-box">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-rose-600 font-bold text-sm"><i class="fa-solid fa-vector-square mr-1"></i> Bài 30: Thu nhỏ trong thiết kế</span>
+                        <span class="bg-rose-50 text-rose-700 text-xs px-2 py-0.5 rounded-full font-medium">Đồ họa</span>
+                    </div>
+                    <p class="text-slate-700 text-xs leading-relaxed mb-3">Hình vuông 1 có cạnh $a$. Hình vuông sau có cạnh bằng $\frac{1}{2}$ cạnh hình trước. Lập biểu thức diện tích hình vuông thứ 4 theo $a$. Tính khi $a=16\text{ cm}$?</p>
+                    <details class="group">
+                        <summary class="cursor-pointer bg-rose-50 text-rose-700 text-xs font-semibold px-3 py-2 rounded-xl flex items-center justify-between hover:bg-rose-100 transition print:hidden">
+                            <span><i class="fa-solid fa-lightbulb mr-1.5"></i> Xem Gợi Ý / Lời Giải</span>
+                            <i class="fa-solid fa-chevron-down group-open:rotate-180 transition-transform"></i>
+                        </summary>
+                        <div class="mt-3 p-3 bg-rose-50/50 text-xs text-slate-700 rounded-xl space-y-1 border border-rose-100">
+                            <p>Cạnh hình vuông thứ 4: \(a_4 = a \cdot \left(\frac{1}{2}\right)^3 = \frac{a}{8}\).</p>
+                            <p>Diện tích \(S_4 = \left(\frac{a}{8}\right)^2 = \frac{a^2}{64}\). Khi \(a = 16 \text{ cm} \Rightarrow S_4 = \frac{16^2}{64} = 4 \text{ cm}^2\).</p>
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 4: ONLINE QUIZ (GOOGLE APPS SCRIPT) -->
+        <section id="trac-nghiem" class="bg-white p-6 sm:p-8 rounded-3xl border-2 border-indigo-200 shadow-xl space-y-6 print:hidden">
+            <div class="text-center max-w-2xl mx-auto">
+                <span class="bg-indigo-100 text-indigo-700 font-bold text-xs uppercase px-3 py-1 rounded-full tracking-wider">Trực tuyến</span>
+                <h2 class="text-2xl font-extrabold text-slate-900 mt-2">BÀI TẬP ĐÁNH GIÁ NĂNG LỰC TẠI LỚP</h2>
+                <p class="text-xs text-slate-500 mt-1">Hoàn thành 5 câu hỏi trắc nghiệm dưới đây. Kết quả sẽ được ghi nhận trực tiếp vào hệ thống!</p>
+            </div>
+
+            <form id="quiz-form" onsubmit="submitQuiz(event)" class="space-y-6 max-w-3xl mx-auto">
+                <!-- Thông tin học sinh -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 bg-slate-50 p-4 rounded-2xl border border-slate-200">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 mb-1">Họ và tên học sinh <span class="text-rose-500">*</span></label>
+                        <input type="text" id="hoTen" required placeholder="Nhập đầy đủ họ tên..." class="w-full px-3 py-2 text-sm border border-slate-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 mb-1">Lớp / Trường <span class="text-rose-500">*</span></label>
+                        <input type="text" id="lopTruong" required placeholder="Ví dụ: Lớp 7A1 - THCS..." class="w-full px-3 py-2 text-sm border border-slate-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                    </div>
+                </div>
+
+                <!-- Câu hỏi 1 -->
+                <div class="p-4 rounded-2xl border border-slate-100 bg-slate-50 space-y-2">
+                    <p class="text-sm font-semibold text-slate-800">Câu 1: Giá trị của \((-0,5)^3\) bằng bao nhiêu?</p>
+                    <div class="grid grid-cols-2 gap-2 text-xs">
+                        <label class="p-2.5 bg-white border border-slate-200 rounded-xl cursor-pointer hover:bg-indigo-50 flex items-center gap-2"><input type="radio" name="q1" value="A" required> A. \(-0,125\)</label>
+                        <label class="p-2.5 bg-white border border-slate-200 rounded-xl cursor-pointer hover:bg-indigo-50 flex items-center gap-2"><input type="radio" name="q1" value="B"> B. \(0,125\)</label>
+                        <label class="p-2.5 bg-white border border-slate-200 rounded-xl cursor-pointer hover:bg-indigo-50 flex items-center gap-2"><input type="radio" name="q1" value="C"> C. \(-1,5\)</label>
+                        <label class="p-2.5 bg-white border border-slate-200 rounded-xl cursor-pointer hover:bg-indigo-50 flex items-center gap-2"><input type="radio" name="q1" value="D"> D. \(1,5\)</label>
+                    </div>
+                </div>
+
+                <!-- Câu hỏi 2 -->
+                <div class="p-4 rounded-2xl border border-slate-100 bg-slate-50 space-y-2">
+                    <p class="text-sm font-semibold text-slate-800">Câu 2: Kết quả của phép tính \(\left(\frac{-2}{3}\right)^2 \cdot \left(\frac{-2}{3}\right)^3\) là:</p>
+                    <div class="grid grid-cols-2 gap-2 text-xs">
+                        <label class="p-2.5 bg-white border border-slate-200 rounded-xl cursor-pointer hover:bg-indigo-50 flex items-center gap-2"><input type="radio" name="q2" value="A" required> A. \(\left(\frac{-2}{3}\right)^6\)</label>
+                        <label class="p-2.5 bg-white border border-slate-200 rounded-xl cursor-pointer hover:bg-indigo-50 flex items-center gap-2"><input type="radio" name="q2" value="B"> B. \(\left(\frac{-2}{3}\right)^5\)</label>
+                        <label class="p-2.5 bg-white border border-slate-200 rounded-xl cursor-pointer hover:bg-indigo-50 flex items-center gap-2"><input type="radio" name="q2" value="C"> C. \(\left(\frac{-4}{9}\right)^5\)</label>
+                        <label class="p-2.5 bg-white border border-slate-200 rounded-xl cursor-pointer hover:bg-indigo-50 flex items-center gap-2"><input type="radio" name="q2" value="D"> D. \(\left(\frac{-2}{3}\right)^1\)</label>
+                    </div>
+                </div>
+
+                <!-- Câu hỏi 3 -->
+                <div class="p-4 rounded-2xl border border-slate-100 bg-slate-50 space-y-2">
+                    <p class="text-sm font-semibold text-slate-800">Câu 3: Chọn khẳng định **SAI** trong các khẳng định sau:</p>
+                    <div class="grid grid-cols-1 gap-2 text-xs">
+                        <label class="p-2.5 bg-white border border-slate-200 rounded-xl cursor-pointer hover:bg-indigo-50 flex items-center gap-2"><input type="radio" name="q3" value="A" required> A. \((x^m)^n = x^{m \cdot n}\)</label>
+                        <label class="p-2.5 bg-white border border-slate-200 rounded-xl cursor-pointer hover:bg-indigo-50 flex items-center gap-2"><input type="radio" name="q3" value="B"> B. \(x^m : x^n = x^{m - n}\) (\(x \neq 0, m \ge n\))</label>
+                        <label class="p-2.5 bg-white border border-slate-200 rounded-xl cursor-pointer hover:bg-indigo-50 flex items-center gap-2"><input type="radio" name="q3" value="C"> C. \(x^0 = 1\) với mọi số hữu tỉ \(x\)</label>
+                        <label class="p-2.5 bg-white border border-slate-200 rounded-xl cursor-pointer hover:bg-indigo-50 flex items-center gap-2"><input type="radio" name="q3" value="D"> D. \((x \cdot y)^n = x^n \cdot y^n\)</label>
+                    </div>
+                </div>
+
+                <!-- Câu hỏi 4 -->
+                <div class="p-4 rounded-2xl border border-slate-100 bg-slate-50 space-y-2">
+                    <p class="text-sm font-semibold text-slate-800">Câu 4: Tìm $x$ thỏa mãn \(\left(x - \frac{1}{2}\right)^2 = \frac{1}{4}\):</p>
+                    <div class="grid grid-cols-2 gap-2 text-xs">
+                        <label class="p-2.5 bg-white border border-slate-200 rounded-xl cursor-pointer hover:bg-indigo-50 flex items-center gap-2"><input type="radio" name="q4" value="A" required> A. \(x = 1\)</label>
+                        <label class="p-2.5 bg-white border border-slate-200 rounded-xl cursor-pointer hover:bg-indigo-50 flex items-center gap-2"><input type="radio" name="q4" value="B"> B. \(x = 0\)</label>
+                        <label class="p-2.5 bg-white border border-slate-200 rounded-xl cursor-pointer hover:bg-indigo-50 flex items-center gap-2"><input type="radio" name="q4" value="C"> C. \(x = 1\) hoặc \(x = 0\)</label>
+                        <label class="p-2.5 bg-white border border-slate-200 rounded-xl cursor-pointer hover:bg-indigo-50 flex items-center gap-2"><input type="radio" name="q4" value="D"> D. \(x = 1\) hoặc \(x = -1\)</label>
+                    </div>
+                </div>
+
+                <!-- Câu hỏi 5 -->
+                <div class="p-4 rounded-2xl border border-slate-100 bg-slate-50 space-y-2">
+                    <p class="text-sm font-semibold text-slate-800">Câu 5: Rút gọn biểu thức \(\frac{2^3 \cdot 4^2}{8^2}\) ta được kết quả là:</p>
+                    <div class="grid grid-cols-2 gap-2 text-xs">
+                        <label class="p-2.5 bg-white border border-slate-200 rounded-xl cursor-pointer hover:bg-indigo-50 flex items-center gap-2"><input type="radio" name="q5" value="A" required> A. \(2\)</label>
+                        <label class="p-2.5 bg-white border border-slate-200 rounded-xl cursor-pointer hover:bg-indigo-50 flex items-center gap-2"><input type="radio" name="q5" value="B"> B. \(4\)</label>
+                        <label class="p-2.5 bg-white border border-slate-200 rounded-xl cursor-pointer hover:bg-indigo-50 flex items-center gap-2"><input type="radio" name="q5" value="C"> C. \(1\)</label>
+                        <label class="p-2.5 bg-white border border-slate-200 rounded-xl cursor-pointer hover:bg-indigo-50 flex items-center gap-2"><input type="radio" name="q5" value="D"> D. \(8\)</label>
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="text-center pt-2">
+                    <button type="submit" id="btn-submit" class="w-full sm:w-auto px-8 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-sm rounded-xl shadow-lg hover:shadow-xl transition flex items-center justify-center gap-2 mx-auto">
+                        <i class="fa-solid fa-paper-plane"></i> Nộp Bài Đánh Giá
+                    </button>
+                </div>
+            </form>
+
+            <div id="quiz-result" class="hidden max-w-xl mx-auto p-4 rounded-2xl text-center font-semibold text-sm"></div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER COPYRIGHT -->
+    <footer class="bg-slate-900 text-slate-400 text-xs py-6 mt-12 border-t border-slate-800 text-center">
+        <div class="max-w-7xl mx-auto px-4 space-y-2">
+            <p class="text-slate-300 font-medium">@ Bản quyền thuộc ThS. Đinh Quốc Tuấn - Mục đích phi lợi nhuận - Vì giáo dục.</p>
+            <p class="text-slate-500 text-[11px]">Hệ thống bài giảng Toán 7 tương tác | Tích hợp công nghệ JSXGraph & MathJax</p>
+        </div>
+    </footer>
+
+    <!-- PRINT BUTTON & SCRIPT -->
+    <button id="btn-print-doc" onclick="safePrint()" class="fixed bottom-5 right-5 bg-gray-900 text-white px-4 py-2 rounded-lg shadow-lg hover:bg-gray-700 print:hidden z-50">
+        <i class="fas fa-print mr-2"></i> In Tài Liệu
+    </button>
+
+    <script>
+    function safePrint() {
+        const printBtn = document.getElementById('btn-print-doc');
+        printBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Đang chuẩn bị...';
+
+        // Đảm bảo MathJax đã render xong mọi công thức trước khi gọi hộp thoại in
+        if (window.MathJax && window.MathJax.typesetPromise) {
+            MathJax.typesetPromise().then(() => {
+                printBtn.innerHTML = '<i class="fas fa-print mr-2"></i> In Tài Liệu';
+                window.print();
+            });
+        } else {
+            // Fallback nếu không có công thức toán
+            setTimeout(() => window.print(), 500);
+        }
+    }
+    </script>
+
+    <!-- JSXGRAPH INITIALIZATION SCRIPTS -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // BOARD 1: Hàm số mũ y = 2^x
+            try {
+                var board1 = JXG.JSXGraph.initBoard('jxgbox1', {
+                    boundingbox: [-1, 1100, 11, -100],
+                    axis: true,
+                    showCopyright: false,
+                    showNavigation: false
+                });
+                var s1 = board1.create('slider', [[1, 900], [6, 900], [1, 1, 10]], {name: 'x', snapWidth: 1, digits: 0});
+                board1.create('functiongraph', [function(x){ return Math.pow(2, x); }, 0, 10], {strokeColor: '#4f46e5', strokeWidth: 3});
+                var p1 = board1.create('point', [function(){ return s1.Value(); }, function(){ return Math.pow(2, s1.Value()); }], {name: '', size: 5, color: '#e11d48'});
+                board1.create('text', [1, 700, function(){
+                    return 'x = ' + s1.Value() + ' ⇒ y = 2^{' + s1.Value() + '} = ' + Math.pow(2, s1.Value());
+                }], {fontSize: 13, cssStyle: 'font-weight: bold; color: #1e1b4b; background: #e0e7ff; padding: 4px 8px; border-radius: 4px;'});
+            } catch(e) { console.error("JSXGraph Board 1 error:", e); }
+
+            // BOARD 2: Phép nhân x^2 * x^3
+            try {
+                var board2 = JXG.JSXGraph.initBoard('jxgbox2', {
+                    boundingbox: [-1, 4, 7, -1],
+                    axis: false,
+                    showCopyright: false,
+                    showNavigation: false
+                });
+                var step2 = board2.create('slider', [[0.5, 3.2], [4.5, 3.2], [0, 0, 1]], {name: 'Nối chuỗi', snapWidth: 1, digits: 0});
+                
+                // Render khối đại diện x^2 và x^3
+                board2.create('text', [0.5, 1.5, function(){
+                    if (step2.Value() === 0) {
+                        return '[ x · x ]   +   [ x · x · x ]\n  (x² có 2)        (x³ có 3)';
+                    } else {
+                        return '[ x · x · x · x · x ]\nTổng cộng = 5 khối = x²⁺³ = x⁵';
+                    }
+                }], {fontSize: 14, cssStyle: 'font-weight: bold; color: #047857; background: #d1fae5; padding: 10px; border-radius: 8px;'});
+            } catch(e) { console.error("JSXGraph Board 2 error:", e); }
+
+            // BOARD 3: Lũy thừa của lũy thừa (2^3)^n
+            try {
+                var board3 = JXG.JSXGraph.initBoard('jxgbox3', {
+                    boundingbox: [-1, 4, 8, -1],
+                    axis: false,
+                    showCopyright: false,
+                    showNavigation: false
+                });
+                var s3 = board3.create('slider', [[0.5, 3.2], [4.5, 3.2], [1, 1, 3]], {name: 'Số nhóm (n)', snapWidth: 1, digits: 0});
+                board3.create('text', [0.5, 1.5, function(){
+                    var n = s3.Value();
+                    var total = Math.pow(2, 3 * n);
+                    return 'Mỗi nhóm chứa 2³ = 8 khối\nCó ' + n + ' nhóm ⇒ (2³)^' + n + ' = 2^{' + (3*n) + '} = ' + total + ' khối';
+                }], {fontSize: 13, cssStyle: 'font-weight: bold; color: #92400e; background: #fef3c7; padding: 10px; border-radius: 8px;'});
+            } catch(e) { console.error("JSXGraph Board 3 error:", e); }
+        });
+
+        // SUBMIT TRẮC NGHIỆM ĐẾN GOOGLE APPS SCRIPT
+        function submitQuiz(event) {
+            event.preventDefault();
+            const btn = document.getElementById('btn-submit');
+            const resultDiv = document.getElementById('quiz-result');
+
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Đang nộp bài...';
+
+            const hoTen = document.getElementById('hoTen').value;
+            const lopTruong = document.getElementById('lopTruong').value;
+
+            // Đáp án đúng: Q1: A, Q2: B, Q3: C, Q4: C, Q5: A
+            const correctAnswers = { q1: 'A', q2: 'B', q3: 'C', q4: 'C', q5: 'A' };
+            let score = 0;
+            const userAnswers = {};
+
+            for (let i = 1; i <= 5; i++) {
+                const qName = 'q' + i;
+                const selected = document.querySelector(`input[name="${qName}"]:checked`);
+                if (selected) {
+                    userAnswers[qName] = selected.value;
+                    if (selected.value === correctAnswers[qName]) {
+                        score += 2; // Mỗi câu 2 điểm (Tổng 10đ)
+                    }
+                }
+            }
+
+            const payload = {
+                hoTen: hoTen,
+                lopTruong: lopTruong,
+                diem: score,
+                dapAn: JSON.stringify(userAnswers),
+                thoiGian: new Date().toLocaleString('vi-VN')
+            };
+
+            const endpoint = "https://script.google.com/macros/s/AKfycbzY7b7h4OwvhXuK5Vs6hl-aD88BPnAiAKbU5lfJobby0D4nzbIJVKT4n0AKCpAGoK0nZA/exec";
+
+            fetch(endpoint, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            })
+            .then(() => {
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Nộp Bài Đánh Giá';
+                resultDiv.classList.remove('hidden');
+                resultDiv.className = 'max-w-xl mx-auto p-4 rounded-2xl text-center font-semibold text-sm bg-emerald-100 text-emerald-800 border border-emerald-300';
+                resultDiv.innerHTML = `<i class="fa-solid fa-circle-check text-xl mb-1 block"></i> Nộp bài thành công! Em đạt được <strong>${score}/10 điểm</strong>. Kết quả đã được gửi tới giáo viên.`;
+            })
+            .catch(err => {
+                console.error("Lỗi gửi dữ liệu:", err);
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Thử Nộp Lại';
+                resultDiv.classList.remove('hidden');
+                resultDiv.className = 'max-w-xl mx-auto p-4 rounded-2xl text-center font-semibold text-sm bg-rose-100 text-rose-800 border border-rose-300';
+                resultDiv.innerHTML = `<i class="fa-solid fa-triangle-exclamation text-xl mb-1 block"></i> Có lỗi kết nối mạng, nhưng điểm tại chỗ của em là: <strong>${score}/10 điểm</strong>.`;
+            });
+        }
+    </script>
+</body>
+</html>
