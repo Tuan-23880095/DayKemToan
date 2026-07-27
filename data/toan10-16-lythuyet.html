@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buổi 16: Tích Của Một Số Với Một Vectơ — ThS. Đinh Quốc Tuấn</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- FontAwesome Icons CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts: Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- MathJax Configuration & Script -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['\\(', '\\)'], ['$', '$']],
+                displayMath: [['\\[', '\\]'], ['$$', '$$']]
+            },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <!-- JSXGraph CSS & Core Engine -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraph.css" />
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraphcore.js"></script>
+
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #f8fafc;
+            color: #0f172a;
+        }
+        .jxgbox {
+            background-color: #ffffff !important;
+            border-radius: 1rem;
+            overflow: hidden;
+            border: 1px solid #e2e8f0;
+        }
+        @media print {
+            .print\:hidden { display: none !important; }
+            body { background: white !important; color: black !important; }
+            details { display: block !important; }
+            details summary { display: none !important; }
+            .page-break { page-break-before: always; }
+            .card-border { box-shadow: none !important; border: 1px solid #e5e7eb !important; }
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col antialiased selection:bg-indigo-100">
+
+    <!-- Header học thuật -->
+    <header class="border-b border-slate-200 sticky top-0 bg-white/95 backdrop-blur-md z-40 print:hidden">
+        <div class="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 px-6 py-4">
+            <div class="flex items-center gap-4">
+                <img src="https://firebasestorage.googleapis.com/v0/b/link-anh-web.firebasestorage.app/o/Logo-chinh-hcmus.png?alt=media&token=9cf3a1de-75f1-493b-8711-fd22c7b98738" alt="Logo HCMUS" class="h-14 w-auto object-contain">
+                <div class="border-l-2 border-slate-300 pl-4">
+                    <span class="text-xs font-bold tracking-widest text-indigo-600 uppercase block mb-0.5">Tài liệu số hóa tương tác</span>
+                    <span class="text-base font-extrabold text-slate-800">Hình Học Lớp 10 • Chương Vectơ</span>
+                </div>
+            </div>
+            <div class="flex items-center gap-3 sm:text-right">
+                <div class="hidden sm:block">
+                    <p class="text-xs text-slate-400 font-semibold">Giảng viên biên soạn:</p>
+                    <p class="text-sm font-extrabold text-slate-800">ThS. Đinh Quốc Tuấn</p>
+                </div>
+                <img src="https://firebasestorage.googleapis.com/v0/b/link-anh-web.firebasestorage.app/o/ttbdvh.jpg?alt=media&token=f270aa9b-a2bc-48e8-8910-80742b542615" 
+                     alt="Logo TTBDVH" class="h-14 w-14 object-cover rounded-full border border-slate-200 shadow-inner">
+            </div>
+        </div>
+    </header>
+
+    <!-- Banner chào mừng -->
+    <div class="bg-gradient-to-r from-indigo-50 via-slate-50 to-emerald-50 border-b border-slate-200 py-10 print:hidden">
+        <div class="max-w-4xl mx-auto px-6 space-y-4">
+            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-indigo-100 text-indigo-800 border border-indigo-200 shadow-xs">
+                <i class="fa-solid fa-arrows-to-dot mr-1.5 text-indigo-600"></i> Phép nhân số thực với Vectơ
+            </span>
+            <h1 class="text-2xl sm:text-4xl font-black tracking-tight text-slate-900 leading-tight">
+                Buổi 16: Tích Của Một Số Với Một Vectơ
+            </h1>
+            <p class="text-slate-600 text-sm sm:text-base font-medium leading-relaxed text-justify">
+                Chào các em! Trong buổi trước, ta đã biết cách cộng, trừ hai vectơ. Hôm nay, chúng ta sẽ mở rộng tư duy bằng cách nhân một số thực $k$ với một vectơ $\vec{a}$. Phép toán $k\vec{a}$ sẽ cung cấp công cụ cực kì mạnh mẽ để chứng minh sự song song, thẳng hàng và phân tích các lực trong Vật lí. Hãy cùng khám phá lý thuyết chi tiết và các mô hình tương tác JSXGraph nhé!
+            </p>
+        </div>
+    </div>
+
+    <!-- Không gian nội dung chính -->
+    <main class="max-w-4xl mx-auto px-4 sm:px-6 py-10 flex-grow w-full space-y-16">
+        
+        <!-- ================= MÔ HÌNH HÌNH HỌC TƯƠNG TÁC JSXGRAPH ================= -->
+        <section class="space-y-8 print:hidden bg-slate-100 p-6 rounded-3xl border border-slate-200">
+            <div class="border-b border-slate-200 pb-3">
+                <h2 class="text-lg font-black text-slate-800 flex items-center uppercase tracking-wide">
+                    <i class="fa-solid fa-compass-drafting mr-2.5 text-indigo-600 text-xl"></i> Mô hình mô phỏng Phép nhân Số với Vectơ
+                </h2>
+                <p class="text-xs text-slate-500 mt-1">Trực quan hóa tính chất phân phối $k(\vec{a}+\vec{b})$, tiêu chuẩn 3 điểm thẳng hàng và phân tích vectơ trên hệ lưới xiên.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Mô hình 1 -->
+                <div class="flex flex-col bg-white p-4 rounded-2xl border border-slate-200 shadow-2xs">
+                    <h3 class="font-bold text-slate-900 text-xs mb-1 flex items-center gap-1.5">
+                        <i class="fa-solid fa-expand text-indigo-600"></i> Mô hình 1: Tính phân phối $k(\vec{a}+\vec{b})$
+                    </h3>
+                    <p class="text-[11px] text-slate-500 mb-3">Kéo slider $k$ để quan sát tam giác đồng dạng $AB'C'$ co giãn theo tâm $A$, chứng minh $k(\vec{a}+\vec{b}) = k\vec{a} + k\vec{b}$.</p>
+                    <div id="box1" class="w-full h-56 jxgbox"></div>
+                    <div id="status-box1" class="text-[11px] font-bold p-2 mt-2 bg-indigo-50 border border-indigo-100 rounded-lg text-center text-slate-700 font-mono">
+                        $$k(\vec{a} + \vec{b}) = k\vec{a} + k\vec{b}$$
+                    </div>
+                </div>
+
+                <!-- Mô hình 2 -->
+                <div class="flex flex-col bg-white p-4 rounded-2xl border border-slate-200 shadow-2xs">
+                    <h3 class="font-bold text-slate-900 text-xs mb-1 flex items-center gap-1.5">
+                        <i class="fa-solid fa-grip-lines text-amber-500"></i> Mô hình 2: Điều kiện thẳng hàng
+                    </h3>
+                    <p class="text-[11px] text-slate-500 mb-3">Thẳng hàng khi $\overrightarrow{AB} = k\overrightarrow{AC}$. Kéo slider $k$ để điểm $B$ di chuyển dọc theo đường thẳng $AC$.</p>
+                    <div id="box2" class="w-full h-56 jxgbox"></div>
+                    <div id="status-box2" class="text-[11px] font-bold p-2 mt-2 bg-amber-50 border border-amber-100 rounded-lg text-center text-amber-900 font-mono">
+                        $$\overrightarrow{AB} = k \cdot \overrightarrow{AC}$$
+                    </div>
+                </div>
+
+                <!-- Mô hình 3 -->
+                <div class="flex flex-col bg-white p-4 rounded-2xl border border-slate-200 shadow-2xs">
+                    <h3 class="font-bold text-slate-900 text-xs mb-1 flex items-center gap-1.5">
+                        <i class="fa-solid fa-chart-pie text-emerald-600"></i> Mô hình 3: Phân tích $\vec{u} = x\vec{a} + y\vec{b}$
+                    </h3>
+                    <p class="text-[11px] text-slate-500 mb-3">Kéo điểm $M (\vec{u})$ đến bất kỳ đâu: máy tính tự dội hình chiếu song song để tìm cặp số $(x; y)$ duy nhất.</p>
+                    <div id="box3" class="w-full h-56 jxgbox"></div>
+                    <div id="status-box3" class="text-[11px] font-bold p-2 mt-2 bg-emerald-50 border border-emerald-100 rounded-lg text-center text-emerald-800 font-mono">
+                        $$\vec{u} = x\vec{a} + y\vec{b}$$
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= PHẦN 1: MỨC ĐỘ CƠ BẢN ================= -->
+        <section class="space-y-6">
+            <div class="flex items-center gap-3 border-b pb-3 border-slate-200">
+                <span class="bg-sky-600 text-white text-xs font-black px-3 py-1 rounded-md uppercase tracking-wider">Cấp độ 1</span>
+                <h2 class="text-xl font-extrabold text-slate-900">PHẦN 1: MỨC ĐỘ CƠ BẢN (TÍCH CỦA MỘT SỐ VỚI MỘT VECTƠ)</h2>
+            </div>
+            <p class="text-xs font-bold text-sky-800 bg-sky-50 px-3 py-2 rounded-lg inline-block">
+                Mục tiêu: Học sinh nắm vững định nghĩa, xác định hướng và độ dài của $k\vec{a}$, thuộc các tính chất biến đổi đại số vectơ.
+            </p>
+
+            <div class="space-y-6 text-sm leading-relaxed text-slate-700">
+                <!-- Mục 1 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs space-y-3 card-border">
+                    <h3 class="font-bold text-slate-900 text-base text-sky-700 flex items-center gap-2">
+                        <i class="fa-solid fa-circle-1"></i> 1. Định nghĩa
+                    </h3>
+                    <p>&bull; Cho số thực $k \neq 0$ và vectơ $\vec{a} \neq \vec{0}$. Tích của số $k$ với vectơ $\vec{a}$ là một vectơ, kí hiệu là $k\vec{a}$.</p>
+                    <p>&bull; <strong>Về hướng:</strong> Vectơ $k\vec{a}$ <em>cùng hướng</em> với $\vec{a}$ nếu $k > 0$, và <em>ngược hướng</em> với $\vec{a}$ nếu $k < 0$.</p>
+                    <p>&bull; <strong>Về độ dài:</strong> Độ dài của vectơ $k\vec{a}$ bằng tích của giá trị tuyệt đối số $k$ và độ dài vectơ $\vec{a}$:
+                        $$|k\vec{a}| = |k| \cdot |\vec{a}|$$
+                    </p>
+                    <p>&bull; <strong>Quy ước:</strong> $0\vec{a} = \vec{0}$ và $k\vec{0} = \vec{0}$.</p>
+                </div>
+
+                <!-- Mục 2 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs space-y-3 card-border">
+                    <h3 class="font-bold text-slate-900 text-base text-sky-700 flex items-center gap-2">
+                        <i class="fa-solid fa-circle-2"></i> 2. Các tính chất (Tiên đề đại số của vectơ)
+                    </h3>
+                    <p>Với hai vectơ $\vec{a}, \vec{b}$ bất kì và mọi số thực $h, k$, ta luôn có các tính chất biến đổi tương tự đại số:</p>
+                    <ul class="list-disc list-inside space-y-1.5 text-xs text-slate-600 pl-2">
+                        <li>Tính phân phối với phép cộng vectơ: $k(\vec{a} + \vec{b}) = k\vec{a} + k\vec{b}$.</li>
+                        <li>Tính phân phối với phép cộng số thực: $(h + k)\vec{a} = h\vec{a} + k\vec{a}$.</li>
+                        <li>Tính kết hợp: $h(k\vec{a}) = (hk)\vec{a}$.</li>
+                        <li>Trường hợp đặc biệt: $1\vec{a} = \vec{a}$; &nbsp; $(-1)\vec{a} = -\vec{a}$.</li>
+                    </ul>
+                </div>
+
+                <!-- Mục 3 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs space-y-3 card-border">
+                    <h3 class="font-bold text-slate-900 text-base text-sky-700 flex items-center gap-2">
+                        <i class="fa-solid fa-circle-3"></i> 3. Chứng minh Tính chất phân phối $k(\vec{a} + \vec{b}) = k\vec{a} + k\vec{b}$ (với $k > 0$)
+                    </h3>
+                    <p>&bull; <strong>Chứng minh:</strong> Gọi $\overrightarrow{AB} = \vec{a}, \overrightarrow{BC} = \vec{b}$. Theo quy tắc 3 điểm, $\overrightarrow{AC} = \vec{a} + \vec{b}$.</p>
+                    <p>Trên tia $AB$ lấy điểm $B'$ sao cho $AB' = k \cdot AB$ (vì $k>0$), khi đó $\overrightarrow{AB'} = k\vec{a}$.</p>
+                    <p>Từ $B'$ kẻ đường thẳng song song với $BC$, cắt tia $AC$ tại $C'$. Theo định lí Thales, $\frac{AC'}{AC} = \frac{AB'}{AB} = k$, suy ra $\overrightarrow{AC'} = k\overrightarrow{AC} = k(\vec{a} + \vec{b})$.</p>
+                    <p>Đồng thời $\frac{B'C'}{BC} = k$ và tia $B'C'$ cùng hướng $BC$, suy ra $\overrightarrow{B'C'} = k\vec{b}$.</p>
+                    <p>Áp dụng quy tắc 3 điểm cho tam giác mới: $\overrightarrow{AC'} = \overrightarrow{AB'} + \overrightarrow{B'C'} \Rightarrow k(\vec{a} + \vec{b}) = k\vec{a} + k\vec{b}$ (đpcm).</p>
+                </div>
+
+                <!-- Ví dụ 1 -->
+                <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200 space-y-2 card-border">
+                    <p class="font-bold text-slate-900 text-xs text-indigo-700 uppercase"><i class="fa-solid fa-pen-to-square mr-1"></i> Ví dụ minh họa 1 (Cơ bản)</p>
+                    <p class="text-xs text-slate-800">Cho đoạn thẳng $AB$ có trung điểm $I$. Hãy tìm các số $m, n$ thỏa mãn: $\overrightarrow{AB} = m\overrightarrow{AI}$ và $\overrightarrow{IA} = n\overrightarrow{IB}$.</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-white rounded-xl border border-slate-200 text-xs text-slate-700 space-y-1">
+                            <p>&bull; Vì $I$ là trung điểm $AB$ nên độ dài $AB = 2 AI$. Do $\overrightarrow{AB}$ và $\overrightarrow{AI}$ cùng hướng nên $\overrightarrow{AB} = 2\overrightarrow{AI} \Rightarrow m = 2$.</p>
+                            <p>&bull; Vectơ $\overrightarrow{IA}$ và $\overrightarrow{IB}$ ngược hướng và cùng độ dài nên $\overrightarrow{IA} = -\overrightarrow{IB} \Rightarrow n = -1$.</p>
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ================= PHẦN 2: MỨC ĐỘ NÂNG CAO ================= -->
+        <section class="space-y-6">
+            <div class="flex items-center gap-3 border-b pb-3 border-slate-200">
+                <span class="bg-amber-600 text-white text-xs font-black px-3 py-1 rounded-md uppercase tracking-wider">Cấp độ 2</span>
+                <h2 class="text-xl font-extrabold text-slate-900">PHẦN 2: MỨC ĐỘ NÂNG CAO (ĐIỀU KIỆN CÙNG PHƯƠNG & 3 ĐIỂM THẲNG HÀNG)</h2>
+            </div>
+            <p class="text-xs font-bold text-amber-800 bg-amber-50 px-3 py-2 rounded-lg inline-block">
+                Mục tiêu: Sử dụng phép nhân vectơ làm tiêu chuẩn chứng minh hai đường thẳng song song hoặc ba điểm thẳng hàng.
+            </p>
+
+            <div class="space-y-6 text-sm leading-relaxed text-slate-700">
+                <!-- Mục 1 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs space-y-3 card-border">
+                    <h3 class="font-bold text-slate-900 text-base text-amber-700 flex items-center gap-2">
+                        <i class="fa-solid fa-circle-1"></i> 1. Điều kiện để hai vectơ cùng phương
+                    </h3>
+                    <p>&bull; <strong>Định lí:</strong> Hai vectơ $\vec{a}$ và $\vec{b}$ ($\vec{b} \neq \vec{0}$) cùng phương khi và chỉ khi có một số $k$ sao cho $\vec{a} = k\vec{b}$.</p>
+                    <p>&bull; <strong>Chứng minh chiều thuận:</strong> Giả sử $\vec{a}$ và $\vec{b}$ cùng phương. Ta lấy số thực $k = \frac{|\vec{a}|}{|\vec{b}|}$ nếu hai vectơ cùng hướng, và $k = -\frac{|\vec{a}|}{|\vec{b}|}$ nếu ngược hướng. Xét vectơ $k\vec{b}$, nó có độ dài là $|k| \cdot |\vec{b}| = \frac{|\vec{a}|}{|\vec{b}|} \cdot |\vec{b}| = |\vec{a}|$ và có cùng hướng với $\vec{a}$. Vậy $\vec{a} = k\vec{b}$.</p>
+                    <p>&bull; <strong>Chứng minh chiều đảo:</strong> Nếu $\vec{a} = k\vec{b}$, theo định nghĩa tích một số với vectơ, $\vec{a}$ luôn có giá song song hoặc trùng với giá của $\vec{b}$. Nên chúng cùng phương.</p>
+                </div>
+
+                <!-- Mục 2 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs space-y-3 card-border">
+                    <h3 class="font-bold text-slate-900 text-base text-amber-700 flex items-center gap-2">
+                        <i class="fa-solid fa-circle-2"></i> 2. Điều kiện để ba điểm thẳng hàng
+                    </h3>
+                    <p>&bull; <strong>Định lí:</strong> Ba điểm phân biệt $A, B, C$ thẳng hàng khi và chỉ khi tồn tại số $k \neq 0$ để:
+                        $$\overrightarrow{AB} = k\overrightarrow{AC}$$
+                    </p>
+                    <p>&bull; <strong>Chứng minh:</strong> Ba điểm $A, B, C$ thẳng hàng $\Leftrightarrow$ Đường thẳng $AB$ trùng với $AC$ $\Leftrightarrow$ Hai vectơ $\overrightarrow{AB}$ và $\overrightarrow{AC}$ cùng phương $\Leftrightarrow$ Tồn tại số $k$ sao cho $\overrightarrow{AB} = k\overrightarrow{AC}$.</p>
+                </div>
+
+                <!-- Ví dụ 2 -->
+                <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200 space-y-2 card-border">
+                    <p class="font-bold text-slate-900 text-xs text-indigo-700 uppercase"><i class="fa-solid fa-pen-to-square mr-1"></i> Ví dụ minh họa 2 (Nâng cao)</p>
+                    <p class="text-xs text-slate-800">Cho tam giác $ABC$. Gọi $M$ là trung điểm $AB$ và $N$ là điểm trên cạnh $AC$ sao cho $NC = 2NA$. Gọi $K$ là trung điểm $MN$. Chứng minh rằng $\overrightarrow{AK} = \frac{1}{4}\overrightarrow{AB} + \frac{1}{6}\overrightarrow{AC}$.</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-white rounded-xl border border-slate-200 text-xs text-slate-700 space-y-1">
+                            <p>Theo tính chất trung điểm cho $MN$: $\overrightarrow{AK} = \frac{1}{2}(\overrightarrow{AM} + \overrightarrow{AN})$.</p>
+                            <p>Vì $M$ là trung điểm $AB \Rightarrow \overrightarrow{AM} = \frac{1}{2}\overrightarrow{AB}$.</p>
+                            <p>Vì $N \in AC$ và $NC = 2NA \Rightarrow AN = \frac{1}{3}AC \Rightarrow \overrightarrow{AN} = \frac{1}{3}\overrightarrow{AC}$.</p>
+                            <p>Thay vào biểu thức: $\overrightarrow{AK} = \frac{1}{2} \left(\frac{1}{2}\overrightarrow{AB} + \frac{1}{3}\overrightarrow{AC}\right) = \frac{1}{4}\overrightarrow{AB} + \frac{1}{6}\overrightarrow{AC}$ (đpcm).</p>
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ================= PHẦN 3: MỨC ĐỘ VẬN DỤNG ================= -->
+        <section class="space-y-6">
+            <div class="flex items-center gap-3 border-b pb-3 border-slate-200">
+                <span class="bg-emerald-600 text-white text-xs font-black px-3 py-1 rounded-md uppercase tracking-wider">Cấp độ 3</span>
+                <h2 class="text-xl font-extrabold text-slate-900">PHẦN 3: MỨC ĐỘ VẬN DỤNG (PHÂN TÍCH VECTƠ TRÊN CƠ SỞ ĐẠI SỐ)</h2>
+            </div>
+            <p class="text-xs font-bold text-emerald-800 bg-emerald-50 px-3 py-2 rounded-lg inline-block">
+                Mục tiêu: Biểu diễn (phân tích) một vectơ bất kì theo hai vectơ cơ sở không cùng phương, làm nền tảng cho hệ trục tọa độ $Oxy$.
+            </p>
+
+            <div class="space-y-6 text-sm leading-relaxed text-slate-700">
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs space-y-3 card-border">
+                    <h3 class="font-bold text-slate-900 text-base text-emerald-700 flex items-center gap-2">
+                        <i class="fa-solid fa-layer-group"></i> Phân tích một vectơ theo hai vectơ không cùng phương
+                    </h3>
+                    <p>&bull; <strong>Định lí:</strong> Cho hai vectơ $\vec{a}$ và $\vec{b}$ không cùng phương. Đối với mọi vectơ $\vec{u}$ tùy ý, luôn tồn tại một và chỉ một cặp số thực $(x; y)$ sao cho:
+                        $$\vec{u} = x\vec{a} + y\vec{b}$$
+                    </p>
+                    <p>&bull; <strong>Chứng minh (Bằng hình học):</strong> Từ điểm $O$ bất kì, vẽ $\overrightarrow{OA} = \vec{a}$, $\overrightarrow{OB} = \vec{b}$, $\overrightarrow{OM} = \vec{u}$. Qua $M$ kẻ đường thẳng song song với $OB$ cắt $OA$ tại $A'$; kẻ song song với $OA$ cắt $OB$ tại $B'$. Tứ giác $OA'MB'$ là hình bình hành $\Rightarrow \overrightarrow{OM} = \overrightarrow{OA'} + \overrightarrow{OB'}$. Vì $A' \in OA \Rightarrow \overrightarrow{OA'} = x\vec{a}$; $B' \in OB \Rightarrow \overrightarrow{OB'} = y\vec{b}$. Vậy $\vec{u} = \overrightarrow{OM} = x\vec{a} + y\vec{b}$ (đpcm).</p>
+                </div>
+
+                <!-- Ví dụ 3 -->
+                <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200 space-y-2 card-border">
+                    <p class="font-bold text-slate-900 text-xs text-indigo-700 uppercase"><i class="fa-solid fa-pen-to-square mr-1"></i> Ví dụ minh họa 3 (Vận dụng biểu diễn để chứng minh thẳng hàng)</p>
+                    <p class="text-xs text-slate-800">Cho tam giác $ABC$. Gọi $I$ là điểm thỏa mãn $\overrightarrow{IA} = 2\overrightarrow{IB}$, và $J$ thỏa mãn $3\overrightarrow{JA} + 2\overrightarrow{JC} = \vec{0}$. Chứng minh đường thẳng $IJ$ đi qua trọng tâm $G$ của tam giác $ABC$.</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-white rounded-xl border border-slate-200 text-xs text-slate-700 space-y-1">
+                            <p>Chọn hai vectơ cơ sở là $\overrightarrow{CA}, \overrightarrow{CB}$:</p>
+                            <p>&bull; Từ $3\overrightarrow{JA} + 2\overrightarrow{JC} = \vec{0} \Rightarrow 3(\overrightarrow{CA} - \overrightarrow{CJ}) - 2\overrightarrow{CJ} = \vec{0} \Rightarrow \overrightarrow{CJ} = \frac{3}{5}\overrightarrow{CA}$.</p>
+                            <p>&bull; Từ $\overrightarrow{IA} = 2\overrightarrow{IB} \Rightarrow \overrightarrow{CA} - \overrightarrow{CI} = 2(\overrightarrow{CB} - \overrightarrow{CI}) \Rightarrow \overrightarrow{CI} = 2\overrightarrow{CB} - \overrightarrow{CA}$.</p>
+                            <p>&bull; Vì $G$ là trọng tâm $\Delta ABC \Rightarrow \overrightarrow{CG} = \frac{1}{3}\overrightarrow{CA} + \frac{1}{3}\overrightarrow{CB}$.</p>
+                            <p>&bull; Phân tích $\overrightarrow{JG} = \overrightarrow{CG} - \overrightarrow{CJ} = -\frac{4}{15}\overrightarrow{CA} + \frac{1}{3}\overrightarrow{CB}$.</p>
+                            <p>&bull; Phân tích $\overrightarrow{JI} = \overrightarrow{CI} - \overrightarrow{CJ} = -\frac{8}{5}\overrightarrow{CA} + 2\overrightarrow{CB} = 6\left(-\frac{4}{15}\overrightarrow{CA} + \frac{1}{3}\overrightarrow{CB}\right) = 6\overrightarrow{JG}$.</p>
+                            <p>Do $\overrightarrow{JI} = 6\overrightarrow{JG}$ nên ba điểm $I, J, G$ thẳng hàng (đpcm).</p>
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ================= BÀI TẬP ĐÁNH GIÁ NĂNG LỰC TRẮC NGHIỆM ================= -->
+        <section class="border-t border-slate-200 pt-10 page-break">
+            <div class="bg-gradient-to-br from-slate-900 via-slate-800 to-indigo-950 text-white rounded-3xl p-6 sm:p-8 shadow-xl relative overflow-hidden card-border">
+                <div class="max-w-xl space-y-2">
+                    <span class="text-xs font-bold uppercase tracking-widest text-emerald-400 bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-500/20 inline-block">Đánh giá trực tuyến tại lớp</span>
+                    <h2 class="text-xl sm:text-2xl font-black tracking-tight">BÀI TẬP ĐÁNH GIÁ NĂNG LỰC TẠI LỚP</h2>
+                    <p class="text-slate-400 text-xs sm:text-sm">Học sinh hoàn thành trắc nghiệm 5 câu dưới đây. Kết quả điểm số sẽ được truyền tự động về Google Sheets hệ thống.</p>
+                </div>
+
+                <form id="quizForm" class="mt-8 space-y-6 text-slate-900">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div class="bg-white p-4 rounded-xl shadow-inner border border-slate-100">
+                            <label class="block text-xs font-bold text-slate-400 uppercase tracking-wide mb-1"><i class="fa-solid fa-user-graduate mr-1 text-indigo-500"></i> Họ và tên học sinh</label>
+                            <input type="text" id="studentName" required placeholder="Nhập họ tên đầy đủ..." class="w-full bg-white border-b-2 border-slate-200 focus:border-indigo-500 outline-none py-1 text-sm font-bold text-slate-900 transition-colors">
+                        </div>
+                        <div class="bg-white p-4 rounded-xl shadow-inner border border-slate-100">
+                            <label class="block text-xs font-bold text-slate-400 uppercase tracking-wide mb-1"><i class="fa-solid fa-file-code mr-1 text-indigo-500"></i> Mã chuyên đề bài học</label>
+                            <input type="text" id="examId" readonly value="Buoi16_TichSoVoiVectơ_Toan10" class="w-full bg-slate-50 border-b-2 border-slate-200 outline-none py-1 text-sm font-bold text-slate-500 cursor-not-allowed">
+                        </div>
+                    </div>
+
+                    <!-- Khối câu hỏi trắc nghiệm -->
+                    <div class="space-y-5 mt-6">
+                        <!-- Câu 1 -->
+                        <div class="bg-white p-5 rounded-2xl shadow-sm space-y-3">
+                            <p class="text-sm font-bold text-slate-900"><span class="text-indigo-600">Câu 1:</span> Cho vectơ $\vec{a} \neq \vec{0}$. Khẳng định nào sau đây ĐÚNG về vectơ $-3\vec{a}$?</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs font-semibold text-slate-700">
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q1" value="A" required class="text-indigo-600 h-4 w-4"> <span>A. Cùng hướng với $\vec{a}$ và có độ dài $3|\vec{a}|$</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q1" value="B" class="text-indigo-600 h-4 w-4"> <span>B. Ngược hướng với $\vec{a}$ và có độ dài $3|\vec{a}|$</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q1" value="C" class="text-indigo-600 h-4 w-4"> <span>C. Ngược hướng với $\vec{a}$ và có độ dài $-3|\vec{a}|$</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q1" value="D" class="text-indigo-600 h-4 w-4"> <span>D. Cùng phương và cùng hướng với $\vec{a}$</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Câu 2 -->
+                        <div class="bg-white p-5 rounded-2xl shadow-sm space-y-3">
+                            <p class="text-sm font-bold text-slate-900"><span class="text-indigo-600">Câu 2:</span> Cho $I$ là trung điểm của $AB$. Đẳng thức vectơ nào sau đây ĐÚNG với mọi điểm $M$?</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs font-semibold text-slate-700">
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q2" value="A" required class="text-indigo-600 h-4 w-4"> <span>A. $\overrightarrow{MA} + \overrightarrow{MB} = \overrightarrow{MI}$</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q2" value="B" class="text-indigo-600 h-4 w-4"> <span>B. $\overrightarrow{MA} + \overrightarrow{MB} = 2\overrightarrow{MI}$</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q2" value="C" class="text-indigo-600 h-4 w-4"> <span>C. $\overrightarrow{MA} + \overrightarrow{MB} = 3\overrightarrow{MI}$</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q2" value="D" class="text-indigo-600 h-4 w-4"> <span>D. $\overrightarrow{MA} - \overrightarrow{MB} = 2\overrightarrow{MI}$</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Câu 3 -->
+                        <div class="bg-white p-5 rounded-2xl shadow-sm space-y-3">
+                            <p class="text-sm font-bold text-slate-900"><span class="text-indigo-600">Câu 3:</span> Điều kiện cần và đủ để ba điểm phân biệt $A, B, C$ thẳng hàng là:</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs font-semibold text-slate-700">
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q3" value="A" required class="text-indigo-600 h-4 w-4"> <span>A. Tồn tại số $k \neq 0$ sao cho $\overrightarrow{AB} = k\overrightarrow{AC}$</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q3" value="B" class="text-indigo-600 h-4 w-4"> <span>B. $\overrightarrow{AB} = \overrightarrow{AC}$</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q3" value="C" class="text-indigo-600 h-4 w-4"> <span>C. $|\overrightarrow{AB}| = |\overrightarrow{AC}|$</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q3" value="D" class="text-indigo-600 h-4 w-4"> <span>D. $\overrightarrow{AB} + \overrightarrow{AC} = \vec{0}$</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Câu 4 -->
+                        <div class="bg-white p-5 rounded-2xl shadow-sm space-y-3">
+                            <p class="text-sm font-bold text-slate-900"><span class="text-indigo-600">Câu 4:</span> Tam giác $ABC$ có $M$ là trung điểm $AB$, $N$ trên $AC$ sao cho $AN = \frac{1}{3}AC$. Phân tích $\overrightarrow{MN}$ theo $\overrightarrow{AB}$ và $\overrightarrow{AC}$ được:</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs font-semibold text-slate-700">
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q4" value="A" required class="text-indigo-600 h-4 w-4"> <span>A. $\overrightarrow{MN} = -\frac{1}{2}\overrightarrow{AB} + \frac{1}{3}\overrightarrow{AC}$</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q4" value="B" class="text-indigo-600 h-4 w-4"> <span>B. $\overrightarrow{MN} = \frac{1}{2}\overrightarrow{AB} + \frac{1}{3}\overrightarrow{AC}$</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q4" value="C" class="text-indigo-600 h-4 w-4"> <span>C. $\overrightarrow{MN} = -\frac{1}{3}\overrightarrow{AB} + \frac{1}{2}\overrightarrow{AC}$</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q4" value="D" class="text-indigo-600 h-4 w-4"> <span>D. $\overrightarrow{MN} = \frac{1}{3}\overrightarrow{AB} - \frac{1}{2}\overrightarrow{AC}$</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Câu 5 -->
+                        <div class="bg-white p-5 rounded-2xl shadow-sm space-y-3">
+                            <p class="text-sm font-bold text-slate-900"><span class="text-indigo-600">Câu 5:</span> Cho $G$ là trọng tâm $\Delta ABC$. Tính tổng vectơ $\vec{v} = \overrightarrow{GA} + \overrightarrow{GB} + \overrightarrow{GC}$ thu được kết quả là:</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs font-semibold text-slate-700">
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q5" value="A" required class="text-indigo-600 h-4 w-4"> <span>A. $\vec{0}$</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q5" value="B" class="text-indigo-600 h-4 w-4"> <span>B. $3\overrightarrow{GG}$</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q5" value="C" class="text-indigo-600 h-4 w-4"> <span>C. $3\overrightarrow{GA}$</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q5" value="D" class="text-indigo-600 h-4 w-4"> <span>D. $\overrightarrow{AB} + \overrightarrow{AC}$</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pt-2 flex flex-col sm:flex-row items-center justify-between gap-4">
+                        <button type="submit" id="submitBtn" class="w-full sm:w-auto bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-sm px-8 py-3.5 rounded-xl shadow-lg transition-all flex items-center justify-center space-x-2 cursor-pointer">
+                            <i class="fa-solid fa-cloud-arrow-up"></i> <span>Nộp Bài Chấm Điểm</span>
+                        </button>
+                        <div id="statusReport" class="text-xs font-bold text-slate-400"></div>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer bản quyền -->
+    <footer class="bg-slate-900 text-slate-400 py-8 text-center text-xs font-medium px-4 mt-auto">
+        <p class="font-bold text-slate-300">@ Bản quyền thuộc ThS. Đinh Quốc Tuấn - Mục đích phi lợi nhuận - Vì giáo dục.</p>
+        <p class="text-slate-500 mt-2">Hệ thống bài giảng trực tuyến tương tác tích hợp đồng bộ dữ liệu điểm số học sinh.</p>
+    </footer>
+
+    <!-- NÚT IN TÀI LIỆU CỐ ĐỊNH -->
+    <button id="btn-print-doc" onclick="safePrint()" class="fixed bottom-5 right-5 bg-gray-900 text-white px-4 py-2 rounded-lg shadow-lg hover:bg-gray-700 print:hidden z-50 cursor-pointer">
+        <i class="fas fa-print mr-2"></i> In Tài Liệu
+    </button>
+
+    <script>
+        function safePrint() {
+            const printBtn = document.getElementById('btn-print-doc');
+            printBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Đang chuẩn bị...';
+            
+            // Đảm bảo MathJax đã render xong mọi công thức trước khi gọi hộp thoại in
+            if (window.MathJax && window.MathJax.typesetPromise) {
+                MathJax.typesetPromise().then(() => {
+                    printBtn.innerHTML = '<i class="fas fa-print mr-2"></i> In Tài Liệu';
+                    window.print();
+                });
+            } else {
+                // Fallback nếu không có công thức toán
+                setTimeout(() => window.print(), 500); 
+            }
+        }
+    </script>
+
+    <!-- HỆ THỐNG ĐIỀU KHIỂN ĐỒ HỌA JSXGRAPH & FORM QUIZ APPS SCRIPT -->
+    <script>
+        const timeInit = new Date();
+
+        document.addEventListener("DOMContentLoaded", function() {
+            
+            // --- MÔ HÌNH 1: TÍNH PHÂN PHỐI K(A + B) (BOX 1) ---
+            const b1 = JXG.JSXGraph.initBoard('box1', {
+                boundingbox: [-1, 7, 8, -1], axis: false, showNavigation: false, showCopyright: false
+            });
+
+            let slK1 = b1.create('slider', [[0.5, 6], [4.5, 6], [0.5, 1.5, 3]], {
+                name: 'k', snapWidth: 0.1, color: '#4f46e5'
+            });
+
+            let pA1 = b1.create('point', [0, 0], {name: 'A', color: '#0f172a', size: 3, fixed: true});
+            let pB1 = b1.create('point', [2, 1], {name: 'B', color: '#0f172a', size: 3, fixed: true});
+            let pC1 = b1.create('point', [3, 3], {name: 'C', color: '#0f172a', size: 3, fixed: true});
+
+            let pB1_prime = b1.create('point', [
+                function() { return pA1.X() + slK1.Value() * (pB1.X() - pA1.X()); },
+                function() { return pA1.Y() + slK1.Value() * (pB1.Y() - pA1.Y()); }
+            ], {name: "B'", color: '#2563eb', size: 3});
+
+            let pC1_prime = b1.create('point', [
+                function() { return pA1.X() + slK1.Value() * (pC1.X() - pA1.X()); },
+                function() { return pA1.Y() + slK1.Value() * (pC1.Y() - pA1.Y()); }
+            ], {name: "C'", color: '#dc2626', size: 3});
+
+            b1.create('arrow', [pA1, pB1], {strokeColor: '#cbd5e1', strokeWidth: 1.5});
+            b1.create('arrow', [pB1, pC1], {strokeColor: '#cbd5e1', strokeWidth: 1.5});
+            b1.create('arrow', [pA1, pC1], {strokeColor: '#cbd5e1', strokeWidth: 1.5});
+
+            b1.create('arrow', [pA1, pB1_prime], {strokeColor: '#2563eb', strokeWidth: 2.5});
+            b1.create('arrow', [pB1_prime, pC1_prime], {strokeColor: '#10b981', strokeWidth: 2.5});
+            b1.create('arrow', [pA1, pC1_prime], {strokeColor: '#dc2626', strokeWidth: 3});
+
+
+            // --- MÔ HÌNH 2: ĐIỀU KIỆN THẲNG HÀNG AB = K*AC (BOX 2) ---
+            const b2 = JXG.JSXGraph.initBoard('box2', {
+                boundingbox: [-4, 4, 6, -4], axis: true, showNavigation: false, showCopyright: false
+            });
+
+            let pA2 = b2.create('point', [-2, -1], {name: 'A', color: '#0f172a', size: 3, fixed: true});
+            let pC2 = b2.create('point', [4, 2], {name: 'C', color: '#0f172a', size: 3, fixed: true});
+            b2.create('line', [pA2, pC2], {strokeColor: '#e2e8f0', strokeWidth: 1.5, dash: 2});
+            
+            let slK2 = b2.create('slider', [[-3, 3], [1, 3], [-1.5, 0.5, 2]], {
+                name: 'k', snapWidth: 0.1, color: '#d97706'
+            });
+            
+            let pB2 = b2.create('point', [
+                function() { return pA2.X() + slK2.Value() * (pC2.X() - pA2.X()); },
+                function() { return pA2.Y() + slK2.Value() * (pC2.Y() - pA2.Y()); }
+            ], {name: 'B', color: '#dc2626', size: 4});
+
+            b2.create('arrow', [pA2, pC2], {strokeColor: '#2563eb', strokeWidth: 2});
+            b2.create('arrow', [pA2, pB2], {strokeColor: '#dc2626', strokeWidth: 2.5});
+
+
+            // --- MÔ HÌNH 3: PHÂN TÍCH VECTƠ TRÊN HỆ LƯỚI XIÊN (BOX 3) ---
+            const b3 = JXG.JSXGraph.initBoard('box3', {
+                boundingbox: [-1, 5, 6, -1], axis: false, showNavigation: false, showCopyright: false
+            });
+
+            let pO3 = b3.create('point', [0, 0], {name: 'O', color: '#0f172a', size: 3, fixed: true});
+            let pVa3 = b3.create('point', [2, 0], {name: 'a', color: '#2563eb', size: 3, fixed: true});
+            let pVb3 = b3.create('point', [1, 2], {name: 'b', color: '#d97706', size: 3, fixed: true});
+
+            b3.create('arrow', [pO3, pVa3], {strokeColor: '#2563eb', strokeWidth: 2.5});
+            b3.create('arrow', [pO3, pVb3], {strokeColor: '#d97706', strokeWidth: 2.5});
+
+            let pM3 = b3.create('point', [4, 3], {name: 'M (u)', color: '#dc2626', size: 4});
+
+            let pA_proj3 = b3.create('point', [
+                function() { return (pM3.X() - pM3.Y()/2); },
+                0
+            ], {visible: false});
+
+            let pB_proj3 = b3.create('point', [
+                function() { return pM3.Y()/2; },
+                function() { return pM3.Y(); }
+            ], {visible: false});
+
+            b3.create('polygon', [pO3, pA_proj3, pM3, pB_proj3], {
+                fillColor: '#e0e7ff', fillOpacity: 0.3, strokeColor: '#818cf8', strokeWidth: 1, dash: 2
+            });
+
+            b3.create('arrow', [pO3, pM3], {strokeColor: '#dc2626', strokeWidth: 3});
+
+            let statusBox3 = document.getElementById('status-box3');
+            pM3.on('drag', function() {
+                let y_val = (pM3.Y() / 2).toFixed(2);
+                let x_val = ((pM3.X() - pM3.Y()/2) / 2).toFixed(2);
+                statusBox3.innerHTML = `$$\\vec{u} = ${x_val}\\vec{a} + ${y_val}\\vec{b}$$`;
+            });
+        });
+
+        // --- XỬ LÝ NỘP BÀI TRẮC NGHIỆM VÀ ĐẨY DỮ LIỆU APPS SCRIPT ---
+        document.getElementById('quizForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const submitBtn = document.getElementById('submitBtn');
+            const statusReport = document.getElementById('statusReport');
+            
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i> Hệ thống đang nộp bài...';
+            statusReport.innerHTML = "Đang kết nối cơ sở dữ liệu bảng tính...";
+
+            const correctKey = { q1: "B", q2: "B", q3: "A", q4: "A", q5: "A" };
+            const studentName = document.getElementById('studentName').value.trim();
+            const lessonId = document.getElementById('examId').value.trim();
+            
+            let correctCounter = 0;
+            let totalQuizCount = Object.keys(correctKey).length;
+            let missedReportArray = [];
+
+            for (let questionCode in correctKey) {
+                const selectedRadio = document.querySelector(`input[name="${questionCode}"]:checked`);
+                if (selectedRadio && selectedRadio.value === correctKey[questionCode]) {
+                    correctCounter++;
+                } else {
+                    let chosenChar = selectedRadio ? selectedRadio.value : "Bỏ trống";
+                    missedReportArray.push(`${questionCode.toUpperCase()}(Chọn: ${chosenChar}|Đúng: ${correctKey[questionCode]})`);
+                }
+            }
+
+            const finalScore = ((correctCounter / totalQuizCount) * 10).toFixed(2);
+            const timeComplete = new Date();
+            const elapsedDurationSeconds = Math.floor((timeComplete - timeInit) / 1000);
+            const thoiGian = `${Math.floor(elapsedDurationSeconds / 60)} phút ${elapsedDurationSeconds % 60} giây`;
+            const cauSai = missedReportArray.length > 0 ? missedReportArray.join(", ") : "Không có (Đạt 10/10)";
+
+            const transmissionPayload = {
+                hoTen: studentName,
+                maDe: lessonId,
+                diem: parseFloat(finalScore),
+                thoiGian: thoiGian,
+                cauSai: cauSai
+            };
+
+            const webAppsScriptEndpoint = "https://script.google.com/macros/s/AKfycbzY7b7h4OwvhXuK5Vs6hl-aD88BPnAiAKbU5lfJobby0D4nzbIJVKT4n0AKCpAGoK0nZA/exec";
+
+            fetch(webAppsScriptEndpoint, {
+                method: "POST",
+                mode: "no-cors",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(transmissionPayload)
+            })
+            .then(() => {
+                statusReport.className = "text-xs font-bold text-emerald-500 bg-emerald-50 px-3 py-2 rounded-xl border border-emerald-200 inline-block";
+                statusReport.innerHTML = `<i class="fa-solid fa-circle-check"></i> Đã đồng bộ kết quả thành công: ${finalScore}/10.`;
+                alert(`Hệ thống ghi nhận bài nộp thành công!\nChào em ${studentName}, điểm số đạt được là: ${finalScore} / 10.`);
+                submitBtn.innerHTML = '<i class="fa-solid fa-lock"></i> Đã lưu kết quả thi';
+            })
+            .catch(error => {
+                console.error("Lỗi truyền tin:", error);
+                statusReport.className = "text-xs font-bold text-rose-500 bg-rose-50 px-3 py-2 rounded-xl border border-rose-200 inline-block";
+                statusReport.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> Lỗi kết nối mạng, vui lòng bấm nộp lại!';
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Thử nộp lại bài';
+            });
+        });
+    </script>
+</body>
+</html>
