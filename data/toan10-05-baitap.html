@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buổi 5: Bất Phương Trình Bậc Nhất Hai Ẩn — ThS. Đinh Quốc Tuấn</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- FontAwesome Icons CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts: Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- MathJax Configuration & Script -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['\\(', '\\)'], ['$', '$']],
+                displayMath: [['\\[', '\\]'], ['$$', '$$']]
+            },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <!-- JSXGraph CSS & Core Engine -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraph.css" />
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraphcore.js"></script>
+
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #f8fafc;
+            color: #0f172a;
+        }
+        .jxgbox {
+            background-color: #ffffff !important;
+            border-radius: 1rem;
+            overflow: hidden;
+            border: 1px solid #e2e8f0;
+        }
+        @media print {
+            .print\:hidden { display: none !important; }
+            body { background: white !important; color: black !important; }
+            details { display: block !important; }
+            details summary { display: none !important; }
+            .page-break { page-break-before: always; }
+            .card-border { box-shadow: none !important; border: 1px solid #e5e7eb !important; }
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col antialiased selection:bg-indigo-100">
+
+    <!-- Header học thuật -->
+    <header class="border-b border-slate-200 sticky top-0 bg-white/95 backdrop-blur-md z-40 print:hidden">
+        <div class="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 px-6 py-4">
+            <div class="flex items-center gap-4">
+                <img src="https://firebasestorage.googleapis.com/v0/b/link-anh-web.firebasestorage.app/o/Logo-chinh-hcmus.png?alt=media&token=9cf3a1de-75f1-493b-8711-fd22c7b98738" alt="Logo HCMUS" class="h-14 w-auto object-contain">
+                <div class="border-l-2 border-slate-300 pl-4">
+                    <span class="text-xs font-bold tracking-widest text-indigo-600 uppercase block mb-0.5">Tài liệu số hóa tương tác</span>
+                    <span class="text-base font-extrabold text-slate-800">Đại Số Lớp 10 • Chuyên Đề Bất Phương Trình</span>
+                </div>
+            </div>
+            <div class="flex items-center gap-3 sm:text-right">
+                <div class="hidden sm:block">
+                    <p class="text-xs text-slate-400 font-semibold">Giảng viên biên soạn:</p>
+                    <p class="text-sm font-extrabold text-slate-800">ThS. Đinh Quốc Tuấn</p>
+                </div>
+                <img src="https://firebasestorage.googleapis.com/v0/b/link-anh-web.firebasestorage.app/o/ttbdvh.jpg?alt=media&token=f270aa9b-a2bc-48e8-8910-80742b542615" 
+                     alt="Logo TTBDVH" class="h-14 w-14 object-cover rounded-full border border-slate-200 shadow-inner">
+            </div>
+        </div>
+    </header>
+
+    <!-- Banner chào mừng -->
+    <div class="bg-gradient-to-r from-indigo-50 via-slate-50 to-emerald-50 border-b border-slate-200 py-10 print:hidden">
+        <div class="max-w-4xl mx-auto px-6 space-y-4">
+            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-indigo-100 text-indigo-800 border border-indigo-200 shadow-xs">
+                <i class="fa-solid fa-chart-area mr-1.5 text-indigo-600"></i> Miền Nghiệm Mặt Phẳng Tọa Độ
+            </span>
+            <h1 class="text-2xl sm:text-4xl font-black tracking-tight text-slate-900 leading-tight">
+                Buổi 5: Bài Tập Bất Phương Trình Bậc Nhất Hai Ẩn
+            </h1>
+            <p class="text-slate-600 text-sm sm:text-base font-medium leading-relaxed text-justify">
+                Chào các em! Bất phương trình bậc nhất hai ẩn có dạng $ax + by + c < 0$ (hoặc $>,\le, \ge$). Khác với bất phương trình một ẩn cho ra các khoảng số thực trên đường thẳng, nghiệm của bất phương trình hai ẩn là cả một <strong>nửa mặt phẳng</strong>. Dưới đây là hệ thống 30 bài tập luyện tập 3 cấp độ kèm các mô hình JSXGraph mô phỏng hình học tương tác giúp các em nắm chắc kĩ năng biểu diễn miền nghiệm!
+            </p>
+        </div>
+    </div>
+
+    <!-- Không gian nội dung chính -->
+    <main class="max-w-4xl mx-auto px-4 sm:px-6 py-10 flex-grow w-full space-y-16">
+        
+        <!-- ================= MÔ HÌNH HÌNH HỌC TƯƠNG TÁC JSXGRAPH ================= -->
+        <section class="space-y-8 print:hidden bg-slate-100 p-6 rounded-3xl border border-slate-200">
+            <div class="border-b border-slate-200 pb-3">
+                <h2 class="text-lg font-black text-slate-800 flex items-center uppercase tracking-wide">
+                    <i class="fa-solid fa-compass-drafting mr-2.5 text-indigo-600 text-xl"></i> Mô hình trực quan Bất phương trình 2 ẩn
+                </h2>
+                <p class="text-xs text-slate-500 mt-1">Trực quan hóa kiểm tra điểm nghiệm, gạch bỏ nửa mặt phẳng không thỏa mãn và vùng giới hạn thực tế.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Mô hình 1 -->
+                <div class="flex flex-col bg-white p-4 rounded-2xl border border-slate-200 shadow-2xs">
+                    <h3 class="font-bold text-slate-900 text-xs mb-1 flex items-center gap-1.5">
+                        <i class="fa-solid fa-location-dot text-indigo-600"></i> Mô hình 1: Kiểm tra nghiệm $x - 2y \le 4$
+                    </h3>
+                    <p class="text-[11px] text-slate-500 mb-3">Kéo điểm M(x, y) trên mặt phẳng. Hệ thống tự tính $x - 2y$ và kết luận có thuộc miền nghiệm hay không.</p>
+                    <div id="box1" class="w-full h-56 jxgbox"></div>
+                    <div id="status-box1" class="text-[11px] font-bold p-2 mt-2 bg-indigo-50 border border-indigo-100 rounded-lg text-center text-slate-700 font-mono">
+                        Điểm M(0, 0) &rArr; 0 - 0 = 0 &le; 4 (LÀ NGHIỆM)
+                    </div>
+                </div>
+
+                <!-- Mô hình 2 -->
+                <div class="flex flex-col bg-white p-4 rounded-2xl border border-slate-200 shadow-2xs">
+                    <h3 class="font-bold text-slate-900 text-xs mb-1 flex items-center gap-1.5">
+                        <i class="fa-solid fa-border-top-left text-amber-500"></i> Mô hình 2: Nửa mặt phẳng $x + 2y < 3$
+                    </h3>
+                    <p class="text-[11px] text-slate-500 mb-3">Đường nét đứt $x + 2y = 3$. Phần bị gạch sọc biểu diễn miền không thỏa mãn. Miền nghiệm chứa $O(0,0)$.</p>
+                    <div id="box2" class="w-full h-56 jxgbox"></div>
+                    <div id="status-box2" class="text-[11px] font-bold p-2 mt-2 bg-amber-50 border border-amber-100 rounded-lg text-center text-amber-900 font-mono">
+                        Thử O(0,0): 0 + 0 < 3 (Đúng) &rArr; Giữ miền chứa O
+                    </div>
+                </div>
+
+                <!-- Mô hình 3 -->
+                <div class="flex flex-col bg-white p-4 rounded-2xl border border-slate-200 shadow-2xs">
+                    <h3 class="font-bold text-slate-900 text-xs mb-1 flex items-center gap-1.5">
+                        <i class="fa-solid fa-bottle-water text-emerald-600"></i> Mô hình 3: Giới hạn tẩy rửa (Bài 23)
+                    </h3>
+                    <p class="text-[11px] text-slate-500 mb-3">Giới hạn $3x + 2y \le 12$ ($x, y \ge 0$). Miền nghiệm là tam giác vuông tô màu xanh lá dương tính.</p>
+                    <div id="box3" class="w-full h-56 jxgbox"></div>
+                    <div id="status-box3" class="text-[11px] font-bold p-2 mt-2 bg-emerald-50 border border-emerald-100 rounded-lg text-center text-emerald-800 font-mono">
+                        3x + 2y &le; 12 (Miền khả thi thực tế)
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= PHẦN 1: CẤP ĐỘ CƠ BẢN ================= -->
+        <section class="space-y-6">
+            <div class="flex items-center gap-3 border-b pb-3 border-slate-200">
+                <span class="bg-sky-600 text-white text-xs font-black px-3 py-1 rounded-md uppercase tracking-wider">Cấp độ 1</span>
+                <h2 class="text-xl font-extrabold text-slate-900">PHẦN 1: CẤP ĐỘ CƠ BẢN (10 BÀI NHẬN BIẾT & VẼ MIỀN NGHIỆM)</h2>
+            </div>
+            <p class="text-xs font-bold text-sky-800 bg-sky-50 px-3 py-2 rounded-lg inline-block">
+                Mục tiêu: Nhận biết dạng bất phương trình bậc nhất 2 ẩn, thử nghiệm cặp số nghiệm và biểu diễn miền nghiệm cơ bản.
+            </p>
+
+            <div class="space-y-4">
+                <!-- Bài 1 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 1:</strong> Bất phương trình nào sau đây là bất phương trình bậc nhất hai ẩn?</p>
+                    <p class="text-xs text-slate-600 mb-3">a) $2x^2 + 3y > 4$ &nbsp;&nbsp;&nbsp;&nbsp; b) $x + y^2 \le 3$ &nbsp;&nbsp;&nbsp;&nbsp; c) $2x - 5y + 10 > 0$ &nbsp;&nbsp;&nbsp;&nbsp; d) $x - 3y + z < 0$</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p><strong>Đáp án đúng: c) $2x - 5y + 10 > 0$.</strong></p>
+                            <p>&bull; Câu a có $x^2$ (bậc 2); Câu b có $y^2$ (bậc 2); Câu d có 3 ẩn $x, y, z$.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 2 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 2 (Minh họa Mô hình 1):</strong> Cho bất phương trình $x - 2y \le 4$. Cặp số nào sau đây là nghiệm của bất phương trình?</p>
+                    <p class="text-xs text-slate-600 mb-3">a) $(9; 5)$ &nbsp;&nbsp;&nbsp;&nbsp; b) $(2; -3)$ &nbsp;&nbsp;&nbsp;&nbsp; c) $(10; 2)$</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>&bull; Thay $(9; 5)$: $9 - 2(5) = -1 \le 4$ (Đúng) $\Rightarrow (9; 5)$ là nghiệm.</p>
+                            <p>&bull; Thay $(2; -3)$: $2 - 2(-3) = 8 \le 4$ (Sai) $\Rightarrow (2; -3)$ không phải nghiệm.</p>
+                            <p>&bull; Thay $(10; 2)$: $10 - 2(2) = 6 \le 4$ (Sai) $\Rightarrow (10; 2)$ không phải nghiệm.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 3 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 3:</strong> Cho bất phương trình $x + y - 1 > 0$. Cặp số $(0; 0)$ có phải là nghiệm của bất phương trình này không? Giải thích.</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Thay $x = 0, y = 0$ vào vế trái: $0 + 0 - 1 = -1$.</p>
+                            <p>Vì $-1 > 0$ là mệnh đề sai, nên cặp số $(0; 0)$ <strong>không phải là nghiệm</strong>.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 4 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 4:</strong> Chỉ ra ít nhất 3 cặp số $(x; y)$ là nghiệm của bất phương trình $2x + y > 0$.</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Có vô số nghiệm. Ví dụ 3 cặp số thỏa mãn $2x + y > 0$ là: $(1; 1), (0; 2), (2; -1)$.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 5 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 5:</strong> Bằng cách chuyển vế, đưa $3x < 2y + 4$ về dạng tổng quát $ax + by + c < 0$ và chỉ ra hệ số $a, b, c$.</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Chuyển vế: $3x - 2y - 4 < 0$.</p>
+                            <p>Hệ số: $a = 3$, $b = -2$, $c = -4$.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 6 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 6 (Minh họa Mô hình 2):</strong> Biểu diễn miền nghiệm của bất phương trình $x + 2y < 3$ trên mặt phẳng tọa độ $Oxy$.</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>&bull; Bước 1: Vẽ đường thẳng $d: x + 2y = 3$ (nét đứt) đi qua $(3; 0)$ và $(0; 1.5)$.</p>
+                            <p>&bull; Bước 2: Thử điểm $O(0; 0) \Rightarrow 0 + 2(0) = 0 < 3$ (Đúng).</p>
+                            <p>&bull; Kết luận: Miền nghiệm là nửa mặt phẳng bờ $d$ chứa gốc $O(0; 0)$ (không kể đường thẳng $d$).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 7 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 7:</strong> Biểu diễn miền nghiệm của bất phương trình $x - y \ge 2$ trên mặt phẳng tọa độ $Oxy$.</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>&bull; Vẽ đường thẳng $d: x - y = 2$ (nét liền) qua $(2;0)$ và $(0;-2)$.</p>
+                            <p>&bull; Thử $O(0; 0) \Rightarrow 0 - 0 = 0 \ge 2$ (Sai) $\Rightarrow$ Gạch bỏ nửa mặt phẳng chứa $O$.</p>
+                            <p>&bull; Kết luận: Miền nghiệm là nửa mặt phẳng bờ $d$ không chứa $O(0;0)$ (kể cả đường thẳng $d$).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 8 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 8:</strong> Biểu diễn miền nghiệm của bất phương trình một ẩn $x \ge 2$ trên mặt phẳng tọa độ $Oxy$.</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Vẽ đường thẳng $x = 2$ (nét liền) song song với trục $Oy$. Miền nghiệm là nửa mặt phẳng bên phải đường thẳng $x = 2$ (kể cả bờ).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 9 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 9:</strong> Biểu diễn miền nghiệm của bất phương trình $y < -1$ trên mặt phẳng tọa độ $Oxy$.</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Vẽ đường thẳng $y = -1$ (nét đứt) song song với trục $Ox$. Miền nghiệm là nửa mặt phẳng phía dưới đường thẳng $y = -1$ (không kể bờ).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 10 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 10:</strong> Cho bất phương trình $3x - 2y \le -6$. Không vẽ hình, hãy kiểm tra xem $M(0; 0)$ và $N(-2; 1)$ có thuộc miền nghiệm không?</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>&bull; $M(0; 0) \Rightarrow 3(0) - 2(0) = 0 \le -6$ (Sai) $\Rightarrow M \notin$ Miền nghiệm.</p>
+                            <p>&bull; $N(-2; 1) \Rightarrow 3(-2) - 2(1) = -8 \le -6$ (Đúng) $\Rightarrow N \in$ Miền nghiệm.</p>
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ================= PHẦN 2: CẤP ĐỘ NÂNG CAO ================= -->
+        <section class="space-y-6">
+            <div class="flex items-center gap-3 border-b pb-3 border-slate-200">
+                <span class="bg-amber-600 text-white text-xs font-black px-3 py-1 rounded-md uppercase tracking-wider">Cấp độ 2</span>
+                <h2 class="text-xl font-extrabold text-slate-900">PHẦN 2: CẤP ĐỘ NÂNG CAO (10 BÀI BIẾN ĐỔI & TƯ DUY NGƯỢC)</h2>
+            </div>
+            <p class="text-xs font-bold text-amber-800 bg-amber-50 px-3 py-2 rounded-lg inline-block">
+                Mục tiêu: Đòi hỏi kỹ năng rút gọn đại số, xác định bất phương trình từ hình vẽ đồ thị và biện luận tham số $m$.
+            </p>
+
+            <div class="space-y-4">
+                <!-- Bài 11 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 11 (Xác định BPT từ đồ thị):</strong> Đường thẳng $d$ đi qua $A(0; 2)$ và $B(2; 0)$. Nửa mặt phẳng chứa $O(0; 0)$ bị gạch chéo (không kể $d$). Viết bất phương trình ứng với miền nghiệm không bị gạch.</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Phương trình đường thẳng $d: x + y = 2$.</p>
+                            <p>Thử $O(0; 0) \Rightarrow 0 + 0 = 0 < 2$. Vì vùng chứa $O$ bị gạch chéo và nét đứt nên bất phương trình cần tìm là: <strong>$x + y > 2$</strong>.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 12 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 12:</strong> Đường thẳng $d$ đi qua $(0; -1)$ và $(2; 0)$. Phần nửa mặt phẳng chứa gốc $O$ (kể cả bờ $d$) không bị gạch. Xác định bất phương trình tương ứng.</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Đường thẳng $d: \frac{x}{2} + \frac{y}{-1} = 1 \Leftrightarrow x - 2y = 2$.</p>
+                            <p>Thử $O(0; 0) \Rightarrow 0 - 2(0) = 0 \le 2$ (Đúng). Do đó BPT là: <strong>$x - 2y \le 2$</strong>.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 13 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 13 (Quy đồng mẫu số):</strong> Rút gọn và biểu diễn miền nghiệm bất phương trình dạng phân số: $\frac{x - 1}{2} + \frac{y + 2}{3} \le 1$.</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Quy đồng mẫu chung 6: $3(x - 1) + 2(y + 2) \le 6 \Leftrightarrow 3x + 2y + 1 \le 6 \Leftrightarrow 3x + 2y \le 5$.</p>
+                            <p>Vẽ đường $3x + 2y = 5$. Nửa mặt phẳng chứa $O(0;0)$ là miền nghiệm.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 14 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 14:</strong> Tìm tất cả các điểm $(x; y)$ với $x, y$ là số nguyên dương thuộc miền nghiệm của $x + y \le 2$.</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Vì $x, y \in \mathbb{Z}^+ \Rightarrow x \ge 1, y \ge 1 \Rightarrow x + y \ge 2$.</p>
+                            <p>Do $x + y \le 2$ nên $x + y = 2 \Rightarrow x = 1, y = 1$. Vậy có duy nhất 1 điểm: <strong>$(1; 1)$</strong>.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 15 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 15 (Biện luận tham số m):</strong> Tìm m để cặp số $(1; -1)$ là nghiệm của bất phương trình $mx + (2-m)y > 3$.</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Thay $x = 1, y = -1$ vào BPT:</p>
+                            <p>$m(1) + (2-m)(-1) > 3 \Leftrightarrow m - 2 + m > 3 \Leftrightarrow 2m > 5 \Leftrightarrow m > 2,5$.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 16 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 16:</strong> Cho bất phương trình $x - y + m \ge 0$. Tìm $m$ để gốc tọa độ $O(0; 0)$ thuộc miền nghiệm.</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Thay $x = 0, y = 0$ vào BPT: $0 - 0 + m \ge 0 \Leftrightarrow m \ge 0$.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 17 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 17:</strong> Chứng minh hai bất phương trình $2x - y > 1$ và $-4x + 2y < -2$ có cùng một miền nghiệm.</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Nhân 2 vế của $2x - y > 1$ với $-2$ (và đổi chiều BPT):</p>
+                            <p>$-2 \cdot (2x - y) < -2 \cdot 1 \Leftrightarrow -4x + 2y < -2$.</p>
+                            <p>Hai BPT tương đương nên có cùng miền nghiệm trên $Oxy$.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 18 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 18:</strong> Cho $A(2; 1)$ và $B(-1; 3)$. Viết BPT bậc nhất 2 ẩn biểu diễn nửa mặt phẳng bờ $AB$ chứa gốc $O$ (không kể bờ).</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>PT đường thẳng $AB: 2x + 3y - 7 = 0$. Thử $O(0;0) \Rightarrow 2(0) + 3(0) - 7 = -7 < 0$.</p>
+                            <p>BPT biểu diễn nửa mặt phẳng không kể bờ $AB$ chứa $O$ là: <strong>$2x + 3y < 7$</strong>.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 19 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 19:</strong> Tìm điểm có hoành độ nguyên âm và tung độ nguyên dương thuộc miền nghiệm của $2x + y + 1 > 0$.</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Vì $x < 0 \Rightarrow x \le -1$. Với $x = -1 \Rightarrow 2(-1) + y + 1 > 0 \Rightarrow y > 1 \Rightarrow y \in \{2, 3, 4, \dots\}$.</p>
+                            <p>Ví dụ điểm thỏa mãn: <strong>$(-1; 2), (-1; 3)$</strong>.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 20 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 20:</strong> Cho đường $ax + by + c = 0$ qua góc I, II, IV. Miền nghiệm $ax + by + c > 0$ chứa gốc $O$. Xác định dấu của $c$.</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Vì $O(0; 0)$ thuộc miền nghiệm $ax + by + c > 0 \Rightarrow a(0) + b(0) + c > 0 \Rightarrow \mathbf{c > 0}$.</p>
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ================= PHẦN 3: MỨC ĐỘ VẬN DỤNG ================= -->
+        <section class="space-y-6">
+            <div class="flex items-center gap-3 border-b pb-3 border-slate-200">
+                <span class="bg-emerald-600 text-white text-xs font-black px-3 py-1 rounded-md uppercase tracking-wider">Cấp độ 3</span>
+                <h2 class="text-xl font-extrabold text-slate-900">PHẦN 3: CẤP ĐỘ VẬN DỤNG THỰC TIỄN (10 BÀI TOÁN LỜI VĂN)</h2>
+            </div>
+            <p class="text-xs font-bold text-emerald-800 bg-emerald-50 px-3 py-2 rounded-lg inline-block">
+                Mục tiêu: Đọc hiểu tình huống đời sống (tài chính, dinh dưỡng, sản xuất), lập mô hình toán học bất phương trình 2 ẩn.
+            </p>
+
+            <div class="space-y-4">
+                <!-- Bài 21 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 21 (Ủng hộ từ thiện):</strong> Hoa có 420k để ủng hộ $x$ tờ 10k và $y$ tờ 20k. Lập BPT giới hạn số tiền và chỉ ra 2 cặp số $(x; y)$ hợp lệ.</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>&bull; BPT: $10x + 20y \le 420 \Leftrightarrow x + 2y \le 42$ ($x, y \in \mathbb{N}$).</p>
+                            <p>&bull; 2 cặp số hợp lệ: $(10; 10)$ (tổng 300k) và $(20; 10)$ (tổng 400k).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 22 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 22 (Khẩu phần dinh dưỡng):</strong> 100g thịt bò có 26g protein, 100g cá rô phi có 20g protein. Cần tối thiểu 60g protein/ngày. Gọi $x, y$ là số lạng thịt bò và cá rô phi. Lập BPT.</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>BPT protein: $26x + 20y \ge 60 \Leftrightarrow 13x + 10y \ge 30$ ($x, y \ge 0$).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 23 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 23 (Minh họa Mô hình 3):</strong> Pha $x$ lít nước rửa xe loại I (cần 600ml tẩy) và $y$ lít loại II (cần 400ml tẩy). Có sẵn 2400ml chất tẩy rửa. Lập BPT.</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>BPT chất tẩy: $600x + 400y \le 2400 \Leftrightarrow 3x + 2y \le 12$ ($x, y \ge 0$).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 24 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 24 (Trưng bày gian hàng):</strong> Gian hàng $60\text{ m}^2$, kê 1 ghế mất $0,5\text{ m}^2$, 1 bàn mất $1,2\text{ m}^2$. Dành tối thiểu $12\text{ m}^2$ lối đi. Lập BPT cho $x$ bàn, $y$ ghế.</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Diện tích kê bàn ghế tối đa: $60 - 12 = 48\text{ m}^2$.</p>
+                            <p>BPT: $1,2x + 0,5y \le 48 \Leftrightarrow 12x + 5y \le 480$ ($x, y \in \mathbb{N}$).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 25 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 25 (Pha trộn cà phê):</strong> Trộn $x$ kg loại 1 (140k/kg) và $y$ kg loại 2 (180k/kg) để tổng tiền không quá 1700k. Lập BPT tương ứng.</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>BPT chi phí: $140x + 180y \le 1700 \Leftrightarrow 7x + 9y \le 85$ ($x, y \ge 0$).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 26 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 26 (Doanh thu rạp phim):</strong> Bán $x$ vé trẻ em (50k) và $y$ vé người lớn (100k). Tìm BPT sao cho thu được tối thiểu 20 triệu đồng.</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Đổi 20 triệu = 20000 nghìn. BPT: $50x + 100y \ge 20000 \Leftrightarrow x + 2y \ge 400$.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 27 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 27 (Mua dụng cụ học tập):</strong> Mua $x$ quyển vở (8k/quyển) và $y$ chiếc bút (6k/chiếc) với ngân sách 150k. Lập BPT điều kiện.</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>BPT chi tiêu: $8x + 6y \le 150 \Leftrightarrow 4x + 3y \le 75$ ($x, y \in \mathbb{N}$).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 28 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 28 (Cước viễn thông):</strong> Phí nội mạng 1k/phút ($x$), ngoại mạng 2k/phút ($y$). Giới hạn cước không quá 100k/tháng. Lập BPT.</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>BPT cước điện thoại: $x + 2y \le 100$ ($x, y \ge 0$).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 29 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 29 (Làm hoa giấy):</strong> Làm 1 bình hoa nhỏ ($x$) mất 1h, bình lớn ($y$) mất 1,5h. Tối đa 15h làm việc. Lập BPT thời gian.</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>BPT thời gian: $x + 1,5y \le 15 \Leftrightarrow 2x + 3y \le 30$ ($x, y \in \mathbb{N}$).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 30 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 30 (Sản xuất đồ gỗ):</strong> Đóng $x$ tủ và $y$ giường. Tủ cần 4h máy cắt, 2h máy mài. Giường cần 3h máy cắt, 3h máy mài. Máy cắt làm không quá 40h, mài không quá 30h. Lập hệ BPT.</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>&bull; Máy cắt: $4x + 3y \le 40$.</p>
+                            <p>&bull; Máy mài: $2x + 3y \le 30$.</p>
+                            <p>&bull; Điều kiện thực tế: $x \ge 0, y \ge 0$.</p>
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ================= BÀI TẬP ĐÁNH GIÁ NĂNG LỰC TRẮC NGHIỆM ================= -->
+        <section class="border-t border-slate-200 pt-10 page-break">
+            <div class="bg-gradient-to-br from-slate-900 via-slate-800 to-indigo-950 text-white rounded-3xl p-6 sm:p-8 shadow-xl relative overflow-hidden card-border">
+                <div class="max-w-xl space-y-2">
+                    <span class="text-xs font-bold uppercase tracking-widest text-emerald-400 bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-500/20 inline-block">Đánh giá trực tuyến tại lớp</span>
+                    <h2 class="text-xl sm:text-2xl font-black tracking-tight">BÀI TẬP ĐÁNH GIÁ NĂNG LỰC TẠI LỚP</h2>
+                    <p class="text-slate-400 text-xs sm:text-sm">Học sinh hoàn thành trắc nghiệm 5 câu dưới đây. Kết quả điểm số sẽ được truyền tự động về Google Sheets hệ thống.</p>
+                </div>
+
+                <form id="quizForm" class="mt-8 space-y-6 text-slate-900">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div class="bg-white p-4 rounded-xl shadow-inner border border-slate-100">
+                            <label class="block text-xs font-bold text-slate-400 uppercase tracking-wide mb-1"><i class="fa-solid fa-user-graduate mr-1 text-indigo-500"></i> Họ và tên học sinh</label>
+                            <input type="text" id="studentName" required placeholder="Nhập họ tên đầy đủ..." class="w-full bg-white border-b-2 border-slate-200 focus:border-indigo-500 outline-none py-1 text-sm font-bold text-slate-900 transition-colors">
+                        </div>
+                        <div class="bg-white p-4 rounded-xl shadow-inner border border-slate-100">
+                            <label class="block text-xs font-bold text-slate-400 uppercase tracking-wide mb-1"><i class="fa-solid fa-file-code mr-1 text-indigo-500"></i> Mã chuyên đề bài học</label>
+                            <input type="text" id="examId" readonly value="Buoi05_BatPhuongTrinh2An_Toan10" class="w-full bg-slate-50 border-b-2 border-slate-200 outline-none py-1 text-sm font-bold text-slate-500 cursor-not-allowed">
+                        </div>
+                    </div>
+
+                    <!-- Khối câu hỏi trắc nghiệm -->
+                    <div class="space-y-5 mt-6">
+                        <!-- Câu 1 -->
+                        <div class="bg-white p-5 rounded-2xl shadow-sm space-y-3">
+                            <p class="text-sm font-bold text-slate-900"><span class="text-indigo-600">Câu 1:</span> Bất phương trình nào sau đây là Bất phương trình bậc nhất hai ẩn?</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs font-semibold text-slate-700">
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q1" value="A" required class="text-indigo-600 h-4 w-4"> <span>A. $2x^2 + 3y > 4$</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q1" value="B" class="text-indigo-600 h-4 w-4"> <span>B. $2x - 5y + 10 > 0$</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q1" value="C" class="text-indigo-600 h-4 w-4"> <span>C. $x + y^2 \le 3$</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q1" value="D" class="text-indigo-600 h-4 w-4"> <span>D. $x - 3y + z < 0$</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Câu 2 -->
+                        <div class="bg-white p-5 rounded-2xl shadow-sm space-y-3">
+                            <p class="text-sm font-bold text-slate-900"><span class="text-indigo-600">Câu 2:</span> Cặp số nào sau đây LÀ NGHIỆM của bất phương trình $x - 2y \le 4$?</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs font-semibold text-slate-700">
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q2" value="A" required class="text-indigo-600 h-4 w-4"> <span>A. (9; 5)</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q2" value="B" class="text-indigo-600 h-4 w-4"> <span>B. (2; -3)</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q2" value="C" class="text-indigo-600 h-4 w-4"> <span>C. (10; 2)</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Câu 3 -->
+                        <div class="bg-white p-5 rounded-2xl shadow-sm space-y-3">
+                            <p class="text-sm font-bold text-slate-900"><span class="text-indigo-600">Câu 3:</span> Biến đổi bất phương trình $\frac{x-1}{2} + \frac{y+2}{3} \le 1$ về dạng thu gọn ta được:</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs font-semibold text-slate-700">
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q3" value="A" required class="text-indigo-600 h-4 w-4"> <span>A. $3x + 2y \le 5$</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q3" value="B" class="text-indigo-600 h-4 w-4"> <span>B. $3x + 2y \le 1$</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q3" value="C" class="text-indigo-600 h-4 w-4"> <span>C. $2x + 3y \le 5$</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Câu 4 -->
+                        <div class="bg-white p-5 rounded-2xl shadow-sm space-y-3">
+                            <p class="text-sm font-bold text-slate-900"><span class="text-indigo-600">Câu 4:</span> Tìm $m$ để cặp số $(1; -1)$ là nghiệm của bất phương trình $mx + (2-m)y > 3$:</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs font-semibold text-slate-700">
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q4" value="A" required class="text-indigo-600 h-4 w-4"> <span>A. $m > 2,5$</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q4" value="B" class="text-indigo-600 h-4 w-4"> <span>B. $m < 2,5$</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q4" value="C" class="text-indigo-600 h-4 w-4"> <span>C. $m = 2,5$</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Câu 5 -->
+                        <div class="bg-white p-5 rounded-2xl shadow-sm space-y-3">
+                            <p class="text-sm font-bold text-slate-900"><span class="text-indigo-600">Câu 5:</span> Hoa có 420k để ủng hộ $x$ tờ 10k và $y$ tờ 20k. Bất phương trình mô tả điều kiện ngân sách là:</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs font-semibold text-slate-700">
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q5" value="A" required class="text-indigo-600 h-4 w-4"> <span>A. $x + 2y \le 42$</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q5" value="B" class="text-indigo-600 h-4 w-4"> <span>B. $x + 2y \ge 42$</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q5" value="C" class="text-indigo-600 h-4 w-4"> <span>C. $2x + y \le 42$</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pt-2 flex flex-col sm:flex-row items-center justify-between gap-4">
+                        <button type="submit" id="submitBtn" class="w-full sm:w-auto bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-sm px-8 py-3.5 rounded-xl shadow-lg transition-all flex items-center justify-center space-x-2 cursor-pointer">
+                            <i class="fa-solid fa-cloud-arrow-up"></i> <span>Nộp Bài Chấm Điểm</span>
+                        </button>
+                        <div id="statusReport" class="text-xs font-bold text-slate-400"></div>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer bản quyền -->
+    <footer class="bg-slate-900 text-slate-400 py-8 text-center text-xs font-medium px-4 mt-auto">
+        <p class="font-bold text-slate-300">@ Bản quyền thuộc ThS. Đinh Quốc Tuấn - Mục đích phi lợi nhuận - Vì giáo dục.</p>
+        <p class="text-slate-500 mt-2">Hệ thống bài giảng trực tuyến tương tác tích hợp đồng bộ dữ liệu điểm số học sinh.</p>
+    </footer>
+
+    <!-- NÚT IN TÀI LIỆU CỐ ĐỊNH -->
+    <button id="btn-print-doc" onclick="safePrint()" class="fixed bottom-5 right-5 bg-gray-900 text-white px-4 py-2 rounded-lg shadow-lg hover:bg-gray-700 print:hidden z-50 cursor-pointer">
+        <i class="fas fa-print mr-2"></i> In Tài Liệu
+    </button>
+
+    <script>
+        function safePrint() {
+            const printBtn = document.getElementById('btn-print-doc');
+            printBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Đang chuẩn bị...';
+            
+            // Đảm bảo MathJax đã render xong mọi công thức trước khi gọi hộp thoại in
+            if (window.MathJax && window.MathJax.typesetPromise) {
+                MathJax.typesetPromise().then(() => {
+                    printBtn.innerHTML = '<i class="fas fa-print mr-2"></i> In Tài Liệu';
+                    window.print();
+                });
+            } else {
+                // Fallback nếu không có công thức toán
+                setTimeout(() => window.print(), 500); 
+            }
+        }
+    </script>
+
+    <!-- HỆ THỐNG ĐIỀU KHIỂN ĐỒ HỌA JSXGRAPH & FORM QUIZ APPS SCRIPT -->
+    <script>
+        const timeInit = new Date();
+
+        document.addEventListener("DOMContentLoaded", function() {
+            
+            // --- MÔ HÌNH 1: KIỂM TRA NGHIỆM X - 2Y <= 4 (BOX 1) ---
+            const b1 = JXG.JSXGraph.initBoard('box1', {
+                boundingbox: [-2, 6, 12, -4], axis: true, showNavigation: false, showCopyright: false
+            });
+
+            // Đường thẳng x - 2y = 4
+            let line1 = b1.create('line', [[0, -2], [4, 0]], {strokeColor: '#4f46e5', strokeWidth: 2});
+
+            // Point M(x, y) kéo thả
+            let ptM1 = b1.create('point', [0, 0], {name: 'M(x,y)', color: '#dc2626', size: 4});
+
+            let statusBox1 = document.getElementById('status-box1');
+            ptM1.on('drag', function() {
+                let mx = ptM1.X().toFixed(1);
+                let my = ptM1.Y().toFixed(1);
+                let val = (ptM1.X() - 2 * ptM1.Y()).toFixed(1);
+                let isSol = (ptM1.X() - 2 * ptM1.Y() <= 4);
+                let statusText = isSol ? "LÀ NGHIỆM (&le; 4)" : "KHÔNG LÀ NGHIỆM (> 4)";
+                statusBox1.innerHTML = `M(${mx}, ${my}) &rArr; ${mx} - 2(${my}) = ${val} &rArr; ${statusText}`;
+            });
+
+
+            // --- MÔ HÌNH 2: NỬA MẶT PHẲNG X + 2Y < 3 (BOX 2) ---
+            const b2 = JXG.JSXGraph.initBoard('box2', {
+                boundingbox: [-3, 5, 5, -3], axis: true, showNavigation: false, showCopyright: false
+            });
+
+            // Đường nét đứt x + 2y = 3
+            b2.create('line', [[3, 0], [0, 1.5]], {strokeColor: '#d97706', strokeWidth: 2, dash: 2});
+
+            // Miền nghiệm chứa O(0,0)
+            let pO2 = b2.create('point', [0, 0], {name: 'O(0,0)', color: '#10b981', size: 3, fixed: true});
+
+
+            // --- MÔ HÌNH 3: BÀI TOÁN TẨY RỬA 3X + 2Y <= 12 (BOX 3) ---
+            const b3 = JXG.JSXGraph.initBoard('box3', {
+                boundingbox: [-1, 8, 6, -1], axis: true, showNavigation: false, showCopyright: false
+            });
+
+            let pOrigin3 = b3.create('point', [0, 0], {visible: false, fixed: true});
+            let pX3 = b3.create('point', [4, 0], {name: 'X(4,0)', color: '#0f172a', size: 2, fixed: true});
+            let pY3 = b3.create('point', [0, 6], {name: 'Y(0,6)', color: '#0f172a', size: 2, fixed: true});
+
+            b3.create('polygon', [pOrigin3, pX3, pY3], {
+                fillColor: '#10b981', fillOpacity: 0.3, strokeColor: '#047857', strokeWidth: 2
+            });
+        });
+
+        // --- XỬ LÝ NỘP BÀI TRẮC NGHIỆM VÀ ĐẨY DỮ LIỆU APPS SCRIPT ---
+        document.getElementById('quizForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const submitBtn = document.getElementById('submitBtn');
+            const statusReport = document.getElementById('statusReport');
+            
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i> Hệ thống đang nộp bài...';
+            statusReport.innerHTML = "Đang kết nối cơ sở dữ liệu bảng tính...";
+
+            const correctKey = { q1: "B", q2: "A", q3: "A", q4: "A", q5: "A" };
+            const studentName = document.getElementById('studentName').value.trim();
+            const lessonId = document.getElementById('examId').value.trim();
+            
+            let correctCounter = 0;
+            let totalQuizCount = Object.keys(correctKey).length;
+            let missedReportArray = [];
+
+            for (let questionCode in correctKey) {
+                const selectedRadio = document.querySelector(`input[name="${questionCode}"]:checked`);
+                if (selectedRadio && selectedRadio.value === correctKey[questionCode]) {
+                    correctCounter++;
+                } else {
+                    let chosenChar = selectedRadio ? selectedRadio.value : "Bỏ trống";
+                    missedReportArray.push(`${questionCode.toUpperCase()}(Chọn: ${chosenChar}|Đúng: ${correctKey[questionCode]})`);
+                }
+            }
+
+            const finalScore = ((correctCounter / totalQuizCount) * 10).toFixed(2);
+            const timeComplete = new Date();
+            const elapsedDurationSeconds = Math.floor((timeComplete - timeInit) / 1000);
+            const thoiGian = `${Math.floor(elapsedDurationSeconds / 60)} phút ${elapsedDurationSeconds % 60} giây`;
+            const cauSai = missedReportArray.length > 0 ? missedReportArray.join(", ") : "Không có (Đạt 10/10)";
+
+            const transmissionPayload = {
+                hoTen: studentName,
+                maDe: lessonId,
+                diem: parseFloat(finalScore),
+                thoiGian: thoiGian,
+                cauSai: cauSai
+            };
+
+            const webAppsScriptEndpoint = "https://script.google.com/macros/s/AKfycbzY7b7h4OwvhXuK5Vs6hl-aD88BPnAiAKbU5lfJobby0D4nzbIJVKT4n0AKCpAGoK0nZA/exec";
+
+            fetch(webAppsScriptEndpoint, {
+                method: "POST",
+                mode: "no-cors",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(transmissionPayload)
+            })
+            .then(() => {
+                statusReport.className = "text-xs font-bold text-emerald-500 bg-emerald-50 px-3 py-2 rounded-xl border border-emerald-200 inline-block";
+                statusReport.innerHTML = `<i class="fa-solid fa-circle-check"></i> Đã đồng bộ kết quả thành công: ${finalScore}/10.`;
+                alert(`Hệ thống ghi nhận bài nộp thành công!\nChào em ${studentName}, điểm số đạt được là: ${finalScore} / 10.`);
+                submitBtn.innerHTML = '<i class="fa-solid fa-lock"></i> Đã lưu kết quả thi';
+            })
+            .catch(error => {
+                console.error("Lỗi truyền tin:", error);
+                statusReport.className = "text-xs font-bold text-rose-500 bg-rose-50 px-3 py-2 rounded-xl border border-rose-200 inline-block";
+                statusReport.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> Lỗi kết nối mạng, vui lòng bấm nộp lại!';
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Thử nộp lại bài';
+            });
+        });
+    </script>
+</body>
+</html>
+```eof
