@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buổi 7: Đại Cương Về Hàm Số — ThS. Đinh Quốc Tuấn</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- FontAwesome Icons CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts: Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- MathJax Configuration & Script -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['\\(', '\\)'], ['$', '$']],
+                displayMath: [['\\[', '\\]'], ['$$', '$$']]
+            },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <!-- JSXGraph CSS & Core Engine -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraph.css" />
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraphcore.js"></script>
+
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #f8fafc;
+            color: #0f172a;
+        }
+        .jxgbox {
+            background-color: #ffffff !important;
+            border-radius: 1rem;
+            overflow: hidden;
+            border: 1px solid #e2e8f0;
+        }
+        @media print {
+            .print\:hidden { display: none !important; }
+            body { background: white !important; color: black !important; }
+            details { display: block !important; }
+            details summary { display: none !important; }
+            .page-break { page-break-before: always; }
+            .card-border { box-shadow: none !important; border: 1px solid #e5e7eb !important; }
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col antialiased selection:bg-indigo-100">
+
+    <!-- Header học thuật -->
+    <header class="border-b border-slate-200 sticky top-0 bg-white/95 backdrop-blur-md z-40 print:hidden">
+        <div class="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 px-6 py-4">
+            <div class="flex items-center gap-4">
+                <img src="https://firebasestorage.googleapis.com/v0/b/link-anh-web.firebasestorage.app/o/Logo-chinh-hcmus.png?alt=media&token=9cf3a1de-75f1-493b-8711-fd22c7b98738" alt="Logo HCMUS" class="h-14 w-auto object-contain">
+                <div class="border-l-2 border-slate-300 pl-4">
+                    <span class="text-xs font-bold tracking-widest text-indigo-600 uppercase block mb-0.5">Tài liệu số hóa tương tác</span>
+                    <span class="text-base font-extrabold text-slate-800">Đại Số Lớp 10 • Chuyên Đề Hàm Số</span>
+                </div>
+            </div>
+            <div class="flex items-center gap-3 sm:text-right">
+                <div class="hidden sm:block">
+                    <p class="text-xs text-slate-400 font-semibold">Giảng viên biên soạn:</p>
+                    <p class="text-sm font-extrabold text-slate-800">ThS. Đinh Quốc Tuấn</p>
+                </div>
+                <img src="https://firebasestorage.googleapis.com/v0/b/link-anh-web.firebasestorage.app/o/ttbdvh.jpg?alt=media&token=f270aa9b-a2bc-48e8-8910-80742b542615" 
+                     alt="Logo TTBDVH" class="h-14 w-14 object-cover rounded-full border border-slate-200 shadow-inner">
+            </div>
+        </div>
+    </header>
+
+    <!-- Banner chào mừng -->
+    <div class="bg-gradient-to-r from-indigo-50 via-slate-50 to-emerald-50 border-b border-slate-200 py-10 print:hidden">
+        <div class="max-w-4xl mx-auto px-6 space-y-4">
+            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-indigo-100 text-indigo-800 border border-indigo-200 shadow-xs">
+                <i class="fa-solid fa-chart-line mr-1.5 text-indigo-600"></i> Khảo Sát Sự Biến Thiên & Đồ Thị
+            </span>
+            <h1 class="text-2xl sm:text-4xl font-black tracking-tight text-slate-900 leading-tight">
+                Buổi 7: Bài Tập Đại Cương Về Hàm Số
+            </h1>
+            <p class="text-slate-600 text-sm sm:text-base font-medium leading-relaxed text-justify">
+                Chào các em! Hàm số $y = f(x)$ là quy tắc cho tương ứng mỗi giá trị $x \in D$ với duy nhất một giá trị $y \in \mathbb{R}$. Bài học hôm nay biên soạn hệ thống 30 bài tập phân cấp bám sát chương trình Toán 10, kết hợp các mô hình đồ họa tương tác JSXGraph giúp các em hiểu rõ tập xác định, tập giá trị, tính đơn điệu và các mô hình toán học thực tế![cite: 1]
+            </p>
+        </div>
+    </div>
+
+    <!-- Không gian nội dung chính -->
+    <main class="max-w-4xl mx-auto px-4 sm:px-6 py-10 flex-grow w-full space-y-16">
+        
+        <!-- ================= MÔ HÌNH HÌNH HỌC TƯƠNG TÁC JSXGRAPH ================= -->
+        <section class="space-y-8 print:hidden bg-slate-100 p-6 rounded-3xl border border-slate-200">
+            <div class="border-b border-slate-200 pb-3">
+                <h2 class="text-lg font-black text-slate-800 flex items-center uppercase tracking-wide">
+                    <i class="fa-solid fa-compass-drafting mr-2.5 text-indigo-600 text-xl"></i> Mô hình trực quan Đại cương Hàm số
+                </h2>
+                <p class="text-xs text-slate-500 mt-1">Trực quan hóa tiêu chuẩn đường thẳng thẳng đứng (Vertical Line Test), Tập giá trị Parabol và Đồ thị cước phí bậc thang.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Mô hình 1 -->
+                <div class="flex flex-col bg-white p-4 rounded-2xl border border-slate-200 shadow-2xs">
+                    <h3 class="font-bold text-slate-900 text-xs mb-1 flex items-center gap-1.5">
+                        <i class="fa-solid fa-vial-circle-check text-indigo-600"></i> Mô hình 1: Thử nghiệm Đường thẳng (Bài 2)
+                    </h3>
+                    <p class="text-[11px] text-slate-500 mb-3">Trượt đường thẳng đứng $x = k$ qua đường tròn. Cắt tại 2 điểm &rArr; Vi phạm định nghĩa "Duy nhất $y$" của hàm số!</p>
+                    <div id="box1" class="w-full h-56 jxgbox"></div>
+                    <div id="status-box1" class="text-[11px] font-bold p-2 mt-2 bg-indigo-50 border border-indigo-100 rounded-lg text-center text-slate-700 font-mono">
+                        x = 1.0 &rArr; Cắt tại 2 điểm (Không phải hàm số)
+                    </div>
+                </div>
+
+                <!-- Mô hình 2 -->
+                <div class="flex flex-col bg-white p-4 rounded-2xl border border-slate-200 shadow-2xs">
+                    <h3 class="font-bold text-slate-900 text-xs mb-1 flex items-center gap-1.5">
+                        <i class="fa-solid fa-chart-area text-amber-500"></i> Mô hình 2: Tập xác định & Tập giá trị (Bài 7)
+                    </h3>
+                    <p class="text-[11px] text-slate-500 mb-3">Parabol đỉnh $I(2; -1)$. Trục $Ox$ là Tập xác định $D = \mathbb{R}$, tia $Oy$ từ $y = -1 \to +\infty$ là Tập giá trị $T = [-1; +\infty)$.</p>
+                    <div id="box2" class="w-full h-56 jxgbox"></div>
+                    <div id="status-box2" class="text-[11px] font-bold p-2 mt-2 bg-amber-50 border border-amber-100 rounded-lg text-center text-amber-900 font-mono">
+                        TXĐ D = R | Tập Giá Trị T = [-1; +&infin;)
+                    </div>
+                </div>
+
+                <!-- Mô hình 3 -->
+                <div class="flex flex-col bg-white p-4 rounded-2xl border border-slate-200 shadow-2xs">
+                    <h3 class="font-bold text-slate-900 text-xs mb-1 flex items-center gap-1.5">
+                        <i class="fa-solid fa-taxi text-emerald-600"></i> Mô hình 3: Đồ thị Cước Taxi (Bài 21)
+                    </h3>
+                    <p class="text-[11px] text-slate-500 mb-3">Kéo mốc quãng đường $x$ (km) để quan sát sự thay đổi độ dốc đồ thị và số tiền $y$ (đồng) trên đồng hồ giả lập.</p>
+                    <div id="box3" class="w-full h-56 jxgbox"></div>
+                    <div id="status-box3" class="text-[11px] font-bold p-2 mt-2 bg-emerald-50 border border-emerald-100 rounded-lg text-center text-emerald-800 font-mono">
+                        Quãng đường: x = 15 km &rArr; Giá cước = 222.1k
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= PHẦN 1: CẤP ĐỘ CƠ BẢN ================= -->
+        <section class="space-y-6">
+            <div class="flex items-center gap-3 border-b pb-3 border-slate-200">
+                <span class="bg-sky-600 text-white text-xs font-black px-3 py-1 rounded-md uppercase tracking-wider">Cấp độ 1</span>
+                <h2 class="text-xl font-extrabold text-slate-900">PHẦN 1: CẤP ĐỘ CƠ BẢN (10 BÀI NHẬN BIẾT & ĐỌC ĐỒ THỊ)</h2>
+            </div>
+            <p class="text-xs font-bold text-sky-800 bg-sky-50 px-3 py-2 rounded-lg inline-block">
+                Mục tiêu: Nhận biết định nghĩa hàm số, tìm tập xác định cơ bản, kiểm tra điểm thuộc đồ thị và đọc khoảng đơn điệu[cite: 1].
+            </p>
+
+            <div class="space-y-4">
+                <!-- Bài 1 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 1:</strong> Trong các hệ thức sau, hệ thức nào xác định $y$ là một hàm số của $x$? Giải thích[cite: 1].</p>
+                    <p class="text-xs text-slate-600 mb-3">a) $x + y = 4$ &nbsp;&nbsp;&nbsp;&nbsp; b) $y = x^2$ &nbsp;&nbsp;&nbsp;&nbsp; c) $x^2 + y^2 = 4$ &nbsp;&nbsp;&nbsp;&nbsp; d) $x - y^3 = 0$[cite: 1]</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>&bull; <strong>a, b, d là hàm số:</strong> Vì với mỗi giá trị $x$, ta chỉ xác định được duy nhất 1 giá trị $y$.</p>
+                            <p>&bull; <strong>c không phải hàm số:</strong> Vì $x^2 + y^2 = 4 \Rightarrow y = \pm\sqrt{4 - x^2}$. Ví dụ với $x = 0$ cho ra 2 giá trị $y = 2$ và $y = -2$ (vi phạm định nghĩa duy nhất $y$).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 2 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 2 (Minh họa Mô hình 1):</strong> Trong các đường biểu diễn trên $Oxy$, đường tròn $x^2 + y^2 = R^2$ có phải là đồ thị của một hàm số không? Giải thích[cite: 1].</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p><strong>Không phải là đồ thị hàm số.</strong></p>
+                            <p>Theo tiêu chuẩn đường thẳng đứng (Vertical Line Test): Một đường thẳng đứng $x = k$ (với $-R < k < R$) cắt đường tròn tại 2 điểm phân biệt, tức một $x$ cho 2 giá trị $y$ khác nhau[cite: 1].</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 3 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 3:</strong> Tìm tập xác định của các hàm số phân thức sau[cite: 1]:</p>
+                    <p class="text-xs text-slate-600 mb-3">a) $y = \frac{x - 1}{2x - 4}$ &nbsp;&nbsp;&nbsp;&nbsp; b) $y = \frac{x^2 + 1}{x^2 - 3x + 2}$[cite: 1]</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>a) Điều kiện: $2x - 4 \neq 0 \Leftrightarrow x \neq 2 \Rightarrow D = \mathbb{R} \setminus \{2\}$.</p>
+                            <p>b) Điều kiện: $x^2 - 3x + 2 \neq 0 \Leftrightarrow x \neq 1$ và $x \neq 2 \Rightarrow D = \mathbb{R} \setminus \{1; 2\}$.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 4 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 4:</strong> Tìm tập xác định của các hàm số chứa căn thức sau[cite: 1]:</p>
+                    <p class="text-xs text-slate-600 mb-3">a) $y = \sqrt{2x - 3}$ &nbsp;&nbsp;&nbsp;&nbsp; b) $y = \sqrt{4 - x}$[cite: 1]</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>a) Biểu thức trong căn $\ge 0 \Leftrightarrow 2x - 3 \ge 0 \Leftrightarrow x \ge \frac{3}{2} \Rightarrow D = \left[\frac{3}{2}; +\infty\right)$.</p>
+                            <p>b) Biểu thức trong căn $\ge 0 \Leftrightarrow 4 - x \ge 0 \Leftrightarrow x \le 4 \Rightarrow D = (-\infty; 4]$.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 5 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 5:</strong> Cho $f(x) = \begin{cases} -x + 1 & \text{với } x < 0 \\ 0 & \text{với } x = 0 \\ 1 & \text{với } x > 0 \end{cases}$. Tìm tập xác định và tính $f(-2), f(0), f(2021)$[cite: 1].</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>&bull; Tập xác định: $D = (-\infty; 0) \cup \{0\} \cup (0; +\infty) = \mathbb{R}$.</p>
+                            <p>&bull; $x = -2 < 0 \Rightarrow f(-2) = -(-2) + 1 = 3$.</p>
+                            <p>&bull; $x = 0 \Rightarrow f(0) = 0$.</p>
+                            <p>&bull; $x = 2021 > 0 \Rightarrow f(2021) = 1$.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 6 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 6:</strong> Cho hàm số $y = -2x^2 + 3x - 1$. Trong các điểm $A(1; 0), B(-1; 2), C(0; -1)$, điểm nào thuộc đồ thị hàm số[cite: 1]?</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>&bull; $A(1; 0) \Rightarrow -2(1)^2 + 3(1) - 1 = 0 \Rightarrow A \in$ Đồ thị.</p>
+                            <p>&bull; $B(-1; 2) \Rightarrow -2(-1)^2 + 3(-1) - 1 = -6 \neq 2 \Rightarrow B \notin$ Đồ thị.</p>
+                            <p>&bull; $C(0; -1) \Rightarrow -2(0)^2 + 3(0) - 1 = -1 \Rightarrow C \in$ Đồ thị.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 7 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 7 (Minh họa Mô hình 2):</strong> Parabol $y = f(x)$ có đỉnh $I(2; -1)$, bề lõm quay lên trên. Xác định TXĐ và Tập giá trị của hàm số[cite: 1].</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>&bull; Tập xác định: $D = \mathbb{R}$.</p>
+                            <p>&bull; Vì bề lõm quay lên trên nên giá trị thấp nhất là tung độ đỉnh $y = -1$. Tập giá trị là $T = [-1; +\infty)$.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 8 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 8:</strong> Bảng biến thiên: $x \in (-\infty; 2)$ hàm số đi lên từ $-\infty$ đến 5; $x \in (2; +\infty)$ đi xuống từ 5 đến $-\infty$. Tìm khoảng đồng biến, nghịch biến[cite: 1].</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>&bull; Khoảng đồng biến (đồ thị đi lên): $(-\infty; 2)$.</p>
+                            <p>&bull; Khoảng nghịch biến (đồ thị đi xuống): $(2; +\infty)$.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 9 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 9:</strong> Cho đồ thị đi xuống từ $x = -2$ đến $x = 1$, rồi đi lên từ $x = 1$ đến $x = 4$. Chỉ ra các khoảng đồng biến, nghịch biến[cite: 1].</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>&bull; Hàm số nghịch biến trên khoảng $(-2; 1)$.</p>
+                            <p>&bull; Hàm số đồng biến trên khoảng $(1; 4)$.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 10 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 10:</strong> Biết $y = f(x)$ đồng biến trên khoảng $(1; +\infty)$. Hãy so sánh giá trị của $f(2)$ và $f(5)$[cite: 1].</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Vì $2, 5 \in (1; +\infty)$ và $2 < 5$. Do hàm số đồng biến trên $(1; +\infty)$ nên giữ nguyên chiều so sánh: <strong>$f(2) < f(5)$</strong>[cite: 1].</p>
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ================= PHẦN 2: CẤP ĐỘ NÂNG CAO ================= -->
+        <section class="space-y-6">
+            <div class="flex items-center gap-3 border-b pb-3 border-slate-200">
+                <span class="bg-amber-600 text-white text-xs font-black px-3 py-1 rounded-md uppercase tracking-wider">Cấp độ 2</span>
+                <h2 class="text-xl font-extrabold text-slate-900">PHẦN 2: CẤP ĐỘ NÂNG CAO (10 BÀI TẬP XÁC ĐỊNH & ĐƠN ĐIỆU)</h2>
+            </div>
+            <p class="text-xs font-bold text-amber-800 bg-amber-50 px-3 py-2 rounded-lg inline-block">
+                Mục tiêu: Tìm tập xác định chứa nhiều điều kiện, chứng minh tính đơn điệu bằng định nghĩa và biện luận tham số $m$[cite: 1].
+            </p>
+
+            <div class="space-y-4">
+                <!-- Bài 11 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 11:</strong> Tìm tập xác định của các hàm số chứa cả căn thức và phân thức[cite: 1]:</p>
+                    <p class="text-xs text-slate-600 mb-3">a) $y = \frac{2 - x}{(x+3)(x-7)}$ &nbsp;&nbsp;&nbsp;&nbsp; b) $y = \frac{4x - 1}{\sqrt{2x - 5}}$[cite: 1]</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>a) ĐKXĐ: $(x+3)(x-7) \neq 0 \Leftrightarrow x \neq -3, x \neq 7 \Rightarrow D = \mathbb{R} \setminus \{-3; 7\}$.</p>
+                            <p>b) Căn dưới mẫu: $2x - 5 > 0 \Leftrightarrow x > 2,5 \Rightarrow D = (2,5; +\infty)$.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 12 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 12:</strong> Tìm tập xác định của hàm số chứa nhiều căn thức[cite: 1]:</p>
+                    <p class="text-xs text-slate-600 mb-3">a) $y = \sqrt{x+2} + \sqrt{5-x}$ &nbsp;&nbsp;&nbsp;&nbsp; b) $y = \sqrt{6-2x} + \sqrt{3x-2}$[cite: 1]</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>a) ĐKXĐ: $\begin{cases} x + 2 \ge 0 \\ 5 - x \ge 0 \end{cases} \Leftrightarrow -2 \le x \le 5 \Rightarrow D = [-2; 5]$.</p>
+                            <p>b) ĐKXĐ: $\begin{cases} 6 - 2x \ge 0 \\ 3x - 2 \ge 0 \end{cases} \Leftrightarrow \frac{2}{3} \le x \le 3 \Rightarrow D = \left[\frac{2}{3}; 3\right]$.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 13 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 13 (Biện luận m):</strong> Cho $y = \sqrt{x - m + 1} + \frac{1}{\sqrt{2m - x}}$. Tìm $m$ để hàm số xác định trên khoảng $(0; 1)$[cite: 1].</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Tập xác định của hàm số là $D = [m - 1; 2m)$.</p>
+                            <p>Để hàm số xác định trên $(0; 1) \Leftrightarrow (0; 1) \subset [m - 1; 2m) \Leftrightarrow \begin{cases} m - 1 \le 0 \\ 2m \ge 1 \end{cases} \Leftrightarrow \mathbf{\frac{1}{2} \le m \le 1}$.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 14 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 14:</strong> Bằng định nghĩa, chứng minh hàm số $y = 3x - 1$ đồng biến trên $\mathbb{R}$[cite: 1].</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Với mọi $x_1, x_2 \in \mathbb{R}$ sao cho $x_1 < x_2 \Rightarrow x_2 - x_1 > 0$.</p>
+                            <p>Xét hiệu: $f(x_2) - f(x_1) = (3x_2 - 1) - (3x_1 - 1) = 3(x_2 - x_1) > 0 \Rightarrow f(x_2) > f(x_1)$.</p>
+                            <p>Vậy hàm số $y = 3x - 1$ đồng biến trên $\mathbb{R}$ (đpcm)[cite: 1].</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 15 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 15:</strong> Bằng định nghĩa, chứng minh $y = -x^2$ nghịch biến trên $(0; +\infty)$ và đồng biến trên $(-\infty; 0)$[cite: 1].</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Xét $T = \frac{f(x_2) - f(x_1)}{x_2 - x_1} = \frac{-x_2^2 + x_1^2}{x_2 - x_1} = -(x_1 + x_2)$.</p>
+                            <p>&bull; Với $x_1, x_2 \in (0; +\infty) \Rightarrow x_1 + x_2 > 0 \Rightarrow T < 0 \Rightarrow$ Hàm nghịch biến.</p>
+                            <p>&bull; Với $x_1, x_2 \in (-\infty; 0) \Rightarrow x_1 + x_2 < 0 \Rightarrow T > 0 \Rightarrow$ Hàm đồng biến.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 16 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 16:</strong> Vẽ đồ thị hàm số $y = |x - 1| + |x + 1|$. Chỉ ra các khoảng đồng biến, nghịch biến và Tập giá trị[cite: 1].</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Phá dấu GTTĐ: $y = \begin{cases} -2x & \text{khi } x < -1 \\ 2 & \text{khi } -1 \le x \le 1 \\ 2x & \text{khi } x > 1 \end{cases}$.</p>
+                            <p>&bull; Nghịch biến trên $(-\infty; -1)$, hằng số trên $[-1; 1]$, đồng biến trên $(1; +\infty)$.</p>
+                            <p>&bull; Tập giá trị $T = [2; +\infty)$.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 17 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 17:</strong> Cho $f(x) = \begin{cases} -x + 1 & \text{khi } x < -1 \\ 2 & \text{khi } -1 \le x < 1 \\ x^2 & \text{khi } x \ge 1 \end{cases}$. Xác định Tập giá trị của hàm số dựa vào đồ thị[cite: 1].</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>&bull; Khi $x < -1 \Rightarrow y = -x + 1 > 2$.</p>
+                            <p>&bull; Khi $-1 \le x < 1 \Rightarrow y = 2$.</p>
+                            <p>&bull; Khi $x \ge 1 \Rightarrow y = x^2 \ge 1$.</p>
+                            <p>Hợp lại các khoảng giá trị, ta thu được Tập giá trị $T = [1; +\infty)$.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 18 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 18:</strong> Tìm tập xác định của hàm số $y = \frac{1}{\sqrt{x^2 - 3x + 2}}$[cite: 1].</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Điều kiện trong căn dưới mẫu dương: $x^2 - 3x + 2 > 0 \Leftrightarrow x < 1$ hoặc $x > 2$.</p>
+                            <p>Tập xác định: $D = (-\infty; 1) \cup (2; +\infty)$.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 19 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 19:</strong> Cho $y = \frac{2x + 3}{x^2 + 3x - 4}$. Tìm TXĐ và tính giá trị hàm số tại $x = 0; x = 2$[cite: 1].</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>&bull; ĐKXĐ: $x^2 + 3x - 4 \neq 0 \Leftrightarrow x \neq 1, x \neq -4 \Rightarrow D = \mathbb{R} \setminus \{-4; 1\}$.</p>
+                            <p>&bull; $f(0) = \frac{3}{-4} = -0,75$.</p>
+                            <p>&bull; $f(2) = \frac{2(2)+3}{2^2 + 3(2) - 4} = \frac{7}{6}$.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 20 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 20:</strong> Cho hàm số $y = f(x)$ nghịch biến trên khoảng $(-2; 0)$. Hãy so sánh $f(-0,5)$ và $f(-0,25)$[cite: 1].</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Vì $-0,5, -0,25 \in (-2; 0)$ và $-0,5 < -0,25$.</p>
+                            <p>Do hàm số nghịch biến trên $(-2; 0)$ nên đảo chiều so sánh: <strong>$f(-0,5) > f(-0,25)$</strong>[cite: 1].</p>
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ================= PHẦN 3: CẤP ĐỘ VẬN DỤNG ================= -->
+        <section class="space-y-6">
+            <div class="flex items-center gap-3 border-b pb-3 border-slate-200">
+                <span class="bg-emerald-600 text-white text-xs font-black px-3 py-1 rounded-md uppercase tracking-wider">Cấp độ 3</span>
+                <h2 class="text-xl font-extrabold text-slate-900">PHẦN 3: CẤP ĐỘ VẬN DỤNG THỰC TIỄN (10 BÀI TOÁN LỜI VĂN)</h2>
+            </div>
+            <p class="text-xs font-bold text-emerald-800 bg-emerald-50 px-3 py-2 rounded-lg inline-block">
+                Mục tiêu: Đưa các mô hình thực tiễn (cước taxi, tiền điện bậc thang, nhiệt độ, khấu hao tài sản) về bài toán hàm số[cite: 1].
+            </p>
+
+            <div class="space-y-4">
+                <!-- Bài 21 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 21 (Cước Taxi - Minh họa Mô hình 3):</strong> Mở cửa (dưới 0,7km): 10,5k. Từ 0,7km đến 30km: 14,8k/km. Từ km 31 trở đi: 12,2k/km. Lập công thức $y = f(x)$ và tính tiền khi đi 15km và 40km[cite: 1].</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Công thức: $y = \begin{cases} 10,5 & \text{khi } 0 < x \le 0,7 \\ 10,5 + 14,8(x - 0,7) & \text{khi } 0,7 < x \le 30 \\ 444,1 + 12,2(x - 30) & \text{khi } x > 30 \end{cases}$ (nghìn đồng)[cite: 1].</p>
+                            <p>&bull; Đi 15 km: $y = 10,5 + 14,8(14,3) = 222,14$ nghìn đồng (222 140 VNĐ)[cite: 1].</p>
+                            <p>&bull; Đi 40 km: $y = 444,1 + 12,2(10) = 566,1$ nghìn đồng (566 100 VNĐ)[cite: 1].</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 22 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 22 (Tiền điện bậc thang):</strong> Bậc 1 (0-50 kWh): 1678 đ/kWh. Bậc 2 (51-100 kWh): 1734 đ/kWh. Lập công thức $y = f(x)$ từ 0 đến 100 kWh và tính tiền điện 80 kWh[cite: 1].</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Công thức: $f(x) = \begin{cases} 1678x & \text{khi } 0 \le x \le 50 \\ 83900 + 1734(x - 50) & \text{khi } 50 < x \le 100 \end{cases}$[cite: 1].</p>
+                            <p>&bull; Tiền điện 80 kWh = $83900 + 1734(30) = 135\,920$ đồng[cite: 1].</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 23 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 23 (Tiền lương & Hoa hồng):</strong> Lương cơ bản 6 triệu/tháng. Nếu doanh số $x > 10$ triệu thì nhận thêm hoa hồng 7% trên tổng doanh số. Biểu diễn thu nhập $y$ (triệu) theo $x$[cite: 1].</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Hàm thu nhập: $y = \begin{cases} 6 & \text{khi } 0 \le x \le 10 \\ 6 + 0,07x & \text{khi } x > 10 \end{cases}$ (triệu đồng)[cite: 1].</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 24 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 24 (Đổi nhiệt độ):</strong> Đổi từ $^\circ\text{C}$ sang $^\circ\text{F}$: Nhân $C$ với $\frac{9}{5}$ rồi cộng 32. Lập công thức $F(C)$ và tính độ $F$ khi nước sôi $100^\circ\text{C}$[cite: 1].</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>a) Công thức: $F = \frac{9}{5}C + 32$[cite: 1].</p>
+                            <p>b) Khi $C = 100^\circ\text{C} \Rightarrow F = \frac{9}{5}(100) + 32 = 180 + 32 = 212^\circ\text{F}$[cite: 1].</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 25 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 25 (Chạy 100m):</strong> Quãng đường $y$ (m) theo $t$ (s) của 3 vĐV A, B, C. Nếu đồ thị học sinh A cắt $y = 100$ tại $t$ nhỏ nhất, ai thắng cuộc[cite: 1]?</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>a) Đường cong mỗi bạn biểu diễn duy nhất quãng đường tại mỗi thời điểm nên là đồ thị hàm số[cite: 1].</p>
+                            <p>b) Vì $t_A$ nhỏ nhất nghĩa là học sinh A hoàn thành $100\text{ m}$ trong thời gian ngắn nhất $\Rightarrow$ <strong>Học sinh A về đích đầu tiên</strong>[cite: 1].</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 26 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 26 (Thuê xe):</strong> Thuê xe 110k/ngày cho 3 ngày đầu, 80k/ngày từ ngày thứ 4. Lập công thức $T(x)$. Với 2 triệu đồng thuê được tối đa bao nhiêu ngày[cite: 1]?</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>&bull; $T(x) = \begin{cases} 110x & \text{khi } 1 \le x \le 3 \\ 330 + 80(x - 3) & \text{khi } x \ge 4 \end{cases}$ (nghìn đồng)[cite: 1].</p>
+                            <p>&bull; 2 triệu = 2000k. Giải $330 + 80(x - 3) \le 2000 \Leftrightarrow 80(x - 3) \le 1670 \Leftrightarrow x - 3 \le 20,875 \Rightarrow x \le 23,875$.</p>
+                            <p>Khách có thể thuê tối đa <strong>23 ngày liên tiếp</strong>[cite: 1].</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 27 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 27 (Hàm cầu kinh tế):</strong> Hàm cầu $y = ax^2 + bx + 392$. Giá 10k bán 338 sp, giá 20k bán 288 sp. Tìm BPT và tính số sp bán được với giá 30k[cite: 1].</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Thay $(10; 338)$ và $(20; 288)$ vào phương trình:</p>
+                            <p>$\begin{cases} 100a + 10b + 392 = 338 \\ 400a + 20b + 392 = 288 \end{cases} \Leftrightarrow \begin{cases} a = -0,1 \\ b = -4.4 \end{cases} \Rightarrow y = -0,1x^2 - 4,4x + 392$[cite: 1].</p>
+                            <p>Với $x = 30 \Rightarrow y = -0,1(900) - 4,4(30) + 392 = 392 - 90 - 132 = \mathbf{170}$ <strong>sản phẩm</strong>[cite: 1].</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 28 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 28 (Sự đông đặc băng phiến):</strong> Băng phiến nguội dần, từ phút 4 đến phút 7 nhiệt độ đứng im $80^\circ\text{C}$. Vì sao nhiệt độ là hàm số của thời gian[cite: 1]?</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Vì tại mỗi thời điểm $t$ (phút) bất kỳ trong 10 phút khảo sát, ta luôn đo được <strong>duy nhất một giá trị nhiệt độ</strong> tương ứng[cite: 1]. Việc nhiệt độ không đổi $80^\circ\text{C}$ ở các phút 4, 5, 6, 7 chỉ phản ánh hàm số dạng hằng số trên đoạn đó[cite: 1].</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 29 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 29 (Cước bưu điện):</strong> Khối lượng đến 20g giá 4k, trên 20g-100g giá 6k, trên 100g-250g giá 8k. Viết TXĐ và biểu diễn hàm cước phí $y = f(x)$[cite: 1].</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>&bull; Tập xác định $D = (0; 250]$ (gam)[cite: 1].</p>
+                            <p>&bull; Hàm số bậc thang: $f(x) = \begin{cases} 4000 & \text{khi } 0 < x \le 20 \\ 6000 & \text{khi } 20 < x \le 100 \\ 8000 & \text{khi } 100 < x \le 250 \end{cases}$[cite: 1].</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 30 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 30 (Khấu hao tài sản):</strong> Máy giặt 12 triệu, mỗi năm giảm giá 1,5 triệu. Viết hàm $y = f(x)$ biểu thị giá trị còn lại sau $x$ năm. Hàm số đồng biến hay nghịch biến[cite: 1]?</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>a) Hàm số: $y = 12 - 1,5x$ (triệu đồng) với $0 \le x \le 8$[cite: 1].</p>
+                            <p>b) Hệ số $a = -1,5 < 0$ nên đây là <strong>hàm số nghịch biến</strong>. Ý nghĩa thực tế: Giá trị sử dụng của máy giặt bị hao mòn giảm dần theo thời gian[cite: 1].</p>
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ================= BÀI TẬP ĐÁNH GIÁ NĂNG LỰC TRẮC NGHIỆM ================= -->
+        <section class="border-t border-slate-200 pt-10 page-break">
+            <div class="bg-gradient-to-br from-slate-900 via-slate-800 to-indigo-950 text-white rounded-3xl p-6 sm:p-8 shadow-xl relative overflow-hidden card-border">
+                <div class="max-w-xl space-y-2">
+                    <span class="text-xs font-bold uppercase tracking-widest text-emerald-400 bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-500/20 inline-block">Đánh giá trực tuyến tại lớp</span>
+                    <h2 class="text-xl sm:text-2xl font-black tracking-tight">BÀI TẬP ĐÁNH GIÁ NĂNG LỰC TẠI LỚP</h2>
+                    <p class="text-slate-400 text-xs sm:text-sm">Học sinh hoàn thành trắc nghiệm 5 câu dưới đây. Kết quả điểm số sẽ được truyền tự động về Google Sheets hệ thống[cite: 1].</p>
+                </div>
+
+                <form id="quizForm" class="mt-8 space-y-6 text-slate-900">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div class="bg-white p-4 rounded-xl shadow-inner border border-slate-100">
+                            <label class="block text-xs font-bold text-slate-400 uppercase tracking-wide mb-1"><i class="fa-solid fa-user-graduate mr-1 text-indigo-500"></i> Họ và tên học sinh</label>
+                            <input type="text" id="studentName" required placeholder="Nhập họ tên đầy đủ..." class="w-full bg-white border-b-2 border-slate-200 focus:border-indigo-500 outline-none py-1 text-sm font-bold text-slate-900 transition-colors">
+                        </div>
+                        <div class="bg-white p-4 rounded-xl shadow-inner border border-slate-100">
+                            <label class="block text-xs font-bold text-slate-400 uppercase tracking-wide mb-1"><i class="fa-solid fa-file-code mr-1 text-indigo-500"></i> Mã chuyên đề bài học</label>
+                            <input type="text" id="examId" readonly value="Buoi07_DaiCuongHamSo_Toan10" class="w-full bg-slate-50 border-b-2 border-slate-200 outline-none py-1 text-sm font-bold text-slate-500 cursor-not-allowed">
+                        </div>
+                    </div>
+
+                    <!-- Khối câu hỏi trắc nghiệm -->
+                    <div class="space-y-5 mt-6">
+                        <!-- Câu 1 -->
+                        <div class="bg-white p-5 rounded-2xl shadow-sm space-y-3">
+                            <p class="text-sm font-bold text-slate-900"><span class="text-indigo-600">Câu 1:</span> Tập xác định của hàm số $y = \frac{x - 1}{2x - 4}$ là:</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs font-semibold text-slate-700">
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q1" value="A" required class="text-indigo-600 h-4 w-4"> <span>A. $\mathbb{R} \setminus \{2\}$</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q1" value="B" class="text-indigo-600 h-4 w-4"> <span>B. $\mathbb{R} \setminus \{1\}$</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q1" value="C" class="text-indigo-600 h-4 w-4"> <span>C. $(2; +\infty)$</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Câu 2 -->
+                        <div class="bg-white p-5 rounded-2xl shadow-sm space-y-3">
+                            <p class="text-sm font-bold text-slate-900"><span class="text-indigo-600">Câu 2:</span> Tập xác định của hàm số chứa căn $y = \sqrt{2x - 3}$ là:</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs font-semibold text-slate-700">
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q2" value="A" required class="text-indigo-600 h-4 w-4"> <span>A. $[1,5; +\infty)$</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q2" value="B" class="text-indigo-600 h-4 w-4"> <span>B. $(1,5; +\infty)$</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q2" value="C" class="text-indigo-600 h-4 w-4"> <span>C. $(-\infty; 1,5]$</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Câu 3 -->
+                        <div class="bg-white p-5 rounded-2xl shadow-sm space-y-3">
+                            <p class="text-sm font-bold text-slate-900"><span class="text-indigo-600">Câu 3:</span> Cho hàm số $y = f(x)$ đồng biến trên $(1; +\infty)$. Khẳng định nào sau đây ĐÚNG?</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs font-semibold text-slate-700">
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q3" value="A" required class="text-indigo-600 h-4 w-4"> <span>A. $f(2) < f(5)$</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q3" value="B" class="text-indigo-600 h-4 w-4"> <span>B. $f(2) > f(5)$</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q3" value="C" class="text-indigo-600 h-4 w-4"> <span>C. $f(2) = f(5)$</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q3" value="D" class="text-indigo-600 h-4 w-4"> <span>D. Không so sánh được</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Câu 4 -->
+                        <div class="bg-white p-5 rounded-2xl shadow-sm space-y-3">
+                            <p class="text-sm font-bold text-slate-900"><span class="text-indigo-600">Câu 4:</span> Tập giá trị $T$ của hàm số $y = -2x^2 + 1$ là:</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs font-semibold text-slate-700">
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q4" value="A" required class="text-indigo-600 h-4 w-4"> <span>A. $(-\infty; 1]$</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q4" value="B" class="text-indigo-600 h-4 w-4"> <span>B. $[1; +\infty)$</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q4" value="C" class="text-indigo-600 h-4 w-4"> <span>C. $\mathbb{R}$</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Câu 5 -->
+                        <div class="bg-white p-5 rounded-2xl shadow-sm space-y-3">
+                            <p class="text-sm font-bold text-slate-900"><span class="text-indigo-600">Câu 5:</span> Máy giặt mới mua 12 triệu, mỗi năm khấu hao 1,5 triệu. Đồ thị hàm số còn lại $y = 12 - 1,5x$ có tính chất gì?</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs font-semibold text-slate-700">
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q5" value="A" required class="text-indigo-600 h-4 w-4"> <span>A. Hàm số nghịch biến theo thời gian</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q5" value="B" class="text-indigo-600 h-4 w-4"> <span>B. Hàm số đồng biến theo thời gian</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q5" value="C" class="text-indigo-600 h-4 w-4"> <span>C. Hàm số hằng không thay đổi</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q5" value="D" class="text-indigo-600 h-4 w-4"> <span>D. Không phải là hàm số</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pt-2 flex flex-col sm:flex-row items-center justify-between gap-4">
+                        <button type="submit" id="submitBtn" class="w-full sm:w-auto bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-sm px-8 py-3.5 rounded-xl shadow-lg transition-all flex items-center justify-center space-x-2 cursor-pointer">
+                            <i class="fa-solid fa-cloud-arrow-up"></i> <span>Nộp Bài Chấm Điểm</span>
+                        </button>
+                        <div id="statusReport" class="text-xs font-bold text-slate-400"></div>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer bản quyền -->
+    <footer class="bg-slate-900 text-slate-400 py-8 text-center text-xs font-medium px-4 mt-auto">
+        <p class="font-bold text-slate-300">@ Bản quyền thuộc ThS. Đinh Quốc Tuấn - Mục đích phi lợi nhuận - Vì giáo dục.</p>
+        <p class="text-slate-500 mt-2">Hệ thống bài giảng trực tuyến tương tác tích hợp đồng bộ dữ liệu điểm số học sinh[cite: 1].</p>
+    </footer>
+
+    <!-- NÚT IN TÀI LIỆU CỐ ĐỊNH -->
+    <button id="btn-print-doc" onclick="safePrint()" class="fixed bottom-5 right-5 bg-gray-900 text-white px-4 py-2 rounded-lg shadow-lg hover:bg-gray-700 print:hidden z-50 cursor-pointer">
+        <i class="fas fa-print mr-2"></i> In Tài Liệu
+    </button>
+
+    <script>
+        function safePrint() {
+            const printBtn = document.getElementById('btn-print-doc');
+            printBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Đang chuẩn bị...';
+            
+            // Đảm bảo MathJax đã render xong mọi công thức trước khi gọi hộp thoại in
+            if (window.MathJax && window.MathJax.typesetPromise) {
+                MathJax.typesetPromise().then(() => {
+                    printBtn.innerHTML = '<i class="fas fa-print mr-2"></i> In Tài Liệu';
+                    window.print();
+                });
+            } else {
+                // Fallback nếu không có công thức toán
+                setTimeout(() => window.print(), 500); 
+            }
+        }
+    </script>
+
+    <!-- HỆ THỐNG ĐIỀU KHIỂN ĐỒ HỌA JSXGRAPH & FORM QUIZ APPS SCRIPT -->
+    <script>
+        const timeInit = new Date();
+
+        document.addEventListener("DOMContentLoaded", function() {
+            
+            // --- MÔ HÌNH 1: THỬ NGHIỆM ĐƯỜNG THẲNG ĐỨNG X = K TRÊN ĐƯỜNG TRÒN (BOX 1) ---
+            const b1 = JXG.JSXGraph.initBoard('box1', {
+                boundingbox: [-3, 3, 3, -3], axis: true, showNavigation: false, showCopyright: false
+            });
+
+            // Đường tròn x^2 + y^2 = 4
+            let origin = b1.create('point', [0, 0], {visible: false, fixed: true});
+            b1.create('circle', [origin, 2], {strokeColor: '#3b82f6', strokeWidth: 2});
+
+            // Đường thẳng đứng x = k trượt
+            let line1 = b1.create('line', [[1, -3], [1, 3]], {strokeColor: '#ef4444', strokeWidth: 1.5, dash: 2});
+            let ptGlider1 = b1.create('glider', [1, 0, b1.defaultAxes.x], {name: 'k', color: '#dc2626'});
+
+            b1.create('line', [ptGlider1, [function() { return ptGlider1.X(); }, 1]], {strokeColor: '#ef4444', strokeWidth: 1.5, dash: 2});
+
+            let statusBox1 = document.getElementById('status-box1');
+            ptGlider1.on('drag', function() {
+                let k = ptGlider1.X().toFixed(1);
+                if (Math.abs(ptGlider1.X()) < 2) {
+                    statusBox1.innerHTML = `x = ${k} &rArr; Cắt tại 2 điểm (KHÔNG LÀ HÀM SỐ)`;
+                } else if (Math.abs(ptGlider1.X()) === 2) {
+                    statusBox1.innerHTML = `x = ${k} &rArr; Tiếp xúc tại 1 điểm`;
+                } else {
+                    statusBox1.innerHTML = `x = ${k} &rArr; Không cắt điểm nào`;
+                }
+            });
+
+
+            // --- MÔ HÌNH 2: TẬP XÁC ĐỊNH & TẬP GIÁ TRỊ PARABOL (BOX 2) ---
+            const b2 = JXG.JSXGraph.initBoard('box2', {
+                boundingbox: [-1, 5, 5, -2], axis: true, showNavigation: false, showCopyright: false
+            });
+
+            // Parabol y = (x-2)^2 - 1 = x^2 - 4x + 3
+            b2.create('functiongraph', [function(x) { return (x-2)*(x-2) - 1; }, -1, 5], {
+                strokeColor: '#4f46e5', strokeWidth: 2.5
+            });
+
+            // Đỉnh I(2, -1)
+            b2.create('point', [2, -1], {name: 'I(2; -1)', color: '#d97706', size: 4, fixed: true});
+            b2.create('segment', [[2, -1], [2, 0]], {strokeColor: '#d97706', strokeWidth: 1, dash: 2});
+            b2.create('segment', [[2, -1], [0, -1]], {strokeColor: '#d97706', strokeWidth: 1, dash: 2});
+
+
+            // --- MÔ HÌNH 3: ĐỒ THỊ CƯỚC TAXI BẬC THANG (BOX 3) ---
+            const b3 = JXG.JSXGraph.initBoard('box3', {
+                boundingbox: [-5, 600, 45, -50], axis: true, showNavigation: false, showCopyright: false
+            });
+
+            // Hàm cước taxi
+            let taxiGraph = b3.create('functiongraph', [function(x) {
+                if (x <= 0) return 0;
+                if (x <= 0.7) return 10.5;
+                if (x <= 30) return 10.5 + 14.8 * (x - 0.7);
+                return 444.1 + 12.2 * (x - 30);
+            }, 0, 45], {strokeColor: '#10b981', strokeWidth: 2.5});
+
+            let ptM3 = b3.create('glider', [15, 222.1, taxiGraph], {name: 'M(x,y)', color: '#dc2626', size: 4});
+
+            let statusBox3 = document.getElementById('status-box3');
+            ptM3.on('drag', function() {
+                let x = ptM3.X().toFixed(1);
+                let y = ptM3.Y().toFixed(1);
+                statusBox3.innerHTML = `Quãng đường: x = ${x} km &rArr; Giá cước = ${y}k`;
+            });
+        });
+
+        // --- XỬ LÝ NỘP BÀI TRẮC NGHIỆM VÀ ĐẨY DỮ LIỆU APPS SCRIPT ---
+        document.getElementById('quizForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const submitBtn = document.getElementById('submitBtn');
+            const statusReport = document.getElementById('statusReport');
+            
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i> Hệ thống đang nộp bài...';
+            statusReport.innerHTML = "Đang kết nối cơ sở dữ liệu bảng tính...";
+
+            const correctKey = { q1: "A", q2: "A", q3: "A", q4: "A", q5: "A" };
+            const studentName = document.getElementById('studentName').value.trim();
+            const lessonId = document.getElementById('examId').value.trim();
+            
+            let correctCounter = 0;
+            let totalQuizCount = Object.keys(correctKey).length;
+            let missedReportArray = [];
+
+            for (let questionCode in correctKey) {
+                const selectedRadio = document.querySelector(`input[name="${questionCode}"]:checked`);
+                if (selectedRadio && selectedRadio.value === correctKey[questionCode]) {
+                    correctCounter++;
+                } else {
+                    let chosenChar = selectedRadio ? selectedRadio.value : "Bỏ trống";
+                    missedReportArray.push(`${questionCode.toUpperCase()}(Chọn: ${chosenChar}|Đúng: ${correctKey[questionCode]})`);
+                }
+            }
+
+            const finalScore = ((correctCounter / totalQuizCount) * 10).toFixed(2);
+            const timeComplete = new Date();
+            const elapsedDurationSeconds = Math.floor((timeComplete - timeInit) / 1000);
+            const thoiGian = `${Math.floor(elapsedDurationSeconds / 60)} phút ${elapsedDurationSeconds % 60} giây`;
+            const cauSai = missedReportArray.length > 0 ? missedReportArray.join(", ") : "Không có (Đạt 10/10)";
+
+            const transmissionPayload = {
+                hoTen: studentName,
+                maDe: lessonId,
+                diem: parseFloat(finalScore),
+                thoiGian: thoiGian,
+                cauSai: cauSai
+            };
+
+            const webAppsScriptEndpoint = "https://script.google.com/macros/s/AKfycbzY7b7h4OwvhXuK5Vs6hl-aD88BPnAiAKbU5lfJobby0D4nzbIJVKT4n0AKCpAGoK0nZA/exec";
+
+            fetch(webAppsScriptEndpoint, {
+                method: "POST",
+                mode: "no-cors",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(transmissionPayload)
+            })
+            .then(() => {
+                statusReport.className = "text-xs font-bold text-emerald-500 bg-emerald-50 px-3 py-2 rounded-xl border border-emerald-200 inline-block";
+                statusReport.innerHTML = `<i class="fa-solid fa-circle-check"></i> Đã đồng bộ kết quả thành công: ${finalScore}/10.`;
+                alert(`Hệ thống ghi nhận bài nộp thành công!\nChào em ${studentName}, điểm số đạt được là: ${finalScore} / 10.`);
+                submitBtn.innerHTML = '<i class="fa-solid fa-lock"></i> Đã lưu kết quả thi';
+            })
+            .catch(error => {
+                console.error("Lỗi truyền tin:", error);
+                statusReport.className = "text-xs font-bold text-rose-500 bg-rose-50 px-3 py-2 rounded-xl border border-rose-200 inline-block";
+                statusReport.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> Lỗi kết nối mạng, vui lòng bấm nộp lại!';
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Thử nộp lại bài';
+            });
+        });
+    </script>
+</body>
+</html>
