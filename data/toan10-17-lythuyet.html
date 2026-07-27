@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buổi 17: Tích Vô Hướng Của Hai Vectơ — ThS. Đinh Quốc Tuấn</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- FontAwesome Icons CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts: Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- MathJax Configuration & Script -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['\\(', '\\)'], ['$', '$']],
+                displayMath: [['\\[', '\\]'], ['$$', '$$']]
+            },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <!-- JSXGraph CSS & Core Engine -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraph.css" />
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraphcore.js"></script>
+
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #f8fafc;
+            color: #0f172a;
+        }
+        .jxgbox {
+            background-color: #ffffff !important;
+            border-radius: 1rem;
+            overflow: hidden;
+            border: 1px solid #e2e8f0;
+        }
+        @media print {
+            .print\:hidden { display: none !important; }
+            body { background: white !important; color: black !important; }
+            details { display: block !important; }
+            details summary { display: none !important; }
+            .page-break { page-break-before: always; }
+            .card-border { box-shadow: none !important; border: 1px solid #e5e7eb !important; }
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col antialiased selection:bg-indigo-100">
+
+    <!-- Header học thuật -->
+    <header class="border-b border-slate-200 sticky top-0 bg-white/95 backdrop-blur-md z-40 print:hidden">
+        <div class="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 px-6 py-4">
+            <div class="flex items-center gap-4">
+                <img src="https://firebasestorage.googleapis.com/v0/b/link-anh-web.firebasestorage.app/o/Logo-chinh-hcmus.png?alt=media&token=9cf3a1de-75f1-493b-8711-fd22c7b98738" alt="Logo HCMUS" class="h-14 w-auto object-contain">
+                <div class="border-l-2 border-slate-300 pl-4">
+                    <span class="text-xs font-bold tracking-widest text-indigo-600 uppercase block mb-0.5">Tài liệu số hóa tương tác</span>
+                    <span class="text-base font-extrabold text-slate-800">Hình Học Lớp 10 • Chương Vectơ</span>
+                </div>
+            </div>
+            <div class="flex items-center gap-3 sm:text-right">
+                <div class="hidden sm:block">
+                    <p class="text-xs text-slate-400 font-semibold">Giảng viên biên soạn:</p>
+                    <p class="text-sm font-extrabold text-slate-800">ThS. Đinh Quốc Tuấn</p>
+                </div>
+                <img src="https://firebasestorage.googleapis.com/v0/b/link-anh-web.firebasestorage.app/o/ttbdvh.jpg?alt=media&token=f270aa9b-a2bc-48e8-8910-80742b542615" 
+                     alt="Logo TTBDVH" class="h-14 w-14 object-cover rounded-full border border-slate-200 shadow-inner">
+            </div>
+        </div>
+    </header>
+
+    <!-- Banner chào mừng -->
+    <div class="bg-gradient-to-r from-indigo-50 via-slate-50 to-emerald-50 border-b border-slate-200 py-10 print:hidden">
+        <div class="max-w-4xl mx-auto px-6 space-y-4">
+            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-indigo-100 text-indigo-800 border border-indigo-200 shadow-xs">
+                <i class="fa-solid fa-calculator mr-1.5 text-indigo-600"></i> Phép nhân đại số hai Vectơ
+            </span>
+            <h1 class="text-2xl sm:text-4xl font-black tracking-tight text-slate-900 leading-tight">
+                Buổi 17: Tích Vô Hướng Của Hai Vectơ
+            </h1>
+            <p class="text-slate-600 text-sm sm:text-base font-medium leading-relaxed text-justify">
+                Chào các em! Khác với các phép toán vectơ trước đó thu được kết quả là một vectơ mới, <strong>Tích vô hướng của hai vectơ</strong> là phép toán nhân hai vectơ nhưng trả về kết quả là một con số thực. Đây là công cụ cực kỳ quyền lực để tính góc, chứng minh tính vuông góc trong Hình học và tính công cơ học trong Vật lí. Hãy cùng tìm hiểu chi tiết bài học hôm nay nhé!
+            </p>
+        </div>
+    </div>
+
+    <!-- Không gian nội dung chính -->
+    <main class="max-w-4xl mx-auto px-4 sm:px-6 py-10 flex-grow w-full space-y-16">
+        
+        <!-- ================= MÔ HÌNH HÌNH HỌC TƯƠNG TÁC JSXGRAPH ================= -->
+        <section class="space-y-8 print:hidden bg-slate-100 p-6 rounded-3xl border border-slate-200">
+            <div class="border-b border-slate-200 pb-3">
+                <h2 class="text-lg font-black text-slate-800 flex items-center uppercase tracking-wide">
+                    <i class="fa-solid fa-compass-drafting mr-2.5 text-indigo-600 text-xl"></i> Mô hình trực quan Tích vô hướng tương tác
+                </h2>
+                <p class="text-xs text-slate-500 mt-1">Trực quan hóa góc giữa hai vectơ, chứng minh hai đường chéo vuông góc và ứng dụng tính Công cơ học Vật lí.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Mô hình 1 -->
+                <div class="flex flex-col bg-white p-4 rounded-2xl border border-slate-200 shadow-2xs">
+                    <h3 class="font-bold text-slate-900 text-xs mb-1 flex items-center gap-1.5">
+                        <i class="fa-solid fa-circle-nodes text-indigo-600"></i> Mô hình 1: Góc & Tích vô hướng
+                    </h3>
+                    <p class="text-[11px] text-slate-500 mb-3">Kéo đỉnh $C$ để thay đổi hình dạng tam giác $ABC$. Quan sát sự biến thiên của góc $\widehat{A}$ và số đo tích vô hướng $\overrightarrow{AB} \cdot \overrightarrow{AC}$.</p>
+                    <div id="box1" class="w-full h-56 jxgbox"></div>
+                    <div id="status-box1" class="text-[11px] font-bold p-2 mt-2 bg-indigo-50 border border-indigo-100 rounded-lg text-center text-slate-700 font-mono">
+                        $$\overrightarrow{AB} \cdot \overrightarrow{AC} = |\overrightarrow{AB}| \cdot |\overrightarrow{AC}| \cdot \cos A$$
+                    </div>
+                </div>
+
+                <!-- Mô hình 2 -->
+                <div class="flex flex-col bg-white p-4 rounded-2xl border border-slate-200 shadow-2xs">
+                    <h3 class="font-bold text-slate-900 text-xs mb-1 flex items-center gap-1.5">
+                        <i class="fa-solid fa-square-full text-amber-500"></i> Mô hình 2: Hai đường chéo vuông góc
+                    </h3>
+                    <p class="text-[11px] text-slate-500 mb-3">Hình thoi / Hình vuông $ABCD$: Tích vô hướng $\overrightarrow{AC} \cdot \overrightarrow{BD} = AD^2 - AB^2 = 0 \Rightarrow AC \perp BD$.</p>
+                    <div id="box2" class="w-full h-56 jxgbox"></div>
+                    <div id="status-box2" class="text-[11px] font-bold p-2 mt-2 bg-amber-50 border border-amber-100 rounded-lg text-center text-amber-900 font-mono">
+                        $$\overrightarrow{AC} \cdot \overrightarrow{BD} = 0 \Leftrightarrow AC \perp BD$$
+                    </div>
+                </div>
+
+                <!-- Mô hình 3 -->
+                <div class="flex flex-col bg-white p-4 rounded-2xl border border-slate-200 shadow-2xs">
+                    <h3 class="font-bold text-slate-900 text-xs mb-1 flex items-center gap-1.5">
+                        <i class="fa-solid fa-truck-ramp-box text-emerald-600"></i> Mô hình 3: Công cơ học $A = \vec{F} \cdot \vec{d}$
+                    </h3>
+                    <p class="text-[11px] text-slate-500 mb-3">Kéo slider góc $\alpha$: Khi $\alpha < 90^\circ$ công phát động ($A>0$); Khi $\alpha = 90^\circ$ lực không sinh công ($A=0$); Khi $\alpha > 90^\circ$ công cản ($A<0$).</p>
+                    <div id="box3" class="w-full h-56 jxgbox"></div>
+                    <div id="status-box3" class="text-[11px] font-bold p-2 mt-2 bg-emerald-50 border border-emerald-100 rounded-lg text-center text-emerald-800 font-mono">
+                        $$A = F \cdot d \cdot \cos\alpha$$
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= PHẦN 1: MỨC ĐỘ CƠ BẢN ================= -->
+        <section class="space-y-6">
+            <div class="flex items-center gap-3 border-b pb-3 border-slate-200">
+                <span class="bg-sky-600 text-white text-xs font-black px-3 py-1 rounded-md uppercase tracking-wider">Cấp độ 1</span>
+                <h2 class="text-xl font-extrabold text-slate-900">PHẦN 1: MỨC ĐỘ CƠ BẢN (GÓC GIỮA HAI VECTƠ & ĐỊNH NGHĨA TÍCH VÔ HƯỚNG)</h2>
+            </div>
+            <p class="text-xs font-bold text-sky-800 bg-sky-50 px-3 py-2 rounded-lg inline-block">
+                Mục tiêu: Nắm vững định nghĩa góc giữa hai vectơ, thuộc công thức tính tích vô hướng và khái niệm bình phương vô hướng.
+            </p>
+
+            <div class="space-y-6 text-sm leading-relaxed text-slate-700">
+                <!-- Mục 1 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs space-y-3 card-border">
+                    <h3 class="font-bold text-slate-900 text-base text-sky-700 flex items-center gap-2">
+                        <i class="fa-solid fa-circle-1"></i> 1. Góc giữa hai vectơ
+                    </h3>
+                    <p>&bull; <strong>Định nghĩa:</strong> Cho hai vectơ $\vec{a}$ và $\vec{b}$ đều khác $\vec{0}$. Từ một điểm $O$ bất kì, ta vẽ $\overrightarrow{OA} = \vec{a}$ và $\overrightarrow{OB} = \vec{b}$. Góc $\widehat{AOB}$ (với số đo từ $0^\circ$ đến $180^\circ$) được gọi là góc giữa hai vectơ $\vec{a}$ và $\vec{b}$, kí hiệu là $(\vec{a}, \vec{b})$.</p>
+                    <p>&bull; <strong>Quy ước:</strong> Nếu $\vec{a} = \vec{0}$ hoặc $\vec{b} = \vec{0}$ thì góc giữa hai vectơ là tùy ý.</p>
+                    <p>&bull; <strong>Các trường hợp đặc biệt:</strong></p>
+                    <ul class="list-disc list-inside text-xs text-slate-600 space-y-1 pl-2">
+                        <li>Hai vectơ cùng hướng thì góc giữa chúng bằng $0^\circ$.</li>
+                        <li>Hai vectơ ngược hướng thì góc giữa chúng bằng $180^\circ$.</li>
+                        <li>Nếu $(\vec{a}, \vec{b}) = 90^\circ$ thì ta nói $\vec{a}$ vuông góc với $\vec{b}$, kí hiệu $\vec{a} \perp \vec{b}$.</li>
+                    </ul>
+                </div>
+
+                <!-- Mục 2 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs space-y-3 card-border">
+                    <h3 class="font-bold text-slate-900 text-base text-sky-700 flex items-center gap-2">
+                        <i class="fa-solid fa-circle-2"></i> 2. Định nghĩa Tích vô hướng
+                    </h3>
+                    <p>&bull; <strong>Định nghĩa:</strong> Tích vô hướng của hai vectơ $\vec{a}$ và $\vec{b}$ là một số thực, kí hiệu là $\vec{a} \cdot \vec{b}$, được xác định bởi công thức:
+                        $$\vec{a} \cdot \vec{b} = |\vec{a}| \cdot |\vec{b}| \cdot \cos(\vec{a}, \vec{b})$$
+                    </p>
+                    <p>&bull; <strong>Bình phương vô hướng:</strong> Khi $\vec{a} = \vec{b}$, tích vô hướng $\vec{a} \cdot \vec{a}$ được kí hiệu là $\vec{a}^2$. Ta có:
+                        $$\vec{a}^2 = |\vec{a}| \cdot |\vec{a}| \cdot \cos 0^\circ = |\vec{a}|^2$$
+                    </p>
+                    <p>&bull; <strong>Hệ quả:</strong> Bình phương vô hướng của một vectơ luôn bằng bình phương độ dài của vectơ đó.</p>
+                    <p>&bull; <strong>Tính vuông góc:</strong> Với hai vectơ $\vec{a}, \vec{b} \neq \vec{0}$, ta có $\vec{a} \perp \vec{b} \Leftrightarrow \vec{a} \cdot \vec{b} = 0$.</p>
+                </div>
+
+                <!-- Ví dụ 1 -->
+                <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200 space-y-2 card-border">
+                    <p class="font-bold text-slate-900 text-xs text-indigo-700 uppercase"><i class="fa-solid fa-pen-to-square mr-1"></i> Ví dụ minh họa 1 (Cơ bản)</p>
+                    <p class="text-xs text-slate-800">Cho tam giác đều $ABC$ có cạnh bằng $a$. Tính tích vô hướng $\overrightarrow{AB} \cdot \overrightarrow{AC}$.</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-white rounded-xl border border-slate-200 text-xs text-slate-700 space-y-1">
+                            <p>Vì tam giác $ABC$ đều nên góc $\widehat{BAC} = 60^\circ$. Do đó góc giữa hai vectơ chung gốc $(\overrightarrow{AB}, \overrightarrow{AC}) = 60^\circ$.</p>
+                            <p>Áp dụng công thức tích vô hướng:</p>
+                            <p>$$\overrightarrow{AB} \cdot \overrightarrow{AC} = |\overrightarrow{AB}| \cdot |\overrightarrow{AC}| \cdot \cos(\overrightarrow{AB}, \overrightarrow{AC}) = a \cdot a \cdot \cos 60^\circ = a^2 \cdot \frac{1}{2} = \frac{a^2}{2}$$</p>
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ================= PHẦN 2: MỨC ĐỘ NÂNG CAO ================= -->
+        <section class="space-y-6">
+            <div class="flex items-center gap-3 border-b pb-3 border-slate-200">
+                <span class="bg-amber-600 text-white text-xs font-black px-3 py-1 rounded-md uppercase tracking-wider">Cấp độ 2</span>
+                <h2 class="text-xl font-extrabold text-slate-900">PHẦN 2: MỨC ĐỘ NÂNG CAO (TÍNH CHẤT VÀ CHỨNG MINH HÌNH HỌC)</h2>
+            </div>
+            <p class="text-xs font-bold text-amber-800 bg-amber-50 px-3 py-2 rounded-lg inline-block">
+                Mục tiêu: Vận dụng các tính chất đại số tích vô hướng để khai triển hằng đẳng thức vectơ và chứng minh tính vuông góc.
+            </p>
+
+            <div class="space-y-6 text-sm leading-relaxed text-slate-700">
+                <!-- Mục 1 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs space-y-3 card-border">
+                    <h3 class="font-bold text-slate-900 text-base text-amber-700 flex items-center gap-2">
+                        <i class="fa-solid fa-circle-1"></i> 1. Các tính chất của Tích vô hướng
+                    </h3>
+                    <p>Với ba vectơ $\vec{a}, \vec{b}, \vec{c}$ bất kì và số thực $k$, ta có:</p>
+                    <ul class="list-disc list-inside text-xs text-slate-600 space-y-1.5 pl-2">
+                        <li><strong>Tính giao hoán:</strong> $\vec{a} \cdot \vec{b} = \vec{b} \cdot \vec{a}$.</li>
+                        <li><strong>Tính phân phối đối với phép cộng:</strong> $\vec{a} \cdot (\vec{b} + \vec{c}) = \vec{a} \cdot \vec{b} + \vec{a} \cdot \vec{c}$.</li>
+                        <li><strong>Tính kết hợp với số thực:</strong> $(k\vec{a}) \cdot \vec{b} = k(\vec{a} \cdot \vec{b}) = \vec{a} \cdot (k\vec{b})$.</li>
+                    </ul>
+                </div>
+
+                <!-- Mục 2 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs space-y-3 card-border">
+                    <h3 class="font-bold text-slate-900 text-base text-amber-700 flex items-center gap-2">
+                        <i class="fa-solid fa-circle-2"></i> 2. Các hằng đẳng thức Vectơ & Định lý Côsin
+                    </h3>
+                    <p>&bull; <strong>Các hằng đẳng thức đại số áp dụng cho Vectơ:</strong></p>
+                    <ul class="list-disc list-inside text-xs text-slate-600 space-y-1 pl-2">
+                        <li>$(\vec{a} + \vec{b})^2 = \vec{a}^2 + 2\vec{a}\cdot\vec{b} + \vec{b}^2$</li>
+                        <li>$(\vec{a} - \vec{b})^2 = \vec{a}^2 - 2\vec{a}\cdot\vec{b} + \vec{b}^2$</li>
+                        <li>$(\vec{a} + \vec{b})(\vec{a} - \vec{b}) = \vec{a}^2 - \vec{b}^2$</li>
+                    </ul>
+                    <p>&bull; <strong>Chứng minh Định lý Côsin bằng Vectơ:</strong> Xét tam giác $ABC$, đặt $\vec{a} = \overrightarrow{AB}, \vec{b} = \overrightarrow{AC} \Rightarrow \overrightarrow{CB} = \vec{a} - \vec{b}$.</p>
+                    <p>Ta có: $\overrightarrow{CB}^2 = (\vec{a} - \vec{b})^2 = \vec{a}^2 - 2\vec{a}\cdot\vec{b} + \vec{b}^2 = \overrightarrow{AB}^2 - 2\overrightarrow{AB}\cdot\overrightarrow{AC} + \overrightarrow{AC}^2$.</p>
+                    <p>$$\Leftrightarrow CB^2 = AB^2 + AC^2 - 2 \cdot AB \cdot AC \cdot \cos A \quad (\text{Định lý Côsin}).$$</p>
+                </div>
+
+                <!-- Ví dụ 2 -->
+                <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200 space-y-2 card-border">
+                    <p class="font-bold text-slate-900 text-xs text-indigo-700 uppercase"><i class="fa-solid fa-pen-to-square mr-1"></i> Ví dụ minh họa 2 (Nâng cao)</p>
+                    <p class="text-xs text-slate-800">Cho hình vuông $ABCD$. Hãy dùng tích vô hướng chứng minh hai đường chéo $AC$ và $BD$ vuông góc với nhau.</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-white rounded-xl border border-slate-200 text-xs text-slate-700 space-y-1">
+                            <p>Biểu diễn hai vectơ đường chéo theo hai cạnh vuông góc $\overrightarrow{AB}$ và $\overrightarrow{AD}$:</p>
+                            <p>&bull; $\overrightarrow{AC} = \overrightarrow{AB} + \overrightarrow{AD}$ (Quy tắc hình bình hành).</p>
+                            <p>&bull; $\overrightarrow{BD} = \overrightarrow{AD} - \overrightarrow{AB}$ (Quy tắc trừ).</p>
+                            <p>Tính tích vô hướng:</p>
+                            <p>$$\overrightarrow{AC} \cdot \overrightarrow{BD} = (\overrightarrow{AD} + \overrightarrow{AB}) \cdot (\overrightarrow{AD} - \overrightarrow{AB}) = \overrightarrow{AD}^2 - \overrightarrow{AB}^2 = AD^2 - AB^2$$</p>
+                            <p>Vì $ABCD$ là hình vuông nên $AD = AB \Rightarrow AD^2 - AB^2 = 0 \Rightarrow \overrightarrow{AC} \cdot \overrightarrow{BD} = 0 \Rightarrow AC \perp BD$ (đpcm).</p>
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ================= PHẦN 3: MỨC ĐỘ VẬN DỤNG ================= -->
+        <section class="space-y-6">
+            <div class="flex items-center gap-3 border-b pb-3 border-slate-200">
+                <span class="bg-emerald-600 text-white text-xs font-black px-3 py-1 rounded-md uppercase tracking-wider">Cấp độ 3</span>
+                <h2 class="text-xl font-extrabold text-slate-900">PHẦN 3: MỨC ĐỘ VẬN DỤNG (BÀI TOÁN QUỸ TÍCH & CÔNG CƠ HỌC VẬT LÝ)</h2>
+            </div>
+            <p class="text-xs font-bold text-emerald-800 bg-emerald-50 px-3 py-2 rounded-lg inline-block">
+                Mục tiêu: Áp dụng công cụ tích vô hướng để giải bài toán quỹ tích tập hợp điểm và tính toán Công sinh bởi lực trong Vật lý.
+            </p>
+
+            <div class="space-y-6 text-sm leading-relaxed text-slate-700">
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs space-y-3 card-border">
+                    <h3 class="font-bold text-slate-900 text-base text-emerald-700 flex items-center gap-2">
+                        <i class="fa-solid fa-shapes"></i> 1. Bài toán Quỹ tích bằng Tích vô hướng
+                    </h3>
+                    <p>&bull; Trong Hình học, nếu ta biến đổi biểu thức vectơ về dạng $\overrightarrow{MA} \cdot \overrightarrow{MB} = 0$ (với $A, B$ cố định), thì ta kết luận $\overrightarrow{MA} \perp \overrightarrow{MB}$. Điều này có nghĩa điểm $M$ nhìn đoạn $AB$ dưới một góc vuông $90^\circ$.</p>
+                    <p>&bull; <strong>Hệ quả:</strong> Tập hợp các điểm $M$ thỏa mãn $\overrightarrow{MA} \cdot \overrightarrow{MB} = 0$ là đường tròn đường kính $AB$.</p>
+                </div>
+
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs space-y-3 card-border">
+                    <h3 class="font-bold text-slate-900 text-base text-emerald-700 flex items-center gap-2">
+                        <i class="fa-solid fa-bolt"></i> 2. Ứng dụng tính Công cơ học Vật lí
+                    </h3>
+                    <p>&bull; Khi lực $\vec{F}$ không đổi tác dụng lên một vật làm vật dịch chuyển đoạn đường biểu diễn bởi vectơ $\vec{d}$, Công $A$ sinh bởi lực $\vec{F}$ chính là tích vô hướng của lực và độ dịch chuyển:
+                        $$A = \vec{F} \cdot \vec{d} = |\vec{F}| \cdot |\vec{d}| \cdot \cos(\vec{F}, \vec{d})$$
+                    </p>
+                    <p>&bull; Đơn vị của Công là Jun ($J$) khi lực tính bằng Newton ($N$) và quãng đường tính bằng mét ($m$).</p>
+                </div>
+
+                <!-- Ví dụ 3 -->
+                <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200 space-y-2 card-border">
+                    <p class="font-bold text-slate-900 text-xs text-indigo-700 uppercase"><i class="fa-solid fa-pen-to-square mr-1"></i> Ví dụ minh họa 3 (Vận dụng Vật lý)</p>
+                    <p class="text-xs text-slate-800">Một người dùng lực $\vec{F}$ cường độ $20\text{ N}$ kéo chiếc xe đi quãng đường $50\text{ m}$. Tính công sinh bởi lực $\vec{F}$, biết góc giữa vectơ lực $\vec{F}$ và hướng dịch chuyển là $60^\circ$.</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-white rounded-xl border border-slate-200 text-xs text-slate-700 space-y-1">
+                            <p>Gọi $\vec{d}$ là vectơ độ dịch chuyển. Ta có $|\vec{F}| = 20\text{ N}$, $|\vec{d}| = 50\text{ m}$ và góc $\alpha = 60^\circ$.</p>
+                            <p>Công sinh bởi lực kéo là:</p>
+                            <p>$$A = \vec{F} \cdot \vec{d} = |\vec{F}| \cdot |\vec{d}| \cdot \cos 60^\circ = 20 \cdot 50 \cdot \frac{1}{2} = 500\text{ (J)}$$</p>
+                            <p><strong>Kết luận:</strong> Lực kéo đã thực hiện một công bằng $500\text{ J}$.</p>
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ================= BÀI TẬP ĐÁNH GIÁ NĂNG LỰC TRẮC NGHIỆM ================= -->
+        <section class="border-t border-slate-200 pt-10 page-break">
+            <div class="bg-gradient-to-br from-slate-900 via-slate-800 to-indigo-950 text-white rounded-3xl p-6 sm:p-8 shadow-xl relative overflow-hidden card-border">
+                <div class="max-w-xl space-y-2">
+                    <span class="text-xs font-bold uppercase tracking-widest text-emerald-400 bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-500/20 inline-block">Đánh giá trực tuyến tại lớp</span>
+                    <h2 class="text-xl sm:text-2xl font-black tracking-tight">BÀI TẬP ĐÁNH GIÁ NĂNG LỰC TẠI LỚP</h2>
+                    <p class="text-slate-400 text-xs sm:text-sm">Học sinh hoàn thành trắc nghiệm 5 câu dưới đây. Kết quả điểm số sẽ được truyền tự động về Google Sheets hệ thống.</p>
+                </div>
+
+                <form id="quizForm" class="mt-8 space-y-6 text-slate-900">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div class="bg-white p-4 rounded-xl shadow-inner border border-slate-100">
+                            <label class="block text-xs font-bold text-slate-400 uppercase tracking-wide mb-1"><i class="fa-solid fa-user-graduate mr-1 text-indigo-500"></i> Họ và tên học sinh</label>
+                            <input type="text" id="studentName" required placeholder="Nhập họ tên đầy đủ..." class="w-full bg-white border-b-2 border-slate-200 focus:border-indigo-500 outline-none py-1 text-sm font-bold text-slate-900 transition-colors">
+                        </div>
+                        <div class="bg-white p-4 rounded-xl shadow-inner border border-slate-100">
+                            <label class="block text-xs font-bold text-slate-400 uppercase tracking-wide mb-1"><i class="fa-solid fa-file-code mr-1 text-indigo-500"></i> Mã chuyên đề bài học</label>
+                            <input type="text" id="examId" readonly value="Buoi17_TichVoHuong_Toan10" class="w-full bg-slate-50 border-b-2 border-slate-200 outline-none py-1 text-sm font-bold text-slate-500 cursor-not-allowed">
+                        </div>
+                    </div>
+
+                    <!-- Khối câu hỏi trắc nghiệm -->
+                    <div class="space-y-5 mt-6">
+                        <!-- Câu 1 -->
+                        <div class="bg-white p-5 rounded-2xl shadow-sm space-y-3">
+                            <p class="text-sm font-bold text-slate-900"><span class="text-indigo-600">Câu 1:</span> Công thức tính tích vô hướng của hai vectơ $\vec{a}$ và $\vec{b}$ là:</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs font-semibold text-slate-700">
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q1" value="A" required class="text-indigo-600 h-4 w-4"> <span>A. $\vec{a} \cdot \vec{b} = |\vec{a}| \cdot |\vec{b}| \cdot \cos(\vec{a}, \vec{b})$</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q1" value="B" class="text-indigo-600 h-4 w-4"> <span>B. $\vec{a} \cdot \vec{b} = |\vec{a}| \cdot |\vec{b}| \cdot \sin(\vec{a}, \vec{b})$</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q1" value="C" class="text-indigo-600 h-4 w-4"> <span>C. $\vec{a} \cdot \vec{b} = |\vec{a} + \vec{b}|$</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q1" value="D" class="text-indigo-600 h-4 w-4"> <span>D. $\vec{a} \cdot \vec{b} = |\vec{a}| \cdot |\vec{b}|$</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Câu 2 -->
+                        <div class="bg-white p-5 rounded-2xl shadow-sm space-y-3">
+                            <p class="text-sm font-bold text-slate-900"><span class="text-indigo-600">Câu 2:</span> Cho tam giác đều $ABC$ cạnh $a$. Tích vô hướng $\overrightarrow{AB} \cdot \overrightarrow{AC}$ bằng bao nhiêu?</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs font-semibold text-slate-700">
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q2" value="A" required class="text-indigo-600 h-4 w-4"> <span>A. $a^2$</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q2" value="B" class="text-indigo-600 h-4 w-4"> <span>B. $\frac{a^2}{2}$</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q2" value="C" class="text-indigo-600 h-4 w-4"> <span>C. $\frac{a^2\sqrt{3}}{2}$</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q2" value="D" class="text-indigo-600 h-4 w-4"> <span>D. $0$</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Câu 3 -->
+                        <div class="bg-white p-5 rounded-2xl shadow-sm space-y-3">
+                            <p class="text-sm font-bold text-slate-900"><span class="text-indigo-600">Câu 3:</span> Hai vectơ khác $\vec{0}$ vuông góc với nhau khi và chỉ khi tích vô hướng của chúng bằng:</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs font-semibold text-slate-700">
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q3" value="A" required class="text-indigo-600 h-4 w-4"> <span>A. $0$</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q3" value="B" class="text-indigo-600 h-4 w-4"> <span>B. $1$</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q3" value="C" class="text-indigo-600 h-4 w-4"> <span>C. $-1$</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Câu 4 -->
+                        <div class="bg-white p-5 rounded-2xl shadow-sm space-y-3">
+                            <p class="text-sm font-bold text-slate-900"><span class="text-indigo-600">Câu 4:</span> Lực $F=20\text{ N}$ kéo xe đi quãng đường $d=50\text{ m}$ dưới góc kéo $\alpha = 60^\circ$. Công sinh bởi lực kéo là:</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs font-semibold text-slate-700">
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q4" value="A" required class="text-indigo-600 h-4 w-4"> <span>A. $500\text{ J}$</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q4" value="B" class="text-indigo-600 h-4 w-4"> <span>B. $1000\text{ J}$</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q4" value="C" class="text-indigo-600 h-4 w-4"> <span>C. $250\text{ J}$</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Câu 5 -->
+                        <div class="bg-white p-5 rounded-2xl shadow-sm space-y-3">
+                            <p class="text-sm font-bold text-slate-900"><span class="text-indigo-600">Câu 5:</span> Tập hợp các điểm $M$ thỏa mãn đẳng thức $\overrightarrow{MA} \cdot \overrightarrow{MB} = 0$ (với $A, B$ cố định) là hình gì?</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs font-semibold text-slate-700">
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q5" value="A" required class="text-indigo-600 h-4 w-4"> <span>A. Đường tròn đường kính $AB$</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q5" value="B" class="text-indigo-600 h-4 w-4"> <span>B. Đường trung trực của đoạn thẳng $AB$</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q5" value="C" class="text-indigo-600 h-4 w-4"> <span>C. Đường thẳng đi qua $A$ và song song $AB$</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q5" value="D" class="text-indigo-600 h-4 w-4"> <span>D. Điểm trung điểm $I$ của $AB$</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pt-2 flex flex-col sm:flex-row items-center justify-between gap-4">
+                        <button type="submit" id="submitBtn" class="w-full sm:w-auto bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-sm px-8 py-3.5 rounded-xl shadow-lg transition-all flex items-center justify-center space-x-2 cursor-pointer">
+                            <i class="fa-solid fa-cloud-arrow-up"></i> <span>Nộp Bài Chấm Điểm</span>
+                        </button>
+                        <div id="statusReport" class="text-xs font-bold text-slate-400"></div>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer bản quyền -->
+    <footer class="bg-slate-900 text-slate-400 py-8 text-center text-xs font-medium px-4 mt-auto">
+        <p class="font-bold text-slate-300">@ Bản quyền thuộc ThS. Đinh Quốc Tuấn - Mục đích phi lợi nhuận - Vì giáo dục.</p>
+        <p class="text-slate-500 mt-2">Hệ thống bài giảng trực tuyến tương tác tích hợp đồng bộ dữ liệu điểm số học sinh.</p>
+    </footer>
+
+    <!-- NÚT IN TÀI LIỆU CỐ ĐỊNH -->
+    <button id="btn-print-doc" onclick="safePrint()" class="fixed bottom-5 right-5 bg-gray-900 text-white px-4 py-2 rounded-lg shadow-lg hover:bg-gray-700 print:hidden z-50 cursor-pointer">
+        <i class="fas fa-print mr-2"></i> In Tài Liệu
+    </button>
+
+    <script>
+        function safePrint() {
+            const printBtn = document.getElementById('btn-print-doc');
+            printBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Đang chuẩn bị...';
+            
+            // Đảm bảo MathJax đã render xong mọi công thức trước khi gọi hộp thoại in
+            if (window.MathJax && window.MathJax.typesetPromise) {
+                MathJax.typesetPromise().then(() => {
+                    printBtn.innerHTML = '<i class="fas fa-print mr-2"></i> In Tài Liệu';
+                    window.print();
+                });
+            } else {
+                // Fallback nếu không có công thức toán
+                setTimeout(() => window.print(), 500); 
+            }
+        }
+    </script>
+
+    <!-- HỆ THỐNG ĐIỀU KHIỂN ĐỒ HỌA JSXGRAPH & FORM QUIZ APPS SCRIPT -->
+    <script>
+        const timeInit = new Date();
+
+        document.addEventListener("DOMContentLoaded", function() {
+            
+            // --- MÔ HÌNH 1: GÓC & TÍCH VÔ HƯỚNG TRONG TAM GIÁC (BOX 1) ---
+            const b1 = JXG.JSXGraph.initBoard('box1', {
+                boundingbox: [-1, 5, 5, -1], axis: false, showNavigation: false, showCopyright: false
+            });
+
+            let pA1 = b1.create('point', [0, 0], {name: 'A', color: '#0f172a', size: 3, fixed: true});
+            let pB1 = b1.create('point', [4, 0], {name: 'B', color: '#0f172a', size: 3, fixed: true});
+            let pC1 = b1.create('point', [2, 3.46], {name: 'C', color: '#dc2626', size: 4});
+
+            b1.create('polygon', [pA1, pB1, pC1], {fillColor: '#f1f5f9', fillOpacity: 0.5, strokeColor: '#94a3b8', strokeWidth: 1});
+
+            let vAB1 = b1.create('arrow', [pA1, pB1], {strokeColor: '#2563eb', strokeWidth: 2.5});
+            let vAC1 = b1.create('arrow', [pA1, pC1], {strokeColor: '#10b981', strokeWidth: 2.5});
+
+            let statusBox1 = document.getElementById('status-box1');
+            function updateBox1() {
+                let ab = pA1.Distance(pB1);
+                let ac = pA1.Distance(pC1);
+                let angleRad = JXG.Math.Geometry.rad(pB1, pA1, pC1);
+                let dotProd = (ab * ac * Math.cos(angleRad)).toFixed(2);
+                let angleDeg = (angleRad * 180 / Math.PI).toFixed(1);
+                statusBox1.innerHTML = `Góc A = ${angleDeg}° &rArr; Tích vô hướng = ${dotProd}`;
+            }
+            pC1.on('drag', updateBox1);
+            updateBox1();
+
+
+            // --- MÔ HÌNH 2: HAI ĐƯỜNG CHÉO VUÔNG GÓC HÌNH THOI (BOX 2) ---
+            const b2 = JXG.JSXGraph.initBoard('box2', {
+                boundingbox: [-1, 4, 5, -1], axis: false, showNavigation: false, showCopyright: false
+            });
+
+            let pA2 = b2.create('point', [0, 1.5], {name: 'A', color: '#0f172a', size: 3, fixed: true});
+            let pC2 = b2.create('point', [4, 1.5], {name: 'C', color: '#0f172a', size: 3, fixed: true});
+            let pB2 = b2.create('point', [2, 0], {name: 'B', color: '#0f172a', size: 3, fixed: true});
+            let pD2 = b2.create('point', [2, 3], {name: 'D', color: '#0f172a', size: 3, fixed: true});
+
+            b2.create('polygon', [pA2, pB2, pC2, pD2], {fillColor: '#fef3c7', fillOpacity: 0.5, strokeColor: '#d97706', strokeWidth: 1.5});
+
+            let vAC2 = b2.create('segment', [pA2, pC2], {strokeColor: '#2563eb', strokeWidth: 2.5});
+            let vBD2 = b2.create('segment', [pB2, pD2], {strokeColor: '#dc2626', strokeWidth: 2.5});
+
+
+            // --- MÔ HÌNH 3: CÔNG CƠ HỌC A = F*d*cos(alpha) (BOX 3) ---
+            const b3 = JXG.JSXGraph.initBoard('box3', {
+                boundingbox: [-1, 4, 5, -2], axis: false, showNavigation: false, showCopyright: false
+            });
+
+            // Mặt đất
+            b3.create('line', [[0, 0], [4, 0]], {strokeColor: '#64748b', strokeWidth: 2, fixed: true});
+            let pCar = b3.create('point', [0.5, 0], {name: 'Xe', color: '#0f172a', size: 4, fixed: true});
+            
+            // Slider góc alpha
+            let slAlpha = b3.create('slider', [[0.5, 3.2], [3.5, 3.2], [0, 60, 180]], {
+                name: 'Góc alpha', snapWidth: 1, color: '#059669'
+            });
+
+            let pForce = b3.create('point', [
+                function() { return 0.5 + 2.5 * Math.cos(slAlpha.Value() * Math.PI / 180); },
+                function() { return 2.5 * Math.sin(slAlpha.Value() * Math.PI / 180); }
+            ], {visible: false});
+
+            let pDisp = b3.create('point', [3.5, 0], {visible: false, fixed: true});
+
+            b3.create('arrow', [pCar, pDisp], {strokeColor: '#2563eb', strokeWidth: 2}); // d
+            b3.create('arrow', [pCar, pForce], {strokeColor: '#dc2626', strokeWidth: 3}); // F
+
+            let statusBox3 = document.getElementById('status-box3');
+            slAlpha.on('update', function() {
+                let deg = slAlpha.Value();
+                let work = (20 * 50 * Math.cos(deg * Math.PI / 180)).toFixed(0);
+                let typeText = (deg < 90) ? "Công phát động (A > 0)" : ((deg === 90) ? "Không sinh công (A = 0)" : "Công cản (A < 0)");
+                statusBox3.innerHTML = `Góc kéo = ${deg}° &rArr; A = ${work} J (${typeText})`;
+            });
+        });
+
+        // --- XỬ LÝ NỘP BÀI TRẮC NGHIỆM VÀ ĐẨY DỮ LIỆU APPS SCRIPT ---
+        document.getElementById('quizForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const submitBtn = document.getElementById('submitBtn');
+            const statusReport = document.getElementById('statusReport');
+            
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i> Hệ thống đang nộp bài...';
+            statusReport.innerHTML = "Đang kết nối cơ sở dữ liệu bảng tính...";
+
+            const correctKey = { q1: "A", q2: "B", q3: "A", q4: "A", q5: "A" };
+            const studentName = document.getElementById('studentName').value.trim();
+            const lessonId = document.getElementById('examId').value.trim();
+            
+            let correctCounter = 0;
+            let totalQuizCount = Object.keys(correctKey).length;
+            let missedReportArray = [];
+
+            for (let questionCode in correctKey) {
+                const selectedRadio = document.querySelector(`input[name="${questionCode}"]:checked`);
+                if (selectedRadio && selectedRadio.value === correctKey[questionCode]) {
+                    correctCounter++;
+                } else {
+                    let chosenChar = selectedRadio ? selectedRadio.value : "Bỏ trống";
+                    missedReportArray.push(`${questionCode.toUpperCase()}(Chọn: ${chosenChar}|Đúng: ${correctKey[questionCode]})`);
+                }
+            }
+
+            const finalScore = ((correctCounter / totalQuizCount) * 10).toFixed(2);
+            const timeComplete = new Date();
+            const elapsedDurationSeconds = Math.floor((timeComplete - timeInit) / 1000);
+            const thoiGian = `${Math.floor(elapsedDurationSeconds / 60)} phút ${elapsedDurationSeconds % 60} giây`;
+            const cauSai = missedReportArray.length > 0 ? missedReportArray.join(", ") : "Không có (Đạt 10/10)";
+
+            const transmissionPayload = {
+                hoTen: studentName,
+                maDe: lessonId,
+                diem: parseFloat(finalScore),
+                thoiGian: thoiGian,
+                cauSai: cauSai
+            };
+
+            const webAppsScriptEndpoint = "https://script.google.com/macros/s/AKfycbzY7b7h4OwvhXuK5Vs6hl-aD88BPnAiAKbU5lfJobby0D4nzbIJVKT4n0AKCpAGoK0nZA/exec";
+
+            fetch(webAppsScriptEndpoint, {
+                method: "POST",
+                mode: "no-cors",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(transmissionPayload)
+            })
+            .then(() => {
+                statusReport.className = "text-xs font-bold text-emerald-500 bg-emerald-50 px-3 py-2 rounded-xl border border-emerald-200 inline-block";
+                statusReport.innerHTML = `<i class="fa-solid fa-circle-check"></i> Đã đồng bộ kết quả thành công: ${finalScore}/10.`;
+                alert(`Hệ thống ghi nhận bài nộp thành công!\nChào em ${studentName}, điểm số đạt được là: ${finalScore} / 10.`);
+                submitBtn.innerHTML = '<i class="fa-solid fa-lock"></i> Đã lưu kết quả thi';
+            })
+            .catch(error => {
+                console.error("Lỗi truyền tin:", error);
+                statusReport.className = "text-xs font-bold text-rose-500 bg-rose-50 px-3 py-2 rounded-xl border border-rose-200 inline-block";
+                statusReport.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> Lỗi kết nối mạng, vui lòng bấm nộp lại!';
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Thử nộp lại bài';
+            });
+        });
+    </script>
+</body>
+</html>
