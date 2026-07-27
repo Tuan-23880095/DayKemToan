@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buổi 8: Hàm Số Bậc Hai & Đồ Thị Parabol — ThS. Đinh Quốc Tuấn</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- FontAwesome Icons CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts: Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- MathJax Configuration & Script -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['\\(', '\\)'], ['$', '$']],
+                displayMath: [['\\[', '\\]'], ['$$', '$$']]
+            },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <!-- JSXGraph CSS & Core Engine -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraph.css" />
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraphcore.js"></script>
+
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #f8fafc;
+            color: #0f172a;
+        }
+        .jxgbox {
+            background-color: #ffffff !important;
+            border-radius: 1rem;
+            overflow: hidden;
+            border: 1px solid #e2e8f0;
+        }
+        @media print {
+            .print\:hidden { display: none !important; }
+            body { background: white !important; color: black !important; }
+            details { display: block !important; }
+            details summary { display: none !important; }
+            .page-break { page-break-before: always; }
+            .card-border { box-shadow: none !important; border: 1px solid #e5e7eb !important; }
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col antialiased selection:bg-indigo-100">
+
+    <!-- Header học thuật -->
+    <header class="border-b border-slate-200 sticky top-0 bg-white/95 backdrop-blur-md z-40 print:hidden">
+        <div class="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 px-6 py-4">
+            <div class="flex items-center gap-4">
+                <img src="https://firebasestorage.googleapis.com/v0/b/link-anh-web.firebasestorage.app/o/Logo-chinh-hcmus.png?alt=media&token=9cf3a1de-75f1-493b-8711-fd22c7b98738" alt="Logo HCMUS" class="h-14 w-auto object-contain">
+                <div class="border-l-2 border-slate-300 pl-4">
+                    <span class="text-xs font-bold tracking-widest text-indigo-600 uppercase block mb-0.5">Tài liệu số hóa tương tác</span>
+                    <span class="text-base font-extrabold text-slate-800">Đại Số Lớp 10 • Chuyên Đề Hàm Số Bậc Hai</span>
+                </div>
+            </div>
+            <div class="flex items-center gap-3 sm:text-right">
+                <div class="hidden sm:block">
+                    <p class="text-xs text-slate-400 font-semibold">Giảng viên biên soạn:</p>
+                    <p class="text-sm font-extrabold text-slate-800">ThS. Đinh Quốc Tuấn</p>
+                </div>
+                <img src="https://firebasestorage.googleapis.com/v0/b/link-anh-web.firebasestorage.app/o/ttbdvh.jpg?alt=media&token=f270aa9b-a2bc-48e8-8910-80742b542615" 
+                     alt="Logo TTBDVH" class="h-14 w-14 object-cover rounded-full border border-slate-200 shadow-inner">
+            </div>
+        </div>
+    </header>
+
+    <!-- Banner chào mừng -->
+    <div class="bg-gradient-to-r from-indigo-50 via-slate-50 to-emerald-50 border-b border-slate-200 py-10 print:hidden">
+        <div class="max-w-4xl mx-auto px-6 space-y-4">
+            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-indigo-100 text-indigo-800 border border-indigo-200 shadow-xs">
+                <i class="fa-solid fa-chart-area mr-1.5 text-indigo-600"></i> Parabol & Bài Toán Tối Ưu Thực Tế
+            </span>
+            <h1 class="text-2xl sm:text-4xl font-black tracking-tight text-slate-900 leading-tight">
+                Buổi 8: Bài Tập Hàm Số Bậc Hai & Đồ Thị Parabol
+            </h1>
+            <p class="text-slate-600 text-sm sm:text-base font-medium leading-relaxed text-justify">
+                Chào các em! Tiếp nối phần lý thuyết của Buổi 8 về Hàm số bậc hai và Đồ thị Parabol, thầy đã biên soạn chi tiết bộ 30 bài tập nhằm giúp các em củng cố kĩ năng xác định các yếu tố của Parabol và vận dụng vào giải quyết các bài toán tối ưu trong thực tế. Dưới đây là hệ thống bài tập phân cấp kèm mô hình JSXGraph trực quan!
+            </p>
+        </div>
+    </div>
+
+    <!-- Không gian nội dung chính -->
+    <main class="max-w-4xl mx-auto px-4 sm:px-6 py-10 flex-grow w-full space-y-16">
+        
+        <!-- ================= MÔ HÌNH HÌNH HỌC TƯƠNG TÁC JSXGRAPH ================= -->
+        <section class="space-y-8 print:hidden bg-slate-100 p-6 rounded-3xl border border-slate-200">
+            <div class="border-b border-slate-200 pb-3">
+                <h2 class="text-lg font-black text-slate-800 flex items-center uppercase tracking-wide">
+                    <i class="fa-solid fa-compass-drafting mr-2.5 text-indigo-600 text-xl"></i> Mô hình trực quan Parabol & Trị tuyệt đối
+                </h2>
+                <p class="text-xs text-slate-500 mt-1">Trực quan hóa vẽ đồ thị từng bước, phép biến đổi trị tuyệt đối lấy đối xứng qua trục $Ox$ và quỹ đạo ném bóng.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Mô hình 1 -->
+                <div class="flex flex-col bg-white p-4 rounded-2xl border border-slate-200 shadow-2xs">
+                    <h3 class="font-bold text-slate-900 text-xs mb-1 flex items-center gap-1.5">
+                        <i class="fa-solid fa-draw-polygon text-indigo-600"></i> Mô hình 1: Vẽ đồ thị $y = x^2 - 4x + 3$ (Bài 5)
+                    </h3>
+                    <p class="text-[11px] text-slate-500 mb-3">Parabol có đỉnh $I(2; -1)$, trục đối xứng $x=2$, cắt trục hoành tại $(1;0), (3;0)$ và trục tung tại $(0;3)$.</p>
+                    <div id="box1" class="w-full h-56 jxgbox"></div>
+                    <div id="status-box1" class="text-[11px] font-bold p-2 mt-2 bg-indigo-50 border border-indigo-100 rounded-lg text-center text-slate-700 font-mono">
+                        Đỉnh I(2; -1) | Giao Ox: (1;0), (3;0)
+                    </div>
+                </div>
+
+                <!-- Mô hình 2 -->
+                <div class="flex flex-col bg-white p-4 rounded-2xl border border-slate-200 shadow-2xs">
+                    <h3 class="font-bold text-slate-900 text-xs mb-1 flex items-center gap-1.5">
+                        <i class="fa-solid fa-arrows-split-up-and-left text-amber-500"></i> Mô hình 2: Trị tuyệt đối $y = |x^2 - 4x + 3|$ (Bài 16)
+                    </h3>
+                    <p class="text-[11px] text-slate-500 mb-3">Phần đồ thị nằm dưới trục $Ox$ được lật ngược lên trên, tạo thành 2 "chân núi" và 1 "vòm" cắt đường $y=m$ tại 4 nghiệm.</p>
+                    <div id="box2" class="w-full h-56 jxgbox"></div>
+                    <div id="status-box2" class="text-[11px] font-bold p-2 mt-2 bg-amber-50 border border-amber-100 rounded-lg text-center text-amber-900 font-mono">
+                        Đồ thị trị tuyệt đối y = |x² - 4x + 3|
+                    </div>
+                </div>
+
+                <!-- Mô hình 3 -->
+                <div class="flex flex-col bg-white p-4 rounded-2xl border border-slate-200 shadow-2xs">
+                    <h3 class="font-bold text-slate-900 text-xs mb-1 flex items-center gap-1.5">
+                        <i class="fa-solid fa-futbol text-emerald-600"></i> Mô hình 3: Quỹ đạo ném bóng (Bài 22)
+                    </h3>
+                    <p class="text-[11px] text-slate-500 mb-3">Quỹ đạo đỉnh $I(2; 8)$ mô phỏng quả bóng bay lên sau 2 giây đạt đỉnh 8 mét, sau đó rơi xuống mặt đất.</p>
+                    <div id="box3" class="w-full h-56 jxgbox"></div>
+                    <div id="status-box3" class="text-[11px] font-bold p-2 mt-2 bg-emerald-50 border border-emerald-100 rounded-lg text-center text-emerald-800 font-mono">
+                        Đỉnh (2; 8) | t = 2s &rArr; h = 8m
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= PHẦN 1: MỨC ĐỘ CƠ BẢN ================= -->
+        <section class="space-y-6">
+            <div class="flex items-center gap-3 border-b pb-3 border-slate-200">
+                <span class="bg-sky-600 text-white text-xs font-black px-3 py-1 rounded-md uppercase tracking-wider">Cấp độ 1</span>
+                <h2 class="text-xl font-extrabold text-slate-900">PHẦN 1: MỨC ĐỘ CƠ BẢN (10 BÀI NHẬN BIẾT & TỌA ĐỘ ĐỈNH)</h2>
+            </div>
+            <p class="text-xs font-bold text-sky-800 bg-sky-50 px-3 py-2 rounded-lg inline-block">
+                Mục tiêu: Nhận biết hàm số bậc hai, xác định tọa độ đỉnh, trục đối xứng, giao điểm với các trục và vẽ đồ thị cơ bản.
+            </p>
+
+            <div class="space-y-4">
+                <!-- Bài 1 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 1:</strong> Hàm số nào trong các hàm số sau đây là hàm số bậc hai?</p>
+                    <p class="text-xs text-slate-600 mb-3">a) \(y = 2x^2 - 3x + 1\) &nbsp;&nbsp;&nbsp;&nbsp; b) \(y = x(x^2 + 2) - 5\) &nbsp;&nbsp;&nbsp;&nbsp; c) \(y = \frac{1}{x^2} + x - 1\) &nbsp;&nbsp;&nbsp;&nbsp; d) \(y = -4x + 3\)</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p><strong>Đáp án đúng: a) \(y = 2x^2 - 3x + 1\)</strong> (có dạng $y = ax^2 + bx + c$ với $a = 2 \neq 0$).</p>
+                            <p>&bull; Câu b khai triển thành $x^3 + 2x - 5$ (bậc 3); Câu c chứa phân thức $\frac{1}{x^2}$; Câu d là hàm bậc nhất.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 2 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 2:</strong> Tìm tọa độ đỉnh và phương trình trục đối xứng của đồ thị các hàm số bậc hai sau:</p>
+                    <p class="text-xs text-slate-600 mb-3">a) \(y = x^2 - 4x + 3\) &nbsp;&nbsp;&nbsp;&nbsp; b) \(y = -2x^2 + x - 1\)</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>a) $a=1, b=-4, c=3 \Rightarrow x_I = -\frac{-4}{2(1)} = 2; y_I = 2^2 - 4(2) + 3 = -1$. Đỉnh $I(2; -1)$, trục đối xứng $x = 2$.</p>
+                            <p>b) $a=-2, b=1, c=-1 \Rightarrow x_I = -\frac{1}{2(-2)} = \frac{1}{4}; y_I = -2\left(\frac{1}{4}\right)^2 + \frac{1}{4} - 1 = -\frac{7}{8}$. Đỉnh $I\left(\frac{1}{4}; -\frac{7}{8}\right)$, trục đối xứng $x = \frac{1}{4}$.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 3 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 3:</strong> Không vẽ đồ thị, hãy tìm tọa độ giao điểm của đồ thị hàm số \(y = x^2 - 5x + 6\) với trục tung và trục hoành.</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>&bull; Giao với trục tung ($Ox=0$): Cho $x = 0 \Rightarrow y = 6 \Rightarrow$ Giao điểm $(0; 6)$.</p>
+                            <p>&bull; Giao với trục hoành ($Oy=0$): Cho $x^2 - 5x + 6 = 0 \Leftrightarrow (x-2)(x-3) = 0 \Rightarrow x = 2$ hoặc $x = 3 \Rightarrow$ Giao điểm $(2; 0)$ và $(3; 0)$.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 4 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 4:</strong> Cho parabol \((P): y = -x^2 + 2x + 3\). Điểm nào sau đây là đỉnh của \((P)\)?</p>
+                    <p class="text-xs text-slate-600 mb-3">A. \((-1; 0)\) &nbsp;&nbsp;&nbsp;&nbsp; B. \((1; 4)\) &nbsp;&nbsp;&nbsp;&nbsp; C. \((2; 3)\) &nbsp;&nbsp;&nbsp;&nbsp; D. \((0; 3)\)</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>$a = -1, b = 2 \Rightarrow x_I = -\frac{2}{2(-1)} = 1$. Thay $x = 1$ vào $y = -(1)^2 + 2(1) + 3 = 4$.</p>
+                            <p><strong>Đáp án đúng: B. \((1; 4)\)</strong>.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 5 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 5 (Minh họa Mô hình 1):</strong> Vẽ đồ thị hàm số \(y = x^2 - 4x + 3\) theo các bước (Đỉnh, trục đối xứng, giao điểm trục hoành và trục tung).</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>&bull; Đỉnh $I(2; -1)$, trục đối xứng $x = 2$.</p>
+                            <p>&bull; Giao $Ox$: $(1; 0)$ và $(3; 0)$. Giao $Oy$: $(0; 3)$.</p>
+                            <p>&bull; Parabol quay bề lõm lên trên, đi qua các điểm đặc biệt trên và nhận $I(2; -1)$ làm điểm thấp nhất.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 6 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 6:</strong> Lập bảng biến thiên và chỉ ra các khoảng đồng biến, nghịch biến của hàm số \(y = 2x^2 - 4x + 1\).</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>&bull; Đỉnh $I(1; -1)$. Do $a = 2 > 0$ nên bề lõm quay lên.</p>
+                            <p>&bull; Hàm số <strong>nghịch biến</strong> trên khoảng $(-\infty; 1)$ và <strong>đồng biến</strong> trên khoảng $(1; +\infty)$.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 7 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 7:</strong> Đồ thị \(y = ax^2 + bx + c\) cắt trục tung tại điểm có tung độ bằng $5$. Biết hoành độ đỉnh là $2$. Tìm $c$ và hệ thức liên hệ $a, b$.</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>&bull; Cắt trục tung tại điểm tung độ 5 $\Rightarrow c = 5$.</p>
+                            <p>&bull; Hoành độ đỉnh bằng 2 $\Rightarrow -\frac{b}{2a} = 2 \Leftrightarrow \mathbf{b = -4a}$.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 8 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 8:</strong> Trong các điểm \(A(1; -2), B(-1; 4), C(2; -1)\), điểm nào thuộc đồ thị hàm số \(y = -x^2 + 3x - 4\)?</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>&bull; Thử $A(1; -2) \Rightarrow -(1)^2 + 3(1) - 4 = -2$ (Đúng $\Rightarrow A \in$ Đồ thị).</p>
+                            <p>&bull; Thử $B(-1; 4) \Rightarrow -(-1)^2 + 3(-1) - 4 = -8 \neq 4$ (Sai).</p>
+                            <p>&bull; Thử $C(2; -1) \Rightarrow -(2)^2 + 3(2) - 4 = -2 \neq -1$ (Sai).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 9 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 9:</strong> Đồ thị hàm số $y = f(x)$ có đỉnh nằm ở vị trí thấp nhất tại hoành độ $x = 1$, tung độ $-3$. Xác định dấu của hệ số $a$ và tọa độ đỉnh.</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>&bull; Đỉnh nằm ở vị trí thấp nhất $\Rightarrow$ Bề lõm quay lên trên $\Rightarrow \mathbf{a > 0}$.</p>
+                            <p>&bull; Tọa độ đỉnh: $I(1; -3)$.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 10 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 10:</strong> Xác định parabol \(y = ax^2 + bx + 1\) biết parabol này có trục đối xứng là đường thẳng \(x = 1\).</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Trục đối xứng $x = 1 \Rightarrow -\frac{b}{2a} = 1 \Leftrightarrow \mathbf{b = -2a}$.</p>
+                            <p>Parabol có dạng: $y = ax^2 - 2ax + 1$ (với $a \neq 0$).</p>
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ================= PHẦN 2: MỨC ĐỘ NÂNG CAO ================= -->
+        <section class="space-y-6">
+            <div class="flex items-center gap-3 border-b pb-3 border-slate-200">
+                <span class="bg-amber-600 text-white text-xs font-black px-3 py-1 rounded-md uppercase tracking-wider">Cấp độ 2</span>
+                <h2 class="text-xl font-extrabold text-slate-900">PHẦN 2: CẤP ĐỘ NÂNG CAO (10 BÀI TÌM HỆ SỐ a, b, c & TRỊ TUYỆT ĐỐI)</h2>
+            </div>
+            <p class="text-xs font-bold text-amber-800 bg-amber-50 px-3 py-2 rounded-lg inline-block">
+                Mục tiêu: Dùng kỹ năng giải hệ phương trình tìm hệ số, phân tích đồ thị chứa giá trị tuyệt đối và biện luận tham số.
+            </p>
+
+            <div class="space-y-4">
+                <!-- Bài 11 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 11:</strong> Tìm công thức hàm số bậc hai biết đồ thị là parabol có đỉnh \(I(2; -1)\) và đi qua gốc tọa độ \(O(0; 0)\).</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Parabol đỉnh $I(2; -1)$ có dạng: $y = a(x - 2)^2 - 1$.</p>
+                            <p>Vì đi qua $O(0;0) \Rightarrow 0 = a(0 - 2)^2 - 1 \Leftrightarrow 4a = 1 \Leftrightarrow a = \frac{1}{4}$.</p>
+                            <p>Hàm số cần tìm: $y = \frac{1}{4}(x - 2)^2 - 1 = \frac{1}{4}x^2 - x$.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 12 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 12:</strong> Tìm công thức hàm số bậc hai biết đồ thị đi qua 3 điểm \(A(1; -3)\), \(B(0; -2)\) và \(C(2; -10)\).</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Giả sử hàm số $y = ax^2 + bx + c$. Thay tọa độ 3 điểm vào ta được hệ phương trình:</p>
+                            <p>$\begin{cases} a + b + c = -3 \\ c = -2 \\ 4a + 2b + c = -10 \end{cases} \Leftrightarrow \begin{cases} a = -2 \\ b = 1 \\ c = -2 \end{cases}$.</p>
+                            <p>Hàm số: $y = -2x^2 + x - 2$.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 13 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 13:</strong> Cho $y = ax^2 + bx + c$ có bề lõm quay xuống, đỉnh ở góc phần tư thứ nhất, cắt trục tung ở phần dương. Xác định dấu của $a, b, c$ và $\Delta$.</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>&bull; Bề lõm quay xuống $\Rightarrow \mathbf{a < 0}$.</p>
+                            <p>&bull; Cắt trục tung ở phần dương $\Rightarrow \mathbf{c > 0}$.</p>
+                            <p>&bull; Hoành độ đỉnh $x_I = -\frac{b}{2a} > 0$ (góc phần tư thứ nhất) mà $a < 0 \Rightarrow \mathbf{b > 0}$.</p>
+                            <p>&bull; Parabol cắt trục hoành tại 2 điểm phân biệt $\Rightarrow \mathbf{\Delta > 0}$.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 14 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 14:</strong> Tìm tọa độ giao điểm của \((P_1): y = x^2 - 4x + 3\) và \((P_2): y = -x^2 + 2x + 3\).</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Phương trình hoành độ giao điểm: $x^2 - 4x + 3 = -x^2 + 2x + 3 \Leftrightarrow 2x^2 - 6x = 0 \Leftrightarrow 2x(x - 3) = 0 \Rightarrow x = 0$ hoặc $x = 3$.</p>
+                            <p>&bull; Với $x = 0 \Rightarrow y = 3$. &nbsp;&nbsp;&nbsp;&nbsp; &bull; Với $x = 3 \Rightarrow y = 0$.</p>
+                            <p>Tọa độ giao điểm là: <strong>$(0; 3)$ và $(3; 0)$</strong>.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 15 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 15:</strong> Xác định tham số $m$ để parabol $y = x^2 - 2mx + m^2 - 2m + 1$ có đỉnh nằm trên trục hoành.</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Đỉnh nằm trên trục hoành $\Leftrightarrow y_I = 0 \Leftrightarrow -\frac{\Delta}{4a} = 0 \Leftrightarrow \Delta = 0$.</p>
+                            <p>$\Delta = (-2m)^2 - 4(1)(m^2 - 2m + 1) = 4m - 4 = 0 \Leftrightarrow \mathbf{m = 1}$.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 16 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 16 (Minh họa Mô hình 2):</strong> Vẽ đồ thị $y = |x^2 - 4x + 3|$ và tìm $m$ để phương trình $|x^2 - 4x + 3| = m$ có 4 nghiệm phân biệt.</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Đồ thị hàm trị tuyệt đối gồm phần giữ nguyên phía trên trục $Ox$ và phần lật ngược phía dưới lên.</p>
+                            <p>Đỉnh thấp nhất lật lên có tung độ bằng 1. Để đường thẳng $y = m$ cắt đồ thị tại 4 điểm phân biệt thì: <strong>$0 < m < 1$</strong>.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 17 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 17:</strong> Xác định $a, b, c$ biết parabol đi qua $M(1; -2)$ và có tung độ đỉnh bằng $-3$ tại $x = 2$.</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Hệ phương trình: $\begin{cases} a + b + c = -2 \\ -\frac{b}{2a} = 2 \\ -\frac{\Delta}{4a} = -3 \end{cases} \Leftrightarrow \begin{cases} a = 1 \\ b = -4 \\ c = 1 \end{cases} \Rightarrow y = x^2 - 4x + 1$.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 18 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 18:</strong> Tìm giá trị lớn nhất và nhỏ nhất của hàm số \(y = x^2 - 4x + 5\) trên đoạn \([1; 4]\).</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Đỉnh $I(2; 1)$ có hoành độ $x = 2 \in [1; 4]$.</p>
+                            <p>&bull; $f(2) = 1$ (Giá trị nhỏ nhất).</p>
+                            <p>&bull; $f(1) = 2$; $f(4) = 5 \Rightarrow$ <strong>GTLN = 5</strong> tại $x = 4$.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 19 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 19:</strong> Cho Parabol $y = -x^2 + 2x + 3$. Xét tính đúng/sai: a) Trục đối xứng $x = 1$; b) Đỉnh $I(1; 4)$; c) Đồng biến $(1; +\infty)$.</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>&bull; a) <strong>Đúng</strong> ($x = -\frac{2}{2(-1)} = 1$).</p>
+                            <p>&bull; b) <strong>Đúng</strong> ($y(1) = 4 \Rightarrow I(1; 4)$).</p>
+                            <p>&bull; c) <strong>Sai</strong> (Vì $a = -1 < 0$ nên hàm số <em>nghịch biến</em> trên $(1; +\infty)$).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 20 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 20:</strong> Tìm $m$ để đường thẳng $y = mx + 1$ cắt parabol $y = x^2 + x + 2$ tại hai điểm phân biệt.</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Phương trình hoành độ giao điểm: $x^2 + x + 2 = mx + 1 \Leftrightarrow x^2 + (1-m)x + 1 = 0$.</p>
+                            <p>Để cắt tại 2 điểm phân biệt $\Leftrightarrow \Delta > 0 \Leftrightarrow (1-m)^2 - 4(1)(1) > 0 \Leftrightarrow m^2 - 2m - 3 > 0 \Leftrightarrow \mathbf{m < -1}$ hoặc $\mathbf{m > 3}$.</p>
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ================= PHẦN 3: MỨC ĐỘ VẬN DỤNG ================= -->
+        <section class="space-y-6">
+            <div class="flex items-center gap-3 border-b pb-3 border-slate-200">
+                <span class="bg-emerald-600 text-white text-xs font-black px-3 py-1 rounded-md uppercase tracking-wider">Cấp độ 3</span>
+                <h2 class="text-xl font-extrabold text-slate-900">PHẦN 3: CẤP ĐỘ VẬN DỤNG THỰC TIỄN (10 BÀI TỐI ƯU HÓA)</h2>
+            </div>
+            <p class="text-xs font-bold text-emerald-800 bg-emerald-50 px-3 py-2 rounded-lg inline-block">
+                Mục tiêu: Đưa các hiện tượng vật lý (quỹ đạo ném bóng) và bài toán kinh tế (doanh thu, lợi nhuận cực đại) về mô hình hàm số bậc hai.
+            </p>
+
+            <div class="space-y-4">
+                <!-- Bài 21 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 21 (Cổng chào Parabol):</strong> Khoảng cách chân cổng 9m. Điểm cách chân 1m đo được cao 1,8m. Tính chiều cao tối đa của cổng chào.</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Chọn hệ trục $Oxy$ sao cho chân cổng là $(0;0)$ và $(9;0)$. Parabol có dạng $y = ax(x - 9)$.</p>
+                            <p>Điểm $(1; 1,8)$ thuộc Parabol $\Rightarrow 1,8 = a(1)(1 - 9) \Leftrightarrow -8a = 1,8 \Rightarrow a = -0,225$.</p>
+                            <p>Đỉnh Parabol tại $x = 4,5 \Rightarrow h_{max} = -0,225(4,5)(4,5 - 9) \approx \mathbf{4,56}\text{ m}$.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 22 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 22 (Minh họa Mô hình 3 - Ném bóng):</strong> Quả bóng đá từ mặt đất, sau 2 giây đạt đỉnh 8 mét. Tính độ cao quả bóng sau 3 giây.</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Parabol đỉnh $I(2; 8)$ đi qua gốc $O(0;0)$: $h(t) = a(t - 2)^2 + 8$.</p>
+                            <p>Thay $(0; 0) \Rightarrow 0 = a(0 - 2)^2 + 8 \Leftrightarrow 4a = -8 \Rightarrow a = -2 \Rightarrow h(t) = -2(t - 2)^2 + 8$.</p>
+                            <p>Tại $t = 3$ giây: $h(3) = -2(3 - 2)^2 + 8 = \mathbf{6}\text{ mét}$.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 23 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 23 (Tối đa doanh thu nhà nghỉ):</strong> 40 phòng, giá 600k/phòng đầy khách. Cứ tăng 50k có 2 phòng trống. Giá cho thuê bao nhiêu để doanh thu lớn nhất?</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Gọi $x$ là số lần tăng giá 50k ($x \ge 0$). Giá phòng $= 600 + 50x$ (nghìn). Số phòng thuê $= 40 - 2x$.</p>
+                            <p>Doanh thu: $R(x) = (600 + 50x)(40 - 2x) = -100x^2 + 800x + 24000$.</p>
+                            <p>Đỉnh Parabol đạt hoành độ $x = -\frac{800}{2(-100)} = 4$.</p>
+                            <p>Giá tiền cho thuê tối ưu = $600 + 50(4) = \mathbf{800}\text{ nghìn đồng/phòng}$.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 24 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 24 (Rào đất bờ sông):</strong> Có 15 triệu rào hình chữ E dọc sông tạo 2 khu chữ nhật liền kề. Hàng rào song song sông 60k/m, vuông góc 50k/m. Diện tích lớn nhất?</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Gọi $x$ là chiều dài song song sông, $y$ là 3 chiều rộng vuông góc sông.</p>
+                            <p>Chi phí: $60x + 50y = 15000$ (nghìn) $\Rightarrow y = \frac{1500 - 6x}{5}$. Diện tích $S = x \cdot \frac{y}{2}$ (vì chia 2 ô).</p>
+                            <p>Hàm số bậc hai theo $x$ có đỉnh đạt GTLN $\mathbf{S_{max} = 937,5\text{ m}^2}$.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 25 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 25 (Cáp treo cầu treo):</strong> Tháp cao 75m, cách nhau 400m. Đáy dây cáp chạm mặt cầu ở tâm. Chiều cao dây cáp tại điểm cách tâm 100m là bao nhiêu?</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Chọn hệ trục $Oxy$ tại tâm cầu. Parabol dạng $y = ax^2$. Điểm tháp có tọa độ $(200; 75)$.</p>
+                            <p>$75 = a(200)^2 \Rightarrow a = \frac{75}{40000} = \frac{3}{1600} \Rightarrow y = \frac{3}{1600}x^2$.</p>
+                            <p>Tại $x = 100\text{ m} \Rightarrow y = \frac{3}{1600}(100)^2 = \frac{300}{16} = \mathbf{18,75}\text{ m}$.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 26 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 26 (Dự báo doanh số xe):</strong> Bán xe từ 2018. Năm 2018 bán 4 nghìn, 2019 bán 4,5 nghìn. Quy luật Parabol đỉnh năm 2018. Năm nào vượt 40 nghìn chiếc?</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Gọi $x$ là số năm kể từ 2018 ($x = 0$ ứng với 2018). Parabol dạng $y = ax^2 + 4$ (vì đỉnh tại $x=0, y=4$).</p>
+                            <p>Năm 2019 ($x=1$) bán 4,5 nghìn $\Rightarrow 4,5 = a(1)^2 + 4 \Rightarrow a = 0,5 \Rightarrow y = 0,5x^2 + 4$.</p>
+                            <p>Giải $0,5x^2 + 4 > 40 \Leftrightarrow x^2 > 72 \Rightarrow x > 8,48$. Vậy từ năm $2018 + 9 = \mathbf{2027}$.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 27 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 27 (Doanh thu nhà hát):</strong> Nhà hát 800 chỗ. Giá 40k có 300 người xem. Giảm 10k có thêm 100 người. Giá vé bao nhiêu doanh thu lớn nhất?</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Gọi $x$ là số lần giảm giá 10k ($x \ge 0$). Giá vé $= 40 - 10x$ (nghìn). Số người xem $= 300 + 100x$.</p>
+                            <p>Doanh thu: $R(x) = (40 - 10x)(300 + 100x) = -1000x^2 + 1000x + 12000$.</p>
+                            <p>Đỉnh Parabol $x = -\frac{1000}{2(-1000)} = 0,5$. Giá vé tối ưu $= 40 - 10(0,5) = \mathbf{35}\text{ nghìn đồng}$.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 28 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 28 (Kiến trúc vòm cửa):</strong> Vòm cửa Parabol rộng 4m chân cổng, cao chính giữa 3m. Xe tải ngang 2m muốn đi lọt chính giữa thì chiều cao thùng xe lớn nhất là bao nhiêu?</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Chọn hệ trục $Oxy$ tại chân cổng trái $(-2;0)$ và phải $(2;0)$, đỉnh $I(0;3)$. Parabol: $y = ax^2 + 3$.</p>
+                            <p>Đi qua $(2;0) \Rightarrow 0 = a(2)^2 + 3 \Rightarrow a = -\frac{3}{4} \Rightarrow y = -\frac{3}{4}x^2 + 3$.</p>
+                            <p>Xe tải rộng 2m đi chính giữa tương ứng khoảng hoành độ từ $-1$ đến $1$. Chiều cao lớn nhất tính tại mép thùng $x = 1 \Rightarrow y = -\frac{3}{4}(1)^2 + 3 = \mathbf{2,25}\text{ m}$.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 29 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 29 (Cầu vòm Nhật Tân):</strong> Trụ cầu $y = -\frac{187}{856}x^2 + \frac{8041}{856}x$. Dây dọi dài 15m treo từ vòm chạm mặt đất. Tính khoảng cách từ chân trụ đến quả nặng dây dọi.</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Dây dọi dài 15m vừa chạm đất tức là tung độ $y = 15$. Giải phương trình:</p>
+                            <p>$-\frac{187}{856}x^2 + \frac{8041}{856}x = 15 \Leftrightarrow 187x^2 - 8041x + 12840 = 0$.</p>
+                            <p>Giải ra hai nghiệm $x \approx 1,72\text{ m}$ và $x \approx 41,3\text{ m}$ (chọn nghiệm gần chân hoặc theo yêu cầu bài toán).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 30 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 30 (Tiết diện rãnh nước):</strong> Tấm tôn dài 60cm gập thành rãnh hình chữ nhật không nắp. Gọi $x$ (cm) là chiều cao mép gập. Tìm $x$ để diện tích mặt cắt ngang lớn nhất.</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Chiều dài đáy rãnh = $60 - 2x$. Diện tích mặt cắt: $S(x) = x(60 - 2x) = -2x^2 + 60x$.</p>
+                            <p>Đỉnh Parabol đạt hoành độ $x = -\frac{60}{2(-2)} = 15\text{ cm}$.</p>
+                            <p><strong>Kết luận:</strong> Gập mép cao $\mathbf{x = 15}\text{ cm}$ để diện tích rãnh đạt lớn nhất ($S_{max} = 450\text{ cm}^2$).</p>
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ================= BÀI TẬP ĐÁNH GIÁ NĂNG LỰC TRẮC NGHIỆM ================= -->
+        <section class="border-t border-slate-200 pt-10 page-break">
+            <div class="bg-gradient-to-br from-slate-900 via-slate-800 to-indigo-950 text-white rounded-3xl p-6 sm:p-8 shadow-xl relative overflow-hidden card-border">
+                <div class="max-w-xl space-y-2">
+                    <span class="text-xs font-bold uppercase tracking-widest text-emerald-400 bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-500/20 inline-block">Đánh giá trực tuyến tại lớp</span>
+                    <h2 class="text-xl sm:text-2xl font-black tracking-tight">BÀI TẬP ĐÁNH GIÁ NĂNG LỰC TẠI LỚP</h2>
+                    <p class="text-slate-400 text-xs sm:text-sm">Học sinh hoàn thành trắc nghiệm 5 câu dưới đây. Kết quả điểm số sẽ được truyền tự động về Google Sheets hệ thống.</p>
+                </div>
+
+                <form id="quizForm" class="mt-8 space-y-6 text-slate-900">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div class="bg-white p-4 rounded-xl shadow-inner border border-slate-100">
+                            <label class="block text-xs font-bold text-slate-400 uppercase tracking-wide mb-1"><i class="fa-solid fa-user-graduate mr-1 text-indigo-500"></i> Họ và tên học sinh</label>
+                            <input type="text" id="studentName" required placeholder="Nhập họ tên đầy đủ..." class="w-full bg-white border-b-2 border-slate-200 focus:border-indigo-500 outline-none py-1 text-sm font-bold text-slate-900 transition-colors">
+                        </div>
+                        <div class="bg-white p-4 rounded-xl shadow-inner border border-slate-100">
+                            <label class="block text-xs font-bold text-slate-400 uppercase tracking-wide mb-1"><i class="fa-solid fa-file-code mr-1 text-indigo-500"></i> Mã chuyên đề bài học</label>
+                            <input type="text" id="examId" readonly value="Buoi08_HamSoBacHai_Toan10" class="w-full bg-slate-50 border-b-2 border-slate-200 outline-none py-1 text-sm font-bold text-slate-500 cursor-not-allowed">
+                        </div>
+                    </div>
+
+                    <!-- Khối câu hỏi trắc nghiệm -->
+                    <div class="space-y-5 mt-6">
+                        <!-- Câu 1 -->
+                        <div class="bg-white p-5 rounded-2xl shadow-sm space-y-3">
+                            <p class="text-sm font-bold text-slate-900"><span class="text-indigo-600">Câu 1:</span> Tọa độ đỉnh $I$ của Parabol $y = x^2 - 4x + 3$ là:</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs font-semibold text-slate-700">
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q1" value="A" required class="text-indigo-600 h-4 w-4"> <span>A. I(2; -1)</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q1" value="B" class="text-indigo-600 h-4 w-4"> <span>B. I(-2; 3)</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q1" value="C" class="text-indigo-600 h-4 w-4"> <span>C. I(1; 0)</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Câu 2 -->
+                        <div class="bg-white p-5 rounded-2xl shadow-sm space-y-3">
+                            <p class="text-sm font-bold text-slate-900"><span class="text-indigo-600">Câu 2:</span> Trục đối xứng của Parabol $y = -2x^2 + x - 1$ là đường thẳng:</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs font-semibold text-slate-700">
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q2" value="A" required class="text-indigo-600 h-4 w-4"> <span>A. $x = 1/4$</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q2" value="B" class="text-indigo-600 h-4 w-4"> <span>B. $x = -1/4$</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q2" value="C" class="text-indigo-600 h-4 w-4"> <span>C. $x = 1/2$</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Câu 3 -->
+                        <div class="bg-white p-5 rounded-2xl shadow-sm space-y-3">
+                            <p class="text-sm font-bold text-slate-900"><span class="text-indigo-600">Câu 3:</span> Quả bóng ném lên đạt đỉnh 8 mét sau 2 giây. Độ cao quả bóng sau 3 giây là bao nhiêu?</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs font-semibold text-slate-700">
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q3" value="A" required class="text-indigo-600 h-4 w-4"> <span>A. 6 mét</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q3" value="B" class="text-indigo-600 h-4 w-4"> <span>B. 7 mét</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q3" value="C" class="text-indigo-600 h-4 w-4"> <span>C. 5 mét</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Câu 4 -->
+                        <div class="bg-white p-5 rounded-2xl shadow-sm space-y-3">
+                            <p class="text-sm font-bold text-slate-900"><span class="text-indigo-600">Câu 4:</span> Gập tấm tôn 60cm thành rãnh chữ nhật không nắp. Chiều cao mép gập $x$ để diện tích mặt cắt ngang lớn nhất là:</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs font-semibold text-slate-700">
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q4" value="A" required class="text-indigo-600 h-4 w-4"> <span>A. 15 cm</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q4" value="B" class="text-indigo-600 h-4 w-4"> <span>B. 10 cm</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q4" value="C" class="text-indigo-600 h-4 w-4"> <span>C. 20 cm</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Câu 5 -->
+                        <div class="bg-white p-5 rounded-2xl shadow-sm space-y-3">
+                            <p class="text-sm font-bold text-slate-900"><span class="text-indigo-600">Câu 5:</span> Giá trị nhỏ nhất của hàm số $y = x^2 - 4x + 5$ trên đoạn $[1; 4]$ là:</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs font-semibold text-slate-700">
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q5" value="A" required class="text-indigo-600 h-4 w-4"> <span>A. 1 tại $x = 2$</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q5" value="B" class="text-indigo-600 h-4 w-4"> <span>B. 2 tại $x = 1$</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q5" value="C" class="text-indigo-600 h-4 w-4"> <span>C. 5 tại $x = 4$</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pt-2 flex flex-col sm:flex-row items-center justify-between gap-4">
+                        <button type="submit" id="submitBtn" class="w-full sm:w-auto bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-sm px-8 py-3.5 rounded-xl shadow-lg transition-all flex items-center justify-center space-x-2 cursor-pointer">
+                            <i class="fa-solid fa-cloud-arrow-up"></i> <span>Nộp Bài Chấm Điểm</span>
+                        </button>
+                        <div id="statusReport" class="text-xs font-bold text-slate-400"></div>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer bản quyền -->
+    <footer class="bg-slate-900 text-slate-400 py-8 text-center text-xs font-medium px-4 mt-auto">
+        <p class="font-bold text-slate-300">@ Bản quyền thuộc ThS. Đinh Quốc Tuấn - Mục đích phi lợi nhuận - Vì giáo dục.</p>
+        <p class="text-slate-500 mt-2">Hệ thống bài giảng trực tuyến tương tác tích hợp đồng bộ dữ liệu điểm số học sinh.</p>
+    </footer>
+
+    <!-- NÚT IN TÀI LIỆU CỐ ĐỊNH -->
+    <button id="btn-print-doc" onclick="safePrint()" class="fixed bottom-5 right-5 bg-gray-900 text-white px-4 py-2 rounded-lg shadow-lg hover:bg-gray-700 print:hidden z-50 cursor-pointer">
+        <i class="fas fa-print mr-2"></i> In Tài Liệu
+    </button>
+
+    <script>
+        function safePrint() {
+            const printBtn = document.getElementById('btn-print-doc');
+            printBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Đang chuẩn bị...';
+            
+            // Đảm bảo MathJax đã render xong mọi công thức trước khi gọi hộp thoại in
+            if (window.MathJax && window.MathJax.typesetPromise) {
+                MathJax.typesetPromise().then(() => {
+                    printBtn.innerHTML = '<i class="fas fa-print mr-2"></i> In Tài Liệu';
+                    window.print();
+                });
+            } else {
+                // Fallback nếu không có công thức toán
+                setTimeout(() => window.print(), 500); 
+            }
+        }
+    </script>
+
+    <!-- HỆ THỐNG ĐIỀU KHIỂN ĐỒ HỌA JSXGRAPH & FORM QUIZ APPS SCRIPT -->
+    <script>
+        const timeInit = new Date();
+
+        document.addEventListener("DOMContentLoaded", function() {
+            
+            // --- MÔ HÌNH 1: VẼ ĐỒ THỊ Y = X^2 - 4X + 3 (BOX 1) ---
+            const b1 = JXG.JSXGraph.initBoard('box1', {
+                boundingbox: [-1, 5, 5, -3], axis: true, showNavigation: false, showCopyright: false
+            });
+
+            b1.create('functiongraph', [function(x) { return x*x - 4*x + 3; }, -1, 5], {
+                strokeColor: '#4f46e5', strokeWidth: 2.5
+            });
+
+            // Đỉnh I(2, -1)
+            b1.create('point', [2, -1], {name: 'I(2; -1)', color: '#dc2626', size: 4, fixed: true});
+            b1.create('line', [[2, -3], [2, 5]], {strokeColor: '#94a3b8', strokeWidth: 1.5, dash: 2, fixed: true});
+
+
+            // --- MÔ HÌNH 2: TRỊ TUYỆT ĐỐI Y = |X^2 - 4X + 3| (BOX 2) ---
+            const b2 = JXG.JSXGraph.initBoard('box2', {
+                boundingbox: [-1, 5, 5, -2], axis: true, showNavigation: false, showCopyright: false
+            });
+
+            b2.create('functiongraph', [function(x) { return Math.abs(x*x - 4*x + 3); }, -1, 5], {
+                strokeColor: '#d97706', strokeWidth: 2.5
+            });
+
+            b2.create('line', [[-1, 0.5], [5, 0.5]], {strokeColor: '#ef4444', strokeWidth: 1.5, dash: 2}); // Đường y = m
+
+
+            // --- MÔ HÌNH 3: QUỸ ĐẠO NÉM BÓNG (BOX 3) ---
+            const b3 = JXG.JSXGraph.initBoard('box3', {
+                boundingbox: [-1, 10, 5, -2], axis: true, showNavigation: false, showCopyright: false
+            });
+
+            // Quỹ đạo h(t) = -2(t-2)^2 + 8
+            b3.create('functiongraph', [function(t) { return -2*(t-2)*(t-2) + 8 >= 0 ? -2*(t-2)*(t-2) + 8 : 0; }, 0, 4], {
+                strokeColor: '#10b981', strokeWidth: 2.5
+            });
+
+            b3.create('point', [2, 8], {name: 'Đỉnh (2; 8)', color: '#dc2626', size: 4, fixed: true});
+        });
+
+        // --- XỬ LÝ NỘP BÀI TRẮC NGHIỆM VÀ ĐẨY DỮ LIỆU APPS SCRIPT ---
+        document.getElementById('quizForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const submitBtn = document.getElementById('submitBtn');
+            const statusReport = document.getElementById('statusReport');
+            
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i> Hệ thống đang nộp bài...';
+            statusReport.innerHTML = "Đang kết nối cơ sở dữ liệu bảng tính...";
+
+            const correctKey = { q1: "A", q2: "A", q3: "A", q4: "A", q5: "A" };
+            const studentName = document.getElementById('studentName').value.trim();
+            const lessonId = document.getElementById('examId').value.trim();
+            
+            let correctCounter = 0;
+            let totalQuizCount = Object.keys(correctKey).length;
+            let missedReportArray = [];
+
+            for (let questionCode in correctKey) {
+                const selectedRadio = document.querySelector(`input[name="${questionCode}"]:checked`);
+                if (selectedRadio && selectedRadio.value === correctKey[questionCode]) {
+                    correctCounter++;
+                } else {
+                    let chosenChar = selectedRadio ? selectedRadio.value : "Bỏ trống";
+                    missedReportArray.push(`${questionCode.toUpperCase()}(Chọn: ${chosenChar}|Đúng: ${correctKey[questionCode]})`);
+                }
+            }
+
+            const finalScore = ((correctCounter / totalQuizCount) * 10).toFixed(2);
+            const timeComplete = new Date();
+            const elapsedDurationSeconds = Math.floor((timeComplete - timeInit) / 1000);
+            const thoiGian = `${Math.floor(elapsedDurationSeconds / 60)} phút ${elapsedDurationSeconds % 60} giây`;
+            const cauSai = missedReportArray.length > 0 ? missedReportArray.join(", ") : "Không có (Đạt 10/10)";
+
+            const transmissionPayload = {
+                hoTen: studentName,
+                maDe: lessonId,
+                diem: parseFloat(finalScore),
+                thoiGian: thoiGian,
+                cauSai: cauSai
+            };
+
+            const webAppsScriptEndpoint = "https://script.google.com/macros/s/AKfycbzY7b7h4OwvhXuK5Vs6hl-aD88BPnAiAKbU5lfJobby0D4nzbIJVKT4n0AKCpAGoK0nZA/exec";
+
+            fetch(webAppsScriptEndpoint, {
+                method: "POST",
+                mode: "no-cors",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(transmissionPayload)
+            })
+            .then(() => {
+                statusReport.className = "text-xs font-bold text-emerald-500 bg-emerald-50 px-3 py-2 rounded-xl border border-emerald-200 inline-block";
+                statusReport.innerHTML = `<i class="fa-solid fa-circle-check"></i> Đã đồng bộ kết quả thành công: ${finalScore}/10.`;
+                alert(`Hệ thống ghi nhận bài nộp thành công!\nChào em ${studentName}, điểm số đạt được là: ${finalScore} / 10.`);
+                submitBtn.innerHTML = '<i class="fa-solid fa-lock"></i> Đã lưu kết quả thi';
+            })
+            .catch(error => {
+                console.error("Lỗi truyền tin:", error);
+                statusReport.className = "text-xs font-bold text-rose-500 bg-rose-50 px-3 py-2 rounded-xl border border-rose-200 inline-block";
+                statusReport.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> Lỗi kết nối mạng, vui lòng bấm nộp lại!';
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Thử nộp lại bài';
+            });
+        });
+    </script>
+</body>
+</html>
