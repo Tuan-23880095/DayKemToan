@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buổi 12: Virus và Vi Khuẩn — ThS. Đinh Quốc Tuấn</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- FontAwesome Icons CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts: Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- MathJax Configuration & Script -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['\\(', '\\)'], ['$', '$']],
+                displayMath: [['\\[', '\\]'], ['$$', '$$']]
+            },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <!-- JSXGraph CSS & Core Engine -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraph.css" />
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraphcore.js"></script>
+
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #f8fafc;
+            color: #0f172a;
+        }
+        .jxgbox {
+            background-color: #ffffff !important;
+            border-radius: 1rem;
+            overflow: hidden;
+            border: 1px solid #e2e8f0;
+        }
+        @media print {
+            .print\:hidden { display: none !important; }
+            body { background: white !important; color: black !important; }
+            details { display: block !important; }
+            details summary { display: none !important; }
+            .page-break { page-break-before: always; }
+            .card-border { box-shadow: none !important; border: 1px solid #e5e7eb !important; }
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col antialiased selection:bg-teal-100">
+
+    <!-- Header học thuật với hai logo -->
+    <header class="border-b border-slate-200 sticky top-0 bg-white/95 backdrop-blur-md z-40 print:hidden">
+        <div class="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 px-6 py-4">
+            <div class="flex items-center gap-4">
+                <img src="https://firebasestorage.googleapis.com/v0/b/link-anh-web.firebasestorage.app/o/Logo-chinh-hcmus.png?alt=media&token=9cf3a1de-75f1-493b-8711-fd22c7b98738" alt="Logo HCMUS" class="h-12 w-auto object-contain">
+                <div class="h-8 w-px bg-slate-300"></div>
+                <img src="https://firebasestorage.googleapis.com/v0/b/link-anh-web.firebasestorage.app/o/ttbdvh.jpg?alt=media&token=f270aa9b-a2bc-48e8-8910-80742b542615" alt="Logo TTBDVH" class="h-12 w-12 object-cover rounded-full border border-slate-200 shadow-inner">
+            </div>
+            <div class="text-center sm:text-right">
+                <span class="text-xs font-bold tracking-widest text-teal-600 uppercase block mb-0.5">Tài liệu số hóa tương tác KHTN 6</span>
+                <span class="text-base font-extrabold text-slate-800">Buổi 12: Virus và Vi khuẩn</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Banner chào mừng -->
+    <div class="bg-gradient-to-r from-teal-50 via-slate-50 to-emerald-50 border-b border-slate-200 py-10 print:hidden">
+        <div class="max-w-4xl mx-auto px-6 space-y-4">
+            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-teal-100 text-teal-800 border border-teal-200 shadow-xs">
+                <i class="fa-solid fa-virus mr-1.5 text-teal-600"></i> Vi sinh vật học & Phòng chống bệnh
+            </span>
+            <h1 class="text-2xl sm:text-4xl font-black tracking-tight text-slate-900 leading-tight">
+                Buổi 12: Phân Biệt, Vai Trò & Thực Hành Phòng Bệnh Virus - Vi Khuẩn
+            </h1>
+            <p class="text-slate-600 text-sm sm:text-base font-medium leading-relaxed text-justify">
+                Chào các em! Tài liệu học tập bám sát chương trình Khoa học tự nhiên 6, phân tích chi tiết cấu tạo, cơ chế sinh học, nguyên lý kháng sinh và các ứng dụng thực tiễn như lên men sữa chua và tiêm phòng vaccine[cite: 4]. Hãy khám phá các mô hình trực quan JSXGraph dưới đây!
+            </p>
+        </div>
+    </div>
+
+    <!-- Không gian nội dung chính -->
+    <main class="max-w-4xl mx-auto px-4 sm:px-6 py-10 flex-grow w-full space-y-16">
+        
+        <!-- ================= MÔ HÌNH HÌNH HỌC TƯƠNG TÁC JSXGRAPH ================= -->
+        <section class="space-y-8 print:hidden bg-slate-100 p-6 rounded-3xl border border-slate-200">
+            <div class="border-b border-slate-200 pb-3">
+                <h2 class="text-lg font-black text-slate-800 flex items-center uppercase tracking-wide">
+                    <i class="fa-solid fa-compass-drafting mr-2.5 text-teal-600 text-xl"></i> Mô hình mô phỏng Vi sinh vật học tương tác
+                </h2>
+                <p class="text-xs text-slate-500 mt-1">Trực quan hóa sự chênh lệch kích thước (Virus vs Vi khuẩn), cơ chế tác dụng kháng sinh và quá trình lên men sữa chua.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Mô hình 1 -->
+                <div class="flex flex-col bg-white p-4 rounded-2xl border border-slate-200 shadow-2xs">
+                    <h3 class="font-bold text-slate-900 text-xs mb-1 flex items-center gap-1.5">
+                        <i class="fa-solid fa-magnifying-glass-chart text-teal-600"></i> Mô hình 1: Kích thước Virus vs Vi khuẩn
+                    </h3>
+                    <p class="text-[11px] text-slate-500 mb-3">Kéo thanh trượt phóng đại để quan sát vi khuẩn nhân sơ và virus siêu hiển vi phóng to cấu trúc lõi ARN[cite: 4].</p>
+                    <div id="jsxbox1" class="w-full h-56 jxgbox"></div>
+                    <div class="text-[11px] font-bold p-2 mt-2 bg-teal-50 border border-teal-100 rounded-lg text-center text-teal-900 font-mono">
+                        Vi khuẩn (1-10 µm) | Virus (20-300 nm)[cite: 4]
+                    </div>
+                </div>
+
+                <!-- Mô hình 2 -->
+                <div class="flex flex-col bg-white p-4 rounded-2xl border border-slate-200 shadow-2xs">
+                    <h3 class="font-bold text-slate-900 text-xs mb-1 flex items-center gap-1.5">
+                        <i class="fa-solid fa-pills text-amber-500"></i> Mô hình 2: Cơ chế Kháng sinh
+                    </h3>
+                    <p class="text-[11px] text-slate-500 mb-3">Nhấn nút sử dụng kháng sinh để thấy thành tế bào vi khuẩn bị phá hủy, trong khi virus kí sinh không bị ảnh hưởng[cite: 4].</p>
+                    <div id="jsxbox2" class="w-full h-56 jxgbox"></div>
+                    <div class="text-[11px] font-bold p-2 mt-2 bg-amber-50 border border-amber-100 rounded-lg text-center text-amber-900 font-mono">
+                        Kháng sinh chỉ diệt Vi khuẩn, vô hiệu với Virus[cite: 4]
+                    </div>
+                </div>
+
+                <!-- Mô hình 3 -->
+                <div class="flex flex-col bg-white p-4 rounded-2xl border border-slate-200 shadow-2xs">
+                    <h3 class="font-bold text-slate-900 text-xs mb-1 flex items-center gap-1.5">
+                        <i class="fa-solid fa-flask-vial text-emerald-600"></i> Mô hình 3: Lên men Lactic Sữa chua
+                    </h3>
+                    <p class="text-[11px] text-slate-500 mb-3">Kéo thanh trượt thời gian ủ để quan sát độ pH giảm dần và trạng thái đông tụ protein sữa[cite: 4].</p>
+                    <div id="jsxbox3" class="w-full h-56 jxgbox"></div>
+                    <div class="text-[11px] font-bold p-2 mt-2 bg-emerald-50 border border-emerald-100 rounded-lg text-center text-emerald-800 font-mono">
+                        pH giảm &rArr; Sữa chua đông tụ sánh mịn[cite: 4]
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= PHẦN 1: MỨC ĐỘ CƠ BẢN ================= -->
+        <section class="space-y-6">
+            <div class="flex items-center gap-3 border-b pb-3 border-slate-200">
+                <span class="bg-teal-600 text-white text-xs font-black px-3 py-1 rounded-md uppercase tracking-wider">Cấp độ 1</span>
+                <h2 class="text-xl font-extrabold text-slate-900">PHẦN 1: MỨC ĐỘ CƠ BẢN (NHẬN BIẾT - KHÁI NIỆM CỐT LÕI)</h2>
+            </div>
+            <p class="text-xs font-bold text-teal-800 bg-teal-50 px-3 py-2 rounded-lg inline-block">
+                Mục tiêu: Nắm vững định nghĩa, cấu tạo tế bào nhân sơ của vi khuẩn và dạng sống đặc biệt siêu hiển vi của virus[cite: 4].
+            </p>
+
+            <div class="space-y-6 text-sm leading-relaxed text-slate-700">
+                <!-- Mục 1 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs space-y-3 card-border">
+                    <h3 class="font-bold text-slate-900 text-base text-teal-700 flex items-center gap-2">
+                        <i class="fa-solid fa-circle-1"></i> 1. Định nghĩa và Cấu tạo của Vi khuẩn (Bacteria)
+                    </h3>
+                    <p>&bull; <strong>Khái niệm:</strong> Vi khuẩn là những sinh vật nhân sơ, đơn bào, có kích thước hiển vi (thường dao động từ $1 - 10 \mu m$)[cite: 4]. Chúng phân bố rộng rãi trong tự nhiên (đất, nước, không khí, cơ thể sinh vật)[cite: 4].</p>
+                    <p>&bull; <strong>Cấu tạo tế bào hoàn chỉnh (nhân sơ):</strong></p>
+                    <ul class="list-disc list-inside text-xs text-slate-600 space-y-1 pl-2">
+                        <li><strong>Thành tế bào:</strong> Cấu tạo từ peptidoglycan giúp giữ hình dạng và bảo vệ[cite: 4].</li>
+                        <li><strong>Màng tế bào:</strong> Bao bọc tế bào chất, kiểm soát trao đổi chất[cite: 4].</li>
+                        <li><strong>Tế bào chất:</strong> Chứa ribosome và chất hữu cơ chuyển hóa[cite: 4].</li>
+                        <li><strong>Vùng nhân:</strong> Chứa ADN dạng vòng đơn, tự do chưa có màng nhân[cite: 4].</li>
+                        <li><strong>Lông và Roi bơi:</strong> Giúp di chuyển và bám dính[cite: 4].</li>
+                    </ul>
+                    <p>&bull; <strong>Ví dụ:</strong> Trực khuẩn lị ($Shigella$) gây bệnh kiết lị; Tụ cầu khuẩn ($Staphylococcus$) gây nhiễm trùng da[cite: 4].</p>
+                </div>
+
+                <!-- Mục 2 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs space-y-3 card-border">
+                    <h3 class="font-bold text-slate-900 text-base text-teal-700 flex items-center gap-2">
+                        <i class="fa-solid fa-circle-2"></i> 2. Định nghĩa và Cấu tạo của Virus
+                    </h3>
+                    <p>&bull; <strong>Khái niệm:</strong> Virus không phải cơ thể sống hoàn chỉnh mà là một <strong>dạng sống đặc biệt</strong>[cite: 4]. Kích thước siêu hiển vi ($20 - 300 nm$), nhỏ hơn vi khuẩn 10-100 lần, bắt buộc **kí sinh nội bào**[cite: 4].</p>
+                    <p>&bull; <strong>Cấu tạo chưa hoàn chỉnh (chưa có tế bào):</strong> Gồm lõi vật chất di truyền (ADN hoặc ARN) và vỏ protein (Capsid) bảo vệ[cite: 4]. Một số virus phức tạp có thêm lớp vỏ ngoài và gai glycoprotein nhận diện tế bào chủ[cite: 4].</p>
+                    <p>&bull; <strong>Ví dụ:</strong> Virus khảm thuốc lá (dạng xoắn); Virus Adeno (dạng khối đa diện); Thực khuẩn thể Phage T4[cite: 4].</p>
+                </div>
+
+                <!-- Gợi ý giải bài tập ẩn -->
+                <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200 space-y-2 card-border">
+                    <p class="font-bold text-slate-900 text-xs text-indigo-700 uppercase"><i class="fa-solid fa-pen-to-square mr-1"></i> Câu hỏi ôn tập cơ bản</p>
+                    <p class="text-xs text-slate-800">Vì sao khi ở môi trường ngoài tế bào vật chủ, virus lại tồn tại như một vật thể vô sinh (vật không sống)?</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-teal-600 cursor-pointer hover:text-teal-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-white rounded-xl border border-slate-200 text-xs text-slate-700 space-y-1">
+                            <p>&bull; Vì virus hoàn toàn không có tế bào chất, không có màng sinh chất và không có hệ thống enzyme tự trao đổi chất hay tự sinh sản độc lập nếu không xâm nhập vào tế bào sống[cite: 4].</p>
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ================= PHẦN 2: MỨC ĐỘ NÂNG CAO ================= -->
+        <section class="space-y-6">
+            <div class="flex items-center gap-3 border-b pb-3 border-slate-200">
+                <span class="bg-amber-600 text-white text-xs font-black px-3 py-1 rounded-md uppercase tracking-wider">Cấp độ 2</span>
+                <h2 class="text-xl font-extrabold text-slate-900">PHẦN 2: MỨC ĐỘ NÂNG CAO (HIỂU - PHÂN TÍCH LOGIC SINH HỌC)</h2>
+            </div>
+            <p class="text-xs font-bold text-amber-800 bg-amber-50 px-3 py-2 rounded-lg inline-block">
+                Mục tiêu: Phân biệt cơ chế sinh học giữa độc lập và kí sinh bắt buộc, chứng minh nguyên lý sử dụng kháng sinh[cite: 4].
+            </p>
+
+            <div class="space-y-6 text-sm leading-relaxed text-slate-700">
+                <!-- Mục 1 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs space-y-3 card-border">
+                    <h3 class="font-bold text-slate-900 text-base text-amber-700 flex items-center gap-2">
+                        <i class="fa-solid fa-circle-1"></i> 1. Sự khác biệt cốt lõi trong cơ chế sinh học
+                    </h3>
+                    <p>&bull; <strong>Vi khuẩn:</strong> Có hệ thống enzyme hô hấp và ribosome riêng, hoàn toàn tự hấp thụ chất dinh dưỡng, lớn lên và nhân đôi độc lập ở môi trường ngoài[cite: 4].</p>
+                    <p>&bull; <strong>Virus:</strong> Không có ribosome hay enzyme chuyển hóa năng lượng, bắt buộc phải xâm nhập vào tế bào sống, chiếm đoạt bộ máy của tế bào chủ để nhân bản rồi phá vỡ tế bào chui ra ngoài[cite: 4].</p>
+                </div>
+
+                <!-- Mục 2 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs space-y-3 card-border">
+                    <h3 class="font-bold text-slate-900 text-base text-amber-700 flex items-center gap-2">
+                        <i class="fa-solid fa-circle-2"></i> 2. Đối lập điều trị lâm sàng (Nguyên lí sử dụng Kháng sinh)
+                    </h3>
+                    <p>&bull; <strong>Định lý:</strong> Thuốc kháng sinh chỉ tiêu diệt hoặc kìm hãm <strong>vi khuẩn</strong>, hoàn toàn <strong>vô tác dụng đối với các bệnh do virus</strong>[cite: 4].</p>
+                    <p>&bull; <strong>Chứng minh cơ chế:</strong> Kháng sinh tấn công vào cấu trúc đặc thù của vi khuẩn (phá hủy thành peptidoglycan, ức chế ribosome). Do virus chưa có cấu tạo tế bào và ẩn nấp bên trong tế bào chủ, kháng sinh hoàn toàn "mất đích", uống kháng sinh khi bị bệnh do virus là hoàn toàn vô ích và gây kháng thuốc[cite: 4].</p>
+                </div>
+
+                <!-- Câu hỏi nâng cao -->
+                <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200 space-y-2 card-border">
+                    <p class="font-bold text-slate-900 text-xs text-indigo-700 uppercase"><i class="fa-solid fa-pen-to-square mr-1"></i> Câu hỏi ôn tập nâng cao</p>
+                    <p class="text-xs text-slate-800">Vì sao khi bị cảm cúm hoặc sốt xuất huyết (bệnh do virus), bác sĩ thường khuyến cáo bệnh nhân không nên tự ý uống thuốc kháng sinh?</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-amber-600 cursor-pointer hover:text-amber-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-white rounded-xl border border-slate-200 text-xs text-slate-700 space-y-1">
+                            <p>&bull; Vì cảm cúm và sốt xuất huyết do virus gây ra, thuốc kháng sinh không thể tiêu diệt được virus. Việc lạm dụng kháng sinh không những không khỏi bệnh mà còn diệt vi khuẩn có lợi ở đường ruột và gây ra hiện tượng kháng kháng sinh nguy hiểm[cite: 4].</p>
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ================= PHẦN 3: VẬN DỤNG THỰC TIỄN ================= -->
+        <section class="space-y-6">
+            <div class="flex items-center gap-3 border-b pb-3 border-slate-200">
+                <span class="bg-emerald-600 text-white text-xs font-black px-3 py-1 rounded-md uppercase tracking-wider">Cấp độ 3</span>
+                <h2 class="text-xl font-extrabold text-slate-900">PHẦN 3: MỨC ĐỘ VẬN DỤNG (THỰC HÀNH PHÒNG BỆNH & LÊN MEN SỮA CHUA)</h2>
+            </div>
+            <p class="text-xs font-bold text-emerald-800 bg-emerald-50 px-3 py-2 rounded-lg inline-block">
+                Mục tiêu: Vận dụng kiến thức vào quy trình rửa tay 6 bước, cơ chế vaccine và lên men sữa chua bằng vi khuẩn Lactic[cite: 4].
+            </p>
+
+            <div class="space-y-4">
+                <!-- Vận dụng 1 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài tập thực hành 1:</strong> Giải thích cơ chế hóa lý của xà phòng trong việc làm sạch tay và phòng bệnh truyền nhiễm.</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-emerald-600 cursor-pointer hover:text-emerald-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-emerald-500 text-xs text-slate-700 space-y-1">
+                            <p>&bull; Xà phòng có các phân tử với đầu ưa nước và đuôi ưa mỡ, giúp bao bọc, bóc tách bụi bẩn và lớp màng lipid của virus/vi khuẩn ra khỏi da, sau đó dòng nước cuốn trôi cơ học đi[cite: 4].</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Vận dụng 2 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài tập thực hành 2 (Minh họa Mô hình 3):</strong> Trình bày cơ chế lên men lactic tạo sữa chua và giải thích vì sao không dùng nước sôi ($100^\circ C$) để pha sữa chua làm giống[cite: 4].</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-emerald-600 cursor-pointer hover:text-emerald-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-emerald-500 text-xs text-slate-700 space-y-1">
+                            <p>&bull; Vi khuẩn lactic chuyển hóa đường lactose thành axit lactic, làm giảm pH sữa xuống 4.2-4.5, gây đông tụ protein casein tạo thành sữa chua sánh mịn[cite: 4].</p>
+                            <p>&bull; Không dùng nước sôi vì nhiệt độ cao sẽ làm biến tính protein, tiêu diệt hoàn toàn vi khuẩn lactic sống có trong men giống[cite: 4].</p>
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ================= BÀI TẬP ĐÁNH GIÁ NĂNG LỰC TRẮC NGHIỆM ================= -->
+        <section class="border-t border-slate-200 pt-10 page-break">
+            <div class="bg-gradient-to-br from-slate-900 via-slate-800 to-teal-950 text-white rounded-3xl p-6 sm:p-8 shadow-xl relative overflow-hidden card-border">
+                <div class="max-w-xl space-y-2">
+                    <span class="text-xs font-bold uppercase tracking-widest text-teal-400 bg-teal-500/10 px-3 py-1 rounded-full border border-teal-500/20 inline-block">Đánh giá trực tuyến tại lớp</span>
+                    <h2 class="text-xl sm:text-2xl font-black tracking-tight">BÀI TẬP ĐÁNH GIÁ NĂNG LỰC TẠI LỚP</h2>
+                    <p class="text-slate-400 text-xs sm:text-sm">Học sinh hoàn thành trắc nghiệm 5 câu dưới đây. Kết quả điểm số sẽ được truyền tự động về Google Sheets hệ thống[cite: 4].</p>
+                </div>
+
+                <form id="quizForm" class="mt-8 space-y-6 text-slate-900">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div class="bg-white p-4 rounded-xl shadow-inner border border-slate-100">
+                            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wide mb-1"><i class="fa-solid fa-user-graduate mr-1 text-teal-500"></i> Họ và tên học sinh</label>
+                            <input type="text" id="studentName" required placeholder="Nhập họ tên đầy đủ..." class="w-full bg-white border-b-2 border-slate-200 focus:border-teal-500 outline-none py-1 text-sm font-bold text-slate-900 transition-colors">
+                        </div>
+                        <div class="bg-white p-4 rounded-xl shadow-inner border border-slate-100">
+                            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wide mb-1"><i class="fa-solid fa-file-code mr-1 text-teal-500"></i> Mã chuyên đề bài học</label>
+                            <input type="text" id="examId" readonly value="Buoi12_VirusVaViKhuan_KHTN6" class="w-full bg-slate-50 border-b-2 border-slate-200 outline-none py-1 text-sm font-bold text-slate-500 cursor-not-allowed">
+                        </div>
+                    </div>
+
+                    <!-- Khối câu hỏi trắc nghiệm -->
+                    <div class="space-y-5 mt-6">
+                        <!-- Câu 1 -->
+                        <div class="bg-white p-5 rounded-2xl shadow-sm space-y-3">
+                            <p class="text-sm font-bold text-slate-900"><span class="text-teal-600">Câu 1:</span> Vi khuẩn là sinh vật có cấu tạo tế bào thuộc loại gì[cite: 4]?</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs font-semibold text-slate-700">
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-teal-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q1" value="A" required class="text-teal-600 h-4 w-4"> <span>A. Tế bào nhân sơ[cite: 4]</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-teal-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q1" value="B" class="text-teal-600 h-4 w-4"> <span>B. Tế bào nhân thực</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-teal-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q1" value="C" class="text-teal-600 h-4 w-4"> <span>C. Chưa có cấu tạo tế bào</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Câu 2 -->
+                        <div class="bg-white p-5 rounded-2xl shadow-sm space-y-3">
+                            <p class="text-sm font-bold text-slate-900"><span class="text-teal-600">Câu 2:</span> Đặc điểm cấu tạo nào sau đây thuộc về Virus[cite: 4]?</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs font-semibold text-slate-700">
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-teal-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q2" value="A" required class="text-teal-600 h-4 w-4"> <span>A. Có cấu tạo tế bào đầy đủ</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-teal-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q2" value="B" class="text-teal-600 h-4 w-4"> <span>B. Chưa có cấu tạo tế bào, gồm lõi di truyền và vỏ protein[cite: 4]</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-teal-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q2" value="C" class="text-teal-600 h-4 w-4"> <span>C. Có chứa tế bào chất và lục lạp</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-teal-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q2" value="D" class="text-teal-600 h-4 w-4"> <span>D. Có màng nhân hoàn chỉnh</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Câu 3 -->
+                        <div class="bg-white p-5 rounded-2xl shadow-sm space-y-3">
+                            <p class="text-sm font-bold text-slate-900"><span class="text-teal-600">Câu 3:</span> Phát biểu nào sau đây ĐÚNG khi nói về thuốc kháng sinh[cite: 4]?</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs font-semibold text-slate-700">
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-teal-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q3" value="A" required class="text-teal-600 h-4 w-4"> <span>A. Tiêu diệt cả vi khuẩn lẫn virus gây bệnh</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-teal-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q3" value="B" class="text-teal-600 h-4 w-4"> <span>B. Chỉ tiêu diệt hoặc kìm hãm vi khuẩn, vô tác dụng với virus[cite: 4]</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-teal-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q3" value="C" class="text-teal-600 h-4 w-4"> <span>C. Chỉ có tác dụng tiêu diệt virus cúm</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-teal-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q3" value="D" class="text-teal-600 h-4 w-4"> <span>D. Là vaccine phòng ngừa bệnh truyền nhiễm</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Câu 4 -->
+                        <div class="bg-white p-5 rounded-2xl shadow-sm space-y-3">
+                            <p class="text-sm font-bold text-slate-900"><span class="text-teal-600">Câu 4:</span> Vi khuẩn lactic thực hiện quá trình lên men sữa chua bằng cách chuyển hóa đường thành chất nào[cite: 4]?</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs font-semibold text-slate-700">
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-teal-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q4" value="A" required class="text-teal-600 h-4 w-4"> <span>A. Axit lactic[cite: 4]</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-teal-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q4" value="B" class="text-teal-600 h-4 w-4"> <span>B. Axit acetic</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-teal-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q4" value="C" class="text-teal-600 h-4 w-4"> <span>C. Cồn etylic</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Câu 5 -->
+                        <div class="bg-white p-5 rounded-2xl shadow-sm space-y-3">
+                            <p class="text-sm font-bold text-slate-900"><span class="text-teal-600">Câu 5:</span> Tại sao khi ở môi trường ngoài cơ thể vật chủ, virus lại tồn tại như một vật thể vô sinh[cite: 4]?</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs font-semibold text-slate-700">
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-teal-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q5" value="A" required class="text-teal-600 h-4 w-4"> <span>A. Vì chúng chưa có cấu tạo tế bào và không tự trao đổi chất, sinh sản độc lập[cite: 4]</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-teal-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q5" value="B" class="text-teal-600 h-4 w-4"> <span>B. Vì chúng có kích thước quá lớn không bay được</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-teal-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q5" value="C" class="text-teal-600 h-4 w-4"> <span>C. Vì chúng không chứa vật chất di truyền ADN</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-teal-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q5" value="D" class="text-teal-600 h-4 w-4"> <span>D. Vì chúng bị tiêu diệt bởi ánh sáng mặt trời</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pt-2 flex flex-col sm:flex-row items-center justify-between gap-4">
+                        <button type="submit" id="submitBtn" class="w-full sm:w-auto bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-sm px-8 py-3.5 rounded-xl shadow-lg transition-all flex items-center justify-center space-x-2 cursor-pointer">
+                            <i class="fa-solid fa-cloud-arrow-up"></i> <span>Nộp Bài Chấm Điểm</span>
+                        </button>
+                        <div id="statusReport" class="text-xs font-bold text-slate-400"></div>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer bản quyền -->
+    <footer class="bg-slate-900 text-slate-400 py-8 text-center text-xs font-medium px-4 mt-auto">
+        <p class="font-bold text-slate-300">@ Bản quyền thuộc ThS. Đinh Quốc Tuấn - Mục đích phi lợi nhuận - Vì giáo dục.</p>
+        <p class="text-slate-500 mt-2">Hệ thống bài giảng trực tuyến tương tác tích hợp đồng bộ dữ liệu điểm số học sinh.</p>
+    </footer>
+
+    <!-- NÚT IN TÀI LIỆU CỐ ĐỊNH -->
+    <button id="btn-print-doc" onclick="safePrint()" class="fixed bottom-5 right-5 bg-gray-900 text-white px-4 py-2 rounded-lg shadow-lg hover:bg-gray-700 print:hidden z-50 cursor-pointer">
+        <i class="fas fa-print mr-2"></i> In Tài Liệu
+    </button>
+
+    <script>
+        function safePrint() {
+            const printBtn = document.getElementById('btn-print-doc');
+            printBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Đang chuẩn bị...';
+            
+            if (window.MathJax && window.MathJax.typesetPromise) {
+                MathJax.typesetPromise().then(() => {
+                    printBtn.innerHTML = '<i class="fas fa-print mr-2"></i> In Tài Liệu';
+                    window.print();
+                });
+            } else {
+                setTimeout(() => {
+                    printBtn.innerHTML = '<i class="fas fa-print mr-2"></i> In Tài Liệu';
+                    window.print();
+                }, 500); 
+            }
+        }
+    </script>
+
+    <!-- HỆ THỐNG ĐIỀU KHIỂN ĐỒ HỌA JSXGRAPH & FORM QUIZ APPS SCRIPT -->
+    <script>
+        const timeInit = new Date();
+
+        document.addEventListener("DOMContentLoaded", function() {
+            
+            // --- MÔ HÌNH 1: KÍCH THƯỚC VIRUS VS VI KHUẨN (BOX 1) ---
+            const board1 = JXG.JSXGraph.initBoard('jsxbox1', {
+                boundingbox: [-2, 8, 10, -2], keepaspectratio: true, showNavigation: false, showCopyright: false, axis: false
+            });
+            var zoomSlider = board1.create('slider', [[1, 7], [6, 7], [1, 1, 100]], {
+                name: 'Zoom (x)', snapWidth: 1, strokeColor: '#059669', fillColor: '#10B981'
+            });
+            var bacX = function() { return 1.5 - (zoomSlider.Value() - 1) * 0.15; };
+            var bacY = function() { return 2.5; };
+            var bacR = function() { return 2.0 * (1 + (zoomSlider.Value() - 1) * 0.02); };
+            board1.create('circle', [[bacX, bacY], bacR], {
+                strokeColor: '#2563EB', fillColor: '#DBEAFE',
+                opacity: function() { return Math.max(0.1, 1 - (zoomSlider.Value() / 30)); },
+                visible: function() { return zoomSlider.Value() < 50; }
+            });
+            var virX = function() { return 7.0 - (zoomSlider.Value() - 1) * 0.045; };
+            var virY = function() { return 2.5; };
+            board1.create('circle', [[virX, virY], function() { return 0.05 * zoomSlider.Value(); }], {
+                strokeColor: '#DC2626', fillColor: '#FEE2E2',
+                visible: function() { return zoomSlider.Value() < 15; }
+            });
+
+            // --- MÔ HÌNH 2: CƠ CHẾ KHÁNG SINH (BOX 2) ---
+            const board2 = JXG.JSXGraph.initBoard('jsxbox2', {
+                boundingbox: [-2, 8, 12, -2], keepaspectratio: true, showNavigation: false, showCopyright: false, axis: false
+            });
+            var wallPoints = [];
+            for (var i = 0; i < 16; i++) {
+                var angle = i * 2 * Math.PI / 16;
+                wallPoints.push([2.0 + 1.2 * Math.cos(angle), 3.0 + 1.2 * Math.sin(angle)]);
+            }
+            var bacWallPoly = board2.create('polygon', wallPoints, {
+                fillColor: '#EFF6FF', strokeColor: '#1E40AF', strokeWidth: 4
+            });
+            board2.create('text', [1.0, 1.0, 'Vi khuẩn'], {fontSize: 10, color: '#1E40AF'});
+            var hostCell = board2.create('circle', [[8.0, 3.0], 1.2], {strokeColor: '#D1D5DB', fillColor: '#F3F4F6', strokeWidth: 2});
+            board2.create('text', [7.0, 1.0, 'Virus kí sinh'], {fontSize: 10, color: '#DC2626'});
+            board2.create('button', [3.5, 0, 'Dùng Kháng Sinh', function() {
+                bacWallPoly.setAttribute({strokeColor: '#EF4444', strokeWidth: 1, dash: 2, fillColor: '#FEF2F2'});
+                board2.update();
+            }], {cssClass: 'btn-jsx'});
+
+            // --- MÔ HÌNH 3: LÊN MEN LACTIC SỮA CHUA (BOX 3) ---
+            const board3 = JXG.JSXGraph.initBoard('jsxbox3', {
+                boundingbox: [-1, 8, 13, -1], keepaspectratio: true, showNavigation: false, showCopyright: false, axis: true
+            });
+            var tSlider = board3.create('slider', [[1, 7], [8, 7], [0, 0, 12]], {
+                name: 'Thời gian ủ (h)', snapWidth: 0.5, strokeColor: '#D97706', fillColor: '#F59E0B'
+            });
+            board3.create('functiongraph', [function(t) {
+                return 4.2 + 2.6 / (1 + Math.exp(t - 5));
+            }, 0, 12], {strokeColor: '#2563EB', strokeWidth: 3});
+            board3.create('point', [
+                function() { return tSlider.Value(); },
+                function() { return 4.2 + 2.6 / (1 + Math.exp(tSlider.Value() - 5)); }
+            ], {name: 'pH', color: '#1E40AF', size: 4});
+        });
+
+        // --- XỬ LÝ NỘP BÀI TRẮC NGHIỆM VÀ ĐẨY DỮ LIỆU APPS SCRIPT ---
+        document.getElementById('quizForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const submitBtn = document.getElementById('submitBtn');
+            const statusReport = document.getElementById('statusReport');
+            
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i> Hệ thống đang nộp bài...';
+            statusReport.innerHTML = "Đang kết nối cơ sở dữ liệu bảng tính...";
+
+            const correctKey = { q1: "A", q2: "B", q3: "B", q4: "A", q5: "A" };
+            const studentName = document.getElementById('studentName').value.trim();
+            const lessonId = document.getElementById('examId').value.trim();
+            
+            let correctCounter = 0;
+            let totalQuizCount = Object.keys(correctKey).length;
+            let missedReportArray = [];
+
+            for (let questionCode in correctKey) {
+                const selectedRadio = document.querySelector(`input[name="${questionCode}"]:checked`);
+                if (selectedRadio && selectedRadio.value === correctKey[questionCode]) {
+                    correctCounter++;
+                } else {
+                    let chosenChar = selectedRadio ? selectedRadio.value : "Bỏ trống";
+                    missedReportArray.push(`${questionCode.toUpperCase()}(Chọn: ${chosenChar}|Đúng: ${correctKey[questionCode]})`);
+                }
+            }
+
+            const finalScore = ((correctCounter / totalQuizCount) * 10).toFixed(2);
+            const timeComplete = new Date();
+            const elapsedDurationSeconds = Math.floor((timeComplete - timeInit) / 1000);
+            const thoiGian = `${Math.floor(elapsedDurationSeconds / 60)} phút ${elapsedDurationSeconds % 60} giây`;
+            const cauSai = missedReportArray.length > 0 ? missedReportArray.join(", ") : "Không có (Đạt 10/10)";
+
+            const transmissionPayload = {
+                hoTen: studentName,
+                maDe: lessonId,
+                diem: parseFloat(finalScore),
+                thoiGian: thoiGian,
+                cauSai: cauSai
+            };
+
+            const webAppsScriptEndpoint = "https://script.google.com/macros/s/AKfycbzY7b7h4OwvhXuK5Vs6hl-aD88BPnAiAKbU5lfJobby0D4nzbIJVKT4n0AKCpAGoK0nZA/exec";
+
+            fetch(webAppsScriptEndpoint, {
+                method: "POST",
+                mode: "no-cors",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(transmissionPayload)
+            })
+            .then(() => {
+                statusReport.className = "text-xs font-bold text-emerald-500 bg-emerald-50 px-3 py-2 rounded-xl border border-emerald-200 inline-block";
+                statusReport.innerHTML = `<i class="fa-solid fa-circle-check"></i> Đã đồng bộ kết quả thành công: ${finalScore}/10.`;
+                alert(`Hệ thống ghi nhận bài nộp thành công!\nChào em ${studentName}, điểm số đạt được là: ${finalScore} / 10.`);
+                submitBtn.innerHTML = '<i class="fa-solid fa-lock"></i> Đã lưu kết quả thi';
+            })
+            .catch(error => {
+                console.error("Lỗi truyền tin:", error);
+                statusReport.className = "text-xs font-bold text-rose-500 bg-rose-50 px-3 py-2 rounded-xl border border-rose-200 inline-block";
+                statusReport.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> Lỗi kết nối mạng, vui lòng bấm nộp lại!';
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Thử nộp lại bài';
+            });
+        });
+    </script>
+</body>
+</html>
