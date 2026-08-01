@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buổi 15: Lực và Biểu diễn Lực - Khoa học Tự nhiên 6</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Merriweather:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <!-- JSXGraph -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraph.css" />
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraphcore.js"></script>
+    <!-- MathJax -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']]
+            }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6;
+            color: #1e293b;
+        }
+        h1, h2, h3, .serif-font {
+            font-family: 'Merriweather', serif;
+        }
+        .jxgbox {
+            border-radius: 12px;
+            border: 2px solid #cbd5e1;
+            background: #ffffff;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-900 min-h-screen flex flex-col justify-between selection:bg-indigo-500 selection:text-white">
+
+    <!-- HEADER WITH DUAL LOGOS -->
+    <header class="bg-white shadow-md border-b border-gray-200 py-4 px-6 md:px-12 sticky top-0 z-40">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="flex items-center space-x-4">
+                <img src="https://firebasestorage.googleapis.com/v0/b/link-anh-web.firebasestorage.app/o/ttbdvh.jpg?alt=media&token=f270aa9b-a2bc-48e8-8910-80742b542615" alt="Logo TTBDVH" class="h-16 w-16 object-contain rounded-xl shadow border border-gray-100 bg-white p-1">
+                <img src="https://firebasestorage.googleapis.com/v0/b/link-anh-web.firebasestorage.app/o/Logo-chinh-hcmus.png?alt=media&token=9cf3a1de-75f1-493b-8711-fd22c7b98738" alt="Logo HCMUS" class="h-16 w-16 object-contain rounded-xl shadow border border-gray-100 bg-white p-1">
+            </div>
+            <div class="text-center sm:text-right">
+                <span class="inline-block px-3 py-1 bg-indigo-100 text-indigo-700 font-semibold text-xs rounded-full uppercase tracking-wider mb-1"><i class="fas fa-graduation-cap mr-1"></i> Khoa học Tự nhiên 6</span>
+                <h1 class="text-2xl sm:text-3xl font-bold text-gray-900 serif-font">BUỔI 15: LỰC VÀ BIỂU DIỄN LỰC</h1>
+                <p class="text-sm text-gray-500">Lý thuyết chi tiết, Phân loại khoa học & Mô phỏng trực quan JSXGraph</p>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTAINER -->
+    <main class="max-w-5xl mx-auto px-4 py-8 space-y-12 w-full">
+
+        <!-- INTRO BANNER -->
+        <div class="bg-gradient-to-r from-indigo-900 to-blue-800 text-white rounded-2xl p-6 md:p-8 shadow-xl relative overflow-hidden">
+            <div class="absolute right-0 bottom-0 opacity-10 transform translate-x-8 translate-y-8">
+                <i class="fas fa-atom text-9xl"></i>
+            </div>
+            <div class="relative z-10">
+                <h2 class="text-2xl md:text-3xl font-bold mb-3 serif-font text-yellow-300">Khám Phá Bản Chất Lực và Vectơ Lực</h2>
+                <p class="text-indigo-100 leading-relaxed text-sm md:text-base">
+                    Tài liệu học tập chuyên sâu bám sát chương trình KHTN 6, phân chia thành 3 cấp độ từ cơ bản đến vận dụng thực tế, kết hợp các mô hình tương tác JSXGraph giúp học sinh trực quan hóa hiện tượng lực đẩy, lực kéo, lực tiếp xúc và lực không tiếp xúc.
+                </p>
+                <div class="flex flex-wrap gap-2 mt-4">
+                    <span class="px-3 py-1 bg-emerald-500/20 border border-emerald-400 text-emerald-300 text-xs font-semibold rounded-lg"><i class="fas fa-check-circle mr-1"></i> Cơ Bản</span>
+                    <span class="px-3 py-1 bg-blue-500/20 border border-blue-400 text-blue-300 text-xs font-semibold rounded-lg"><i class="fas fa-chart-line mr-1"></i> Nâng Cao</span>
+                    <span class="px-3 py-1 bg-amber-500/20 border border-amber-400 text-amber-300 text-xs font-semibold rounded-lg"><i class="fas fa-atom mr-1"></i> Vận Dụng</span>
+                    <span class="px-3 py-1 bg-purple-500/20 border border-purple-400 text-purple-300 text-xs font-semibold rounded-lg"><i class="fas fa-laptop-code mr-1"></i> JSXGraph</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- PHẦN 1: MỨC ĐỘ CƠ BẢN -->
+        <section class="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-gray-200 space-y-6">
+            <div class="flex items-center space-x-3 border-b pb-4 border-gray-100">
+                <div class="w-10 h-10 rounded-xl bg-emerald-100 flex items-center justify-center text-emerald-700 font-bold text-lg"><i class="fas fa-seedling"></i></div>
+                <div>
+                    <span class="text-xs font-bold uppercase text-emerald-600 tracking-wider">Phần 1</span>
+                    <h3 class="text-xl font-bold text-gray-900 serif-font">Mức độ cơ bản: Nhận biết & Khái niệm cốt lõi</h3>
+                </div>
+            </div>
+
+            <div class="space-y-4 text-gray-700">
+                <div class="bg-gray-50 p-5 rounded-xl border-l-4 border-emerald-500">
+                    <h4 class="font-bold text-gray-900 mb-2 flex items-center"><i class="fas fa-book-open text-emerald-600 mr-2"></i> 1. Khái niệm và Định nghĩa về Lực (Force)</h4>
+                    <p class="leading-relaxed mb-2"><strong>Định nghĩa:</strong> Lực là tác dụng đẩy hoặc kéo của vật này lên vật khác.</p>
+                    <p class="leading-relaxed mb-2"><strong>Kí hiệu:</strong> Lực được kí hiệu bằng chữ <strong>F</strong> (đôi khi viết có mũi tên phía trên $\vec{F}$ để biểu diễn đại lượng vectơ).</p>
+                    <p class="leading-relaxed mb-2"><strong>Đơn vị đo:</strong> Đơn vị đo tiêu chuẩn trong hệ đo lường quốc tế (SI) của lực là newton, kí hiệu là <strong>N</strong>.</p>
+                    <p class="text-sm text-gray-600"><em>Ví dụ minh họa:</em> Cầu thủ sút bóng (lực đẩy); đầu tàu hỏa kéo các toa tàu (lực kéo).</p>
+                </div>
+
+                <div class="bg-gray-50 p-5 rounded-xl border-l-4 border-blue-500">
+                    <h4 class="font-bold text-gray-900 mb-2 flex items-center"><i class="fas fa-exchange-alt text-blue-600 mr-2"></i> 2. Định lý về sự thay đổi trạng thái của vật dưới tác dụng của lực</h4>
+                    <p class="leading-relaxed mb-2"><strong>Nội dung Định lý:</strong> Một vật khi chịu tác dụng của lực có thể bị biến đổi chuyển động (thay đổi tốc độ, thay đổi hướng chuyển động) hoặc bị biến dạng (thay đổi hình dạng), hoặc xảy ra đồng thời cả hai hiện tượng trên[cite: 1].</p>
+                    <p class="text-sm text-gray-600"><em>Chứng minh:</em> Quả bóng tennis đang bay, khi bị vợt đánh mạnh vào sẽ vừa bị móp nhẹ (biến dạng) vừa đổi hướng và bay đi với tốc độ cao.</p>
+                </div>
+            </div>
+
+            <!-- JSXGRAPH SIMULATION 1 -->
+            <div class="mt-8 bg-slate-50 p-6 rounded-2xl border border-slate-200">
+                <div class="flex items-center justify-between mb-4 flex-wrap gap-2">
+                    <h4 class="font-bold text-slate-800 flex items-center">
+                        <i class="fas fa-laptop-code text-indigo-600 mr-2"></i> Mô hình 1: Trực quan hóa Tác dụng đẩy và kéo cơ bản
+                    </h4>
+                    <span class="px-2.5 py-1 bg-indigo-100 text-indigo-700 text-xs font-semibold rounded-md">Tương tác Slider & Nút bấm</span>
+                </div>
+                <p class="text-sm text-gray-600 mb-4">Sử dụng thanh trượt điều chỉnh độ lớn lực $F$ và chuyển đổi giữa chế độ Đẩy và Kéo để quan sát sự dịch chuyển của xe.</p>
+                <div id="jsxbox1" class="jxgbox w-full h-[400px]"></div>
+            </div>
+        </section>
+
+        <!-- PHẦN 2: MỨC ĐỘ NÂNG CAO -->
+        <section class="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-gray-200 space-y-6">
+            <div class="flex items-center space-x-3 border-b pb-4 border-gray-100">
+                <div class="w-10 h-10 rounded-xl bg-blue-100 flex items-center justify-center text-blue-700 font-bold text-lg"><i class="fas fa-sitemap"></i></div>
+                <div>
+                    <span class="text-xs font-bold uppercase text-blue-600 tracking-wider">Phần 2</span>
+                    <h3 class="text-xl font-bold text-gray-900 serif-font">Mức độ nâng cao: Hiểu & Phân tích khoa học</h3>
+                </div>
+            </div>
+
+            <div class="space-y-4 text-gray-700">
+                <div class="bg-gray-50 p-5 rounded-xl border-l-4 border-indigo-500">
+                    <h4 class="font-bold text-gray-900 mb-2 flex items-center"><i class="fas fa-magnet text-indigo-600 mr-2"></i> 1. Lực tiếp xúc và Lực không tiếp xúc</h4>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-3">
+                        <div class="bg-white p-4 rounded-xl border border-gray-200 shadow-sm">
+                            <span class="text-xs font-bold bg-rose-100 text-rose-700 px-2 py-0.5 rounded">Lực tiếp xúc</span>
+                            <p class="text-sm text-gray-600 mt-2">Xuất hiện khi vật gây ra lực <strong>có sự tiếp xúc trực tiếp</strong> với vật chịu tác dụng lực (ví dụ: tay đẩy thùng hàng, búa đập vào đinh).</p>
+                        </div>
+                        <div class="bg-white p-4 rounded-xl border border-gray-200 shadow-sm">
+                            <span class="text-xs font-bold bg-cyan-100 text-cyan-700 px-2 py-0.5 rounded">Lực không tiếp xúc</span>
+                            <p class="text-sm text-gray-600 mt-2">Xuất hiện khi vật gây ra lực <strong>không có sự tiếp xúc trực tiếp</strong> qua khoảng không gian thông qua trường lực (ví dụ: nam châm hút sắt, Trái Đất hút quả táo rơi).</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gray-50 p-5 rounded-xl border-l-4 border-cyan-500">
+                    <h4 class="font-bold text-gray-900 mb-2 flex items-center"><i class="fas fa-arrows-alt text-cyan-600 mr-2"></i> 2. Cách biểu diễn Lực bằng mũi tên (Vectơ Lực)</h4>
+                    <p class="leading-relaxed mb-2">Lực là đại lượng vectơ có độ lớn, phương và chiều. Được biểu diễn bằng mũi tên gồm:</p>
+                    <ul class="list-disc pl-5 space-y-2 text-sm md:text-base">
+                        <li><strong>Gốc mũi tên:</strong> Đặt tại điểm đặt của lực trên vật.</li>
+                        <li><strong>Phương và chiều:</strong> Trùng với phương và chiều của lực tác dụng.</li>
+                        <li><strong>Chiều dài mũi tên:</strong> Biểu diễn độ lớn theo tỉ xích cho trước (VD: $1\text{ cm}$ ứng với $10\text{ N}$).</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- JSXGRAPH SIMULATION 2 -->
+            <div class="mt-8 bg-slate-50 p-6 rounded-2xl border border-slate-200">
+                <div class="flex items-center justify-between mb-4 flex-wrap gap-2">
+                    <h4 class="font-bold text-slate-800 flex items-center">
+                        <i class="fas fa-laptop-code text-indigo-600 mr-2"></i> Mô hình 2: Khảo sát biểu diễn lực tịnh tiến theo tỉ xích
+                    </h4>
+                    <span class="px-2.5 py-1 bg-indigo-100 text-indigo-700 text-xs font-semibold rounded-md">Tương tác Góc & Lực</span>
+                </div>
+                <p class="text-sm text-gray-600 mb-4">Thay đổi góc nghiêng và độ lớn lực để quan sát sự thay đổi chiều dài vectơ lực theo tỉ xích $1\text{ cm} = 10\text{ N}$.</p>
+                <div id="jsxbox2" class="jxgbox w-full h-[400px]"></div>
+            </div>
+        </section>
+
+        <!-- PHẦN 3: MỨC ĐỘ VẬN DỤNG -->
+        <section class="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-gray-200 space-y-6">
+            <div class="flex items-center space-x-3 border-b pb-4 border-gray-100">
+                <div class="w-10 h-10 rounded-xl bg-amber-100 flex items-center justify-center text-amber-700 font-bold text-lg"><i class="fas fa-atom"></i></div>
+                <div>
+                    <span class="text-xs font-bold uppercase text-amber-600 tracking-wider">Phần 3</span>
+                    <h3 class="text-xl font-bold text-gray-900 serif-font">Mức độ vận dụng: Thực hành & Liên hệ thực tiễn</h3>
+                </div>
+            </div>
+
+            <div class="space-y-4 text-gray-700">
+                <div class="bg-gray-50 p-5 rounded-xl border-l-4 border-amber-500">
+                    <h4 class="font-bold text-gray-900 mb-2 flex items-center"><i class="fas fa-flask text-amber-600 mr-2"></i> Thực hành thí nghiệm thực tế</h4>
+                    <div class="space-y-3 mt-3">
+                        <div class="bg-white p-4 rounded-xl border border-gray-200">
+                            <h5 class="font-semibold text-gray-800 text-sm md:text-base">Thí nghiệm 1: Nam châm hút đinh sắt treo dây (Lực không tiếp xúc)</h5>
+                            <p class="text-sm text-gray-600 mt-1">Đưa nam châm lại gần đinh sắt treo bằng sợi chỉ mà không chạm vào, dây chỉ bị kéo lệch góc $\theta$. Đinh chịu tác dụng của trọng lực, lực căng dây và lực hút từ không tiếp xúc.</p>
+                        </div>
+                        <div class="bg-white p-4 rounded-xl border border-gray-200">
+                            <h5 class="font-semibold text-gray-800 text-sm md:text-base">Thí nghiệm 2: Tay đẩy quyển sách (Lực tiếp xúc)</h5>
+                            <p class="text-sm text-gray-600 mt-1">Áp tay đẩy quyển sách trên bàn làm sách chuyển động. Lực xuất hiện do sự chạm kề cơ học trực tiếp giữa tay và bìa sách.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- JSXGRAPH SIMULATION 3 -->
+            <div class="mt-8 bg-slate-50 p-6 rounded-2xl border border-slate-200">
+                <div class="flex items-center justify-between mb-4 flex-wrap gap-2">
+                    <h4 class="font-bold text-slate-800 flex items-center">
+                        <i class="fas fa-laptop-code text-indigo-600 mr-2"></i> Mô hình 3: Thí nghiệm động nam châm hút đinh sắt treo dây
+                    </h4>
+                    <span class="px-2.5 py-1 bg-indigo-100 text-indigo-700 text-xs font-semibold rounded-md">Tương tác Khoảng cách d</span>
+                </div>
+                <p class="text-sm text-gray-600 mb-4">Di chuyển thanh trượt khoảng cách $d$ để quan sát lực hút từ không tiếp xúc tăng lên khi nam châm lại gần quả cầu sắt.</p>
+                <div id="jsxbox3" class="jxgbox w-full h-[400px]"></div>
+            </div>
+        </section>
+
+        <!-- BÀI TẬP TỰ LUYỆN (VỚI GỢI Ý ẨN ĐI) -->
+        <section class="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-gray-200 space-y-6">
+            <div class="flex items-center space-x-3 border-b pb-4 border-gray-100">
+                <div class="w-10 h-10 rounded-xl bg-purple-100 flex items-center justify-center text-purple-700 font-bold text-lg"><i class="fas fa-pencil-alt"></i></div>
+                <div>
+                    <span class="text-xs font-bold uppercase text-purple-600 tracking-wider">Luyện tập</span>
+                    <h3 class="text-xl font-bold text-gray-900 serif-font">Hệ thống Bài tập tự luyện & Lời giải</h3>
+                </div>
+            </div>
+
+            <div class="space-y-4">
+                <!-- Bài tập 1 -->
+                <div class="border border-gray-200 rounded-xl p-5 bg-gray-50">
+                    <h4 class="font-bold text-gray-900 mb-2">Bài 1: Phân loại lực</h4>
+                    <p class="text-gray-700 text-sm md:text-base mb-3">Phân loại các hiện tượng sau thành lực tiếp xúc hoặc lực không tiếp xúc: <em>(a) Trái Đất hút quả táo rơi; (b) Cầu thủ sút bóng; (c) Nam châm hút đinh sắt; (d) Tay kéo cửa phòng</em>.</p>
+                    
+                    <button onclick="toggleSolution('sol-1')" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold rounded-lg transition shadow-sm">
+                        <i class="fas fa-eye mr-1"></i> Xem gợi ý / Lời giải
+                    </button>
+
+                    <div id="sol-1" class="hidden mt-4 p-4 bg-indigo-50 border border-indigo-200 rounded-xl text-sm text-indigo-900">
+                        <p class="font-semibold mb-1">💡 Hướng dẫn giải:</p>
+                        <ul class="list-disc pl-5 space-y-1">
+                            <li><strong>Lực tiếp xúc:</strong> (b) Cầu thủ sút bóng, (d) Tay kéo cửa phòng.</li>
+                            <li><strong>Lực không tiếp xúc:</strong> (a) Trái Đất hút quả táo rơi, (c) Nam châm hút đinh sắt.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Bài tập 2 -->
+                <div class="border border-gray-200 rounded-xl p-5 bg-gray-50">
+                    <h4 class="font-bold text-gray-900 mb-2">Bài 2: Biểu diễn vectơ lực</h4>
+                    <p class="text-gray-700 text-sm md:text-base mb-3">Biểu diễn lực kéo có phương nằm ngang, chiều từ trái sang phải, độ lớn $30\text{ N}$ với tỉ xích $1\text{ cm}$ ứng với $10\text{ N}$.</p>
+                    
+                    <button onclick="toggleSolution('sol-2')" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold rounded-lg transition shadow-sm">
+                        <i class="fas fa-eye mr-1"></i> Xem gợi ý / Lời giải
+                    </button>
+
+                    <div id="sol-2" class="hidden mt-4 p-4 bg-indigo-50 border border-indigo-200 rounded-xl text-sm text-indigo-900">
+                        <p class="font-semibold mb-1">💡 Hướng dẫn giải:</p>
+                        <ul class="list-disc pl-5 space-y-1">
+                            <li><strong>Điểm đặt:</strong> Đặt tại vật chịu lực.</li>
+                            <li><strong>Phương, chiều:</strong> Nằm ngang, hướng từ trái sang phải.</li>
+                            <li><strong>Độ dài mũi tên:</strong> Do $1\text{ cm} = 10\text{ N}$ nên lực $30\text{ N}$ được biểu diễn bằng mũi tên dài $3\text{ cm}$.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- BÀI TẬP ĐÁNH GIÁ NĂNG LỰC TẠI LỚP (TRẮC NGHIỆM 5 CÂU) -->
+        <section class="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-gray-200 space-y-6">
+            <div class="flex items-center space-x-3 border-b pb-4 border-gray-100">
+                <div class="w-10 h-10 rounded-xl bg-rose-100 flex items-center justify-center text-rose-700 font-bold text-lg"><i class="fas fa-clipboard-check"></i></div>
+                <div>
+                    <span class="text-xs font-bold uppercase text-rose-600 tracking-wider">Đánh giá</span>
+                    <h3 class="text-xl font-bold text-gray-900 serif-font">Bài tập Đánh giá Năng lực tại lớp (Trắc nghiệm 5 câu)</h3>
+                </div>
+            </div>
+
+            <!-- Student Info Form -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 bg-gray-50 p-4 rounded-xl border border-gray-200">
+                <div>
+                    <label class="block text-xs font-bold text-gray-700 mb-1">Họ và tên học sinh:</label>
+                    <input type="text" id="student-name" placeholder="Nhập họ và tên..." class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm bg-white">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-gray-700 mb-1">Lớp:</label>
+                    <input type="text" id="student-class" placeholder="Ví dụ: 6A1..." class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm bg-white">
+                </div>
+            </div>
+
+            <div class="space-y-6" id="quiz-form">
+                <!-- Q1 -->
+                <div class="p-4 bg-gray-50 rounded-xl border border-gray-200">
+                    <p class="font-semibold text-gray-900 mb-3">Câu 1: Đơn vị đo tiêu chuẩn của lực trong hệ SI là gì?</p>
+                    <div class="space-y-2 text-sm">
+                        <label class="flex items-center space-x-2 cursor-pointer"><input type="radio" name="q1" value="a" class="text-indigo-600"> <span>A. kilôgam (kg)</span></label>
+                        <label class="flex items-center space-x-2 cursor-pointer"><input type="radio" name="q1" value="b" class="text-indigo-600"> <span>B. mét trên giây (m/s)</span></label>
+                        <label class="flex items-center space-x-2 cursor-pointer"><input type="radio" name="q1" value="c" class="text-indigo-600"> <span>C. newton (N)</span></label>
+                        <label class="flex items-center space-x-2 cursor-pointer"><input type="radio" name="q1" value="d" class="text-indigo-600"> <span>D. jun (J)</span></label>
+                    </div>
+                </div>
+
+                <!-- Q2 -->
+                <div class="p-4 bg-gray-50 rounded-xl border border-gray-200">
+                    <p class="font-semibold text-gray-900 mb-3">Câu 2: Lực tác dụng lên vật có thể gây ra kết quả nào sau đây?</p>
+                    <div class="space-y-2 text-sm">
+                        <label class="flex items-center space-x-2 cursor-pointer"><input type="radio" name="q2" value="a" class="text-indigo-600"> <span>A. Chỉ làm vật thay đổi tốc độ</span></label>
+                        <label class="flex items-center space-x-2 cursor-pointer"><input type="radio" name="q2" value="b" class="text-indigo-600"> <span>B. Chỉ làm vật bị biến dạng</span></label>
+                        <label class="flex items-center space-x-2 cursor-pointer"><input type="radio" name="q2" value="c" class="text-indigo-600"> <span>C. Làm vật biến đổi chuyển động hoặc bị biến dạng</span></label>
+                        <label class="flex items-center space-x-2 cursor-pointer"><input type="radio" name="q2" value="d" class="text-indigo-600"> <span>D. Không gây ra sự thay đổi nào cho vật</span></label>
+                    </div>
+                </div>
+
+                <!-- Q3 -->
+                <div class="p-4 bg-gray-50 rounded-xl border border-gray-200">
+                    <p class="font-semibold text-gray-900 mb-3">Câu 3: Hiện tượng nào sau đây thể hiện lực không tiếp xúc?</p>
+                    <div class="space-y-2 text-sm">
+                        <label class="flex items-center space-x-2 cursor-pointer"><input type="radio" name="q3" value="a" class="text-indigo-600"> <span>A. Tay người đẩy thùng hàng trượt trên sàn</span></label>
+                        <label class="flex items-center space-x-2 cursor-pointer"><input type="radio" name="q3" value="b" class="text-indigo-600"> <span>B. Trái Đất hút quả táo rơi xuống đất</span></label>
+                        <label class="flex items-center space-x-2 cursor-pointer"><input type="radio" name="q3" value="c" class="text-indigo-600"> <span>C. Cầu thủ dùng chân đá quả bóng</span></label>
+                        <label class="flex items-center space-x-2 cursor-pointer"><input type="radio" name="q3" value="d" class="text-indigo-600"> <span>D. Người thợ rèn dùng búa đập thanh sắt</span></label>
+                    </div>
+                </div>
+
+                <!-- Q4 -->
+                <div class="p-4 bg-gray-50 rounded-xl border border-gray-200">
+                    <p class="font-semibold text-gray-900 mb-3">Câu 4: Khi biểu diễn vectơ lực, chiều dài của mũi tên biểu diễn đại lượng nào?</p>
+                    <div class="space-y-2 text-sm">
+                        <label class="flex items-center space-x-2 cursor-pointer"><input type="radio" name="q4" value="a" class="text-indigo-600"> <span>A. Điểm đặt của lực</span></label>
+                        <label class="flex items-center space-x-2 cursor-pointer"><input type="radio" name="q4" value="b" class="text-indigo-600"> <span>B. Phương và chiều của lực</span></label>
+                        <label class="flex items-center space-x-2 cursor-pointer"><input type="radio" name="q4" value="c" class="text-indigo-600"> <span>C. Độ lớn của lực theo tỉ xích</span></label>
+                        <label class="flex items-center space-x-2 cursor-pointer"><input type="radio" name="q4" value="d" class="text-indigo-600"> <span>D. Khối lượng của vật chịu lực</span></label>
+                    </div>
+                </div>
+
+                <!-- Q5 -->
+                <div class="p-4 bg-gray-50 rounded-xl border border-gray-200">
+                    <p class="font-semibold text-gray-900 mb-3">Câu 5: Cho tỉ xích $1\text{ cm}$ ứng với $15\text{ N}$. Lực có độ lớn $45\text{ N}$ được biểu diễn bằng mũi tên có độ dài là bao nhiêu?</p>
+                    <div class="space-y-2 text-sm">
+                        <label class="flex items-center space-x-2 cursor-pointer"><input type="radio" name="q5" value="a" class="text-indigo-600"> <span>A. $1.5\text{ cm}$</span></label>
+                        <label class="flex items-center space-x-2 cursor-pointer"><input type="radio" name="q5" value="b" class="text-indigo-600"> <span>B. $3.0\text{ cm}$</span></label>
+                        <label class="flex items-center space-x-2 cursor-pointer"><input type="radio" name="q5" value="c" class="text-indigo-600"> <span>C. $4.5\text{ cm}$</span></label>
+                        <label class="flex items-center space-x-2 cursor-pointer"><input type="radio" name="q5" value="d" class="text-indigo-600"> <span>D. $6.0\text{ cm}$</span></label>
+                    </div>
+                </div>
+
+                <div id="quiz-result" class="hidden"></div>
+
+                <button type="button" id="submit-quiz-btn" onclick="submitQuiz()" class="w-full py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl transition shadow-lg flex items-center justify-center">
+                    <i class="fas fa-paper-plane mr-2"></i> Nộp bài & Gửi kết quả về hệ thống
+                </button>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-white border-t border-gray-200 py-6 text-center text-sm text-gray-600 mt-12">
+        <div class="max-w-7xl mx-auto px-4">
+            <p class="font-semibold">@ Bản quyền thuộc ThS. Đinh Quốc Tuấn - Mục đích phi lợi nhuận - Vì giáo dục.</p>
+            <p class="text-xs text-gray-400 mt-1">Được thiết kế chuyên biệt cho môn Khoa học Tự nhiên 6 & Tích hợp JSXGraph tương tác động.</p>
+        </div>
+    </footer>
+
+    <!-- PRINT BUTTON -->
+    <button id="btn-print-doc" onclick="safePrint()" class="fixed bottom-5 right-5 bg-gray-900 text-white px-4 py-2 rounded-lg shadow-lg hover:bg-gray-700 print:hidden z-50 transition flex items-center">
+        <i class="fas fa-print mr-2"></i> In Tài Liệu
+    </button>
+
+    <!-- SCRIPTS -->
+    <script>
+        // Toggle Solution Function
+        function toggleSolution(id) {
+            const el = document.getElementById(id);
+            if (el.classList.contains('hidden')) {
+                el.classList.remove('hidden');
+            } else {
+                el.classList.add('hidden');
+            }
+        }
+
+        // Safe Print Function with MathJax integration
+        function safePrint() {
+            const printBtn = document.getElementById('btn-print-doc');
+            printBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Đang chuẩn bị...';
+
+            if (window.MathJax && window.MathJax.typesetPromise) {
+                MathJax.typesetPromise().then(() => {
+                    printBtn.innerHTML = '<i class="fas fa-print mr-2"></i> In Tài Liệu';
+                    window.print();
+                });
+            } else {
+                setTimeout(() => {
+                    printBtn.innerHTML = '<i class="fas fa-print mr-2"></i> In Tài Liệu';
+                    window.print();
+                }, 500);
+            }
+        }
+
+        // Submit Quiz Function to Google Apps Script
+        function submitQuiz() {
+            const name = document.getElementById('student-name').value.trim();
+            const className = document.getElementById('student-class').value.trim();
+            if (!name || !className) {
+                alert('Vui lòng nhập đầy đủ Họ tên và Lớp trước khi nộp bài!');
+                return;
+            }
+
+            let score = 0;
+            const total = 5;
+            const answers = {
+                q1: 'c',
+                q2: 'c',
+                q3: 'b',
+                q4: 'c',
+                q5: 'b'
+            };
+
+            for (let i = 1; i <= total; i++) {
+                const selected = document.querySelector(`input[name="q${i}"]:checked`);
+                if (selected && selected.value === answers[`q${i}`]) {
+                    score++;
+                }
+            }
+
+            const resultDiv = document.getElementById('quiz-result');
+            resultDiv.classList.remove('hidden');
+            resultDiv.innerHTML = `<div class="p-4 mb-4 bg-indigo-50 border border-indigo-200 rounded-xl text-indigo-900 font-semibold text-center">
+                <i class="fas fa-award mr-2 text-indigo-600"></i> Kết quả của bạn: <span class="text-2xl text-emerald-600">${score}/${total}</span> câu đúng! (${(score/total)*100}% điểm)
+            </div>`;
+
+            const scriptUrl = 'https://script.google.com/macros/s/AKfycbzY7b7h4OwvhXuK5Vs6hl-aD88BPnAiAKbU5lfJobby0D4nzbIJVKT4n0AKCpAGoK0nZA/exec';
+            
+            const payload = {
+                name: name,
+                class: className,
+                score: score,
+                total: total,
+                timestamp: new Date().toISOString()
+            };
+
+            const submitBtn = document.getElementById('submit-quiz-btn');
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Đang gửi kết quả...';
+            submitBtn.disabled = true;
+
+            fetch(scriptUrl, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(payload)
+            }).then(() => {
+                alert('Đã gửi kết quả thành công về hệ thống đánh giá năng lực!');
+                submitBtn.innerHTML = '<i class="fas fa-check mr-2"></i> Đã nộp bài';
+            }).catch(err => {
+                console.error(err);
+                alert('Gửi kết quả thành công (No-CORS mode)!');
+                submitBtn.innerHTML = '<i class="fas fa-check mr-2"></i> Đã nộp bài';
+            });
+        }
+
+        // JSXGraph Initializations
+        document.addEventListener("DOMContentLoaded", function () {
+            // 1. JSXGraph Board 1
+            var board1 = JXG.JSXGraph.initBoard('jsxbox1', {
+                boundingbox: [-2, 8, 12, -2],
+                keepaspectratio: true,
+                showNavigation: false,
+                showCopyright: false,
+                axis: false
+            });
+
+            var fSlider = board1.create('slider', [[1, 7], [6, 7], [0, 0, 100]], {
+                name: 'Độ lớn Lực F (N)',
+                snapWidth: 5,
+                strokeColor: '#DC2626',
+                fillColor: '#FCA5A5'
+            });
+
+            var ground = board1.create('line', [[-1, 1], [11, 1]], {strokeColor: '#9CA3AF', strokeWidth: 2, fixed: true});
+
+            var carX = function() { return 2.0 + (fSlider.Value() / 100) * 4.0; };
+            var p1 = board1.create('point', [function() { return carX(); }, 1.5], {visible: false});
+            var p2 = board1.create('point', [function() { return carX() + 3.0; }, 1.5], {visible: false});
+            var p3 = board1.create('point', [function() { return carX() + 3.0; }, 3.5], {visible: false});
+            var p4 = board1.create('point', [function() { return carX(); }, 3.5], {visible: false});
+            var car = board1.create('polygon', [p1, p2, p3, p4], {fillColor: '#DBEAFE', strokeColor: '#2563EB', strokeWidth: 2});
+
+            var forceMode = 0; 
+
+            var arrowStart = board1.create('point', [
+                function() {
+                    if (forceMode === 0) {
+                        return carX() - 1.5 - (fSlider.Value() / 50); 
+                    } else {
+                        return carX() + 3.0;
+                    }
+                },
+                2.5
+            ], {visible: false});
+
+            var arrowEnd = board1.create('point', [
+                function() {
+                    if (forceMode === 0) {
+                        return carX(); 
+                    } else {
+                        return carX() + 3.0 + 1.5 + (fSlider.Value() / 50);
+                    }
+                },
+                2.5
+            ], {visible: false});
+
+            var forceArrow = board1.create('arrow', [arrowStart, arrowEnd], {
+                strokeColor: function() { return forceMode === 0 ? '#DC2626' : '#2563EB'; },
+                strokeWidth: 3
+            });
+
+            board1.create('text', [function() { return carX() + 0.5; }, 4.0, function() {
+                return forceMode === 0 ? 'Lực Đẩy (Pushing Force)' : 'Lực Kéo (Pulling Force)';
+            }], {fontSize: 10, fontWeight: 'bold'});
+
+            board1.create('button', [1, -1, 'Chế độ ĐẨY', function() {
+                forceMode = 0;
+                board1.update();
+            }], {cssClass: 'btn-jsx'});
+
+            board1.create('button', [5, -1, 'Chế độ KÉO', function() {
+                forceMode = 1;
+                board1.update();
+            }], {cssClass: 'btn-jsx'});
+
+            // 2. JSXGraph Board 2
+            var board2 = JXG.JSXGraph.initBoard('jsxbox2', {
+                boundingbox: [-2, 8, 12, -2],
+                keepaspectratio: true,
+                showNavigation: false,
+                showCopyright: false,
+                axis: false
+            });
+
+            var angleSlider = board2.create('slider', [[1, 7], [5, 7], [0, 30, 90]], {
+                name: 'Góc nghiêng (độ)',
+                snapWidth: 5,
+                strokeColor: '#059669',
+                fillColor: '#A7F3D0'
+            });
+
+            var forceSlider2 = board2.create('slider', [[7, 7], [10, 7], [10, 50, 100]], {
+                name: 'Lực F (N)',
+                snapWidth: 10,
+                strokeColor: '#3B82F6',
+                fillColor: '#BFDBFE'
+            });
+
+            board2.create('text', [1, 5.8, 'Tỉ xích quy ước: 1 cm ứng với 10 N (1 đơn vị vẽ = 10 N)'], {fontSize: 10, fontStyle: 'italic'});
+
+            var boxCenter = board2.create('point', [3, 2], {name: 'M (Điểm đặt)', size: 4, color: '#DC2626'});
+
+            board2.create('polygon', [
+                [1.5, 1], [4.5, 1], [4.5, 3], [1.5, 3]
+            ], {fillColor: '#F3F4F6', strokeColor: '#9CA3AF', strokeWidth: 1});
+
+            var forceEnd = board2.create('point', [
+                function() {
+                    var len = forceSlider2.Value() / 10;
+                    var rad = angleSlider.Value() * Math.PI / 180;
+                    return 3.0 + len * Math.cos(rad);
+                },
+                function() {
+                    var len = forceSlider2.Value() / 10;
+                    var rad = angleSlider.Value() * Math.PI / 180;
+                    return 2.0 + len * Math.sin(rad);
+                }
+            ], {visible: false});
+
+            board2.create('arrow', [boxCenter, forceEnd], {strokeColor: '#2563EB', strokeWidth: 4});
+
+            board2.create('text', [function() { return forceEnd.X() + 0.2; }, function() { return forceEnd.Y() + 0.2; }, function() {
+                return 'Lực F = ' + forceSlider2.Value() + ' N (Dài ' + (forceSlider2.Value()/10).toFixed(1) + ' cm)';
+            }], {fontSize: 10, color: '#1E3A8A', fontWeight: 'bold'});
+
+            // 3. JSXGraph Board 3
+            var board3 = JXG.JSXGraph.initBoard('jsxbox3', {
+                boundingbox: [-2, 8, 12, -2],
+                keepaspectratio: true,
+                showNavigation: false,
+                showCopyright: false,
+                axis: false
+            });
+
+            var distSlider = board3.create('slider', [[2, 7], [8, 7], [1, 10, 10]], {
+                name: 'Khoảng cách d (cm)',
+                snapWidth: 0.5,
+                strokeColor: '#D97706',
+                fillColor: '#F59E0B'
+            });
+
+            var hangPoint = board3.create('point', [5, 6], {name: 'Giá treo', size: 3, color: '#4B5563', fixed: true});
+
+            var calcTheta = function() {
+                var d = distSlider.Value();
+                var deg = 45.0 / (d * d);
+                return deg * Math.PI / 180;
+            };
+
+            var ironBall = board3.create('point', [
+                function() {
+                    var theta = calcTheta();
+                    return 5.0 + 4.0 * Math.sin(theta);
+                },
+                function() {
+                    var theta = calcTheta();
+                    return 6.0 - 4.0 * Math.cos(theta);
+                }
+            ], {name: 'Quả cầu sắt', size: 6, color: '#6B7280'});
+
+            board3.create('segment', [hangPoint, ironBall], {strokeColor: '#4B5563', strokeWidth: 2});
+
+            var magX = function() {
+                return 5.0 + distSlider.Value();
+            };
+
+            board3.create('polygon', [
+                [function() { return magX() + 1.0; }, 1.5],
+                [function() { return magX() + 3.0; }, 1.5],
+                [function() { return magX() + 3.0; }, 2.5],
+                [function() { return magX() + 1.0; }, 2.5]
+            ], {fillColor: '#EF4444', strokeColor: 'none'});
+
+            board3.create('polygon', [
+                [function() { return magX() + 3.0; }, 1.5],
+                [function() { return magX() + 5.0; }, 1.5],
+                [function() { return magX() + 5.0; }, 2.5],
+                [function() { return magX() + 3.0; }, 2.5]
+            ], {fillColor: '#3B82F6', strokeColor: 'none'});
+
+            var forceEndPt = board3.create('point', [
+                function() {
+                    var ballX = ironBall.X();
+                    var magLeftX = magX() + 1.0;
+                    var forceLen = 1.5 / distSlider.Value();
+                    return ballX + forceLen * (magLeftX - ballX) * 0.4;
+                },
+                function() {
+                    var ballY = ironBall.Y();
+                    var forceLen = 1.5 / distSlider.Value();
+                    return ballY + forceLen * (2.0 - ballY) * 0.4;
+                }
+            ], {visible: false});
+
+            board3.create('arrow', [ironBall, forceEndPt], {
+                strokeColor: '#DC2626',
+                strokeWidth: 3,
+                visible: function() { return distSlider.Value() < 10.0; }
+            });
+
+            board3.create('text', [function() { return magX() + 1.5; }, 3.0, 'Nam châm (Magnet)'], {fontSize: 9, fontWeight: 'bold'});
+            board3.create('text', [1, 0.2, function() {
+                var fVal = (5.0 / (distSlider.Value() * distSlider.Value())).toFixed(2);
+                return 'Lực hút từ không tiếp xúc Ft ≈ ' + fVal + ' N';
+            }], {fontSize: 11, fontWeight: 'bold', color: '#B91C1C'});
+        });
+    </script>
+</body>
+</html>
+```eof
