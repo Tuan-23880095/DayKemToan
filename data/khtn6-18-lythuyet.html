@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buổi 17: Lực Hấp Dẫn, Trọng Lượng và Biến Dạng Của Lò Xo</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Merriweather:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <!-- JSXGraph -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraph.css" />
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraphcore.js"></script>
+    
+    <!-- MathJax -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+            color: #0f172a;
+        }
+        h1, h2, h3, h4, h5, .serif-font {
+            font-family: 'Merriweather', serif;
+        }
+        .jxgbox {
+            border-radius: 12px;
+            border: 2px solid #e2e8f0;
+            background: #ffffff;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between selection:bg-indigo-500 selection:text-white">
+
+    <!-- HEADER: Hai Logos -->
+    <header class="bg-white shadow-sm border-b border-gray-200 py-4 px-6 md:px-12 sticky top-0 z-40">
+        <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="flex items-center space-x-4">
+                <img src="https://firebasestorage.googleapis.com/v0/b/link-anh-web.firebasestorage.app/o/ttbdvh.jpg?alt=media&token=f270aa9b-a2bc-48e8-8910-80742b542615" alt="Logo TTBDVH" class="h-16 w-16 object-contain rounded-xl shadow-sm border border-gray-100 p-1">
+                <img src="https://firebasestorage.googleapis.com/v0/b/link-anh-web.firebasestorage.app/o/Logo-chinh-hcmus.png?alt=media&token=9cf3a1de-75f1-493b-8711-fd22c7b98738" alt="Logo HCMUS" class="h-16 w-16 object-contain rounded-xl shadow-sm border border-gray-100 p-1">
+            </div>
+            <div class="text-center sm:text-right">
+                <span class="inline-block px-3 py-1 bg-purple-100 text-purple-700 font-semibold text-xs rounded-full uppercase tracking-wider mb-1">
+                    <i class="fas fa-book-reader mr-1"></i> Khoa học Tự nhiên 6
+                </span>
+                <h1 class="text-2xl sm:text-3xl font-bold text-gray-900 serif-font">BUỔI 17: LỰC HẤP DẪN & LÒ XO</h1>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="max-w-6xl mx-auto px-4 py-8 space-y-12 w-full">
+
+        <!-- Banner Giới Thiệu -->
+        <div class="bg-gradient-to-br from-indigo-800 via-blue-700 to-cyan-600 text-white rounded-2xl p-6 md:p-10 shadow-lg relative overflow-hidden">
+            <div class="absolute -right-4 -bottom-4 opacity-10 transform rotate-12">
+                <i class="fas fa-apple-alt text-9xl"></i>
+            </div>
+            <div class="relative z-10">
+                <h2 class="text-2xl md:text-3xl font-bold mb-4 serif-font text-yellow-300">
+                    <i class="fas fa-globe-americas mr-2"></i> Khám Phá Định Luật Vạn Vật Hấp Dẫn & Sự Biến Dạng
+                </h2>
+                <p class="text-blue-100 leading-relaxed text-sm md:text-base mb-4 max-w-3xl">
+                    Tài liệu học tập tương tác bám sát nội dung, phân chia thành 3 cấp độ (Cơ bản - Nâng cao - Vận dụng). Kết hợp các minh họa đồ họa động JSXGraph để hiểu rõ sự rơi của quả táo, mối liên hệ giữa Lực và Độ dãn lò xo.
+                </p>
+                <div class="flex flex-wrap gap-2">
+                    <span class="px-3 py-1 bg-white/20 border border-white/30 text-white text-xs font-semibold rounded-lg"><i class="fas fa-cubes mr-1"></i> Khối lượng & Trọng lượng</span>
+                    <span class="px-3 py-1 bg-white/20 border border-white/30 text-white text-xs font-semibold rounded-lg"><i class="fas fa-compress-alt mr-1"></i> Lực đàn hồi</span>
+                    <span class="px-3 py-1 bg-white/20 border border-white/30 text-white text-xs font-semibold rounded-lg"><i class="fas fa-code mr-1"></i> JSXGraph</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- PHẦN 1: MỨC ĐỘ CƠ BẢN -->
+        <section class="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-gray-200">
+            <div class="flex items-center space-x-3 border-b border-gray-100 pb-4 mb-6">
+                <div class="w-10 h-10 rounded-xl bg-emerald-100 flex items-center justify-center text-emerald-600 font-bold text-lg">
+                    <i class="fas fa-seedling"></i>
+                </div>
+                <div>
+                    <span class="text-xs font-bold uppercase text-emerald-600 tracking-wider">Phần 1</span>
+                    <h3 class="text-xl font-bold text-gray-900 serif-font">Mức độ cơ bản: Nhận biết - Khái niệm cốt lõi</h3>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                <div class="bg-gray-50 p-5 rounded-xl border-l-4 border-emerald-500">
+                    <h4 class="font-bold text-gray-900 mb-2"><i class="fas fa-magnet text-emerald-600 mr-2"></i>1. Lực hấp dẫn</h4>
+                    <p class="text-sm text-gray-700 leading-relaxed mb-2">
+                        <strong>Định nghĩa:</strong> Lực hấp dẫn là lực hút giữa các vật có khối lượng. Theo định luật vạn vật hấp dẫn, mọi vật trong vũ trụ đều hút nhau với một lực hấp dẫn, lực này tác dụng từ xa qua khoảng không gian giữa các vật.
+                    </p>
+                    <p class="text-sm text-gray-700 leading-relaxed">
+                        <strong>Hiện tượng:</strong> Năm 1666, Isaac Newton quan sát thấy quả táo chín rơi từ trên cành cây xuống đất, nảy sinh ý tưởng rằng Trái Đất tác dụng một lực hút lên quả táo và mọi vật khác.
+                    </p>
+                    <ul class="list-disc pl-5 mt-2 text-sm text-gray-700 space-y-1">
+                        <li>Thả viên phấn rơi thẳng xuống đất nhờ lực hút của Trái Đất.</li>
+                        <li>Lực hấp dẫn giữ bầu khí quyển và vệ tinh nhân tạo quay quanh Trái Đất.</li>
+                    </ul>
+                </div>
+                
+                <div class="bg-gray-50 p-5 rounded-xl border-l-4 border-blue-500">
+                    <h4 class="font-bold text-gray-900 mb-2"><i class="fas fa-weight-hanging text-blue-600 mr-2"></i>2. Trọng lực và Trọng lượng</h4>
+                    <ul class="list-disc pl-5 text-sm text-gray-700 space-y-2">
+                        <li><strong>Trọng lực:</strong> Lực hút của Trái Đất tác dụng lên vật. Có phương thẳng đứng và chiều từ trên xuống dưới (hướng về phía tâm Trái Đất).</li>
+                        <li><strong>Trọng lượng:</strong> Độ lớn lực hút của Trái Đất tác dụng lên vật đó. Kí hiệu: $P$. Đơn vị: Niutơn ($N$).</li>
+                    </ul>
+                    <div class="mt-3 p-3 bg-white border border-gray-200 rounded-lg text-center">
+                        <span class="text-sm font-semibold text-gray-600">Công thức:</span>
+                        <div class="text-lg font-bold text-indigo-700">$$P = 10 \cdot m$$</div>
+                        <span class="text-xs text-gray-500">($m$: kg, $P$: N)</span>
+                    </div>
+                    <p class="text-xs text-gray-600 mt-2 italic">Ví dụ: $m = 45\text{ kg} \implies P = 450\text{ N}$</p>
+                </div>
+            </div>
+
+            <!-- JSXGRAPH 1 -->
+            <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200">
+                <h4 class="font-bold text-slate-800 mb-2 flex items-center">
+                    <i class="fas fa-laptop-code text-indigo-600 mr-2"></i> Kịch bản 1: Mô phỏng Trọng lực kéo quả táo
+                </h4>
+                <p class="text-sm text-gray-600 mb-4">
+                    Kéo thanh trượt để thả quả táo. Chú ý vectơ màu đỏ biểu diễn Trọng lực $P$ hướng thẳng xuống đất.
+                </p>
+                <div id="jsx_apple_fall" class="jxgbox w-full h-[350px]"></div>
+            </div>
+        </section>
+
+        <!-- PHẦN 2: MỨC ĐỘ NÂNG CAO -->
+        <section class="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-gray-200">
+            <div class="flex items-center space-x-3 border-b border-gray-100 pb-4 mb-6">
+                <div class="w-10 h-10 rounded-xl bg-orange-100 flex items-center justify-center text-orange-600 font-bold text-lg">
+                    <i class="fas fa-sitemap"></i>
+                </div>
+                <div>
+                    <span class="text-xs font-bold uppercase text-orange-600 tracking-wider">Phần 2</span>
+                    <h3 class="text-xl font-bold text-gray-900 serif-font">Mức độ nâng cao: Hiểu - Phân tích logic</h3>
+                </div>
+            </div>
+
+            <div class="mb-8">
+                <h4 class="font-bold text-gray-900 mb-3"><i class="fas fa-balance-scale text-orange-500 mr-2"></i>1. Khác biệt cốt lõi giữa Khối lượng và Trọng lượng</h4>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-sm text-left border-collapse border border-gray-200 rounded-lg">
+                        <thead class="bg-gray-100 text-gray-700 uppercase">
+                            <tr>
+                                <th class="border border-gray-200 px-4 py-2">Tiêu chí</th>
+                                <th class="border border-gray-200 px-4 py-2">Khối lượng (Mass)</th>
+                                <th class="border border-gray-200 px-4 py-2">Trọng lượng (Weight)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="border border-gray-200 px-4 py-2 font-semibold">Bản chất</td>
+                                <td class="border border-gray-200 px-4 py-2">Lượng chất chứa trong một vật.</td>
+                                <td class="border border-gray-200 px-4 py-2">Độ lớn lực hút của Trái Đất tác dụng lên vật.</td>
+                            </tr>
+                            <tr class="bg-gray-50">
+                                <td class="border border-gray-200 px-4 py-2 font-semibold">Tính chất hướng</td>
+                                <td class="border border-gray-200 px-4 py-2">Đại lượng vô hướng.</td>
+                                <td class="border border-gray-200 px-4 py-2">Đại lượng vectơ (phương thẳng đứng, từ trên xuống).</td>
+                            </tr>
+                            <tr>
+                                <td class="border border-gray-200 px-4 py-2 font-semibold">Đơn vị đo</td>
+                                <td class="border border-gray-200 px-4 py-2">Kilôgam (kg), gam (g)...</td>
+                                <td class="border border-gray-200 px-4 py-2">Niutơn (N).</td>
+                            </tr>
+                            <tr class="bg-gray-50">
+                                <td class="border border-gray-200 px-4 py-2 font-semibold">Dụng cụ đo</td>
+                                <td class="border border-gray-200 px-4 py-2">Cân.</td>
+                                <td class="border border-gray-200 px-4 py-2">Lực kế.</td>
+                            </tr>
+                            <tr>
+                                <td class="border border-gray-200 px-4 py-2 font-semibold">Sự thay đổi theo vị trí</td>
+                                <td class="border border-gray-200 px-4 py-2 text-emerald-600 font-medium">Không thay đổi.</td>
+                                <td class="border border-gray-200 px-4 py-2 text-orange-600 font-medium">Thay đổi theo vị trí/thiên thể.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="mt-4 p-4 bg-orange-50 border border-orange-200 rounded-xl text-sm text-gray-800">
+                    <strong>Ví dụ trên Mặt Trăng:</strong> Khối lượng nhà du hành $m = 120\text{ kg}$ (không đổi). Trọng lượng Trái Đất $P = 1200\text{ N}$. Mặt trăng có lực hút nhỏ hơn 6 lần. Do đó, $P_{MT} = \frac{1200}{6} = 200\text{ N}$. Giúp di chuyển, nhảy cao dễ dàng.
+                </div>
+            </div>
+
+            <div class="mb-8">
+                <h4 class="font-bold text-gray-900 mb-2"><i class="fas fa-expand-alt text-purple-600 mr-2"></i>2. Biến dạng của lò xo và Định luật Hooke</h4>
+                <p class="text-sm text-gray-700 leading-relaxed mb-2">
+                    Lực kéo làm lò xo bị dãn dài ra. Độ biến dạng $\Delta l = l - l_0$.
+                </p>
+                <p class="text-sm text-gray-700 leading-relaxed">
+                    <strong>Định lý tỉ lệ thuận:</strong> Độ dãn của lò xo treo thẳng đứng tỉ lệ thuận với khối lượng vật treo (hoặc lực tác dụng). Chỉ đúng trong giới hạn đàn hồi, nếu quá lò xo sẽ mất tính đàn hồi.
+                </p>
+            </div>
+
+            <!-- JSXGRAPH 2 -->
+            <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200">
+                <h4 class="font-bold text-slate-800 mb-2 flex items-center">
+                    <i class="fas fa-laptop-code text-indigo-600 mr-2"></i> Kịch bản 2: Đồ thị đặc trưng Lực & Độ dãn
+                </h4>
+                <p class="text-sm text-gray-600 mb-4">
+                    Đồ thị đường thẳng đi qua gốc tọa độ minh chứng cho mối quan hệ tỉ lệ thuận. Di chuyển điểm để xem độ dãn tương ứng.
+                </p>
+                <div id="jsx_spring_chart" class="jxgbox w-full h-[350px]"></div>
+            </div>
+        </section>
+
+        <!-- PHẦN 3: MỨC ĐỘ VẬN DỤNG -->
+        <section class="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-gray-200">
+            <div class="flex items-center space-x-3 border-b border-gray-100 pb-4 mb-6">
+                <div class="w-10 h-10 rounded-xl bg-purple-100 flex items-center justify-center text-purple-600 font-bold text-lg">
+                    <i class="fas fa-cogs"></i>
+                </div>
+                <div>
+                    <span class="text-xs font-bold uppercase text-purple-600 tracking-wider">Phần 3</span>
+                    <h3 class="text-xl font-bold text-gray-900 serif-font">Mức độ vận dụng: Thực hành & Tính toán</h3>
+                </div>
+            </div>
+
+            <div class="mb-8 bg-gray-50 p-5 rounded-xl border border-gray-200">
+                <h4 class="font-bold text-gray-900 mb-3"><i class="fas fa-clipboard-list text-purple-600 mr-2"></i>Quy trình đo bằng lực kế lò xo</h4>
+                <ol class="list-decimal pl-5 text-sm text-gray-700 space-y-1 mb-3 font-medium">
+                    <li>Ước lượng trọng lượng.</li>
+                    <li>Hiệu chỉnh lực kế.</li>
+                    <li>Tác dụng lực đúng phương thẳng đứng.</li>
+                    <li>Đọc và ghi kết quả.</li>
+                </ol>
+                <div class="bg-red-50 text-red-700 p-3 rounded border border-red-200 text-sm">
+                    <strong><i class="fas fa-exclamation-triangle mr-1"></i> Lưu ý an toàn:</strong> Gỡ vật nặng ra khỏi lực kế ngay sau khi đo. Treo quá lâu sẽ làm hỏng giới hạn đàn hồi, mất độ chính xác.
+                </div>
+            </div>
+
+            <!-- JSXGRAPH 3 -->
+            <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200 mb-8">
+                <h4 class="font-bold text-slate-800 mb-2 flex items-center">
+                    <i class="fas fa-laptop-code text-indigo-600 mr-2"></i> Kịch bản 3: Thí nghiệm treo quả nặng vào lò xo
+                </h4>
+                <p class="text-sm text-gray-600 mb-4">
+                    Treo khối lượng m, lò xo tự động dãn dài tương ứng. Xem mô phỏng giá đỡ và các lực đối cân bằng.
+                </p>
+                <div id="jsx_spring_experiment" class="jxgbox w-full h-[400px]"></div>
+            </div>
+        </section>
+
+        <!-- BÀI TẬP & LỜI GIẢI -->
+        <section class="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-gray-200">
+            <h3 class="text-xl font-bold text-gray-900 serif-font mb-4"><i class="fas fa-book mr-2 text-indigo-600"></i> BÀI TẬP TỰ LUYỆN</h3>
+            
+            <div class="bg-indigo-50 border border-indigo-100 p-5 rounded-xl">
+                <p class="font-semibold text-gray-800 mb-2">Bài toán thực tế</p>
+                <p class="text-sm text-gray-700 mb-4">Lò xo thép $l_0 = 12\text{ cm}$. Treo vật $m_1 = 50\text{ g}$ thì $l_1 = 15\text{ cm}$.<br>
+                a) Tính độ dãn lò xo.<br>
+                b) Độ dãn tỉ lệ thuận với khối lượng. Khi treo thêm $m_2 = 100\text{ g}$, chiều dài lò xo là bao nhiêu?</p>
+                
+                <button onclick="document.getElementById('sol-1').classList.toggle('hidden')" class="bg-indigo-600 hover:bg-indigo-700 text-white text-sm px-4 py-2 rounded-lg transition shadow-sm mb-3">
+                    <i class="fas fa-eye mr-1"></i> Xem Gợi Ý / Lời Giải
+                </button>
+
+                <div id="sol-1" class="hidden p-4 bg-white border border-indigo-200 rounded-lg text-sm text-gray-800 space-y-2">
+                    <p>a) Độ dãn: $\Delta l_1 = l_1 - l_0 = 15 - 12 = 3\text{ cm}$.</p>
+                    <p>b) Áp dụng tính chất tỉ lệ thuận. Treo 100g sẽ dãn $\Delta l_2 = 6\text{ cm}$. Chiều dài tổng: $l_2 = 12 + 6 = 18\text{ cm}$.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- BÀI TẬP ĐÁNH GIÁ NĂNG LỰC TẠI LỚP (Trắc nghiệm 5 câu) -->
+        <section class="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-gray-200 border-t-4 border-t-red-500">
+            <h3 class="text-xl font-bold text-gray-900 serif-font mb-4">
+                <i class="fas fa-check-double mr-2 text-red-500"></i> BÀI TẬP ĐÁNH GIÁ NĂNG LỰC TẠI LỚP
+            </h3>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+                <div>
+                    <label class="block text-xs font-bold text-gray-700 mb-1">Họ và tên học sinh:</label>
+                    <input type="text" id="studentName" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 text-sm" placeholder="Nhập tên...">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-gray-700 mb-1">Lớp:</label>
+                    <input type="text" id="studentClass" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 text-sm" placeholder="Ví dụ: 6A1">
+                </div>
+            </div>
+
+            <div class="space-y-6 text-sm text-gray-800" id="quizForm">
+                <!-- Q1 -->
+                <div class="p-4 bg-gray-50 rounded-xl border border-gray-200">
+                    <p class="font-semibold mb-2">Câu 1: Trọng lượng của một vật là gì?</p>
+                    <div class="space-y-1">
+                        <label class="block"><input type="radio" name="q1" value="A"> A. Lượng chất chứa trong một vật.</label>
+                        <label class="block"><input type="radio" name="q1" value="B"> B. Độ lớn lực hút của Trái Đất tác dụng lên vật.</label>
+                        <label class="block"><input type="radio" name="q1" value="C"> C. Lực đàn hồi của lò xo tác dụng lên vật.</label>
+                        <label class="block"><input type="radio" name="q1" value="D"> D. Đơn vị đo khối lượng.</label>
+                    </div>
+                </div>
+
+                <!-- Q2 -->
+                <div class="p-4 bg-gray-50 rounded-xl border border-gray-200">
+                    <p class="font-semibold mb-2">Câu 2: Dụng cụ nào dùng để đo trọng lượng?</p>
+                    <div class="space-y-1">
+                        <label class="block"><input type="radio" name="q2" value="A"> A. Cân đồng hồ</label>
+                        <label class="block"><input type="radio" name="q2" value="B"> B. Lực kế</label>
+                        <label class="block"><input type="radio" name="q2" value="C"> C. Thước thẳng</label>
+                        <label class="block"><input type="radio" name="q2" value="D"> D. Nhiệt kế</label>
+                    </div>
+                </div>
+
+                <!-- Q3 -->
+                <div class="p-4 bg-gray-50 rounded-xl border border-gray-200">
+                    <p class="font-semibold mb-2">Câu 3: Một bạn học sinh khối lượng 40 kg thì trọng lượng tương ứng xấp xỉ bao nhiêu?</p>
+                    <div class="space-y-1">
+                        <label class="block"><input type="radio" name="q3" value="A"> A. 40 N</label>
+                        <label class="block"><input type="radio" name="q3" value="B"> B. 4 N</label>
+                        <label class="block"><input type="radio" name="q3" value="C"> C. 400 N</label>
+                        <label class="block"><input type="radio" name="q3" value="D"> D. 4000 N</label>
+                    </div>
+                </div>
+
+                <!-- Q4 -->
+                <div class="p-4 bg-gray-50 rounded-xl border border-gray-200">
+                    <p class="font-semibold mb-2">Câu 4: Độ dãn của lò xo treo thẳng đứng phụ thuộc như thế nào vào khối lượng vật treo?</p>
+                    <div class="space-y-1">
+                        <label class="block"><input type="radio" name="q4" value="A"> A. Tỉ lệ thuận.</label>
+                        <label class="block"><input type="radio" name="q4" value="B"> B. Tỉ lệ nghịch.</label>
+                        <label class="block"><input type="radio" name="q4" value="C"> C. Không thay đổi.</label>
+                        <label class="block"><input type="radio" name="q4" value="D"> D. Tỉ lệ với bình phương khối lượng.</label>
+                    </div>
+                </div>
+
+                <!-- Q5 -->
+                <div class="p-4 bg-gray-50 rounded-xl border border-gray-200">
+                    <p class="font-semibold mb-2">Câu 5: Tại sao sau khi đo bằng lực kế xong phải lấy ngay quả nặng ra?</p>
+                    <div class="space-y-1">
+                        <label class="block"><input type="radio" name="q5" value="A"> A. Để tiết kiệm thời gian.</label>
+                        <label class="block"><input type="radio" name="q5" value="B"> B. Tránh làm hỏng giới hạn đàn hồi của lò xo.</label>
+                        <label class="block"><input type="radio" name="q5" value="C"> C. Để lực kế dễ nhìn hơn.</label>
+                        <label class="block"><input type="radio" name="q5" value="D"> D. Để khối lượng của quả nặng không thay đổi.</label>
+                    </div>
+                </div>
+            </div>
+
+            <button id="btnSubmitQuiz" onclick="submitQuiz()" class="mt-6 w-full py-3 bg-red-500 hover:bg-red-600 text-white font-bold rounded-xl transition shadow-md">
+                <i class="fas fa-paper-plane mr-2"></i> Gửi Bài Làm
+            </button>
+            <div id="quizResult" class="mt-4 hidden p-4 text-center rounded-lg font-bold"></div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-gray-100 border-t border-gray-200 mt-12 py-6 text-center text-sm text-gray-500">
+        <p>@ Bản quyền thuộc ThS. Đinh Quốc Tuấn - Mục đích phi lợi nhuận - Vì giáo dục.</p>
+    </footer>
+
+    <!-- FLOAT PRINT BUTTON -->
+    <button id="btn-print-doc" onclick="safePrint()" class="fixed bottom-5 right-5 bg-gray-900 text-white px-4 py-2 rounded-lg shadow-lg hover:bg-gray-700 print:hidden z-50">
+        <i class="fas fa-print mr-2"></i> In Tài Liệu
+    </button>
+
+    <!-- JS SCRIPTS -->
+    <script>
+        // Print Logic
+        function safePrint() {
+            const printBtn = document.getElementById('btn-print-doc');
+            printBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Đang chuẩn bị...';
+
+            if (window.MathJax && window.MathJax.typesetPromise) {
+                MathJax.typesetPromise().then(() => {
+                    printBtn.innerHTML = '<i class="fas fa-print mr-2"></i> In Tài Liệu';
+                    window.print();
+                });
+            } else {
+                setTimeout(() => window.print(), 500);
+            }
+        }
+
+        // Quiz Submission Logic
+        function submitQuiz() {
+            const name = document.getElementById('studentName').value.trim();
+            const sClass = document.getElementById('studentClass').value.trim();
+            
+            if (!name || !sClass) {
+                alert("Vui lòng nhập đầy đủ Tên và Lớp!");
+                return;
+            }
+
+            const answers = { q1: 'B', q2: 'B', q3: 'C', q4: 'A', q5: 'B' };
+            let score = 0;
+            let total = 5;
+
+            for (let i = 1; i <= total; i++) {
+                const selected = document.querySelector(`input[name="q${i}"]:checked`);
+                if (selected && selected.value === answers[`q${i}`]) {
+                    score++;
+                }
+            }
+
+            const btn = document.getElementById('btnSubmitQuiz');
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Đang gửi...';
+            btn.disabled = true;
+
+            const payload = {
+                name: name,
+                class: sClass,
+                score: score,
+                total: total,
+                timestamp: new Date().toISOString()
+            };
+
+            const scriptUrl = "https://script.google.com/macros/s/AKfycbzY7b7h4OwvhXuK5Vs6hl-aD88BPnAiAKbU5lfJobby0D4nzbIJVKT4n0AKCpAGoK0nZA/exec";
+
+            fetch(scriptUrl, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            }).then(() => {
+                const resDiv = document.getElementById('quizResult');
+                resDiv.classList.remove('hidden');
+                resDiv.classList.add('bg-green-100', 'text-green-800', 'border', 'border-green-300');
+                resDiv.innerHTML = `Đã nộp bài! Điểm của bạn: ${score}/${total}`;
+                btn.innerHTML = '<i class="fas fa-check-circle mr-2"></i> Hoàn thành';
+            }).catch(err => {
+                alert("Gửi thành công! (No-CORS Mode)");
+                btn.innerHTML = '<i class="fas fa-check-circle mr-2"></i> Hoàn thành';
+            });
+        }
+
+        // Initialize JSXGraph
+        document.addEventListener("DOMContentLoaded", function () {
+            // JSXGraph 1: Rơi Quả Táo
+            var board1 = JXG.JSXGraph.initBoard('jsx_apple_fall', {
+                boundingbox: [-2, 8, 8, -2],
+                keepaspectratio: true,
+                showNavigation: false,
+                showCopyright: false,
+                axis: false
+            });
+            var tSlider = board1.create('slider', [[1, 7], [5, 7], [0, 0, 1]], {
+                name: 'Thời gian rơi (t)', snapWidth: 0.05, strokeColor: '#DC2626', fillColor: '#FCA5A5'
+            });
+            board1.create('line', [[-2, 0], [8, 0]], {strokeColor: '#78350F', strokeWidth: 3, fixed: true});
+            board1.create('text', [5.0, 0.3, 'Mặt đất'], {fontSize: 11, color: '#78350F'});
+            board1.create('polygon', [[0, 0], [0.8, 0], [0.8, 5.5], [0, 5.5]], {fillColor: '#B45309', strokeColor: 'none', fixed: true});
+            board1.create('circle', [[0.4, 5.5], 1.8], {fillColor: '#10B981', strokeColor: 'none', opacity: 0.8, fixed: true});
+            var appleY = function() {
+                var t = tSlider.Value();
+                var y = 5.0 - 5.0 * t * t;
+                return Math.max(0.3, y); 
+            };
+            board1.create('circle', [[1.5, appleY], 0.3], {
+                fillColor: '#DC2626', strokeColor: '#991B1B', strokeWidth: 2
+            });
+            board1.create('segment', [[1.5, function() { return appleY() + 0.3; }], [1.55, function() { return appleY() + 0.55; }]], {
+                strokeColor: '#78350F', strokeWidth: 2, visible: function() { return tSlider.Value() === 0; }
+            });
+            var pStart = board1.create('point', [1.5, appleY], {visible: false});
+            var pEnd = board1.create('point', [1.5, function() { return appleY() - 1.2; }], {visible: false});
+            board1.create('arrow', [pStart, pEnd], {
+                strokeColor: '#DC2626', strokeWidth: 3, name: 'Trọng lực P', withLabel: true,
+                label: {offset: [10, 15], color: '#DC2626', fontWeight: 'bold'}
+            });
+
+            // JSXGraph 2: Đồ thị Lực và Độ dãn
+            var board2 = JXG.JSXGraph.initBoard('jsx_spring_chart', {
+                boundingbox: [-1, 7, 7, -1],
+                axis: true,
+                keepaspectratio: true,
+                showNavigation: false,
+                showCopyright: false
+            });
+            board2.create('text', [4.5, -0.4, 'Lực tác dụng F (N)'], {fontSize: 10, fontWeight: 'bold'});
+            board2.create('text', [-0.8, 6.2, 'Độ dãn Δl (cm)'], {fontSize: 10, fontWeight: 'bold'});
+            var fSlider2 = board2.create('slider', [[1, 5.5], [5, 5.5], [0, 0, 6]], {
+                name: 'Lực F (N)', snapWidth: 0.5, strokeColor: '#2563EB', fillColor: '#93C5FD'
+            });
+            board2.create('functiongraph', [function(x) { return x; }, 0, 6], {
+                strokeColor: '#2563EB', strokeWidth: 3
+            });
+            board2.create('point', [
+                function() { return fSlider2.Value(); },
+                function() { return fSlider2.Value(); }
+            ], {
+                name: function() { return '(' + fSlider2.Value().toFixed(1) + ' N, ' + fSlider2.Value().toFixed(1) + ' cm)'; },
+                color: '#1E40AF', size: 4
+            });
+            board2.create('segment', [
+                [function() { return fSlider2.Value(); }, 0],
+                [function() { return fSlider2.Value(); }, function() { return fSlider2.Value(); }]
+            ], {dash: 1, strokeColor: '#9CA3AF'});
+            board2.create('segment', [
+                [0, function() { return fSlider2.Value(); }],
+                [function() { return fSlider2.Value(); }, function() { return fSlider2.Value(); }]
+            ], {dash: 1, strokeColor: '#9CA3AF'});
+
+            // JSXGraph 3: Thí nghiệm lò xo
+            var board3 = JXG.JSXGraph.initBoard('jsx_spring_experiment', {
+                boundingbox: [-2, 8, 8, -5],
+                keepaspectratio: true,
+                showNavigation: false,
+                showCopyright: false,
+                axis: false
+            });
+            board3.create('line', [[4, 6], [4, -4]], {strokeColor: '#4B5563', strokeWidth: 2, fixed: true});
+            for (var i = 0; i <= 10; i++) {
+                var tickY = 5.0 - i * 0.8;
+                board3.create('segment', [[4, tickY], [4.3, tickY]], {strokeColor: '#4B5563', strokeWidth: 1, fixed: true});
+                board3.create('text', [4.5, tickY - 0.1, (i * 2.5) + ' cm'], {fontSize: 8, fixed: true});
+            }
+            var mSlider = board3.create('slider', [[-1.5, 7], [2.5, 7], [0, 0, 150]], {
+                name: 'Khối lượng m (g)', snapWidth: 50, strokeColor: '#059669', fillColor: '#10B981'
+            });
+            var hookTop = board3.create('point', [1.5, 5.0], {name: 'Giá treo', size: 3, color: '#4B5563', fixed: true});
+            var hookBottomY = function() {
+                var m = mSlider.Value();
+                return 5.0 - (1.5 + m * 0.015);
+            };
+            var hookBottom = board3.create('point', [1.5, hookBottomY], {visible: false});
+            board3.create('curve', [
+                function(t) {
+                    var startY = hookTop.Y();
+                    var endY = hookBottom.Y();
+                    if (t <= 0.05 || t >= 0.95) return 1.5;
+                    return 1.5 + 0.25 * Math.sin(t * 12 * Math.PI);
+                },
+                function(t) {
+                    var startY = hookTop.Y();
+                    var endY = hookBottom.Y();
+                    return startY - t * (startY - endY);
+                },
+                0, 1
+            ], {strokeColor: '#1E40AF', strokeWidth: 3});
+            board3.create('polygon', [
+                [1.1, function() { return hookBottomY() - 0.1; }],
+                [1.9, function() { return hookBottomY() - 0.1; }],
+                [1.9, function() { return hookBottomY() - 1.2; }],
+                [1.1, function() { return hookBottomY() - 1.2; }]
+            ], {
+                fillColor: '#9CA3AF', strokeColor: '#374151', strokeWidth: 2,
+                visible: function() { return mSlider.Value() > 0; }
+            });
+            board3.create('text', [1.2, function() { return hookBottomY() - 0.7; }, function() {
+                return mSlider.Value() + ' g';
+            }], {fontSize: 10, fontWeight: 'bold', visible: function() { return mSlider.Value() > 0; }});
+            var pForce = board3.create('point', [1.5, function() { return hookBottomY() - 0.65; }], {visible: false});
+            board3.create('arrow', [
+                pForce, 
+                [1.5, function() { return hookBottomY() - 0.65 + mSlider.Value() * 0.015; }]
+            ], {
+                strokeColor: '#10B981', strokeWidth: 3, name: 'F_đh', withLabel: true,
+                visible: function() { return mSlider.Value() > 0; },
+                label: {offset: [-15, 10], color: '#047857', fontWeight: 'bold'}
+            });
+            board3.create('arrow', [
+                pForce, 
+                [1.5, function() { return hookBottomY() - 0.65 - mSlider.Value() * 0.015; }]
+            ], {
+                strokeColor: '#DC2626', strokeWidth: 3, name: 'P', withLabel: true,
+                visible: function() { return mSlider.Value() > 0; },
+                label: {offset: [10, -10], color: '#B91C1C', fontWeight: 'bold'}
+            });
+        });
+    </script>
+</body>
+</html>
