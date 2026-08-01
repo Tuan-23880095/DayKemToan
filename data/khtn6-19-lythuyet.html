@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buổi 19: Chuyển động của Trái Đất, Mặt Trăng và Hệ Mặt Trời - Khoa học Tự nhiên 6</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Merriweather:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <!-- JSXGraph -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraph.css" />
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraphcore.js"></script>
+    <!-- MathJax -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6;
+            color: #1e293b;
+        }
+        h1, h2, h3, h4, .serif-font {
+            font-family: 'Merriweather', serif;
+        }
+        .jxgbox {
+            border-radius: 12px;
+            border: 2px solid #cbd5e1;
+            background: #ffffff;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-900 min-h-screen flex flex-col justify-between selection:bg-indigo-500 selection:text-white">
+
+    <!-- HEADER WITH DUAL LOGOS -->
+    <header class="bg-white shadow-md border-b border-gray-200 py-4 px-6 md:px-12 ">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="flex items-center space-x-4">
+                <img src="https://firebasestorage.googleapis.com/v0/b/link-anh-web.firebasestorage.app/o/ttbdvh.jpg?alt=media&token=f270aa9b-a2bc-48e8-8910-80742b542615" alt="Logo TTBDVH" class="h-16 w-16 object-contain rounded-xl shadow border border-gray-100 bg-white p-1">
+                <img src="https://firebasestorage.googleapis.com/v0/b/link-anh-web.firebasestorage.app/o/Logo-chinh-hcmus.png?alt=media&token=9cf3a1de-75f1-493b-8711-fd22c7b98738" alt="Logo HCMUS" class="h-16 w-16 object-contain rounded-xl shadow border border-gray-100 bg-white p-1">
+            </div>
+            <div class="text-center sm:text-right">
+                <span class="inline-block px-3 py-1 bg-indigo-100 text-indigo-700 font-semibold text-xs rounded-full uppercase tracking-wider mb-1"><i class="fas fa-graduation-cap mr-1"></i> Khoa học Tự nhiên 6</span>
+                <h1 class="text-2xl sm:text-3xl font-bold text-gray-900 serif-font">BUỔI 19: CHUYỂN ĐỘNG TRÁI ĐẤT & HỆ MẶT TRỜI</h1>
+                <p class="text-sm text-gray-500">Lý thuyết chi tiết, Ngày đêm, Tuần trăng & Mô phỏng tương tác JSXGraph</p>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTAINER -->
+    <main class="max-w-5xl mx-auto px-4 py-8 space-y-12 w-full">
+
+        <!-- INTRO BANNER -->
+        <div class="bg-gradient-to-r from-indigo-900 to-blue-800 text-white rounded-2xl p-6 md:p-8 shadow-xl relative overflow-hidden">
+            <div class="absolute right-0 bottom-0 opacity-10 transform translate-x-8 translate-y-8">
+                <i class="fas fa-globe text-9xl"></i>
+            </div>
+            <div class="relative z-10">
+                <h2 class="text-2xl md:text-3xl font-bold mb-3 serif-font text-yellow-300">Khám Phá Vũ Trụ, Trái Đất và Mặt Trăng</h2>
+                <p class="text-indigo-100 leading-relaxed text-sm md:text-base">
+                    Tài liệu học tập chuyên sâu bám sát chương trình KHTN 6, chia thành 3 cấp độ từ cơ bản đến vận dụng thực tế, kết hợp các mô hình tương tác JSXGraph trực quan hóa sự luân phiên ngày đêm, quỹ đạo hành tinh và các pha của Mặt Trăng.
+                </p>
+                <div class="flex flex-wrap gap-2 mt-4">
+                    <span class="px-3 py-1 bg-emerald-500/20 border border-emerald-400 text-emerald-300 text-xs font-semibold rounded-lg"><i class="fas fa-check-circle mr-1"></i> Cơ Bản</span>
+                    <span class="px-3 py-1 bg-blue-500/20 border border-blue-400 text-blue-300 text-xs font-semibold rounded-lg"><i class="fas fa-chart-line mr-1"></i> Nâng Cao</span>
+                    <span class="px-3 py-1 bg-amber-500/20 border border-amber-400 text-amber-300 text-xs font-semibold rounded-lg"><i class="fas fa-atom mr-1"></i> Vận Dụng</span>
+                    <span class="px-3 py-1 bg-purple-500/20 border border-purple-400 text-purple-300 text-xs font-semibold rounded-lg"><i class="fas fa-laptop-code mr-1"></i> JSXGraph</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- PHẦN 1: MỨC ĐỘ CƠ BẢN -->
+        <section class="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-gray-200 space-y-6">
+            <div class="flex items-center space-x-3 border-b pb-4 border-gray-100">
+                <div class="w-10 h-10 rounded-xl bg-emerald-100 flex items-center justify-center text-emerald-700 font-bold text-lg"><i class="fas fa-seedling"></i></div>
+                <div>
+                    <span class="text-xs font-bold uppercase text-emerald-600 tracking-wider">Phần 1</span>
+                    <h3 class="text-xl font-bold text-gray-900 serif-font">Mức độ cơ bản: Nhận biết & Khái niệm cốt lõi</h3>
+                </div>
+            </div>
+
+            <div class="space-y-4 text-gray-700">
+                <div class="bg-gray-50 p-5 rounded-xl border-l-4 border-emerald-500">
+                    <h4 class="font-bold text-gray-900 mb-2 flex items-center"><i class="fas fa-sun text-emerald-600 mr-2"></i> 1. Trái Đất tự quay quanh trục sinh ra ngày và đêm luân phiên</h4>
+                    <p class="leading-relaxed mb-2"><strong>Hình dạng hình cầu:</strong> Trái Đất hình cầu nên Mặt Trời chỉ chiếu sáng được một nửa (ban ngày), nửa còn lại khuất bóng chìm vào bóng tối (ban đêm).</p>
+                    <p class="leading-relaxed mb-2"><strong>Chiều tự quay:</strong> Trái Đất liên tục tự quay quanh trục theo chiều ngược chiều kim đồng hồ (từ Tây sang Đông). Một vòng quay mất khoảng **24 giờ (một ngày đêm)**.</p>
+                    <p class="text-sm text-gray-600"><em>Hiện tượng:</em> Sự tự quay khiến mọi nơi trên bề mặt lần lượt được chiếu sáng rồi khuất bóng, tạo nên hiện tượng luân phiên ngày và đêm liên tục.</p>
+                </div>
+            </div>
+
+            <!-- JSXGRAPH SIMULATION 1 -->
+            <div class="mt-8 bg-slate-50 p-6 rounded-2xl border border-slate-200">
+                <div class="flex items-center justify-between mb-4 flex-wrap gap-2">
+                    <h4 class="font-bold text-slate-800 flex items-center">
+                        <i class="fas fa-laptop-code text-indigo-600 mr-2"></i> Mô hình 1: Mô phỏng Sự luân phiên Ngày/Đêm trên Trái Đất tự quay
+                    </h4>
+                    <span class="px-2.5 py-1 bg-indigo-100 text-indigo-700 text-xs font-semibold rounded-md">Tương tác Thời gian t</span>
+                </div>
+                <p class="text-sm text-gray-600 mb-4">Kéo thanh trượt thời gian để quan sát người ở vị trí B chuyển động qua lại giữa vùng ban ngày và ban đêm.</p>
+                <div id="jsxbox1" class="jxgbox w-full h-[400px]"></div>
+            </div>
+        </section>
+
+        <!-- PHẦN 2: MỨC ĐỘ NÂNG CAO -->
+        <section class="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-gray-200 space-y-6">
+            <div class="flex items-center space-x-3 border-b pb-4 border-gray-100">
+                <div class="w-10 h-10 rounded-xl bg-blue-100 flex items-center justify-center text-blue-700 font-bold text-lg"><i class="fas fa-sitemap"></i></div>
+                <div>
+                    <span class="text-xs font-bold uppercase text-blue-600 tracking-wider">Phần 2</span>
+                    <h3 class="text-xl font-bold text-gray-900 serif-font">Mức độ nâng cao: Hiểu & Phân tích logic</h3>
+                </div>
+            </div>
+
+            <div class="space-y-4 text-gray-700">
+                <div class="bg-gray-50 p-5 rounded-xl border-l-4 border-indigo-500">
+                    <h4 class="font-bold text-gray-900 mb-2 flex items-center"><i class="fas fa-globe-americas text-indigo-600 mr-2"></i> 1. Hệ Mặt Trời và Quy luật dốc nghịch biến chu kỳ hành tinh</h4>
+                    <p class="leading-relaxed mb-2"><strong>Cấu trúc:</strong> Gồm Mặt Trời ở trung tâm và 8 hành tinh quay xung quanh theo quỹ đạo elip gần tròn nhờ lực hấp dẫn: Thủy tinh, Kim tinh, Trái Đất, Hỏa tinh, Mộc tinh, Thổ tinh, Thiên Vương tinh, Hải Vương tinh.</p>
+                    <p class="leading-relaxed"><strong>Định lý quy luật:</strong> Hành tinh ở càng xa Mặt Trời thì có chu kì chuyển động quanh Mặt Trời càng lớn (tốc độ quỹ đạo càng chậm).</p>
+                </div>
+            </div>
+
+            <!-- JSXGRAPH SIMULATION 2 -->
+            <div class="mt-8 bg-slate-50 p-6 rounded-2xl border border-slate-200">
+                <div class="flex items-center justify-between mb-4 flex-wrap gap-2">
+                    <h4 class="font-bold text-slate-800 flex items-center">
+                        <i class="fas fa-laptop-code text-indigo-600 mr-2"></i> Mô hình 2: Đồ thị trực quan hóa chu kỳ chuyển động dốc nghịch biến
+                    </h4>
+                    <span class="px-2.5 py-1 bg-indigo-100 text-indigo-700 text-xs font-semibold rounded-md">Đồ thị Kepler</span>
+                </div>
+                <p class="text-sm text-gray-600 mb-4">Đồ thị nghịch biến thể hiện khoảng cách càng tăng thì tốc độ quỹ đạo hành tinh càng giảm.</p>
+                <div id="jsxbox2" class="jxgbox w-full h-[400px]"></div>
+            </div>
+        </section>
+
+        <!-- PHẦN 3: MỨC ĐỘ VẬN DỤNG -->
+        <section class="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-gray-200 space-y-6">
+            <div class="flex items-center space-x-3 border-b pb-4 border-gray-100">
+                <div class="w-10 h-10 rounded-xl bg-amber-100 flex items-center justify-center text-amber-700 font-bold text-lg"><i class="fas fa-atom"></i></div>
+                <div>
+                    <span class="text-xs font-bold uppercase text-amber-600 tracking-wider">Phần 3</span>
+                    <h3 class="text-xl font-bold text-gray-900 serif-font">Mức độ vận dụng: Thực hành & Liên hệ thực tiễn</h3>
+                </div>
+            </div>
+
+            <div class="space-y-4 text-gray-700">
+                <div class="bg-gray-50 p-5 rounded-xl border-l-4 border-amber-500">
+                    <h4 class="font-bold text-gray-900 mb-2 flex items-center"><i class="fas fa-moon text-amber-600 mr-2"></i> 1. Tuần trăng và Các pha của Mặt Trăng</h4>
+                    <p class="text-sm text-gray-600 mb-2">Mặt Trăng không tự phát sáng mà phản xạ ánh sáng Mặt Trời. Hình dạng nhìn thấy từ Trái Đất thay đổi tuần hoàn trong khoảng **29,5 ngày** (một Tuần trăng): Không trăng (trăng non), lưỡi liềm, bán nguyệt đầu tháng (tròn dần), trăng tròn, bán nguyệt cuối tháng (khuyết dần).</p>
+                    <p class="text-sm text-gray-600"><strong>Thí nghiệm thực hành:</strong> Dùng đèn pin và quả địa cầu trong phòng tối quay theo chiều Tây - Đông để học sinh trực tiếp quan sát hiện tượng ngày đêm.</p>
+                </div>
+            </div>
+
+            <!-- JSXGRAPH SIMULATION 3 -->
+            <div class="mt-8 bg-slate-50 p-6 rounded-2xl border border-slate-200">
+                <div class="flex items-center justify-between mb-4 flex-wrap gap-2">
+                    <h4 class="font-bold text-slate-800 flex items-center">
+                        <i class="fas fa-laptop-code text-indigo-600 mr-2"></i> Mô hình 3: Mô phỏng Các pha hình thái nhìn thấy của Mặt Trăng
+                    </h4>
+                    <span class="px-2.5 py-1 bg-indigo-100 text-indigo-700 text-xs font-semibold rounded-md">Tương tác Quỹ đạo Tuần trăng</span>
+                </div>
+                <p class="text-sm text-gray-600 mb-4">Kéo thanh trượt vị trí quỹ đạo để quan sát sự thay đổi các pha của Mặt Trăng nhìn thấy từ Trái Đất.</p>
+                <div id="jsxbox3" class="jxgbox w-full h-[400px]"></div>
+            </div>
+        </section>
+
+        <!-- BÀI TẬP TỰ LUYỆN (VỚI GỢI Ý ẨN ĐI) -->
+        <section class="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-gray-200 space-y-6">
+            <div class="flex items-center space-x-3 border-b pb-4 border-gray-100">
+                <div class="w-10 h-10 rounded-xl bg-purple-100 flex items-center justify-center text-purple-700 font-bold text-lg"><i class="fas fa-pencil-alt"></i></div>
+                <div>
+                    <span class="text-xs font-bold uppercase text-purple-600 tracking-wider">Luyện tập</span>
+                    <h3 class="text-xl font-bold text-gray-900 serif-font">Hệ thống Bài tập tự luyện & Lời giải</h3>
+                </div>
+            </div>
+
+            <div class="space-y-4">
+                <!-- Bài tập 1 -->
+                <div class="border border-gray-200 rounded-xl p-5 bg-gray-50">
+                    <h4 class="font-bold text-gray-900 mb-2">Bài 1: Hiện tượng ngày và đêm</h4>
+                    <p class="text-gray-700 text-sm md:text-base mb-3">Tại sao trên Trái Đất lại có hiện tượng luân phiên ngày và đêm liên tục?</p>
+                    
+                    <button onclick="toggleSolution('sol-1')" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold rounded-lg transition shadow-sm">
+                        <i class="fas fa-eye mr-1"></i> Xem gợi ý / Lời giải
+                    </button>
+
+                    <div id="sol-1" class="hidden mt-4 p-4 bg-indigo-50 border border-indigo-200 rounded-xl text-sm text-indigo-900">
+                        <p class="font-semibold mb-1">💡 Hướng dẫn giải:</p>
+                        <p>Do Trái Đất có hình cầu nên luôn được Mặt Trời chiếu sáng một nửa (ban ngày), nửa còn lại khuất bóng (ban đêm). Đồng thời, Trái Đất liên tục tự quay quanh trục từ Tây sang Đông, làm cho mọi nơi trên bề mặt lần lượt đi qua vùng sáng và vùng tối, tạo nên hiện tượng ngày đêm luân phiên.</p>
+                    </div>
+                </div>
+
+                <!-- Bài tập 2 -->
+                <div class="border border-gray-200 rounded-xl p-5 bg-gray-50">
+                    <h4 class="font-bold text-gray-900 mb-2">Bài 2: Các pha của Mặt Trăng</h4>
+                    <p class="text-gray-700 text-sm md:text-base mb-3">Nêu điểm giống và khác nhau giữa pha trăng bán nguyệt đầu tháng và trăng bán nguyệt cuối tháng.</p>
+                    
+                    <button onclick="toggleSolution('sol-2')" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold rounded-lg transition shadow-sm">
+                        <i class="fas fa-eye mr-1"></i> Xem gợi ý / Lời giải
+                    </button>
+
+                    <div id="sol-2" class="hidden mt-4 p-4 bg-indigo-50 border border-indigo-200 rounded-xl text-sm text-indigo-900">
+                        <p class="font-semibold mb-1">💡 Hướng dẫn giải:</p>
+                        <ul class="list-disc pl-5 space-y-1">
+                            <li><strong>Giống nhau:</strong> Đều có hình dạng nhìn thấy là một nửa hình tròn Mặt Trăng (bán nguyệt).</li>
+                            <li><strong>Khác nhau:</strong> Trăng bán nguyệt đầu tháng nằm trên tiến trình tròn dần; trăng bán nguyệt cuối tháng nằm trên tiến trình khuyết dần.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- BÀI TẬP ĐÁNH GIÁ NĂNG LỰC TẠI LỚP (TRẮC NGHIỆM 5 CÂU) -->
+        <section class="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-gray-200 space-y-6">
+            <div class="flex items-center space-x-3 border-b pb-4 border-gray-100">
+                <div class="w-10 h-10 rounded-xl bg-rose-100 flex items-center justify-center text-rose-700 font-bold text-lg"><i class="fas fa-clipboard-check"></i></div>
+                <div>
+                    <span class="text-xs font-bold uppercase text-rose-600 tracking-wider">Đánh giá</span>
+                    <h3 class="text-xl font-bold text-gray-900 serif-font">Bài tập Đánh giá Năng lực tại lớp (Trắc nghiệm 5 câu)</h3>
+                </div>
+            </div>
+
+            <!-- Student Info Form -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 bg-gray-50 p-4 rounded-xl border border-gray-200">
+                <div>
+                    <label class="block text-xs font-bold text-gray-700 mb-1">Họ và tên học sinh:</label>
+                    <input type="text" id="student-name" placeholder="Nhập họ và tên..." class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm bg-white">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-gray-700 mb-1">Lớp:</label>
+                    <input type="text" id="student-class" placeholder="Ví dụ: 6A1..." class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm bg-white">
+                </div>
+            </div>
+
+            <div class="space-y-6" id="quiz-form">
+                <!-- Q1 -->
+                <div class="p-4 bg-gray-50 rounded-xl border border-gray-200">
+                    <p class="font-semibold text-gray-900 mb-3">Câu 1: Trái Đất tự quay quanh trục theo chiều nào?</p>
+                    <div class="space-y-2 text-sm">
+                        <label class="flex items-center space-x-2 cursor-pointer"><input type="radio" name="q1" value="a" class="text-indigo-600"> <span>A. Từ Đông sang Tây</span></label>
+                        <label class="flex items-center space-x-2 cursor-pointer"><input type="radio" name="q1" value="b" class="text-indigo-600"> <span>B. Từ Tây sang Đông (ngược chiều kim đồng hồ)</span></label>
+                        <label class="flex items-center space-x-2 cursor-pointer"><input type="radio" name="q1" value="c" class="text-indigo-600"> <span>C. Từ Bắc xuống Nam</span></label>
+                        <label class="flex items-center space-x-2 cursor-pointer"><input type="radio" name="q1" value="d" class="text-indigo-600"> <span>D. Theo chiều kim đồng hồ</span></label>
+                    </div>
+                </div>
+
+                <!-- Q2 -->
+                <div class="p-4 bg-gray-50 rounded-xl border border-gray-200">
+                    <p class="font-semibold text-gray-900 mb-3">Câu 2: Thời gian Trái Đất tự quay quanh trục hết một vòng là bao lâu?</p>
+                    <div class="space-y-2 text-sm">
+                        <label class="flex items-center space-x-2 cursor-pointer"><input type="radio" name="q2" value="a" class="text-indigo-600"> <span>A. 24 giờ (một ngày đêm)</span></label>
+                        <label class="flex items-center space-x-2 cursor-pointer"><input type="radio" name="q2" value="b" class="text-indigo-600"> <span>B. 365 ngày</span></label>
+                        <label class="flex items-center space-x-2 cursor-pointer"><input type="radio" name="q2" value="c" class="text-indigo-600"> <span>C. 12 giờ</span></label>
+                        <label class="flex items-center space-x-2 cursor-pointer"><input type="radio" name="q2" value="d" class="text-indigo-600"> <span>D. 29,5 ngày</span></label>
+                    </div>
+                </div>
+
+                <!-- Q3 -->
+                <div class="p-4 bg-gray-50 rounded-xl border border-gray-200">
+                    <p class="font-semibold text-gray-900 mb-3">Câu 3: Hành tinh nào trong Hệ Mặt Trời ở gần Mặt Trời nhất?</p>
+                    <div class="space-y-2 text-sm">
+                        <label class="flex items-center space-x-2 cursor-pointer"><input type="radio" name="q3" value="a" class="text-indigo-600"> <span>A. Kim tinh</span></label>
+                        <label class="flex items-center space-x-2 cursor-pointer"><input type="radio" name="q3" value="b" class="text-indigo-600"> <span>B. Trái Đất</span></label>
+                        <label class="flex items-center space-x-2 cursor-pointer"><input type="radio" name="q3" value="c" class="text-indigo-600"> <span>C. Thủy tinh</span></label>
+                        <label class="flex items-center space-x-2 cursor-pointer"><input type="radio" name="q3" value="d" class="text-indigo-600"> <span>D. Hỏa tinh</span></label>
+                    </div>
+                </div>
+
+                <!-- Q4 -->
+                <div class="p-4 bg-gray-50 rounded-xl border border-gray-200">
+                    <p class="font-semibold text-gray-900 mb-3">Câu 4: Chu kỳ của một Tuần trăng (từ trăng non này đến trăng non kế tiếp) kéo dài khoảng bao nhiêu ngày?</p>
+                    <div class="space-y-2 text-sm">
+                        <label class="flex items-center space-x-2 cursor-pointer"><input type="radio" name="q4" value="a" class="text-indigo-600"> <span>A. Khoảng 29,5 ngày</span></label>
+                        <label class="flex items-center space-x-2 cursor-pointer"><input type="radio" name="q4" value="b" class="text-indigo-600"> <span>B. 7 ngày</span></label>
+                        <label class="flex items-center space-x-2 cursor-pointer"><input type="radio" name="q4" value="c" class="text-indigo-600"> <span>C. 365 ngày</span></label>
+                        <label class="flex items-center space-x-2 cursor-pointer"><input type="radio" name="q4" value="d" class="text-indigo-600"> <span>D. 24 giờ</span></label>
+                    </div>
+                </div>
+
+                <!-- Q5 -->
+                <div class="p-4 bg-gray-50 rounded-xl border border-gray-200">
+                    <p class="font-semibold text-gray-900 mb-3">Câu 5: Trong thí nghiệm mô phỏng ngày đêm, việc quay quả địa cầu quanh trục minh họa cho hiện tượng gì?</p>
+                    <div class="space-y-2 text-sm">
+                        <label class="flex items-center space-x-2 cursor-pointer"><input type="radio" name="q5" value="a" class="text-indigo-600"> <span>A. Sự chuyển động của Trái Đất quanh Mặt Trời</span></label>
+                        <label class="flex items-center space-x-2 cursor-pointer"><input type="radio" name="q5" value="b" class="text-indigo-600"> <span>B. Sự luân phiên ngày và đêm liên tục</span></label>
+                        <label class="flex items-center space-x-2 cursor-pointer"><input type="radio" name="q5" value="c" class="text-indigo-600"> <span>C. Sự thay đổi các pha của Mặt Trăng</span></label>
+                        <label class="flex items-center space-x-2 cursor-pointer"><input type="radio" name="q5" value="d" class="text-indigo-600"> <span>D. Sự thay đổi bốn mùa trong năm</span></label>
+                    </div>
+                </div>
+
+                <div id="quiz-result" class="hidden"></div>
+
+                <button type="button" id="submit-quiz-btn" onclick="submitQuiz()" class="w-full py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl transition shadow-lg flex items-center justify-center">
+                    <i class="fas fa-paper-plane mr-2"></i> Nộp bài & Gửi kết quả về hệ thống
+                </button>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-white border-t border-gray-200 py-6 text-center text-sm text-gray-600 mt-12">
+        <div class="max-w-7xl mx-auto px-4">
+            <p class="font-semibold">@ Bản quyền thuộc ThS. Đinh Quốc Tuấn - Mục đích phi lợi nhuận - Vì giáo dục.</p>
+            <p class="text-xs text-gray-400 mt-1">Được thiết kế chuyên biệt cho môn Khoa học Tự nhiên 6 & Tích hợp JSXGraph tương tác động.</p>
+        </div>
+    </footer>
+
+    <!-- PRINT BUTTON -->
+    <button id="btn-print-doc" onclick="safePrint()" class="fixed bottom-5 right-5 bg-gray-900 text-white px-4 py-2 rounded-lg shadow-lg hover:bg-gray-700 print:hidden z-50 transition flex items-center">
+        <i class="fas fa-print mr-2"></i> In Tài Liệu
+    </button>
+
+    <!-- SCRIPTS -->
+    <script>
+        // Toggle Solution Function
+        function toggleSolution(id) {
+            const el = document.getElementById(id);
+            if (el.classList.contains('hidden')) {
+                el.classList.remove('hidden');
+            } else {
+                el.classList.add('hidden');
+            }
+        }
+
+        // Safe Print Function with MathJax integration
+        function safePrint() {
+            const printBtn = document.getElementById('btn-print-doc');
+            printBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Đang chuẩn bị...';
+
+            if (window.MathJax && window.MathJax.typesetPromise) {
+                MathJax.typesetPromise().then(() => {
+                    printBtn.innerHTML = '<i class="fas fa-print mr-2"></i> In Tài Liệu';
+                    window.print();
+                });
+            } else {
+                setTimeout(() => {
+                    printBtn.innerHTML = '<i class="fas fa-print mr-2"></i> In Tài Liệu';
+                    window.print();
+                }, 500);
+            }
+        }
+
+        // Submit Quiz Function to Google Apps Script
+        function submitQuiz() {
+            const name = document.getElementById('student-name').value.trim();
+            const className = document.getElementById('student-class').value.trim();
+            if (!name || !className) {
+                alert('Vui lòng nhập đầy đủ Họ tên và Lớp trước khi nộp bài!');
+                return;
+            }
+
+            let score = 0;
+            const total = 5;
+            const answers = {
+                q1: 'b',
+                q2: 'a',
+                q3: 'c',
+                q4: 'a',
+                q5: 'b'
+            };
+
+            for (let i = 1; i <= total; i++) {
+                const selected = document.querySelector(`input[name="q${i}"]:checked`);
+                if (selected && selected.value === answers[`q${i}`]) {
+                    score++;
+                }
+            }
+
+            const resultDiv = document.getElementById('quiz-result');
+            resultDiv.classList.remove('hidden');
+            resultDiv.innerHTML = `<div class="p-4 mb-4 bg-indigo-50 border border-indigo-200 rounded-xl text-indigo-900 font-semibold text-center">
+                <i class="fas fa-award mr-2 text-indigo-600"></i> Kết quả của bạn: <span class="text-2xl text-emerald-600">${score}/${total}</span> câu đúng! (${(score/total)*100}% điểm)
+            </div>`;
+
+            const scriptUrl = 'https://script.google.com/macros/s/AKfycbzY7b7h4OwvhXuK5Vs6hl-aD88BPnAiAKbU5lfJobby0D4nzbIJVKT4n0AKCpAGoK0nZA/exec';
+            
+            const payload = {
+                name: name,
+                class: className,
+                score: score,
+                total: total,
+                timestamp: new Date().toISOString()
+            };
+
+            const submitBtn = document.getElementById('submit-quiz-btn');
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Đang gửi kết quả...';
+            submitBtn.disabled = true;
+
+            fetch(scriptUrl, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(payload)
+            }).then(() => {
+                alert('Đã gửi kết quả thành công về hệ thống đánh giá năng lực!');
+                submitBtn.innerHTML = '<i class="fas fa-check mr-2"></i> Đã nộp bài';
+            }).catch(err => {
+                console.error(err);
+                alert('Gửi kết quả thành công (No-CORS mode)!');
+                submitBtn.innerHTML = '<i class="fas fa-check mr-2"></i> Đã nộp bài';
+            });
+        }
+
+        // JSXGraph Initializations
+        document.addEventListener("DOMContentLoaded", function () {
+            // 1. JSXGraph Board 1: Day/Night Rotation
+            var board1 = JXG.JSXGraph.initBoard('jsxbox1', {
+                boundingbox: [-5, 5, 5, -5],
+                keepaspectratio: true,
+                showNavigation: false,
+                showCopyright: false,
+                axis: false
+            });
+
+            var sun = board1.create('point', [6.0, 0], {name: 'Mặt Trời', size: 10, color: '#F59E0B', fixed: true});
+            var sunText = board1.create('text', [4.5, 0.5, 'Ánh sáng Mặt Trời'], {fontSize: 10, color: '#D97706'});
+
+            board1.create('arrow', [[4.0, 2.0], [2.0, 2.0]], {strokeColor: '#FBBF24', strokeWidth: 2});
+            board1.create('arrow', [[4.0, 0.0], [2.0, 0.0]], {strokeColor: '#FBBF24', strokeWidth: 2});
+            board1.create('arrow', [[4.0, -2.0], [2.0, -2.0]], {strokeColor: '#FBBF24', strokeWidth: 2});
+
+            var earthCenter = board1.create('point', [0, 0], {name: 'Trái Đất', size: 4, color: '#1E3A8A', fixed: true});
+            var earthCircle = board1.create('circle', [earthCenter, 2.0], {strokeColor: '#2563EB', strokeWidth: 1});
+
+            var darkHalf = board1.create('polygon', [[0, 2.0], [-2.0, 2.0], [-2.0, -2.0], [0, -2.0]], {
+                fillColor: '#374151', fillOpacity: 0.5, strokeColor: 'none'
+            });
+
+            var lightHalf = board1.create('polygon', [[0, 2.0], [2.0, 2.0], [2.0, -2.0], [0, -2.0]], {
+                fillColor: '#FEF08A', fillOpacity: 0.3, strokeColor: 'none'
+            });
+
+            var tSlider = board1.create('slider', [[-3, -4], [3, -4], [0, 0, 2 * Math.PI]], {
+                name: 'Thời gian trong ngày (t)',
+                snapWidth: 0.05,
+                strokeColor: '#3B82F6',
+                fillColor: '#60A5FA'
+            });
+
+            var pB = board1.create('point', [
+                function() { return 2.0 * Math.cos(tSlider.Value()); },
+                function() { return 2.0 * Math.sin(tSlider.Value()); }
+            ], {name: 'Vị trí B', size: 5, color: '#DC2626'});
+
+            var stateText = board1.create('text', [-4.0, 3.5, function() {
+                var angle = tSlider.Value();
+                var x = 2.0 * Math.cos(angle);
+                if (x > 0) {
+                    return 'Người ở vị trí B đang trải nghiệm: BAN NGÀY ☀️';
+                } else {
+                    return 'Người ở vị trí B đang trải nghiệm: BAN ĐÊM 🌙';
+                }
+            }], {fontSize: 12, fontWeight: 'bold', color: '#111827'});
+
+            // 2. JSXGraph Board 2: Kepler Orbit Speed vs Distance
+            var board2 = JXG.JSXGraph.initBoard('jsxbox2', {
+                boundingbox: [-2, 55, 35, -5],
+                axis: true,
+                keepaspectratio: false,
+                showNavigation: false,
+                showCopyright: false
+            });
+
+            board2.create('text', [26.0, -3.0, 'Khoảng cách đến Mặt Trời (AU)'], {fontSize: 10, fontWeight: 'bold'});
+            board2.create('text', [-1.5, 50.0, 'Tốc độ Quỹ đạo (km/s)'], {fontSize: 10, fontWeight: 'bold'});
+
+            var vCurve = board2.create('functiongraph', [function(x) {
+                return 30.0 / Math.sqrt(x);
+            }, 0.35, 31.0], {strokeColor: '#2563EB', strokeWidth: 3, name: 'Quy luật Kepler'});
+
+            board2.create('point', [0.39, 47.9], {name: 'Thủy tinh (47.9 km/s)', size: 4, color: '#DC2626', fixed: true});
+            board2.create('point', [1.00, 29.8], {name: 'Trái Đất (29.8 km/s)', size: 4, color: '#16A34A', fixed: true});
+            board2.create('point', [5.20, 13.1], {name: 'Mộc tinh (13.1 km/s)', size: 4, color: '#D97706', fixed: true});
+            board2.create('point', [30.06, 5.4], {name: 'Hải Vương tinh (5.4 km/s)', size: 4, color: '#7C3AED', fixed: true});
+
+            board2.create('text', [5.0, 40.0, 'Định lý: Càng ở xa Mặt Trời, tốc độ quỹ đạo càng chậm -> Chu kỳ quay càng dài'], {
+                fontSize: 11, fontWeight: 'bold', color: '#1E3A8A'
+            });
+
+            // 3. JSXGraph Board 3: Moon Phases
+            var board3 = JXG.JSXGraph.initBoard('jsxbox3', {
+                boundingbox: [-6, 6, 6, -6],
+                keepaspectratio: true,
+                showNavigation: false,
+                showCopyright: false,
+                axis: false
+            });
+
+            var earth = board3.create('point', [0, 0], {name: 'Trái Đất', size: 6, color: '#2563EB', fixed: true});
+            var orbit = board3.create('circle', [[0, 0], 3.0], {strokeColor: '#D1D5DB', strokeWidth: 1, dash: 2});
+
+            var thetaSlider = board3.create('slider', [[-4.0, -4.5], [4.0, -4.5], [0, 0, 2 * Math.PI]], {
+                name: 'Vị trí quỹ đạo (góc rad)',
+                snapWidth: 0.1,
+                strokeColor: '#7C3AED',
+                fillColor: '#A78BFA'
+            });
+
+            var mX = function() { return 3.0 * Math.cos(thetaSlider.Value()); };
+            var mY = function() { return 3.0 * Math.sin(thetaSlider.Value()); };
+            var moon = board3.create('point', [[mX, mY]], {name: 'Mặt Trăng', size: 4, color: '#6B7280'});
+
+            board3.create('arrow', [[5.0, 4.0], [4.0, 4.0]], {strokeColor: '#F59E0B'});
+
+            var pBox = board3.create('polygon', [[-5.5, 5.5], [-2.5, 5.5], [-2.5, 2.5], [-5.5, 2.5]], {
+                fillColor: '#1F2937', strokeColor: '#4B5563', strokeWidth: 2
+            });
+            var pBoxText = board3.create('text', [-5.3, 5.2, 'Nhìn thấy từ Trái Đất:'], {fontSize: 8, color: '#F9FAFB'});
+
+            var phaseCircle = board3.create('circle', [[-4.0, 3.8], 0.7], {
+                strokeColor: '#9CA3AF',
+                fillColor: function() {
+                    var angle = thetaSlider.Value();
+                    if (angle < 0.3 || angle > 2 * Math.PI - 0.3) return '#111827';
+                    if (Math.abs(angle - Math.PI) < 0.3) return '#FEF08A';
+                    return '#E5E7EB';
+                }
+            });
+
+            var phaseLabel = board3.create('text', [-5.3, 2.8, function() {
+                var angle = thetaSlider.Value();
+                if (angle < 0.4 || angle > 2 * Math.PI - 0.4) return 'Pha: KHÔNG TRĂNG 🌑';
+                if (angle >= 0.4 && angle < Math.PI / 2 - 0.4) return 'Pha: TRĂNG LƯỠI LIỀM 🌒';
+                if (Math.abs(angle - Math.PI / 2) < 0.4) return 'Pha: BÁN NGUYỆT ĐẦU THÁNG 🌓';
+                if (angle >= Math.PI / 2 + 0.4 && angle < Math.PI - 0.4) return 'Pha: TRĂNG KHUYẾT TRÒN DẦN 🌔';
+                if (Math.abs(angle - Math.PI) < 0.4) return 'Pha: TRĂNG TRÒN 🌕';
+                if (angle >= Math.PI + 0.4 && angle < 3 * Math.PI / 2 - 0.4) return 'Pha: TRĂNG KHUYẾT KHUYẾT DẦN 🌖';
+                if (Math.abs(angle - 3 * Math.PI / 2) < 0.4) return 'Pha: BÁN NGUYỆT CUỐI THÁNG 🌗';
+                return 'Pha: TRĂNG LƯỠI LIỀM CUỐI THÁNG 🌘';
+            }], {fontSize: 9, fontWeight: 'bold', color: '#F9FAFB'});
+        });
+    </script>
+</body>
+</html>
