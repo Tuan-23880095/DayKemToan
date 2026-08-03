@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buổi 9: Dấu Của Tam Thức Bậc Hai & Bất Phương Trình — ThS. Đinh Quốc Tuấn</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- FontAwesome Icons CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts: Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- MathJax Configuration & Script -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['\\(', '\\)'], ['$', '$']],
+                displayMath: [['\\[', '\\]'], ['$$', '$$']]
+            },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <!-- JSXGraph CSS & Core Engine -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraph.css" />
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraphcore.js"></script>
+
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #f8fafc;
+            color: #0f172a;
+        }
+        .jxgbox {
+            background-color: #ffffff !important;
+            border-radius: 1rem;
+            overflow: hidden;
+            border: 1px solid #e2e8f0;
+        }
+        @media print {
+            .print\:hidden { display: none !important; }
+            body { background: white !important; color: black !important; }
+            details { display: block !important; }
+            details summary { display: none !important; }
+            .page-break { page-break-before: always; }
+            .card-border { box-shadow: none !important; border: 1px solid #e5e7eb !important; }
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col antialiased selection:bg-indigo-100">
+
+    <!-- Header học thuật với hai logo -->
+    <header class="border-b border-slate-200 sticky top-0 bg-white/95 backdrop-blur-md z-40 print:hidden">
+        <div class="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 px-6 py-4">
+            <div class="flex items-center gap-4">
+                <img src="https://firebasestorage.googleapis.com/v0/b/link-anh-web.firebasestorage.app/o/Logo-chinh-hcmus.png?alt=media&token=9cf3a1de-75f1-493b-8711-fd22c7b98738" alt="Logo HCMUS" class="h-12 w-auto object-contain">
+                <div class="h-8 w-px bg-slate-300"></div>
+                <img src="https://firebasestorage.googleapis.com/v0/b/link-anh-web.firebasestorage.app/o/ttbdvh.jpg?alt=media&token=f270aa9b-a2bc-48e8-8910-80742b542615" alt="Logo TTBDVH" class="h-12 w-12 object-cover rounded-full border border-slate-200 shadow-inner">
+            </div>
+            <div class="text-center sm:text-right">
+                <span class="text-xs font-bold tracking-widest text-indigo-600 uppercase block mb-0.5">Tài liệu số hóa tương tác</span>
+                <span class="text-base font-extrabold text-slate-800">Đại Số Lớp 10 • Chuyên Đề Tam Thức Bậc Hai</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Banner chào mừng -->
+    <div class="bg-gradient-to-r from-indigo-50 via-slate-50 to-emerald-50 border-b border-slate-200 py-10 print:hidden">
+        <div class="max-w-4xl mx-auto px-6 space-y-4">
+            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-indigo-100 text-indigo-800 border border-indigo-200 shadow-xs">
+                <i class="fa-solid fa-square-root-variable mr-1.5 text-indigo-600"></i> Định lý về dấu & Bất phương trình
+            </span>
+            <h1 class="text-2xl sm:text-4xl font-black tracking-tight text-slate-900 leading-tight">
+                Buổi 9: Dấu Của Tam Thức Bậc Hai & Bất Phương Trình Bậc Hai
+            </h1>
+            <p class="text-slate-600 text-sm sm:text-base font-medium leading-relaxed text-justify">
+                Chào các em! Tiếp nối kiến thức cực kì quan trọng của Buổi 9: Dấu của tam thức bậc hai, thầy đã biên soạn bộ 30 bài tập chi tiết giúp các em rèn luyện kỹ năng xét dấu và giải bất phương trình. Định lí "Trong trái - Ngoài cùng" sẽ là công cụ theo các em suốt 3 năm cấp 3, đặc biệt trong việc xét tính đơn điệu của hàm số ở lớp 12. Dưới đây là hệ thống 30 bài tập phân cấp kèm mô hình JSXGraph!
+            </p>
+        </div>
+    </div>
+
+    <!-- Không gian nội dung chính -->
+    <main class="max-w-4xl mx-auto px-4 sm:px-6 py-10 flex-grow w-full space-y-16">
+        
+        <!-- ================= MÔ HÌNH HÌNH HỌC TƯƠNG TÁC JSXGRAPH ================= -->
+        <section class="space-y-8 print:hidden bg-slate-100 p-6 rounded-3xl border border-slate-200">
+            <div class="border-b border-slate-200 pb-3">
+                <h2 class="text-lg font-black text-slate-800 flex items-center uppercase tracking-wide">
+                    <i class="fa-solid fa-compass-drafting mr-2.5 text-indigo-600 text-xl"></i> Mô hình trực quan Dấu tam thức bậc hai
+                </h2>
+                <p class="text-xs text-slate-500 mt-1">Trực quan hóa vị trí Parabol so với trục hoành tương ứng với các trường hợp $\Delta > 0$, $\Delta = 0$ và $\Delta < 0$.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Mô hình 1 -->
+                <div class="flex flex-col bg-white p-4 rounded-2xl border border-slate-200 shadow-2xs">
+                    <h3 class="font-bold text-slate-900 text-xs mb-1 flex items-center gap-1.5">
+                        <i class="fa-solid fa-chart-line text-indigo-600"></i> Mô hình 1: Trường hợp $\Delta > 0$ (2 nghiệm)
+                    </h3>
+                    <p class="text-[11px] text-slate-500 mb-3">Parabol cắt trục hoành tại 2 điểm phân biệt $x_1, x_2$. Trong khoảng hai nghiệm trái dấu với $a$, ngoài khoảng cùng dấu với $a$.</p>
+                    <div id="box1" class="w-full h-56 jxgbox"></div>
+                    <div id="status-box1" class="text-[11px] font-bold p-2 mt-2 bg-indigo-50 border border-indigo-100 rounded-lg text-center text-slate-700 font-mono">
+                        \(\Delta > 0\) &rArr; Có 2 nghiệm phân biệt
+                    </div>
+                </div>
+
+                <!-- Mô hình 2 -->
+                <div class="flex flex-col bg-white p-4 rounded-2xl border border-slate-200 shadow-2xs">
+                    <h3 class="font-bold text-slate-900 text-xs mb-1 flex items-center gap-1.5">
+                        <i class="fa-solid fa-bullseye text-amber-500"></i> Mô hình 2: Trường hợp $\Delta = 0$ (1 nghiệm kép)
+                    </h3>
+                    <p class="text-[11px] text-slate-500 mb-3">Parabol tiếp xúc trục hoành tại đỉnh $x_0$. Tam thức cùng dấu với $a$ với mọi $x \neq x_0$.</p>
+                    <div id="box2" class="w-full h-56 jxgbox"></div>
+                    <div id="status-box2" class="text-[11px] font-bold p-2 mt-2 bg-amber-50 border border-amber-100 rounded-lg text-center text-amber-900 font-mono">
+                        \(\Delta = 0\) &rArr; Tiếp xúc tại đỉnh $x_0$
+                    </div>
+                </div>
+
+                <!-- Mô hình 3 -->
+                <div class="flex flex-col bg-white p-4 rounded-2xl border border-slate-200 shadow-2xs">
+                    <h3 class="font-bold text-slate-900 text-xs mb-1 flex items-center gap-1.5">
+                        <i class="fa-solid fa-shield-halved text-emerald-600"></i> Mô hình 3: Trường hợp $\Delta < 0$ (Vô nghiệm)
+                    </h3>
+                    <p class="text-[11px] text-slate-500 mb-3">Parabol nằm hoàn toàn phía trên trục hoành ($a > 0$). Tam thức luôn cùng dấu với $a$ với mọi $x \in \mathbb{R}$.</p>
+                    <div id="box3" class="w-full h-56 jxgbox"></div>
+                    <div id="status-box3" class="text-[11px] font-bold p-2 mt-2 bg-emerald-50 border border-emerald-100 rounded-lg text-center text-emerald-800 font-mono">
+                        \(\Delta < 0\) &rArr; Luôn cùng dấu với $a$
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= PHẦN 1: CẤP ĐỘ CƠ BẢN (10 BÀI) ================= -->
+        <section class="space-y-6">
+            <div class="flex items-center gap-3 border-b pb-3 border-slate-200">
+                <span class="bg-sky-600 text-white text-xs font-black px-3 py-1 rounded-md uppercase tracking-wider">Cấp độ 1</span>
+                <h2 class="text-xl font-extrabold text-slate-900">PHẦN 1: CẤP ĐỘ CƠ BẢN (10 BÀI XÉT DẤU & GIẢI BPT)</h2>
+            </div>
+            <p class="text-xs font-bold text-sky-800 bg-sky-50 px-3 py-2 rounded-lg inline-block">
+                Mục tiêu: Nhận biết tam thức bậc hai, tính biệt thức $\Delta$, lập bảng xét dấu cơ bản và đọc dấu từ đồ thị.
+            </p>
+
+            <div class="space-y-4">
+                <!-- Bài 1 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 1:</strong> Lập bảng xét dấu của tam thức bậc hai sau: \(f(x) = x^2 - x - 2\).</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Phương trình $x^2 - x - 2 = 0$ có 2 nghiệm phân biệt là $x = -1$ và $x = 2$ ($a = 1 > 0$).</p>
+                            <p>&bull; $f(x) < 0$ khi $x \in (-1; 2)$.</p>
+                            <p>&bull; $f(x) > 0$ khi $x \in (-\infty; -1) \cup (2; +\infty)$.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 2 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 2:</strong> Lập bảng xét dấu của tam thức bậc hai sau: \(f(x) = -3x^2 + x - 4\).</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Ta có $\Delta = 1^2 - 4(-3)(-4) = 1 - 48 = -47 < 0$ và $a = -3 < 0$.</p>
+                            <p>Do đó $f(x)$ luôn mang dấu âm với mọi $x \in \mathbb{R}$ ($f(x) < 0, \forall x$).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 3 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 3:</strong> Lập bảng xét dấu của tam thức bậc hai sau: \(f(x) = 4x^2 + 12x + 9\).</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Ta có $f(x) = (2x + 3)^2$. Do $(2x+3)^2 \ge 0$ với mọi $x$ và bằng 0 tại $x = -\frac{3}{2}$.</p>
+                            <p>Vậy $f(x) > 0$ với mọi $x \neq -\frac{3}{2}$ và $f\left(-\frac{3}{2}\right) = 0$.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 4 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 4:</strong> Quan sát đồ thị hàm số \(y = f(x) = x^2 - 2x - 3\). Dựa vào đồ thị, hãy tìm các khoảng mà \(f(x) > 0\) và \(f(x) < 0\).</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Đồ thị cắt $Ox$ tại $x = -1$ và $x = 3$.</p>
+                            <p>&bull; $f(x) > 0$ khi $x \in (-\infty; -1) \cup (3; +\infty)$.</p>
+                            <p>&bull; $f(x) < 0$ khi $x \in (-1; 3)$.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 5 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 5:</strong> Giải bất phương trình bậc hai: \(2x^2 - 7x + 5 > 0\).</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Phương trình $2x^2 - 7x + 5 = 0$ có 2 nghiệm $x = 1$ và $x = \frac{5}{2}$.</p>
+                            <p>Do $a = 2 > 0$ và yêu cầu $> 0$ (ngoài khoảng nghiệm): <strong>$S = (-\infty; 1) \cup \left(\frac{5}{2}; +\infty\right)$</strong>.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 6 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 6:</strong> Tìm tập nghiệm của bất phương trình: \(-x^2 - 3x + 10 > 0\).</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Phương trình $-x^2 - 3x + 10 = 0$ có 2 nghiệm $x = -5$ và $x = 2$.</p>
+                            <p>Do $a = -1 < 0$ và yêu cầu $> 0$ (trong khoảng nghiệm): <strong>$S = (-5; 2)$</strong>.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 7 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 7:</strong> Giải bất phương trình bậc hai: \(9x^2 - 6x + 1 \le 0\).</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Bất phương trình tương đương: $(3x - 1)^2 \le 0$.</p>
+                            <p>Vì bình phương luôn $\ge 0$, nên đẳng thức xảy ra khi $3x - 1 = 0 \Leftrightarrow x = \frac{1}{3}$. Tập nghiệm: <strong>$S = \left\{\frac{1}{3}\right\}$</strong>.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 8 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 8:</strong> Cho tam thức \(f(x) = ax^2 + bx + c \ (a \neq 0)\). Biết \(\Delta < 0\) và \(a > 0\), phát biểu đúng về dấu của \(f(x)\):</p>
+                    <p class="text-xs text-slate-600 mb-3">A. $f(x) > 0, \forall x \in \mathbb{R}$ &nbsp;&nbsp;&nbsp;&nbsp; B. $f(x) < 0, \forall x \in \mathbb{R}$ &nbsp;&nbsp;&nbsp;&nbsp; C. $f(x)$ đổi dấu trên $\mathbb{R}$</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p><strong>Đáp án đúng: A. $f(x) > 0, \forall x \in \mathbb{R}$</strong> (Vì $\Delta < 0$ vô nghiệm nên không cắt trục hoành, cùng dấu với $a > 0$).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 9 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 9:</strong> Tìm tập xác định của hàm số \(y = \sqrt{x^2 - 4x + 3}\).</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Điều kiện: $x^2 - 4x + 3 \ge 0 \Leftrightarrow (x-1)(x-3) \ge 0$.</p>
+                            <p>Tập xác định: <strong>$D = (-\infty; 1] \cup [3; +\infty)$</strong>.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 10 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 10:</strong> Xét dấu biểu thức tích: \(P(x) = (x - 1)(x^2 - 5x + 6)\).</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Phân tích thành nhân tử: $P(x) = (x - 1)(x - 2)(x - 3)$.</p>
+                            <p>Các nghiệm là $1, 2, 3$. Lập bảng xét dấu ta được: $P(x) > 0$ trên $(1; 2) \cup (3; +\infty)$ và $P(x) < 0$ trên $(-\infty; 1) \cup (2; 3)$.</p>
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ================= PHẦN 2: CẤP ĐỘ NÂNG CAO (10 BÀI) ================= -->
+        <section class="space-y-6">
+            <div class="flex items-center gap-3 border-b pb-3 border-slate-200">
+                <span class="bg-amber-600 text-white text-xs font-black px-3 py-1 rounded-md uppercase tracking-wider">Cấp độ 2</span>
+                <h2 class="text-xl font-extrabold text-slate-900">PHẦN 2: CẤP ĐỘ NÂNG CAO (10 BÀI PHÂN THỨC & THAM SỐ m)</h2>
+            </div>
+            <p class="text-xs font-bold text-amber-800 bg-amber-50 px-3 py-2 rounded-lg inline-block">
+                Mục tiêu: Xét dấu phân thức, giải hệ bất phương trình bậc hai và xử lý tham số $m$ để tam thức không đổi dấu.
+            </p>
+
+            <div class="space-y-4">
+                <!-- Bài 11 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 11:</strong> Giải bất phương trình chứa ẩn ở mẫu: \(\frac{x^2 - x - 2}{x^2 + 4x + 3} \ge 0\).</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Rút gọn tử và mẫu: $\frac{(x+1)(x-2)}{(x+1)(x+3)} \ge 0$ (với $x \neq -1, x \neq -3$).</p>
+                            <p>Tương đương $\frac{x-2}{x+3} \ge 0$. Tập nghiệm: <strong>$S = (-\infty; -3) \cup [2; +\infty)$</strong>.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 12 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 12 (Minh họa Mô hình 2):</strong> Giải hệ bất phương trình bậc hai: \(\begin{cases} x^2 - 4x + 3 < 0 \\ -x^2 + 6x - 5 \ge 0 \end{cases}\).</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>&bull; BPT 1: $1 < x < 3$.</p>
+                            <p>&bull; BPT 2: $1 \le x \le 5$.</p>
+                            <p>Giao hai tập nghiệm ta được: <strong>$S = (1; 3)$</strong>.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 13 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 13:</strong> Tìm các giá trị của tham số \(m\) để tam thức \(f(x) = x^2 - 2x + m - 12\) nhận giá trị dương với mọi \(x \in \mathbb{R}\).</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Yêu cầu $\begin{cases} a = 1 > 0 \text{ (Luôn đúng)} \\ \Delta' = 1 - (m - 12) < 0 \end{cases} \Leftrightarrow 13 - m < 0 \Leftrightarrow \mathbf{m > 13}$.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 14 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 14:</strong> Tìm \(m\) để hàm số \(y = \sqrt{x^2 - 5x + 3m - 2}\) có tập xác định là \(\mathbb{R}\).</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>ĐK: $x^2 - 5x + 3m - 2 \ge 0, \forall x \in \mathbb{R} \Leftrightarrow \Delta = 25 - 4(3m - 2) \le 0 \Leftrightarrow 33 - 12m \le 0 \Leftrightarrow \mathbf{m \ge \frac{11}{4}}$.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 15 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 15 (Minh họa Mô hình 3):</strong> Tìm các giá trị của tham số \(m\) để \(f(x) = (m+1)x^2 + 5x + 2\) là tam thức bậc hai không đổi dấu trên \(\mathbb{R}\).</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Không đổi dấu trên $\mathbb{R}$ nghĩa là $\Delta < 0$ (vì đã có $f(-2) = 4(m+1) - 10 + 2 \neq 0$ tùy $m$).</p>
+                            <p>$\Delta = 25 - 8(m+1) < 0 \Leftrightarrow 17 - 8m < 0 \Leftrightarrow \mathbf{m > \frac{17}{8}}$ (và $m \neq -1$).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 16 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 16:</strong> Cho tam thức \(f(x) = mx^2 - 7x + 4\). Tìm \(m\) để tam thức luôn âm với mọi \(x \in \mathbb{R}\).</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Yêu cầu $\begin{cases} m < 0 \\ \Delta = 49 - 16m < 0 \end{cases} \Leftrightarrow \begin{cases} m < 0 \\ m > \frac{49}{16} \end{cases}$ (Mâu thuẫn). Vậy <strong>không tồn tại $m$</strong>.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 17 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 17:</strong> Tìm các giá trị của tham số \(m\) để phương trình \((m+2)x^2 - 3x + 2m - 3 = 0\) có hai nghiệm trái dấu.</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Phương trình có 2 nghiệm trái dấu $\Leftrightarrow a \cdot c < 0 \Leftrightarrow (m + 2)(2m - 3) < 0$.</p>
+                            <p>Nghiệm của tam thức $m$ là $-2$ và $\frac{3}{2}$. Trong khoảng hai nghiệm: <strong>$-2 < m < \frac{3}{2}$</strong>.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 18 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 18:</strong> Tìm \(m\) để phương trình \(x^2 + 2(m-2)x + 2m - 1 \ge 0\) nghiệm đúng với mọi \(x \in \mathbb{R}\).</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>Yêu cầu $\begin{cases} a = 1 > 0 \\ \Delta' = (m-2)^2 - (2m - 1) \le 0 \end{cases} \Leftrightarrow m^2 - 6m + 5 \le 0 \Leftrightarrow \mathbf{1 \le m \le 5}$.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 19 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 19:</strong> Cho hàm số \(f(x) = ax^2 + bx + c\) có đồ thị là Parabol quay bề lõm xuống dưới và cắt trục \(Ox\) tại hai điểm có hoành độ dương. Xác định dấu của \(\Delta, a, b, c\).</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>&bull; Bề lõm quay xuống $\Rightarrow a < 0$. Cắt $Ox$ tại 2 điểm $\Rightarrow \Delta > 0$.</p>
+                            <p>&bull; Hoành độ đỉnh $x_I = -\frac{b}{2a} > 0$ mà $a < 0 \Rightarrow b > 0$.</p>
+                            <p>&bull; Cắt trục tung ở phần dương (hoặc tích 2 nghiệm dương $x_1x_2 = \frac{c}{a} > 0 \Rightarrow c < 0$).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 20 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 20 (Minh họa Mô hình 3):</strong> Tìm tập nghiệm của bất phương trình chứa giá trị tuyệt đối: \(|x^2 - 4x + 3| < x - 1\).</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                            <p>BPT tương đương hệ: $\begin{cases} x - 1 > 0 \\ - (x - 1) < x^2 - 4x + 3 < x - 1 \end{cases} \Leftrightarrow \begin{cases} x > 1 \\ x^2 - 5x + 4 > 0 \\ x^2 - 3x + 2 < 0 \end{cases} \Leftrightarrow \mathbf{2 < x < 4}$.</p>
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ================= PHẦN 3: CẤP ĐỘ VẬN DỤNG THỰC TIỄN (10 BÀI) ================= -->
+        <section class="space-y-6">
+            <div class="flex items-center gap-3 border-b pb-3 border-slate-200">
+                <span class="bg-emerald-600 text-white text-xs font-black px-3 py-1 rounded-md uppercase tracking-wider">Cấp độ 3</span>
+                <h2 class="text-xl font-extrabold text-slate-900">PHẦN 3: CẤP ĐỘ VẬN DỤNG THỰC TIỄN (10 BÀI TOÁN TỐI ƯU)</h2>
+            </div>
+            <p class="text-xs font-bold text-emerald-800 bg-emerald-50 px-3 py-2 rounded-lg inline-block">
+                Mục tiêu: Đưa các bài toán vật lí (quỹ đạo), kĩ thuật và kinh tế về dạng bất phương trình bậc hai để tìm miền giới hạn an toàn.
+            </p>
+
+            <div class="space-y-4">
+                <!-- Bài 21 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 21 (Độ cao vật thể):</strong> $h(t) = -4,85t^2 + 12,55t + 0,3$. Quả bóng ở độ cao lớn hơn 5m và nhỏ hơn 7m trong khoảng thời gian nào?</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-emerald-500 text-xs text-slate-700 space-y-1">
+                            <p>Giải hệ BPT: $\begin{cases} -4,85t^2 + 12,55t + 0,3 > 5 \\ -4,85t^2 + 12,55t + 0,3 < 7 \end{cases} \Leftrightarrow \begin{cases} 0,55\text{s} < t < 2,04\text{s} \\ t < 0,72\text{s} \text{ hoặc } t > 1,86\text{s} \end{cases}$.</p>
+                            <p>Giao các khoảng nghiệm: $t \in (0,55; 0,72) \cup (1,86; 2,04)$ (giây).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 22 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 22 (Đạn pháo binh):</strong> Quỹ đạo $y = -\frac{9}{10^6}x^2 + \frac{3}{100}x$. Khoảng cách theo trục hoành khi đạn ở độ cao $> 15\text{m}$ là bao nhiêu?</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-emerald-500 text-xs text-slate-700 space-y-1">
+                            <p>Giải BPT: $-\frac{9}{10^6}x^2 + \frac{3}{100}x > 15 \Leftrightarrow 9x^2 - 30000x + 15000000 < 0$.</p>
+                            <p>Nghiệm phương trình: $x = \frac{10000(3 \pm \sqrt{3})}{3}$. Khoảng cách $x \in (1056; 2414)$ mét.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 23 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 23 (Thiết kế vườn hoa):</strong> Có sẵn 20m rào tựa bờ sông làm hình chữ nhật chiều rộng $x$. Tìm $x$ để diện tích vườn $\ge 48\text{m}^2$.</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-emerald-500 text-xs text-slate-700 space-y-1">
+                            <p>Chiều dài = $20 - 2x$. Diện tích $S(x) = x(20 - 2x) = -2x^2 + 20x \ge 48$.</p>
+                            <p>$-2x^2 + 20x - 48 \ge 0 \Leftrightarrow x^2 - 10x + 24 \le 0 \Leftrightarrow \mathbf{4 \le x \le 6}$ (mét).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 24 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 24 (Lợi nhuận quán ăn):</strong> $p(x) = -30x^2 + 2100x - 15000$ (nghìn đồng). Để lợi nhuận không dưới 15 triệu đồng, quán cần bán số phần ăn trong khoảng nào?</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-emerald-500 text-xs text-slate-700 space-y-1">
+                            <p>Đổi 15 triệu = 15000 nghìn đồng. Giải BPT: $-30x^2 + 2100x - 15000 \ge 15000$.</p>
+                            <p>$-30x^2 + 2100x - 30000 \ge 0 \Leftrightarrow x^2 - 70x + 1000 \le 0 \Leftrightarrow \mathbf{20 \le x \le 50}$ phần ăn.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 25 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 25 (Chi phí sản xuất):</strong> $C(Q) = Q^2 + 200Q + 180000$ (nghìn). Giá bán 1300 nghìn/sp. Doanh nghiệp cần sản xuất và bán bao nhiêu sản phẩm để không lỗ?</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-emerald-500 text-xs text-slate-700 space-y-1">
+                            <p>Doanh thu $R(Q) = 1300Q$. Lợi nhuận $\pi(Q) = 1300Q - (Q^2 + 200Q + 180000) \ge 0$.</p>
+                            <p>$-Q^2 + 1100Q - 180000 \ge 0 \Leftrightarrow \mathbf{200 \le Q \le 900}$ sản phẩm.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 26 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 26 (Khoảng cách tàu):</strong> Ca nô hướng Đông 60 km/h, tàu cá hướng Bắc $30^\circ$ Đông 50 km/h xuất phát cùng lúc từ $A$. Tìm $t$ để khoảng cách $> 110\text{ km}$.</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-emerald-500 text-xs text-slate-700 space-y-1">
+                            <p>Sau $t$ giờ, quãng đường ca nô $(60t; 0)$, tàu cá $(50t \cdot \sin 30^\circ; 50t \cdot \cos 30^\circ) = (25t; 25\sqrt{3}t)$.</p>
+                            <p>Bình phương khoảng cách $d^2(t) = (60t - 25t)^2 + (25\sqrt{3}t)^2 = 35^2t^2 + 75^2t^2 = 6850t^2 > 110^2$.</p>
+                            <p>Giải ra $t > \frac{11}{\sqrt{685}} \approx \mathbf{1,33}$ <strong>giờ</strong>.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 27 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 27 (An toàn giao thông):</strong> $d(v) = 0,005v^2 + 0,2v$ (m). Để dừng lại trước chướng ngại vật $40\text{m}$, vận tốc tối đa là bao nhiêu?</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-emerald-500 text-xs text-slate-700 space-y-1">
+                            <p>Giải BPT: $0,005v^2 + 0,2v \le 40 \Leftrightarrow 0,005v^2 + 0,2v - 40 \le 0$ (với $v > 0$).</p>
+                            <p>Nghiệm phương trình là $v = 80$ (nhận) và $v = -120$ (loại). Vận tốc tối đa là $\mathbf{80}\text{ km/h}$.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 28 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 28 (Xe container qua cầu):</strong> Vòm cầu $y = -\frac{1}{4}x^2 + 4$, rộng 8m. Xe tải rộng 4m qua giữa cầu. Chiều cao tối đa của xe để không đụng vòm?</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-emerald-500 text-xs text-slate-700 space-y-1">
+                            <p>Xe tải rộng 4m đi giữa cầu $\implies$ hoành độ từ $-2$ đến $2$. Chiều cao thùng xe bị giới hạn bởi điểm thấp nhất của vòm tại biên $x = \pm 2$ (hoặc $x = 2$).</p>
+                            <p>Chiều cao tối đa $h = y(2) = -\frac{1}{4}(2)^2 + 4 = -\frac{1}{4}(4) + 4 = \mathbf{3}\text{ mét}$.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 29 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 29 (Định giá vé nhà hát):</strong> Nhà hát 800 ghế. Giá 40k bán 300 vé. Giảm 10k bán thêm 100 vé. Gọi $x$ (chục nghìn) là mức giảm giá. Tìm $x$ để doanh thu $> 15$ triệu.</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-emerald-500 text-xs text-slate-700 space-y-1">
+                            <p>Gọi $x$ là số lần giảm giá 10k ($0 \le x \le 4$). Giá vé $= 4 - x$ (chục nghìn). Số vé $= 3 + x$ (trăm).</p>
+                            <p>Doanh thu $R(x) = (4 - x)(3 + x) \cdot 1000 > 15000 \Leftrightarrow (4-x)(3+x) > 15 \Leftrightarrow -x^2 + x + 12 > 15 \Leftrightarrow x^2 - x + 3 < 0$ (Vô nghiệm).</p>
+                            <p>Kiểm tra lại đề bài/số liệu: doanh thu đạt max là $12,25$ triệu (với $x=0,5$), nên doanh thu không thể vượt quá 15 triệu.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 30 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                    <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài 30 (Canh tác nông nghiệp):</strong> Năng suất $N(x) = -0,01x^2 + 1,2x + 30$ (tạ/ha) với $x$ là phân bón (kg/ha). Để năng suất $\ge 50$ tạ/ha, người dân cần bón phân trong khoảng nào?</p>
+                    <details class="group">
+                        <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-emerald-500 text-xs text-slate-700 space-y-1">
+                            <p>Giải BPT: $-0,01x^2 + 1,2x + 30 \ge 50 \Leftrightarrow -0,01x^2 + 1,2x - 20 \ge 0 \Leftrightarrow x^2 - 120x + 2000 \le 0$.</p>
+                            <p>Nghiệm phương trình là 20 và 100. Khoảng phân bón duy trì: <strong>$20 \le x \le 100$</strong> (kg/ha).</p>
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ================= BÀI TẬP ĐÁNH GIÁ NĂNG LỰC TRẮC NGHIỆM ================= -->
+        <section class="border-t border-slate-200 pt-10 page-break">
+            <div class="bg-gradient-to-br from-slate-900 via-slate-800 to-indigo-950 text-white rounded-3xl p-6 sm:p-8 shadow-xl relative overflow-hidden card-border">
+                <div class="max-w-xl space-y-2">
+                    <span class="text-xs font-bold uppercase tracking-widest text-emerald-400 bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-500/20 inline-block">Đánh giá trực tuyến tại lớp</span>
+                    <h2 class="text-xl sm:text-2xl font-black tracking-tight">BÀI TẬP ĐÁNH GIÁ NĂNG LỰC TẠI LỚP</h2>
+                    <p class="text-slate-400 text-xs sm:text-sm">Học sinh hoàn thành trắc nghiệm 5 câu dưới đây. Kết quả điểm số sẽ được truyền tự động về Google Sheets hệ thống.</p>
+                </div>
+
+                <form id="quizForm" class="mt-8 space-y-6 text-slate-900">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div class="bg-white p-4 rounded-xl shadow-inner border border-slate-100">
+                            <label class="block text-xs font-bold text-slate-400 uppercase tracking-wide mb-1"><i class="fa-solid fa-user-graduate mr-1 text-indigo-500"></i> Họ và tên học sinh</label>
+                            <input type="text" id="studentName" required placeholder="Nhập họ tên đầy đủ..." class="w-full bg-white border-b-2 border-slate-200 focus:border-indigo-500 outline-none py-1 text-sm font-bold text-slate-900 transition-colors">
+                        </div>
+                        <div class="bg-white p-4 rounded-xl shadow-inner border border-slate-100">
+                            <label class="block text-xs font-bold text-slate-400 uppercase tracking-wide mb-1"><i class="fa-solid fa-file-code mr-1 text-indigo-500"></i> Mã chuyên đề bài học</label>
+                            <input type="text" id="examId" readonly value="Buoi09_DauTamThucBacHai_Toan10" class="w-full bg-slate-50 border-b-2 border-slate-200 outline-none py-1 text-sm font-bold text-slate-500 cursor-not-allowed">
+                        </div>
+                    </div>
+
+                    <!-- Khối câu hỏi trắc nghiệm -->
+                    <div class="space-y-5 mt-6">
+                        <!-- Câu 1 -->
+                        <div class="bg-white p-5 rounded-2xl shadow-sm space-y-3">
+                            <p class="text-sm font-bold text-slate-900"><span class="text-indigo-600">Câu 1:</span> Cho tam thức bậc hai $f(x) = -2x^2 + 5x - 2$. Khẳng định nào sau đây ĐÚNG?</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs font-semibold text-slate-700">
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q1" value="A" required class="text-indigo-600 h-4 w-4"> <span>A. $f(x) > 0$ với $\forall x \in \left(\frac{1}{2}; 2\right)$</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q1" value="B" class="text-indigo-600 h-4 w-4"> <span>B. $f(x) > 0$ với $\forall x \in \left(-\infty; \frac{1}{2}\right)$</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q1" value="C" class="text-indigo-600 h-4 w-4"> <span>C. $f(x) < 0$ với $\forall x \in \left(\frac{1}{2}; 2\right)$</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q1" value="D" class="text-indigo-600 h-4 w-4"> <span>D. $f(x) \ge 0$ với $\forall x \in \mathbb{R}$</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Câu 2 -->
+                        <div class="bg-white p-5 rounded-2xl shadow-sm space-y-3">
+                            <p class="text-sm font-bold text-slate-900"><span class="text-indigo-600">Câu 2:</span> Tập nghiệm của bất phương trình $2x^2 - 5x + 2 \le 0$ là:</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs font-semibold text-slate-700">
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q2" value="A" required class="text-indigo-600 h-4 w-4"> <span>A. $\left[\frac{1}{2}; 2\right]$</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q2" value="B" class="text-indigo-600 h-4 w-4"> <span>B. $\left(-\infty; \frac{1}{2}\right] \cup [2; +\infty)$</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q2" value="C" class="text-indigo-600 h-4 w-4"> <span>C. $\left(\frac{1}{2}; 2\right)$</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Câu 3 -->
+                        <div class="bg-white p-5 rounded-2xl shadow-sm space-y-3">
+                            <p class="text-sm font-bold text-slate-900"><span class="text-indigo-600">Câu 3:</span> Điều kiện cần và đủ để tam thức bậc hai $f(x) = ax^2 + bx + c$ ($a \neq 0$) luôn dương với mọi $x \in \mathbb{R}$ là:</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs font-semibold text-slate-700">
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q3" value="A" required class="text-indigo-600 h-4 w-4"> <span>A. $\begin{cases} a > 0 \\ \Delta < 0 \end{cases}$</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q3" value="B" class="text-indigo-600 h-4 w-4"> <span>B. $\begin{cases} a < 0 \\ \Delta < 0 \end{cases}$</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q3" value="C" class="text-indigo-600 h-4 w-4"> <span>C. $\begin{cases} a > 0 \\ \Delta > 0 \end{cases}$</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q3" value="D" class="text-indigo-600 h-4 w-4"> <span>D. $\Delta \le 0$</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Câu 4 -->
+                        <div class="bg-white p-5 rounded-2xl shadow-sm space-y-3">
+                            <p class="text-sm font-bold text-slate-900"><span class="text-indigo-600">Câu 4:</span> Tìm tất cả các giá trị của $m$ để biểu thức $x^2 - (m - 1)x + 1 > 0$ với mọi $x \in \mathbb{R}$:</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs font-semibold text-slate-700">
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q4" value="A" required class="text-indigo-600 h-4 w-4"> <span>A. $-1 < m < 3$</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q4" value="B" class="text-indigo-600 h-4 w-4"> <span>B. $m < -1$ hoặc $m > 3$</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q4" value="C" class="text-indigo-600 h-4 w-4"> <span>C. $m \in \mathbb{R}$</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Câu 5 -->
+                        <div class="bg-white p-5 rounded-2xl shadow-sm space-y-3">
+                            <p class="text-sm font-bold text-slate-900"><span class="text-indigo-600">Câu 5:</span> Theo quy tắc xét dấu tam thức bậc hai khi $\Delta > 0$ với hai nghiệm $x_1 < x_2$, trong khoảng hai nghiệm ($x_1; x_2$), tam thức có dấu như thế nào so với hệ số $a$?</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs font-semibold text-slate-700">
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q5" value="A" required class="text-indigo-600 h-4 w-4"> <span>A. Trái dấu với $a$ (Trong trái)</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q5" value="B" class="text-indigo-600 h-4 w-4"> <span>B. Cùng dấu với $a$ (Ngoài cùng)</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q5" value="C" class="text-indigo-600 h-4 w-4"> <span>C. Luôn mang dấu dương</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                    <input type="radio" name="q5" value="D" class="text-indigo-600 h-4 w-4"> <span>D. Luôn mang dấu âm</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pt-2 flex flex-col sm:flex-row items-center justify-between gap-4">
+                        <button type="submit" id="submitBtn" class="w-full sm:w-auto bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-sm px-8 py-3.5 rounded-xl shadow-lg transition-all flex items-center justify-center space-x-2 cursor-pointer">
+                            <i class="fa-solid fa-cloud-arrow-up"></i> <span>Nộp Bài Chấm Điểm</span>
+                        </button>
+                        <div id="statusReport" class="text-xs font-bold text-slate-400"></div>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer bản quyền -->
+    <footer class="bg-slate-900 text-slate-400 py-8 text-center text-xs font-medium px-4 mt-auto">
+        <p class="font-bold text-slate-300">@ Bản quyền thuộc ThS. Đinh Quốc Tuấn - Mục đích phi lợi nhuận - Vì giáo dục.</p>
+        <p class="text-slate-500 mt-2">Hệ thống bài giảng trực tuyến tương tác tích hợp đồng bộ dữ liệu điểm số học sinh.</p>
+    </footer>
+
+    <!-- NÚT IN TÀI LIỆU CỐ ĐỊNH -->
+    <button id="btn-print-doc" onclick="safePrint()" class="fixed bottom-5 right-5 bg-gray-900 text-white px-4 py-2 rounded-lg shadow-lg hover:bg-gray-700 print:hidden z-50 cursor-pointer">
+        <i class="fas fa-print mr-2"></i> In Tài Liệu
+    </button>
+
+    <script>
+        function safePrint() {
+            const printBtn = document.getElementById('btn-print-doc');
+            printBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Đang chuẩn bị...';
+            
+            if (window.MathJax && window.MathJax.typesetPromise) {
+                MathJax.typesetPromise().then(() => {
+                    printBtn.innerHTML = '<i class="fas fa-print mr-2"></i> In Tài Liệu';
+                    window.print();
+                });
+            } else {
+                setTimeout(() => {
+                    printBtn.innerHTML = '<i class="fas fa-print mr-2"></i> In Tài Liệu';
+                    window.print();
+                }, 500); 
+            }
+        }
+    </script>
+
+    <!-- HỆ THỐNG ĐIỀU KHIỂN ĐỒ HỌA JSXGRAPH & FORM QUIZ APPS SCRIPT -->
+    <script>
+        const timeInit = new Date();
+
+        document.addEventListener("DOMContentLoaded", function() {
+            
+            // --- MÔ HÌNH 1: DELTA > 0 (BOX 1) ---
+            const b1 = JXG.JSXGraph.initBoard('box1', {
+                boundingbox: [-4, 3, 4, -3], axis: true, showNavigation: false, showCopyright: false
+            });
+            b1.create('functiongraph', [function(x) { return x*x - 2; }, -3, 3], {
+                strokeColor: '#4f46e5', strokeWidth: 2.5
+            });
+
+            // --- MÔ HÌNH 2: DELTA = 0 (BOX 2) ---
+            const b2 = JXG.JSXGraph.initBoard('box2', {
+                boundingbox: [-4, 3, 4, -3], axis: true, showNavigation: false, showCopyright: false
+            });
+            b2.create('functiongraph', [function(x) { return x*x; }, -3, 3], {
+                strokeColor: '#d97706', strokeWidth: 2.5
+            });
+
+            // --- MÔ HÌNH 3: DELTA < 0 (BOX 3) ---
+            const b3 = JXG.JSXGraph.initBoard('box3', {
+                boundingbox: [-4, 4, 4, -2], axis: true, showNavigation: false, showCopyright: false
+            });
+            b3.create('functiongraph', [function(x) { return x*x + 1; }, -3, 3], {
+                strokeColor: '#10b981', strokeWidth: 2.5
+            });
+        });
+
+        // --- XỬ LÝ NỘP BÀI TRẮC NGHIỆM VÀ ĐẨY DỮ LIỆU APPS SCRIPT ---
+        document.getElementById('quizForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const submitBtn = document.getElementById('submitBtn');
+            const statusReport = document.getElementById('statusReport');
+            
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i> Hệ thống đang nộp bài...';
+            statusReport.innerHTML = "Đang kết nối cơ sở dữ liệu bảng tính...";
+
+            const correctKey = { q1: "A", q2: "A", q3: "A", q4: "A", q5: "A" };
+            const studentName = document.getElementById('studentName').value.trim();
+            const lessonId = document.getElementById('examId').value.trim();
+            
+            let correctCounter = 0;
+            let totalQuizCount = Object.keys(correctKey).length;
+            let missedReportArray = [];
+
+            for (let questionCode in correctKey) {
+                const selectedRadio = document.querySelector(`input[name="${questionCode}"]:checked`);
+                if (selectedRadio && selectedRadio.value === correctKey[questionCode]) {
+                    correctCounter++;
+                } else {
+                    let chosenChar = selectedRadio ? selectedRadio.value : "Bỏ trống";
+                    missedReportArray.push(`${questionCode.toUpperCase()}(Chọn: ${chosenChar}|Đúng: ${correctKey[questionCode]})`);
+                }
+            }
+
+            const finalScore = ((correctCounter / totalQuizCount) * 10).toFixed(2);
+            const timeComplete = new Date();
+            const elapsedDurationSeconds = Math.floor((timeComplete - timeInit) / 1000);
+            const thoiGian = `${Math.floor(elapsedDurationSeconds / 60)} phút ${elapsedDurationSeconds % 60} giây`;
+            const cauSai = missedReportArray.length > 0 ? missedReportArray.join(", ") : "Không có (Đạt 10/10)";
+
+            const transmissionPayload = {
+                hoTen: studentName,
+                maDe: lessonId,
+                diem: parseFloat(finalScore),
+                thoiGian: thoiGian,
+                cauSai: cauSai
+            };
+
+            const webAppsScriptEndpoint = "https://script.google.com/macros/s/AKfycbzY7b7h4OwvhXuK5Vs6hl-aD88BPnAiAKbU5lfJobby0D4nzbIJVKT4n0AKCpAGoK0nZA/exec";
+
+            fetch(webAppsScriptEndpoint, {
+                method: "POST",
+                mode: "no-cors",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(transmissionPayload)
+            })
+            .then(() => {
+                statusReport.className = "text-xs font-bold text-emerald-500 bg-emerald-50 px-3 py-2 rounded-xl border border-emerald-200 inline-block";
+                statusReport.innerHTML = `<i class="fa-solid fa-circle-check"></i> Đã đồng bộ kết quả thành công: ${finalScore}/10.`;
+                alert(`Hệ thống ghi nhận bài nộp thành công!\nChào em ${studentName}, điểm số đạt được là: ${finalScore} / 10.`);
+                submitBtn.innerHTML = '<i class="fa-solid fa-lock"></i> Đã lưu kết quả thi';
+            })
+            .catch(error => {
+                console.error("Lỗi truyền tin:", error);
+                statusReport.className = "text-xs font-bold text-rose-500 bg-rose-50 px-3 py-2 rounded-xl border border-rose-200 inline-block";
+                statusReport.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> Lỗi kết nối mạng, vui lòng bấm nộp lại!';
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Thử nộp lại bài';
+            });
+        });
+    </script>
+</body>
+</html>
