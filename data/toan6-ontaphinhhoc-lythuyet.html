@@ -1,59 +1,632 @@
 <!DOCTYPE html>
-<html lang="vi">
 <head>
-    <!-- Khai báo bảng mã ký tự tiếng Việt -->
-    <meta charset="UTF-8">
-    <!-- Tương thích hiển thị trên thiết bị di động -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Tiêu đề trang web hiển thị trên tab trình duyệt -->
-    <title>Trang Web Hoàn Chỉnh</title>
+    <html lang="vi">
+    <!-- Tailwind CSS CDN -->
+    <script src="[https://cdn.tailwindcss.com](https://cdn.tailwindcss.com)"></script>
     
-    <!-- Liên kết đến thư viện CSS (ví dụ: Tailwind CSS hoặc file CSS tùy chỉnh) -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- FontAwesome Icons CDN -->
+    <link rel="stylesheet" href="[https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css](https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css)">
+    
+    <!-- Google Fonts: Plus Jakarta Sans -->
+    <link rel="preconnect" href="[https://fonts.googleapis.com](https://fonts.googleapis.com)">
+    <link rel="preconnect" href="[https://fonts.gstatic.com](https://fonts.gstatic.com)" crossorigin>
+    <link href="[https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap](https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap)" rel="stylesheet">
+    
+    <!-- MathJax Configuration & Script -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['\\(', '\\)'], ['$', '$']],
+                displayMath: [['\\[', '\\]'], ['$$', '$$']]
+            },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script id="MathJax-script" async src="[https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js](https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js)"></script>
+    
+    <!-- JSXGraph CSS & Core Engine -->
+    <link rel="stylesheet" type="text/css" href="[https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraph.css](https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraph.css)" />
+    <script type="text/javascript" src="[https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraphcore.js](https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraphcore.js)"></script>
     
     <style>
-        /* CSS tùy chỉnh bổ sung nếu cần */
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #f8fafc;
+            color: #0f172a;
+        }
+        .jxgbox {
+            background-color: #ffffff !important;
+            border-radius: 1rem;
+            overflow: hidden;
+            border: 1px solid #e2e8f0;
+        }
+        @media print {
+            .print\:hidden { display: none !important; }
+            body { background: white !important; color: black !important; }
+            details { display: block !important; }
+            details summary { display: none !important; }
+            .page-break { page-break-before: always; }
+            .card-border { box-shadow: none !important; border: 1px solid #e5e7eb !important; }
         }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col">
-
-    <!-- Phần Đầu trang (Header) -->
-    <header class="bg-white border-b border-slate-200 shadow-xs sticky top-0 z-30">
-        <div class="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
-            <h1 class="text-xl font-black text-indigo-600">Logo Website</h1>
-            <nav class="space-x-4 text-sm font-semibold">
-                <a href="#" class="hover:text-indigo-600">Trang chủ</a>
-                <a href="#" class="hover:text-indigo-600">Giới thiệu</a>
-                <a href="#" class="hover:text-indigo-600">Liên hệ</a>
-            </nav>
+<!-- Header học thuật -->
+<header class="border-b border-slate-200 sticky top-0 bg-white/95 backdrop-blur-md z-40 print:hidden">
+    <div class="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 px-6 py-4">
+        <div class="flex items-center gap-4">
+            <img src="[https://firebasestorage.googleapis.com/v0/b/link-anh-web.firebasestorage.app/o/Logo-chinh-hcmus.png?alt=media&token=9cf3a1de-75f1-493b-8711-fd22c7b98738](https://firebasestorage.googleapis.com/v0/b/link-anh-web.firebasestorage.app/o/Logo-chinh-hcmus.png?alt=media&token=9cf3a1de-75f1-493b-8711-fd22c7b98738)" alt="Logo HCMUS" class="h-14 w-auto object-contain">
+            <div class="border-l-2 border-slate-300 pl-4">
+                <span class="text-xs font-bold tracking-widest text-indigo-600 uppercase block mb-0.5">Tài liệu số hóa tương tác</span>
+                <span class="text-base font-extrabold text-slate-800">Hình Học Lớp 10 & 6 • Tổng Ôn Học Kỳ II</span>
+            </div>
         </div>
-    </header>
+        <div class="flex items-center gap-3 sm:text-right">
+            <div class="hidden sm:block">
+                <p class="text-xs text-slate-400 font-semibold">Giảng viên biên soạn:</p>
+                <p class="text-sm font-extrabold text-slate-800">ThS. Đinh Quốc Tuấn</p>
+            </div>
+            <img src="[https://firebasestorage.googleapis.com/v0/b/link-anh-web.firebasestorage.app/o/ttbdvh.jpg?alt=media&token=f270aa9b-a2bc-48e8-8910-80742b542615](https://firebasestorage.googleapis.com/v0/b/link-anh-web.firebasestorage.app/o/ttbdvh.jpg?alt=media&token=f270aa9b-a2bc-48e8-8910-80742b542615)" 
+                 alt="Logo TTBDVH" class="h-14 w-14 object-cover rounded-full border border-slate-200 shadow-inner">
+        </div>
+    </div>
+</header>
 
-    <!-- Phần Nội dung chính (Main Content) -->
-    <main class="max-w-4xl mx-auto px-6 py-10 flex-grow w-full space-y-8">
-        <section class="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm space-y-4">
-            <h2 class="text-2xl font-extrabold text-slate-900">Chào mừng bạn đến với trang web!</h2>
-            <p class="text-slate-600 leading-relaxed text-justify">
-                Đây là khung nội dung mẫu được thiết kế gọn gàng, hiện đại. Bạn có thể dễ dàng thay đổi văn bản, hình ảnh hoặc bổ sung các thành phần tương tác theo nhu cầu sử dụng.
-            </p>
-            <button class="bg-indigo-600 text-white px-5 py-2.5 rounded-xl font-bold shadow-md hover:bg-indigo-700 transition-all cursor-pointer">
-                <i class="fa-solid fa-arrow-right mr-2"></i> Khám phá ngay
-            </button>
-        </section>
-    </main>
+<!-- Banner chào mừng -->
+<div class="bg-gradient-to-r from-indigo-50 via-slate-50 to-emerald-50 border-b border-slate-200 py-10 print:hidden">
+    <div class="max-w-4xl mx-auto px-6 space-y-4">
+        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-indigo-100 text-indigo-800 border border-indigo-200 shadow-xs">
+            <i class="fa-solid fa-shapes mr-1.5 text-indigo-600"></i> Hình Học Trực Quan & Phẳng
+        </span>
+        <h1 class="text-2xl sm:text-4xl font-black tracking-tight text-slate-900 leading-tight">
+            Tổng Hợp Kiến Thức Và Công Thức Hình Học Lớp 6 - Học Kỳ II
+        </h1>
+        <p class="text-slate-600 text-sm sm:text-base font-medium leading-relaxed text-justify">
+            Chào các em học sinh! Hình học không chỉ là những hình vẽ trên trang giấy mà là sự kết hợp tuyệt vời giữa tư duy logic và vẻ đẹp của sự cân đối. Tài liệu này được biên soạn nhằm giúp các em hệ thống hóa toàn bộ kiến thức cốt lõi của học kỳ II, từ những hình ảnh trực quan sinh động đến các khái niệm nền tảng, kết hợp mô hình JSXGraph trực quan và bài tập đánh giá năng lực tương tác.
+        </p>
+    </div>
+</div>
 
-    <!-- Phần Chân trang (Footer) -->
-    <footer class="bg-slate-900 text-slate-400 py-6 text-center text-xs mt-auto">
-        <p class="font-bold text-slate-300">@ Bản quyền thuộc về tác giả - Mọi quyền được bảo lưu.</p>
-    </footer>
+<!-- Không gian nội dung chính -->
+<main class="max-w-4xl mx-auto px-4 sm:px-6 py-10 flex-grow w-full space-y-16">
+    
+    <!-- ================= MÔ HÌNH HÌNH HỌC TƯƠNG TÁC JSXGRAPH ================= -->
+    <section class="space-y-8 print:hidden bg-slate-100 p-6 rounded-3xl border border-slate-200">
+        <div class="border-b border-slate-200 pb-3">
+            <h2 class="text-lg font-black text-slate-800 flex items-center uppercase tracking-wide">
+                <i class="fa-solid fa-compass-drafting mr-2.5 text-indigo-600 text-xl"></i> Mô hình trực quan Hình học phẳng Lớp 6
+            </h2>
+            <p class="text-xs text-slate-500 mt-1">Trực quan hóa hình vuông, hình thoi, đường tròn và trục đối xứng.</p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <!-- Mô hình 1 -->
+            <div class="flex flex-col bg-white p-4 rounded-2xl border border-slate-200 shadow-2xs">
+                <h3 class="font-bold text-slate-900 text-xs mb-1 flex items-center gap-1.5">
+                    <i class="fa-solid fa-square text-indigo-600"></i> Mô hình 1: Hình vuông & Đường chéo
+                </h3>
+                <p class="text-[11px] text-slate-500 mb-3">Minh họa các cạnh bằng nhau, 4 góc vuông và 2 đường chéo vuông góc tại trung điểm.</p>
+                <div id="box1" class="w-full h-56 jxgbox"></div>
+                <div id="status-box1" class="text-[11px] font-bold p-2 mt-2 bg-indigo-50 border border-indigo-100 rounded-lg text-center text-slate-700 font-mono">
+                    Hình vuông: S = a^2, P = 4a
+                </div>
+            </div>
 
-    <!-- Các tập lệnh JavaScript (nếu có) -->
-    <script>
-        console.log("Trang web đã tải thành công!");
-    </script>
-</body>
-</html>
+            <!-- Mô hình 2 -->
+            <div class="flex flex-col bg-white p-4 rounded-2xl border border-slate-200 shadow-2xs">
+                <h3 class="font-bold text-slate-900 text-xs mb-1 flex items-center gap-1.5">
+                    <i class="fa-solid fa-gem text-amber-500"></i> Mô hình 2: Hình thoi & Hai đường chéo
+                </h3>
+                <p class="text-[11px] text-slate-500 mb-3">Minh họa tính chất 4 cạnh bằng nhau, 2 đường chéo vuông góc và diện tích $S = \frac{1}{2}d_1d_2$.</p>
+                <div id="box2" class="w-full h-56 jxgbox"></div>
+                <div id="status-box2" class="text-[11px] font-bold p-2 mt-2 bg-amber-50 border border-amber-100 rounded-lg text-center text-amber-900 font-mono">
+                    Hình thoi: S = 1/2 * d1 * d2
+                </div>
+            </div>
+
+            <!-- Mô hình 3 -->
+            <div class="flex flex-col bg-white p-4 rounded-2xl border border-slate-200 shadow-2xs">
+                <h3 class="font-bold text-slate-900 text-xs mb-1 flex items-center gap-1.5">
+                    <i class="fa-solid fa-circle-dot text-emerald-600"></i> Mô hình 3: Đường tròn & Tâm đối xứng
+                </h3>
+                <p class="text-[11px] text-slate-500 mb-3">Hình "vô đối" về trục đối xứng (vô số trục qua tâm) và có tâm đối xứng chính là tâm đường tròn.</p>
+                <div id="box3" class="w-full h-56 jxgbox"></div>
+                <div id="status-box3" class="text-[11px] font-bold p-2 mt-2 bg-emerald-50 border border-emerald-100 rounded-lg text-center text-emerald-800 font-mono">
+                    Đường tròn: Vô số trục đối xứng
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= PHẦN 1: THẾ GIỚI HÌNH HỌC TRỰC QUAN ================= -->
+    <section class="space-y-6">
+        <div class="flex items-center gap-3 border-b pb-3 border-slate-200">
+            <span class="bg-sky-600 text-white text-xs font-black px-3 py-1 rounded-md uppercase tracking-wider">Phần I</span>
+            <h2 class="text-xl font-extrabold text-slate-900">THẾ GIỚI HÌNH HỌC TRỰC QUAN (CÁC HÌNH PHẲNG TRONG THỰC TIỄN)</h2>
+        </div>
+        <p class="text-xs font-bold text-sky-800 bg-sky-50 px-3 py-2 rounded-lg inline-block">
+            Mục tiêu: Nhận diện đặc điểm và ghi nhớ công thức tính toán chu vi, diện tích các hình phẳng lớp 6.
+        </p>
+
+        <div class="space-y-6 text-sm leading-relaxed text-slate-700">
+            <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs space-y-4 card-border">
+                <h3 class="font-bold text-slate-900 text-base text-sky-700 flex items-center gap-2">
+                    <i class="fa-solid fa-table"></i> Bảng tổng hợp công thức các hình phẳng
+                </h3>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-xs text-left border border-slate-200 rounded-xl overflow-hidden">
+                        <thead class="bg-slate-100 text-slate-700 font-bold">
+                            <tr>
+                                <th class="p-3 border-b">Hình học</th>
+                                <th class="p-3 border-b">Đặc điểm cơ bản</th>
+                                <th class="p-3 border-b">Chu vi ($P$)</th>
+                                <th class="p-3 border-b">Diện tích ($S$)</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-100">
+                            <tr>
+                                <td class="p-3 font-medium">Tam giác đều</td>
+                                <td class="p-3 text-slate-600">3 cạnh bằng nhau, 3 góc bằng nhau ($60^\circ$).</td>
+                                <td class="p-3 font-mono">$P = 3 \cdot a$</td>
+                                <td class="p-3 font-mono">$S = \frac{1}{2} a \cdot h$</td>
+                            </tr>
+                            <tr>
+                                <td class="p-3 font-medium">Hình vuông</td>
+                                <td class="p-3 text-slate-600">4 cạnh bằng nhau, 4 góc vuông, 2 đường chéo bằng nhau.</td>
+                                <td class="p-3 font-mono">$P = 4 \cdot a$</td>
+                                <td class="p-3 font-mono">$S = a^2$</td>
+                            </tr>
+                            <tr>
+                                <td class="p-3 font-medium">Hình chữ nhật</td>
+                                <td class="p-3 text-slate-600">Các cạnh đối bằng nhau, 4 góc vuông, 2 đường chéo bằng nhau.</td>
+                                <td class="p-3 font-mono">$P = 2 \cdot (a + b)$</td>
+                                <td class="p-3 font-mono">$S = a \cdot b$</td>
+                            </tr>
+                            <tr>
+                                <td class="p-3 font-medium">Hình thoi</td>
+                                <td class="p-3 text-slate-600">4 cạnh bằng nhau, các cạnh đối song song, 2 đường chéo vuông góc.</td>
+                                <td class="p-3 font-mono">$P = 4 \cdot a$</td>
+                                <td class="p-3 font-mono">$S = \frac{1}{2} d_1 \cdot d_2$</td>
+                            </tr>
+                            <tr>
+                                <td class="p-3 font-medium">Hình bình hành</td>
+                                <td class="p-3 text-slate-600">Các cạnh đối bằng nhau và song song, các góc đối bằng nhau.</td>
+                                <td class="p-3 font-mono">$P = 2 \cdot (a + b)$</td>
+                                <td class="p-3 font-mono">$S = a \cdot h$</td>
+                            </tr>
+                            <tr>
+                                <td class="p-3 font-medium">Hình thang cân</td>
+                                <td class="p-3 text-slate-600">2 cạnh bên bằng nhau, 2 góc kề một đáy bằng nhau.</td>
+                                <td class="p-3 font-mono">$P = a + b + 2 \cdot c$</td>
+                                <td class="p-3 font-mono">$S = \frac{(a + b) \cdot h}{2}$</td>
+                            </tr>
+                            <tr>
+                                <td class="p-3 font-medium">Lục giác đều</td>
+                                <td class="p-3 text-slate-600">6 cạnh bằng nhau, 6 góc bằng nhau, 3 đường chéo chính bằng nhau.</td>
+                                <td class="p-3 font-mono">$P = 6 \cdot a$</td>
+                                <td class="p-3 text-slate-600">Tổng S của 6 tam giác đều</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p class="text-xs text-slate-500 mt-2"><strong>Ghi chú ký hiệu:</strong> $a, b$: độ dài cạnh/đáy; $h$: chiều cao; $d_1, d_2$: hai đường chéo; $c$: cạnh bên.</p>
+            </div>
+
+            <!-- Lưu ý hình thoi và hình vuông -->
+            <div class="bg-indigo-50/50 p-5 rounded-2xl border border-indigo-100 space-y-2 card-border">
+                <p class="font-bold text-indigo-900 text-xs uppercase tracking-wide"><i class="fa-solid fa-lightbulb mr-1 text-amber-500"></i> Tổng hợp sâu</p>
+                <p class="text-xs text-slate-700 leading-relaxed">
+                    Các em cần lưu ý phân biệt giữa Hình thoi và Hình vuông. Cả hai đều có 4 cạnh bằng nhau và hai đường chéo vuông góc tại trung điểm mỗi đường. Tuy nhiên, Hình vuông là trường hợp đặc biệt hơn vì nó có hai đường chéo bằng nhau và 4 góc đều là góc vuông, điều mà hình thoi thông thường không có.
+                </p>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ================= PHẦN 2: NỀN TẢNG HÌNH HỌC PHẲNG ================= -->
+    <section class="space-y-6">
+        <div class="flex items-center gap-3 border-b pb-3 border-slate-200">
+            <span class="bg-amber-600 text-white text-xs font-black px-3 py-1 rounded-md uppercase tracking-wider">Phần II</span>
+            <h2 class="text-xl font-extrabold text-slate-900">NỀN TẢNG HÌNH HỌC PHẲNG (CÁC KHÁI NIỆM CƠ BẢN)</h2>
+        </div>
+        <p class="text-xs font-bold text-amber-800 bg-amber-50 px-3 py-2 rounded-lg inline-block">
+            Mục tiêu: Xây dựng tư duy lập luận hình học chính xác từ các điểm, đường thẳng, đoạn thẳng và góc.
+        </p>
+
+        <div class="space-y-6 text-sm leading-relaxed text-slate-700">
+            <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs space-y-3 card-border">
+                <h3 class="font-bold text-slate-900 text-base text-amber-700 flex items-center gap-2">
+                    <i class="fa-solid fa-pen-ruler"></i> Khái niệm cơ bản & Trung điểm
+                </h3>
+                <ul class="list-disc list-inside text-xs text-slate-600 space-y-2 pl-2">
+                    <li><strong>Điểm:</strong> Vị trí không có kích thước, ký hiệu bằng chữ in hoa ($A, B, C...$).</li>
+                    <li><strong>Đường thẳng:</strong> Tập hợp các điểm kéo dài vô hạn về hai phía, không giới hạn và không có độ dày.</li>
+                    <li><strong>Tia:</strong> Một phần đường thẳng bị giới hạn bởi một điểm gốc và kéo dài vô hạn về một phía.</li>
+                    <li><strong>Đoạn thẳng:</strong> Phần đường thẳng bị giới hạn bởi hai điểm đầu mút, có độ dài xác định.</li>
+                    <li><strong>Quy tắc Trung điểm:</strong> Điểm $M$ là trung điểm đoạn thẳng $AB$ khi và chỉ khi $M$ nằm giữa $A, B$ và $MA = MB = \frac{AB}{2}$.</li>
+                </ul>
+            </div>
+
+            <!-- Bảng phân loại góc -->
+            <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs space-y-3 card-border">
+                <h3 class="font-bold text-slate-900 text-base text-amber-700 flex items-center gap-2">
+                    <i class="fa-solid fa-compass"></i> Hệ thống hóa các loại Góc
+                </h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+                    <div class="p-3 bg-slate-50 rounded-xl border border-slate-100 space-y-1">
+                        <p class="font-bold text-slate-900">Góc nhọn</p>
+                        <p class="text-slate-600" > 
+                            Số đo $\alpha  thỏa mãn \$0^\circ < \alpha < 90^\circ\$ (bé hơn góc vuông).
+                        </p>
+                    </div>
+                    <div class="p-3 bg-slate-50 rounded-xl border border-slate-100 space-y-1">
+                        <p class="font-bold text-slate-900">Góc vuông</p>
+                        <p class="text-slate-600">Số đo $\alpha = 90^\circ$ (bằng góc tờ giấy A4 hoặc góc hình vuông).</p>
+                    </div>
+                    <div class="p-3 bg-slate-50 rounded-xl border border-slate-100 space-y-1">
+                        <p class="font-bold text-slate-900">Góc tù</p>
+                        <p class="text-slate-600">Số đo $\alpha$ thỏa mãn $90^\circ < \alpha < 180^\circ$ (lớn hơn vuông, bé hơn bẹt).</p>
+                    </div>
+                    <div class="p-3 bg-slate-50 rounded-xl border border-slate-100 space-y-1">
+                        <p class="font-bold text-slate-900">Góc bẹt</p>
+                        <p class="text-slate-600">Số đo $\alpha = 180^\circ$ (hai cạnh là hai tia đối nhau).</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ================= PHẦN 3: BẢN ĐỒ TÍNH ĐỐI XỨNG ================= -->
+    <section class="space-y-6">
+        <div class="flex items-center gap-3 border-b pb-3 border-slate-200">
+            <span class="bg-emerald-600 text-white text-xs font-black px-3 py-1 rounded-md uppercase tracking-wider">Phần III</span>
+            <h2 class="text-xl font-extrabold text-slate-900">BẢN ĐỒ TÍNH ĐỐI XỨNG CỦA CÁC HÌNH PHẲNG</h2>
+        </div>
+        <p class="text-xs font-bold text-emerald-800 bg-emerald-50 px-3 py-2 rounded-lg inline-block">
+            Mục tiêu: Hiểu rõ cấu trúc cân đối và tính đối xứng trục, đối xứng tâm của các hình học.
+        </p>
+
+        <div class="space-y-6 text-sm leading-relaxed text-slate-700">
+            <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs space-y-4 card-border">
+                <h3 class="font-bold text-slate-900 text-base text-emerald-700 flex items-center gap-2">
+                    <i class="fa-solid fa-clone"></i> Trục đối xứng và Tâm đối xứng
+                </h3>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-xs text-left border border-slate-200 rounded-xl overflow-hidden">
+                        <thead class="bg-slate-100 text-slate-700 font-bold">
+                            <tr>
+                                <th class="p-3 border-b">Tên hình</th>
+                                <th class="p-3 border-b">Trục đối xứng (Số lượng)</th>
+                                <th class="p-3 border-b">Tâm đối xứng (Có / Không)</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-100">
+                            <tr><td class="p-3 font-medium">Đoạn thẳng</td><td class="p-3">Có (2 - Trung trực và đường thẳng chứa đoạn)</td><td class="p-3">Có (Trung điểm đoạn thẳng)</td></tr>
+                            <tr><td class="p-3 font-medium">Đường tròn</td><td class="p-3">Có (Vô số - Các đường thẳng đi qua tâm)</td><td class="p-3">Có (Tâm đường tròn)</td></tr>
+                            <tr><td class="p-3 font-medium">Tam giác đều</td><td class="p-3">Có (3 trục)</td><td class="p-3">Không</td></tr>
+                            <tr><td class="p-3 font-medium">Hình vuông</td><td class="p-3">Có (4 trục)</td><td class="p-3">Có (Giao điểm hai đường chéo)</td></tr>
+                            <tr><td class="p-3 font-medium">Hình chữ nhật</td><td class="p-3">Có (2 trục)</td><td class="p-3">Có (Giao điểm hai đường chéo)</td></tr>
+                            <tr><td class="p-3 font-medium">Hình thoi</td><td class="p-3">Có (2 trục chứa hai đường chéo)</td><td class="p-3">Có (Giao điểm hai đường chéo)</td></tr>
+                            <tr><td class="p-3 font-medium">Hình bình hành</td><td class="p-3">Không</td><td class="p-3">Có (Giao điểm hai đường chéo)</td></tr>
+                            <tr><td class="p-3 font-medium">Hình thang cân</td><td class="p-3">Có (1 trục qua trung điểm hai đáy)</td><td class="p-3">Không</td></tr>
+                            <tr><td class="p-3 font-medium">Hình lục giác đều</td><td class="p-3">Có (6 trục)</td><td class="p-3">Có (Tâm của hình)</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Mẹo ghi nhớ kỷ lục hình học -->
+            <div class="bg-emerald-50/50 p-5 rounded-2xl border border-emerald-100 space-y-2 card-border">
+                <p class="font-bold text-emerald-900 text-xs uppercase tracking-wide"><i class="fa-solid fa-star mr-1 text-amber-500"></i> Mẹo ghi nhớ "Kỷ lục hình học"</p>
+                <ul class="list-disc list-inside text-xs text-slate-700 space-y-1 pl-2">
+                    <li><strong>Hình "vô đối":</strong> Đường tròn (Vô số trục đối xứng).</li>
+                    <li><strong>Hình "lệch":</strong> Hình bình hành (Hình duy nhất có tâm đối xứng nhưng không có trục đối xứng).</li>
+                    <li><strong>Hình "đặc biệt":</strong> Tam giác đều (Đa giác đều duy nhất không có tâm đối xứng).</li>
+                    <li><strong>Hình "hoàn hảo":</strong> Hình vuông (Số trục đối xứng bằng đúng số cạnh).</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ================= PHẦN IV: PHỤ LỤC BÀI TẬP TỰ LUYỆN ================= -->
+    <section class="space-y-6">
+        <div class="flex items-center gap-3 border-b pb-3 border-slate-200">
+            <span class="bg-teal-600 text-white text-xs font-black px-3 py-1 rounded-md uppercase tracking-wider">Phụ lục</span>
+            <h2 class="text-xl font-extrabold text-slate-900">BÀI TẬP TỰ LUYỆN NHANH (PHƯƠNG PHÁP TƯ DUY ĐẾM)</h2>
+        </div>
+        <p class="text-xs font-bold text-teal-800 bg-teal-50 px-3 py-2 rounded-lg inline-block">
+            Mục tiêu: Áp dụng công thức đếm số phần tử và khoảng cách thực tế.
+        </p>
+
+        <div class="space-y-4">
+            <!-- Bài tập 1 -->
+            <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài tập 1:</strong> Một hành lang dài 12m, người ta dự định lát gạch hình vuông cạnh 40cm. Tính số lượng viên gạch cần dùng để lát thành một hàng dọc chạy hết chiều dài hành lang đó?</p>
+                <details class="group">
+                    <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                        <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                    </summary>
+                    <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                        <p>&bull; Đổi đơn vị: $12\text{m} = 1200\text{cm}$.</p>
+                        <p>&bull; Số lượng viên gạch là số "khoảng cách" $40\text{cm}$ trong tổng $1200\text{cm}$:</p>
+                        <p>$$1200 : 40 = 30 \text{ (viên)}$$</p>
+                        <p><strong>Đáp số:</strong> 30 viên gạch.</p>
+                    </div>
+                </details>
+            </div>
+
+            <!-- Bài tập 2 -->
+            <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs card-border">
+                <p class="text-sm font-semibold text-slate-800 mb-2"><strong>Bài tập 2:</strong> Trên một đoạn đường thẳng dài 200cm, người ta đánh dấu các điểm cách đều nhau, cứ 5cm có một điểm (tính cả hai đầu mút). Hỏi có bao nhiêu điểm đã được đánh dấu?</p>
+                <details class="group">
+                    <summary class="list-none flex items-center text-xs font-bold text-indigo-600 cursor-pointer hover:text-indigo-800 select-none print:hidden">
+                        <span class="flex items-center gap-1"><i class="fa-solid fa-chevron-right group-open:rotate-90 transition-transform"></i> Xem gợi ý & Lời giải ẩn</span>
+                    </summary>
+                    <div class="mt-3 p-4 bg-slate-50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-700 space-y-1">
+                        <p>&bull; Áp dụng công thức đếm phần tử dãy số cách đều: $\text{Số lượng} = \frac{\text{Cuối} - \text{Đầu}}{\text{Khoảng cách}} + 1$.</p>
+                        <p>&bull; Số lượng điểm: $\frac{200 - 0}{5} + 1 = 40 + 1 = 41$ (điểm).</p>
+                        <p><strong>Đáp số:</strong> 41 điểm.</p>
+                    </div>
+                </details>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ================= BÀI TẬP ĐÁNH GIÁ NĂNG LỰC TRẮC NGHIỆM ================= -->
+    <section class="border-t border-slate-200 pt-10 page-break">
+        <div class="bg-gradient-to-br from-slate-900 via-slate-800 to-indigo-950 text-white rounded-3xl p-6 sm:p-8 shadow-xl relative overflow-hidden card-border">
+            <div class="max-w-xl space-y-2">
+                <span class="text-xs font-bold uppercase tracking-widest text-emerald-400 bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-500/20 inline-block">Đánh giá trực tuyến tại lớp</span>
+                <h2 class="text-xl sm:text-2xl font-black tracking-tight">BÀI TẬP ĐÁNH GIÁ NĂNG LỰC TẠI LỚP</h2>
+                <p class="text-slate-400 text-xs sm:text-sm">Học sinh hoàn thành trắc nghiệm 5 câu dưới đây. Kết quả điểm số sẽ được truyền tự động về Google Sheets hệ thống.</p>
+            </div>
+
+            <form id="quizForm" class="mt-8 space-y-6 text-slate-900">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div class="bg-white p-4 rounded-xl shadow-inner border border-slate-100">
+                        <label class="block text-xs font-bold text-slate-400 uppercase tracking-wide mb-1"><i class="fa-solid fa-user-graduate mr-1 text-indigo-500"></i> Họ và tên học sinh</label>
+                        <input type="text" id="studentName" required placeholder="Nhập họ tên đầy đủ..." class="w-full bg-white border-b-2 border-slate-200 focus:border-indigo-500 outline-none py-1 text-sm font-bold text-slate-900 transition-colors">
+                    </div>
+                    <div class="bg-white p-4 rounded-xl shadow-inner border border-slate-100">
+                        <label class="block text-xs font-bold text-slate-400 uppercase tracking-wide mb-1"><i class="fa-solid fa-file-code mr-1 text-indigo-500"></i> Mã chuyên đề bài học</label>
+                        <input type="text" id="examId" readonly value="HinhHoc6_HocKy2_TongOn" class="w-full bg-slate-50 border-b-2 border-slate-200 outline-none py-1 text-sm font-bold text-slate-500 cursor-not-allowed">
+                    </div>
+                </div>
+
+                <!-- Khối câu hỏi trắc nghiệm -->
+                <div class="space-y-5 mt-6">
+                    <!-- Câu 1 -->
+                    <div class="bg-white p-5 rounded-2xl shadow-sm space-y-3">
+                        <p class="text-sm font-bold text-slate-900"><span class="text-indigo-600">Câu 1:</span> Hình phẳng nào sau đây có số trục đối xứng bằng đúng số cạnh của nó?</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs font-semibold text-slate-700">
+                            <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                <input type="radio" name="q1" value="A" required class="text-indigo-600 h-4 w-4"> <span>A. Hình vuông</span>
+                            </label>
+                            <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                <input type="radio" name="q1" value="B" class="text-indigo-600 h-4 w-4"> <span>B. Hình chữ nhật</span>
+                            </label>
+                            <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                <input type="radio" name="q1" value="C" class="text-indigo-600 h-4 w-4"> <span>C. Hình thoi</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Câu 2 -->
+                    <div class="bg-white p-5 rounded-2xl shadow-sm space-y-3">
+                        <p class="text-sm font-bold text-slate-900"><span class="text-indigo-600">Câu 2:</span> Hình phẳng nào duy nhất trong danh sách có tâm đối xứng nhưng lại không có trục đối xứng?</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs font-semibold text-slate-700">
+                            <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                <input type="radio" name="q2" value="A" required class="text-indigo-600 h-4 w-4"> <span>A. Hình bình hành</span>
+                            </label>
+                            <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                <input type="radio" name="q2" value="B" class="text-indigo-600 h-4 w-4"> <span>B. Hình thoi</span>
+                            </label>
+                            <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                <input type="radio" name="q2" value="C" class="text-indigo-600 h-4 w-4"> <span>C. Hình chữ nhật</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Câu 3 -->
+                    <div class="bg-white p-5 rounded-2xl shadow-sm space-y-3">
+                        <p class="text-sm font-bold text-slate-900"><span class="text-indigo-600">Câu 3:</span> Công thức tính diện tích hình thoi với hai đường chéo $d_1$ và $d_2$ là:</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs font-semibold text-slate-700">
+                            <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                <input type="radio" name="q3" value="A" required class="text-indigo-600 h-4 w-4"> <span>A. $S = \frac{1}{2} d_1 \cdot d_2$</span>
+                            </label>
+                            <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                <input type="radio" name="q3" value="B" class="text-indigo-600 h-4 w-4"> <span>B. $S = d_1 \cdot d_2$</span>
+                            </label>
+                            <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                <input type="radio" name="q3" value="C" class="text-indigo-600 h-4 w-4"> <span>C. $S = \frac{(d_1 + d_2)h}{2}$</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Câu 4 -->
+                    <div class="bg-white p-5 rounded-2xl shadow-sm space-y-3">
+                        <p class="text-sm font-bold text-slate-900"><span class="text-indigo-600">Câu 4:</span> Điểm $M$ là trung điểm của đoạn thẳng $AB$ khi và chỉ khi:</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs font-semibold text-slate-700">
+                            <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                <input type="radio" name="q4" value="A" required class="text-indigo-600 h-4 w-4"> <span>A. $M$ nằm giữa $A, B$ và $MA = MB$</span>
+                            </label>
+                            <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                <input type="radio" name="q4" value="B" class="text-indigo-600 h-4 w-4"> <span>B. $MA = MB$</span>
+                            </label>
+                            <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                <input type="radio" name="q4" value="C" class="text-indigo-600 h-4 w-4"> <span>C. $M$ nằm giữa $A$ và $B$</span>
+                            </label>
+                            <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                <input type="radio" name="q4" value="D" class="text-indigo-600 h-4 w-4"> <span>D. $AB = 2AM$</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Câu 5 -->
+                    <div class="bg-white p-5 rounded-2xl shadow-sm space-y-3">
+                        <p class="text-sm font-bold text-slate-900"><span class="text-indigo-600">Câu 5:</span> Số lượng viên gạch cần dùng để lát một hành lang dài 12m bằng gạch vuông cạnh 40cm là:</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs font-semibold text-slate-700">
+                            <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                <input type="radio" name="q5" value="A" required class="text-indigo-600 h-4 w-4"> <span>A. 30 viên</span>
+                            </label>
+                            <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                <input type="radio" name="q5" value="B" class="text-indigo-600 h-4 w-4"> <span>B. 300 viên</span>
+                            </label>
+                            <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 hover:bg-indigo-50/30 cursor-pointer transition-all">
+                                <input type="radio" name="q5" value="C" class="text-indigo-600 h-4 w-4"> <span>C. 48 viên</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pt-2 flex flex-col sm:flex-row items-center justify-between gap-4">
+                    <button type="submit" id="submitBtn" class="w-full sm:w-auto bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-sm px-8 py-3.5 rounded-xl shadow-lg transition-all flex items-center justify-center space-x-2 cursor-pointer">
+                        <i class="fa-solid fa-cloud-arrow-up"></i> <span>Nộp Bài Chấm Điểm</span>
+                    </button>
+                    <div id="statusReport" class="text-xs font-bold text-slate-400"></div>
+                </div>
+            </form>
+        </div>
+    </section>
+</main>
+
+<!-- Footer bản quyền -->
+<footer class="bg-slate-900 text-slate-400 py-8 text-center text-xs font-medium px-4 mt-auto">
+    <p class="font-bold text-slate-300">@ Bản quyền thuộc ThS. Đinh Quốc Tuấn - Mục đích phi lợi nhuận - Vì giáo dục.</p>
+    <p class="text-slate-500 mt-2">Hệ thống bài giảng trực tuyến tương tác tích hợp đồng bộ dữ liệu điểm số học sinh.</p>
+</footer>
+
+<!-- NÚT IN TÀI LIỆU CỐ ĐỊNH -->
+<button id="btn-print-doc" onclick="safePrint()" class="fixed bottom-5 right-5 bg-gray-900 text-white px-4 py-2 rounded-lg shadow-lg hover:bg-gray-700 print:hidden z-50 cursor-pointer">
+    <i class="fas fa-print mr-2"></i> In Tài Liệu
+</button>
+
+<script>
+    function safePrint() {
+        const printBtn = document.getElementById('btn-print-doc');
+        printBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Đang chuẩn bị...';
+        
+        if (window.MathJax && window.MathJax.typesetPromise) {
+            MathJax.typesetPromise().then(() => {
+                printBtn.innerHTML = '<i class="fas fa-print mr-2"></i> In Tài Liệu';
+                window.print();
+            });
+        } else {
+            setTimeout(() => {
+                printBtn.innerHTML = '<i class="fas fa-print mr-2"></i> In Tài Liệu';
+                window.print();
+            }, 500); 
+        }
+    }
+</script>
+
+<!-- HỆ THỐNG ĐIỀU KHIỂN ĐỒ HỌA JSXGRAPH & FORM QUIZ APPS SCRIPT -->
+<script>
+    const timeInit = new Date();
+
+    document.addEventListener("DOMContentLoaded", function() {
+        
+        // --- MÔ HÌNH 1: HÌNH VUÔNG (BOX 1) ---
+        const b1 = JXG.JSXGraph.initBoard('box1', {
+            boundingbox: [-2, 3, 3, -2], axis: false, showNavigation: false, showCopyright: false
+        });
+        let pA = b1.create('point', [0, 0], {name: 'A', visible: false});
+        let pB = b1.create('point', [2, 0], {name: 'B', visible: false});
+        let pC = b1.create('point', [2, 2], {name: 'C', visible: false});
+        let pD = b1.create('point', [0, 2], {name: 'D', visible: false});
+        b1.create('polygon', [pA, pB, pC, pD], {fillColor: '#e0e7ff', fillOpacity: 0.5, strokeColor: '#4f46e5', strokeWidth: 2});
+        b1.create('segment', [pA, pC], {strokeColor: '#dc2626', strokeWidth: 1.5, dash: 2});
+        b1.create('segment', [pB, pD], {strokeColor: '#dc2626', strokeWidth: 1.5, dash: 2});
+
+        // --- MÔ HÌNH 2: HÌNH THOI (BOX 2) ---
+        const b2 = JXG.JSXGraph.initBoard('box2', {
+            boundingbox: [-3, 3, 3, -3], axis: false, showNavigation: false, showCopyright: false
+        });
+        let tA = b2.create('point', [0, 1.8], {visible: false});
+        let tB = b2.create('point', [2, 0], {visible: false});
+        let tC = b2.create('point', [0, -1.8], {visible: false});
+        let tD = b2.create('point', [-2, 0], {visible: false});
+        b2.create('polygon', [tA, tB, tC, tD], {fillColor: '#fef3c7', fillOpacity: 0.5, strokeColor: '#d97706', strokeWidth: 2});
+        b2.create('segment', [tA, tC], {strokeColor: '#dc2626', strokeWidth: 1.5, dash: 2});
+        b2.create('segment', [tB, tD], {strokeColor: '#dc2626', strokeWidth: 1.5, dash: 2});
+
+        // --- MÔ HÌNH 3: ĐƯỜNG TRÒN (BOX 3) ---
+        const b3 = JXG.JSXGraph.initBoard('box3', {
+            boundingbox: [-3, 3, 3, -3], axis: false, showNavigation: false, showCopyright: false
+        });
+        let center = b3.create('point', [0, 0], {name: 'O', color: '#0f172a', size: 3});
+        b3.create('circle', [center, 2], {strokeColor: '#059669', strokeWidth: 2, fillColor: '#d1fae5', fillOpacity: 0.3});
+        b3.create('line', [[-2, -2], [2, 2]], {strokeColor: '#dc2626', strokeWidth: 1.5, dash: 2});
+        b3.create('line', [[-2, 2], [2, -2]], {strokeColor: '#dc2626', strokeWidth: 1.5, dash: 2});
+    });
+
+    // --- XỬ LÝ NỘP BÀI TRẮC NGHIỆM VÀ ĐẨY DỮ LIỆU APPS SCRIPT ---
+    document.getElementById('quizForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const submitBtn = document.getElementById('submitBtn');
+        const statusReport = document.getElementById('statusReport');
+        
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i> Hệ thống đang nộp bài...';
+        statusReport.innerHTML = "Đang kết nối cơ sở dữ liệu bảng tính...";
+
+        const correctKey = { q1: "A", q2: "A", q3: "A", q4: "A", q5: "A" };
+        const studentName = document.getElementById('studentName').value.trim();
+        const lessonId = document.getElementById('examId').value.trim();
+        
+        let correctCounter = 0;
+        let totalQuizCount = Object.keys(correctKey).length;
+        let missedReportArray = [];
+
+        for (let questionCode in correctKey) {
+            const selectedRadio = document.querySelector(`input[name="${questionCode}"]:checked`);
+            if (selectedRadio && selectedRadio.value === correctKey[questionCode]) {
+                correctCounter++;
+            } else {
+                let chosenChar = selectedRadio ? selectedRadio.value : "Bỏ trống";
+                missedReportArray.push(`${questionCode.toUpperCase()}(Chọn: ${chosenChar}|Đúng: ${correctKey[questionCode]})`);
+            }
+        }
+
+        const finalScore = ((correctCounter / totalQuizCount) * 10).toFixed(2);
+        const timeComplete = new Date();
+        const elapsedDurationSeconds = Math.floor((timeComplete - timeInit) / 1000);
+        const thoiGian = `${Math.floor(elapsedDurationSeconds / 60)} phút ${elapsedDurationSeconds % 60} giây`;
+        const cauSai = missedReportArray.length > 0 ? missedReportArray.join(", ") : "Không có (Đạt 10/10)";
+
+        const transmissionPayload = {
+            hoTen: studentName,
+            maDe: lessonId,
+            diem: parseFloat(finalScore),
+            thoiGian: thoiGian,
+            cauSai: cauSai
+        };
+
+        const webAppsScriptEndpoint = "[https://script.google.com/macros/s/AKfycbzY7b7h4OwvhXuK5Vs6hl-aD88BPnAiAKbU5lfJobby0D4nzbIJVKT4n0AKCpAGoK0nZA/exec](https://script.google.com/macros/s/AKfycbzY7b7h4OwvhXuK5Vs6hl-aD88BPnAiAKbU5lfJobby0D4nzbIJVKT4n0AKCpAGoK0nZA/exec)";
+
+        fetch(webAppsScriptEndpoint, {
+            method: "POST",
+            mode: "no-cors",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(transmissionPayload)
+        })
+        .then(() => {
+            statusReport.className = "text-xs font-bold text-emerald-500 bg-emerald-50 px-3 py-2 rounded-xl border border-emerald-200 inline-block";
+            statusReport.innerHTML = `<i class="fa-solid fa-circle-check"></i> Đã đồng bộ kết quả thành công: ${finalScore}/10.`;
+            alert(`Hệ thống ghi nhận bài nộp thành công!\nChào em ${studentName}, điểm số đạt được là: ${finalScore} / 10.`);
+            submitBtn.innerHTML = '<i class="fa-solid fa-lock"></i> Đã lưu kết quả thi';
+        })
+        .catch(error => {
+            console.error("Lỗi truyền tin:", error);
+            statusReport.className = "text-xs font-bold text-rose-500 bg-rose-50 px-3 py-2 rounded-xl border border-rose-200 inline-block";
+            statusReport.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> Lỗi kết nối mạng, vui lòng bấm nộp lại!';
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Thử nộp lại bài';
+        });
+    });
+</script>
