@@ -3,23 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chuyên Đề Toán 10 - Buổi 11: Phương Trình Quy Về Phương Trình Bậc Hai</title>
+    <title>Toán 10 - Buổi 11: Giá trị lượng giác của một góc từ 0° đến 180°</title>
 
-    <!-- Tailwind CSS CDN -->
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+
     <!-- JSXGraph CSS & JS -->
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraph.css" />
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraphcore.js"></script>
 
-    <!-- MathJax Configuration & Library -->
+    <!-- MathJax for rendering LaTeX -->
     <script>
         window.MathJax = {
             tex: {
-                inlineMath: [['$', '$'], ['\\(', '\\)']],
-                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+                inlineMath: [['\\(', '\\)'], ['$', '$']],
+                displayMath: [['\\[', '\\]'], ['$$', '$$']]
             },
             svg: { fontCache: 'global' }
         };
@@ -27,1161 +28,978 @@
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
     <style>
-        .jxgbox { border-radius: 0.75rem; border: 2px solid #cbd5e1; background-color: #ffffff; }
-        @media print {
-            .print\:hidden { display: none !important; }
-            body { background: white !important; color: black !important; }
-            .no-print { display: none !important; }
-            .page-break { page-break-before: always; }
+        /* CSS tuỳ chỉnh cho JSXGraph và trang in */
+        .jxgbox {
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            background-color: #ffffff;
         }
-        details summary::-webkit-details-marker { display: none; }
+        @media print {
+            .no-print { display: none !important; }
+            details { open: true !important; }
+            details summary { display: none !important; }
+            .page-break { page-break-before: always; }
+            body { background-color: #ffffff !important; color: #000000 !important; }
+            .shadow-lg, .shadow-md, .shadow-sm { box-shadow: none !important; }
+        }
+        summary::-webkit-details-marker { display: none; }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-900 font-sans leading-relaxed min-h-screen flex flex-col justify-between">
+<body class="bg-slate-100 text-slate-900 font-sans leading-relaxed min-h-screen pb-20">
 
-    <!-- HEADER / TIÊU ĐỀ HỌC THUẬT -->
-    <header class="bg-white border-b-4 border-indigo-600 shadow-sm py-6 px-4 md:px-8">
-        <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
-            <div class="flex items-center space-x-4">
-                <div class="p-3 bg-indigo-600 text-white rounded-xl shadow-md">
-                    <i class="fas fa-calculator text-3xl"></i>
-                </div>
-                <div>
-                    <span class="inline-block bg-indigo-100 text-indigo-800 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-1">
-                        <i class="fas fa-graduation-cap mr-1"></i> Toán Học Lớp 10 - Chương Trình Mới
-                    </span>
-                    <h1 class="text-2xl md:text-3xl font-extrabold text-slate-900 uppercase tracking-tight">
-                        BUỔI 11: PHƯƠNG TRÌNH CHỨA ẨN DƯỚI DẤU CĂN
-                    </h1>
-                    <p class="text-xs md:text-sm text-slate-600 font-medium mt-0.5">
-                        Phương trình quy về phương trình bậc hai & Mô hình hóa toán học thực tiễn
-                    </p>
-                </div>
+    <!-- HEADER / LOGO BAR -->
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-40 shadow-sm print:static print:border-none">
+        <div class="max-w-6xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-4">
+            <div class="flex items-center space-x-3">
+                <img src="https://firebasestorage.googleapis.com/v0/b/link-anh-web.firebasestorage.app/o/ttbdvh.jpg?alt=media&token=f270aa9b-a2bc-48e8-8910-80742b542615" alt="Logo TTBDVH" class="h-12 w-auto object-contain rounded">
+                <img src="https://firebasestorage.googleapis.com/v0/b/link-anh-web.firebasestorage.app/o/Logo-chinh-hcmus.png?alt=media&token=9cf3a1de-75f1-493b-8711-fd22c7b98738" alt="Logo HCMUS" class="h-12 w-auto object-contain">
             </div>
-            <div class="border-l-4 border-indigo-600 pl-4 py-1 text-right text-xs text-slate-600">
-                <p class="font-bold text-slate-900 text-sm">Chuyên Đề 11</p>
-                <p class="italic">ThS. Đinh Quốc Tuấn</p>
+            <div class="text-right">
+                <span class="inline-block bg-indigo-100 text-indigo-800 text-xs font-semibold px-2.5 py-0.5 rounded-full mb-1">
+                    <i class="fas fa-graduation-cap mr-1"></i> Chuyên đề Toán 10
+                </span>
+                <p class="text-xs text-slate-500 font-medium">Chương trình Luyện thi & Nâng cao Học thuật</p>
             </div>
         </div>
     </header>
 
-    <!-- NỘI DUNG CHÍNH -->
-    <main class="max-w-6xl mx-auto px-4 md:px-6 py-8 flex-grow w-full space-y-10">
-
-        <!-- THẺ MÀU PHÂN CẤP NĂNG LỰC -->
-        <div class="grid md:grid-cols-3 gap-4">
-            <div class="bg-emerald-50 border-l-4 border-emerald-500 p-4 rounded-r-xl shadow-sm">
-                <div class="flex items-center space-x-3">
-                    <div class="p-2.5 bg-emerald-500 text-white rounded-lg"><i class="fas fa-seedling text-xl"></i></div>
-                    <div>
-                        <h4 class="font-bold text-emerald-900 text-sm">Cấp Độ 1: Cơ Bản</h4>
-                        <p class="text-xs text-emerald-700">10 bài tập biến đổi chuẩn mực $\sqrt{f(x)}=\sqrt{g(x)}$ & $\sqrt{f(x)}=g(x)$</p>
-                    </div>
-                </div>
+    <!-- BANNER TIÊU ĐỀ MAIN -->
+    <main class="max-w-6xl mx-auto px-4 py-6">
+        <div class="bg-gradient-to-r from-blue-700 via-indigo-700 to-purple-800 text-white p-6 sm:p-8 rounded-2xl shadow-lg mb-8">
+            <div class="flex items-center space-x-2 text-blue-200 text-sm font-medium mb-2">
+                <span><i class="fas fa-book-open"></i> Buổi 11</span>
+                <span>•</span>
+                <span>Hình học & Lượng giác 10</span>
             </div>
-            <div class="bg-blue-50 border-l-4 border-blue-500 p-4 rounded-r-xl shadow-sm">
-                <div class="flex items-center space-x-3">
-                    <div class="p-2.5 bg-blue-500 text-white rounded-lg"><i class="fas fa-layer-group text-xl"></i></div>
-                    <div>
-                        <h4 class="font-bold text-blue-900 text-sm">Cấp Độ 2: Nâng Cao</h4>
-                        <p class="text-xs text-blue-700">10 bài tập đặt ẩn phụ, hệ phương trình & biện luận tham số $m$</p>
-                    </div>
-                </div>
-            </div>
-            <div class="bg-purple-50 border-l-4 border-purple-500 p-4 rounded-r-xl shadow-sm">
-                <div class="flex items-center space-x-3">
-                    <div class="p-2.5 bg-purple-500 text-white rounded-lg"><i class="fas fa-compass text-xl"></i></div>
-                    <div>
-                        <h4 class="font-bold text-purple-900 text-sm">Cấp Độ 3: Vận Dụng Thực Tiễn</h4>
-                        <p class="text-xs text-purple-700">10 bài tập mô hình hóa bài toán giao thông, định vị, cứu hộ</p>
-                    </div>
-                </div>
+            <h1 class="text-2xl sm:text-4xl font-extrabold tracking-tight mb-3">
+                GIÁ TRỊ LƯỢNG GIÁC CỦA MỘT GÓC TỪ \(0^\circ\) ĐẾN \(180^\circ\)
+            </h1>
+            <p class="text-blue-100 text-sm sm:text-base leading-relaxed max-w-4xl">
+                Chào các em! Tiếp nối chương trình toán học lớp 10, trong Buổi học thứ 11 này, chúng ta sẽ cùng nhau luyện tập chuyên đề cực kì quan trọng: <strong>Giá trị lượng giác của một góc từ \(0^\circ\) đến \(180^\circ\)</strong>. 
+                Khác với định nghĩa tỉ số lượng giác của góc nhọn ở cấp 2, ở cấp 3 chúng ta định nghĩa giá trị lượng giác dựa trên <em>nửa đường tròn đơn vị</em>. Điều này cho phép chúng ta tính được giá trị lượng giác của các góc tù (\(90^\circ\) đến \(180^\circ\)), mở ra một công cụ cực kì mạnh mẽ cho hình học và vật lí.
+            </p>
+            <div class="mt-4 pt-4 border-t border-blue-500/40 flex flex-wrap items-center justify-between text-xs text-blue-200 gap-2">
+                <div><i class="fas fa-layer-group mr-1"></i> Hệ thống 30 bài tập thực chiến (Cơ bản - Nâng cao - Vận dụng)</div>
+                <div><i class="fas fa-cube mr-1"></i> Tích hợp kịch bản mô phỏng tương tác JSXGraph</div>
             </div>
         </div>
 
-        <!-- PHẦN 1: HỆ THỐNG LÝ THUYẾT CHI TIẾT (3 CẤP ĐỘ) -->
-        <section class="bg-white p-6 rounded-2xl shadow-md border border-slate-200 space-y-8">
-            <div class="flex items-center space-x-3 border-b pb-4 border-slate-200">
-                <span class="bg-indigo-600 text-white p-2.5 rounded-xl"><i class="fas fa-book-open text-xl"></i></span>
+        <!-- PHẦN 1: MỨC ĐỘ CƠ BẢN -->
+        <section class="mb-12">
+            <div class="flex items-center space-x-3 mb-6 border-b-2 border-emerald-500 pb-2">
+                <span class="bg-emerald-500 text-white p-2 rounded-lg text-lg"><i class="fas fa-seedling"></i></span>
                 <div>
-                    <h2 class="text-xl font-bold text-slate-800">I. HỆ THỐNG LÝ THUYẾT CHUYÊN ĐỀ (3 CẤP ĐỘ)</h2>
-                    <p class="text-xs text-slate-500">Nắm vững các phương pháp biến đổi tương đương và thử lại nghiệm ngoại lai</p>
+                    <h2 class="text-xl sm:text-2xl font-bold text-slate-800">PHẦN 1: MỨC ĐỘ CƠ BẢN (BÀI 1 ĐẾN BÀI 10)</h2>
+                    <p class="text-xs sm:text-sm text-slate-500">Mục tiêu: Nắm vững định nghĩa tọa độ điểm \(M\) trên nửa đường tròn đơn vị, thuộc bảng giá trị lượng giác các góc đặc biệt và áp dụng trực tiếp công thức góc bù nhau, phụ nhau.</p>
                 </div>
             </div>
 
-            <!-- CẤP ĐỘ 1: CƠ BẢN -->
-            <div class="space-y-4">
-                <h3 class="text-md font-bold text-emerald-800 uppercase tracking-wide border-b pb-1 flex items-center">
-                    <i class="fas fa-check-circle mr-2"></i> Cấp Độ 1: Hai Dạng Phương Trình Căn Thức Cơ Bản
-                </h3>
-                <div class="grid md:grid-cols-2 gap-6 text-sm">
-                    <div class="p-4 bg-emerald-50/50 border border-emerald-200 rounded-xl space-y-2">
-                        <h4 class="font-bold text-emerald-900 border-b border-emerald-200 pb-1">Dạng 1: $\sqrt{f(x)} = \sqrt{g(x)}$</h4>
-                        <p><strong>Cơ sở lý thuyết:</strong> Bình phương hai vế khi cả hai vế cùng không âm.</p>
-                        <div class="bg-white p-2.5 rounded-lg border border-emerald-200 text-center font-mono">
-                            $$\sqrt{f(x)} = \sqrt{g(x)} \iff \begin{cases} f(x) \ge 0 \text{ (hoặc } g(x) \ge 0) \\ f(x) = g(x) \end{cases}$$
+            <div class="space-y-6">
+                <!-- BÀI 1 -->
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="bg-emerald-100 text-emerald-800 text-xs font-bold px-3 py-1 rounded-full"><i class="fas fa-pen-nib mr-1"></i> Bài 1</span>
+                        <span class="text-xs text-slate-400">Định nghĩa VTLG</span>
+                    </div>
+                    <p class="font-medium text-slate-800 mb-3">
+                        Cho góc \(\alpha\) (\(0^\circ \le \alpha \le 180^\circ\)). Trên nửa đường tròn đơn vị, gọi \(M(x_0; y_0)\) là điểm biểu diễn cho góc \(\alpha\). Hãy phát biểu định nghĩa các giá trị lượng giác \(\sin \alpha, \cos \alpha, \tan \alpha, \cot \alpha\) theo tọa độ của điểm \(M\).
+                    </p>
+
+                    <!-- JSXGRAPH MÔ PHỎNG BÀI 1 -->
+                    <div class="my-4 p-4 bg-slate-50 rounded-xl border border-slate-200">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-xs font-bold text-indigo-700 uppercase"><i class="fas fa-laptop-code mr-1"></i> Mô hình tương tác JSXGraph - Nửa đường tròn đơn vị</span>
+                            <span class="text-xs text-slate-500">Kéo điểm M để quan sát tọa độ</span>
                         </div>
-                        <p class="text-xs text-slate-600"><em>Lưu ý:</em> Trong thực hành, ta có thể bình phương $f(x)=g(x)$ tìm nghiệm rồi thế lại vào căn để kiểm tra.</p>
+                        <div id="jsxbox1" class="jxgbox w-full h-[320px] mx-auto"></div>
                     </div>
 
-                    <div class="p-4 bg-blue-50/50 border border-blue-200 rounded-xl space-y-2">
-                        <h4 class="font-bold text-blue-900 border-b border-blue-200 pb-1">Dạng 2: $\sqrt{f(x)} = g(x)$</h4>
-                        <p><strong>Cơ sở lý thuyết:</strong> Vế trái $\ge 0$ nên bắt buộc vế phải $g(x) \ge 0$.</p>
-                        <div class="bg-white p-2.5 rounded-lg border border-blue-200 text-center font-mono">
-                            $$\sqrt{f(x)} = g(x) \iff \begin{cases} g(x) \ge 0 \\ f(x) = [g(x)]^2 \end{cases}$$
-                        </div>
-                        <p class="text-xs text-slate-600"><em>Lưu ý:</em> Điều kiện $g(x) \ge 0$ đảm bảo loại bỏ hoàn toàn các nghiệm ngoại lai.</p>
-                    </div>
-                </div>
-
-                <!-- Ví dụ minh họa Cấp độ 1 -->
-                <div class="p-4 border border-slate-200 rounded-xl bg-slate-50">
-                    <div class="flex items-center justify-between">
-                        <span class="font-bold text-indigo-700 text-sm"><i class="fas fa-lightbulb text-amber-500 mr-2"></i>Ví Dụ Minh Họa Cấp Độ 1:</span>
-                        <span class="text-xs bg-emerald-100 text-emerald-800 font-semibold px-2 py-0.5 rounded">Cơ Bản</span>
-                    </div>
-                    <p class="text-sm font-medium mt-2">Giải phương trình: $\sqrt{3x^2 - 9x - 5} = 5 - 2x$.</p>
                     <details class="group mt-3">
-                        <summary class="cursor-pointer text-xs font-bold text-indigo-600 hover:text-indigo-800 flex items-center">
-                            <i class="fas fa-chevron-right group-open:rotate-90 transition-transform mr-1.5"></i>Xem hướng dẫn giải
+                        <summary class="cursor-pointer inline-flex items-center text-xs font-semibold text-emerald-700 bg-emerald-50 hover:bg-emerald-100 px-3 py-1.5 rounded-lg transition select-none">
+                            <i class="fas fa-lightbulb text-amber-500 mr-2 group-open:rotate-180 transition-transform"></i>
+                            <span>Gợi ý lời giải</span>
                         </summary>
-                        <div class="mt-2 text-xs text-slate-700 bg-white p-3 rounded-lg border border-slate-200 space-y-1">
-                            <p><strong>Biến đổi tương đương:</strong></p>
-                            $$\sqrt{3x^2 - 9x - 5} = 5 - 2x \iff \begin{cases} 5 - 2x \ge 0 \\ 3x^2 - 9x - 5 = (5 - 2x)^2 \end{cases}$$
-                            $$\iff \begin{cases} x \le \frac{5}{2} \\ 3x^2 - 9x - 5 = 25 - 20x + 4x^2 \end{cases} \iff \begin{cases} x \le 2.5 \\ x^2 - 11x + 30 = 0 \end{cases}$$
-                            <p>Giải $x^2 - 11x + 30 = 0$ ta được $x = 5$ hoặc $x = 6$. So với điều kiện $x \le 2.5$, cả hai nghiệm đều bị loại.</p>
-                            <p><strong>Kết luận:</strong> Phương trình vô nghiệm $S = \varnothing$.</p>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-lg border border-slate-200 text-sm space-y-1 text-slate-700">
+                            <p>• \(\sin \alpha = y_0\)</p>
+                            <p>• \(\cos \alpha = x_0\)</p>
+                            <p>• \(\tan \alpha = \frac{y_0}{x_0}\) (với \(x_0 \neq 0\), tức \(\alpha \neq 90^\circ\))</p>
+                            <p>• \(\cot \alpha = \frac{x_0}{y_0}\) (với \(y_0 \neq 0\), tức \(\alpha \neq 0^\circ\) và \(\alpha \neq 180^\circ\))</p>
                         </div>
                     </details>
                 </div>
-            </div>
 
-            <!-- CẤP ĐỘ 2: NÂNG CAO -->
-            <div class="space-y-4">
-                <h3 class="text-md font-bold text-blue-800 uppercase tracking-wide border-b pb-1 flex items-center">
-                    <i class="fas fa-layer-group mr-2"></i> Cấp Độ 2: Phương Pháp Đặt Ẩn Phụ & Tham Số $m$
-                </h3>
-                <div class="p-4 bg-slate-50 border border-slate-200 rounded-xl space-y-2 text-sm">
-                    <p><strong>1. Kỹ thuật đặt ẩn phụ dạng $a \cdot x^2 + bx + c + k\sqrt{a \cdot x^2 + bx + d} = 0$:</strong></p>
-                    <p class="pl-4">Đặt $t = \sqrt{a \cdot x^2 + bx + d} \ (t \ge 0) \implies t^2 = a \cdot x^2 + bx + d \implies a \cdot x^2 + bx = t^2 - d$. Đưa phương trình về bậc hai theo $t$.</p>
-                    <p><strong>2. Biện luận nghiệm theo tham số $m$ bằng phương pháp đồ thị:</strong></p>
-                    <p class="pl-4">Đưa phương trình về dạng $f(x) = h(m)$ hoặc $g(x) = \sqrt{m}$. Số nghiệm phương trình là số giao điểm của đồ thị đường cong $y = f(x)$ và đường thẳng nằm ngang $y = h(m)$.</p>
-                </div>
-
-                <!-- Ví dụ minh họa Cấp độ 2 -->
-                <div class="p-4 border border-slate-200 rounded-xl bg-slate-50">
-                    <div class="flex items-center justify-between">
-                        <span class="font-bold text-indigo-700 text-sm"><i class="fas fa-lightbulb text-amber-500 mr-2"></i>Ví Dụ Minh Họa Cấp Độ 2:</span>
-                        <span class="text-xs bg-blue-100 text-blue-800 font-semibold px-2 py-0.5 rounded">Nâng Cao</span>
+                <!-- BÀI 2 -->
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="bg-emerald-100 text-emerald-800 text-xs font-bold px-3 py-1 rounded-full"><i class="fas fa-pen-nib mr-1"></i> Bài 2</span>
+                        <span class="text-xs text-slate-400">Góc bù nhau</span>
                     </div>
-                    <p class="text-sm font-medium mt-2">Giải phương trình: $x^2 - 5x + 7 - 2\sqrt{x^2 - 5x + 10} = 0$.</p>
-                    <details class="group mt-3">
-                        <summary class="cursor-pointer text-xs font-bold text-indigo-600 hover:text-indigo-800 flex items-center">
-                            <i class="fas fa-chevron-right group-open:rotate-90 transition-transform mr-1.5"></i>Xem hướng dẫn giải
-                        </summary>
-                        <div class="mt-2 text-xs text-slate-700 bg-white p-3 rounded-lg border border-slate-200 space-y-1">
-                            <p>Đặt $t = \sqrt{x^2 - 5x + 10} \ (t \ge 0) \implies t^2 = x^2 - 5x + 10 \implies x^2 - 5x = t^2 - 10$.</p>
-                            <p>Thay vào phương trình ta có: $(t^2 - 10) + 7 - 2t = 0 \iff t^2 - 2t - 3 = 0$.</p>
-                            <p>Giải ra $t = -1$ (loại) hoặc $t = 3$ (thỏa mãn $t \ge 0$).</p>
-                            <p>Với $t = 3 \implies \sqrt{x^2 - 5x + 10} = 3 \iff x^2 - 5x + 10 = 9 \iff x^2 - 5x + 1 = 0 \iff x = \frac{5 \pm \sqrt{21}}{2}$.</p>
-                        </div>
-                    </details>
-                </div>
-            </div>
-
-            <!-- CẤP ĐỘ 3: VẬN DỤNG THỰC TIỄN -->
-            <div class="space-y-4">
-                <h3 class="text-md font-bold text-purple-800 uppercase tracking-wide border-b pb-1 flex items-center">
-                    <i class="fas fa-compass mr-2"></i> Cấp Độ 3: Quy Trình Mô Hình Hóa Toán Học Bài Toán Thực Tế
-                </h3>
-                <div class="p-4 bg-purple-50/50 border border-purple-200 rounded-xl space-y-2 text-sm">
-                    <ol class="list-decimal pl-5 space-y-1">
-                        <li><strong>Bước 1 (Chọn ẩn):</strong> Chọn đại lượng chưa biết làm ẩn $x$ (ví dụ: khoảng cách $x$ km, thời gian $t$ giờ), đặt điều kiện xác định cho $x$.</li>
-                        <li><strong>Bước 2 (Lập phương trình):</strong> Áp dụng định lí Pytago ($d = \sqrt{\Delta x^2 + \Delta y^2}$), công thức chuyển động ($s = v \cdot t$), hoặc chi phí để lập phương trình chứa căn.</li>
-                        <li><strong>Bước 3 (Giải & Đối chiếu):</strong> Giải phương trình đại số, kiểm tra nghiệm $x$ với điều kiện thực tế của bài toán.</li>
-                    </ol>
-                </div>
-
-                <!-- Ví dụ minh họa Cấp độ 3 -->
-                <div class="p-4 border border-slate-200 rounded-xl bg-slate-50">
-                    <div class="flex items-center justify-between">
-                        <span class="font-bold text-indigo-700 text-sm"><i class="fas fa-lightbulb text-amber-500 mr-2"></i>Ví Dụ Minh Họa Cấp Độ 3:</span>
-                        <span class="text-xs bg-purple-100 text-purple-800 font-semibold px-2 py-0.5 rounded">Thực Tiễn</span>
-                    </div>
-                    <p class="text-sm font-medium mt-2">
-                        Một trạm quan sát $A$ ở bờ biển thẳng. Tàu cứu hộ ở vị trí $C$ cách bờ $6\text{km}$ (chân đường vuông góc trên bờ là $H$). Khoảng cách $AH = 8\text{km}$. Ca nô đi dọc bờ từ $A$ đến $M$ ($HM = x$) rồi rẽ thẳng ra $C$. Tìm $x$ để quãng đường $AM$ bằng $MC$.
+                    <p class="font-medium text-slate-800 mb-3">
+                        Không dùng máy tính cầm tay, hãy tính giá trị lượng giác của góc \(120^\circ\) bằng cách sử dụng mối liên hệ với góc bù nhau.
                     </p>
                     <details class="group mt-3">
-                        <summary class="cursor-pointer text-xs font-bold text-indigo-600 hover:text-indigo-800 flex items-center">
-                            <i class="fas fa-chevron-right group-open:rotate-90 transition-transform mr-1.5"></i>Xem hướng dẫn giải
+                        <summary class="cursor-pointer inline-flex items-center text-xs font-semibold text-emerald-700 bg-emerald-50 hover:bg-emerald-100 px-3 py-1.5 rounded-lg transition select-none">
+                            <i class="fas fa-lightbulb text-amber-500 mr-2 group-open:rotate-180 transition-transform"></i>
+                            <span>Gợi ý lời giải</span>
                         </summary>
-                        <div class="mt-2 text-xs text-slate-700 bg-white p-3 rounded-lg border border-slate-200 space-y-1">
-                            <p>Khoảng cách $AM = AH - HM = 8 - x$ với $0 \le x \le 8$.</p>
-                            <p>Xét tam giác vuông $MHC$ tại $H$: $MC = \sqrt{HM^2 + HC^2} = \sqrt{x^2 + 6^2} = \sqrt{x^2 + 36}$.</p>
-                            <p>Theo đề bài $AM = MC \iff 8 - x = \sqrt{x^2 + 36}$.</p>
-                            <p>Bình phương hai vế với điều kiện $8 - x \ge 0 \iff x \le 8$:</p>
-                            $$(8 - x)^2 = x^2 + 36 \iff 64 - 16x + x^2 = x^2 + 36 \iff 16x = 28 \iff x = \frac{7}{4} = 1.75\text{ (km)}.$$
-                            <p><strong>Thỏa mãn.</strong> Vậy điểm $M$ cách $H$ một khoảng $1.75\text{km}$.</p>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-lg border border-slate-200 text-sm space-y-1 text-slate-700">
+                            <p>Ta có góc \(120^\circ\) và góc \(60^\circ\) là hai góc bù nhau (\(120^\circ = 180^\circ - 60^\circ\)):</p>
+                            <p>• \(\sin 120^\circ = \sin 60^\circ = \frac{\sqrt{3}}{2}\)</p>
+                            <p>• \(\cos 120^\circ = -\cos 60^\circ = -\frac{1}{2}\)</p>
+                            <p>• \(\tan 120^\circ = -\tan 60^\circ = -\sqrt{3}\)</p>
+                            <p>• \(\cot 120^\circ = -\cot 60^\circ = -\frac{\sqrt{3}}{3}\)</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- BÀI 3 -->
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="bg-emerald-100 text-emerald-800 text-xs font-bold px-3 py-1 rounded-full"><i class="fas fa-pen-nib mr-1"></i> Bài 3</span>
+                        <span class="text-xs text-slate-400">Góc 135°</span>
+                    </div>
+                    <p class="font-medium text-slate-800 mb-3">
+                        Xác định tọa độ của điểm \(M\) trên nửa đường tròn đơn vị tương ứng với góc \(\alpha = 135^\circ\). Từ đó tính \(\sin 135^\circ\) và \(\cos 135^\circ\).
+                    </p>
+
+                    <!-- JSXGRAPH BÀI 3 -->
+                    <div class="my-4 p-4 bg-slate-50 rounded-xl border border-slate-200">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-xs font-bold text-indigo-700 uppercase"><i class="fas fa-laptop-code mr-1"></i> Mô hình minh họa góc 135° và Tam giác OMH</span>
+                        </div>
+                        <div id="jsxbox3" class="jxgbox w-full h-[300px] mx-auto"></div>
+                    </div>
+
+                    <details class="group mt-3">
+                        <summary class="cursor-pointer inline-flex items-center text-xs font-semibold text-emerald-700 bg-emerald-50 hover:bg-emerald-100 px-3 py-1.5 rounded-lg transition select-none">
+                            <i class="fas fa-lightbulb text-amber-500 mr-2 group-open:rotate-180 transition-transform"></i>
+                            <span>Gợi ý lời giải</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-lg border border-slate-200 text-sm space-y-1 text-slate-700">
+                            <p>Góc \(135^\circ\) bù với góc \(45^\circ\). Điểm \(M\) biểu diễn góc \(135^\circ\) nằm ở chính giữa góc phần tư thứ II nên có hoành độ âm và tung độ dương: \(M\left(-\frac{\sqrt{2}}{2}; \frac{\sqrt{2}}{2}\right)\).</p>
+                            <p>Do đó: \(\sin 135^\circ = \frac{\sqrt{2}}{2}\) và \(\cos 135^\circ = -\frac{\sqrt{2}}{2}\).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- BÀI 4 -->
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="bg-emerald-100 text-emerald-800 text-xs font-bold px-3 py-1 rounded-full"><i class="fas fa-pen-nib mr-1"></i> Bài 4</span>
+                        <span class="text-xs text-slate-400">Tính giá trị biểu thức</span>
+                    </div>
+                    <p class="font-medium text-slate-800 mb-3">
+                        Tính giá trị của biểu thức sau: \[A = \sin 150^\circ + \cos 120^\circ - \tan 135^\circ\]
+                    </p>
+                    <details class="group mt-3">
+                        <summary class="cursor-pointer inline-flex items-center text-xs font-semibold text-emerald-700 bg-emerald-50 hover:bg-emerald-100 px-3 py-1.5 rounded-lg transition select-none">
+                            <i class="fas fa-lightbulb text-amber-500 mr-2 group-open:rotate-180 transition-transform"></i>
+                            <span>Gợi ý lời giải</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-lg border border-slate-200 text-sm space-y-1 text-slate-700">
+                            <p>• \(\sin 150^\circ = \sin 30^\circ = \frac{1}{2}\)</p>
+                            <p>• \(\cos 120^\circ = -\cos 60^\circ = -\frac{1}{2}\)</p>
+                            <p>• \(\tan 135^\circ = -\tan 45^\circ = -1\)</p>
+                            <p>Thế vào biểu thức: \(A = \frac{1}{2} + \left(-\frac{1}{2}\right) - (-1) = 1\).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- BÀI 5 -->
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="bg-emerald-100 text-emerald-800 text-xs font-bold px-3 py-1 rounded-full"><i class="fas fa-pen-nib mr-1"></i> Bài 5</span>
+                        <span class="text-xs text-slate-400">Chứng minh công thức bù</span>
+                    </div>
+                    <p class="font-medium text-slate-800 mb-3">
+                        Cho góc nhọn \(\alpha\). Chứng minh các hệ thức lượng giác của hai góc bù nhau bằng cách đối chiếu tọa độ của hai điểm đối xứng qua trục tung \(Oy\).
+                    </p>
+                    <details class="group mt-3">
+                        <summary class="cursor-pointer inline-flex items-center text-xs font-semibold text-emerald-700 bg-emerald-50 hover:bg-emerald-100 px-3 py-1.5 rounded-lg transition select-none">
+                            <i class="fas fa-lightbulb text-amber-500 mr-2 group-open:rotate-180 transition-transform"></i>
+                            <span>Gợi ý lời giải</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-lg border border-slate-200 text-sm space-y-1 text-slate-700">
+                            <p>Gọi \(M(x_M; y_M)\) là điểm biểu diễn góc \(\alpha\). Gọi \(M'(x_{M'}; y_{M'})\) là điểm biểu diễn góc \(180^\circ - \alpha\).</p>
+                            <p>Do tính đối xứng qua trục \(Oy\), ta có \(y_{M'} = y_M\) và \(x_{M'} = -x_M\).</p>
+                            <p>Theo định nghĩa: \(\sin(180^\circ - \alpha) = y_{M'} = y_M = \sin \alpha\) và \(\cos(180^\circ - \alpha) = x_{M'} = -x_M = -\cos \alpha\).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- BÀI 6 -->
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="bg-emerald-100 text-emerald-800 text-xs font-bold px-3 py-1 rounded-full"><i class="fas fa-pen-nib mr-1"></i> Bài 6</span>
+                        <span class="text-xs text-slate-400">Góc phụ nhau</span>
+                    </div>
+                    <p class="font-medium text-slate-800 mb-3">
+                        Rút gọn biểu thức sau dựa vào tính chất góc phụ nhau (\(90^\circ - \alpha\)):
+                        \[B = \sin 50^\circ - \cos 40^\circ + \tan 20^\circ \cdot \tan 70^\circ\]
+                    </p>
+                    <details class="group mt-3">
+                        <summary class="cursor-pointer inline-flex items-center text-xs font-semibold text-emerald-700 bg-emerald-50 hover:bg-emerald-100 px-3 py-1.5 rounded-lg transition select-none">
+                            <i class="fas fa-lightbulb text-amber-500 mr-2 group-open:rotate-180 transition-transform"></i>
+                            <span>Gợi ý lời giải</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-lg border border-slate-200 text-sm space-y-1 text-slate-700">
+                            <p>• Vì \(50^\circ + 40^\circ = 90^\circ \Rightarrow \cos 40^\circ = \sin 50^\circ \Rightarrow \sin 50^\circ - \cos 40^\circ = 0\).</p>
+                            <p>• Vì \(20^\circ + 70^\circ = 90^\circ \Rightarrow \tan 70^\circ = \cot 20^\circ \Rightarrow \tan 20^\circ \cdot \tan 70^\circ = \tan 20^\circ \cdot \cot 20^\circ = 1\).</p>
+                            <p>Vậy \(B = 0 + 1 = 1\).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- BÀI 7 -->
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="bg-emerald-100 text-emerald-800 text-xs font-bold px-3 py-1 rounded-full"><i class="fas fa-pen-nib mr-1"></i> Bài 7</span>
+                        <span class="text-xs text-slate-400">Tính VTLG từ sin</span>
+                    </div>
+                    <p class="font-medium text-slate-800 mb-3">
+                        Cho góc \(\alpha\) thỏa mãn \(90^\circ < \alpha < 180^\circ\) và \(\sin \alpha = \frac{3}{5}\). Tính \(\cos \alpha\) và \(\tan \alpha\).
+                    </p>
+                    <details class="group mt-3">
+                        <summary class="cursor-pointer inline-flex items-center text-xs font-semibold text-emerald-700 bg-emerald-50 hover:bg-emerald-100 px-3 py-1.5 rounded-lg transition select-none">
+                            <i class="fas fa-lightbulb text-amber-500 mr-2 group-open:rotate-180 transition-transform"></i>
+                            <span>Gợi ý lời giải</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-lg border border-slate-200 text-sm space-y-1 text-slate-700">
+                            <p>• \(\cos^2 \alpha = 1 - \sin^2 \alpha = 1 - \frac{9}{25} = \frac{16}{25}\).</p>
+                            <p>• Vì \(\alpha\) là góc tù (\(90^\circ < \alpha < 180^\circ\)) nên \(\cos \alpha < 0 \Rightarrow \cos \alpha = -\frac{4}{5}\).</p>
+                            <p>• Suy ra \(\tan \alpha = \frac{\sin \alpha}{\cos \alpha} = \frac{3/5}{-4/5} = -\frac{3}{4}\).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- BÀI 8 -->
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="bg-emerald-100 text-emerald-800 text-xs font-bold px-3 py-1 rounded-full"><i class="fas fa-pen-nib mr-1"></i> Bài 8</span>
+                        <span class="text-xs text-slate-400">Dấu giá trị lượng giác</span>
+                    </div>
+                    <p class="font-medium text-slate-800 mb-3">
+                        Xác định dấu của các giá trị lượng giác \(\sin \alpha, \cos \alpha, \tan \alpha, \cot \alpha\) khi:<br>
+                        a) \(\alpha\) là góc nhọn (\(0^\circ < \alpha < 90^\circ\)).<br>
+                        b) \(\alpha\) là góc tù (\(90^\circ < \alpha < 180^\circ\)).
+                    </p>
+
+                    <!-- JSXGRAPH BÀI 8 -->
+                    <div class="my-4 p-4 bg-slate-50 rounded-xl border border-slate-200">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-xs font-bold text-indigo-700 uppercase"><i class="fas fa-laptop-code mr-1"></i> Trực quan hóa vùng nhọn (Xanh) & vùng tù (Đỏ)</span>
+                        </div>
+                        <div id="jsxbox8" class="jxgbox w-full h-[300px] mx-auto"></div>
+                    </div>
+
+                    <details class="group mt-3">
+                        <summary class="cursor-pointer inline-flex items-center text-xs font-semibold text-emerald-700 bg-emerald-50 hover:bg-emerald-100 px-3 py-1.5 rounded-lg transition select-none">
+                            <i class="fas fa-lightbulb text-amber-500 mr-2 group-open:rotate-180 transition-transform"></i>
+                            <span>Gợi ý lời giải</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-lg border border-slate-200 text-sm space-y-1 text-slate-700">
+                            <p>a) Khi \(0^\circ < \alpha < 90^\circ\) (Góc phần tư I): \(x_M > 0, y_M > 0\) \(\Rightarrow\) Cả 4 giá trị lượng giác đều dương (+).</p>
+                            <p>b) Khi \(90^\circ < \alpha < 180^\circ\) (Góc phần tư II): \(x_M < 0, y_M > 0\) \(\Rightarrow \sin \alpha > 0\) (+), còn \(\cos \alpha, \tan \alpha, \cot \alpha\) đều âm (-).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- BÀI 9 -->
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="bg-emerald-100 text-emerald-800 text-xs font-bold px-3 py-1 rounded-full"><i class="fas fa-pen-nib mr-1"></i> Bài 9</span>
+                        <span class="text-xs text-slate-400">Tổng bình phương sin</span>
+                    </div>
+                    <p class="font-medium text-slate-800 mb-3">
+                        Tính giá trị của biểu thức: \[C = \sin^2 30^\circ + \sin^2 45^\circ + \sin^2 60^\circ\]
+                    </p>
+                    <details class="group mt-3">
+                        <summary class="cursor-pointer inline-flex items-center text-xs font-semibold text-emerald-700 bg-emerald-50 hover:bg-emerald-100 px-3 py-1.5 rounded-lg transition select-none">
+                            <i class="fas fa-lightbulb text-amber-500 mr-2 group-open:rotate-180 transition-transform"></i>
+                            <span>Gợi ý lời giải</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-lg border border-slate-200 text-sm space-y-1 text-slate-700">
+                            <p>Thế các giá trị đặc biệt vào:</p>
+                            <p>\(C = \left(\frac{1}{2}\right)^2 + \left(\frac{\sqrt{2}}{2}\right)^2 + \left(\frac{\sqrt{3}}{2}\right)^2 = \frac{1}{4} + \frac{2}{4} + \frac{3}{4} = \frac{6}{4} = \frac{3}{2}\).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- BÀI 10 -->
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="bg-emerald-100 text-emerald-800 text-xs font-bold px-3 py-1 rounded-full"><i class="fas fa-pen-nib mr-1"></i> Bài 10</span>
+                        <span class="text-xs text-slate-400">Tìm góc từ hoành độ</span>
+                    </div>
+                    <p class="font-medium text-slate-800 mb-3">
+                        Điểm \(M\) trên nửa đường tròn đơn vị có hoành độ bằng \(-\frac{\sqrt{3}}{2}\). Tìm góc \(\alpha\) tương ứng.
+                    </p>
+                    <details class="group mt-3">
+                        <summary class="cursor-pointer inline-flex items-center text-xs font-semibold text-emerald-700 bg-emerald-50 hover:bg-emerald-100 px-3 py-1.5 rounded-lg transition select-none">
+                            <i class="fas fa-lightbulb text-amber-500 mr-2 group-open:rotate-180 transition-transform"></i>
+                            <span>Gợi ý lời giải</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-lg border border-slate-200 text-sm space-y-1 text-slate-700">
+                            <p>Hoành độ của \(M\) là \(\cos \alpha = -\frac{\sqrt{3}}{2}\). Do \(\cos \alpha < 0\) nên \(\alpha\) là góc tù.</p>
+                            <p>Vì \(\cos 30^\circ = \frac{\sqrt{3}}{2} \Rightarrow \cos(180^\circ - 30^\circ) = -\frac{\sqrt{3}}{2} \Rightarrow \alpha = 150^\circ\).</p>
                         </div>
                     </details>
                 </div>
             </div>
         </section>
 
-        <!-- PHẦN 2: MÔ HÌNH HÌNH HỌC TƯƠNG TÁC JSXGRAPH -->
-        <section class="bg-white p-6 rounded-2xl shadow-md border border-slate-200">
-            <div class="flex items-center space-x-3 mb-6 border-b pb-3 border-slate-200">
-                <span class="bg-indigo-600 text-white p-2.5 rounded-xl"><i class="fas fa-chart-line text-xl"></i></span>
+        <!-- PHẦN 2: MỨC ĐỘ NÂNG CAO -->
+        <section class="mb-12">
+            <div class="flex items-center space-x-3 mb-6 border-b-2 border-indigo-500 pb-2">
+                <span class="bg-indigo-600 text-white p-2 rounded-lg text-lg"><i class="fas fa-chart-line"></i></span>
                 <div>
-                    <h2 class="text-xl font-bold text-slate-800">II. MÔ HÌNH HÌNH HỌC & ĐỒ THỊ TƯƠNG TÁC (JSXGRAPH)</h2>
-                    <p class="text-xs text-slate-500">Trực quan hóa giao điểm đồ thị và hiện tượng nghiệm ngoại lai khi bình phương</p>
+                    <h2 class="text-xl sm:text-2xl font-bold text-slate-800">PHẦN 2: MỨC ĐỘ NÂNG CAO (BÀI 11 ĐẾN BÀI 20)</h2>
+                    <p class="text-xs sm:text-sm text-slate-500">Mục tiêu: Chứng minh các hệ thức lượng giác cơ bản, biến đổi đại số lượng giác phức tạp và áp dụng tính chất góc trong tam giác.</p>
                 </div>
             </div>
 
-            <div class="grid md:grid-cols-2 gap-8">
-                <!-- Mô hình 1 -->
-                <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
-                    <span class="inline-block bg-indigo-600 text-white text-xs font-bold px-2.5 py-1 rounded mb-2">
-                        <i class="fas fa-project-diagram mr-1"></i> Mô hình 1 (Bài 10)
-                    </span>
-                    <h3 class="font-bold text-slate-800 text-sm mb-1">Kiểm Tra Nghiệm Ngoại Lai $\sqrt{x^2 - 4x + 3} = x - 2$</h3>
-                    <div id="jxgbox1" class="jxgbox w-full h-64 mb-3"></div>
-                    <p class="text-xs text-slate-600 italic">
-                        * Đồ thị màu đỏ $y = \sqrt{x^2-4x+3}$ và đường thẳng màu xanh $y = x-2$. Tại $x=0.5$, đường thẳng nằm phía dưới trục hoành ($y=-1.5$) nên không cắt đường cong $\implies x=0.5$ là nghiệm ngoại lai bị loại!
+            <div class="space-y-6">
+                <!-- BÀI 11 -->
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="bg-indigo-100 text-indigo-800 text-xs font-bold px-3 py-1 rounded-full"><i class="fas fa-pen-nib mr-1"></i> Bài 11</span>
+                        <span class="text-xs text-slate-400">Chứng minh sin² + cos² = 1</span>
+                    </div>
+                    <p class="font-medium text-slate-800 mb-3">
+                        Dựa vào định lý Pythagore trong tam giác vuông biểu diễn trên nửa đường tròn đơn vị, hãy chứng minh hằng đẳng thức lượng giác cơ bản:
+                        \[\sin^2 \alpha + \cos^2 \alpha = 1 \quad (\text{với mọi } 0^\circ \le \alpha \le 180^\circ)\]
                     </p>
+                    <details class="group mt-3">
+                        <summary class="cursor-pointer inline-flex items-center text-xs font-semibold text-indigo-700 bg-indigo-50 hover:bg-indigo-100 px-3 py-1.5 rounded-lg transition select-none">
+                            <i class="fas fa-lightbulb text-amber-500 mr-2 group-open:rotate-180 transition-transform"></i>
+                            <span>Gợi ý lời giải</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-lg border border-slate-200 text-sm space-y-1 text-slate-700">
+                            <p>Gọi \(H\) là hình chiếu của \(M(x_0; y_0)\) trên trục hoành \(Ox\). Tam giác \(OHM\) vuông tại \(H\).</p>
+                            <p>Theo định lý Pythagore: \(OH^2 + HM^2 = OM^2\).</p>
+                            <p>Vì \(OH = |x_0| = |\cos \alpha|\), \(HM = |y_0| = |\sin \alpha|\) và bán kính \(OM = 1\), ta có: \(|\cos \alpha|^2 + |\sin \alpha|^2 = 1^2 \Leftrightarrow \sin^2 \alpha + \cos^2 \alpha = 1\).</p>
+                        </div>
+                    </details>
                 </div>
 
-                <!-- Mô hình 2 -->
-                <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
-                    <span class="inline-block bg-purple-600 text-white text-xs font-bold px-2.5 py-1 rounded mb-2">
-                        <i class="fas fa-sliders-h mr-1"></i> Mô hình 2 (Bài 19)
-                    </span>
-                    <h3 class="font-bold text-slate-800 text-sm mb-1">Biện Luận Số Nghiệm $\sqrt{-x^2 + 4x - 3} = \sqrt{m}$</h3>
-                    <div id="jxgbox2" class="jxgbox w-full h-64 mb-3"></div>
-                    <p class="text-xs text-slate-600 italic">
-                        * Kéo thanh trượt $m$: Khi $0 \le m \le 1$, đường thẳng nằm ngang cắt nửa đường tròn tại các giao điểm. Khi $m > 1$, đường thẳng vượt qua đỉnh $\implies$ Vô nghiệm.
+                <!-- BÀI 12 -->
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="bg-indigo-100 text-indigo-800 text-xs font-bold px-3 py-1 rounded-full"><i class="fas fa-pen-nib mr-1"></i> Bài 12</span>
+                        <span class="text-xs text-slate-400">Biểu thức đẳng cấp theo tan</span>
+                    </div>
+                    <p class="font-medium text-slate-800 mb-3">
+                        Cho \(\tan \alpha = 2\). Tính giá trị của biểu thức đại số lượng giác:
+                        \[D = \frac{2\sin \alpha + 3\cos \alpha}{3\sin \alpha - \cos \alpha}\]
                     </p>
-                </div>
-            </div>
-        </section>
-
-        <!-- PHẦN 3: NGÂN HÀNG 30 BÀI TẬP CHI TIẾT (CÓ LỜI GIẢI ẨN) -->
-        <section class="bg-white p-6 rounded-2xl shadow-md border border-slate-200 space-y-8">
-            <div class="flex items-center space-x-3 border-b pb-4 border-slate-200">
-                <span class="bg-indigo-600 text-white p-2.5 rounded-xl"><i class="fas fa-list-ol text-xl"></i></span>
-                <div>
-                    <h2 class="text-xl font-bold text-slate-800">III. HỆ THỐNG 30 BÀI TẬP TỰ LUYỆN CHI TIẾT</h2>
-                    <p class="text-xs text-slate-500">Đầy đủ 3 cấp độ: Cơ bản, Nâng cao và Vận dụng thực tiễn (Bấm để mở lời giải)</p>
-                </div>
-            </div>
-
-            <!-- CẤP ĐỘ CƠ BẢN (10 BÀI) -->
-            <div class="space-y-4">
-                <h3 class="text-md font-bold text-emerald-800 uppercase tracking-wide border-b pb-1 flex items-center">
-                    <i class="fas fa-seedling mr-2"></i> PHẦN 1: CẤP ĐỘ CƠ BẢN (10 BÀI TẬP)
-                </h3>
-
-                <!-- Bài 1 -->
-                <div class="p-4 border rounded-xl bg-slate-50 border-slate-200">
-                    <div class="flex items-start justify-between">
-                        <span class="font-bold text-slate-800 text-sm"><span class="bg-emerald-600 text-white text-xs px-2 py-0.5 rounded mr-2">Bài 1</span>Lý thuyết bình phương hai vế</span>
-                        <span class="text-xs bg-emerald-100 text-emerald-800 font-semibold px-2 py-0.5 rounded">Lý thuyết</span>
-                    </div>
-                    <p class="text-sm font-medium text-slate-800 mt-2">Nêu điều kiện để bình phương hai vế cho phương trình dạng $\sqrt{f(x)} = \sqrt{g(x)}$ và $\sqrt{f(x)} = g(x)$. Tại sao bắt buộc phải có bước "thử lại" hoặc đặt điều kiện?</p>
                     <details class="group mt-3">
-                        <summary class="cursor-pointer text-xs font-bold text-indigo-600 hover:text-indigo-800 flex items-center">
-                            <i class="fas fa-chevron-right group-open:rotate-90 transition-transform mr-1.5"></i>Xem gợi ý lời giải
+                        <summary class="cursor-pointer inline-flex items-center text-xs font-semibold text-indigo-700 bg-indigo-50 hover:bg-indigo-100 px-3 py-1.5 rounded-lg transition select-none">
+                            <i class="fas fa-lightbulb text-amber-500 mr-2 group-open:rotate-180 transition-transform"></i>
+                            <span>Gợi ý lời giải</span>
                         </summary>
-                        <div class="mt-2 text-xs text-slate-700 bg-white p-3 rounded-lg border border-slate-200 space-y-1">
-                            <p>• Dạng $\sqrt{f(x)} = \sqrt{g(x)}$: Bình phương cần điều kiện $f(x) \ge 0$ (hoặc $g(x) \ge 0$).</p>
-                            <p>• Dạng $\sqrt{f(x)} = g(x)$: Bình phương cần điều kiện $g(x) \ge 0$.</p>
-                            <p>• Bắt buộc thử lại hoặc đặt điều kiện vì phép bình phương hai vế không tương đương nếu hai vế chưa cùng không âm, làm xuất hiện **nghiệm ngoại lai** (nghiệm của phương trình bình phương nhưng không thỏa mãn phương trình căn ban đầu).</p>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-lg border border-slate-200 text-sm space-y-1 text-slate-700">
+                            <p>Vì \(\tan \alpha = 2\) nên \(\cos \alpha \neq 0\). Chia cả tử và mẫu của biểu thức \(D\) cho \(\cos \alpha\):</p>
+                            <p>\(D = \frac{2\frac{\sin \alpha}{\cos \alpha} + 3}{3\frac{\sin \alpha}{\cos \alpha} - 1} = \frac{2\tan \alpha + 3}{3\tan \alpha - 1}\).</p>
+                            <p>Thế \(\tan \alpha = 2\) vào: \(D = \frac{2(2) + 3}{3(2) - 1} = \frac{7}{5}\).</p>
                         </div>
                     </details>
                 </div>
 
-                <!-- Bài 2 -->
-                <div class="p-4 border rounded-xl bg-slate-50 border-slate-200">
-                    <div class="flex items-start justify-between">
-                        <span class="font-bold text-slate-800 text-sm"><span class="bg-emerald-600 text-white text-xs px-2 py-0.5 rounded mr-2">Bài 2</span>Giải phương trình căn bằng căn</span>
-                        <span class="text-xs bg-emerald-100 text-emerald-800 font-semibold px-2 py-0.5 rounded">Cơ bản</span>
+                <!-- BÀI 13 -->
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="bg-indigo-100 text-indigo-800 text-xs font-bold px-3 py-1 rounded-full"><i class="fas fa-pen-nib mr-1"></i> Bài 13</span>
+                        <span class="text-xs text-slate-400">Tính biểu thức từ cos</span>
                     </div>
-                    <p class="text-sm font-medium text-slate-800 mt-2">Giải phương trình: $\sqrt{4x^2 + 15x - 19} = \sqrt{5x^2 + 23x - 14}$.</p>
+                    <p class="font-medium text-slate-800 mb-3">
+                        Cho \(\cos \alpha = -\frac{1}{3}\). Tính giá trị của biểu thức: \[E = 2\sin^2 \alpha + 5\cos^2 \alpha\]
+                    </p>
                     <details class="group mt-3">
-                        <summary class="cursor-pointer text-xs font-bold text-indigo-600 hover:text-indigo-800 flex items-center">
-                            <i class="fas fa-chevron-right group-open:rotate-90 transition-transform mr-1.5"></i>Xem gợi ý lời giải
+                        <summary class="cursor-pointer inline-flex items-center text-xs font-semibold text-indigo-700 bg-indigo-50 hover:bg-indigo-100 px-3 py-1.5 rounded-lg transition select-none">
+                            <i class="fas fa-lightbulb text-amber-500 mr-2 group-open:rotate-180 transition-transform"></i>
+                            <span>Gợi ý lời giải</span>
                         </summary>
-                        <div class="mt-2 text-xs text-slate-700 bg-white p-3 rounded-lg border border-slate-200 space-y-1">
-                            <p>Bình phương hai vế: $4x^2 + 15x - 19 = 5x^2 + 23x - 14 \iff x^2 + 8x + 5 = 0$.</p>
-                            <p>Giải ra $x = -4 \pm \sqrt{11}$. Thử lại vào hai biểu thức dưới dấu căn:</p>
-                            <p>Với $x = -4 + \sqrt{11} \approx -0.68$, $4x^2 + 15x - 19 < 0$ (Loại).</p>
-                            <p>Với $x = -4 - \sqrt{11} \approx -7.32$, $4x^2 + 15x - 19 > 0$ (Thỏa mãn).</p>
-                            <p><strong>Vậy nghiệm:</strong> $x = -4 - \sqrt{11}$.</p>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-lg border border-slate-200 text-sm space-y-1 text-slate-700">
+                            <p>Thay \(\sin^2 \alpha = 1 - \cos^2 \alpha\) vào biểu thức \(E\):</p>
+                            <p>\(E = 2(1 - \cos^2 \alpha) + 5\cos^2 \alpha = 2 + 3\cos^2 \alpha\).</p>
+                            <p>Thế \(\cos \alpha = -\frac{1}{3}\) vào: \(E = 2 + 3\left(-\frac{1}{3}\right)^2 = 2 + \frac{3}{9} = \frac{7}{3}\).</p>
                         </div>
                     </details>
                 </div>
 
-                <!-- Bài 3 -->
-                <div class="p-4 border rounded-xl bg-slate-50 border-slate-200">
-                    <div class="flex items-start justify-between">
-                        <span class="font-bold text-slate-800 text-sm"><span class="bg-emerald-600 text-white text-xs px-2 py-0.5 rounded mr-2">Bài 3</span>Tìm tập nghiệm phương trình chứa căn</span>
-                        <span class="text-xs bg-emerald-100 text-emerald-800 font-semibold px-2 py-0.5 rounded">Cơ bản</span>
+                <!-- BÀI 14 -->
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="bg-indigo-100 text-indigo-800 text-xs font-bold px-3 py-1 rounded-full"><i class="fas fa-pen-nib mr-1"></i> Bài 14</span>
+                        <span class="text-xs text-slate-400">Rút gọn góc liên kết</span>
                     </div>
-                    <p class="text-sm font-medium text-slate-800 mt-2">Tìm tập nghiệm của phương trình: $\sqrt{-4x^2 - 5x + 8} = \sqrt{2x^2 + 2x - 2}$.</p>
+                    <p class="font-medium text-slate-800 mb-3">
+                        Rút gọn biểu thức chứa các góc liên kết sau:
+                        \[F = \sin(180^\circ - \alpha) \cdot \cos(90^\circ - \alpha) - \cos(180^\circ - \alpha) \cdot \sin(90^\circ - \alpha)\]
+                    </p>
                     <details class="group mt-3">
-                        <summary class="cursor-pointer text-xs font-bold text-indigo-600 hover:text-indigo-800 flex items-center">
-                            <i class="fas fa-chevron-right group-open:rotate-90 transition-transform mr-1.5"></i>Xem gợi ý lời giải
+                        <summary class="cursor-pointer inline-flex items-center text-xs font-semibold text-indigo-700 bg-indigo-50 hover:bg-indigo-100 px-3 py-1.5 rounded-lg transition select-none">
+                            <i class="fas fa-lightbulb text-amber-500 mr-2 group-open:rotate-180 transition-transform"></i>
+                            <span>Gợi ý lời giải</span>
                         </summary>
-                        <div class="mt-2 text-xs text-slate-700 bg-white p-3 rounded-lg border border-slate-200 space-y-1">
-                            <p>Bình phương hai vế: $-4x^2 - 5x + 8 = 2x^2 + 2x - 2 \iff 6x^2 + 7x - 10 = 0$.</p>
-                            <p>Giải phương trình ta có nghiệm $x = 1$ hoặc $x = -\frac{10}{6} = -\frac{5}{3}$.</p>
-                            <p>• Thử $x = 1$: $2(1)^2 + 2(1) - 2 = 2 > 0$ (Nhận).</p>
-                            <p>• Thử $x = -\frac{5}{3}$: $2(-\frac{5}{3})^2 + 2(-\frac{5}{3}) - 2 = \frac{2}{9} > 0$ (Nhận).</p>
-                            <p><strong>Tập nghiệm:</strong> $S = \left\{1; -\frac{5}{3}\right\}$.</p>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-lg border border-slate-200 text-sm space-y-1 text-slate-700">
+                            <p>Áp dụng góc bù và góc phụ: \(\sin(180^\circ - \alpha) = \sin \alpha\), \(\cos(90^\circ - \alpha) = \sin \alpha\), \(\cos(180^\circ - \alpha) = -\cos \alpha\), \(\sin(90^\circ - \alpha) = \cos \alpha\).</p>
+                            <p>Thế vào: \(F = \sin \alpha \cdot \sin \alpha - (-\cos \alpha) \cdot \cos \alpha = \sin^2 \alpha + \cos^2 \alpha = 1\).</p>
                         </div>
                     </details>
                 </div>
 
-                <!-- Bài 4 -->
-                <div class="p-4 border rounded-xl bg-slate-50 border-slate-200">
-                    <div class="flex items-start justify-between">
-                        <span class="font-bold text-slate-800 text-sm"><span class="bg-emerald-600 text-white text-xs px-2 py-0.5 rounded mr-2">Bài 4</span>Phương trình căn thức bậc hai</span>
-                        <span class="text-xs bg-emerald-100 text-emerald-800 font-semibold px-2 py-0.5 rounded">Cơ bản</span>
+                <!-- BÀI 15 -->
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="bg-indigo-100 text-indigo-800 text-xs font-bold px-3 py-1 rounded-full"><i class="fas fa-pen-nib mr-1"></i> Bài 15</span>
+                        <span class="text-xs text-slate-400">Chứng minh đẳng thức lượng giác</span>
                     </div>
-                    <p class="text-sm font-medium text-slate-800 mt-2">Giải phương trình: $\sqrt{-x^2 - 2x + 7} = \sqrt{-x - 13}$.</p>
+                    <p class="font-medium text-slate-800 mb-3">
+                        Chứng minh đẳng thức lượng giác sau:
+                        \[\tan^2 \alpha - \sin^2 \alpha = \tan^2 \alpha \cdot \sin^2 \alpha\]
+                    </p>
                     <details class="group mt-3">
-                        <summary class="cursor-pointer text-xs font-bold text-indigo-600 hover:text-indigo-800 flex items-center">
-                            <i class="fas fa-chevron-right group-open:rotate-90 transition-transform mr-1.5"></i>Xem gợi ý lời giải
+                        <summary class="cursor-pointer inline-flex items-center text-xs font-semibold text-indigo-700 bg-indigo-50 hover:bg-indigo-100 px-3 py-1.5 rounded-lg transition select-none">
+                            <i class="fas fa-lightbulb text-amber-500 mr-2 group-open:rotate-180 transition-transform"></i>
+                            <span>Gợi ý lời giải</span>
                         </summary>
-                        <div class="mt-2 text-xs text-slate-700 bg-white p-3 rounded-lg border border-slate-200 space-y-1">
-                            <p>Bình phương hai vế: $-x^2 - 2x + 7 = -x - 13 \iff x^2 + x - 20 = 0 \iff x = 4$ hoặc $x = -5$.</p>
-                            <p>Thử lại vào vế phải $-x - 13$:</p>
-                            <p>• Với $x = 4 \implies -4 - 13 = -17 < 0$ (Loại).</p>
-                            <p>• Với $x = -5 \implies -(-5) - 13 = -8 < 0$ (Loại).</p>
-                            <p><strong>Vậy phương trình vô nghiệm:</strong> $S = \varnothing$.</p>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-lg border border-slate-200 text-sm space-y-1 text-slate-700">
+                            <p>\(VT = \tan^2 \alpha - \sin^2 \alpha = \frac{\sin^2 \alpha}{\cos^2 \alpha} - \sin^2 \alpha = \sin^2 \alpha \left(\frac{1}{\cos^2 \alpha} - 1\right)\).</p>
+                            <p>Mà \(\frac{1}{\cos^2 \alpha} - 1 = \frac{1 - \cos^2 \alpha}{\cos^2 \alpha} = \frac{\sin^2 \alpha}{\cos^2 \alpha} = \tan^2 \alpha\).</p>
+                            <p>Do đó \(VT = \sin^2 \alpha \cdot \tan^2 \alpha = VP\) (đpcm).</p>
                         </div>
                     </details>
                 </div>
 
-                <!-- Bài 5 -->
-                <div class="p-4 border rounded-xl bg-slate-50 border-slate-200">
-                    <div class="flex items-start justify-between">
-                        <span class="font-bold text-slate-800 text-sm"><span class="bg-emerald-600 text-white text-xs px-2 py-0.5 rounded mr-2">Bài 5</span>Căn bằng hằng số</span>
-                        <span class="text-xs bg-emerald-100 text-emerald-800 font-semibold px-2 py-0.5 rounded">Cơ bản</span>
+                <!-- BÀI 16 -->
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="bg-indigo-100 text-indigo-800 text-xs font-bold px-3 py-1 rounded-full"><i class="fas fa-pen-nib mr-1"></i> Bài 16</span>
+                        <span class="text-xs text-slate-400">Góc trong tam giác</span>
                     </div>
-                    <p class="text-sm font-medium text-slate-800 mt-2">Giải phương trình: $\sqrt{-x^2 + 7x + 13} = 5$.</p>
+                    <p class="font-medium text-slate-800 mb-3">
+                        Cho \(A, B, C\) là ba góc của tam giác \(ABC\). Chứng minh các đẳng thức sau:<br>
+                        a) \(\sin(A + B) = \sin C\).<br>
+                        b) \(\cos(A + B) = -\cos C\).
+                    </p>
+
+                    <!-- JSXGRAPH BÀI 16 -->
+                    <div class="my-4 p-4 bg-slate-50 rounded-xl border border-slate-200">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-xs font-bold text-indigo-700 uppercase"><i class="fas fa-laptop-code mr-1"></i> Mô hình tam giác biến thiên & đẳng thức sin(A+B) = sin C</span>
+                        </div>
+                        <div id="jsxbox16" class="jxgbox w-full h-[320px] mx-auto"></div>
+                    </div>
+
                     <details class="group mt-3">
-                        <summary class="cursor-pointer text-xs font-bold text-indigo-600 hover:text-indigo-800 flex items-center">
-                            <i class="fas fa-chevron-right group-open:rotate-90 transition-transform mr-1.5"></i>Xem gợi ý lời giải
+                        <summary class="cursor-pointer inline-flex items-center text-xs font-semibold text-indigo-700 bg-indigo-50 hover:bg-indigo-100 px-3 py-1.5 rounded-lg transition select-none">
+                            <i class="fas fa-lightbulb text-amber-500 mr-2 group-open:rotate-180 transition-transform"></i>
+                            <span>Gợi ý lời giải</span>
                         </summary>
-                        <div class="mt-2 text-xs text-slate-700 bg-white p-3 rounded-lg border border-slate-200 space-y-1">
-                            <p>Bình phương hai vế vì $5 > 0$:</p>
-                            $$-x^2 + 7x + 13 = 25 \iff x^2 - 7x + 12 = 0 \iff (x - 3)(x - 4) = 0 \iff x = 3 \text{ hoặc } x = 4.$$
-                            <p><strong>Vậy nghiệm:</strong> $S = \{3; 4\}$.</p>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-lg border border-slate-200 text-sm space-y-1 text-slate-700">
+                            <p>Vì \(A + B + C = 180^\circ \Rightarrow A + B = 180^\circ - C\).</p>
+                            <p>a) \(\sin(A + B) = \sin(180^\circ - C) = \sin C\).</p>
+                            <p>b) \(\cos(A + B) = \cos(180^\circ - C) = -\cos C\).</p>
                         </div>
                     </details>
                 </div>
 
-                <!-- Bài 6 -->
-                <div class="p-4 border rounded-xl bg-slate-50 border-slate-200">
-                    <div class="flex items-start justify-between">
-                        <span class="font-bold text-slate-800 text-sm"><span class="bg-emerald-600 text-white text-xs px-2 py-0.5 rounded mr-2">Bài 6</span>Căn bằng nhị thức bậc nhất</span>
-                        <span class="text-xs bg-emerald-100 text-emerald-800 font-semibold px-2 py-0.5 rounded">Cơ bản</span>
+                <!-- BÀI 17 -->
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="bg-indigo-100 text-indigo-800 text-xs font-bold px-3 py-1 rounded-full"><i class="fas fa-pen-nib mr-1"></i> Bài 17</span>
+                        <span class="text-xs text-slate-400">Tính tích sin.cos</span>
                     </div>
-                    <p class="text-sm font-medium text-slate-800 mt-2">Giải phương trình: $\sqrt{4x + 30} = 2x + 3$.</p>
+                    <p class="font-medium text-slate-800 mb-3">
+                        Cho biết \(\sin \alpha + \cos \alpha = \frac{1}{2}\). Tính tích \(P = \sin \alpha \cdot \cos \alpha\).
+                    </p>
                     <details class="group mt-3">
-                        <summary class="cursor-pointer text-xs font-bold text-indigo-600 hover:text-indigo-800 flex items-center">
-                            <i class="fas fa-chevron-right group-open:rotate-90 transition-transform mr-1.5"></i>Xem gợi ý lời giải
+                        <summary class="cursor-pointer inline-flex items-center text-xs font-semibold text-indigo-700 bg-indigo-50 hover:bg-indigo-100 px-3 py-1.5 rounded-lg transition select-none">
+                            <i class="fas fa-lightbulb text-amber-500 mr-2 group-open:rotate-180 transition-transform"></i>
+                            <span>Gợi ý lời giải</span>
                         </summary>
-                        <div class="mt-2 text-xs text-slate-700 bg-white p-3 rounded-lg border border-slate-200 space-y-1">
-                            <p>Điều kiện $2x + 3 \ge 0 \iff x \ge -1.5$.</p>
-                            <p>Bình phương hai vế: $4x + 30 = (2x + 3)^2 \iff 4x + 30 = 4x^2 + 12x + 9 \iff 4x^2 + 8x - 21 = 0$.</p>
-                            <p>Giải ra $x = 1.5$ (Thỏa mãn $x \ge -1.5$) hoặc $x = -3.5$ (Loại).</p>
-                            <p><strong>Nghiệm duy nhất:</strong> $x = 1.5 = \frac{3}{2}$.</p>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-lg border border-slate-200 text-sm space-y-1 text-slate-700">
+                            <p>Bình phương hai vế: \((\sin \alpha + \cos \alpha)^2 = \frac{1}{4} \Leftrightarrow \sin^2 \alpha + 2\sin \alpha \cos \alpha + \cos^2 \alpha = \frac{1}{4}\).</p>
+                            <p>Vì \(\sin^2 \alpha + \cos^2 \alpha = 1 \Rightarrow 1 + 2P = \frac{1}{4} \Rightarrow 2P = -\frac{3}{4} \Rightarrow P = -\frac{3}{8}\).</p>
                         </div>
                     </details>
                 </div>
 
-                <!-- Bài 7 -->
-                <div class="p-4 border rounded-xl bg-slate-50 border-slate-200">
-                    <div class="flex items-start justify-between">
-                        <span class="font-bold text-slate-800 text-sm"><span class="bg-emerald-600 text-white text-xs px-2 py-0.5 rounded mr-2">Bài 7</span>Chuyển vế phương trình căn</span>
-                        <span class="text-xs bg-emerald-100 text-emerald-800 font-semibold px-2 py-0.5 rounded">Cơ bản</span>
+                <!-- BÀI 18 -->
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="bg-indigo-100 text-indigo-800 text-xs font-bold px-3 py-1 rounded-full"><i class="fas fa-pen-nib mr-1"></i> Bài 18</span>
+                        <span class="text-xs text-slate-400">Giải phương trình sin + cos = √2</span>
                     </div>
-                    <p class="text-sm font-medium text-slate-800 mt-2">Giải phương trình: $\sqrt{-2x + 8} - x + 6 = x$.</p>
+                    <p class="font-medium text-slate-800 mb-3">
+                        Tìm góc \(\alpha\) (\(0^\circ \le \alpha \le 180^\circ\)) biết rằng: \[\sin \alpha + \cos \alpha = \sqrt{2}\]
+                    </p>
                     <details class="group mt-3">
-                        <summary class="cursor-pointer text-xs font-bold text-indigo-600 hover:text-indigo-800 flex items-center">
-                            <i class="fas fa-chevron-right group-open:rotate-90 transition-transform mr-1.5"></i>Xem gợi ý lời giải
+                        <summary class="cursor-pointer inline-flex items-center text-xs font-semibold text-indigo-700 bg-indigo-50 hover:bg-indigo-100 px-3 py-1.5 rounded-lg transition select-none">
+                            <i class="fas fa-lightbulb text-amber-500 mr-2 group-open:rotate-180 transition-transform"></i>
+                            <span>Gợi ý lời giải</span>
                         </summary>
-                        <div class="mt-2 text-xs text-slate-700 bg-white p-3 rounded-lg border border-slate-200 space-y-1">
-                            <p>Chuyển vế: $\sqrt{-2x + 8} = 2x - 6$.</p>
-                            <p>Điều kiện $2x - 6 \ge 0 \iff x \ge 3$.</p>
-                            <p>Bình phương: $-2x + 8 = (2x - 6)^2 = 4x^2 - 24x + 36 \iff 4x^2 - 22x + 28 = 0 \iff 2x^2 - 11x + 14 = 0$.</p>
-                            <p>Giải ra $x = 3.5$ (Thỏa $x \ge 3$) hoặc $x = 2$ (Loại).</p>
-                            <p><strong>Nghiệm:</strong> $x = 3.5$.</p>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-lg border border-slate-200 text-sm space-y-1 text-slate-700">
+                            <p>Bình phương hai vế: \(1 + 2\sin \alpha \cos \alpha = 2 \Rightarrow 2\sin \alpha \cos \alpha = 1\).</p>
+                            <p>Mặt khác: \((\sin \alpha - \cos \alpha)^2 = 1 - 2\sin \alpha \cos \alpha = 0 \Rightarrow \sin \alpha = \cos \alpha\).</p>
+                            <p>Do điểm \(M\) có hoành độ bằng tung độ trên nửa đường tròn đơn vị nên \(\alpha = 45^\circ\).</p>
                         </div>
                     </details>
                 </div>
 
-                <!-- Bài 8 -->
-                <div class="p-4 border rounded-xl bg-slate-50 border-slate-200">
-                    <div class="flex items-start justify-between">
-                        <span class="font-bold text-slate-800 text-sm"><span class="bg-emerald-600 text-white text-xs px-2 py-0.5 rounded mr-2">Bài 8</span>Giải phương trình $\sqrt{f(x)} + 2x = 5$</span>
-                        <span class="text-xs bg-emerald-100 text-emerald-800 font-semibold px-2 py-0.5 rounded">Cơ bản</span>
+                <!-- BÀI 19 -->
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="bg-indigo-100 text-indigo-800 text-xs font-bold px-3 py-1 rounded-full"><i class="fas fa-pen-nib mr-1"></i> Bài 19</span>
+                        <span class="text-xs text-slate-400">Góc giữa hai vectơ</span>
                     </div>
-                    <p class="text-sm font-medium text-slate-800 mt-2">Giải phương trình: $\sqrt{3x^2 - 9x - 5} + 2x = 5$.</p>
+                    <p class="font-medium text-slate-800 mb-3">
+                        Cho hình chữ nhật \(ABCD\) có cạnh \(AB = a\) và \(AD = a\sqrt{3}\). Tính giá trị lượng giác của góc giữa hai vectơ \(\overrightarrow{AC}\) và \(\overrightarrow{AB}\).
+                    </p>
                     <details class="group mt-3">
-                        <summary class="cursor-pointer text-xs font-bold text-indigo-600 hover:text-indigo-800 flex items-center">
-                            <i class="fas fa-chevron-right group-open:rotate-90 transition-transform mr-1.5"></i>Xem gợi ý lời giải
+                        <summary class="cursor-pointer inline-flex items-center text-xs font-semibold text-indigo-700 bg-indigo-50 hover:bg-indigo-100 px-3 py-1.5 rounded-lg transition select-none">
+                            <i class="fas fa-lightbulb text-amber-500 mr-2 group-open:rotate-180 transition-transform"></i>
+                            <span>Gợi ý lời giải</span>
                         </summary>
-                        <div class="mt-2 text-xs text-slate-700 bg-white p-3 rounded-lg border border-slate-200 space-y-1">
-                            <p>Biến đổi: $\sqrt{3x^2 - 9x - 5} = 5 - 2x$.</p>
-                            <p>Điều kiện $5 - 2x \ge 0 \iff x \le 2.5$.</p>
-                            <p>Bình phương: $3x^2 - 9x - 5 = 25 - 20x + 4x^2 \iff x^2 - 11x + 30 = 0 \iff x = 5 \text{ hoặc } x = 6$.</p>
-                            <p>Cả 5 và 6 đều $> 2.5$ nên bị loại. <strong>Phương trình vô nghiệm.</strong></p>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-lg border border-slate-200 text-sm space-y-1 text-slate-700">
+                            <p>Góc giữa hai vectơ \(\overrightarrow{AC}\) và \(\overrightarrow{AB}\) chính là góc \(\widehat{CAB}\).</p>
+                            <p>Trong tam giác vuông \(ABC\) tại \(B\): \(\tan \widehat{CAB} = \frac{BC}{AB} = \frac{a\sqrt{3}}{a} = \sqrt{3} \Rightarrow \widehat{CAB} = 60^\circ\).</p>
+                            <p>Các VTLG: \(\sin 60^\circ = \frac{\sqrt{3}}{2}, \cos 60^\circ = \frac{1}{2}, \tan 60^\circ = \sqrt{3}, \cot 60^\circ = \frac{\sqrt{3}}{3}\).</p>
                         </div>
                     </details>
                 </div>
 
-                <!-- Bài 9 -->
-                <div class="p-4 border rounded-xl bg-slate-50 border-slate-200">
-                    <div class="flex items-start justify-between">
-                        <span class="font-bold text-slate-800 text-sm"><span class="bg-emerald-600 text-white text-xs px-2 py-0.5 rounded mr-2">Bài 9</span>Hoành độ giao điểm đồ thị</span>
-                        <span class="text-xs bg-emerald-100 text-emerald-800 font-semibold px-2 py-0.5 rounded">Cơ bản</span>
+                <!-- BÀI 20 -->
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="bg-indigo-100 text-indigo-800 text-xs font-bold px-3 py-1 rounded-full"><i class="fas fa-pen-nib mr-1"></i> Bài 20</span>
+                        <span class="text-xs text-slate-400">Biện luận phương trình sin α = m</span>
                     </div>
-                    <p class="text-sm font-medium text-slate-800 mt-2">Tìm hoành độ giao điểm của đường cong $y = \sqrt{2x^2 + 5x - 3}$ và đường thẳng $y = x + 1$.</p>
-                    <details class="group mt-3">
-                        <summary class="cursor-pointer text-xs font-bold text-indigo-600 hover:text-indigo-800 flex items-center">
-                            <i class="fas fa-chevron-right group-open:rotate-90 transition-transform mr-1.5"></i>Xem gợi ý lời giải
-                        </summary>
-                        <div class="mt-2 text-xs text-slate-700 bg-white p-3 rounded-lg border border-slate-200 space-y-1">
-                            <p>Phương trình hoành độ giao điểm: $\sqrt{2x^2 + 5x - 3} = x + 1$.</p>
-                            <p>Điều kiện $x + 1 \ge 0 \iff x \ge -1$.</p>
-                            <p>Bình phương: $2x^2 + 5x - 3 = (x + 1)^2 = x^2 + 2x + 1 \iff x^2 + 3x - 4 = 0 \iff x = 1 \text{ hoặc } x = -4$.</p>
+                    <p class="font-medium text-slate-800 mb-3">
+                        Biện luận theo tham số \(m\) số nghiệm \(\alpha\) (\(0^\circ \le \alpha \le 180^\circ\)) của phương trình lượng giác: \[\sin \alpha = m\]
+                    </p>
 
-                            <p>Đối chiếu $x \ge -1 \implies x = 1$ thỏa mãn.</p>
-                            <p><strong>Hoành độ giao điểm:</strong> $x = 1$.</p>
+                    <!-- JSXGRAPH BÀI 20 -->
+                    <div class="my-4 p-4 bg-slate-50 rounded-xl border border-slate-200">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-xs font-bold text-indigo-700 uppercase"><i class="fas fa-laptop-code mr-1"></i> Biện luận nghiệm bằng đường thẳng y = m</span>
                         </div>
-                    </details>
-                </div>
-
-                <!-- Bài 10 -->
-                <div class="p-4 border rounded-xl bg-slate-50 border-slate-200">
-                    <div class="flex items-start justify-between">
-                        <span class="font-bold text-slate-800 text-sm"><span class="bg-emerald-600 text-white text-xs px-2 py-0.5 rounded mr-2">Bài 10</span>Số nghiệm phương trình</span>
-                        <span class="text-xs bg-emerald-100 text-emerald-800 font-semibold px-2 py-0.5 rounded">Cơ bản</span>
+                        <div id="jsxbox20" class="jxgbox w-full h-[320px] mx-auto"></div>
                     </div>
-                    <p class="text-sm font-medium text-slate-800 mt-2">Có bao nhiêu nghiệm thỏa mãn phương trình: $\sqrt{x^2 - 4x + 3} = x - 2$?</p>
+
                     <details class="group mt-3">
-                        <summary class="cursor-pointer text-xs font-bold text-indigo-600 hover:text-indigo-800 flex items-center">
-                            <i class="fas fa-chevron-right group-open:rotate-90 transition-transform mr-1.5"></i>Xem gợi ý lời giải
+                        <summary class="cursor-pointer inline-flex items-center text-xs font-semibold text-indigo-700 bg-indigo-50 hover:bg-indigo-100 px-3 py-1.5 rounded-lg transition select-none">
+                            <i class="fas fa-lightbulb text-amber-500 mr-2 group-open:rotate-180 transition-transform"></i>
+                            <span>Gợi ý lời giải</span>
                         </summary>
-                        <div class="mt-2 text-xs text-slate-700 bg-white p-3 rounded-lg border border-slate-200 space-y-1">
-                            <p>Điều kiện $x - 2 \ge 0 \iff x \ge 2$.</p>
-                            <p>Bình phương: $x^2 - 4x + 3 = (x - 2)^2 = x^2 - 4x + 4 \iff 3 = 4$ (Vô lý).</p>
-                            <p><strong>Vậy số nghiệm là:</strong> 0 (Phương trình vô nghiệm).</p>
-                        </div>
-                    </details>
-                </div>
-            </div>
-
-            <!-- CẤP ĐỘ NÂNG CAO (10 BÀI) -->
-            <div class="space-y-4 pt-4">
-                <h3 class="text-md font-bold text-blue-800 uppercase tracking-wide border-b pb-1 flex items-center">
-                    <i class="fas fa-layer-group mr-2"></i> PHẦN 2: CẤP ĐỘ NÂNG CAO (10 BÀI TẬP)
-                </h3>
-
-                <!-- Bài 11 -->
-                <div class="p-4 border rounded-xl bg-slate-50 border-slate-200">
-                    <div class="flex items-start justify-between">
-                        <span class="font-bold text-slate-800 text-sm"><span class="bg-blue-600 text-white text-xs px-2 py-0.5 rounded mr-2">Bài 11</span>Phương trình có hệ số trước căn</span>
-                        <span class="text-xs bg-blue-100 text-blue-800 font-semibold px-2 py-0.5 rounded">Nâng cao</span>
-                    </div>
-                    <p class="text-sm font-medium text-slate-800 mt-2">Giải phương trình: $2\sqrt{x^2 + 4x - 7} = \sqrt{-4x^2 + 38x - 43}$.</p>
-                    <details class="group mt-3">
-                        <summary class="cursor-pointer text-xs font-bold text-indigo-600 hover:text-indigo-800 flex items-center">
-                            <i class="fas fa-chevron-right group-open:rotate-90 transition-transform mr-1.5"></i>Xem gợi ý lời giải
-                        </summary>
-                        <div class="mt-2 text-xs text-slate-700 bg-white p-3 rounded-lg border border-slate-200 space-y-1">
-                            <p>Bình phương hai vế (chú ý $2^2 = 4$):</p>
-                            $$4(x^2 + 4x - 7) = -4x^2 + 38x - 43 \iff 4x^2 + 16x - 28 = -4x^2 + 38x - 43 \iff 8x^2 - 22x + 15 = 0.$$
-                            <p>Giải ra $x = \frac{3}{2} = 1.5$ hoặc $x = \frac{5}{4} = 1.25$.</p>
-                            <p>• Thử $x = 1.5 \implies x^2+4x-7 = 1.5^2 + 6 - 7 = 1.25 > 0$ (Thỏa mãn).</p>
-                            <p>• Thử $x = 1.25 \implies x^2+4x-7 = 1.25^2 + 5 - 7 = -0.4375 < 0$ (Loại).</p>
-                            <p><strong>Nghiệm:</strong> $x = 1.5$.</p>
-                        </div>
-                    </details>
-                </div>
-
-                <!-- Bài 12 -->
-                <div class="p-4 border rounded-xl bg-slate-50 border-slate-200">
-                    <div class="flex items-start justify-between">
-                        <span class="font-bold text-slate-800 text-sm"><span class="bg-blue-600 text-white text-xs px-2 py-0.5 rounded mr-2">Bài 12</span>Hiệu hai căn thức bằng 0</span>
-                        <span class="text-xs bg-blue-100 text-blue-800 font-semibold px-2 py-0.5 rounded">Nâng cao</span>
-                    </div>
-                    <p class="text-sm font-medium text-slate-800 mt-2">Giải phương trình: $\sqrt{6x^2 + 7x - 1} - \sqrt{-29x^2 - 41x + 10} = 0$.</p>
-                    <details class="group mt-3">
-                        <summary class="cursor-pointer text-xs font-bold text-indigo-600 hover:text-indigo-800 flex items-center">
-                            <i class="fas fa-chevron-right group-open:rotate-90 transition-transform mr-1.5"></i>Xem gợi ý lời giải
-                        </summary>
-                        <div class="mt-2 text-xs text-slate-700 bg-white p-3 rounded-lg border border-slate-200 space-y-1">
-                            <p>Chuyển vế: $\sqrt{6x^2 + 7x - 1} = \sqrt{-29x^2 - 41x + 10}$.</p>
-                            <p>Bình phương: $6x^2 + 7x - 1 = -29x^2 - 41x + 10 \iff 35x^2 + 48x - 11 = 0$.</p>
-                            <p>Giải ra $x = \frac{1}{5} = 0.2$ hoặc $x = -\frac{11}{7} \approx -1.57$.</p>
-                            <p>Thử lại vào $6x^2 + 7x - 1$:</p>
-                            <p>• $x = 0.2 \implies 6(0.04) + 1.4 - 1 = 0.64 > 0$ (Nhận).</p>
-                            <p>• $x = -11/7 \implies 6(121/49) - 121/7 - 1 = 137/49 > 0$ (Nhận).</p>
-                            <p><strong>Nghiệm:</strong> $S = \left\{\frac{1}{5}; -\frac{11}{7}\right\}$.</p>
-                        </div>
-                    </details>
-                </div>
-
-                <!-- Bài 13 -->
-                <div class="p-4 border rounded-xl bg-slate-50 border-slate-200">
-                    <div class="flex items-start justify-between">
-                        <span class="font-bold text-slate-800 text-sm"><span class="bg-blue-600 text-white text-xs px-2 py-0.5 rounded mr-2">Bài 13</span>Biện luận nghiệm qua đồ thị</span>
-                        <span class="text-xs bg-blue-100 text-blue-800 font-semibold px-2 py-0.5 rounded">Tư duy</span>
-                    </div>
-                    <p class="text-sm font-medium text-slate-800 mt-2">Cho $f(x)$ và $g(x)$ cắt nhau tại $x=1$ và $x=6$. Biết $f(6) < 0$. Hỏi phương trình $\sqrt{f(x)} = \sqrt{g(x)}$ có bao nhiêu nghiệm?</p>
-                    <details class="group mt-3">
-                        <summary class="cursor-pointer text-xs font-bold text-indigo-600 hover:text-indigo-800 flex items-center">
-                            <i class="fas fa-chevron-right group-open:rotate-90 transition-transform mr-1.5"></i>Xem gợi ý lời giải
-                        </summary>
-                        <div class="mt-2 text-xs text-slate-700 bg-white p-3 rounded-lg border border-slate-200 space-y-1">
-                            <p>Phương trình $\sqrt{f(x)}=\sqrt{g(x)}$ yêu cầu $f(x)=g(x)$ và $f(x) \ge 0$.</p>
-                            <p>• Tại $x=6$, $f(6) < 0$ nên $x=6$ không thỏa mãn điều kiện xác định của căn thức $\implies x=6$ bị loại.</p>
-                            <p>• Do $x=1$ là giao điểm duy nhất còn lại và $f(1) = g(1) \ge 0$, phương trình có duy nhất 1 nghiệm $x=1$.</p>
-                            <p><strong>Đáp án đúng: B. Phương trình có 1 nghiệm $x=1$.</strong></p>
-                        </div>
-                    </details>
-                </div>
-
-                <!-- Bài 14 -->
-                <div class="p-4 border rounded-xl bg-slate-50 border-slate-200">
-                    <div class="flex items-start justify-between">
-                        <span class="font-bold text-slate-800 text-sm"><span class="bg-blue-600 text-white text-xs px-2 py-0.5 rounded mr-2">Bài 14</span>Giải phương trình $x - \sqrt{2x-1} = 2$</span>
-                        <span class="text-xs bg-blue-100 text-blue-800 font-semibold px-2 py-0.5 rounded">Nâng cao</span>
-                    </div>
-                    <p class="text-sm font-medium text-slate-800 mt-2">Tìm tập nghiệm của phương trình: $x - \sqrt{2x - 1} = 2$.</p>
-                    <details class="group mt-3">
-                        <summary class="cursor-pointer text-xs font-bold text-indigo-600 hover:text-indigo-800 flex items-center">
-                            <i class="fas fa-chevron-right group-open:rotate-90 transition-transform mr-1.5"></i>Xem gợi ý lời giải
-                        </summary>
-                        <div class="mt-2 text-xs text-slate-700 bg-white p-3 rounded-lg border border-slate-200 space-y-1">
-                            <p>Biến đổi: $\sqrt{2x - 1} = x - 2$. Điều kiện $x - 2 \ge 0 \iff x \ge 2$.</p>
-                            <p>Bình phương: $2x - 1 = (x - 2)^2 = x^2 - 4x + 4 \iff x^2 - 6x + 5 = 0 \iff x = 1 \text{ hoặc } x = 5$.</p>
-                            <p>Đối chiếu $x \ge 2 \implies x = 1$ loại, $x = 5$ nhận.</p>
-                            <p><strong>Nghiệm:</strong> $x = 5$.</p>
-                        </div>
-                    </details>
-                </div>
-
-                <!-- Bài 15 -->
-                <div class="p-4 border rounded-xl bg-slate-50 border-slate-200">
-                    <div class="flex items-start justify-between">
-                        <span class="font-bold text-slate-800 text-sm"><span class="bg-blue-600 text-white text-xs px-2 py-0.5 rounded mr-2">Bài 15</span>Đặt ẩn phụ hoàn toàn</span>
-                        <span class="text-xs bg-blue-100 text-blue-800 font-semibold px-2 py-0.5 rounded">Nâng cao</span>
-                    </div>
-                    <p class="text-sm font-medium text-slate-800 mt-2">Giải phương trình bằng ẩn phụ: $x^2 - 5x + 7 - 2\sqrt{x^2 - 5x + 10} = 0$.</p>
-                    <details class="group mt-3">
-                        <summary class="cursor-pointer text-xs font-bold text-indigo-600 hover:text-indigo-800 flex items-center">
-                            <i class="fas fa-chevron-right group-open:rotate-90 transition-transform mr-1.5"></i>Xem gợi ý lời giải
-                        </summary>
-                        <div class="mt-2 text-xs text-slate-700 bg-white p-3 rounded-lg border border-slate-200 space-y-1">
-                            <p>Đặt $t = \sqrt{x^2 - 5x + 10} \ (t \ge 0) \implies x^2 - 5x = t^2 - 10$.</p>
-                            <p>Phương trình trở thành: $(t^2 - 10) + 7 - 2t = 0 \iff t^2 - 2t - 3 = 0 \iff t = 3$ (Do $t \ge 0$).</p>
-                            <p>Với $t = 3 \implies x^2 - 5x + 10 = 9 \iff x^2 - 5x + 1 = 0 \iff x = \frac{5 \pm \sqrt{21}}{2}$.</p>
-                        </div>
-                    </details>
-                </div>
-
-                <!-- Bài 16 -->
-                <div class="p-4 border rounded-xl bg-slate-50 border-slate-200">
-                    <div class="flex items-start justify-between">
-                        <span class="font-bold text-slate-800 text-sm"><span class="bg-blue-600 text-white text-xs px-2 py-0.5 rounded mr-2">Bài 16</span>Phương trình tích chứa căn</span>
-                        <span class="text-xs bg-blue-100 text-blue-800 font-semibold px-2 py-0.5 rounded">Nâng cao</span>
-                    </div>
-                    <p class="text-sm font-medium text-slate-800 mt-2">Giải phương trình: $(x - 2)\sqrt{2x^2 - 5x + 2} = 0$.</p>
-                    <details class="group mt-3">
-                        <summary class="cursor-pointer text-xs font-bold text-indigo-600 hover:text-indigo-800 flex items-center">
-                            <i class="fas fa-chevron-right group-open:rotate-90 transition-transform mr-1.5"></i>Xem gợi ý lời giải
-                        </summary>
-                        <div class="mt-2 text-xs text-slate-700 bg-white p-3 rounded-lg border border-slate-200 space-y-1">
-                            <p>Điều kiện $2x^2 - 5x + 2 \ge 0 \iff (2x - 1)(x - 2) \ge 0 \iff x \le \frac{1}{2}$ hoặc $x \ge 2$.</p>
-                            <p>Phương trình tương đương:</p>
-                            $$\left[\begin{array}{l} x - 2 = 0 \\ 2x^2 - 5x + 2 = 0 \end{array}\right. \iff \left[\begin{array}{l} x = 2 \\ x = 2 \\ x = 1/2 \end{array}\right.$$
-                            <p>Cả hai giá trị $x = 2$ và $x = 1/2$ đều thỏa mãn điều kiện xác định.</p>
-                            <p><strong>Nghiệm:</strong> $S = \{1/2; 2\}$.</p>
-                        </div>
-                    </details>
-                </div>
-
-                <!-- Bài 17 -->
-                <div class="p-4 border rounded-xl bg-slate-50 border-slate-200">
-                    <div class="flex items-start justify-between">
-                        <span class="font-bold text-slate-800 text-sm"><span class="bg-blue-600 text-white text-xs px-2 py-0.5 rounded mr-2">Bài 17</span>Tìm m để có nghiệm duy nhất</span>
-                        <span class="text-xs bg-blue-100 text-blue-800 font-semibold px-2 py-0.5 rounded">Tham số m</span>
-                    </div>
-                    <p class="text-sm font-medium text-slate-800 mt-2">Tìm tham số $m$ để phương trình $\sqrt{x^2 - 2x + m} = x - 1$ có nghiệm duy nhất.</p>
-                    <details class="group mt-3">
-                        <summary class="cursor-pointer text-xs font-bold text-indigo-600 hover:text-indigo-800 flex items-center">
-                            <i class="fas fa-chevron-right group-open:rotate-90 transition-transform mr-1.5"></i>Xem gợi ý lời giải
-                        </summary>
-                        <div class="mt-2 text-xs text-slate-700 bg-white p-3 rounded-lg border border-slate-200 space-y-1">
-                            <p>Phương trình $\iff \begin{cases} x \ge 1 \\ x^2 - 2x + m = (x - 1)^2 = x^2 - 2x + 1 \end{cases} \iff \begin{cases} x \ge 1 \\ m = 1 \end{cases}$.</p>
-                            <p>• Khi $m = 1 \implies \sqrt{x^2 - 2x + 1} = x - 1 \iff |x - 1| = x - 1$, luôn đúng với mọi $x \ge 1$ (Vô số nghiệm).</p>
-                            <p>• Khi $m \neq 1 \implies$ Phương trình bình phương vế dưới trở thành $m = 1$ (Vô lý), do đó vô nghiệm.</p>
-                            <p><strong>Kết luận:</strong> Không có giá trị nào của $m$ để phương trình có nghiệm duy nhất.</p>
-                        </div>
-                    </details>
-                </div>
-
-                <!-- Bài 18 -->
-                <div class="p-4 border rounded-xl bg-slate-50 border-slate-200">
-                    <div class="flex items-start justify-between">
-                        <span class="font-bold text-slate-800 text-sm"><span class="bg-blue-600 text-white text-xs px-2 py-0.5 rounded mr-2">Bài 18</span>Giao điểm đường thẳng và đường cong</span>
-                        <span class="text-xs bg-blue-100 text-blue-800 font-semibold px-2 py-0.5 rounded">Nâng cao</span>
-                    </div>
-                    <p class="text-sm font-medium text-slate-800 mt-2">Xác định tọa độ giao điểm của $d: y = x + 3$ và $(C): y = \sqrt{x^2 + 4x + 8} + 1$.</p>
-                    <details class="group mt-3">
-                        <summary class="cursor-pointer text-xs font-bold text-indigo-600 hover:text-indigo-800 flex items-center">
-                            <i class="fas fa-chevron-right group-open:rotate-90 transition-transform mr-1.5"></i>Xem gợi ý lời giải
-                        </summary>
-                        <div class="mt-2 text-xs text-slate-700 bg-white p-3 rounded-lg border border-slate-200 space-y-1">
-                            <p>Phương trình hoành độ: $\sqrt{x^2 + 4x + 8} + 1 = x + 3 \iff \sqrt{x^2 + 4x + 8} = x + 2$.</p>
-                            <p>Điều kiện $x + 2 \ge 0 \iff x \ge -2$.</p>
-                            <p>Bình phương: $x^2 + 4x + 8 = (x + 2)^2 = x^2 + 4x + 4 \iff 8 = 4$ (Vô lý).</p>
-                            <p><strong>Kết luận:</strong> $d$ và $(C)$ không cắt nhau, không có giao điểm.</p>
-                        </div>
-                    </details>
-                </div>
-
-                <!-- Bài 19 -->
-                <div class="p-4 border rounded-xl bg-slate-50 border-slate-200">
-                    <div class="flex items-start justify-between">
-                        <span class="font-bold text-slate-800 text-sm"><span class="bg-blue-600 text-white text-xs px-2 py-0.5 rounded mr-2">Bài 19</span>Biện luận m cho căn bằng căn m</span>
-                        <span class="text-xs bg-blue-100 text-blue-800 font-semibold px-2 py-0.5 rounded">Tham số m</span>
-                    </div>
-                    <p class="text-sm font-medium text-slate-800 mt-2">Tìm tất cả các giá trị thực của tham số $m$ để phương trình $\sqrt{-x^2 + 4x - 3} = \sqrt{m}$ có nghiệm.</p>
-                    <details class="group mt-3">
-                        <summary class="cursor-pointer text-xs font-bold text-indigo-600 hover:text-indigo-800 flex items-center">
-                            <i class="fas fa-chevron-right group-open:rotate-90 transition-transform mr-1.5"></i>Xem gợi ý lời giải
-                        </summary>
-                        <div class="mt-2 text-xs text-slate-700 bg-white p-3 rounded-lg border border-slate-200 space-y-1">
-                            <p>Đặt $f(x) = -x^2 + 4x - 3$ với $1 \le x \le 3$.</p>
-                            <p>Đỉnh parabol $x_I = 2 \implies f(2) = 1$. Giá trị $f(x)$ thuộc đoạn $[0; 1]$.</p>
-                            <p>Phương trình có nghiệm $\iff 0 \le \sqrt{m} \le 1 \iff 0 \le m \le 1$.</p>
-                            <p><strong>Kết luận:</strong> $0 \le m \le 1$.</p>
-                        </div>
-                    </details>
-                </div>
-
-                <!-- Bài 20 -->
-                <div class="p-4 border rounded-xl bg-slate-50 border-slate-200">
-                    <div class="flex items-start justify-between">
-                        <span class="font-bold text-slate-800 text-sm"><span class="bg-blue-600 text-white text-xs px-2 py-0.5 rounded mr-2">Bài 20</span>Chứng minh vô nghiệm bằng đồ thị</span>
-                        <span class="text-xs bg-blue-100 text-blue-800 font-semibold px-2 py-0.5 rounded">Đồ thị</span>
-                    </div>
-                    <p class="text-sm font-medium text-slate-800 mt-2">Chứng minh phương trình $\sqrt{x^2 + 1} = -x - 2$ vô nghiệm bằng đánh giá đồ thị/tập giá trị.</p>
-                    <details class="group mt-3">
-                        <summary class="cursor-pointer text-xs font-bold text-indigo-600 hover:text-indigo-800 flex items-center">
-                            <i class="fas fa-chevron-right group-open:rotate-90 transition-transform mr-1.5"></i>Xem gợi ý lời giải
-                        </summary>
-                        <div class="mt-2 text-xs text-slate-700 bg-white p-3 rounded-lg border border-slate-200 space-y-1">
-                            <p>Ta có $\sqrt{x^2 + 1} \ge 1 > 0$ với mọi $x \in \mathbb{R}$.</p>
-                            <p>Điều kiện để $-x - 2 \ge 1 \iff x \le -3$.</p>
-                            <p>Khi $x \le -3$, bình phương hai vế: $x^2 + 1 = (-x - 2)^2 = x^2 + 4x + 4 \iff 4x = -3 \iff x = -0.75$.</p>
-                            <p>Giá trị $x = -0.75$ không thỏa mãn điều kiện $x \le -3$. Vậy hai đường không cắt nhau, phương trình vô nghiệm.</p>
-                        </div>
-                    </details>
-                </div>
-            </div>
-
-            <!-- CẤP ĐỘ VẬN DỤNG THỰC TIỄN (10 BÀI) -->
-            <div class="space-y-4 pt-4">
-                <h3 class="text-md font-bold text-purple-800 uppercase tracking-wide border-b pb-1 flex items-center">
-                    <i class="fas fa-compass mr-2"></i> PHẦN 3: CẤP ĐỘ VẬN DỤNG THỰC TIỄN (10 BÀI TẬP)
-                </h3>
-
-                <!-- Bài 21 -->
-                <div class="p-4 border rounded-xl bg-slate-50 border-slate-200">
-                    <div class="flex items-start justify-between">
-                        <span class="font-bold text-slate-800 text-sm"><span class="bg-purple-600 text-white text-xs px-2 py-0.5 rounded mr-2">Bài 21</span>Định vị bến xe trung tâm</span>
-                        <span class="text-xs bg-purple-100 text-purple-800 font-semibold px-2 py-0.5 rounded">Thực tế</span>
-                    </div>
-                    <p class="text-sm font-medium text-slate-800 mt-2">Thành phố A, huyện B (cách A 30km về phía nam), huyện C (cách A 40km về phía tây). Đặt bến xe M trên đoạn AB sao cho $MC = MB$. Tính $AM$.</p>
-                    <details class="group mt-3">
-                        <summary class="cursor-pointer text-xs font-bold text-indigo-600 hover:text-indigo-800 flex items-center">
-                            <i class="fas fa-chevron-right group-open:rotate-90 transition-transform mr-1.5"></i>Xem gợi ý lời giải
-                        </summary>
-                        <div class="mt-2 text-xs text-slate-700 bg-white p-3 rounded-lg border border-slate-200 space-y-1">
-                            <p>Đặt $AM = x \ (0 \le x \le 30) \implies MB = 30 - x$.</p>
-                            <p>Tam giác $MAC$ vuông tại $A \implies MC = \sqrt{x^2 + 40^2} = \sqrt{x^2 + 1600}$.</p>
-                            <p>Theo đề $MC = MB \iff \sqrt{x^2 + 1600} = 30 - x$.</p>
-                            <p>Bình phương với $x \le 30$: $x^2 + 1600 = (30 - x)^2 = 900 - 60x + x^2 \iff 60x = -700 \iff x < 0$ (Loại).</p>
-                            <p><strong>Kết luận:</strong> Không có vị trí $M$ nào nằm trên đoạn $AB$ thỏa mãn điều kiện.</p>
-                        </div>
-                    </details>
-                </div>
-
-                <!-- Bài 22 -->
-                <div class="p-4 border rounded-xl bg-slate-50 border-slate-200">
-                    <div class="flex items-start justify-between">
-                        <span class="font-bold text-slate-800 text-sm"><span class="bg-purple-600 text-white text-xs px-2 py-0.5 rounded mr-2">Bài 22</span>Xây cầu bắc qua sông</span>
-                        <span class="text-xs bg-purple-100 text-purple-800 font-semibold px-2 py-0.5 rounded">Thực tế</span>
-                    </div>
-                    <p class="text-sm font-medium text-slate-800 mt-2">A cách bờ 2km, B cách bờ đối diện 4km, khoảng cách dọc sông 6km. $AM = \sqrt{x^2+4}$, $BN = \sqrt{(6-x)^2+16}$. Tìm $x$ để $BN = 2AM$.</p>
-                    <details class="group mt-3">
-                        <summary class="cursor-pointer text-xs font-bold text-indigo-600 hover:text-indigo-800 flex items-center">
-                            <i class="fas fa-chevron-right group-open:rotate-90 transition-transform mr-1.5"></i>Xem gợi ý lời giải
-                        </summary>
-                        <div class="mt-2 text-xs text-slate-700 bg-white p-3 rounded-lg border border-slate-200 space-y-1">
-                            <p>Phương trình: $\sqrt{(6-x)^2 + 16} = 2\sqrt{x^2 + 4}$.</p>
-                            <p>Bình phương hai vế: $(6-x)^2 + 16 = 4(x^2 + 4) \iff 36 - 12x + x^2 + 16 = 4x^2 + 16 \iff 3x^2 + 12x - 36 = 0$.</p>
-                            <p>Chia cho 3: $x^2 + 4x - 12 = 0 \iff (x - 2)(x + 6) = 0 \iff x = 2$ (do $0 \le x \le 6$).</p>
-                            <p><strong>Vậy:</strong> $x = 2\text{ (km)}$.</p>
-                        </div>
-                    </details>
-                </div>
-
-                <!-- Bài 23 -->
-                <div class="p-4 border rounded-xl bg-slate-50 border-slate-200">
-                    <div class="flex items-start justify-between">
-                        <span class="font-bold text-slate-800 text-sm"><span class="bg-purple-600 text-white text-xs px-2 py-0.5 rounded mr-2">Bài 23</span>Shipper giao hàng gặp khách</span>
-                        <span class="text-xs bg-purple-100 text-purple-800 font-semibold px-2 py-0.5 rounded">Thực tế</span>
-                    </div>
-                    <p class="text-sm font-medium text-slate-800 mt-2">B ở phía Đông A cách 8km, C ở phía Bắc B ($BC=x$). Shipper từ A đến C (40km/h), khách từ B đến C (15km/h) đến cùng lúc. Tính $x$.</p>
-                    <details class="group mt-3">
-                        <summary class="cursor-pointer text-xs font-bold text-indigo-600 hover:text-indigo-800 flex items-center">
-                            <i class="fas fa-chevron-right group-open:rotate-90 transition-transform mr-1.5"></i>Xem gợi ý lời giải
-                        </summary>
-                        <div class="mt-2 text-xs text-slate-700 bg-white p-3 rounded-lg border border-slate-200 space-y-1">
-                            <p>Thời gian đi bằng nhau: $\frac{\sqrt{8^2 + x^2}}{40} = \frac{x}{15} \iff \frac{\sqrt{64 + x^2}}{8} = \frac{x}{3}$.</p>
-                            <p>Quy đồng: $3\sqrt{64 + x^2} = 8x \iff 9(64 + x^2) = 64x^2 \iff 576 + 9x^2 = 64x^2 \iff 55x^2 = 576$.</p>
-                            <p>$x = \sqrt{\frac{576}{55}} = \frac{24}{\sqrt{55}} \approx 3.236\text{ (km)}$.</p>
-                        </div>
-                    </details>
-                </div>
-
-                <!-- Bài 24 -->
-                <div class="p-4 border rounded-xl bg-slate-50 border-slate-200">
-                    <div class="flex items-start justify-between">
-                        <span class="font-bold text-slate-800 text-sm"><span class="bg-purple-600 text-white text-xs px-2 py-0.5 rounded mr-2">Bài 24</span>Gập thanh kim loại thành góc vuông</span>
-                        <span class="text-xs bg-purple-100 text-purple-800 font-semibold px-2 py-0.5 rounded">Thực tế</span>
-                    </div>
-                    <p class="text-sm font-medium text-slate-800 mt-2">Thanh kim loại dài 100cm gập vuông tại M. Khoảng cách hai đầu là 70cm. Tính vị trí M cách hai đầu.</p>
-                    <details class="group mt-3">
-                        <summary class="cursor-pointer text-xs font-bold text-indigo-600 hover:text-indigo-800 flex items-center">
-                            <i class="fas fa-chevron-right group-open:rotate-90 transition-transform mr-1.5"></i>Xem gợi ý lời giải
-                        </summary>
-                        <div class="mt-2 text-xs text-slate-700 bg-white p-3 rounded-lg border border-slate-200 space-y-1">
-                            <p>Gọi độ dài hai đoạn là $x$ và $100 - x$ ($0 < x < 100$).</p>
-                            <p>Áp dụng Pytago: $x^2 + (100 - x)^2 = 70^2 = 4900 \iff 2x^2 - 200x + 10000 = 4900 \iff 2x^2 - 200x + 5100 = 0$.</p>
-                            <p>Chia 2: $x^2 - 100x + 2550 = 0$. Có $\Delta' = 2500 - 2550 = -50 < 0$.</p>
-                            <p><strong>Kết luận:</strong> Không thể gập thanh kim loại để khoảng cách hai đầu bằng 70cm (Tổng 2 cạnh $a+b \ge \sqrt{2(a^2+b^2)} = \sqrt{2 \times 4900} \approx 98.99\text{cm}$).</p>
-                        </div>
-                    </details>
-                </div>
-
-                <!-- Bài 25 -->
-                <div class="p-4 border rounded-xl bg-slate-50 border-slate-200">
-                    <div class="flex items-start justify-between">
-                        <span class="font-bold text-slate-800 text-sm"><span class="bg-purple-600 text-white text-xs px-2 py-0.5 rounded mr-2">Bài 25</span>Cứu hộ đường biển bờ biển thẳng</span>
-                        <span class="text-xs bg-purple-100 text-purple-800 font-semibold px-2 py-0.5 rounded">Thực tế</span>
-                    </div>
-                    <p class="text-sm font-medium text-slate-800 mt-2">Trạm A cách H 8km, tàu C cách H 6km ($CH \perp AH$). Ca nô từ A đến M ($HM=x$) rồi đến C. Tìm $x$ để $AM = MC$.</p>
-                    <details class="group mt-3">
-                        <summary class="cursor-pointer text-xs font-bold text-indigo-600 hover:text-indigo-800 flex items-center">
-                            <i class="fas fa-chevron-right group-open:rotate-90 transition-transform mr-1.5"></i>Xem gợi ý lời giải
-                        </summary>
-                        <div class="mt-2 text-xs text-slate-700 bg-white p-3 rounded-lg border border-slate-200 space-y-1">
-                            <p>Ta có $AM = 8 - x$, $MC = \sqrt{x^2 + 36}$.</p>
-                            <p>Phương trình: $8 - x = \sqrt{x^2 + 36} \implies (8 - x)^2 = x^2 + 36 \iff 64 - 16x + x^2 = x^2 + 36 \iff 16x = 28 \iff x = 1.75\text{ (km)}$.</p>
-                        </div>
-                    </details>
-                </div>
-
-                <!-- Bài 26 -->
-                <div class="p-4 border rounded-xl bg-slate-50 border-slate-200">
-                    <div class="flex items-start justify-between">
-                        <span class="font-bold text-slate-800 text-sm"><span class="bg-purple-600 text-white text-xs px-2 py-0.5 rounded mr-2">Bài 26</span>Bài toán kéo cáp điện qua sông</span>
-                        <span class="text-xs bg-purple-100 text-purple-800 font-semibold px-2 py-0.5 rounded">Thực tế</span>
-                    </div>
-                    <p class="text-sm font-medium text-slate-800 mt-2">A trên bờ, đảo C cách bờ $BC=3\text{km}$, $AB=6\text{km}$. Đất: 2 tr/km, nước: 5 tr/km. Tìm $BM=x$ để tổng chi phí là 25 triệu.</p>
-                    <details class="group mt-3">
-                        <summary class="cursor-pointer text-xs font-bold text-indigo-600 hover:text-indigo-800 flex items-center">
-                            <i class="fas fa-chevron-right group-open:rotate-90 transition-transform mr-1.5"></i>Xem gợi ý lời giải
-                        </summary>
-                        <div class="mt-2 text-xs text-slate-700 bg-white p-3 rounded-lg border border-slate-200 space-y-1">
-                            <p>Đoạn trên bờ $AM = 6 - x$, đoạn dưới nước $MC = \sqrt{x^2 + 3^2} = \sqrt{x^2 + 9}$.</p>
-                            <p>Tổng chi phí: $2(6 - x) + 5\sqrt{x^2 + 9} = 25 \iff 5\sqrt{x^2 + 9} = 13 + 2x$.</p>
-                            <p>Bình phương: $25(x^2 + 9) = (13 + 2x)^2 \iff 25x^2 + 225 = 169 + 52x + 4x^2 \iff 21x^2 - 52x + 56 = 0$.</p>
-                            <p>Phương trình có $\Delta' = 26^2 - 21(56) = 676 - 1176 = -500 < 0$.</p>
-                            <p><strong>Kết luận:</strong> Chi phí 25 triệu không đủ thực hiện (Chi phí tối thiểu rơi vào khoảng 22.8 triệu).</p>
-                        </div>
-                    </details>
-                </div>
-
-                <!-- Bài 27 -->
-                <div class="p-4 border rounded-xl bg-slate-50 border-slate-200">
-                    <div class="flex items-start justify-between">
-                        <span class="font-bold text-slate-800 text-sm"><span class="bg-purple-600 text-white text-xs px-2 py-0.5 rounded mr-2">Bài 27</span>Khoảng cách giữa hai tàu chuyển động</span>
-                        <span class="text-xs bg-purple-100 text-purple-800 font-semibold px-2 py-0.5 rounded">Thực tế</span>
-                    </div>
-                    <p class="text-sm font-medium text-slate-800 mt-2">Radar $O(0;0)$. Tàu 1 từ $A(0;20)$ đi Đông (15km/h). Tàu 2 từ $O$ đi Bắc (20km/h). Tìm thời điểm $t$ để khoảng cách hai tàu bằng 25km.</p>
-                    <details class="group mt-3">
-                        <summary class="cursor-pointer text-xs font-bold text-indigo-600 hover:text-indigo-800 flex items-center">
-                            <i class="fas fa-chevron-right group-open:rotate-90 transition-transform mr-1.5"></i>Xem gợi ý lời giải
-                        </summary>
-                        <div class="mt-2 text-xs text-slate-700 bg-white p-3 rounded-lg border border-slate-200 space-y-1">
-                            <p>Tọa độ Tàu 1: $(15t; 20)$, Tọa độ Tàu 2: $(0; 20t)$.</p>
-                            <p>Khoảng cách $D = \sqrt{(15t)^2 + (20 - 20t)^2} = 25$.</p>
-                            <p>Bình phương: $225t^2 + 400(1 - t)^2 = 625 \iff 9t^2 + 16(1 - 2t + t^2) = 25 \iff 25t^2 - 32t - 9 = 0$.</p>
-                            <p>Giải ra $t = \frac{16 + \sqrt{481}}{25} \approx 1.517\text{ (giờ)}$.</p>
-                        </div>
-                    </details>
-                </div>
-
-                <!-- Bài 28 -->
-                <div class="p-4 border rounded-xl bg-slate-50 border-slate-200">
-                    <div class="flex items-start justify-between">
-                        <span class="font-bold text-slate-800 text-sm"><span class="bg-purple-600 text-white text-xs px-2 py-0.5 rounded mr-2">Bài 28</span>Kích thước màn hình tivi 16:9</span>
-                        <span class="text-xs bg-purple-100 text-purple-800 font-semibold px-2 py-0.5 rounded">Thực tế</span>
-                    </div>
-                    <p class="text-sm font-medium text-slate-800 mt-2">Màn hình tivi tỉ lệ 16:9, đường chéo 65 inch. Lập phương trình chứa căn tìm chiều dài và chiều rộng tivi theo inch.</p>
-                    <details class="group mt-3">
-                        <summary class="cursor-pointer text-xs font-bold text-indigo-600 hover:text-indigo-800 flex items-center">
-                            <i class="fas fa-chevron-right group-open:rotate-90 transition-transform mr-1.5"></i>Xem gợi ý lời giải
-                        </summary>
-                        <div class="mt-2 text-xs text-slate-700 bg-white p-3 rounded-lg border border-slate-200 space-y-1">
-                            <p>Gọi chiều rộng là $9x$, chiều dài là $16x$ ($x > 0$).</p>
-                            <p>Đường chéo $\sqrt{(16x)^2 + (9x)^2} = 65 \iff \sqrt{256x^2 + 81x^2} = 65 \iff \sqrt{337x^2} = 65 \iff x\sqrt{337} = 65$.</p>
-                            <p>$x = \frac{65}{\sqrt{337}} \approx 3.54$.</p>
-                            <p>• Chiều rộng: $9x \approx 31.86\text{ inch}$.</p>
-                            <p>• Chiều dài: $16x \approx 56.64\text{ inch}$.</p>
-                        </div>
-                    </details>
-                </div>
-
-                <!-- Bài 29 -->
-                <div class="p-4 border rounded-xl bg-slate-50 border-slate-200">
-                    <div class="flex items-start justify-between">
-                        <span class="font-bold text-slate-800 text-sm"><span class="bg-purple-600 text-white text-xs px-2 py-0.5 rounded mr-2">Bài 29</span>Cân bằng độ dài hai thanh chống giàn giáo</span>
-                        <span class="text-xs bg-purple-100 text-purple-800 font-semibold px-2 py-0.5 rounded">Thực tế</span>
-                    </div>
-                    <p class="text-sm font-medium text-slate-800 mt-2">Thanh chống 1 dài 3m. Thanh chống 2 dài $\sqrt{x^2 - 2x + 10}$. Tìm $x$ để hai thanh có độ dài bằng nhau.</p>
-                    <details class="group mt-3">
-                        <summary class="cursor-pointer text-xs font-bold text-indigo-600 hover:text-indigo-800 flex items-center">
-                            <i class="fas fa-chevron-right group-open:rotate-90 transition-transform mr-1.5"></i>Xem gợi ý lời giải
-                        </summary>
-                        <div class="mt-2 text-xs text-slate-700 bg-white p-3 rounded-lg border border-slate-200 space-y-1">
-                            <p>Phương trình: $\sqrt{x^2 - 2x + 10} = 3$.</p>
-                            <p>Bình phương: $x^2 - 2x + 10 = 9 \iff x^2 - 2x + 1 = 0 \iff (x - 1)^2 = 0 \iff x = 1$.</p>
-                            <p><strong>Nghiệm:</strong> $x = 1$.</p>
-                        </div>
-                    </details>
-                </div>
-
-                <!-- Bài 30 -->
-                <div class="p-4 border rounded-xl bg-slate-50 border-slate-200">
-                    <div class="flex items-start justify-between">
-                        <span class="font-bold text-slate-800 text-sm"><span class="bg-purple-600 text-white text-xs px-2 py-0.5 rounded mr-2">Bài 30</span>Thiết kế hầm chui bán nguyệt</span>
-                        <span class="text-xs bg-purple-100 text-purple-800 font-semibold px-2 py-0.5 rounded">Thực tế</span>
-                    </div>
-                    <p class="text-sm font-medium text-slate-800 mt-2">Mặt cắt hầm chui bán nguyệt $R=5\text{m}$. Xe tải rộng $6\text{m}$ ($x=3$). Tìm chiều cao tối đa $h$ để xe chui lọt hầm.</p>
-                    <details class="group mt-3">
-                        <summary class="cursor-pointer text-xs font-bold text-indigo-600 hover:text-indigo-800 flex items-center">
-                            <i class="fas fa-chevron-right group-open:rotate-90 transition-transform mr-1.5"></i>Xem gợi ý lời giải
-                        </summary>
-                        <div class="mt-2 text-xs text-slate-700 bg-white p-3 rounded-lg border border-slate-200 space-y-1">
-                            <p>Theo Pytago với bán kính hầm: $x^2 + h^2 \le R^2 \iff 3^2 + h^2 \le 5^2 \iff 9 + h^2 \le 25 \iff h^2 \le 16$.</p>
-                            <p>Do $h > 0 \implies h \le 4\text{ (m)}$.</p>
-                            <p><strong>Vậy chiều cao lớn nhất xe tải đạt được là:</strong> $h = 4\text{m}$.</p>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-lg border border-slate-200 text-sm space-y-1 text-slate-700">
+                            <p>• Nếu \(m < 0\) hoặc \(m > 1\): Phương trình vô nghiệm.</p>
+                            <p>• Nếu \(m = 1\): Phương trình có 1 nghiệm duy nhất \(\alpha = 90^\circ\).</p>
+                            <p>• Nếu \(m = 0\): Phương trình có 2 nghiệm \(\alpha = 0^\circ\) và \(\alpha = 180^\circ\).</p>
+                            <p>• Nếu \(0 < m < 1\): Phương trình luôn có đúng 2 nghiệm bù nhau trong khoảng \((0^\circ; 180^\circ)\).</p>
                         </div>
                     </details>
                 </div>
             </div>
         </section>
 
-        <!-- PHẦN 4: ĐÁNH GIÁ NĂNG LỰC TẠI LỚP (TRẮC NGHIỆM ONLINE 5 CÂU) -->
-        <section class="bg-white p-6 rounded-2xl shadow-md border border-slate-200">
-            <div class="flex items-center space-x-3 mb-6 border-b pb-3 border-slate-200">
-                <span class="bg-purple-600 text-white p-2.5 rounded-xl"><i class="fas fa-user-check text-xl"></i></span>
+        <!-- PHẦN 3: MỨC ĐỘ VẬN DỤNG THỰC TIỄN -->
+        <section class="mb-12">
+            <div class="flex items-center space-x-3 mb-6 border-b-2 border-rose-500 pb-2">
+                <span class="bg-rose-500 text-white p-2 rounded-lg text-lg"><i class="fas fa-rocket"></i></span>
                 <div>
-                    <h2 class="text-xl font-bold text-slate-800">IV. BÀI TẬP ĐÁNH GIÁ NĂNG LỰC TẠI LỚP</h2>
-                    <p class="text-xs text-slate-500">Hoàn thành 5 câu hỏi kiểm tra nhanh và bấm nộp bài để ghi nhận điểm trực tuyến</p>
+                    <h2 class="text-xl sm:text-2xl font-bold text-slate-800">PHẦN 3: MỨC ĐỘ VẬN DỤNG THỰC TIỄN (BÀI 21 ĐẾN BÀI 30)</h2>
+                    <p class="text-xs sm:text-sm text-slate-500">Mục tiêu: Đưa khái niệm lượng giác vào các bài toán vật lí (mặt phẳng nghiêng, phản xạ, phân tích lực) và đời sống thực tế.</p>
                 </div>
             </div>
 
-            <!-- FORM ĐIỀU KIỆN THÔNG TIN HỌC SINH -->
-            <div class="bg-indigo-50 p-4 rounded-xl mb-6 grid md:grid-cols-2 gap-4 border border-indigo-100">
-                <div>
-                    <label class="block text-xs font-bold text-indigo-900 uppercase mb-1">
-                        Họ và Tên Học Sinh <span class="text-red-500">*</span>
-                    </label>
-                    <input type="text" id="student-name" placeholder="Nhập đầy đủ họ và tên..." 
-                           class="w-full px-3 py-2 border rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 outline-none bg-white">
+            <div class="space-y-6">
+                <!-- BÀI 21 -->
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="bg-rose-100 text-rose-800 text-xs font-bold px-3 py-1 rounded-full"><i class="fas fa-pen-nib mr-1"></i> Bài 21</span>
+                        <span class="text-xs text-slate-400">Mặt phẳng nghiêng</span>
+                    </div>
+                    <p class="font-medium text-slate-800 mb-3">
+                        Một chiếc hộp khối lượng \(m\) đặt trên mặt phẳng nghiêng góc \(\alpha = 30^\circ\). Trọng lực \(\vec{P}\) có độ lớn \(100\text{ N}\) hướng thẳng đứng xuống. Phân tích \(\vec{P}\) thành thành phần \(\vec{P}_x\) song song mặt nghiêng và \(\vec{P}_y\) vuông góc mặt nghiêng. Tính độ lớn hai lực này.
+                    </p>
+
+                    <!-- JSXGRAPH BÀI 21 -->
+                    <div class="my-4 p-4 bg-slate-50 rounded-xl border border-slate-200">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-xs font-bold text-indigo-700 uppercase"><i class="fas fa-laptop-code mr-1"></i> Mô hình Phân tích lực trên mặt phẳng nghiêng</span>
+                        </div>
+                        <div id="jsxbox21" class="jxgbox w-full h-[320px] mx-auto"></div>
+                    </div>
+
+                    <details class="group mt-3">
+                        <summary class="cursor-pointer inline-flex items-center text-xs font-semibold text-rose-700 bg-rose-50 hover:bg-rose-100 px-3 py-1.5 rounded-lg transition select-none">
+                            <i class="fas fa-lightbulb text-amber-500 mr-2 group-open:rotate-180 transition-transform"></i>
+                            <span>Gợi ý lời giải</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-lg border border-slate-200 text-sm space-y-1 text-slate-700">
+                            <p>• Lực song song: \(P_x = P \cdot \sin \alpha = 100 \cdot \sin 30^\circ = 50\text{ N}\).</p>
+                            <p>• Lực vuông góc: \(P_y = P \cdot \cos \alpha = 100 \cdot \cos 30^\circ = 50\sqrt{3}\text{ N}\).</p>
+                        </div>
+                    </details>
                 </div>
-                <div>
-                    <label class="block text-xs font-bold text-indigo-900 uppercase mb-1">Mã Đề / Lớp Học</label>
-                    <input type="text" id="exam-id" value="toan10-11" 
-                           class="w-full px-3 py-2 border rounded-lg text-sm bg-slate-100 font-bold text-slate-700" readonly>
+
+                <!-- BÀI 22 -->
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="bg-rose-100 text-rose-800 text-xs font-bold px-3 py-1 rounded-full"><i class="fas fa-pen-nib mr-1"></i> Bài 22</span>
+                        <span class="text-xs text-slate-400">Lực kéo giật lùi</span>
+                    </div>
+                    <p class="font-medium text-slate-800 mb-3">
+                        Người kéo hòm gỗ bằng lực \(\vec{F}\) có độ lớn \(150\text{ N}\) hợp với phương ngang góc tù \(\alpha = 120^\circ\). Tính độ lớn thành phần lực cản nằm ngang tạo ra.
+                    </p>
+                    <details class="group mt-3">
+                        <summary class="cursor-pointer inline-flex items-center text-xs font-semibold text-rose-700 bg-rose-50 hover:bg-rose-100 px-3 py-1.5 rounded-lg transition select-none">
+                            <i class="fas fa-lightbulb text-amber-500 mr-2 group-open:rotate-180 transition-transform"></i>
+                            <span>Gợi ý lời giải</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-lg border border-slate-200 text-sm space-y-1 text-slate-700">
+                            <p>Thành phần nằm ngang: \(F_x = F \cdot \cos 120^\circ = 150 \cdot \left(-\frac{1}{2}\right) = -75\text{ N}\).</p>
+                            <p>Độ lớn lực cản nằm ngang là \(|F_x| = 75\text{ N}\) hướng ngược với chiều chuyển động dương.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- BÀI 23 -->
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="bg-rose-100 text-rose-800 text-xs font-bold px-3 py-1 rounded-full"><i class="fas fa-pen-nib mr-1"></i> Bài 23</span>
+                        <span class="text-xs text-slate-400">Bóng cột cờ</span>
+                    </div>
+                    <p class="font-medium text-slate-800 mb-3">
+                        Cột cờ cao \(10\text{ m}\) có bóng trên mặt đất dài \(10\sqrt{3}\text{ m}\). Tính góc \(\alpha\) tia nắng hợp với mặt đất.
+                    </p>
+                    <details class="group mt-3">
+                        <summary class="cursor-pointer inline-flex items-center text-xs font-semibold text-rose-700 bg-rose-50 hover:bg-rose-100 px-3 py-1.5 rounded-lg transition select-none">
+                            <i class="fas fa-lightbulb text-amber-500 mr-2 group-open:rotate-180 transition-transform"></i>
+                            <span>Gợi ý lời giải</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-lg border border-slate-200 text-sm space-y-1 text-slate-700">
+                            <p>\(\tan \alpha = \frac{\text{Chiều cao}}{\text{Bóng}} = \frac{10}{10\sqrt{3}} = \frac{\sqrt{3}}{3} \Rightarrow \alpha = 30^\circ\).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- BÀI 24 -->
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="bg-rose-100 text-rose-800 text-xs font-bold px-3 py-1 rounded-full"><i class="fas fa-pen-nib mr-1"></i> Bài 24</span>
+                        <span class="text-xs text-slate-400">Hành trình tàu thủy</span>
+                    </div>
+                    <p class="font-medium text-slate-800 mb-3">
+                        Tàu thủy đi từ cảng \(O\) theo hướng hợp với hướng Đông góc \(135^\circ\) với vận tốc \(30\text{ km/h}\). Hỏi sau \(2\) giờ, tàu dịch chuyển bao nhiêu km về phía Tây và bao nhiêu km về phía Bắc?
+                    </p>
+                    <details class="group mt-3">
+                        <summary class="cursor-pointer inline-flex items-center text-xs font-semibold text-rose-700 bg-rose-50 hover:bg-rose-100 px-3 py-1.5 rounded-lg transition select-none">
+                            <i class="fas fa-lightbulb text-amber-500 mr-2 group-open:rotate-180 transition-transform"></i>
+                            <span>Gợi ý lời giải</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-lg border border-slate-200 text-sm space-y-1 text-slate-700">
+                            <p>Quãng đường đi được: \(S = 30 \cdot 2 = 60\text{ km}\).</p>
+                            <p>• Dịch chuyển về phía Tây: \(S \cdot |\cos 135^\circ| = 60 \cdot \frac{\sqrt{2}}{2} = 30\sqrt{2}\text{ km}\).</p>
+                            <p>• Dịch chuyển về phía Bắc: \(S \cdot \sin 135^\circ = 60 \cdot \frac{\sqrt{2}}{2} = 30\sqrt{2}\text{ km}\).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- BÀI 25 -->
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="bg-rose-100 text-rose-800 text-xs font-bold px-3 py-1 rounded-full"><i class="fas fa-pen-nib mr-1"></i> Bài 25</span>
+                        <span class="text-xs text-slate-400">Tầm bay xa của bóng</span>
+                    </div>
+                    <p class="font-medium text-slate-800 mb-3">
+                        Tầm bay xa: \(R = \frac{v_0^2 \cdot \sin 2\alpha}{g}\) với \(v_0 = 20\text{ m/s}\), \(g \approx 10\text{ m/s}^2\). Tìm tầm xa khi góc đá \(\alpha = 45^\circ\).
+                    </p>
+                    <details class="group mt-3">
+                        <summary class="cursor-pointer inline-flex items-center text-xs font-semibold text-rose-700 bg-rose-50 hover:bg-rose-100 px-3 py-1.5 rounded-lg transition select-none">
+                            <i class="fas fa-lightbulb text-amber-500 mr-2 group-open:rotate-180 transition-transform"></i>
+                            <span>Gợi ý lời giải</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-lg border border-slate-200 text-sm space-y-1 text-slate-700">
+                            <p>Khi \(\alpha = 45^\circ \Rightarrow 2\alpha = 90^\circ \Rightarrow \sin 90^\circ = 1\).</p>
+                            <p>\(R = \frac{20^2 \cdot 1}{10} = \frac{400}{10} = 40\text{ m}\).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- BÀI 26 -->
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="bg-rose-100 text-rose-800 text-xs font-bold px-3 py-1 rounded-full"><i class="fas fa-pen-nib mr-1"></i> Bài 26</span>
+                        <span class="text-xs text-slate-400">Chiều cao mái nhà</span>
+                    </div>
+                    <p class="font-medium text-slate-800 mb-3">
+                        Ngôi nhà rộng \(8\text{ m}\), mái nhà chữ V đối xứng có \(\tan \alpha \ge 0.25\). Tìm chiều cao tối thiểu từ trần lên đỉnh mái.
+                    </p>
+                    <details class="group mt-3">
+                        <summary class="cursor-pointer inline-flex items-center text-xs font-semibold text-rose-700 bg-rose-50 hover:bg-rose-100 px-3 py-1.5 rounded-lg transition select-none">
+                            <i class="fas fa-lightbulb text-amber-500 mr-2 group-open:rotate-180 transition-transform"></i>
+                            <span>Gợi ý lời giải</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-lg border border-slate-200 text-sm space-y-1 text-slate-700">
+                            <p>Nửa chiều rộng nhà là \(d = 4\text{ m}\).</p>
+                            <p>Chiều cao \(h = d \cdot \tan \alpha = 4 \cdot \tan \alpha \ge 4 \cdot 0.25 = 1\text{ m}\).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- BÀI 27 -->
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="bg-rose-100 text-rose-800 text-xs font-bold px-3 py-1 rounded-full"><i class="fas fa-pen-nib mr-1"></i> Bài 27</span>
+                        <span class="text-xs text-slate-400">Diện tích mảnh đất tam giác</span>
+                    </div>
+                    <p class="font-medium text-slate-800 mb-3">
+                        Mảnh đất tam giác có \(a = 20\text{ m}, b = 30\text{ m}\), góc kẹp giữa \(C = 150^\circ\). Tính diện tích mảnh đất.
+                    </p>
+                    <details class="group mt-3">
+                        <summary class="cursor-pointer inline-flex items-center text-xs font-semibold text-rose-700 bg-rose-50 hover:bg-rose-100 px-3 py-1.5 rounded-lg transition select-none">
+                            <i class="fas fa-lightbulb text-amber-500 mr-2 group-open:rotate-180 transition-transform"></i>
+                            <span>Gợi ý lời giải</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-lg border border-slate-200 text-sm space-y-1 text-slate-700">
+                            <p>\(S = \frac{1}{2} a \cdot b \cdot \sin C = \frac{1}{2} \cdot 20 \cdot 30 \cdot \sin 150^\circ\).</p>
+                            <p>Vì \(\sin 150^\circ = \sin 30^\circ = \frac{1}{2} \Rightarrow S = \frac{1}{2} \cdot 600 \cdot \frac{1}{2} = 150\text{ m}^2\).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- BÀI 28 -->
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="bg-rose-100 text-rose-800 text-xs font-bold px-3 py-1 rounded-full"><i class="fas fa-pen-nib mr-1"></i> Bài 28</span>
+                        <span class="text-xs text-slate-400">Khúc xạ ánh sáng (Định luật Snell)</span>
+                    </div>
+                    <p class="font-medium text-slate-800 mb-3">
+                        Chiếu tia sáng từ không khí vào nước có chiết suất \(n \approx 1.33\). Định luật Snell: \(\frac{\sin i}{\sin r} = n\). Tính góc khúc xạ \(r\) khi góc tới \(i = 45^\circ\).
+                    </p>
+
+                    <!-- JSXGRAPH BÀI 28 -->
+                    <div class="my-4 p-4 bg-slate-50 rounded-xl border border-slate-200">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-xs font-bold text-indigo-700 uppercase"><i class="fas fa-laptop-code mr-1"></i> Mô hình Khúc xạ ánh sáng Snell</span>
+                        </div>
+                        <div id="jsxbox28" class="jxgbox w-full h-[300px] mx-auto"></div>
+                    </div>
+
+                    <details class="group mt-3">
+                        <summary class="cursor-pointer inline-flex items-center text-xs font-semibold text-rose-700 bg-rose-50 hover:bg-rose-100 px-3 py-1.5 rounded-lg transition select-none">
+                            <i class="fas fa-lightbulb text-amber-500 mr-2 group-open:rotate-180 transition-transform"></i>
+                            <span>Gợi ý lời giải</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-lg border border-slate-200 text-sm space-y-1 text-slate-700">
+                            <p>\(\sin r = \frac{\sin 45^\circ}{1.33} \approx \frac{0.7071}{1.33} \approx 0.5316\).</p>
+                            <p>Suy ra \(r \approx \arcsin(0.5316) \approx 32^\circ\).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- BÀI 29 -->
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="bg-rose-100 text-rose-800 text-xs font-bold px-3 py-1 rounded-full"><i class="fas fa-pen-nib mr-1"></i> Bài 29</span>
+                        <span class="text-xs text-slate-400">Lực căng dây võng</span>
+                    </div>
+                    <p class="font-medium text-slate-800 mb-3">
+                        Dây võng tạo góc tù \(\alpha = 150^\circ\) so với phương ngang. Tổng trọng lượng \(800\text{ N}\). Áp dụng phương trình cân bằng \(2 \cdot T \cdot \sin(180^\circ - \alpha) = 800\), tính lực căng \(T\).
+                    </p>
+                    <details class="group mt-3">
+                        <summary class="cursor-pointer inline-flex items-center text-xs font-semibold text-rose-700 bg-rose-50 hover:bg-rose-100 px-3 py-1.5 rounded-lg transition select-none">
+                            <i class="fas fa-lightbulb text-amber-500 mr-2 group-open:rotate-180 transition-transform"></i>
+                            <span>Gợi ý lời giải</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-lg border border-slate-200 text-sm space-y-1 text-slate-700">
+                            <p>Ta có \(\sin(180^\circ - 150^\circ) = \sin 30^\circ = \frac{1}{2}\).</p>
+                            <p>\(2 \cdot T \cdot \frac{1}{2} = 800 \Rightarrow T = 800\text{ N}\).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- BÀI 30 -->
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="bg-rose-100 text-rose-800 text-xs font-bold px-3 py-1 rounded-full"><i class="fas fa-pen-nib mr-1"></i> Bài 30</span>
+                        <span class="text-xs text-slate-400">Lập trình cánh tay Robot</span>
+                    </div>
+                    <p class="font-medium text-slate-800 mb-3">
+                        Cánh tay robot dài \(1\) đơn vị xoay góc \(\alpha\) từ \(0^\circ\) đến \(180^\circ\). Thiết lập công thức tọa độ đầu kim phun \(M(x; y)\). Áp dụng tính tọa độ khi xoay \(\alpha = 150^\circ\).
+                    </p>
+                    <details class="group mt-3">
+                        <summary class="cursor-pointer inline-flex items-center text-xs font-semibold text-rose-700 bg-rose-50 hover:bg-rose-100 px-3 py-1.5 rounded-lg transition select-none">
+                            <i class="fas fa-lightbulb text-amber-500 mr-2 group-open:rotate-180 transition-transform"></i>
+                            <span>Gợi ý lời giải</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-lg border border-slate-200 text-sm space-y-1 text-slate-700">
+                            <p>Công thức tọa độ: \(x = \cos \alpha\), \(y = \sin \alpha\).</p>
+                            <p>Khi \(\alpha = 150^\circ\): \(M\left(-\frac{\sqrt{3}}{2}; \frac{1}{2}\right)\).</p>
+                        </div>
+                    </details>
                 </div>
             </div>
-
-            <!-- FORM 5 CÂU TRẮC NGHIỆM -->
-            <form id="quiz-form" class="space-y-6">
-                <!-- Câu 1 -->
-                <div class="p-4 border rounded-xl bg-slate-50 border-slate-200">
-                    <p class="font-bold text-slate-800 text-sm mb-2">
-                        <span class="inline-block bg-indigo-600 text-white text-xs px-2 py-0.5 rounded mr-2">Câu 1</span>
-                        Tập nghiệm của phương trình $\sqrt{x^2 - 4x + 3} = x - 2$ là:
-                    </p>
-                    <div class="grid md:grid-cols-2 gap-2 text-sm">
-                        <label class="flex items-center p-2.5 bg-white rounded-lg border hover:bg-indigo-50 cursor-pointer">
-                            <input type="radio" name="q1" value="A" class="mr-2"> A. $S = \{0.5\}$
-                        </label>
-                        <label class="flex items-center p-2.5 bg-white rounded-lg border hover:bg-indigo-50 cursor-pointer">
-                            <input type="radio" name="q1" value="B" class="mr-2"> B. $S = \varnothing$
-                        </label>
-                        <label class="flex items-center p-2.5 bg-white rounded-lg border hover:bg-indigo-50 cursor-pointer">
-                            <input type="radio" name="q1" value="C" class="mr-2"> C. $S = \{2\}$
-                        </label>
-                        <label class="flex items-center p-2.5 bg-white rounded-lg border hover:bg-indigo-50 cursor-pointer">
-                            <input type="radio" name="q1" value="D" class="mr-2"> D. $S = \{1; 3\}$
-                        </label>
-                    </div>
-                </div>
-
-                <!-- Câu 2 -->
-                <div class="p-4 border rounded-xl bg-slate-50 border-slate-200">
-                    <p class="font-bold text-slate-800 text-sm mb-2">
-                        <span class="inline-block bg-indigo-600 text-white text-xs px-2 py-0.5 rounded mr-2">Câu 2</span>
-                        Phương trình $\sqrt{4x + 30} = 2x + 3$ có bao nhiêu nghiệm thực?
-                    </p>
-                    <div class="grid md:grid-cols-2 gap-2 text-sm">
-                        <label class="flex items-center p-2.5 bg-white rounded-lg border hover:bg-indigo-50 cursor-pointer">
-                            <input type="radio" name="q2" value="A" class="mr-2"> A. 0 nghiệm
-                        </label>
-                        <label class="flex items-center p-2.5 bg-white rounded-lg border hover:bg-indigo-50 cursor-pointer">
-                            <input type="radio" name="q2" value="B" class="mr-2"> B. 1 nghiệm ($x=1.5$)
-                        </label>
-                        <label class="flex items-center p-2.5 bg-white rounded-lg border hover:bg-indigo-50 cursor-pointer">
-                            <input type="radio" name="q2" value="C" class="mr-2"> C. 2 nghiệm
-                        </label>
-                        <label class="flex items-center p-2.5 bg-white rounded-lg border hover:bg-indigo-50 cursor-pointer">
-                            <input type="radio" name="q2" value="D" class="mr-2"> D. Vô số nghiệm
-                        </label>
-                    </div>
-                </div>
-
-                <!-- Câu 3 -->
-                <div class="p-4 border rounded-xl bg-slate-50 border-slate-200">
-                    <p class="font-bold text-slate-800 text-sm mb-2">
-                        <span class="inline-block bg-indigo-600 text-white text-xs px-2 py-0.5 rounded mr-2">Câu 3</span>
-                        Nghiệm của phương trình $x - \sqrt{2x - 1} = 2$ là:
-                    </p>
-                    <div class="grid md:grid-cols-2 gap-2 text-sm">
-                        <label class="flex items-center p-2.5 bg-white rounded-lg border hover:bg-indigo-50 cursor-pointer">
-                            <input type="radio" name="q3" value="A" class="mr-2"> A. $x = 1$
-                        </label>
-                        <label class="flex items-center p-2.5 bg-white rounded-lg border hover:bg-indigo-50 cursor-pointer">
-                            <input type="radio" name="q3" value="B" class="mr-2"> B. $x = 5$
-                        </label>
-                        <label class="flex items-center p-2.5 bg-white rounded-lg border hover:bg-indigo-50 cursor-pointer">
-                            <input type="radio" name="q3" value="C" class="mr-2"> C. $x = 1$ và $x = 5$
-                        </label>
-                        <label class="flex items-center p-2.5 bg-white rounded-lg border hover:bg-indigo-50 cursor-pointer">
-                            <input type="radio" name="q3" value="D" class="mr-2"> D. Phương trình vô nghiệm
-                        </label>
-                    </div>
-                </div>
-
-                <!-- Câu 4 -->
-                <div class="p-4 border rounded-xl bg-slate-50 border-slate-200">
-                    <p class="font-bold text-slate-800 text-sm mb-2">
-                        <span class="inline-block bg-indigo-600 text-white text-xs px-2 py-0.5 rounded mr-2">Câu 4</span>
-                        Phương trình $\sqrt{-x^2 + 4x - 3} = \sqrt{m}$ có nghiệm khi và chỉ khi:
-                    </p>
-                    <div class="grid md:grid-cols-2 gap-2 text-sm">
-                        <label class="flex items-center p-2.5 bg-white rounded-lg border hover:bg-indigo-50 cursor-pointer">
-                            <input type="radio" name="q4" value="A" class="mr-2"> A. $m \ge 0$
-                        </label>
-                        <label class="flex items-center p-2.5 bg-white rounded-lg border hover:bg-indigo-50 cursor-pointer">
-                            <input type="radio" name="q4" value="B" class="mr-2"> B. $0 \le m \le 1$
-                        </label>
-                        <label class="flex items-center p-2.5 bg-white rounded-lg border hover:bg-indigo-50 cursor-pointer">
-                            <input type="radio" name="q4" value="C" class="mr-2"> C. $m \le 1$
-                        </label>
-                        <label class="flex items-center p-2.5 bg-white rounded-lg border hover:bg-indigo-50 cursor-pointer">
-                            <input type="radio" name="q4" value="D" class="mr-2"> D. $m > 1$
-                        </label>
-                    </div>
-                </div>
-
-                <!-- Câu 5 -->
-                <div class="p-4 border rounded-xl bg-slate-50 border-slate-200">
-                    <p class="font-bold text-slate-800 text-sm mb-2">
-                        <span class="inline-block bg-indigo-600 text-white text-xs px-2 py-0.5 rounded mr-2">Câu 5</span>
-                        Bề ngang xe tải rộng $6\text{m}$ chui qua hầm bán nguyệt bán kính $R=5\text{m}$. Chiều cao tối đa $h$ của xe là:
-                    </p>
-                    <div class="grid md:grid-cols-2 gap-2 text-sm">
-                        <label class="flex items-center p-2.5 bg-white rounded-lg border hover:bg-indigo-50 cursor-pointer">
-                            <input type="radio" name="q5" value="A" class="mr-2"> A. $h = 3\text{m}$
-                        </label>
-                        <label class="flex items-center p-2.5 bg-white rounded-lg border hover:bg-indigo-50 cursor-pointer">
-                            <input type="radio" name="q5" value="B" class="mr-2"> B. $h = 4\text{m}$
-                        </label>
-                        <label class="flex items-center p-2.5 bg-white rounded-lg border hover:bg-indigo-50 cursor-pointer">
-                            <input type="radio" name="q5" value="C" class="mr-2"> C. $h = 4.5\text{m}$
-                        </label>
-                        <label class="flex items-center p-2.5 bg-white rounded-lg border hover:bg-indigo-50 cursor-pointer">
-                            <input type="radio" name="q5" value="D" class="mr-2"> D. $h = 5\text{m}$
-                        </label>
-                    </div>
-                </div>
-
-                <!-- NÚT NỘP BÀI -->
-                <div class="text-center pt-2">
-                    <button type="button" onclick="submitQuiz()" id="btn-submit" 
-                            class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-8 py-3 rounded-xl shadow-lg transition transform active:scale-95">
-                        <i class="fas fa-paper-plane mr-2"></i> NỘP BÀI VÀ GỬI KẾT QUẢ
-                    </button>
-                </div>
-            </form>
-
-            <!-- KẾT QUẢ HIỂN THỊ -->
-            <div id="result-box" class="hidden mt-6 p-4 rounded-xl text-center border"></div>
         </section>
 
+        <!-- LỜI DẶN CỦA THẦY -->
+        <div class="bg-gradient-to-r from-amber-500 to-orange-600 text-white p-6 rounded-2xl shadow-lg mb-12 flex items-start space-x-4">
+            <div class="text-3xl bg-white/20 p-3 rounded-full shrink-0"><i class="fas fa-heart"></i></div>
+            <div>
+                <h3 class="text-lg font-bold uppercase tracking-wide mb-1">LỜI DẶN CỦA THẦY</h3>
+                <p class="text-sm leading-relaxed text-amber-50">
+                    Các em thân mến! Chuyên đề giá trị lượng giác góc từ \(0^\circ\) đến \(180^\circ\) là viên gạch nền móng đầu tiên để chúng ta làm quen với hệ thức lượng trong tam giác và tích vô hướng của hai vectơ ở các buổi học sau.<br>
+                    <strong>Bí quyết để không bị nhầm lẫn dấu là luôn nhớ:</strong> "Trục hoành là Cô (cos), trục tung là Sín (sin)". Khi góc \(\alpha\) là góc tù nằm bên trái trục tung, hoành độ sẽ âm nên \(\cos \alpha\) chắc chắn âm, còn tung độ vẫn nằm phía trên nên \(\sin \alpha\) luôn luôn dương! Chúc các em luyện tập thật tốt!
+                </p>
+            </div>
+        </div>
+
+        <!-- BÀI TẬP ĐÁNH GIÁ NĂNG LỰC TẠI LỚP (5 CÂU TRẮC NGHIỆM) -->
+        <section class="bg-white p-6 sm:p-8 rounded-2xl border-2 border-indigo-200 shadow-lg no-print">
+            <div class="flex items-center space-x-3 mb-6 border-b pb-4">
+                <span class="bg-indigo-600 text-white p-2.5 rounded-xl text-xl"><i class="fas fa-tasks"></i></span>
+                <div>
+                    <h2 class="text-xl sm:text-2xl font-black text-indigo-950">BÀI TẬP ĐÁNH GIÁ NĂNG LỰC TẠI LỚP</h2>
+                    <p class="text-xs sm:text-sm text-slate-500">Hoàn thành 5 câu trắc nghiệm bên dưới để kiểm tra mức độ hiểu bài và nộp kết quả trực tiếp.</p>
+                </div>
+            </div>
+
+            <!-- FORM HỌC SINH -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6 bg-slate-50 p-4 rounded-xl border border-slate-200">
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Họ và Tên Học Sinh <span class="text-red-500">*</span></label>
+                    <input type="text" id="student-name" placeholder="Ví dụ: Nguyễn Văn A" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Mã Lớp / Trường</label>
+                    <input type="text" id="student-code" placeholder="Ví dụ: 10A1 - THPT Chuyên" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                </div>
+            </div>
+
+            <!-- DANH SÁCH CÂU HỎI -->
+            <div id="quiz-container" class="space-y-6">
+                <!-- CÂU 1 -->
+                <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
+                    <p class="font-bold text-slate-800 text-sm mb-3">Câu 1: Cho góc tù \(\alpha\) (\(90^\circ < \alpha < 180^\circ\)). Khẳng định nào sau đây đúng?</p>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm">
+                        <label class="flex items-center p-2.5 bg-white rounded-lg border hover:bg-indigo-50 cursor-pointer">
+                            <input type="radio" name="q1" value="A" class="mr-2 text-indigo-600"> A. \(\sin \alpha < 0\)
+                        </label>
+                        <label class="flex items-center p-2.5 bg-white rounded-lg border hover:bg-indigo-50 cursor-pointer">
+                            <input type="radio" name="q1" value="B" class="mr-2 text-indigo-600"> B. \(\cos \alpha > 0\)
+                        </label>
+                        <label class="flex items-center p-2.5 bg-white rounded-lg border hover:bg-indigo-50 cursor-pointer">
+                            <input type="radio" name="q1" value="C" class="mr-2 text-indigo-600"> C. \(\tan \alpha < 0\)
+                        </label>
+                        <label class="flex items-center p-2.5 bg-white rounded-lg border hover:bg-indigo-50 cursor-pointer">
+                            <input type="radio" name="q1" value="D" class="mr-2 text-indigo-600"> D. \(\cot \alpha > 0\)
+                        </label>
+                    </div>
+                </div>
+
+                <!-- CÂU 2 -->
+                <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
+                    <p class="font-bold text-slate-800 text-sm mb-3">Câu 2: Giá trị của \(\cos 120^\circ\) bằng bao nhiêu?</p>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm">
+                        <label class="flex items-center p-2.5 bg-white rounded-lg border hover:bg-indigo-50 cursor-pointer">
+                            <input type="radio" name="q2" value="A" class="mr-2 text-indigo-600"> A. \(\frac{1}{2}\)
+                        </label>
+                        <label class="flex items-center p-2.5 bg-white rounded-lg border hover:bg-indigo-50 cursor-pointer">
+                            <input type="radio" name="q2" value="B" class="mr-2 text-indigo-600"> B. \(-\frac{1}{2}\)
+                        </label>
+                        <label class="flex items-center p-2.5 bg-white rounded-lg border hover:bg-indigo-50 cursor-pointer">
+                            <input type="radio" name="q2" value="C" class="mr-2 text-indigo-600"> C. \(\frac{\sqrt{3}}{2}\)
+                        </label>
+                        <label class="flex items-center p-2.5 bg-white rounded-lg border hover:bg-indigo-50 cursor-pointer">
+                            <input type="radio" name="q2" value="D" class="mr-2 text-indigo-600"> D. \(-\frac{\sqrt{3}}{2}\)
+                        </label>
+                    </div>
+                </div>
+
+                <!-- CÂU 3 -->
+                <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
+                    <p class="font-bold text-slate-800 text-sm mb-3">Câu 3: Hai góc bù nhau \(\alpha\) và \(180^\circ - \alpha\) có giá trị lượng giác nào bằng nhau?</p>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm">
+                        <label class="flex items-center p-2.5 bg-white rounded-lg border hover:bg-indigo-50 cursor-pointer">
+                            <input type="radio" name="q3" value="A" class="mr-2 text-indigo-600"> A. Côsin (\(\cos\))
+                        </label>
+                        <label class="flex items-center p-2.5 bg-white rounded-lg border hover:bg-indigo-50 cursor-pointer">
+                            <input type="radio" name="q3" value="B" class="mr-2 text-indigo-600"> B. Sintang (\(\tan\))
+                        </label>
+                        <label class="flex items-center p-2.5 bg-white rounded-lg border hover:bg-indigo-50 cursor-pointer">
+                            <input type="radio" name="q3" value="C" class="mr-2 text-indigo-600"> C. Sin (\(\sin\))
+                        </label>
+                        <label class="flex items-center p-2.5 bg-white rounded-lg border hover:bg-indigo-50 cursor-pointer">
+                            <input type="radio" name="q3" value="D" class="mr-2 text-indigo-600"> D. Cotang (\(\cot\))
+                        </label>
+                    </div>
+                </div>
+
+                <!-- CÂU 4 -->
+                <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
+                    <p class="font-bold text-slate-800 text-sm mb-3">Câu 4: Giá trị của biểu thức \(P = \sin 30^\circ \cdot \cos 60^\circ + \sin 60^\circ \cdot \cos 30^\circ\) bằng:</p>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm">
+                        <label class="flex items-center p-2.5 bg-white rounded-lg border hover:bg-indigo-50 cursor-pointer">
+                            <input type="radio" name="q4" value="A" class="mr-2 text-indigo-600"> A. \(1\)
+                        </label>
+                        <label class="flex items-center p-2.5 bg-white rounded-lg border hover:bg-indigo-50 cursor-pointer">
+                            <input type="radio" name="q4" value="B" class="mr-2 text-indigo-600"> B. \(0\)
+                        </label>
+                        <label class="flex items-center p-2.5 bg-white rounded-lg border hover:bg-indigo-50 cursor-pointer">
+                            <input type="radio" name="q4" value="C" class="mr-2 text-indigo-600"> C. \(\frac{1}{2}\)
+                        </label>
+                        <label class="flex items-center p-2.5 bg-white rounded-lg border hover:bg-indigo-50 cursor-pointer">
+                            <input type="radio" name="q4" value="D" class="mr-2 text-indigo-600"> D. \(\frac{\sqrt{3}}{2}\)
+                        </label>
+                    </div>
+                </div>
+
+                <!-- CÂU 5 -->
+                <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
+                    <p class="font-bold text-slate-800 text-sm mb-3">Câu 5: Trong tam giác \(ABC\), biểu thức \(\cos(A + B) + \cos C\) có giá trị bằng:</p>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm">
+                        <label class="flex items-center p-2.5 bg-white rounded-lg border hover:bg-indigo-50 cursor-pointer">
+                            <input type="radio" name="q5" value="A" class="mr-2 text-indigo-600"> A. \(2\cos C\)
+                        </label>
+                        <label class="flex items-center p-2.5 bg-white rounded-lg border hover:bg-indigo-50 cursor-pointer">
+                            <input type="radio" name="q5" value="B" class="mr-2 text-indigo-600"> B. \(0\)
+                        </label>
+                        <label class="flex items-center p-2.5 bg-white rounded-lg border hover:bg-indigo-50 cursor-pointer">
+                            <input type="radio" name="q5" value="C" class="mr-2 text-indigo-600"> C. \(1\)
+                        </label>
+                        <label class="flex items-center p-2.5 bg-white rounded-lg border hover:bg-indigo-50 cursor-pointer">
+                            <input type="radio" name="q5" value="D" class="mr-2 text-indigo-600"> D. \(-1\)
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- NÚT NỘP BÀI & THÔNG BÁO -->
+            <div class="mt-6 flex flex-col sm:flex-row items-center justify-between gap-4 border-t pt-4">
+                <button onclick="submitQuiz()" id="btn-submit-quiz" class="w-full sm:w-auto bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-6 py-3 rounded-xl shadow-md transition flex items-center justify-center">
+                    <i class="fas fa-paper-plane mr-2"></i> Nộp Bài Đánh Giá
+                </button>
+                <div id="quiz-result" class="hidden text-sm font-bold text-slate-700"></div>
+            </div>
+        </section>
+
+        <!-- FOOTER BẢN QUYỀN -->
+        <footer class="mt-12 text-center text-xs text-slate-500 border-t border-slate-200 pt-6">
+            <p class="font-semibold text-slate-700">@ Bản quyền thuộc ThS. Đinh Quốc Tuấn - Mục đích phi lợi nhuận - Vì giáo dục.</p>
+            <p class="mt-1">Trung tâm Bồi dưỡng Văn hóa & Trường Đại học Khoa học Tự nhiên, ĐHQG-HCM</p>
+        </footer>
     </main>
 
-    <!-- FOOTER COPYRIGHT -->
-    <footer class="mt-12 py-6 border-t border-slate-300 text-center text-sm font-semibold text-slate-700 bg-white print:border-t">
-        @ Bản quyền thuộc ThS. Đinh Quốc Tuấn - Mục đích phi lợi nhuận - Vì giáo dục.
-    </footer>
-
-    <!-- NÚT IN TÀI LIỆU CHUẨN MẪU -->
+    <!-- NÚT IN TÀI LIỆU CỐ ĐỊNH CHI TIẾT THEO YÊU CẦU -->
     <button id="btn-print-doc" onclick="safePrint()" class="fixed bottom-5 right-5 bg-gray-900 text-white px-4 py-2 rounded-lg shadow-lg hover:bg-gray-700 print:hidden z-50">
         <i class="fas fa-print mr-2"></i> In Tài Liệu
     </button>
 
     <script>
-        // Bắt đầu đếm thời gian
-        const startTime = new Date();
-
-        // 1. KHỞI TẠO BẢNG JSXGRAPH
-        window.onload = function() {
-            // Board 1: Đồ thị kiểm tra nghiệm ngoại lai (Bài 10)
-            var b1 = JXG.JSXGraph.initBoard('jxgbox1', {
-                boundingbox: [-2, 5, 6, -3], axis: true, showNavigation: false
-            });
-            // y = sqrt(x^2 - 4x + 3)
-            var f1 = function(x) { 
-                var val = x*x - 4*x + 3;
-                return val >= 0 ? Math.sqrt(val) : NaN;
-            };
-            b1.create('functiongraph', [f1, -2, 6], {strokeColor: '#dc2626', strokeWidth: 2.5});
-            
-            // y = x - 2
-            var f2 = function(x) { return x - 2; };
-            b1.create('functiongraph', [f2, -2, 6], {strokeColor: '#2563eb', strokeWidth: 2, dash: 2});
-            
-            // Chấm điểm nghiệm ngoại lai x = 0.5
-            b1.create('point', [0.5, -1.5], {name: 'Nghiệm ngoại lai x=0.5 (Bị loại)', size: 4, color: '#dc2626', fixed: true});
-
-            // Board 2: Biện luận tham số m (Bài 19)
-            var b2 = JXG.JSXGraph.initBoard('jxgbox2', {
-                boundingbox: [0, 2.5, 4, -0.5], axis: true, showNavigation: false
-            });
-            // y = sqrt(-x^2 + 4x - 3)
-            var g = function(x) {
-                var val = -x*x + 4*x - 3;
-                return val >= 0 ? Math.sqrt(val) : NaN;
-            };
-            b2.create('functiongraph', [g, 1, 3], {strokeColor: '#7c3aed', strokeWidth: 3});
-            
-            // Thanh trượt m
-            var sliderM = b2.create('slider', [[0.5, 2], [2.5, 2], [0, 0.5, 1.5]], {name: 'm'});
-            
-            // Đường nằm ngang y = sqrt(m)
-            var lineM = function(x) { return Math.sqrt(sliderM.Value()); };
-            b2.create('functiongraph', [lineM, 0, 4], {strokeColor: '#059669', strokeWidth: 2, dash: 1});
-        };
-
-        // 2. CHẤM ĐIỂM VÀ GỬI KẾT QUẢ VỀ GOOGLE APPS SCRIPT
-        const correctAnswers = { q1: "B", q2: "B", q3: "B", q4: "B", q5: "B" };
-        const scriptURL = "https://script.google.com/macros/s/AKfycbzY7b7h4OwvhXuK5Vs6hl-aD88BPnAiAKbU5lfJobby0D4nzbIJVKT4n0AKCpAGoK0nZA/exec";
-
-        function submitQuiz() {
-            const name = document.getElementById('student-name').value.trim();
-            if (!name) {
-                alert("Vui lòng nhập Họ và Tên học sinh trước khi nộp bài!");
-                return;
-            }
-
-            const btnSubmit = document.getElementById('btn-submit');
-            btnSubmit.disabled = true;
-            btnSubmit.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Đang gửi kết quả...';
-
-            let score = 0;
-            let wrongList = [];
-
-            for (let i = 1; i <= 5; i++) {
-                const qKey = 'q' + i;
-                const selected = document.querySelector(`input[name="${qKey}"]:checked`);
-                const userAns = selected ? selected.value : "Chưa chọn";
-
-                if (userAns === correctAnswers[qKey]) {
-                    score += 2; // Thang điểm 10 (2 điểm / câu)
-                } else {
-                    wrongList.push(`Câu ${i} (Chọn: ${userAns}, Đ/Á: ${correctAnswers[qKey]})`);
-                }
-            }
-
-            // Tính thời gian làm bài
-            const endTime = new Date();
-            const timeDiff = Math.round((endTime - startTime) / 1000);
-            const minutes = Math.floor(timeDiff / 60);
-            const seconds = timeDiff % 60;
-            const timeString = `${minutes} phút ${seconds} giây`;
-
-            const payload = {
-                hoTen: name,
-                maDe: document.getElementById('exam-id').value,
-                diem: score,
-                thoiGian: timeString,
-                cauSai: wrongList.length > 0 ? wrongList.join('; ') : 'None (Đúng 100%)'
-            };
-
-            // Gửi dữ liệu POST về Apps Script
-            fetch(scriptURL, {
-                method: 'POST',
-                mode: 'no-cors',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload)
-            }).then(() => {
-                showResult(score, payload.cauSai, timeString);
-            }).catch(err => {
-                console.error("Lỗi kết nối:", err);
-                showResult(score, payload.cauSai, timeString);
-            });
-        }
-
-        function showResult(score, cauSai, thoiGian) {
-            const resultBox = document.getElementById('result-box');
-            resultBox.classList.remove('hidden');
-            resultBox.className = "mt-6 p-4 rounded-xl text-center border bg-emerald-50 border-emerald-300 text-emerald-900";
-            resultBox.innerHTML = `
-                <h3 class="text-xl font-bold mb-1"><i class="fas fa-check-circle mr-2"></i>Nộp Bài Thành Công!</h3>
-                <p class="text-lg">Điểm số của bạn: <strong class="text-2xl text-emerald-700">${score}/10</strong></p>
-                <p class="text-xs text-slate-600 mt-1">Thời gian hoàn thành: ${thoiGian}</p>
-                ${cauSai !== 'None (Đúng 100%)' ? `<p class="text-xs text-rose-600 mt-1 font-semibold">Chi tiết câu chưa đúng: ${cauSai}</p>` : '<p class="text-xs text-emerald-600 mt-1 font-semibold">Xuất sắc! Bạn làm chính xác 100% các câu hỏi.</p>'}
-            `;
-            document.getElementById('btn-submit').innerHTML = '<i class="fas fa-check mr-2"></i> Đã Ghi Nhận Kết Quả';
-        }
-
-        // 3. NÚT IN TÀI LIỆU AN TOÀN CHUẨN THEO YÊU CẦU
+        // Hàm in an toàn đảm bảo MathJax đã load xong
         function safePrint() {
             const printBtn = document.getElementById('btn-print-doc');
             printBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Đang chuẩn bị...';
@@ -1197,6 +1015,225 @@
                 setTimeout(() => window.print(), 500); 
             }
         }
+
+        // TÍNH THỜI GIAN LÀM BÀI
+        const startTime = new Date();
+
+        // XỬ LÝ NỘP BÀI TRẮC NGHIỆM & GỬI VỀ GOOGLE APPS SCRIPT
+        function submitQuiz() {
+            const nameInput = document.getElementById('student-name').value.trim();
+            const codeInput = document.getElementById('student-code').value.trim();
+
+            if (!nameInput) {
+                alert('Vui lòng điền Họ và Tên trước khi nộp bài!');
+                document.getElementById('student-name').focus();
+                return;
+            }
+
+            const correctAnswers = { q1: 'C', q2: 'B', q3: 'C', q4: 'A', q5: 'B' };
+            let score = 0;
+            let wrongList = [];
+
+            for (let i = 1; i <= 5; i++) {
+                const selected = document.querySelector(`input[name="q${i}"]:checked`);
+                const userAns = selected ? selected.value : 'Chưa chọn';
+                const rightAns = correctAnswers[`q${i}`];
+
+                if (userAns === rightAns) {
+                    score += 2; // 5 câu -> thang điểm 10
+                } else {
+                    wrongList.push(`Câu ${i} (Chọn ${userAns}, đúng ${rightAns})`);
+                }
+            }
+
+            // Tính thời gian làm bài
+            const endTime = new Date();
+            const elapsedSeconds = Math.floor((endTime - startTime) / 1000);
+            const minutes = Math.floor(elapsedSeconds / 60);
+            const seconds = elapsedSeconds % 60;
+            const timeFormatted = `${minutes < 10 ? '0' : ''}${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+
+            const payload = {
+                hoTen: nameInput + (codeInput ? ` (${codeInput})` : ''),
+                maDe: "TOAN10-BUOI11-LYTHUYET",
+                diem: `${score}/10`,
+                thoiGian: timeFormatted,
+                cauSai: wrongList.length > 0 ? wrongList.join('; ') : 'Không có'
+            };
+
+            const submitBtn = document.getElementById('btn-submit-quiz');
+            const resultDiv = document.getElementById('quiz-result');
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Đang gửi kết quả...';
+
+            // Endpoint Google Apps Script
+            const scriptUrl = 'https://script.google.com/macros/s/AKfycbzY7b7h4OwvhXuK5Vs6hl-aD88BPnAiAKbU5lfJobby0D4nzbIJVKT4n0AKCpAGoK0nZA/exec';
+
+            fetch(scriptUrl, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            })
+            .then(() => {
+                submitBtn.innerHTML = '<i class="fas fa-check mr-2"></i> Đã Gửi Thành Công';
+                submitBtn.className = 'w-full sm:w-auto bg-emerald-600 text-white font-bold px-6 py-3 rounded-xl shadow-md';
+                resultDiv.classList.remove('hidden');
+                resultDiv.innerHTML = `<span class="text-emerald-700"><i class="fas fa-trophy mr-1"></i> Điểm số của bạn: <strong>${score}/10</strong> (${timeFormatted})</span>`;
+            })
+            .catch(error => {
+                console.error('Lỗi nộp bài:', error);
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="fas fa-paper-plane mr-2"></i> Thử Nộp Lại';
+                alert('Có lỗi kết nối. Vui lòng thử nộp lại!');
+            });
+        }
+
+        // KHỞI TẠO CÁC MÔ HÌNH JSXGRAPH KHI TRANG LOAD XONG
+        document.addEventListener("DOMContentLoaded", function() {
+            
+            // 1. JSXGraph Box 1: Nửa đường tròn đơn vị động
+            try {
+                var b1 = JXG.JSXGraph.initBoard('jsxbox1', {
+                    boundingbox: [-1.4, 1.4, 1.4, -0.3],
+                    axis: true,
+                    showNavigation: false,
+                    keepAspectRatio: true
+                });
+
+                var pO = b1.create('point', [0, 0], {name: 'O', fixed: true, size: 2, color: 'black'});
+                var c1 = b1.create('cerise', [], {parents: [[0,0], 1], strokeColor: '#cbd5e1', fixed: true});
+                
+                // Nửa đường tròn
+                var semi = b1.create('arc', [[0,0], [1,0], [-1,0]], {strokeColor: '#3b82f6', strokeWidth: 3});
+                
+                // Điểm M tự do trên nửa đường tròn
+                var M1 = b1.create('glider', [0.6, 0.8, semi], {name: 'M', size: 4, color: '#ef4444'});
+                
+                var lineX = b1.create('segment', [M1, function(){ return [M1.X(), 0]; }], {dash: 2, strokeColor: '#64748b'});
+                var lineY = b1.create('segment', [M1, function(){ return [0, M1.Y()]; }], {dash: 2, strokeColor: '#64748b'});
+                
+                var projX = b1.create('point', [function(){ return M1.X(); }, 0], {name: 'x_0', size: 2, color: '#16a34a'});
+                var projY = b1.create('point', [0, function(){ return M1.Y(); }], {name: 'y_0', size: 2, color: '#dc2626'});
+
+                var txtSin = b1.create('text', [-1.2, 1.2, function(){
+                    return 'sin α = y_0 = ' + M1.Y().toFixed(3);
+                }], {fontSize: 13, color: '#dc2626'});
+
+                var txtCos = b1.create('text', [-1.2, 1.0, function(){
+                    return 'cos α = x_0 = ' + M1.X().toFixed(3);
+                }], {fontSize: 13, color: '#16a34a'});
+            } catch(e){ console.log(e); }
+
+            // 2. JSXGraph Box 3: Góc 135° cố định
+            try {
+                var b3 = JXG.JSXGraph.initBoard('jsxbox3', {
+                    boundingbox: [-1.3, 1.3, 1.3, -0.3],
+                    axis: true,
+                    showNavigation: false,
+                    keepAspectRatio: true
+                });
+                b3.create('arc', [[0,0], [1,0], [-1,0]], {strokeColor: '#94a3b8', strokeWidth: 2});
+                var val135 = 135 * Math.PI / 180;
+                var x135 = Math.cos(val135);
+                var y135 = Math.sin(val135);
+                var M3 = b3.create('point', [x135, y135], {name: 'M(135°)', size: 4, color: '#8b5cf6', fixed: true});
+                var H3 = b3.create('point', [x135, 0], {name: 'H', size: 2, color: '#64748b', fixed: true});
+                b3.create('polygon', [[0,0], M3, H3], {fillColor: '#8b5cf6', fillOpacity: 0.2, strokeColor: '#8b5cf6'});
+                b3.create('text', [-1.1, 1.0, 'M = (-√2/2 ; √2/2)'], {fontSize: 13});
+            } catch(e){ console.log(e); }
+
+            // 3. JSXGraph Box 8: Phân vùng Dấu VTLG
+            try {
+                var b8 = JXG.JSXGraph.initBoard('jsxbox8', {
+                    boundingbox: [-1.3, 1.3, 1.3, -0.3],
+                    axis: true,
+                    showNavigation: false,
+                    keepAspectRatio: true
+                });
+                var semi8 = b8.create('arc', [[0,0], [1,0], [-1,0]], {strokeColor: '#cbd5e1', strokeWidth: 2});
+                var M8 = b8.create('glider', [-0.5, 0.866, semi8], {name: 'M', size: 4, color: '#10b981'});
+                
+                b8.create('text', [0.3, 0.5, 'Vùng Nhọn (I)\nsin > 0, cos > 0'], {fontSize: 11, color: '#059669'});
+                b8.create('text', [-1.1, 0.5, 'Vùng Tù (II)\nsin > 0, cos < 0'], {fontSize: 11, color: '#dc2626'});
+            } catch(e){ console.log(e); }
+
+            // 4. JSXGraph Box 16: Tam giác ABC & sin(A+B)=sin C
+            try {
+                var b16 = JXG.JSXGraph.initBoard('jsxbox16', {
+                    boundingbox: [-1, 6, 7, -1],
+                    axis: false,
+                    showNavigation: false
+                });
+                var A16 = b16.create('point', [0, 0], {name: 'A', color: '#6366f1'});
+                var B16 = b16.create('point', [6, 0], {name: 'B', color: '#6366f1'});
+                var C16 = b16.create('point', [2, 4], {name: 'C', color: '#6366f1'});
+                var poly = b16.create('polygon', [A16, B16, C16], {fillColor: '#818cf8', fillOpacity: 0.2});
+
+                b16.create('text', [0.2, 5.2, function(){
+                    var angleC = JXG.Math.Geometry.trueAngle(A16, C16, B16);
+                    var sinC = Math.sin(angleC * Math.PI / 180);
+                    return 'sin(C) = ' + sinC.toFixed(3);
+                }], {fontSize: 13, color: '#4338ca'});
+
+                b16.create('text', [0.2, 4.5, function(){
+                    var angleC = JXG.Math.Geometry.trueAngle(A16, C16, B16);
+                    var sinAB = Math.sin((180 - angleC) * Math.PI / 180);
+                    return 'sin(A+B) = sin(180°-C) = ' + sinAB.toFixed(3);
+                }], {fontSize: 13, color: '#047857'});
+            } catch(e){ console.log(e); }
+
+            // 5. JSXGraph Box 20: Biện luận sin α = m
+            try {
+                var b20 = JXG.JSXGraph.initBoard('jsxbox20', {
+                    boundingbox: [-1.4, 1.5, 1.4, -0.4],
+                    axis: true,
+                    showNavigation: false,
+                    keepAspectRatio: true
+                });
+                var semi20 = b20.create('arc', [[0,0], [1,0], [-1,0]], {strokeColor: '#3b82f6', strokeWidth: 2});
+                var s20 = b20.create('slider', [[-1.1, -0.25], [0.5, -0.25], [-0.2, 0.5, 1.3]], {name: 'm', snapWidth: 0.05});
+                var lineM = b20.create('line', [[0, function(){ return s20.Value(); }], [1, function(){ return s20.Value(); }]], {strokeColor: '#ef4444', strokeWidth: 2});
+            } catch(e){ console.log(e); }
+
+            // 6. JSXGraph Box 21: Mặt phẳng nghiêng
+            try {
+                var b21 = JXG.JSXGraph.initBoard('jsxbox21', {
+                    boundingbox: [-1, 5, 6, -1],
+                    axis: false,
+                    showNavigation: false
+                });
+                var O21 = b21.create('point', [0, 0], {fixed: true, visible: false});
+                var A21 = b21.create('point', [5, 0], {fixed: true, visible: false});
+                var B21 = b21.create('point', [5, 2.88], {fixed: true, visible: false});
+                b21.create('polygon', [O21, A21, B21], {fillColor: '#cbd5e1', fillOpacity: 0.5});
+                
+                var Box21 = b21.create('point', [2.5, 1.44], {name: 'Vật m', size: 6, color: '#1e293b', fixed: true});
+                b21.create('arrow', [Box21, [2.5, -0.5]], {strokeColor: '#dc2626', strokeWidth: 3, name: 'P'});
+                b21.create('text', [2.7, 0.2, 'P = 100N'], {color: '#dc2626'});
+            } catch(e){ console.log(e); }
+
+            // 7. JSXGraph Box 28: Khúc xạ ánh sáng Snell
+            try {
+                var b28 = JXG.JSXGraph.initBoard('jsxbox28', {
+                    boundingbox: [-4, 4, 4, -4],
+                    axis: false,
+                    showNavigation: false
+                });
+                b28.create('line', [[-4,0], [4,0]], {strokeColor: '#0284c7', strokeWidth: 2, fixed: true});
+                b28.create('polygon', [[-4,0],[4,0],[4,-4],[-4,-4]], {fillColor: '#bae6fd', fillOpacity: 0.4, lines: {visible: false}});
+                b28.create('line', [[0,4], [0,-4]], {dash: 2, strokeColor: '#94a3b8', fixed: true});
+                
+                // Tia tới
+                b28.create('arrow', [[-2.82, 2.82], [0,0]], {strokeColor: '#e11d48', strokeWidth: 3});
+                // Tia khúc xạ (32 deg)
+                b28.create('arrow', [[0,0], [1.59, -2.54]], {strokeColor: '#0284c7', strokeWidth: 3});
+                
+                b28.create('text', [-2, 2, 'Không khí (i = 45°)'], {color: '#e11d48'});
+                b28.create('text', [1, -1.8, 'Nước (r ≈ 32°)'], {color: '#0369a1'});
+            } catch(e){ console.log(e); }
+
+        });
     </script>
 </body>
 </html>
