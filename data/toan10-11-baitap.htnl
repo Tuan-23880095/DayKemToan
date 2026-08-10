@@ -1,0 +1,1202 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chuyên Đề Toán 10 - Buổi 11: Phương Trình Quy Về Phương Trình Bậc Hai</title>
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- JSXGraph CSS & JS -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraph.css" />
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraphcore.js"></script>
+
+    <!-- MathJax Configuration & Library -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <style>
+        .jxgbox { border-radius: 0.75rem; border: 2px solid #cbd5e1; background-color: #ffffff; }
+        @media print {
+            .print\:hidden { display: none !important; }
+            body { background: white !important; color: black !important; }
+            .no-print { display: none !important; }
+            .page-break { page-break-before: always; }
+        }
+        details summary::-webkit-details-marker { display: none; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 font-sans leading-relaxed min-h-screen flex flex-col justify-between">
+
+    <!-- HEADER / TIÊU ĐỀ HỌC THUẬT -->
+    <header class="bg-white border-b-4 border-indigo-600 shadow-sm py-6 px-4 md:px-8">
+        <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+            <div class="flex items-center space-x-4">
+                <div class="p-3 bg-indigo-600 text-white rounded-xl shadow-md">
+                    <i class="fas fa-calculator text-3xl"></i>
+                </div>
+                <div>
+                    <span class="inline-block bg-indigo-100 text-indigo-800 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-1">
+                        <i class="fas fa-graduation-cap mr-1"></i> Toán Học Lớp 10 - Chương Trình Mới
+                    </span>
+                    <h1 class="text-2xl md:text-3xl font-extrabold text-slate-900 uppercase tracking-tight">
+                        BUỔI 11: PHƯƠNG TRÌNH CHỨA ẨN DƯỚI DẤU CĂN
+                    </h1>
+                    <p class="text-xs md:text-sm text-slate-600 font-medium mt-0.5">
+                        Phương trình quy về phương trình bậc hai & Mô hình hóa toán học thực tiễn
+                    </p>
+                </div>
+            </div>
+            <div class="border-l-4 border-indigo-600 pl-4 py-1 text-right text-xs text-slate-600">
+                <p class="font-bold text-slate-900 text-sm">Chuyên Đề 11</p>
+                <p class="italic">ThS. Đinh Quốc Tuấn</p>
+            </div>
+        </div>
+    </header>
+
+    <!-- NỘI DUNG CHÍNH -->
+    <main class="max-w-6xl mx-auto px-4 md:px-6 py-8 flex-grow w-full space-y-10">
+
+        <!-- THẺ MÀU PHÂN CẤP NĂNG LỰC -->
+        <div class="grid md:grid-cols-3 gap-4">
+            <div class="bg-emerald-50 border-l-4 border-emerald-500 p-4 rounded-r-xl shadow-sm">
+                <div class="flex items-center space-x-3">
+                    <div class="p-2.5 bg-emerald-500 text-white rounded-lg"><i class="fas fa-seedling text-xl"></i></div>
+                    <div>
+                        <h4 class="font-bold text-emerald-900 text-sm">Cấp Độ 1: Cơ Bản</h4>
+                        <p class="text-xs text-emerald-700">10 bài tập biến đổi chuẩn mực $\sqrt{f(x)}=\sqrt{g(x)}$ & $\sqrt{f(x)}=g(x)$</p>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-blue-50 border-l-4 border-blue-500 p-4 rounded-r-xl shadow-sm">
+                <div class="flex items-center space-x-3">
+                    <div class="p-2.5 bg-blue-500 text-white rounded-lg"><i class="fas fa-layer-group text-xl"></i></div>
+                    <div>
+                        <h4 class="font-bold text-blue-900 text-sm">Cấp Độ 2: Nâng Cao</h4>
+                        <p class="text-xs text-blue-700">10 bài tập đặt ẩn phụ, hệ phương trình & biện luận tham số $m$</p>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-purple-50 border-l-4 border-purple-500 p-4 rounded-r-xl shadow-sm">
+                <div class="flex items-center space-x-3">
+                    <div class="p-2.5 bg-purple-500 text-white rounded-lg"><i class="fas fa-compass text-xl"></i></div>
+                    <div>
+                        <h4 class="font-bold text-purple-900 text-sm">Cấp Độ 3: Vận Dụng Thực Tiễn</h4>
+                        <p class="text-xs text-purple-700">10 bài tập mô hình hóa bài toán giao thông, định vị, cứu hộ</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PHẦN 1: HỆ THỐNG LÝ THUYẾT CHI TIẾT (3 CẤP ĐỘ) -->
+        <section class="bg-white p-6 rounded-2xl shadow-md border border-slate-200 space-y-8">
+            <div class="flex items-center space-x-3 border-b pb-4 border-slate-200">
+                <span class="bg-indigo-600 text-white p-2.5 rounded-xl"><i class="fas fa-book-open text-xl"></i></span>
+                <div>
+                    <h2 class="text-xl font-bold text-slate-800">I. HỆ THỐNG LÝ THUYẾT CHUYÊN ĐỀ (3 CẤP ĐỘ)</h2>
+                    <p class="text-xs text-slate-500">Nắm vững các phương pháp biến đổi tương đương và thử lại nghiệm ngoại lai</p>
+                </div>
+            </div>
+
+            <!-- CẤP ĐỘ 1: CƠ BẢN -->
+            <div class="space-y-4">
+                <h3 class="text-md font-bold text-emerald-800 uppercase tracking-wide border-b pb-1 flex items-center">
+                    <i class="fas fa-check-circle mr-2"></i> Cấp Độ 1: Hai Dạng Phương Trình Căn Thức Cơ Bản
+                </h3>
+                <div class="grid md:grid-cols-2 gap-6 text-sm">
+                    <div class="p-4 bg-emerald-50/50 border border-emerald-200 rounded-xl space-y-2">
+                        <h4 class="font-bold text-emerald-900 border-b border-emerald-200 pb-1">Dạng 1: $\sqrt{f(x)} = \sqrt{g(x)}$</h4>
+                        <p><strong>Cơ sở lý thuyết:</strong> Bình phương hai vế khi cả hai vế cùng không âm.</p>
+                        <div class="bg-white p-2.5 rounded-lg border border-emerald-200 text-center font-mono">
+                            $$\sqrt{f(x)} = \sqrt{g(x)} \iff \begin{cases} f(x) \ge 0 \text{ (hoặc } g(x) \ge 0) \\ f(x) = g(x) \end{cases}$$
+                        </div>
+                        <p class="text-xs text-slate-600"><em>Lưu ý:</em> Trong thực hành, ta có thể bình phương $f(x)=g(x)$ tìm nghiệm rồi thế lại vào căn để kiểm tra.</p>
+                    </div>
+
+                    <div class="p-4 bg-blue-50/50 border border-blue-200 rounded-xl space-y-2">
+                        <h4 class="font-bold text-blue-900 border-b border-blue-200 pb-1">Dạng 2: $\sqrt{f(x)} = g(x)$</h4>
+                        <p><strong>Cơ sở lý thuyết:</strong> Vế trái $\ge 0$ nên bắt buộc vế phải $g(x) \ge 0$.</p>
+                        <div class="bg-white p-2.5 rounded-lg border border-blue-200 text-center font-mono">
+                            $$\sqrt{f(x)} = g(x) \iff \begin{cases} g(x) \ge 0 \\ f(x) = [g(x)]^2 \end{cases}$$
+                        </div>
+                        <p class="text-xs text-slate-600"><em>Lưu ý:</em> Điều kiện $g(x) \ge 0$ đảm bảo loại bỏ hoàn toàn các nghiệm ngoại lai.</p>
+                    </div>
+                </div>
+
+                <!-- Ví dụ minh họa Cấp độ 1 -->
+                <div class="p-4 border border-slate-200 rounded-xl bg-slate-50">
+                    <div class="flex items-center justify-between">
+                        <span class="font-bold text-indigo-700 text-sm"><i class="fas fa-lightbulb text-amber-500 mr-2"></i>Ví Dụ Minh Họa Cấp Độ 1:</span>
+                        <span class="text-xs bg-emerald-100 text-emerald-800 font-semibold px-2 py-0.5 rounded">Cơ Bản</span>
+                    </div>
+                    <p class="text-sm font-medium mt-2">Giải phương trình: $\sqrt{3x^2 - 9x - 5} = 5 - 2x$.</p>
+                    <details class="group mt-3">
+                        <summary class="cursor-pointer text-xs font-bold text-indigo-600 hover:text-indigo-800 flex items-center">
+                            <i class="fas fa-chevron-right group-open:rotate-90 transition-transform mr-1.5"></i>Xem hướng dẫn giải
+                        </summary>
+                        <div class="mt-2 text-xs text-slate-700 bg-white p-3 rounded-lg border border-slate-200 space-y-1">
+                            <p><strong>Biến đổi tương đương:</strong></p>
+                            $$\sqrt{3x^2 - 9x - 5} = 5 - 2x \iff \begin{cases} 5 - 2x \ge 0 \\ 3x^2 - 9x - 5 = (5 - 2x)^2 \end{cases}$$
+                            $$\iff \begin{cases} x \le \frac{5}{2} \\ 3x^2 - 9x - 5 = 25 - 20x + 4x^2 \end{cases} \iff \begin{cases} x \le 2.5 \\ x^2 - 11x + 30 = 0 \end{cases}$$
+                            <p>Giải $x^2 - 11x + 30 = 0$ ta được $x = 5$ hoặc $x = 6$. So với điều kiện $x \le 2.5$, cả hai nghiệm đều bị loại.</p>
+                            <p><strong>Kết luận:</strong> Phương trình vô nghiệm $S = \varnothing$.</p>
+                        </div>
+                    </details>
+                </div>
+            </div>
+
+            <!-- CẤP ĐỘ 2: NÂNG CAO -->
+            <div class="space-y-4">
+                <h3 class="text-md font-bold text-blue-800 uppercase tracking-wide border-b pb-1 flex items-center">
+                    <i class="fas fa-layer-group mr-2"></i> Cấp Độ 2: Phương Pháp Đặt Ẩn Phụ & Tham Số $m$
+                </h3>
+                <div class="p-4 bg-slate-50 border border-slate-200 rounded-xl space-y-2 text-sm">
+                    <p><strong>1. Kỹ thuật đặt ẩn phụ dạng $a \cdot x^2 + bx + c + k\sqrt{a \cdot x^2 + bx + d} = 0$:</strong></p>
+                    <p class="pl-4">Đặt $t = \sqrt{a \cdot x^2 + bx + d} \ (t \ge 0) \implies t^2 = a \cdot x^2 + bx + d \implies a \cdot x^2 + bx = t^2 - d$. Đưa phương trình về bậc hai theo $t$.</p>
+                    <p><strong>2. Biện luận nghiệm theo tham số $m$ bằng phương pháp đồ thị:</strong></p>
+                    <p class="pl-4">Đưa phương trình về dạng $f(x) = h(m)$ hoặc $g(x) = \sqrt{m}$. Số nghiệm phương trình là số giao điểm của đồ thị đường cong $y = f(x)$ và đường thẳng nằm ngang $y = h(m)$.</p>
+                </div>
+
+                <!-- Ví dụ minh họa Cấp độ 2 -->
+                <div class="p-4 border border-slate-200 rounded-xl bg-slate-50">
+                    <div class="flex items-center justify-between">
+                        <span class="font-bold text-indigo-700 text-sm"><i class="fas fa-lightbulb text-amber-500 mr-2"></i>Ví Dụ Minh Họa Cấp Độ 2:</span>
+                        <span class="text-xs bg-blue-100 text-blue-800 font-semibold px-2 py-0.5 rounded">Nâng Cao</span>
+                    </div>
+                    <p class="text-sm font-medium mt-2">Giải phương trình: $x^2 - 5x + 7 - 2\sqrt{x^2 - 5x + 10} = 0$.</p>
+                    <details class="group mt-3">
+                        <summary class="cursor-pointer text-xs font-bold text-indigo-600 hover:text-indigo-800 flex items-center">
+                            <i class="fas fa-chevron-right group-open:rotate-90 transition-transform mr-1.5"></i>Xem hướng dẫn giải
+                        </summary>
+                        <div class="mt-2 text-xs text-slate-700 bg-white p-3 rounded-lg border border-slate-200 space-y-1">
+                            <p>Đặt $t = \sqrt{x^2 - 5x + 10} \ (t \ge 0) \implies t^2 = x^2 - 5x + 10 \implies x^2 - 5x = t^2 - 10$.</p>
+                            <p>Thay vào phương trình ta có: $(t^2 - 10) + 7 - 2t = 0 \iff t^2 - 2t - 3 = 0$.</p>
+                            <p>Giải ra $t = -1$ (loại) hoặc $t = 3$ (thỏa mãn $t \ge 0$).</p>
+                            <p>Với $t = 3 \implies \sqrt{x^2 - 5x + 10} = 3 \iff x^2 - 5x + 10 = 9 \iff x^2 - 5x + 1 = 0 \iff x = \frac{5 \pm \sqrt{21}}{2}$.</p>
+                        </div>
+                    </details>
+                </div>
+            </div>
+
+            <!-- CẤP ĐỘ 3: VẬN DỤNG THỰC TIỄN -->
+            <div class="space-y-4">
+                <h3 class="text-md font-bold text-purple-800 uppercase tracking-wide border-b pb-1 flex items-center">
+                    <i class="fas fa-compass mr-2"></i> Cấp Độ 3: Quy Trình Mô Hình Hóa Toán Học Bài Toán Thực Tế
+                </h3>
+                <div class="p-4 bg-purple-50/50 border border-purple-200 rounded-xl space-y-2 text-sm">
+                    <ol class="list-decimal pl-5 space-y-1">
+                        <li><strong>Bước 1 (Chọn ẩn):</strong> Chọn đại lượng chưa biết làm ẩn $x$ (ví dụ: khoảng cách $x$ km, thời gian $t$ giờ), đặt điều kiện xác định cho $x$.</li>
+                        <li><strong>Bước 2 (Lập phương trình):</strong> Áp dụng định lí Pytago ($d = \sqrt{\Delta x^2 + \Delta y^2}$), công thức chuyển động ($s = v \cdot t$), hoặc chi phí để lập phương trình chứa căn.</li>
+                        <li><strong>Bước 3 (Giải & Đối chiếu):</strong> Giải phương trình đại số, kiểm tra nghiệm $x$ với điều kiện thực tế của bài toán.</li>
+                    </ol>
+                </div>
+
+                <!-- Ví dụ minh họa Cấp độ 3 -->
+                <div class="p-4 border border-slate-200 rounded-xl bg-slate-50">
+                    <div class="flex items-center justify-between">
+                        <span class="font-bold text-indigo-700 text-sm"><i class="fas fa-lightbulb text-amber-500 mr-2"></i>Ví Dụ Minh Họa Cấp Độ 3:</span>
+                        <span class="text-xs bg-purple-100 text-purple-800 font-semibold px-2 py-0.5 rounded">Thực Tiễn</span>
+                    </div>
+                    <p class="text-sm font-medium mt-2">
+                        Một trạm quan sát $A$ ở bờ biển thẳng. Tàu cứu hộ ở vị trí $C$ cách bờ $6\text{km}$ (chân đường vuông góc trên bờ là $H$). Khoảng cách $AH = 8\text{km}$. Ca nô đi dọc bờ từ $A$ đến $M$ ($HM = x$) rồi rẽ thẳng ra $C$. Tìm $x$ để quãng đường $AM$ bằng $MC$.
+                    </p>
+                    <details class="group mt-3">
+                        <summary class="cursor-pointer text-xs font-bold text-indigo-600 hover:text-indigo-800 flex items-center">
+                            <i class="fas fa-chevron-right group-open:rotate-90 transition-transform mr-1.5"></i>Xem hướng dẫn giải
+                        </summary>
+                        <div class="mt-2 text-xs text-slate-700 bg-white p-3 rounded-lg border border-slate-200 space-y-1">
+                            <p>Khoảng cách $AM = AH - HM = 8 - x$ với $0 \le x \le 8$.</p>
+                            <p>Xét tam giác vuông $MHC$ tại $H$: $MC = \sqrt{HM^2 + HC^2} = \sqrt{x^2 + 6^2} = \sqrt{x^2 + 36}$.</p>
+                            <p>Theo đề bài $AM = MC \iff 8 - x = \sqrt{x^2 + 36}$.</p>
+                            <p>Bình phương hai vế với điều kiện $8 - x \ge 0 \iff x \le 8$:</p>
+                            $$(8 - x)^2 = x^2 + 36 \iff 64 - 16x + x^2 = x^2 + 36 \iff 16x = 28 \iff x = \frac{7}{4} = 1.75\text{ (km)}.$$
+                            <p><strong>Thỏa mãn.</strong> Vậy điểm $M$ cách $H$ một khoảng $1.75\text{km}$.</p>
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </section>
+
+        <!-- PHẦN 2: MÔ HÌNH HÌNH HỌC TƯƠNG TÁC JSXGRAPH -->
+        <section class="bg-white p-6 rounded-2xl shadow-md border border-slate-200">
+            <div class="flex items-center space-x-3 mb-6 border-b pb-3 border-slate-200">
+                <span class="bg-indigo-600 text-white p-2.5 rounded-xl"><i class="fas fa-chart-line text-xl"></i></span>
+                <div>
+                    <h2 class="text-xl font-bold text-slate-800">II. MÔ HÌNH HÌNH HỌC & ĐỒ THỊ TƯƠNG TÁC (JSXGRAPH)</h2>
+                    <p class="text-xs text-slate-500">Trực quan hóa giao điểm đồ thị và hiện tượng nghiệm ngoại lai khi bình phương</p>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Mô hình 1 -->
+                <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+                    <span class="inline-block bg-indigo-600 text-white text-xs font-bold px-2.5 py-1 rounded mb-2">
+                        <i class="fas fa-project-diagram mr-1"></i> Mô hình 1 (Bài 10)
+                    </span>
+                    <h3 class="font-bold text-slate-800 text-sm mb-1">Kiểm Tra Nghiệm Ngoại Lai $\sqrt{x^2 - 4x + 3} = x - 2$</h3>
+                    <div id="jxgbox1" class="jxgbox w-full h-64 mb-3"></div>
+                    <p class="text-xs text-slate-600 italic">
+                        * Đồ thị màu đỏ $y = \sqrt{x^2-4x+3}$ và đường thẳng màu xanh $y = x-2$. Tại $x=0.5$, đường thẳng nằm phía dưới trục hoành ($y=-1.5$) nên không cắt đường cong $\implies x=0.5$ là nghiệm ngoại lai bị loại!
+                    </p>
+                </div>
+
+                <!-- Mô hình 2 -->
+                <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+                    <span class="inline-block bg-purple-600 text-white text-xs font-bold px-2.5 py-1 rounded mb-2">
+                        <i class="fas fa-sliders-h mr-1"></i> Mô hình 2 (Bài 19)
+                    </span>
+                    <h3 class="font-bold text-slate-800 text-sm mb-1">Biện Luận Số Nghiệm $\sqrt{-x^2 + 4x - 3} = \sqrt{m}$</h3>
+                    <div id="jxgbox2" class="jxgbox w-full h-64 mb-3"></div>
+                    <p class="text-xs text-slate-600 italic">
+                        * Kéo thanh trượt $m$: Khi $0 \le m \le 1$, đường thẳng nằm ngang cắt nửa đường tròn tại các giao điểm. Khi $m > 1$, đường thẳng vượt qua đỉnh $\implies$ Vô nghiệm.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- PHẦN 3: NGÂN HÀNG 30 BÀI TẬP CHI TIẾT (CÓ LỜI GIẢI ẨN) -->
+        <section class="bg-white p-6 rounded-2xl shadow-md border border-slate-200 space-y-8">
+            <div class="flex items-center space-x-3 border-b pb-4 border-slate-200">
+                <span class="bg-indigo-600 text-white p-2.5 rounded-xl"><i class="fas fa-list-ol text-xl"></i></span>
+                <div>
+                    <h2 class="text-xl font-bold text-slate-800">III. HỆ THỐNG 30 BÀI TẬP TỰ LUYỆN CHI TIẾT</h2>
+                    <p class="text-xs text-slate-500">Đầy đủ 3 cấp độ: Cơ bản, Nâng cao và Vận dụng thực tiễn (Bấm để mở lời giải)</p>
+                </div>
+            </div>
+
+            <!-- CẤP ĐỘ CƠ BẢN (10 BÀI) -->
+            <div class="space-y-4">
+                <h3 class="text-md font-bold text-emerald-800 uppercase tracking-wide border-b pb-1 flex items-center">
+                    <i class="fas fa-seedling mr-2"></i> PHẦN 1: CẤP ĐỘ CƠ BẢN (10 BÀI TẬP)
+                </h3>
+
+                <!-- Bài 1 -->
+                <div class="p-4 border rounded-xl bg-slate-50 border-slate-200">
+                    <div class="flex items-start justify-between">
+                        <span class="font-bold text-slate-800 text-sm"><span class="bg-emerald-600 text-white text-xs px-2 py-0.5 rounded mr-2">Bài 1</span>Lý thuyết bình phương hai vế</span>
+                        <span class="text-xs bg-emerald-100 text-emerald-800 font-semibold px-2 py-0.5 rounded">Lý thuyết</span>
+                    </div>
+                    <p class="text-sm font-medium text-slate-800 mt-2">Nêu điều kiện để bình phương hai vế cho phương trình dạng $\sqrt{f(x)} = \sqrt{g(x)}$ và $\sqrt{f(x)} = g(x)$. Tại sao bắt buộc phải có bước "thử lại" hoặc đặt điều kiện?</p>
+                    <details class="group mt-3">
+                        <summary class="cursor-pointer text-xs font-bold text-indigo-600 hover:text-indigo-800 flex items-center">
+                            <i class="fas fa-chevron-right group-open:rotate-90 transition-transform mr-1.5"></i>Xem gợi ý lời giải
+                        </summary>
+                        <div class="mt-2 text-xs text-slate-700 bg-white p-3 rounded-lg border border-slate-200 space-y-1">
+                            <p>• Dạng $\sqrt{f(x)} = \sqrt{g(x)}$: Bình phương cần điều kiện $f(x) \ge 0$ (hoặc $g(x) \ge 0$).</p>
+                            <p>• Dạng $\sqrt{f(x)} = g(x)$: Bình phương cần điều kiện $g(x) \ge 0$.</p>
+                            <p>• Bắt buộc thử lại hoặc đặt điều kiện vì phép bình phương hai vế không tương đương nếu hai vế chưa cùng không âm, làm xuất hiện **nghiệm ngoại lai** (nghiệm của phương trình bình phương nhưng không thỏa mãn phương trình căn ban đầu).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 2 -->
+                <div class="p-4 border rounded-xl bg-slate-50 border-slate-200">
+                    <div class="flex items-start justify-between">
+                        <span class="font-bold text-slate-800 text-sm"><span class="bg-emerald-600 text-white text-xs px-2 py-0.5 rounded mr-2">Bài 2</span>Giải phương trình căn bằng căn</span>
+                        <span class="text-xs bg-emerald-100 text-emerald-800 font-semibold px-2 py-0.5 rounded">Cơ bản</span>
+                    </div>
+                    <p class="text-sm font-medium text-slate-800 mt-2">Giải phương trình: $\sqrt{4x^2 + 15x - 19} = \sqrt{5x^2 + 23x - 14}$.</p>
+                    <details class="group mt-3">
+                        <summary class="cursor-pointer text-xs font-bold text-indigo-600 hover:text-indigo-800 flex items-center">
+                            <i class="fas fa-chevron-right group-open:rotate-90 transition-transform mr-1.5"></i>Xem gợi ý lời giải
+                        </summary>
+                        <div class="mt-2 text-xs text-slate-700 bg-white p-3 rounded-lg border border-slate-200 space-y-1">
+                            <p>Bình phương hai vế: $4x^2 + 15x - 19 = 5x^2 + 23x - 14 \iff x^2 + 8x + 5 = 0$.</p>
+                            <p>Giải ra $x = -4 \pm \sqrt{11}$. Thử lại vào hai biểu thức dưới dấu căn:</p>
+                            <p>Với $x = -4 + \sqrt{11} \approx -0.68$, $4x^2 + 15x - 19 < 0$ (Loại).</p>
+                            <p>Với $x = -4 - \sqrt{11} \approx -7.32$, $4x^2 + 15x - 19 > 0$ (Thỏa mãn).</p>
+                            <p><strong>Vậy nghiệm:</strong> $x = -4 - \sqrt{11}$.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 3 -->
+                <div class="p-4 border rounded-xl bg-slate-50 border-slate-200">
+                    <div class="flex items-start justify-between">
+                        <span class="font-bold text-slate-800 text-sm"><span class="bg-emerald-600 text-white text-xs px-2 py-0.5 rounded mr-2">Bài 3</span>Tìm tập nghiệm phương trình chứa căn</span>
+                        <span class="text-xs bg-emerald-100 text-emerald-800 font-semibold px-2 py-0.5 rounded">Cơ bản</span>
+                    </div>
+                    <p class="text-sm font-medium text-slate-800 mt-2">Tìm tập nghiệm của phương trình: $\sqrt{-4x^2 - 5x + 8} = \sqrt{2x^2 + 2x - 2}$.</p>
+                    <details class="group mt-3">
+                        <summary class="cursor-pointer text-xs font-bold text-indigo-600 hover:text-indigo-800 flex items-center">
+                            <i class="fas fa-chevron-right group-open:rotate-90 transition-transform mr-1.5"></i>Xem gợi ý lời giải
+                        </summary>
+                        <div class="mt-2 text-xs text-slate-700 bg-white p-3 rounded-lg border border-slate-200 space-y-1">
+                            <p>Bình phương hai vế: $-4x^2 - 5x + 8 = 2x^2 + 2x - 2 \iff 6x^2 + 7x - 10 = 0$.</p>
+                            <p>Giải phương trình ta có nghiệm $x = 1$ hoặc $x = -\frac{10}{6} = -\frac{5}{3}$.</p>
+                            <p>• Thử $x = 1$: $2(1)^2 + 2(1) - 2 = 2 > 0$ (Nhận).</p>
+                            <p>• Thử $x = -\frac{5}{3}$: $2(-\frac{5}{3})^2 + 2(-\frac{5}{3}) - 2 = \frac{2}{9} > 0$ (Nhận).</p>
+                            <p><strong>Tập nghiệm:</strong> $S = \left\{1; -\frac{5}{3}\right\}$.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 4 -->
+                <div class="p-4 border rounded-xl bg-slate-50 border-slate-200">
+                    <div class="flex items-start justify-between">
+                        <span class="font-bold text-slate-800 text-sm"><span class="bg-emerald-600 text-white text-xs px-2 py-0.5 rounded mr-2">Bài 4</span>Phương trình căn thức bậc hai</span>
+                        <span class="text-xs bg-emerald-100 text-emerald-800 font-semibold px-2 py-0.5 rounded">Cơ bản</span>
+                    </div>
+                    <p class="text-sm font-medium text-slate-800 mt-2">Giải phương trình: $\sqrt{-x^2 - 2x + 7} = \sqrt{-x - 13}$.</p>
+                    <details class="group mt-3">
+                        <summary class="cursor-pointer text-xs font-bold text-indigo-600 hover:text-indigo-800 flex items-center">
+                            <i class="fas fa-chevron-right group-open:rotate-90 transition-transform mr-1.5"></i>Xem gợi ý lời giải
+                        </summary>
+                        <div class="mt-2 text-xs text-slate-700 bg-white p-3 rounded-lg border border-slate-200 space-y-1">
+                            <p>Bình phương hai vế: $-x^2 - 2x + 7 = -x - 13 \iff x^2 + x - 20 = 0 \iff x = 4$ hoặc $x = -5$.</p>
+                            <p>Thử lại vào vế phải $-x - 13$:</p>
+                            <p>• Với $x = 4 \implies -4 - 13 = -17 < 0$ (Loại).</p>
+                            <p>• Với $x = -5 \implies -(-5) - 13 = -8 < 0$ (Loại).</p>
+                            <p><strong>Vậy phương trình vô nghiệm:</strong> $S = \varnothing$.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 5 -->
+                <div class="p-4 border rounded-xl bg-slate-50 border-slate-200">
+                    <div class="flex items-start justify-between">
+                        <span class="font-bold text-slate-800 text-sm"><span class="bg-emerald-600 text-white text-xs px-2 py-0.5 rounded mr-2">Bài 5</span>Căn bằng hằng số</span>
+                        <span class="text-xs bg-emerald-100 text-emerald-800 font-semibold px-2 py-0.5 rounded">Cơ bản</span>
+                    </div>
+                    <p class="text-sm font-medium text-slate-800 mt-2">Giải phương trình: $\sqrt{-x^2 + 7x + 13} = 5$.</p>
+                    <details class="group mt-3">
+                        <summary class="cursor-pointer text-xs font-bold text-indigo-600 hover:text-indigo-800 flex items-center">
+                            <i class="fas fa-chevron-right group-open:rotate-90 transition-transform mr-1.5"></i>Xem gợi ý lời giải
+                        </summary>
+                        <div class="mt-2 text-xs text-slate-700 bg-white p-3 rounded-lg border border-slate-200 space-y-1">
+                            <p>Bình phương hai vế vì $5 > 0$:</p>
+                            $$-x^2 + 7x + 13 = 25 \iff x^2 - 7x + 12 = 0 \iff (x - 3)(x - 4) = 0 \iff x = 3 \text{ hoặc } x = 4.$$
+                            <p><strong>Vậy nghiệm:</strong> $S = \{3; 4\}$.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 6 -->
+                <div class="p-4 border rounded-xl bg-slate-50 border-slate-200">
+                    <div class="flex items-start justify-between">
+                        <span class="font-bold text-slate-800 text-sm"><span class="bg-emerald-600 text-white text-xs px-2 py-0.5 rounded mr-2">Bài 6</span>Căn bằng nhị thức bậc nhất</span>
+                        <span class="text-xs bg-emerald-100 text-emerald-800 font-semibold px-2 py-0.5 rounded">Cơ bản</span>
+                    </div>
+                    <p class="text-sm font-medium text-slate-800 mt-2">Giải phương trình: $\sqrt{4x + 30} = 2x + 3$.</p>
+                    <details class="group mt-3">
+                        <summary class="cursor-pointer text-xs font-bold text-indigo-600 hover:text-indigo-800 flex items-center">
+                            <i class="fas fa-chevron-right group-open:rotate-90 transition-transform mr-1.5"></i>Xem gợi ý lời giải
+                        </summary>
+                        <div class="mt-2 text-xs text-slate-700 bg-white p-3 rounded-lg border border-slate-200 space-y-1">
+                            <p>Điều kiện $2x + 3 \ge 0 \iff x \ge -1.5$.</p>
+                            <p>Bình phương hai vế: $4x + 30 = (2x + 3)^2 \iff 4x + 30 = 4x^2 + 12x + 9 \iff 4x^2 + 8x - 21 = 0$.</p>
+                            <p>Giải ra $x = 1.5$ (Thỏa mãn $x \ge -1.5$) hoặc $x = -3.5$ (Loại).</p>
+                            <p><strong>Nghiệm duy nhất:</strong> $x = 1.5 = \frac{3}{2}$.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 7 -->
+                <div class="p-4 border rounded-xl bg-slate-50 border-slate-200">
+                    <div class="flex items-start justify-between">
+                        <span class="font-bold text-slate-800 text-sm"><span class="bg-emerald-600 text-white text-xs px-2 py-0.5 rounded mr-2">Bài 7</span>Chuyển vế phương trình căn</span>
+                        <span class="text-xs bg-emerald-100 text-emerald-800 font-semibold px-2 py-0.5 rounded">Cơ bản</span>
+                    </div>
+                    <p class="text-sm font-medium text-slate-800 mt-2">Giải phương trình: $\sqrt{-2x + 8} - x + 6 = x$.</p>
+                    <details class="group mt-3">
+                        <summary class="cursor-pointer text-xs font-bold text-indigo-600 hover:text-indigo-800 flex items-center">
+                            <i class="fas fa-chevron-right group-open:rotate-90 transition-transform mr-1.5"></i>Xem gợi ý lời giải
+                        </summary>
+                        <div class="mt-2 text-xs text-slate-700 bg-white p-3 rounded-lg border border-slate-200 space-y-1">
+                            <p>Chuyển vế: $\sqrt{-2x + 8} = 2x - 6$.</p>
+                            <p>Điều kiện $2x - 6 \ge 0 \iff x \ge 3$.</p>
+                            <p>Bình phương: $-2x + 8 = (2x - 6)^2 = 4x^2 - 24x + 36 \iff 4x^2 - 22x + 28 = 0 \iff 2x^2 - 11x + 14 = 0$.</p>
+                            <p>Giải ra $x = 3.5$ (Thỏa $x \ge 3$) hoặc $x = 2$ (Loại).</p>
+                            <p><strong>Nghiệm:</strong> $x = 3.5$.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 8 -->
+                <div class="p-4 border rounded-xl bg-slate-50 border-slate-200">
+                    <div class="flex items-start justify-between">
+                        <span class="font-bold text-slate-800 text-sm"><span class="bg-emerald-600 text-white text-xs px-2 py-0.5 rounded mr-2">Bài 8</span>Giải phương trình $\sqrt{f(x)} + 2x = 5$</span>
+                        <span class="text-xs bg-emerald-100 text-emerald-800 font-semibold px-2 py-0.5 rounded">Cơ bản</span>
+                    </div>
+                    <p class="text-sm font-medium text-slate-800 mt-2">Giải phương trình: $\sqrt{3x^2 - 9x - 5} + 2x = 5$.</p>
+                    <details class="group mt-3">
+                        <summary class="cursor-pointer text-xs font-bold text-indigo-600 hover:text-indigo-800 flex items-center">
+                            <i class="fas fa-chevron-right group-open:rotate-90 transition-transform mr-1.5"></i>Xem gợi ý lời giải
+                        </summary>
+                        <div class="mt-2 text-xs text-slate-700 bg-white p-3 rounded-lg border border-slate-200 space-y-1">
+                            <p>Biến đổi: $\sqrt{3x^2 - 9x - 5} = 5 - 2x$.</p>
+                            <p>Điều kiện $5 - 2x \ge 0 \iff x \le 2.5$.</p>
+                            <p>Bình phương: $3x^2 - 9x - 5 = 25 - 20x + 4x^2 \iff x^2 - 11x + 30 = 0 \iff x = 5 \text{ hoặc } x = 6$.</p>
+                            <p>Cả 5 và 6 đều $> 2.5$ nên bị loại. <strong>Phương trình vô nghiệm.</strong></p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 9 -->
+                <div class="p-4 border rounded-xl bg-slate-50 border-slate-200">
+                    <div class="flex items-start justify-between">
+                        <span class="font-bold text-slate-800 text-sm"><span class="bg-emerald-600 text-white text-xs px-2 py-0.5 rounded mr-2">Bài 9</span>Hoành độ giao điểm đồ thị</span>
+                        <span class="text-xs bg-emerald-100 text-emerald-800 font-semibold px-2 py-0.5 rounded">Cơ bản</span>
+                    </div>
+                    <p class="text-sm font-medium text-slate-800 mt-2">Tìm hoành độ giao điểm của đường cong $y = \sqrt{2x^2 + 5x - 3}$ và đường thẳng $y = x + 1$.</p>
+                    <details class="group mt-3">
+                        <summary class="cursor-pointer text-xs font-bold text-indigo-600 hover:text-indigo-800 flex items-center">
+                            <i class="fas fa-chevron-right group-open:rotate-90 transition-transform mr-1.5"></i>Xem gợi ý lời giải
+                        </summary>
+                        <div class="mt-2 text-xs text-slate-700 bg-white p-3 rounded-lg border border-slate-200 space-y-1">
+                            <p>Phương trình hoành độ giao điểm: $\sqrt{2x^2 + 5x - 3} = x + 1$.</p>
+                            <p>Điều kiện $x + 1 \ge 0 \iff x \ge -1$.</p>
+                            <p>Bình phương: $2x^2 + 5x - 3 = (x + 1)^2 = x^2 + 2x + 1 \iff x^2 + 3x - 4 = 0 \iff x = 1 \text{ hoặc } x = -4$.</p>
+
+                            <p>Đối chiếu $x \ge -1 \implies x = 1$ thỏa mãn.</p>
+                            <p><strong>Hoành độ giao điểm:</strong> $x = 1$.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 10 -->
+                <div class="p-4 border rounded-xl bg-slate-50 border-slate-200">
+                    <div class="flex items-start justify-between">
+                        <span class="font-bold text-slate-800 text-sm"><span class="bg-emerald-600 text-white text-xs px-2 py-0.5 rounded mr-2">Bài 10</span>Số nghiệm phương trình</span>
+                        <span class="text-xs bg-emerald-100 text-emerald-800 font-semibold px-2 py-0.5 rounded">Cơ bản</span>
+                    </div>
+                    <p class="text-sm font-medium text-slate-800 mt-2">Có bao nhiêu nghiệm thỏa mãn phương trình: $\sqrt{x^2 - 4x + 3} = x - 2$?</p>
+                    <details class="group mt-3">
+                        <summary class="cursor-pointer text-xs font-bold text-indigo-600 hover:text-indigo-800 flex items-center">
+                            <i class="fas fa-chevron-right group-open:rotate-90 transition-transform mr-1.5"></i>Xem gợi ý lời giải
+                        </summary>
+                        <div class="mt-2 text-xs text-slate-700 bg-white p-3 rounded-lg border border-slate-200 space-y-1">
+                            <p>Điều kiện $x - 2 \ge 0 \iff x \ge 2$.</p>
+                            <p>Bình phương: $x^2 - 4x + 3 = (x - 2)^2 = x^2 - 4x + 4 \iff 3 = 4$ (Vô lý).</p>
+                            <p><strong>Vậy số nghiệm là:</strong> 0 (Phương trình vô nghiệm).</p>
+                        </div>
+                    </details>
+                </div>
+            </div>
+
+            <!-- CẤP ĐỘ NÂNG CAO (10 BÀI) -->
+            <div class="space-y-4 pt-4">
+                <h3 class="text-md font-bold text-blue-800 uppercase tracking-wide border-b pb-1 flex items-center">
+                    <i class="fas fa-layer-group mr-2"></i> PHẦN 2: CẤP ĐỘ NÂNG CAO (10 BÀI TẬP)
+                </h3>
+
+                <!-- Bài 11 -->
+                <div class="p-4 border rounded-xl bg-slate-50 border-slate-200">
+                    <div class="flex items-start justify-between">
+                        <span class="font-bold text-slate-800 text-sm"><span class="bg-blue-600 text-white text-xs px-2 py-0.5 rounded mr-2">Bài 11</span>Phương trình có hệ số trước căn</span>
+                        <span class="text-xs bg-blue-100 text-blue-800 font-semibold px-2 py-0.5 rounded">Nâng cao</span>
+                    </div>
+                    <p class="text-sm font-medium text-slate-800 mt-2">Giải phương trình: $2\sqrt{x^2 + 4x - 7} = \sqrt{-4x^2 + 38x - 43}$.</p>
+                    <details class="group mt-3">
+                        <summary class="cursor-pointer text-xs font-bold text-indigo-600 hover:text-indigo-800 flex items-center">
+                            <i class="fas fa-chevron-right group-open:rotate-90 transition-transform mr-1.5"></i>Xem gợi ý lời giải
+                        </summary>
+                        <div class="mt-2 text-xs text-slate-700 bg-white p-3 rounded-lg border border-slate-200 space-y-1">
+                            <p>Bình phương hai vế (chú ý $2^2 = 4$):</p>
+                            $$4(x^2 + 4x - 7) = -4x^2 + 38x - 43 \iff 4x^2 + 16x - 28 = -4x^2 + 38x - 43 \iff 8x^2 - 22x + 15 = 0.$$
+                            <p>Giải ra $x = \frac{3}{2} = 1.5$ hoặc $x = \frac{5}{4} = 1.25$.</p>
+                            <p>• Thử $x = 1.5 \implies x^2+4x-7 = 1.5^2 + 6 - 7 = 1.25 > 0$ (Thỏa mãn).</p>
+                            <p>• Thử $x = 1.25 \implies x^2+4x-7 = 1.25^2 + 5 - 7 = -0.4375 < 0$ (Loại).</p>
+                            <p><strong>Nghiệm:</strong> $x = 1.5$.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 12 -->
+                <div class="p-4 border rounded-xl bg-slate-50 border-slate-200">
+                    <div class="flex items-start justify-between">
+                        <span class="font-bold text-slate-800 text-sm"><span class="bg-blue-600 text-white text-xs px-2 py-0.5 rounded mr-2">Bài 12</span>Hiệu hai căn thức bằng 0</span>
+                        <span class="text-xs bg-blue-100 text-blue-800 font-semibold px-2 py-0.5 rounded">Nâng cao</span>
+                    </div>
+                    <p class="text-sm font-medium text-slate-800 mt-2">Giải phương trình: $\sqrt{6x^2 + 7x - 1} - \sqrt{-29x^2 - 41x + 10} = 0$.</p>
+                    <details class="group mt-3">
+                        <summary class="cursor-pointer text-xs font-bold text-indigo-600 hover:text-indigo-800 flex items-center">
+                            <i class="fas fa-chevron-right group-open:rotate-90 transition-transform mr-1.5"></i>Xem gợi ý lời giải
+                        </summary>
+                        <div class="mt-2 text-xs text-slate-700 bg-white p-3 rounded-lg border border-slate-200 space-y-1">
+                            <p>Chuyển vế: $\sqrt{6x^2 + 7x - 1} = \sqrt{-29x^2 - 41x + 10}$.</p>
+                            <p>Bình phương: $6x^2 + 7x - 1 = -29x^2 - 41x + 10 \iff 35x^2 + 48x - 11 = 0$.</p>
+                            <p>Giải ra $x = \frac{1}{5} = 0.2$ hoặc $x = -\frac{11}{7} \approx -1.57$.</p>
+                            <p>Thử lại vào $6x^2 + 7x - 1$:</p>
+                            <p>• $x = 0.2 \implies 6(0.04) + 1.4 - 1 = 0.64 > 0$ (Nhận).</p>
+                            <p>• $x = -11/7 \implies 6(121/49) - 121/7 - 1 = 137/49 > 0$ (Nhận).</p>
+                            <p><strong>Nghiệm:</strong> $S = \left\{\frac{1}{5}; -\frac{11}{7}\right\}$.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 13 -->
+                <div class="p-4 border rounded-xl bg-slate-50 border-slate-200">
+                    <div class="flex items-start justify-between">
+                        <span class="font-bold text-slate-800 text-sm"><span class="bg-blue-600 text-white text-xs px-2 py-0.5 rounded mr-2">Bài 13</span>Biện luận nghiệm qua đồ thị</span>
+                        <span class="text-xs bg-blue-100 text-blue-800 font-semibold px-2 py-0.5 rounded">Tư duy</span>
+                    </div>
+                    <p class="text-sm font-medium text-slate-800 mt-2">Cho $f(x)$ và $g(x)$ cắt nhau tại $x=1$ và $x=6$. Biết $f(6) < 0$. Hỏi phương trình $\sqrt{f(x)} = \sqrt{g(x)}$ có bao nhiêu nghiệm?</p>
+                    <details class="group mt-3">
+                        <summary class="cursor-pointer text-xs font-bold text-indigo-600 hover:text-indigo-800 flex items-center">
+                            <i class="fas fa-chevron-right group-open:rotate-90 transition-transform mr-1.5"></i>Xem gợi ý lời giải
+                        </summary>
+                        <div class="mt-2 text-xs text-slate-700 bg-white p-3 rounded-lg border border-slate-200 space-y-1">
+                            <p>Phương trình $\sqrt{f(x)}=\sqrt{g(x)}$ yêu cầu $f(x)=g(x)$ và $f(x) \ge 0$.</p>
+                            <p>• Tại $x=6$, $f(6) < 0$ nên $x=6$ không thỏa mãn điều kiện xác định của căn thức $\implies x=6$ bị loại.</p>
+                            <p>• Do $x=1$ là giao điểm duy nhất còn lại và $f(1) = g(1) \ge 0$, phương trình có duy nhất 1 nghiệm $x=1$.</p>
+                            <p><strong>Đáp án đúng: B. Phương trình có 1 nghiệm $x=1$.</strong></p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 14 -->
+                <div class="p-4 border rounded-xl bg-slate-50 border-slate-200">
+                    <div class="flex items-start justify-between">
+                        <span class="font-bold text-slate-800 text-sm"><span class="bg-blue-600 text-white text-xs px-2 py-0.5 rounded mr-2">Bài 14</span>Giải phương trình $x - \sqrt{2x-1} = 2$</span>
+                        <span class="text-xs bg-blue-100 text-blue-800 font-semibold px-2 py-0.5 rounded">Nâng cao</span>
+                    </div>
+                    <p class="text-sm font-medium text-slate-800 mt-2">Tìm tập nghiệm của phương trình: $x - \sqrt{2x - 1} = 2$.</p>
+                    <details class="group mt-3">
+                        <summary class="cursor-pointer text-xs font-bold text-indigo-600 hover:text-indigo-800 flex items-center">
+                            <i class="fas fa-chevron-right group-open:rotate-90 transition-transform mr-1.5"></i>Xem gợi ý lời giải
+                        </summary>
+                        <div class="mt-2 text-xs text-slate-700 bg-white p-3 rounded-lg border border-slate-200 space-y-1">
+                            <p>Biến đổi: $\sqrt{2x - 1} = x - 2$. Điều kiện $x - 2 \ge 0 \iff x \ge 2$.</p>
+                            <p>Bình phương: $2x - 1 = (x - 2)^2 = x^2 - 4x + 4 \iff x^2 - 6x + 5 = 0 \iff x = 1 \text{ hoặc } x = 5$.</p>
+                            <p>Đối chiếu $x \ge 2 \implies x = 1$ loại, $x = 5$ nhận.</p>
+                            <p><strong>Nghiệm:</strong> $x = 5$.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 15 -->
+                <div class="p-4 border rounded-xl bg-slate-50 border-slate-200">
+                    <div class="flex items-start justify-between">
+                        <span class="font-bold text-slate-800 text-sm"><span class="bg-blue-600 text-white text-xs px-2 py-0.5 rounded mr-2">Bài 15</span>Đặt ẩn phụ hoàn toàn</span>
+                        <span class="text-xs bg-blue-100 text-blue-800 font-semibold px-2 py-0.5 rounded">Nâng cao</span>
+                    </div>
+                    <p class="text-sm font-medium text-slate-800 mt-2">Giải phương trình bằng ẩn phụ: $x^2 - 5x + 7 - 2\sqrt{x^2 - 5x + 10} = 0$.</p>
+                    <details class="group mt-3">
+                        <summary class="cursor-pointer text-xs font-bold text-indigo-600 hover:text-indigo-800 flex items-center">
+                            <i class="fas fa-chevron-right group-open:rotate-90 transition-transform mr-1.5"></i>Xem gợi ý lời giải
+                        </summary>
+                        <div class="mt-2 text-xs text-slate-700 bg-white p-3 rounded-lg border border-slate-200 space-y-1">
+                            <p>Đặt $t = \sqrt{x^2 - 5x + 10} \ (t \ge 0) \implies x^2 - 5x = t^2 - 10$.</p>
+                            <p>Phương trình trở thành: $(t^2 - 10) + 7 - 2t = 0 \iff t^2 - 2t - 3 = 0 \iff t = 3$ (Do $t \ge 0$).</p>
+                            <p>Với $t = 3 \implies x^2 - 5x + 10 = 9 \iff x^2 - 5x + 1 = 0 \iff x = \frac{5 \pm \sqrt{21}}{2}$.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 16 -->
+                <div class="p-4 border rounded-xl bg-slate-50 border-slate-200">
+                    <div class="flex items-start justify-between">
+                        <span class="font-bold text-slate-800 text-sm"><span class="bg-blue-600 text-white text-xs px-2 py-0.5 rounded mr-2">Bài 16</span>Phương trình tích chứa căn</span>
+                        <span class="text-xs bg-blue-100 text-blue-800 font-semibold px-2 py-0.5 rounded">Nâng cao</span>
+                    </div>
+                    <p class="text-sm font-medium text-slate-800 mt-2">Giải phương trình: $(x - 2)\sqrt{2x^2 - 5x + 2} = 0$.</p>
+                    <details class="group mt-3">
+                        <summary class="cursor-pointer text-xs font-bold text-indigo-600 hover:text-indigo-800 flex items-center">
+                            <i class="fas fa-chevron-right group-open:rotate-90 transition-transform mr-1.5"></i>Xem gợi ý lời giải
+                        </summary>
+                        <div class="mt-2 text-xs text-slate-700 bg-white p-3 rounded-lg border border-slate-200 space-y-1">
+                            <p>Điều kiện $2x^2 - 5x + 2 \ge 0 \iff (2x - 1)(x - 2) \ge 0 \iff x \le \frac{1}{2}$ hoặc $x \ge 2$.</p>
+                            <p>Phương trình tương đương:</p>
+                            $$\left[\begin{array}{l} x - 2 = 0 \\ 2x^2 - 5x + 2 = 0 \end{array}\right. \iff \left[\begin{array}{l} x = 2 \\ x = 2 \\ x = 1/2 \end{array}\right.$$
+                            <p>Cả hai giá trị $x = 2$ và $x = 1/2$ đều thỏa mãn điều kiện xác định.</p>
+                            <p><strong>Nghiệm:</strong> $S = \{1/2; 2\}$.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 17 -->
+                <div class="p-4 border rounded-xl bg-slate-50 border-slate-200">
+                    <div class="flex items-start justify-between">
+                        <span class="font-bold text-slate-800 text-sm"><span class="bg-blue-600 text-white text-xs px-2 py-0.5 rounded mr-2">Bài 17</span>Tìm m để có nghiệm duy nhất</span>
+                        <span class="text-xs bg-blue-100 text-blue-800 font-semibold px-2 py-0.5 rounded">Tham số m</span>
+                    </div>
+                    <p class="text-sm font-medium text-slate-800 mt-2">Tìm tham số $m$ để phương trình $\sqrt{x^2 - 2x + m} = x - 1$ có nghiệm duy nhất.</p>
+                    <details class="group mt-3">
+                        <summary class="cursor-pointer text-xs font-bold text-indigo-600 hover:text-indigo-800 flex items-center">
+                            <i class="fas fa-chevron-right group-open:rotate-90 transition-transform mr-1.5"></i>Xem gợi ý lời giải
+                        </summary>
+                        <div class="mt-2 text-xs text-slate-700 bg-white p-3 rounded-lg border border-slate-200 space-y-1">
+                            <p>Phương trình $\iff \begin{cases} x \ge 1 \\ x^2 - 2x + m = (x - 1)^2 = x^2 - 2x + 1 \end{cases} \iff \begin{cases} x \ge 1 \\ m = 1 \end{cases}$.</p>
+                            <p>• Khi $m = 1 \implies \sqrt{x^2 - 2x + 1} = x - 1 \iff |x - 1| = x - 1$, luôn đúng với mọi $x \ge 1$ (Vô số nghiệm).</p>
+                            <p>• Khi $m \neq 1 \implies$ Phương trình bình phương vế dưới trở thành $m = 1$ (Vô lý), do đó vô nghiệm.</p>
+                            <p><strong>Kết luận:</strong> Không có giá trị nào của $m$ để phương trình có nghiệm duy nhất.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 18 -->
+                <div class="p-4 border rounded-xl bg-slate-50 border-slate-200">
+                    <div class="flex items-start justify-between">
+                        <span class="font-bold text-slate-800 text-sm"><span class="bg-blue-600 text-white text-xs px-2 py-0.5 rounded mr-2">Bài 18</span>Giao điểm đường thẳng và đường cong</span>
+                        <span class="text-xs bg-blue-100 text-blue-800 font-semibold px-2 py-0.5 rounded">Nâng cao</span>
+                    </div>
+                    <p class="text-sm font-medium text-slate-800 mt-2">Xác định tọa độ giao điểm của $d: y = x + 3$ và $(C): y = \sqrt{x^2 + 4x + 8} + 1$.</p>
+                    <details class="group mt-3">
+                        <summary class="cursor-pointer text-xs font-bold text-indigo-600 hover:text-indigo-800 flex items-center">
+                            <i class="fas fa-chevron-right group-open:rotate-90 transition-transform mr-1.5"></i>Xem gợi ý lời giải
+                        </summary>
+                        <div class="mt-2 text-xs text-slate-700 bg-white p-3 rounded-lg border border-slate-200 space-y-1">
+                            <p>Phương trình hoành độ: $\sqrt{x^2 + 4x + 8} + 1 = x + 3 \iff \sqrt{x^2 + 4x + 8} = x + 2$.</p>
+                            <p>Điều kiện $x + 2 \ge 0 \iff x \ge -2$.</p>
+                            <p>Bình phương: $x^2 + 4x + 8 = (x + 2)^2 = x^2 + 4x + 4 \iff 8 = 4$ (Vô lý).</p>
+                            <p><strong>Kết luận:</strong> $d$ và $(C)$ không cắt nhau, không có giao điểm.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 19 -->
+                <div class="p-4 border rounded-xl bg-slate-50 border-slate-200">
+                    <div class="flex items-start justify-between">
+                        <span class="font-bold text-slate-800 text-sm"><span class="bg-blue-600 text-white text-xs px-2 py-0.5 rounded mr-2">Bài 19</span>Biện luận m cho căn bằng căn m</span>
+                        <span class="text-xs bg-blue-100 text-blue-800 font-semibold px-2 py-0.5 rounded">Tham số m</span>
+                    </div>
+                    <p class="text-sm font-medium text-slate-800 mt-2">Tìm tất cả các giá trị thực của tham số $m$ để phương trình $\sqrt{-x^2 + 4x - 3} = \sqrt{m}$ có nghiệm.</p>
+                    <details class="group mt-3">
+                        <summary class="cursor-pointer text-xs font-bold text-indigo-600 hover:text-indigo-800 flex items-center">
+                            <i class="fas fa-chevron-right group-open:rotate-90 transition-transform mr-1.5"></i>Xem gợi ý lời giải
+                        </summary>
+                        <div class="mt-2 text-xs text-slate-700 bg-white p-3 rounded-lg border border-slate-200 space-y-1">
+                            <p>Đặt $f(x) = -x^2 + 4x - 3$ với $1 \le x \le 3$.</p>
+                            <p>Đỉnh parabol $x_I = 2 \implies f(2) = 1$. Giá trị $f(x)$ thuộc đoạn $[0; 1]$.</p>
+                            <p>Phương trình có nghiệm $\iff 0 \le \sqrt{m} \le 1 \iff 0 \le m \le 1$.</p>
+                            <p><strong>Kết luận:</strong> $0 \le m \le 1$.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 20 -->
+                <div class="p-4 border rounded-xl bg-slate-50 border-slate-200">
+                    <div class="flex items-start justify-between">
+                        <span class="font-bold text-slate-800 text-sm"><span class="bg-blue-600 text-white text-xs px-2 py-0.5 rounded mr-2">Bài 20</span>Chứng minh vô nghiệm bằng đồ thị</span>
+                        <span class="text-xs bg-blue-100 text-blue-800 font-semibold px-2 py-0.5 rounded">Đồ thị</span>
+                    </div>
+                    <p class="text-sm font-medium text-slate-800 mt-2">Chứng minh phương trình $\sqrt{x^2 + 1} = -x - 2$ vô nghiệm bằng đánh giá đồ thị/tập giá trị.</p>
+                    <details class="group mt-3">
+                        <summary class="cursor-pointer text-xs font-bold text-indigo-600 hover:text-indigo-800 flex items-center">
+                            <i class="fas fa-chevron-right group-open:rotate-90 transition-transform mr-1.5"></i>Xem gợi ý lời giải
+                        </summary>
+                        <div class="mt-2 text-xs text-slate-700 bg-white p-3 rounded-lg border border-slate-200 space-y-1">
+                            <p>Ta có $\sqrt{x^2 + 1} \ge 1 > 0$ với mọi $x \in \mathbb{R}$.</p>
+                            <p>Điều kiện để $-x - 2 \ge 1 \iff x \le -3$.</p>
+                            <p>Khi $x \le -3$, bình phương hai vế: $x^2 + 1 = (-x - 2)^2 = x^2 + 4x + 4 \iff 4x = -3 \iff x = -0.75$.</p>
+                            <p>Giá trị $x = -0.75$ không thỏa mãn điều kiện $x \le -3$. Vậy hai đường không cắt nhau, phương trình vô nghiệm.</p>
+                        </div>
+                    </details>
+                </div>
+            </div>
+
+            <!-- CẤP ĐỘ VẬN DỤNG THỰC TIỄN (10 BÀI) -->
+            <div class="space-y-4 pt-4">
+                <h3 class="text-md font-bold text-purple-800 uppercase tracking-wide border-b pb-1 flex items-center">
+                    <i class="fas fa-compass mr-2"></i> PHẦN 3: CẤP ĐỘ VẬN DỤNG THỰC TIỄN (10 BÀI TẬP)
+                </h3>
+
+                <!-- Bài 21 -->
+                <div class="p-4 border rounded-xl bg-slate-50 border-slate-200">
+                    <div class="flex items-start justify-between">
+                        <span class="font-bold text-slate-800 text-sm"><span class="bg-purple-600 text-white text-xs px-2 py-0.5 rounded mr-2">Bài 21</span>Định vị bến xe trung tâm</span>
+                        <span class="text-xs bg-purple-100 text-purple-800 font-semibold px-2 py-0.5 rounded">Thực tế</span>
+                    </div>
+                    <p class="text-sm font-medium text-slate-800 mt-2">Thành phố A, huyện B (cách A 30km về phía nam), huyện C (cách A 40km về phía tây). Đặt bến xe M trên đoạn AB sao cho $MC = MB$. Tính $AM$.</p>
+                    <details class="group mt-3">
+                        <summary class="cursor-pointer text-xs font-bold text-indigo-600 hover:text-indigo-800 flex items-center">
+                            <i class="fas fa-chevron-right group-open:rotate-90 transition-transform mr-1.5"></i>Xem gợi ý lời giải
+                        </summary>
+                        <div class="mt-2 text-xs text-slate-700 bg-white p-3 rounded-lg border border-slate-200 space-y-1">
+                            <p>Đặt $AM = x \ (0 \le x \le 30) \implies MB = 30 - x$.</p>
+                            <p>Tam giác $MAC$ vuông tại $A \implies MC = \sqrt{x^2 + 40^2} = \sqrt{x^2 + 1600}$.</p>
+                            <p>Theo đề $MC = MB \iff \sqrt{x^2 + 1600} = 30 - x$.</p>
+                            <p>Bình phương với $x \le 30$: $x^2 + 1600 = (30 - x)^2 = 900 - 60x + x^2 \iff 60x = -700 \iff x < 0$ (Loại).</p>
+                            <p><strong>Kết luận:</strong> Không có vị trí $M$ nào nằm trên đoạn $AB$ thỏa mãn điều kiện.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 22 -->
+                <div class="p-4 border rounded-xl bg-slate-50 border-slate-200">
+                    <div class="flex items-start justify-between">
+                        <span class="font-bold text-slate-800 text-sm"><span class="bg-purple-600 text-white text-xs px-2 py-0.5 rounded mr-2">Bài 22</span>Xây cầu bắc qua sông</span>
+                        <span class="text-xs bg-purple-100 text-purple-800 font-semibold px-2 py-0.5 rounded">Thực tế</span>
+                    </div>
+                    <p class="text-sm font-medium text-slate-800 mt-2">A cách bờ 2km, B cách bờ đối diện 4km, khoảng cách dọc sông 6km. $AM = \sqrt{x^2+4}$, $BN = \sqrt{(6-x)^2+16}$. Tìm $x$ để $BN = 2AM$.</p>
+                    <details class="group mt-3">
+                        <summary class="cursor-pointer text-xs font-bold text-indigo-600 hover:text-indigo-800 flex items-center">
+                            <i class="fas fa-chevron-right group-open:rotate-90 transition-transform mr-1.5"></i>Xem gợi ý lời giải
+                        </summary>
+                        <div class="mt-2 text-xs text-slate-700 bg-white p-3 rounded-lg border border-slate-200 space-y-1">
+                            <p>Phương trình: $\sqrt{(6-x)^2 + 16} = 2\sqrt{x^2 + 4}$.</p>
+                            <p>Bình phương hai vế: $(6-x)^2 + 16 = 4(x^2 + 4) \iff 36 - 12x + x^2 + 16 = 4x^2 + 16 \iff 3x^2 + 12x - 36 = 0$.</p>
+                            <p>Chia cho 3: $x^2 + 4x - 12 = 0 \iff (x - 2)(x + 6) = 0 \iff x = 2$ (do $0 \le x \le 6$).</p>
+                            <p><strong>Vậy:</strong> $x = 2\text{ (km)}$.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 23 -->
+                <div class="p-4 border rounded-xl bg-slate-50 border-slate-200">
+                    <div class="flex items-start justify-between">
+                        <span class="font-bold text-slate-800 text-sm"><span class="bg-purple-600 text-white text-xs px-2 py-0.5 rounded mr-2">Bài 23</span>Shipper giao hàng gặp khách</span>
+                        <span class="text-xs bg-purple-100 text-purple-800 font-semibold px-2 py-0.5 rounded">Thực tế</span>
+                    </div>
+                    <p class="text-sm font-medium text-slate-800 mt-2">B ở phía Đông A cách 8km, C ở phía Bắc B ($BC=x$). Shipper từ A đến C (40km/h), khách từ B đến C (15km/h) đến cùng lúc. Tính $x$.</p>
+                    <details class="group mt-3">
+                        <summary class="cursor-pointer text-xs font-bold text-indigo-600 hover:text-indigo-800 flex items-center">
+                            <i class="fas fa-chevron-right group-open:rotate-90 transition-transform mr-1.5"></i>Xem gợi ý lời giải
+                        </summary>
+                        <div class="mt-2 text-xs text-slate-700 bg-white p-3 rounded-lg border border-slate-200 space-y-1">
+                            <p>Thời gian đi bằng nhau: $\frac{\sqrt{8^2 + x^2}}{40} = \frac{x}{15} \iff \frac{\sqrt{64 + x^2}}{8} = \frac{x}{3}$.</p>
+                            <p>Quy đồng: $3\sqrt{64 + x^2} = 8x \iff 9(64 + x^2) = 64x^2 \iff 576 + 9x^2 = 64x^2 \iff 55x^2 = 576$.</p>
+                            <p>$x = \sqrt{\frac{576}{55}} = \frac{24}{\sqrt{55}} \approx 3.236\text{ (km)}$.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 24 -->
+                <div class="p-4 border rounded-xl bg-slate-50 border-slate-200">
+                    <div class="flex items-start justify-between">
+                        <span class="font-bold text-slate-800 text-sm"><span class="bg-purple-600 text-white text-xs px-2 py-0.5 rounded mr-2">Bài 24</span>Gập thanh kim loại thành góc vuông</span>
+                        <span class="text-xs bg-purple-100 text-purple-800 font-semibold px-2 py-0.5 rounded">Thực tế</span>
+                    </div>
+                    <p class="text-sm font-medium text-slate-800 mt-2">Thanh kim loại dài 100cm gập vuông tại M. Khoảng cách hai đầu là 70cm. Tính vị trí M cách hai đầu.</p>
+                    <details class="group mt-3">
+                        <summary class="cursor-pointer text-xs font-bold text-indigo-600 hover:text-indigo-800 flex items-center">
+                            <i class="fas fa-chevron-right group-open:rotate-90 transition-transform mr-1.5"></i>Xem gợi ý lời giải
+                        </summary>
+                        <div class="mt-2 text-xs text-slate-700 bg-white p-3 rounded-lg border border-slate-200 space-y-1">
+                            <p>Gọi độ dài hai đoạn là $x$ và $100 - x$ ($0 < x < 100$).</p>
+                            <p>Áp dụng Pytago: $x^2 + (100 - x)^2 = 70^2 = 4900 \iff 2x^2 - 200x + 10000 = 4900 \iff 2x^2 - 200x + 5100 = 0$.</p>
+                            <p>Chia 2: $x^2 - 100x + 2550 = 0$. Có $\Delta' = 2500 - 2550 = -50 < 0$.</p>
+                            <p><strong>Kết luận:</strong> Không thể gập thanh kim loại để khoảng cách hai đầu bằng 70cm (Tổng 2 cạnh $a+b \ge \sqrt{2(a^2+b^2)} = \sqrt{2 \times 4900} \approx 98.99\text{cm}$).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 25 -->
+                <div class="p-4 border rounded-xl bg-slate-50 border-slate-200">
+                    <div class="flex items-start justify-between">
+                        <span class="font-bold text-slate-800 text-sm"><span class="bg-purple-600 text-white text-xs px-2 py-0.5 rounded mr-2">Bài 25</span>Cứu hộ đường biển bờ biển thẳng</span>
+                        <span class="text-xs bg-purple-100 text-purple-800 font-semibold px-2 py-0.5 rounded">Thực tế</span>
+                    </div>
+                    <p class="text-sm font-medium text-slate-800 mt-2">Trạm A cách H 8km, tàu C cách H 6km ($CH \perp AH$). Ca nô từ A đến M ($HM=x$) rồi đến C. Tìm $x$ để $AM = MC$.</p>
+                    <details class="group mt-3">
+                        <summary class="cursor-pointer text-xs font-bold text-indigo-600 hover:text-indigo-800 flex items-center">
+                            <i class="fas fa-chevron-right group-open:rotate-90 transition-transform mr-1.5"></i>Xem gợi ý lời giải
+                        </summary>
+                        <div class="mt-2 text-xs text-slate-700 bg-white p-3 rounded-lg border border-slate-200 space-y-1">
+                            <p>Ta có $AM = 8 - x$, $MC = \sqrt{x^2 + 36}$.</p>
+                            <p>Phương trình: $8 - x = \sqrt{x^2 + 36} \implies (8 - x)^2 = x^2 + 36 \iff 64 - 16x + x^2 = x^2 + 36 \iff 16x = 28 \iff x = 1.75\text{ (km)}$.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 26 -->
+                <div class="p-4 border rounded-xl bg-slate-50 border-slate-200">
+                    <div class="flex items-start justify-between">
+                        <span class="font-bold text-slate-800 text-sm"><span class="bg-purple-600 text-white text-xs px-2 py-0.5 rounded mr-2">Bài 26</span>Bài toán kéo cáp điện qua sông</span>
+                        <span class="text-xs bg-purple-100 text-purple-800 font-semibold px-2 py-0.5 rounded">Thực tế</span>
+                    </div>
+                    <p class="text-sm font-medium text-slate-800 mt-2">A trên bờ, đảo C cách bờ $BC=3\text{km}$, $AB=6\text{km}$. Đất: 2 tr/km, nước: 5 tr/km. Tìm $BM=x$ để tổng chi phí là 25 triệu.</p>
+                    <details class="group mt-3">
+                        <summary class="cursor-pointer text-xs font-bold text-indigo-600 hover:text-indigo-800 flex items-center">
+                            <i class="fas fa-chevron-right group-open:rotate-90 transition-transform mr-1.5"></i>Xem gợi ý lời giải
+                        </summary>
+                        <div class="mt-2 text-xs text-slate-700 bg-white p-3 rounded-lg border border-slate-200 space-y-1">
+                            <p>Đoạn trên bờ $AM = 6 - x$, đoạn dưới nước $MC = \sqrt{x^2 + 3^2} = \sqrt{x^2 + 9}$.</p>
+                            <p>Tổng chi phí: $2(6 - x) + 5\sqrt{x^2 + 9} = 25 \iff 5\sqrt{x^2 + 9} = 13 + 2x$.</p>
+                            <p>Bình phương: $25(x^2 + 9) = (13 + 2x)^2 \iff 25x^2 + 225 = 169 + 52x + 4x^2 \iff 21x^2 - 52x + 56 = 0$.</p>
+                            <p>Phương trình có $\Delta' = 26^2 - 21(56) = 676 - 1176 = -500 < 0$.</p>
+                            <p><strong>Kết luận:</strong> Chi phí 25 triệu không đủ thực hiện (Chi phí tối thiểu rơi vào khoảng 22.8 triệu).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 27 -->
+                <div class="p-4 border rounded-xl bg-slate-50 border-slate-200">
+                    <div class="flex items-start justify-between">
+                        <span class="font-bold text-slate-800 text-sm"><span class="bg-purple-600 text-white text-xs px-2 py-0.5 rounded mr-2">Bài 27</span>Khoảng cách giữa hai tàu chuyển động</span>
+                        <span class="text-xs bg-purple-100 text-purple-800 font-semibold px-2 py-0.5 rounded">Thực tế</span>
+                    </div>
+                    <p class="text-sm font-medium text-slate-800 mt-2">Radar $O(0;0)$. Tàu 1 từ $A(0;20)$ đi Đông (15km/h). Tàu 2 từ $O$ đi Bắc (20km/h). Tìm thời điểm $t$ để khoảng cách hai tàu bằng 25km.</p>
+                    <details class="group mt-3">
+                        <summary class="cursor-pointer text-xs font-bold text-indigo-600 hover:text-indigo-800 flex items-center">
+                            <i class="fas fa-chevron-right group-open:rotate-90 transition-transform mr-1.5"></i>Xem gợi ý lời giải
+                        </summary>
+                        <div class="mt-2 text-xs text-slate-700 bg-white p-3 rounded-lg border border-slate-200 space-y-1">
+                            <p>Tọa độ Tàu 1: $(15t; 20)$, Tọa độ Tàu 2: $(0; 20t)$.</p>
+                            <p>Khoảng cách $D = \sqrt{(15t)^2 + (20 - 20t)^2} = 25$.</p>
+                            <p>Bình phương: $225t^2 + 400(1 - t)^2 = 625 \iff 9t^2 + 16(1 - 2t + t^2) = 25 \iff 25t^2 - 32t - 9 = 0$.</p>
+                            <p>Giải ra $t = \frac{16 + \sqrt{481}}{25} \approx 1.517\text{ (giờ)}$.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 28 -->
+                <div class="p-4 border rounded-xl bg-slate-50 border-slate-200">
+                    <div class="flex items-start justify-between">
+                        <span class="font-bold text-slate-800 text-sm"><span class="bg-purple-600 text-white text-xs px-2 py-0.5 rounded mr-2">Bài 28</span>Kích thước màn hình tivi 16:9</span>
+                        <span class="text-xs bg-purple-100 text-purple-800 font-semibold px-2 py-0.5 rounded">Thực tế</span>
+                    </div>
+                    <p class="text-sm font-medium text-slate-800 mt-2">Màn hình tivi tỉ lệ 16:9, đường chéo 65 inch. Lập phương trình chứa căn tìm chiều dài và chiều rộng tivi theo inch.</p>
+                    <details class="group mt-3">
+                        <summary class="cursor-pointer text-xs font-bold text-indigo-600 hover:text-indigo-800 flex items-center">
+                            <i class="fas fa-chevron-right group-open:rotate-90 transition-transform mr-1.5"></i>Xem gợi ý lời giải
+                        </summary>
+                        <div class="mt-2 text-xs text-slate-700 bg-white p-3 rounded-lg border border-slate-200 space-y-1">
+                            <p>Gọi chiều rộng là $9x$, chiều dài là $16x$ ($x > 0$).</p>
+                            <p>Đường chéo $\sqrt{(16x)^2 + (9x)^2} = 65 \iff \sqrt{256x^2 + 81x^2} = 65 \iff \sqrt{337x^2} = 65 \iff x\sqrt{337} = 65$.</p>
+                            <p>$x = \frac{65}{\sqrt{337}} \approx 3.54$.</p>
+                            <p>• Chiều rộng: $9x \approx 31.86\text{ inch}$.</p>
+                            <p>• Chiều dài: $16x \approx 56.64\text{ inch}$.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 29 -->
+                <div class="p-4 border rounded-xl bg-slate-50 border-slate-200">
+                    <div class="flex items-start justify-between">
+                        <span class="font-bold text-slate-800 text-sm"><span class="bg-purple-600 text-white text-xs px-2 py-0.5 rounded mr-2">Bài 29</span>Cân bằng độ dài hai thanh chống giàn giáo</span>
+                        <span class="text-xs bg-purple-100 text-purple-800 font-semibold px-2 py-0.5 rounded">Thực tế</span>
+                    </div>
+                    <p class="text-sm font-medium text-slate-800 mt-2">Thanh chống 1 dài 3m. Thanh chống 2 dài $\sqrt{x^2 - 2x + 10}$. Tìm $x$ để hai thanh có độ dài bằng nhau.</p>
+                    <details class="group mt-3">
+                        <summary class="cursor-pointer text-xs font-bold text-indigo-600 hover:text-indigo-800 flex items-center">
+                            <i class="fas fa-chevron-right group-open:rotate-90 transition-transform mr-1.5"></i>Xem gợi ý lời giải
+                        </summary>
+                        <div class="mt-2 text-xs text-slate-700 bg-white p-3 rounded-lg border border-slate-200 space-y-1">
+                            <p>Phương trình: $\sqrt{x^2 - 2x + 10} = 3$.</p>
+                            <p>Bình phương: $x^2 - 2x + 10 = 9 \iff x^2 - 2x + 1 = 0 \iff (x - 1)^2 = 0 \iff x = 1$.</p>
+                            <p><strong>Nghiệm:</strong> $x = 1$.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 30 -->
+                <div class="p-4 border rounded-xl bg-slate-50 border-slate-200">
+                    <div class="flex items-start justify-between">
+                        <span class="font-bold text-slate-800 text-sm"><span class="bg-purple-600 text-white text-xs px-2 py-0.5 rounded mr-2">Bài 30</span>Thiết kế hầm chui bán nguyệt</span>
+                        <span class="text-xs bg-purple-100 text-purple-800 font-semibold px-2 py-0.5 rounded">Thực tế</span>
+                    </div>
+                    <p class="text-sm font-medium text-slate-800 mt-2">Mặt cắt hầm chui bán nguyệt $R=5\text{m}$. Xe tải rộng $6\text{m}$ ($x=3$). Tìm chiều cao tối đa $h$ để xe chui lọt hầm.</p>
+                    <details class="group mt-3">
+                        <summary class="cursor-pointer text-xs font-bold text-indigo-600 hover:text-indigo-800 flex items-center">
+                            <i class="fas fa-chevron-right group-open:rotate-90 transition-transform mr-1.5"></i>Xem gợi ý lời giải
+                        </summary>
+                        <div class="mt-2 text-xs text-slate-700 bg-white p-3 rounded-lg border border-slate-200 space-y-1">
+                            <p>Theo Pytago với bán kính hầm: $x^2 + h^2 \le R^2 \iff 3^2 + h^2 \le 5^2 \iff 9 + h^2 \le 25 \iff h^2 \le 16$.</p>
+                            <p>Do $h > 0 \implies h \le 4\text{ (m)}$.</p>
+                            <p><strong>Vậy chiều cao lớn nhất xe tải đạt được là:</strong> $h = 4\text{m}$.</p>
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </section>
+
+        <!-- PHẦN 4: ĐÁNH GIÁ NĂNG LỰC TẠI LỚP (TRẮC NGHIỆM ONLINE 5 CÂU) -->
+        <section class="bg-white p-6 rounded-2xl shadow-md border border-slate-200">
+            <div class="flex items-center space-x-3 mb-6 border-b pb-3 border-slate-200">
+                <span class="bg-purple-600 text-white p-2.5 rounded-xl"><i class="fas fa-user-check text-xl"></i></span>
+                <div>
+                    <h2 class="text-xl font-bold text-slate-800">IV. BÀI TẬP ĐÁNH GIÁ NĂNG LỰC TẠI LỚP</h2>
+                    <p class="text-xs text-slate-500">Hoàn thành 5 câu hỏi kiểm tra nhanh và bấm nộp bài để ghi nhận điểm trực tuyến</p>
+                </div>
+            </div>
+
+            <!-- FORM ĐIỀU KIỆN THÔNG TIN HỌC SINH -->
+            <div class="bg-indigo-50 p-4 rounded-xl mb-6 grid md:grid-cols-2 gap-4 border border-indigo-100">
+                <div>
+                    <label class="block text-xs font-bold text-indigo-900 uppercase mb-1">
+                        Họ và Tên Học Sinh <span class="text-red-500">*</span>
+                    </label>
+                    <input type="text" id="student-name" placeholder="Nhập đầy đủ họ và tên..." 
+                           class="w-full px-3 py-2 border rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 outline-none bg-white">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-indigo-900 uppercase mb-1">Mã Đề / Lớp Học</label>
+                    <input type="text" id="exam-id" value="toan10-11" 
+                           class="w-full px-3 py-2 border rounded-lg text-sm bg-slate-100 font-bold text-slate-700" readonly>
+                </div>
+            </div>
+
+            <!-- FORM 5 CÂU TRẮC NGHIỆM -->
+            <form id="quiz-form" class="space-y-6">
+                <!-- Câu 1 -->
+                <div class="p-4 border rounded-xl bg-slate-50 border-slate-200">
+                    <p class="font-bold text-slate-800 text-sm mb-2">
+                        <span class="inline-block bg-indigo-600 text-white text-xs px-2 py-0.5 rounded mr-2">Câu 1</span>
+                        Tập nghiệm của phương trình $\sqrt{x^2 - 4x + 3} = x - 2$ là:
+                    </p>
+                    <div class="grid md:grid-cols-2 gap-2 text-sm">
+                        <label class="flex items-center p-2.5 bg-white rounded-lg border hover:bg-indigo-50 cursor-pointer">
+                            <input type="radio" name="q1" value="A" class="mr-2"> A. $S = \{0.5\}$
+                        </label>
+                        <label class="flex items-center p-2.5 bg-white rounded-lg border hover:bg-indigo-50 cursor-pointer">
+                            <input type="radio" name="q1" value="B" class="mr-2"> B. $S = \varnothing$
+                        </label>
+                        <label class="flex items-center p-2.5 bg-white rounded-lg border hover:bg-indigo-50 cursor-pointer">
+                            <input type="radio" name="q1" value="C" class="mr-2"> C. $S = \{2\}$
+                        </label>
+                        <label class="flex items-center p-2.5 bg-white rounded-lg border hover:bg-indigo-50 cursor-pointer">
+                            <input type="radio" name="q1" value="D" class="mr-2"> D. $S = \{1; 3\}$
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Câu 2 -->
+                <div class="p-4 border rounded-xl bg-slate-50 border-slate-200">
+                    <p class="font-bold text-slate-800 text-sm mb-2">
+                        <span class="inline-block bg-indigo-600 text-white text-xs px-2 py-0.5 rounded mr-2">Câu 2</span>
+                        Phương trình $\sqrt{4x + 30} = 2x + 3$ có bao nhiêu nghiệm thực?
+                    </p>
+                    <div class="grid md:grid-cols-2 gap-2 text-sm">
+                        <label class="flex items-center p-2.5 bg-white rounded-lg border hover:bg-indigo-50 cursor-pointer">
+                            <input type="radio" name="q2" value="A" class="mr-2"> A. 0 nghiệm
+                        </label>
+                        <label class="flex items-center p-2.5 bg-white rounded-lg border hover:bg-indigo-50 cursor-pointer">
+                            <input type="radio" name="q2" value="B" class="mr-2"> B. 1 nghiệm ($x=1.5$)
+                        </label>
+                        <label class="flex items-center p-2.5 bg-white rounded-lg border hover:bg-indigo-50 cursor-pointer">
+                            <input type="radio" name="q2" value="C" class="mr-2"> C. 2 nghiệm
+                        </label>
+                        <label class="flex items-center p-2.5 bg-white rounded-lg border hover:bg-indigo-50 cursor-pointer">
+                            <input type="radio" name="q2" value="D" class="mr-2"> D. Vô số nghiệm
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Câu 3 -->
+                <div class="p-4 border rounded-xl bg-slate-50 border-slate-200">
+                    <p class="font-bold text-slate-800 text-sm mb-2">
+                        <span class="inline-block bg-indigo-600 text-white text-xs px-2 py-0.5 rounded mr-2">Câu 3</span>
+                        Nghiệm của phương trình $x - \sqrt{2x - 1} = 2$ là:
+                    </p>
+                    <div class="grid md:grid-cols-2 gap-2 text-sm">
+                        <label class="flex items-center p-2.5 bg-white rounded-lg border hover:bg-indigo-50 cursor-pointer">
+                            <input type="radio" name="q3" value="A" class="mr-2"> A. $x = 1$
+                        </label>
+                        <label class="flex items-center p-2.5 bg-white rounded-lg border hover:bg-indigo-50 cursor-pointer">
+                            <input type="radio" name="q3" value="B" class="mr-2"> B. $x = 5$
+                        </label>
+                        <label class="flex items-center p-2.5 bg-white rounded-lg border hover:bg-indigo-50 cursor-pointer">
+                            <input type="radio" name="q3" value="C" class="mr-2"> C. $x = 1$ và $x = 5$
+                        </label>
+                        <label class="flex items-center p-2.5 bg-white rounded-lg border hover:bg-indigo-50 cursor-pointer">
+                            <input type="radio" name="q3" value="D" class="mr-2"> D. Phương trình vô nghiệm
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Câu 4 -->
+                <div class="p-4 border rounded-xl bg-slate-50 border-slate-200">
+                    <p class="font-bold text-slate-800 text-sm mb-2">
+                        <span class="inline-block bg-indigo-600 text-white text-xs px-2 py-0.5 rounded mr-2">Câu 4</span>
+                        Phương trình $\sqrt{-x^2 + 4x - 3} = \sqrt{m}$ có nghiệm khi và chỉ khi:
+                    </p>
+                    <div class="grid md:grid-cols-2 gap-2 text-sm">
+                        <label class="flex items-center p-2.5 bg-white rounded-lg border hover:bg-indigo-50 cursor-pointer">
+                            <input type="radio" name="q4" value="A" class="mr-2"> A. $m \ge 0$
+                        </label>
+                        <label class="flex items-center p-2.5 bg-white rounded-lg border hover:bg-indigo-50 cursor-pointer">
+                            <input type="radio" name="q4" value="B" class="mr-2"> B. $0 \le m \le 1$
+                        </label>
+                        <label class="flex items-center p-2.5 bg-white rounded-lg border hover:bg-indigo-50 cursor-pointer">
+                            <input type="radio" name="q4" value="C" class="mr-2"> C. $m \le 1$
+                        </label>
+                        <label class="flex items-center p-2.5 bg-white rounded-lg border hover:bg-indigo-50 cursor-pointer">
+                            <input type="radio" name="q4" value="D" class="mr-2"> D. $m > 1$
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Câu 5 -->
+                <div class="p-4 border rounded-xl bg-slate-50 border-slate-200">
+                    <p class="font-bold text-slate-800 text-sm mb-2">
+                        <span class="inline-block bg-indigo-600 text-white text-xs px-2 py-0.5 rounded mr-2">Câu 5</span>
+                        Bề ngang xe tải rộng $6\text{m}$ chui qua hầm bán nguyệt bán kính $R=5\text{m}$. Chiều cao tối đa $h$ của xe là:
+                    </p>
+                    <div class="grid md:grid-cols-2 gap-2 text-sm">
+                        <label class="flex items-center p-2.5 bg-white rounded-lg border hover:bg-indigo-50 cursor-pointer">
+                            <input type="radio" name="q5" value="A" class="mr-2"> A. $h = 3\text{m}$
+                        </label>
+                        <label class="flex items-center p-2.5 bg-white rounded-lg border hover:bg-indigo-50 cursor-pointer">
+                            <input type="radio" name="q5" value="B" class="mr-2"> B. $h = 4\text{m}$
+                        </label>
+                        <label class="flex items-center p-2.5 bg-white rounded-lg border hover:bg-indigo-50 cursor-pointer">
+                            <input type="radio" name="q5" value="C" class="mr-2"> C. $h = 4.5\text{m}$
+                        </label>
+                        <label class="flex items-center p-2.5 bg-white rounded-lg border hover:bg-indigo-50 cursor-pointer">
+                            <input type="radio" name="q5" value="D" class="mr-2"> D. $h = 5\text{m}$
+                        </label>
+                    </div>
+                </div>
+
+                <!-- NÚT NỘP BÀI -->
+                <div class="text-center pt-2">
+                    <button type="button" onclick="submitQuiz()" id="btn-submit" 
+                            class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-8 py-3 rounded-xl shadow-lg transition transform active:scale-95">
+                        <i class="fas fa-paper-plane mr-2"></i> NỘP BÀI VÀ GỬI KẾT QUẢ
+                    </button>
+                </div>
+            </form>
+
+            <!-- KẾT QUẢ HIỂN THỊ -->
+            <div id="result-box" class="hidden mt-6 p-4 rounded-xl text-center border"></div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER COPYRIGHT -->
+    <footer class="mt-12 py-6 border-t border-slate-300 text-center text-sm font-semibold text-slate-700 bg-white print:border-t">
+        @ Bản quyền thuộc ThS. Đinh Quốc Tuấn - Mục đích phi lợi nhuận - Vì giáo dục.
+    </footer>
+
+    <!-- NÚT IN TÀI LIỆU CHUẨN MẪU -->
+    <button id="btn-print-doc" onclick="safePrint()" class="fixed bottom-5 right-5 bg-gray-900 text-white px-4 py-2 rounded-lg shadow-lg hover:bg-gray-700 print:hidden z-50">
+        <i class="fas fa-print mr-2"></i> In Tài Liệu
+    </button>
+
+    <script>
+        // Bắt đầu đếm thời gian
+        const startTime = new Date();
+
+        // 1. KHỞI TẠO BẢNG JSXGRAPH
+        window.onload = function() {
+            // Board 1: Đồ thị kiểm tra nghiệm ngoại lai (Bài 10)
+            var b1 = JXG.JSXGraph.initBoard('jxgbox1', {
+                boundingbox: [-2, 5, 6, -3], axis: true, showNavigation: false
+            });
+            // y = sqrt(x^2 - 4x + 3)
+            var f1 = function(x) { 
+                var val = x*x - 4*x + 3;
+                return val >= 0 ? Math.sqrt(val) : NaN;
+            };
+            b1.create('functiongraph', [f1, -2, 6], {strokeColor: '#dc2626', strokeWidth: 2.5});
+            
+            // y = x - 2
+            var f2 = function(x) { return x - 2; };
+            b1.create('functiongraph', [f2, -2, 6], {strokeColor: '#2563eb', strokeWidth: 2, dash: 2});
+            
+            // Chấm điểm nghiệm ngoại lai x = 0.5
+            b1.create('point', [0.5, -1.5], {name: 'Nghiệm ngoại lai x=0.5 (Bị loại)', size: 4, color: '#dc2626', fixed: true});
+
+            // Board 2: Biện luận tham số m (Bài 19)
+            var b2 = JXG.JSXGraph.initBoard('jxgbox2', {
+                boundingbox: [0, 2.5, 4, -0.5], axis: true, showNavigation: false
+            });
+            // y = sqrt(-x^2 + 4x - 3)
+            var g = function(x) {
+                var val = -x*x + 4*x - 3;
+                return val >= 0 ? Math.sqrt(val) : NaN;
+            };
+            b2.create('functiongraph', [g, 1, 3], {strokeColor: '#7c3aed', strokeWidth: 3});
+            
+            // Thanh trượt m
+            var sliderM = b2.create('slider', [[0.5, 2], [2.5, 2], [0, 0.5, 1.5]], {name: 'm'});
+            
+            // Đường nằm ngang y = sqrt(m)
+            var lineM = function(x) { return Math.sqrt(sliderM.Value()); };
+            b2.create('functiongraph', [lineM, 0, 4], {strokeColor: '#059669', strokeWidth: 2, dash: 1});
+        };
+
+        // 2. CHẤM ĐIỂM VÀ GỬI KẾT QUẢ VỀ GOOGLE APPS SCRIPT
+        const correctAnswers = { q1: "B", q2: "B", q3: "B", q4: "B", q5: "B" };
+        const scriptURL = "https://script.google.com/macros/s/AKfycbzY7b7h4OwvhXuK5Vs6hl-aD88BPnAiAKbU5lfJobby0D4nzbIJVKT4n0AKCpAGoK0nZA/exec";
+
+        function submitQuiz() {
+            const name = document.getElementById('student-name').value.trim();
+            if (!name) {
+                alert("Vui lòng nhập Họ và Tên học sinh trước khi nộp bài!");
+                return;
+            }
+
+            const btnSubmit = document.getElementById('btn-submit');
+            btnSubmit.disabled = true;
+            btnSubmit.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Đang gửi kết quả...';
+
+            let score = 0;
+            let wrongList = [];
+
+            for (let i = 1; i <= 5; i++) {
+                const qKey = 'q' + i;
+                const selected = document.querySelector(`input[name="${qKey}"]:checked`);
+                const userAns = selected ? selected.value : "Chưa chọn";
+
+                if (userAns === correctAnswers[qKey]) {
+                    score += 2; // Thang điểm 10 (2 điểm / câu)
+                } else {
+                    wrongList.push(`Câu ${i} (Chọn: ${userAns}, Đ/Á: ${correctAnswers[qKey]})`);
+                }
+            }
+
+            // Tính thời gian làm bài
+            const endTime = new Date();
+            const timeDiff = Math.round((endTime - startTime) / 1000);
+            const minutes = Math.floor(timeDiff / 60);
+            const seconds = timeDiff % 60;
+            const timeString = `${minutes} phút ${seconds} giây`;
+
+            const payload = {
+                hoTen: name,
+                maDe: document.getElementById('exam-id').value,
+                diem: score,
+                thoiGian: timeString,
+                cauSai: wrongList.length > 0 ? wrongList.join('; ') : 'None (Đúng 100%)'
+            };
+
+            // Gửi dữ liệu POST về Apps Script
+            fetch(scriptURL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            }).then(() => {
+                showResult(score, payload.cauSai, timeString);
+            }).catch(err => {
+                console.error("Lỗi kết nối:", err);
+                showResult(score, payload.cauSai, timeString);
+            });
+        }
+
+        function showResult(score, cauSai, thoiGian) {
+            const resultBox = document.getElementById('result-box');
+            resultBox.classList.remove('hidden');
+            resultBox.className = "mt-6 p-4 rounded-xl text-center border bg-emerald-50 border-emerald-300 text-emerald-900";
+            resultBox.innerHTML = `
+                <h3 class="text-xl font-bold mb-1"><i class="fas fa-check-circle mr-2"></i>Nộp Bài Thành Công!</h3>
+                <p class="text-lg">Điểm số của bạn: <strong class="text-2xl text-emerald-700">${score}/10</strong></p>
+                <p class="text-xs text-slate-600 mt-1">Thời gian hoàn thành: ${thoiGian}</p>
+                ${cauSai !== 'None (Đúng 100%)' ? `<p class="text-xs text-rose-600 mt-1 font-semibold">Chi tiết câu chưa đúng: ${cauSai}</p>` : '<p class="text-xs text-emerald-600 mt-1 font-semibold">Xuất sắc! Bạn làm chính xác 100% các câu hỏi.</p>'}
+            `;
+            document.getElementById('btn-submit').innerHTML = '<i class="fas fa-check mr-2"></i> Đã Ghi Nhận Kết Quả';
+        }
+
+        // 3. NÚT IN TÀI LIỆU AN TOÀN CHUẨN THEO YÊU CẦU
+        function safePrint() {
+            const printBtn = document.getElementById('btn-print-doc');
+            printBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Đang chuẩn bị...';
+            
+            // Đảm bảo MathJax đã render xong mọi công thức trước khi gọi hộp thoại in
+            if (window.MathJax && window.MathJax.typesetPromise) {
+                MathJax.typesetPromise().then(() => {
+                    printBtn.innerHTML = '<i class="fas fa-print mr-2"></i> In Tài Liệu';
+                    window.print();
+                });
+            } else {
+                // Fallback nếu không có công thức toán
+                setTimeout(() => window.print(), 500); 
+            }
+        }
+    </script>
+</body>
+</html>
