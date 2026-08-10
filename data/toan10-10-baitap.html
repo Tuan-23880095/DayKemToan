@@ -1,0 +1,1269 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Toán 10 - Chuyên đề: Bất phương trình bậc hai một ẩn</title>
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- JSXGraph CSS & JS -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraph.css" />
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraphcore.js"></script>
+
+    <!-- MathJax 3 for rendering LaTeX -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['\\(', '\\)'], ['$', '$']],
+                displayMath: [['\\[', '\\]'], ['$$', '$$']]
+            },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <style>
+        .jxgbox {
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            background-color: #ffffff;
+        }
+        @media print {
+            .no-print { display: none !important; }
+            details { open: true !important; }
+            details summary { display: none !important; }
+            body { background-color: #ffffff !important; color: #000000 !important; }
+            .shadow-lg, .shadow-md, .shadow-sm { box-shadow: none !important; }
+        }
+        summary::-webkit-details-marker { display: none; }
+    </style>
+</head>
+<body class="bg-slate-100 text-slate-900 font-sans leading-relaxed min-h-screen pb-24">
+
+    <!-- HEADER / LOGO BAR -->
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-40 shadow-sm print:static print:border-none">
+        <div class="max-w-6xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-4">
+            <div class="flex items-center space-x-3">
+                <img src="https://firebasestorage.googleapis.com/v0/b/link-anh-web.firebasestorage.app/o/ttbdvh.jpg?alt=media&token=f270aa9b-a2bc-48e8-8910-80742b542615" alt="Logo TTBDVH" class="h-12 w-auto object-contain rounded">
+                <img src="https://firebasestorage.googleapis.com/v0/b/link-anh-web.firebasestorage.app/o/Logo-chinh-hcmus.png?alt=media&token=9cf3a1de-75f1-493b-8711-fd22c7b98738" alt="Logo HCMUS" class="h-12 w-auto object-contain">
+            </div>
+            <div class="text-right">
+                <span class="inline-block bg-sky-100 text-sky-800 text-xs font-bold px-3 py-1 rounded-full mb-1">
+                    <i class="fas fa-graduation-cap mr-1"></i> Chuyên đề Toán 10
+                </span>
+                <p class="text-xs text-slate-500 font-medium">Đại số & Hàm số - Chương trình Luyện thi & Nâng cao</p>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTAINER -->
+    <main class="max-w-6xl mx-auto px-4 py-6">
+        
+        <!-- BANNER TIÊU ĐỀ MAIN -->
+        <div class="bg-gradient-to-r from-blue-700 via-sky-700 to-indigo-800 text-white p-6 sm:p-8 rounded-2xl shadow-lg mb-8">
+            <div class="flex items-center space-x-2 text-sky-200 text-sm font-medium mb-2">
+                <span><i class="fas fa-book-open"></i> Toán Đại Số 10</span>
+                <span>•</span>
+                <span>Chuyên đề trọng tâm</span>
+            </div>
+            <h1 class="text-2xl sm:text-4xl font-extrabold tracking-tight mb-3">
+                BẤT PHƯƠNG TRÌNH BẬC HAI MỘT ẨN & ỨNG DỤNG THỰC TẾ
+            </h1>
+            <p class="text-sky-100 text-sm sm:text-base leading-relaxed max-w-4xl">
+                Chào các em! Để chuẩn bị thật tốt cho các kì thi và nắm chắc bản chất hình học cũng như ứng dụng thực tế của bất phương trình bậc hai một ẩn, thầy đã biên soạn một hệ thống 30 bài tập thực chiến được phân loại tỉ mỉ theo 3 cấp độ: <strong>Cơ bản</strong>, <strong>Nâng cao</strong> và <strong>Vận dụng thực tiễn</strong>.
+                Các bài tập này được xây dựng và trích xuất số liệu trực tiếp từ các bộ tài liệu học tập lớp 10 chính thức của các em. Đặc biệt, mỗi đề bài đều đi kèm mô tả kịch bản tương tác hình ảnh bằng JSXGraph giúp các em dễ dàng mô hình hóa hình học trong quá trình tự học.
+            </p>
+            <div class="mt-4 pt-4 border-t border-sky-500/40 flex flex-wrap items-center justify-between text-xs text-sky-200 gap-2">
+                <div><i class="fas fa-layer-group mr-1"></i> 30 Bài tập phân cấp (Cơ bản - Nâng cao - Vận dụng)</div>
+                <div><i class="fas fa-chart-line mr-1"></i> Mô hình tương tác JSXGraph đa dạng</div>
+            </div>
+        </div>
+
+        <!-- PHẦN 1: MỨC ĐỘ CƠ BẢN -->
+        <section class="mb-12">
+            <div class="flex items-center space-x-3 mb-6 border-b-2 border-emerald-500 pb-2">
+                <span class="bg-emerald-500 text-white p-2 rounded-lg text-lg"><i class="fas fa-seedling"></i></span>
+                <div>
+                    <h2 class="text-xl sm:text-2xl font-bold text-slate-800">PHẦN 1: MỨC ĐỘ CƠ BẢN (BÀI 1 ĐẾN BÀI 10)</h2>
+                    <p class="text-xs sm:text-sm text-slate-500">Mục tiêu: Thành thạo kĩ năng lập bảng xét dấu tam thức bậc hai, giải các bất phương trình bậc hai một ẩn cơ bản và tìm tập xác định của các hàm số chứa căn thức.</p>
+                </div>
+            </div>
+
+            <div class="space-y-6">
+                <!-- BÀI 1 -->
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="bg-emerald-100 text-emerald-800 text-xs font-bold px-3 py-1 rounded-full"><i class="fas fa-pen-nib mr-1"></i> Bài 1</span>
+                        <span class="text-xs text-slate-400">Nhận biết BPT bậc hai</span>
+                    </div>
+                    <p class="font-medium text-slate-800 mb-3">
+                        Trong các bất phương trình sau, bất phương trình nào là bất phương trình bậc hai một ẩn? Giải thích vì sao.<br>
+                        a) \(2x^2 - 3x + 1 > 0\)<br>
+                        b) \(x^2 + 2y - 3 \le 0\)<br>
+                        c) \(x^3 - 5x + 6 \ge 0\)<br>
+                        d) \(-x^2 + 4 < 0\)
+                    </p>
+                    <details class="group mt-3">
+                        <summary class="cursor-pointer inline-flex items-center text-xs font-semibold text-emerald-700 bg-emerald-50 hover:bg-emerald-100 px-3 py-1.5 rounded-lg transition select-none">
+                            <i class="fas fa-lightbulb text-amber-500 mr-2 group-open:rotate-180 transition-transform"></i>
+                            <span>Gợi ý lời giải & Kịch bản JSXGraph</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-lg border border-slate-200 text-sm space-y-2 text-slate-700">
+                            <p><strong>Phác thảo lời giải:</strong> Bất phương trình bậc hai một ẩn có dạng tổng quát là \(ax^2 + bx + c > 0\) (hoặc \(<, \le, \ge\)) với \(a \neq 0\). Do đó, câu a) và d) là các bất phương trình bậc hai một ẩn. Câu b) chứa hai ẩn \(x, y\). Câu c) là bất phương trình bậc ba một ẩn.</p>
+                            <p class="text-xs text-indigo-700 bg-indigo-50 p-2 rounded"><i class="fas fa-desktop mr-1"></i> <strong>Mô tả JSXGraph:</strong> Trục số nằm ngang biểu diễn biến \(x\). Khi học sinh nhấp vào các phương án, biểu thức bậc hai (a, d) sẽ hiển thị một Parabol minh họa trên hệ trục kế bên, còn các câu sai sẽ nhấp nháy đỏ báo lỗi chứa 2 ẩn hoặc chứa bậc 3.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- BÀI 2 -->
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="bg-emerald-100 text-emerald-800 text-xs font-bold px-3 py-1 rounded-full"><i class="fas fa-pen-nib mr-1"></i> Bài 2</span>
+                        <span class="text-xs text-slate-400">Xét dấu tam thức cơ bản</span>
+                    </div>
+                    <p class="font-medium text-slate-800 mb-3">
+                        Giải bất phương trình bậc hai sau bằng phương pháp xét dấu tam thức:
+                        \[x^2 - 5x + 6 > 0\]
+                    </p>
+
+                    <!-- JSXGRAPH MÔ PHỎNG BÀI 2 -->
+                    <div class="my-4 p-4 bg-slate-50 rounded-xl border border-slate-200">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-xs font-bold text-indigo-700 uppercase"><i class="fas fa-laptop-code mr-1"></i> Mô hình tương tác JSXGraph - Parabol y = x² - 5x + 6</span>
+                            <span class="text-xs text-slate-500">Mô phỏng khoảng nghiệm ngoài (x &lt; 2 hoặc x &gt; 3)</span>
+                        </div>
+                        <div id="jsxbox2" class="jxgbox w-full h-[300px] mx-auto"></div>
+                    </div>
+
+                    <details class="group mt-3">
+                        <summary class="cursor-pointer inline-flex items-center text-xs font-semibold text-emerald-700 bg-emerald-50 hover:bg-emerald-100 px-3 py-1.5 rounded-lg transition select-none">
+                            <i class="fas fa-lightbulb text-amber-500 mr-2 group-open:rotate-180 transition-transform"></i>
+                            <span>Gợi ý lời giải</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-lg border border-slate-200 text-sm space-y-1 text-slate-700">
+                            <p>Tam thức \(f(x) = x^2 - 5x + 6\) có hệ số \(a = 1 > 0\) và có hai nghiệm phân biệt \(x_1 = 2, x_2 = 3\).</p>
+                            <p>Áp dụng quy tắc "Trong trái - Ngoài cùng", tam thức mang dấu dương khi \(x \in (-\infty; 2) \cup (3; +\infty)\).</p>
+                            <p>Vậy tập nghiệm là \(S = (-\infty; 2) \cup (3; +\infty)\).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- BÀI 3 -->
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="bg-emerald-100 text-emerald-800 text-xs font-bold px-3 py-1 rounded-full"><i class="fas fa-pen-nib mr-1"></i> Bài 3</span>
+                        <span class="text-xs text-slate-400">Tam thức vô nghiệm Δ &lt; 0</span>
+                    </div>
+                    <p class="font-medium text-slate-800 mb-3">
+                        Tìm tập nghiệm của bất phương trình bậc hai có bề lõm hướng lên và vô nghiệm:
+                        \[2x^2 + x + 1 > 0\]
+                    </p>
+
+                    <!-- JSXGRAPH MÔ PHỎNG BÀI 3 -->
+                    <div class="my-4 p-4 bg-slate-50 rounded-xl border border-slate-200">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-xs font-bold text-indigo-700 uppercase"><i class="fas fa-laptop-code mr-1"></i> Đồ thị Parabol luôn nằm phía trên trục Ox (S = ℝ)</span>
+                        </div>
+                        <div id="jsxbox3" class="jxgbox w-full h-[280px] mx-auto"></div>
+                    </div>
+
+                    <details class="group mt-3">
+                        <summary class="cursor-pointer inline-flex items-center text-xs font-semibold text-emerald-700 bg-emerald-50 hover:bg-emerald-100 px-3 py-1.5 rounded-lg transition select-none">
+                            <i class="fas fa-lightbulb text-amber-500 mr-2 group-open:rotate-180 transition-transform"></i>
+                            <span>Gợi ý lời giải</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-lg border border-slate-200 text-sm space-y-1 text-slate-700">
+                            <p>Tam thức \(f(x) = 2x^2 + x + 1\) có \(\Delta = 1^2 - 4 \cdot 2 \cdot 1 = -7 < 0\) và hệ số \(a = 2 > 0\).</p>
+                            <p>Theo định lí về dấu của tam thức bậc hai, \(f(x)\) luôn cùng dấu với \(a\) (luôn dương) với mọi \(x \in \mathbb{R}\).</p>
+                            <p>Vậy tập nghiệm là \(S = \mathbb{R}\).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- BÀI 4 -->
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="bg-emerald-100 text-emerald-800 text-xs font-bold px-3 py-1 rounded-full"><i class="fas fa-pen-nib mr-1"></i> Bài 4</span>
+                        <span class="text-xs text-slate-400">BPT vô nghiệm S = ∅</span>
+                    </div>
+                    <p class="font-medium text-slate-800 mb-3">
+                        Giải bất phương trình bậc hai một ẩn sau:
+                        \[-x^2 + 2x - 5 \ge 0\]
+                    </p>
+                    <details class="group mt-3">
+                        <summary class="cursor-pointer inline-flex items-center text-xs font-semibold text-emerald-700 bg-emerald-50 hover:bg-emerald-100 px-3 py-1.5 rounded-lg transition select-none">
+                            <i class="fas fa-lightbulb text-amber-500 mr-2 group-open:rotate-180 transition-transform"></i>
+                            <span>Gợi ý lời giải & Kịch bản JSXGraph</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-lg border border-slate-200 text-sm space-y-2 text-slate-700">
+                            <p><strong>Phác thảo lời giải:</strong> Tam thức bậc hai có \(\Delta = 2^2 - 4 \cdot (-1) \cdot (-5) = -16 < 0\) và hệ số \(a = -1 < 0\) nên \(-x^2 + 2x - 5 < 0\) với mọi \(x \in \mathbb{R}\). Do đó, bất phương trình không có giá trị \(x\) nào thỏa mãn để biểu thức lớn hơn hoặc bằng \(0\). Tập nghiệm \(S = \varnothing\).</p>
+                            <p class="text-xs text-indigo-700 bg-indigo-50 p-2 rounded"><i class="fas fa-desktop mr-1"></i> <strong>Mô tả JSXGraph:</strong> Parabol quay bề lõm xuống dưới và nằm hoàn toàn phía dưới trục hoành \(Ox\). Toàn bộ trục hoành bị gạch chéo đỏ biểu thị tập nghiệm rỗng.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- BÀI 5 -->
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="bg-emerald-100 text-emerald-800 text-xs font-bold px-3 py-1 rounded-full"><i class="fas fa-pen-nib mr-1"></i> Bài 5</span>
+                        <span class="text-xs text-slate-400">Tập xác định chứa căn</span>
+                    </div>
+                    <p class="font-medium text-slate-800 mb-3">
+                        Tìm tập xác định \(D\) của hàm số chứa căn thức sau:
+                        \[y = \sqrt{x^2 - 4x + 3}\]
+                    </p>
+
+                    <!-- JSXGRAPH MÔ PHỎNG BÀI 5 -->
+                    <div class="my-4 p-4 bg-slate-50 rounded-xl border border-slate-200">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-xs font-bold text-indigo-700 uppercase"><i class="fas fa-laptop-code mr-1"></i> Trục số biểu diễn miền xác định (-∞; 1] ∪ [3; +∞)</span>
+                        </div>
+                        <div id="jsxbox5" class="jxgbox w-full h-[200px] mx-auto"></div>
+                    </div>
+
+                    <details class="group mt-3">
+                        <summary class="cursor-pointer inline-flex items-center text-xs font-semibold text-emerald-700 bg-emerald-50 hover:bg-emerald-100 px-3 py-1.5 rounded-lg transition select-none">
+                            <i class="fas fa-lightbulb text-amber-500 mr-2 group-open:rotate-180 transition-transform"></i>
+                            <span>Gợi ý lời giải</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-lg border border-slate-200 text-sm space-y-1 text-slate-700">
+                            <p>Hàm số xác định khi và chỉ khi biểu thức dưới dấu căn không âm: \(x^2 - 4x + 3 \ge 0\).</p>
+                            <p>Tam thức có hai nghiệm phân biệt \(x_1 = 1, x_2 = 3\) và hệ số \(a = 1 > 0\).</p>
+                            <p>Theo định lí xét dấu, tập xác định là \(D = (-\infty; 1] \cup [3; +\infty)\).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- BÀI 6 -->
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="bg-emerald-100 text-emerald-800 text-xs font-bold px-3 py-1 rounded-full"><i class="fas fa-pen-nib mr-1"></i> Bài 6</span>
+                        <span class="text-xs text-slate-400">Căn thức dưới mẫu</span>
+                    </div>
+                    <p class="font-medium text-slate-800 mb-3">
+                        Tìm tập xác định của hàm số chứa căn thức nằm dưới mẫu số:
+                        \[y = \frac{1}{\sqrt{-x^2 + 4x + 5}}\]
+                    </p>
+                    <details class="group mt-3">
+                        <summary class="cursor-pointer inline-flex items-center text-xs font-semibold text-emerald-700 bg-emerald-50 hover:bg-emerald-100 px-3 py-1.5 rounded-lg transition select-none">
+                            <i class="fas fa-lightbulb text-amber-500 mr-2 group-open:rotate-180 transition-transform"></i>
+                            <span>Gợi ý lời giải & Kịch bản JSXGraph</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-lg border border-slate-200 text-sm space-y-2 text-slate-700">
+                            <p><strong>Phác thảo lời giải:</strong> Hàm số xác định khi và chỉ khi biểu thức dưới dấu căn nằm dưới mẫu số phải dương hoàn toàn: \(-x^2 + 4x + 5 > 0\). Tam thức có hai nghiệm \(x_1 = -1, x_2 = 5\) và có hệ số \(a = -1 < 0\). Tập xác định là khoảng \(D = (-1; 5)\).</p>
+                            <p class="text-xs text-indigo-700 bg-indigo-50 p-2 rounded"><i class="fas fa-desktop mr-1"></i> <strong>Mô tả JSXGraph:</strong> Trục số thực nằm ngang có hai mốc tròn rỗng tại \(-1\) và \(5\). Vùng nằm ngoài khoảng \([-1;5]\) bị bôi đen gạch bỏ hoàn toàn, chỉ chừa lại dải sáng xanh lục ở giữa biểu thị khoảng xác định.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- BÀI 7 -->
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="bg-emerald-100 text-emerald-800 text-xs font-bold px-3 py-1 rounded-full"><i class="fas fa-pen-nib mr-1"></i> Bài 7</span>
+                        <span class="text-xs text-slate-400">Giá trị âm của tích</span>
+                    </div>
+                    <p class="font-medium text-slate-800 mb-3">
+                        Tìm các khoảng giá trị của biến số \(x\) để biểu thức sau nhận giá trị âm:
+                        \[f(x) = (x-2)(x-3)\]
+                    </p>
+                    <details class="group mt-3">
+                        <summary class="cursor-pointer inline-flex items-center text-xs font-semibold text-emerald-700 bg-emerald-50 hover:bg-emerald-100 px-3 py-1.5 rounded-lg transition select-none">
+                            <i class="fas fa-lightbulb text-amber-500 mr-2 group-open:rotate-180 transition-transform"></i>
+                            <span>Gợi ý lời giải & Kịch bản JSXGraph</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-lg border border-slate-200 text-sm space-y-2 text-slate-700">
+                            <p><strong>Phác thảo lời giải:</strong> Khai triển biểu thức tích ta thu được tam thức bậc hai \(f(x) = x^2 - 5x + 6\). Để biểu thức nhận giá trị âm, ta giải bất phương trình \(x^2 - 5x + 6 < 0\). Hai nghiệm của tam thức là \(2\) và \(3\) có hệ số \(a = 1 > 0\). Khoảng giá trị thỏa mãn là \(x \in (2; 3)\).</p>
+                            <p class="text-xs text-indigo-700 bg-indigo-50 p-2 rounded"><i class="fas fa-desktop mr-1"></i> <strong>Mô tả JSXGraph:</strong> Đồ thị Parabol \(y = x^2 - 5x + 6\) cắt trục hoành tại hai điểm \((2;0)\) và \((3;0)\). Đoạn parabol lún xuống dưới trục hoành được tô đậm màu cam bóng bẩy kèm theo bóng chiếu thẳng đứng xuống trục \(Ox\) giới hạn khoảng nghiệm.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- BÀI 8 -->
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="bg-emerald-100 text-emerald-800 text-xs font-bold px-3 py-1 rounded-full"><i class="fas fa-pen-nib mr-1"></i> Bài 8</span>
+                        <span class="text-xs text-slate-400">BPT dạng bình phương</span>
+                    </div>
+                    <p class="font-medium text-slate-800 mb-3">
+                        Giải bất phương trình dạng bình phương thu gọn sau bằng cách đưa về bất phương trình bậc hai:
+                        \[(2x - 1)^2 < 9\]
+                    </p>
+                    <details class="group mt-3">
+                        <summary class="cursor-pointer inline-flex items-center text-xs font-semibold text-emerald-700 bg-emerald-50 hover:bg-emerald-100 px-3 py-1.5 rounded-lg transition select-none">
+                            <i class="fas fa-lightbulb text-amber-500 mr-2 group-open:rotate-180 transition-transform"></i>
+                            <span>Gợi ý lời giải</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-lg border border-slate-200 text-sm space-y-1 text-slate-700">
+                            <p>Khai triển hằng đẳng thức ta được: \(4x^2 - 4x + 1 < 9 \Leftrightarrow 4x^2 - 4x - 8 < 0 \Leftrightarrow x^2 - x - 2 < 0\).</p>
+                            <p>Tam thức có hai nghiệm là \(-1\) và \(2\) với hệ số \(a = 1 > 0\).</p>
+                            <p>Bất phương trình lấy dấu âm (ngược dấu \(a\)) nên tập nghiệm là \(S = (-1; 2)\).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- BÀI 9 -->
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="bg-emerald-100 text-emerald-800 text-xs font-bold px-3 py-1 rounded-full"><i class="fas fa-pen-nib mr-1"></i> Bài 9</span>
+                        <span class="text-xs text-slate-400">Đồ thị nằm dưới trục hoành</span>
+                    </div>
+                    <p class="font-medium text-slate-800 mb-3">
+                        Tìm các khoảng giá trị của \(x\) để đồ thị của hàm số \(y = x^2 - 3x + 2\) nằm hoàn toàn phía dưới trục hoành.
+                    </p>
+                    <details class="group mt-3">
+                        <summary class="cursor-pointer inline-flex items-center text-xs font-semibold text-emerald-700 bg-emerald-50 hover:bg-emerald-100 px-3 py-1.5 rounded-lg transition select-none">
+                            <i class="fas fa-lightbulb text-amber-500 mr-2 group-open:rotate-180 transition-transform"></i>
+                            <span>Gợi ý lời giải</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-lg border border-slate-200 text-sm space-y-1 text-slate-700">
+                            <p>Đồ thị nằm hoàn toàn phía dưới trục hoành tương đương với việc giải bất phương trình hoành độ có tung độ âm: \(x^2 - 3x + 2 < 0\).</p>
+                            <p>Tam thức có hai nghiệm phân biệt \(x_1 = 1, x_2 = 2\) và hệ số \(a = 1 > 0\).</p>
+                            <p>Vậy khoảng cần tìm là \(x \in (1; 2)\).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- BÀI 10 -->
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="bg-emerald-100 text-emerald-800 text-xs font-bold px-3 py-1 rounded-full"><i class="fas fa-pen-nib mr-1"></i> Bài 10</span>
+                        <span class="text-xs text-slate-400">Đếm số nghiệm nguyên</span>
+                    </div>
+                    <p class="font-medium text-slate-800 mb-3">
+                        Tìm số nghiệm nguyên của bất phương trình bậc hai sau:
+                        \[x^2 - 2x - 3 \le 0\]
+                    </p>
+                    <details class="group mt-3">
+                        <summary class="cursor-pointer inline-flex items-center text-xs font-semibold text-emerald-700 bg-emerald-50 hover:bg-emerald-100 px-3 py-1.5 rounded-lg transition select-none">
+                            <i class="fas fa-lightbulb text-amber-500 mr-2 group-open:rotate-180 transition-transform"></i>
+                            <span>Gợi ý lời giải</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-lg border border-slate-200 text-sm space-y-1 text-slate-700">
+                            <p>Giải bất phương trình ta được tập nghiệm là đoạn \(S = [-1; 3]\).</p>
+                            <p>Các giá trị nguyên thuộc đoạn này là \(x \in \{-1; 0; 1; 2; 3\}\).</p>
+                            <p>Vậy bất phương trình có đúng 5 nghiệm nguyên.</p>
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </section>
+
+        <!-- PHẦN 2: MỨC ĐỘ NÂNG CAO -->
+        <section class="mb-12">
+            <div class="flex items-center space-x-3 mb-6 border-b-2 border-indigo-500 pb-2">
+                <span class="bg-indigo-600 text-white p-2 rounded-lg text-lg"><i class="fas fa-chart-line"></i></span>
+                <div>
+                    <h2 class="text-xl sm:text-2xl font-bold text-slate-800">PHẦN 2: MỨC ĐỘ NÂNG CAO (BÀI 11 ĐẾN BÀI 20)</h2>
+                    <p class="text-xs sm:text-sm text-slate-500">Mục tiêu: Vận dụng bất phương trình bậc hai vào các bài toán chuyển động vật lí, quỹ đạo ném bóng, ném đá để tìm khoảng thời gian, độ cao an toàn.</p>
+                </div>
+            </div>
+
+            <div class="space-y-6">
+                <!-- BÀI 11 -->
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="bg-indigo-100 text-indigo-800 text-xs font-bold px-3 py-1 rounded-full"><i class="fas fa-pen-nib mr-1"></i> Bài 11</span>
+                        <span class="text-xs text-slate-400">Độ cao quả bóng</span>
+                    </div>
+                    <p class="font-medium text-slate-800 mb-3">
+                        Sau khi được ném lên thẳng đứng, độ cao \(h\) (mét) của một quả bóng so với mặt đất sau \(t\) (giây) được cho bởi hàm số:
+                        \[h(t) = -4.9t^2 + 14.7t + 1.2\]
+                        Hỏi quả bóng đạt độ cao lớn hơn \(1.5\text{ m}\) so với mặt đất trong khoảng thời gian bao lâu?
+                    </p>
+
+                    <!-- JSXGRAPH MÔ PHỎNG BÀI 11 -->
+                    <div class="my-4 p-4 bg-slate-50 rounded-xl border border-slate-200">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-xs font-bold text-indigo-700 uppercase"><i class="fas fa-laptop-code mr-1"></i> Quỹ đạo ném bóng & Mốc độ cao 1.5m</span>
+                        </div>
+                        <div id="jsxbox11" class="jxgbox w-full h-[300px] mx-auto"></div>
+                    </div>
+
+                    <details class="group mt-3">
+                        <summary class="cursor-pointer inline-flex items-center text-xs font-semibold text-indigo-700 bg-indigo-50 hover:bg-indigo-100 px-3 py-1.5 rounded-lg transition select-none">
+                            <i class="fas fa-lightbulb text-amber-500 mr-2 group-open:rotate-180 transition-transform"></i>
+                            <span>Gợi ý lời giải</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-lg border border-slate-200 text-sm space-y-1 text-slate-700">
+                            <p>Ta giải bất phương trình độ cao: \(-4.9t^2 + 14.7t + 1.2 > 1.5 \Leftrightarrow -4.9t^2 + 14.7t - 0.3 > 0\).</p>
+                            <p>Nghiệm xấp xỉ của phương trình hoành độ là \(t_1 \approx 0.021\text{ s}\) và \(t_2 \approx 2.979\text{ s}\).</p>
+                            <p>Khoảng thời gian quả bóng ở độ cao trên \(1.5\text{ m}\) là: \(\Delta t = t_2 - t_1 \approx 2.958 \approx 2.96\) (giây).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- BÀI 12 -->
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="bg-indigo-100 text-indigo-800 text-xs font-bold px-3 py-1 rounded-full"><i class="fas fa-pen-nib mr-1"></i> Bài 12</span>
+                        <span class="text-xs text-slate-400">Bóng chuyền qua lưới</span>
+                    </div>
+                    <p class="font-medium text-slate-800 mb-3">
+                        Độ cao (tính bằng mét) của một quả bóng chuyền so với mép trên của lưới khi bóng di chuyển được \(x\) mét theo phương ngang được mô phỏng bằng hàm số:
+                        \[h(x) = -0.03x^2 + 0.4x + 1.5\]
+                        Biết rằng với khoảng cách ngang \(x\) từ \(x_1\) đến \(x_2\) thì quả bóng nằm cao hơn mép trên của lưới. Hãy tìm khoảng cách ngang an toàn đó và tính giá trị biểu thức \(T = x_1 + x_2\).
+                    </p>
+                    <details class="group mt-3">
+                        <summary class="cursor-pointer inline-flex items-center text-xs font-semibold text-indigo-700 bg-indigo-50 hover:bg-indigo-100 px-3 py-1.5 rounded-lg transition select-none">
+                            <i class="fas fa-lightbulb text-amber-500 mr-2 group-open:rotate-180 transition-transform"></i>
+                            <span>Gợi ý lời giải</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-lg border border-slate-200 text-sm space-y-1 text-slate-700">
+                            <p>Quả bóng cao hơn lưới khi \(-0.03x^2 + 0.4x + 1.5 > 0\).</p>
+                            <p>Tam thức có hai nghiệm phân biệt \(x_1 \approx -3.09\text{ m}\) (loại) và \(x_2 \approx 16.42\text{ m}\) (mô hình toán học rộng).</p>
+                            <p>Theo định lí Vi-ét, tổng hai nghiệm hoành độ là \(T = x_1 + x_2 = -\frac{b}{a} = \frac{0.4}{0.03} = \frac{40}{3} \approx 13.33\).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- BÀI 13 -->
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="bg-indigo-100 text-indigo-800 text-xs font-bold px-3 py-1 rounded-full"><i class="fas fa-pen-nib mr-1"></i> Bài 13</span>
+                        <span class="text-xs text-slate-400">Bóng Golf đạt độ cao 4m</span>
+                    </div>
+                    <p class="font-medium text-slate-800 mb-3">
+                        Quỹ đạo chuyển động của một quả bóng golf được mô tả bằng hàm số bậc hai \(h(t) = -1.6t^2 + 20t\) (trong đó \(h\) tính bằng mét và \(t\) tính bằng giây). Hỏi quả bóng có thể đạt độ cao trên \(4\text{ m}\) trong thời gian bao lâu? (Làm tròn kết quả đến hàng phần mười).
+                    </p>
+                    <details class="group mt-3">
+                        <summary class="cursor-pointer inline-flex items-center text-xs font-semibold text-indigo-700 bg-indigo-50 hover:bg-indigo-100 px-3 py-1.5 rounded-lg transition select-none">
+                            <i class="fas fa-lightbulb text-amber-500 mr-2 group-open:rotate-180 transition-transform"></i>
+                            <span>Gợi ý lời giải</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-lg border border-slate-200 text-sm space-y-1 text-slate-700">
+                            <p>Giải bất phương trình độ cao: \(-1.6t^2 + 20t > 4 \Leftrightarrow -1.6t^2 + 20t - 4 > 0\).</p>
+                            <p>Phương trình bậc hai có hai nghiệm là \(t_1 \approx 0.20\text{ s}\) và \(t_2 \approx 12.30\text{ s}\).</p>
+                            <p>Khoảng thời gian bóng ở độ cao trên 4m là: \(12.30 - 0.20 = 12.1\) giây.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- BÀI 14 -->
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="bg-indigo-100 text-indigo-800 text-xs font-bold px-3 py-1 rounded-full"><i class="fas fa-pen-nib mr-1"></i> Bài 14</span>
+                        <span class="text-xs text-slate-400">Úp rổ bóng rổ</span>
+                    </div>
+                    <p class="font-medium text-slate-800 mb-3">
+                        Độ cao \(h\) (mét) của quả bóng rổ so với vành rổ khi bóng di chuyển được \(x\) mét theo phương ngang được mô phỏng theo hàm số \(h(x) = -0.1x^2 + 0.6x + 0.8\). Tìm khoảng cách ngang \(x\) để quả bóng bay cao hơn vành rổ.
+                    </p>
+                    <details class="group mt-3">
+                        <summary class="cursor-pointer inline-flex items-center text-xs font-semibold text-indigo-700 bg-indigo-50 hover:bg-indigo-100 px-3 py-1.5 rounded-lg transition select-none">
+                            <i class="fas fa-lightbulb text-amber-500 mr-2 group-open:rotate-180 transition-transform"></i>
+                            <span>Gợi ý lời giải</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-lg border border-slate-200 text-sm space-y-1 text-slate-700">
+                            <p>Bóng nằm cao hơn vành rổ khi \(h(x) > 0 \Leftrightarrow -0.1x^2 + 0.6x + 0.8 > 0\).</p>
+                            <p>Tam thức có nghiệm phân biệt là \(x_1 = -1\) (loại do khoảng cách không âm) và \(x_2 = 8\).</p>
+                            <p>Do đó bóng nằm cao hơn vành rổ khi khoảng cách ngang thỏa mãn \(0 \le x < 8\) mét.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- BÀI 15 -->
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="bg-indigo-100 text-indigo-800 text-xs font-bold px-3 py-1 rounded-full"><i class="fas fa-pen-nib mr-1"></i> Bài 15</span>
+                        <span class="text-xs text-slate-400">BPT kép độ cao bóng đá</span>
+                    </div>
+                    <p class="font-medium text-slate-800 mb-3">
+                        Quỹ đạo của một quả bóng đá được sút lên từ độ cao \(0.3\text{ m}\) tuân theo phương trình parabol \(h(t) = -4.85t^2 + 12.55t + 0.3\). Hãy tìm khoảng thời gian \(t\) (giây) mà quả bóng đạt độ cao lớn hơn \(5\text{ m}\) và nhỏ hơn \(7\text{ m}\).
+                    </p>
+                    <details class="group mt-3">
+                        <summary class="cursor-pointer inline-flex items-center text-xs font-semibold text-indigo-700 bg-indigo-50 hover:bg-indigo-100 px-3 py-1.5 rounded-lg transition select-none">
+                            <i class="fas fa-lightbulb text-amber-500 mr-2 group-open:rotate-180 transition-transform"></i>
+                            <span>Gợi ý lời giải</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-lg border border-slate-200 text-sm space-y-1 text-slate-700">
+                            <p>Giải hệ bất phương trình kép: \(5 < -4.85t^2 + 12.55t + 0.3 < 7\).</p>
+                            <p>• BPT 1: \(-4.85t^2 + 12.55t - 4.7 > 0 \Rightarrow 0.454 < t < 2.133\).</p>
+                            <p>• BPT 2: \(-4.85t^2 + 12.55t - 6.7 < 0 \Rightarrow t \in (-\infty; 0.753) \cup (1.835; +\infty)\).</p>
+                            <p>Lấy giao của hai tập nghiệm: \(t \in (0.454; 0.753) \cup (1.835; 2.133)\) (giây).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- BÀI 16 -->
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="bg-indigo-100 text-indigo-800 text-xs font-bold px-3 py-1 rounded-full"><i class="fas fa-pen-nib mr-1"></i> Bài 16</span>
+                        <span class="text-xs text-slate-400">Đạn pháo diễn tập</span>
+                    </div>
+                    <p class="font-medium text-slate-800 mb-3">
+                        Trong một đợt tập trận pháo binh, một viên đạn được bắn từ gốc \(O\) theo quỹ đạo parabol \(y = -\frac{9}{1000000}x^2 + \frac{3}{100}x\) (mét). Tìm khoảng cách nằm ngang \(x\) của viên đạn so với vị trí bắn khi viên đạn đang ở độ cao lớn hơn \(15\text{ m}\).
+                    </p>
+                    <details class="group mt-3">
+                        <summary class="cursor-pointer inline-flex items-center text-xs font-semibold text-indigo-700 bg-indigo-50 hover:bg-indigo-100 px-3 py-1.5 rounded-lg transition select-none">
+                            <i class="fas fa-lightbulb text-amber-500 mr-2 group-open:rotate-180 transition-transform"></i>
+                            <span>Gợi ý lời giải</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-lg border border-slate-200 text-sm space-y-1 text-slate-700">
+                            <p>Giải bất phương trình: \(-\frac{9}{1000000}x^2 + \frac{3}{100}x > 15 \Leftrightarrow 3x^2 - 10000x + 5000000 < 0\).</p>
+                            <p>Nghiệm hoành độ là \(x_1 \approx 612.57\text{ m}\) và \(x_2 \approx 2720.76\text{ m}\).</p>
+                            <p>Vậy đạn đạt độ cao trên 15m khi khoảng cách ngang cách điểm bắn từ \(612.57\text{ m}\) đến \(2720.76\text{ m}\).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- BÀI 17 -->
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="bg-indigo-100 text-indigo-800 text-xs font-bold px-3 py-1 rounded-full"><i class="fas fa-pen-nib mr-1"></i> Bài 17</span>
+                        <span class="text-xs text-slate-400">Sút phạt trực tiếp qua hàng rào</span>
+                    </div>
+                    <p class="font-medium text-slate-800 mb-3">
+                        Messi thực hiện cú sút phạt trực tiếp qua một hàng rào chắn cao \(1.8\text{ m}\) đứng cách điểm sút \(9\text{ m}\). Biết quỹ đạo quả bóng là một parabol \(y = -0.015x^2 + 0.28x\). Hãy kiểm tra xem cú sút của Messi có vượt qua được hàng rào chắn của đối thủ không?
+                    </p>
+
+                    <!-- JSXGRAPH MÔ PHỎNG BÀI 17 -->
+                    <div class="my-4 p-4 bg-slate-50 rounded-xl border border-slate-200">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-xs font-bold text-indigo-700 uppercase"><i class="fas fa-laptop-code mr-1"></i> Mô phỏng quỹ đạo sút phạt & Hàng rào chắn</span>
+                        </div>
+                        <div id="jsxbox17" class="jxgbox w-full h-[300px] mx-auto"></div>
+                    </div>
+
+                    <details class="group mt-3">
+                        <summary class="cursor-pointer inline-flex items-center text-xs font-semibold text-indigo-700 bg-indigo-50 hover:bg-indigo-100 px-3 py-1.5 rounded-lg transition select-none">
+                            <i class="fas fa-lightbulb text-amber-500 mr-2 group-open:rotate-180 transition-transform"></i>
+                            <span>Gợi ý lời giải</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-lg border border-slate-200 text-sm space-y-1 text-slate-700">
+                            <p>Tại vị trí hàng rào có khoảng cách ngang \(x = 9\text{ m}\), độ cao của quả bóng đạt được là:</p>
+                            <p>\(y(9) = -0.015(9)^2 + 0.28(9) = -1.215 + 2.52 = 1.305\text{ m}\).</p>
+                            <p>Vì \(1.305 < 1.8\) nên quả bóng không vượt qua được hàng rào chắn (bị đập trúng hàng rào).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- BÀI 18 -->
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="bg-indigo-100 text-indigo-800 text-xs font-bold px-3 py-1 rounded-full"><i class="fas fa-pen-nib mr-1"></i> Bài 18</span>
+                        <span class="text-xs text-slate-400">Phát cầu lông qua lưới</span>
+                    </div>
+                    <p class="font-medium text-slate-800 mb-3">
+                        Vận động viên Mai phát cầu lông có phương trình quỹ đạo quả cầu rời vợt ở độ cao 0.8m là \(y = -0.12x^2 + 0.3x + 0.8\) (mét). Biết mép trên của lưới thi đấu cao \(1.524\text{ m}\). Hãy thiết lập bất phương trình để kiểm tra quả cầu có bay cao vượt qua lưới không?
+                    </p>
+                    <details class="group mt-3">
+                        <summary class="cursor-pointer inline-flex items-center text-xs font-semibold text-indigo-700 bg-indigo-50 hover:bg-indigo-100 px-3 py-1.5 rounded-lg transition select-none">
+                            <i class="fas fa-lightbulb text-amber-500 mr-2 group-open:rotate-180 transition-transform"></i>
+                            <span>Gợi ý lời giải</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-lg border border-slate-200 text-sm space-y-1 text-slate-700">
+                            <p>Quả cầu qua lưới khi \(-0.12x^2 + 0.3x + 0.8 > 1.524 \Leftrightarrow 120x^2 - 300x + 724 < 0\).</p>
+                            <p>Biệt thức \(\Delta = (-300)^2 - 4(120)(724) < 0\). Tam thức luôn âm với mọi \(x\) (vô nghiệm).</p>
+                            <p>Điều này chứng minh rằng với lực phát này, quả cầu không bao giờ bay cao vượt qua nổi chiều cao lưới thi đấu.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- BÀI 19 -->
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="bg-indigo-100 text-indigo-800 text-xs font-bold px-3 py-1 rounded-full"><i class="fas fa-pen-nib mr-1"></i> Bài 19</span>
+                        <span class="text-xs text-slate-400">Nhảy Bungee an toàn</span>
+                    </div>
+                    <p class="font-medium text-slate-800 mb-3">
+                        Một vận động viên nhảy bungee mạo hiểm từ cây cầu vòm. Khoảng cách từ người đến mặt nước theo thời gian \(t\) (giây, với \(t \in [0; 6]\)) là \(d(t) = 0.5t^2 - 6t + 40\) (mét). Để an toàn, khoảng cách đến mặt nước tối thiểu phải đạt \(25\text{ m}\). Tìm khoảng thời gian \(t\) an toàn của cú nhảy.
+                    </p>
+                    <details class="group mt-3">
+                        <summary class="cursor-pointer inline-flex items-center text-xs font-semibold text-indigo-700 bg-indigo-50 hover:bg-indigo-100 px-3 py-1.5 rounded-lg transition select-none">
+                            <i class="fas fa-lightbulb text-amber-500 mr-2 group-open:rotate-180 transition-transform"></i>
+                            <span>Gợi ý lời giải</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-lg border border-slate-200 text-sm space-y-1 text-slate-700">
+                            <p>Giải bất phương trình khoảng cách an toàn: \(0.5t^2 - 6t + 40 \ge 25 \Leftrightarrow 0.5t^2 - 6t + 15 \ge 0 \Leftrightarrow t^2 - 12t + 30 \ge 0\).</p>
+                            <p>Hai nghiệm của phương trình là \(t_1 = 6-\sqrt{6} \approx 3.55\text{ s}\) và \(t_2 = 6+\sqrt{6} \approx 8.45\text{ s}\).</p>
+                            <p>Kết hợp điều kiện \(t \in [0;6]\), thời gian an toàn là \(t \in [0; 3.55]\) (giây).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- BÀI 20 -->
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="bg-indigo-100 text-indigo-800 text-xs font-bold px-3 py-1 rounded-full"><i class="fas fa-pen-nib mr-1"></i> Bài 20</span>
+                        <span class="text-xs text-slate-400">Ném bóng qua rào bảo vệ</span>
+                    </div>
+                    <p class="font-medium text-slate-800 mb-3">
+                        Quỹ đạo quả bóng ném theo phương trình \(y = -0.05x^2 + 0.6x + 1.2\). Để quả bóng bay vượt qua hàng rào bảo vệ cao \(2.5\text{ m}\), khoảng cách ngang \(x\) nguyên ngắn nhất từ vị trí người ném đến chân hàng rào phải là bao nhiêu mét?
+                    </p>
+                    <details class="group mt-3">
+                        <summary class="cursor-pointer inline-flex items-center text-xs font-semibold text-indigo-700 bg-indigo-50 hover:bg-indigo-100 px-3 py-1.5 rounded-lg transition select-none">
+                            <i class="fas fa-lightbulb text-amber-500 mr-2 group-open:rotate-180 transition-transform"></i>
+                            <span>Gợi ý lời giải</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-lg border border-slate-200 text-sm space-y-1 text-slate-700">
+                            <p>Bóng qua hàng rào khi \(-0.05x^2 + 0.6x + 1.2 > 2.5 \Leftrightarrow 5x^2 - 60x + 130 < 0 \Leftrightarrow x^2 - 12x + 26 < 0\).</p>
+                            <p>Hai nghiệm của tam thức là \(x_1 = 6-\sqrt{10} \approx 2.84\text{ m}\) và \(x_2 = 6+\sqrt{10} \approx 9.16\text{ m}\).</p>
+                            <p>Vì \(x\) là số nguyên nằm trong khoảng nghiệm \((2.84; 9.16)\), giá trị nguyên nhỏ nhất là \(x = 3\) mét.</p>
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </section>
+
+        <!-- PHẦN 3: MỨC ĐỘ VẬN DỤNG THỰC TIỄN -->
+        <section class="mb-12">
+            <div class="flex items-center space-x-3 mb-6 border-b-2 border-rose-500 pb-2">
+                <span class="bg-rose-500 text-white p-2 rounded-lg text-lg"><i class="fas fa-rocket"></i></span>
+                <div>
+                    <h2 class="text-xl sm:text-2xl font-bold text-slate-800">PHẦN 3: MỨC ĐỘ VẬN DỤNG THỰC TIỄN (BÀI 21 ĐẾN BÀI 30)</h2>
+                    <p class="text-xs sm:text-sm text-slate-500">Mục tiêu: Đạt năng lực mô hình hóa toán học. Chuyển đổi toàn bộ dữ kiện thực tế về cầu đường, cổng chào kiến trúc, tối ưu chi phí thành bất phương trình bậc hai để giải quyết tối ưu.</p>
+                </div>
+            </div>
+
+            <div class="space-y-6">
+                <!-- BÀI 21 -->
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="bg-rose-100 text-rose-800 text-xs font-bold px-3 py-1 rounded-full"><i class="fas fa-pen-nib mr-1"></i> Bài 21</span>
+                        <span class="text-xs text-slate-400">Cáp treo Cầu Cổng Vàng</span>
+                    </div>
+                    <p class="font-medium text-slate-800 mb-3">
+                        Cầu Cổng Vàng (Golden Gate Bridge) có tháp đôi cao \(75\text{ m}\) so với mặt cầu và khoảng cách giữa hai tháp là \(400\text{ m}\). Cáp treo của cầu có dạng một parabol có đỉnh chạm sát mặt cầu ở vị trí chính giữa cầu. Hãy viết phương trình của parabol cáp cầu và tìm khoảng giới hạn cách tâm cầu để các thanh nối thẳng đứng có chiều dài tối thiểu là \(12\text{ m}\).
+                    </p>
+
+                    <!-- JSXGRAPH MÔ PHỎNG BÀI 21 -->
+                    <div class="my-4 p-4 bg-slate-50 rounded-xl border border-slate-200">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-xs font-bold text-indigo-700 uppercase"><i class="fas fa-laptop-code mr-1"></i> Mô phỏng Parabol Cáp treo Cầu Cổng Vàng</span>
+                        </div>
+                        <div id="jsxbox21" class="jxgbox w-full h-[300px] mx-auto"></div>
+                    </div>
+
+                    <details class="group mt-3">
+                        <summary class="cursor-pointer inline-flex items-center text-xs font-semibold text-rose-700 bg-rose-50 hover:bg-rose-100 px-3 py-1.5 rounded-lg transition select-none">
+                            <i class="fas fa-lightbulb text-amber-500 mr-2 group-open:rotate-180 transition-transform"></i>
+                            <span>Gợi ý lời giải</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-lg border border-slate-200 text-sm space-y-1 text-slate-700">
+                            <p>Chọn hệ trục tọa độ sao cho gốc \(O\) trùng với đỉnh parabol trên mặt cầu. Tọa độ đỉnh tháp là \((200; 75)\).</p>
+                            <p>Phương trình parabol cáp: \(y = ax^2 \Rightarrow 75 = a(200)^2 \Rightarrow a = \frac{3}{1600}\). Vậy \(y = \frac{3}{1600}x^2\).</p>
+                            <p>Yêu cầu chiều dài thanh nối \(y \ge 12 \Leftrightarrow \frac{3}{1600}x^2 \ge 12 \Leftrightarrow x^2 \ge 6400 \Leftrightarrow x \ge 80\) hoặc \(x \le -80\).</p>
+                            <p>Khoảng cách từ thanh nối đến tâm cầu tối thiểu là \(80\text{ m}\).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- BÀI 22 -->
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="bg-rose-100 text-rose-800 text-xs font-bold px-3 py-1 rounded-full"><i class="fas fa-pen-nib mr-1"></i> Bài 22</span>
+                        <span class="text-xs text-slate-400">Chiều cao Cổng ĐH Bách Khoa</span>
+                    </div>
+                    <p class="font-medium text-slate-800 mb-3">
+                        Cổng trường Đại học Bách khoa Hà Nội có dạng Parabol với khoảng cách giữa hai chân cổng là \(8\text{ m}\). Một điểm \(M\) trên thân cổng cách mặt đất là \(3\text{ m}\) và cách chân cổng gần nhất một khoảng là \(2\text{ m}\) theo phương ngang. Tính chiều cao tối đa của cổng parabol đó.
+                    </p>
+                    <details class="group mt-3">
+                        <summary class="cursor-pointer inline-flex items-center text-xs font-semibold text-rose-700 bg-rose-50 hover:bg-rose-100 px-3 py-1.5 rounded-lg transition select-none">
+                            <i class="fas fa-lightbulb text-amber-500 mr-2 group-open:rotate-180 transition-transform"></i>
+                            <span>Gợi ý lời giải</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-lg border border-slate-200 text-sm space-y-1 text-slate-700">
+                            <p>Chọn gốc tọa độ \(O\) tại trung điểm khoảng cách hai chân cổng. Chân cổng \(A(-4; 0)\), \(B(4; 0)\).</p>
+                            <p>Phương trình cổng: \(y = ax^2 + h\). Điểm \(M\) có hoành độ \(x_M = 4 - 2 = 2\) và tung độ \(y_M = 3 \Rightarrow M(2; 3)\).</p>
+                            <p>Thay tọa độ \(B(4; 0)\) và \(M(2; 3)\) vào phương trình ta được hệ:
+                            \(\begin{cases} 16a + h = 0 \\ 4a + h = 3 \end{cases} \Rightarrow a = -\frac{1}{4}, h = 4\text{ m}\).</p>
+                            <p>Vậy chiều cao tối đa của cổng Bách Khoa là \(4\text{ m}\).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- BÀI 23 -->
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="bg-rose-100 text-rose-800 text-xs font-bold px-3 py-1 rounded-full"><i class="fas fa-pen-nib mr-1"></i> Bài 23</span>
+                        <span class="text-xs text-slate-400">Xe container qua cổng vòm</span>
+                    </div>
+                    <p class="font-medium text-slate-800 mb-3">
+                        Chiếc cổng parabol có chiều rộng chân cổng \(12\text{ m}\) và chiều cao cổng \(8\text{ m}\). Một xe container chở hàng có bề ngang rộng cố định \(6\text{ m}\) đi qua chính giữa cổng. Tìm chiều cao lớn nhất cho phép của chiếc xe để xe đi qua cổng an toàn.
+                    </p>
+
+                    <!-- JSXGRAPH MÔ PHỎNG BÀI 23 -->
+                    <div class="my-4 p-4 bg-slate-50 rounded-xl border border-slate-200">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-xs font-bold text-indigo-700 uppercase"><i class="fas fa-laptop-code mr-1"></i> Mô phỏng Xe Container chui qua Cổng Parabol</span>
+                        </div>
+                        <div id="jsxbox23" class="jxgbox w-full h-[300px] mx-auto"></div>
+                    </div>
+
+                    <details class="group mt-3">
+                        <summary class="cursor-pointer inline-flex items-center text-xs font-semibold text-rose-700 bg-rose-50 hover:bg-rose-100 px-3 py-1.5 rounded-lg transition select-none">
+                            <i class="fas fa-lightbulb text-amber-500 mr-2 group-open:rotate-180 transition-transform"></i>
+                            <span>Gợi ý lời giải</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-lg border border-slate-200 text-sm space-y-1 text-slate-700">
+                            <p>Chọn gốc tọa độ \(O\) tại giữa hai chân cổng. Đỉnh cổng \(I(0; 8)\), chân cổng \(B(6; 0)\).</p>
+                            <p>Phương trình cổng: \(y = -\frac{2}{9}x^2 + 8\).</p>
+                            <p>Xe container rộng 6m đi chính giữa nên mép xe ứng với \(x = \pm 3\). Độ cao cổng tại đó là: \(y(3) = -\frac{2}{9}(3)^2 + 8 = 6\text{ m}\).</p>
+                            <p>Để xe không va chạm vào vòm cổng, chiều cao xe phải bé hơn \(6\text{ m}\).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- BÀI 24 -->
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="bg-rose-100 text-rose-800 text-xs font-bold px-3 py-1 rounded-full"><i class="fas fa-pen-nib mr-1"></i> Bài 24</span>
+                        <span class="text-xs text-slate-400">Mặt cắt đường quốc lộ</span>
+                    </div>
+                    <p class="font-medium text-slate-800 mb-3">
+                        Mặt cắt ngang của con đường quốc lộ có dạng parabol \(y = -0.005x^2\) với gốc tọa độ ở tim đường. Để đảm bảo an toàn không bị trượt lật, tim đường cao hơn lề không quá \(0.125\text{ m}\). Hỏi bề rộng tối đa của con đường là bao nhiêu mét?
+                    </p>
+                    <details class="group mt-3">
+                        <summary class="cursor-pointer inline-flex items-center text-xs font-semibold text-rose-700 bg-rose-50 hover:bg-rose-100 px-3 py-1.5 rounded-lg transition select-none">
+                            <i class="fas fa-lightbulb text-amber-500 mr-2 group-open:rotate-180 transition-transform"></i>
+                            <span>Gợi ý lời giải</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-lg border border-slate-200 text-sm space-y-1 text-slate-700">
+                            <p>Gọi bề rộng đường là \(L\) (m). Khoảng cách từ tim đường ra lề là \(x = \frac{L}{2}\).</p>
+                            <p>Độ chênh cao: \(\left| y\left(\frac{L}{2}\right) \right| = 0.005 \cdot \left(\frac{L}{2}\right)^2 = 0.00125 L^2 \le 0.125 \Leftrightarrow L^2 \le 100 \Leftrightarrow L \le 10\text{ m}\).</p>
+                            <p>Vậy bề rộng tối đa của con đường là \(10\text{ m}\).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- BÀI 25 -->
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="bg-rose-100 text-rose-800 text-xs font-bold px-3 py-1 rounded-full"><i class="fas fa-pen-nib mr-1"></i> Bài 25</span>
+                        <span class="text-xs text-slate-400">Rào mảnh vườn trồng rau</span>
+                    </div>
+                    <p class="font-medium text-slate-800 mb-3">
+                        Bác Hùng dùng \(100\text{ m}\) hàng rào để rào kín mảnh vườn hình chữ nhật sát bức tường nhà hàng xóm (không cần rào cạnh sát tường). Tìm khoảng giá trị của chiều rộng \(x\) để diện tích vườn đạt không dưới \(1200\text{ m}^2\).
+                    </p>
+
+                    <!-- JSXGRAPH MÔ PHỎNG BÀI 25 -->
+                    <div class="my-4 p-4 bg-slate-50 rounded-xl border border-slate-200">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-xs font-bold text-indigo-700 uppercase"><i class="fas fa-laptop-code mr-1"></i> Biểu đồ Parabol Diện tích mảnh vườn S(x)</span>
+                        </div>
+                        <div id="jsxbox25" class="jxgbox w-full h-[280px] mx-auto"></div>
+                    </div>
+
+                    <details class="group mt-3">
+                        <summary class="cursor-pointer inline-flex items-center text-xs font-semibold text-rose-700 bg-rose-50 hover:bg-rose-100 px-3 py-1.5 rounded-lg transition select-none">
+                            <i class="fas fa-lightbulb text-amber-500 mr-2 group-open:rotate-180 transition-transform"></i>
+                            <span>Gợi ý lời giải</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-lg border border-slate-200 text-sm space-y-1 text-slate-700">
+                            <p>Chiều rộng vườn là \(x > 0\). Chiều dài song song với tường là \(100 - 2x > 0 \Leftrightarrow x < 50\).</p>
+                            <p>Diện tích: \(S(x) = x(100 - 2x) = -2x^2 + 100x\).</p>
+                            <p>Bất phương trình diện tích: \(-2x^2 + 100x \ge 1200 \Leftrightarrow x^2 - 50x + 600 \le 0 \Leftrightarrow 20 \le x \le 30\).</p>
+                            <p>Vậy chiều rộng mảnh vườn phải nằm trong khoảng từ \(20\text{ m}\) đến \(30\text{ m}\).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- BÀI 26 -->
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="bg-rose-100 text-rose-800 text-xs font-bold px-3 py-1 rounded-full"><i class="fas fa-pen-nib mr-1"></i> Bài 26</span>
+                        <span class="text-xs text-slate-400">Gập máng dẫn nước nhôm</span>
+                    </div>
+                    <p class="font-medium text-slate-800 mb-3">
+                        Tấm nhôm rộng \(32\text{ cm}\) được gập vuông góc thành máng dẫn nước không nắp. Gọi chiều cao hai mép gập là \(x\) (cm). Tìm phạm vi \(x\) để diện tích mặt cắt ngang của máng đạt từ \(120\text{ cm}^2\) trở lên.
+                    </p>
+                    <details class="group mt-3">
+                        <summary class="cursor-pointer inline-flex items-center text-xs font-semibold text-rose-700 bg-rose-50 hover:bg-rose-100 px-3 py-1.5 rounded-lg transition select-none">
+                            <i class="fas fa-lightbulb text-amber-500 mr-2 group-open:rotate-180 transition-transform"></i>
+                            <span>Gợi ý lời giải</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-lg border border-slate-200 text-sm space-y-1 text-slate-700">
+                            <p>Chiều rộng đáy máng là \(32 - 2x\) (\(0 < x < 16\)).</p>
+                            <p>Diện tích mặt cắt: \(S(x) = x(32 - 2x) = -2x^2 + 32x\).</p>
+                            <p>Giải BPT: \(-2x^2 + 32x \ge 120 \Leftrightarrow x^2 - 16x + 60 \le 0 \Leftrightarrow 6 \le x \le 10\).</p>
+                            <p>Vậy chiều cao nếp gấp phải từ \(6\text{ cm}\) đến \(10\text{ cm}\).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- BÀI 27 -->
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="bg-rose-100 text-rose-800 text-xs font-bold px-3 py-1 rounded-full"><i class="fas fa-pen-nib mr-1"></i> Bài 27</span>
+                        <span class="text-xs text-slate-400">Vòm cầu Sydney Úc</span>
+                    </div>
+                    <p class="font-medium text-slate-800 mb-3">
+                        Vòng cung thành cầu Sydney có phương trình \(h(x) = -x^2 + 40x - 384\). Để tàu thuyền lớn lưu thông an toàn, độ cao vòng cung phải lớn hơn \(15\text{ m}\). Tìm khoảng giá trị ngang \(x\) an toàn.
+                    </p>
+                    <details class="group mt-3">
+                        <summary class="cursor-pointer inline-flex items-center text-xs font-semibold text-rose-700 bg-rose-50 hover:bg-rose-100 px-3 py-1.5 rounded-lg transition select-none">
+                            <i class="fas fa-lightbulb text-amber-500 mr-2 group-open:rotate-180 transition-transform"></i>
+                            <span>Gợi ý lời giải</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-lg border border-slate-200 text-sm space-y-1 text-slate-700">
+                            <p>Giải BPT độ cao: \(-x^2 + 40x - 384 > 15 \Leftrightarrow -x^2 + 40x - 399 > 0 \Leftrightarrow x^2 - 40x + 399 < 0\).</p>
+                            <p>Tam thức có hai nghiệm \(x_1 = 19\) và \(x_2 = 21\).</p>
+                            <p>Khoảng khoảng cách ngang an toàn cho lồng cầu là \(19\text{ m} < x < 21\text{ m}\).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- BÀI 28 -->
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="bg-rose-100 text-rose-800 text-xs font-bold px-3 py-1 rounded-full"><i class="fas fa-pen-nib mr-1"></i> Bài 28</span>
+                        <span class="text-xs text-slate-400">Trụ tháp Cầu Nhật Tân</span>
+                    </div>
+                    <p class="font-medium text-slate-800 mb-3">
+                        Trụ tháp cầu Nhật Tân có dạng parabol rộng \(18\text{ m}\). Dây dọi dài \(1.8\text{ m}\) thả từ vòm cầu xuống cách chân tháp bên trái \(1\text{ m}\). Tìm chiều cao đỉnh vòm phía trong của trụ cầu.
+                    </p>
+                    <details class="group mt-3">
+                        <summary class="cursor-pointer inline-flex items-center text-xs font-semibold text-rose-700 bg-rose-50 hover:bg-rose-100 px-3 py-1.5 rounded-lg transition select-none">
+                            <i class="fas fa-lightbulb text-amber-500 mr-2 group-open:rotate-180 transition-transform"></i>
+                            <span>Gợi ý lời giải</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-lg border border-slate-200 text-sm space-y-1 text-slate-700">
+                            <p>Chọn gốc \(O(0;0)\) tại chân tháp bên trái. Chân kia là \((18;0)\). Phương trình: \(y = ax^2 + bx\).</p>
+                            <p>Điểm dọi dây là \((1; 1.8)\). Ta có hệ: \(\begin{cases} 324a + 18b = 0 \\ a + b = 1.8 \end{cases} \Rightarrow a = -\frac{9}{85}, b = \frac{162}{85}\).</p>
+                            <p>Chiều cao đỉnh vòm tại \(x = 9\text{ m}\): \(y_{max} = -\frac{9}{85}(9)^2 + \frac{162}{85}(9) = \frac{729}{85} \approx 8.58 \approx 8.6\text{ m}\).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- BÀI 29 -->
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="bg-rose-100 text-rose-800 text-xs font-bold px-3 py-1 rounded-full"><i class="fas fa-pen-nib mr-1"></i> Bài 29</span>
+                        <span class="text-xs text-slate-400">Tối ưu lợi nhuận bán xe Honda</span>
+                    </div>
+                    <p class="font-medium text-slate-800 mb-3">
+                        Đại lý xe bán Honda Vision vốn 30 triệu/chiếc, giá gốc 38 triệu, tiêu thụ 120 chiếc/năm. Nếu giảm \(x\) triệu đồng/chiếc thì lượng xe bán tăng \(20x\) chiếc. Hỏi phải khống chế mức giảm giá \(x\) bao nhiêu để lợi nhuận thu về đạt từ \(980\) triệu đồng trở lên?
+                    </p>
+
+                    <!-- JSXGRAPH MÔ PHỎNG BÀI 29 -->
+                    <div class="my-4 p-4 bg-slate-50 rounded-xl border border-slate-200">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-xs font-bold text-indigo-700 uppercase"><i class="fas fa-laptop-code mr-1"></i> Đồ thị Parabol Lợi nhuận P(x) & Đường KPIs 980 triệu</span>
+                        </div>
+                        <div id="jsxbox29" class="jxgbox w-full h-[280px] mx-auto"></div>
+                    </div>
+
+                    <details class="group mt-3">
+                        <summary class="cursor-pointer inline-flex items-center text-xs font-semibold text-rose-700 bg-rose-50 hover:bg-rose-100 px-3 py-1.5 rounded-lg transition select-none">
+                            <i class="fas fa-lightbulb text-amber-500 mr-2 group-open:rotate-180 transition-transform"></i>
+                            <span>Gợi ý lời giải</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-lg border border-slate-200 text-sm space-y-1 text-slate-700">
+                            <p>Lợi nhuận mỗi xe: \((38 - x) - 30 = 8 - x\) (triệu).</p>
+                            <p>Số xe bán được: \(120 + 20x\). Tổng lợi nhuận: \(P(x) = (8-x)(120+20x) = -20x^2 + 40x + 960\).</p>
+                            <p>BPT lợi nhuận: \(-20x^2 + 40x + 960 \ge 980 \Leftrightarrow -20x^2 + 40x - 20 \ge 0 \Leftrightarrow (x-1)^2 \le 0 \Rightarrow x = 1\).</p>
+                            <p>Vậy đại lý phải giảm giá đúng \(1\) triệu đồng/chiếc (giá bán mới 37 triệu) để đạt lợi nhuận 980 triệu.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- BÀI 30 -->
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="bg-rose-100 text-rose-800 text-xs font-bold px-3 py-1 rounded-full"><i class="fas fa-pen-nib mr-1"></i> Bài 30</span>
+                        <span class="text-xs text-slate-400">Doanh thu tour du lịch</span>
+                    </div>
+                    <p class="font-medium text-slate-800 mb-3">
+                        Chuyến du lịch cho 50 khách đầu tiên giá 300.000 đồng/người. Cứ thêm 1 người đăng ký thì giá vé cả đoàn giảm 5.000 đồng/người. Hỏi số người đăng ký thêm \(x\) phải nằm trong khoảng nào để công ty du lịch không bị lỗ, biết tổng chi phí cố định là \(15.080.000\) đồng?
+                    </p>
+                    <details class="group mt-3">
+                        <summary class="cursor-pointer inline-flex items-center text-xs font-semibold text-rose-700 bg-rose-50 hover:bg-rose-100 px-3 py-1.5 rounded-lg transition select-none">
+                            <i class="fas fa-lightbulb text-amber-500 mr-2 group-open:rotate-180 transition-transform"></i>
+                            <span>Gợi ý lời giải</span>
+                        </summary>
+                        <div class="mt-3 p-4 bg-slate-50 rounded-lg border border-slate-200 text-sm space-y-1 text-slate-700">
+                            <p>Số khách: \(50 + x\). Giá vé mỗi người: \(300 - 5x\) (nghìn đồng).</p>
+                            <p>Doanh thu: \(T(x) = (50+x)(300-5x) = -5x^2 + 50x + 15000\) (nghìn đồng).</p>
+                            <p>Để không lỗ: \(-5x^2 + 50x + 15000 \ge 15080 \Leftrightarrow -5x^2 + 50x - 80 \ge 0 \Leftrightarrow x^2 - 10x + 16 \le 0 \Leftrightarrow 2 \le x \le 8\).</p>
+                            <p>Vậy số người đăng ký thêm phải từ 2 đến 8 người (đoàn khách từ 52 đến 58 người).</p>
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </section>
+
+        <!-- LỜI KHUYÊN DÀNH CHO CÁC EM -->
+        <div class="bg-gradient-to-r from-amber-500 to-orange-600 text-white p-6 rounded-2xl shadow-lg mb-12 flex items-start space-x-4">
+            <div class="text-3xl bg-white/20 p-3 rounded-full shrink-0"><i class="fas fa-lightbulb"></i></div>
+            <div>
+                <h3 class="text-lg font-bold uppercase tracking-wide mb-1">LỜI KHUYÊN DÀNH CHO CÁC EM</h3>
+                <p class="text-sm leading-relaxed text-amber-50">
+                    Khi giải quyết các bài toán thực tế chứa hàm số hay bất phương trình bậc hai, điều quan trọng nhất là các em phải chọn hệ trục tọa độ thật khéo léo (thường chọn trục đối xứng là trục tung hoặc chọn gốc tọa độ trùng chân cổng chào) để tối giản hóa phương trình bậc hai cần thiết lập. Hãy luôn kiểm tra kĩ điều kiện nghiệm nguyên hoặc khoảng giới hạn thực tế của biến số trước khi đưa ra đáp số cuối cùng nhé!
+                </p>
+            </div>
+        </div>
+
+        <!-- BÀI TẬP ĐÁNH GIÁ NĂNG LỰC TẠI LỚP (5 CÂU TRẮC NGHIỆM) -->
+        <section class="bg-white p-6 sm:p-8 rounded-2xl border-2 border-indigo-200 shadow-lg no-print mb-12">
+            <div class="flex items-center space-x-3 mb-6 border-b pb-4">
+                <span class="bg-indigo-600 text-white p-2.5 rounded-xl text-xl"><i class="fas fa-user-check"></i></span>
+                <div>
+                    <h2 class="text-xl sm:text-2xl font-black text-indigo-950">BÀI TẬP ĐÁNH GIÁ NĂNG LỰC TẠI LỚP</h2>
+                    <p class="text-xs sm:text-sm text-slate-500">Hoàn thành 5 câu trắc nghiệm bên dưới để kiểm tra mức độ hiểu bài và nộp kết quả trực tiếp về hệ thống.</p>
+                </div>
+            </div>
+
+            <!-- FORM HỌC SINH -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6 bg-slate-50 p-4 rounded-xl border border-slate-200">
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Họ và Tên Học Sinh <span class="text-red-500">*</span></label>
+                    <input type="text" id="student-name" placeholder="Ví dụ: Nguyễn Văn A" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Mã Lớp / Trường</label>
+                    <input type="text" id="student-code" placeholder="Ví dụ: 10A1 - THPT Chuyên" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                </div>
+            </div>
+
+            <!-- DANH SÁCH CÂU HỎI -->
+            <div id="quiz-container" class="space-y-6">
+                <!-- CÂU 1 -->
+                <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
+                    <p class="font-bold text-slate-800 text-sm mb-3">Câu 1: Bất phương trình \(x^2 - 4x + 3 < 0\) có tập nghiệm là:</p>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm">
+                        <label class="flex items-center p-2.5 bg-white rounded-lg border hover:bg-indigo-50 cursor-pointer">
+                            <input type="radio" name="q1" value="A" class="mr-2 text-indigo-600"> A. \((-\infty; 1) \cup (3; +\infty)\)
+                        </label>
+                        <label class="flex items-center p-2.5 bg-white rounded-lg border hover:bg-indigo-50 cursor-pointer">
+                            <input type="radio" name="q1" value="B" class="mr-2 text-indigo-600"> B. \((1; 3)\)
+                        </label>
+                        <label class="flex items-center p-2.5 bg-white rounded-lg border hover:bg-indigo-50 cursor-pointer">
+                            <input type="radio" name="q1" value="C" class="mr-2 text-indigo-600"> C. \([1; 3]\)
+                        </label>
+                        <label class="flex items-center p-2.5 bg-white rounded-lg border hover:bg-indigo-50 cursor-pointer">
+                            <input type="radio" name="q1" value="D" class="mr-2 text-indigo-600"> D. \(\varnothing\)
+                        </label>
+                    </div>
+                </div>
+
+                <!-- CÂU 2 -->
+                <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
+                    <p class="font-bold text-slate-800 text-sm mb-3">Câu 2: Tập xác định của hàm số \(y = \sqrt{x^2 - 5x + 6}\) là:</p>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm">
+                        <label class="flex items-center p-2.5 bg-white rounded-lg border hover:bg-indigo-50 cursor-pointer">
+                            <input type="radio" name="q2" value="A" class="mr-2 text-indigo-600"> A. \((2; 3)\)
+                        </label>
+                        <label class="flex items-center p-2.5 bg-white rounded-lg border hover:bg-indigo-50 cursor-pointer">
+                            <input type="radio" name="q2" value="B" class="mr-2 text-indigo-600"> B. \([2; 3]\)
+                        </label>
+                        <label class="flex items-center p-2.5 bg-white rounded-lg border hover:bg-indigo-50 cursor-pointer">
+                            <input type="radio" name="q2" value="C" class="mr-2 text-indigo-600"> C. \((-\infty; 2] \cup [3; +\infty)\)
+                        </label>
+                        <label class="flex items-center p-2.5 bg-white rounded-lg border hover:bg-indigo-50 cursor-pointer">
+                            <input type="radio" name="q2" value="D" class="mr-2 text-indigo-600"> D. \((-\infty; 2) \cup (3; +\infty)\)
+                        </label>
+                    </div>
+                </div>
+
+                <!-- CÂU 3 -->
+                <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
+                    <p class="font-bold text-slate-800 text-sm mb-3">Câu 3: Số nghiệm nguyên của bất phương trình \(x^2 - 2x - 3 \le 0\) là:</p>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm">
+                        <label class="flex items-center p-2.5 bg-white rounded-lg border hover:bg-indigo-50 cursor-pointer">
+                            <input type="radio" name="q3" value="A" class="mr-2 text-indigo-600"> A. 3
+                        </label>
+                        <label class="flex items-center p-2.5 bg-white rounded-lg border hover:bg-indigo-50 cursor-pointer">
+                            <input type="radio" name="q3" value="B" class="mr-2 text-indigo-600"> B. 4
+                        </label>
+                        <label class="flex items-center p-2.5 bg-white rounded-lg border hover:bg-indigo-50 cursor-pointer">
+                            <input type="radio" name="q3" value="C" class="mr-2 text-indigo-600"> C. 5
+                        </label>
+                        <label class="flex items-center p-2.5 bg-white rounded-lg border hover:bg-indigo-50 cursor-pointer">
+                            <input type="radio" name="q3" value="D" class="mr-2 text-indigo-600"> D. Vô số
+                        </label>
+                    </div>
+                </div>
+
+                <!-- CÂU 4 -->
+                <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
+                    <p class="font-bold text-slate-800 text-sm mb-3">Câu 4: Quả bóng đạt độ cao \(h(t) = -5t^2 + 20t\) (mét). Bóng nằm ở độ cao trên 15m trong thời gian bao lâu?</p>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm">
+                        <label class="flex items-center p-2.5 bg-white rounded-lg border hover:bg-indigo-50 cursor-pointer">
+                            <input type="radio" name="q4" value="A" class="mr-2 text-indigo-600"> A. 1 giây
+                        </label>
+                        <label class="flex items-center p-2.5 bg-white rounded-lg border hover:bg-indigo-50 cursor-pointer">
+                            <input type="radio" name="q4" value="B" class="mr-2 text-indigo-600"> B. 2 giây
+                        </label>
+                        <label class="flex items-center p-2.5 bg-white rounded-lg border hover:bg-indigo-50 cursor-pointer">
+                            <input type="radio" name="q4" value="C" class="mr-2 text-indigo-600"> C. 3 giây
+                        </label>
+                        <label class="flex items-center p-2.5 bg-white rounded-lg border hover:bg-indigo-50 cursor-pointer">
+                            <input type="radio" name="q4" value="D" class="mr-2 text-indigo-600"> D. 4 giây
+                        </label>
+                    </div>
+                </div>
+
+                <!-- CÂU 5 -->
+                <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
+                    <p class="font-bold text-slate-800 text-sm mb-3">Câu 5: Cổng parabol rộng 8m, cao 4m. Độ cao của vòm cổng tại vị trí cách tâm 2m là bao nhiêu?</p>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm">
+                        <label class="flex items-center p-2.5 bg-white rounded-lg border hover:bg-indigo-50 cursor-pointer">
+                            <input type="radio" name="q5" value="A" class="mr-2 text-indigo-600"> A. 2m
+                        </label>
+                        <label class="flex items-center p-2.5 bg-white rounded-lg border hover:bg-indigo-50 cursor-pointer">
+                            <input type="radio" name="q5" value="B" class="mr-2 text-indigo-600"> B. 3m
+                        </label>
+                        <label class="flex items-center p-2.5 bg-white rounded-lg border hover:bg-indigo-50 cursor-pointer">
+                            <input type="radio" name="q5" value="C" class="mr-2 text-indigo-600"> C. 3.5m
+                        </label>
+                        <label class="flex items-center p-2.5 bg-white rounded-lg border hover:bg-indigo-50 cursor-pointer">
+                            <input type="radio" name="q5" value="D" class="mr-2 text-indigo-600"> D. 1m
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- NÚT NỘP BÀI & THÔNG BÁO -->
+            <div class="mt-6 flex flex-col sm:flex-row items-center justify-between gap-4 border-t pt-4">
+                <button onclick="submitQuiz()" id="btn-submit-quiz" class="w-full sm:w-auto bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-6 py-3 rounded-xl shadow-md transition flex items-center justify-center">
+                    <i class="fas fa-paper-plane mr-2"></i> Nộp Bài Đánh Giá
+                </button>
+                <div id="quiz-result" class="hidden text-sm font-bold text-slate-700"></div>
+            </div>
+        </section>
+
+        <!-- FOOTER BẢN QUYỀN -->
+        <footer class="mt-12 text-center text-xs text-slate-500 border-t border-slate-200 pt-6">
+            <p class="font-semibold text-slate-700">@ Bản quyền thuộc ThS. Đinh Quốc Tuấn - Mục đích phi lợi nhuận - Vì giáo dục.</p>
+            <p class="mt-1">Trung tâm Bồi dưỡng Văn hóa & Trường Đại học Khoa học Tự nhiên, ĐHQG-HCM</p>
+        </footer>
+    </main>
+
+    <!-- NÚT IN TÀI LIỆU CỐ ĐỊNH CHI TIẾT THEO YÊU CẦU -->
+    <button id="btn-print-doc" onclick="safePrint()" class="fixed bottom-5 right-5 bg-gray-900 text-white px-4 py-2 rounded-lg shadow-lg hover:bg-gray-700 print:hidden z-50">
+        <i class="fas fa-print mr-2"></i> In Tài Liệu
+    </button>
+
+    <script>
+        // Hàm in an toàn đảm bảo MathJax đã load xong
+        function safePrint() {
+            const printBtn = document.getElementById('btn-print-doc');
+            printBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Đang chuẩn bị...';
+            
+            // Đảm bảo MathJax đã render xong mọi công thức trước khi gọi hộp thoại in
+            if (window.MathJax && window.MathJax.typesetPromise) {
+                MathJax.typesetPromise().then(() => {
+                    printBtn.innerHTML = '<i class="fas fa-print mr-2"></i> In Tài Liệu';
+                    window.print();
+                });
+            } else {
+                // Fallback nếu không có công thức toán
+                setTimeout(() => window.print(), 500); 
+            }
+        }
+
+        // TÍNH THỜI GIAN LÀM BÀI
+        const startTime = new Date();
+
+        // XỬ LÝ NỘP BÀI TRẮC NGHIỆM & GỬI VỀ GOOGLE APPS SCRIPT
+        function submitQuiz() {
+            const nameInput = document.getElementById('student-name').value.trim();
+            const codeInput = document.getElementById('student-code').value.trim();
+
+            if (!nameInput) {
+                alert('Vui lòng điền Họ và Tên trước khi nộp bài!');
+                document.getElementById('student-name').focus();
+                return;
+            }
+
+            const correctAnswers = { q1: 'B', q2: 'C', q3: 'C', q4: 'B', q5: 'B' };
+            let score = 0;
+            let wrongList = [];
+
+            for (let i = 1; i <= 5; i++) {
+                const selected = document.querySelector(`input[name="q${i}"]:checked`);
+                const userAns = selected ? selected.value : 'Chưa chọn';
+                const rightAns = correctAnswers[`q${i}`];
+
+                if (userAns === rightAns) {
+                    score += 2; // 5 câu -> thang điểm 10
+                } else {
+                    wrongList.push(`Câu ${i} (Chọn ${userAns}, đúng ${rightAns})`);
+                }
+            }
+
+            // Tính thời gian làm bài
+            const endTime = new Date();
+            const elapsedSeconds = Math.floor((endTime - startTime) / 1000);
+            const minutes = Math.floor(elapsedSeconds / 60);
+            const seconds = elapsedSeconds % 60;
+            const timeFormatted = `${minutes < 10 ? '0' : ''}${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+
+            const payload = {
+                hoTen: nameInput + (codeInput ? ` (${codeInput})` : ''),
+                maDe: "TOAN10-BPT-BAC-HAI",
+                diem: `${score}/10`,
+                thoiGian: timeFormatted,
+                cauSai: wrongList.length > 0 ? wrongList.join('; ') : 'Không có'
+            };
+
+            const submitBtn = document.getElementById('btn-submit-quiz');
+            const resultDiv = document.getElementById('quiz-result');
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Đang gửi kết quả...';
+
+            // Endpoint Google Apps Script
+            const scriptUrl = 'https://script.google.com/macros/s/AKfycbzY7b7h4OwvhXuK5Vs6hl-aD88BPnAiAKbU5lfJobby0D4nzbIJVKT4n0AKCpAGoK0nZA/exec';
+
+            fetch(scriptUrl, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            })
+            .then(() => {
+                submitBtn.innerHTML = '<i class="fas fa-check mr-2"></i> Đã Gửi Thành Công';
+                submitBtn.className = 'w-full sm:w-auto bg-emerald-600 text-white font-bold px-6 py-3 rounded-xl shadow-md';
+                resultDiv.classList.remove('hidden');
+                resultDiv.innerHTML = `<span class="text-emerald-700"><i class="fas fa-trophy mr-1"></i> Điểm số của bạn: <strong>${score}/10</strong> (${timeFormatted})</span>`;
+            })
+            .catch(error => {
+                console.error('Lỗi nộp bài:', error);
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="fas fa-paper-plane mr-2"></i> Thử Nộp Lại';
+                alert('Có lỗi kết nối. Vui lòng thử nộp lại!');
+            });
+        }
+
+        // KHỞI TẠO CÁC MÔ HÌNH JSXGRAPH KHI TRANG LOAD XONG
+        document.addEventListener("DOMContentLoaded", function() {
+            
+            // 1. JSXGraph Box 2: Parabol y = x² - 5x + 6
+            try {
+                var b2 = JXG.JSXGraph.initBoard('jsxbox2', {
+                    boundingbox: [-1, 8, 6, -3],
+                    axis: true,
+                    showNavigation: false,
+                    keepAspectRatio: false
+                });
+                var f2 = function(x) { return x*x - 5*x + 6; };
+                b2.create('functiongraph', [f2, -1, 6], {strokeColor: '#059669', strokeWidth: 2.5});
+                b2.create('line', [[0,0], [1,0]], {visible: false});
+                b2.create('point', [2,0], {name: 'x1=2', size: 3, color: '#dc2626', fixed: true});
+                b2.create('point', [3,0], {name: 'x2=3', size: 3, color: '#dc2626', fixed: true});
+                b2.create('text', [0.5, 3, 'f(x) > 0 (x < 2)'], {color: '#059669', fontSize: 12});
+                b2.create('text', [3.5, 3, 'f(x) > 0 (x > 3)'], {color: '#059669', fontSize: 12});
+            } catch(e){ console.log(e); }
+
+            // 2. JSXGraph Box 3: Parabol y = 2x² + x + 1 > 0
+            try {
+                var b3 = JXG.JSXGraph.initBoard('jsxbox3', {
+                    boundingbox: [-3, 6, 3, -1],
+                    axis: true,
+                    showNavigation: false,
+                    keepAspectRatio: false
+                });
+                var f3 = function(x) { return 2*x*x + x + 1; };
+                b3.create('functiongraph', [f3, -3, 3], {strokeColor: '#2563eb', strokeWidth: 2.5});
+                b3.create('text', [-2.5, 4.5, 'Δ = -7 < 0, a = 2 > 0 ⇒ Parabol luôn ở phía trên Ox'], {color: '#1d4ed8', fontSize: 12});
+            } catch(e){ console.log(e); }
+
+            // 3. JSXGraph Box 5: Trục số miền xác định D = (-∞;1] ∪ [3;+∞)
+            try {
+                var b5 = JXG.JSXGraph.initBoard('jsxbox5', {
+                    boundingbox: [-1, 2, 5, -2],
+                    axis: false,
+                    showNavigation: false
+                });
+                b5.create('axis', [[0,0], [1,0]], {ticks: {drawLabels: true}});
+                b5.create('point', [1,0], {name: ']', size: 4, color: '#16a34a', fixed: true});
+                b5.create('point', [3,0], {name: '[', size: 4, color: '#16a34a', fixed: true});
+                b5.create('segment', [[1,0], [3,0]], {strokeColor: '#94a3b8', strokeWidth: 6, dash: 2});
+                b5.create('text', [1.5, 0.8, 'Bị loại bỏ (1; 3)'], {color: '#dc2626', fontSize: 11});
+            } catch(e){ console.log(e); }
+
+            // 4. JSXGraph Box 11: Ném bóng h(t) = -4.9t² + 14.7t + 1.2
+            try {
+                var b11 = JXG.JSXGraph.initBoard('jsxbox11', {
+                    boundingbox: [-0.5, 14, 3.5, -1],
+                    axis: true,
+                    showNavigation: false,
+                    keepAspectRatio: false
+                });
+                var f11 = function(t) { return -4.9*t*t + 14.7*t + 1.2; };
+                b11.create('functiongraph', [f11, 0, 3.1], {strokeColor: '#4f46e5', strokeWidth: 2.5});
+                b11.create('line', [[0, 1.5], [1, 1.5]], {strokeColor: '#ef4444', dash: 2});
+                b11.create('text', [0.2, 2.2, 'Mốc h = 1.5m'], {color: '#ef4444', fontSize: 11});
+            } catch(e){ console.log(e); }
+
+            // 5. JSXGraph Box 17: Cú sút phạt Messi qua hàng rào
+            try {
+                var b17 = JXG.JSXGraph.initBoard('jsxbox17', {
+                    boundingbox: [-1, 3, 20, -0.5],
+                    axis: true,
+                    showNavigation: false,
+                    keepAspectRatio: false
+                });
+                var f17 = function(x) { return -0.015*x*x + 0.28*x; };
+                b17.create('functiongraph', [f17, 0, 18.6], {strokeColor: '#0284c7', strokeWidth: 2.5});
+                // Hàng rào ở 9m cao 1.8m
+                b17.create('segment', [[9,0], [9,1.8]], {strokeColor: '#dc2626', strokeWidth: 4});
+                b17.create('point', [9, 1.305], {name: 'Bóng (1.305m)', size: 3, color: '#eab308', fixed: true});
+                b17.create('text', [9.5, 1.8, 'Rào cao 1.8m'], {color: '#dc2626', fontSize: 11});
+            } catch(e){ console.log(e); }
+
+            // 6. JSXGraph Box 21: Cầu Cổng Vàng y = (3/1600)x²
+            try {
+                var b21 = JXG.JSXGraph.initBoard('jsxbox21', {
+                    boundingbox: [-250, 90, 250, -10],
+                    axis: true,
+                    showNavigation: false,
+                    keepAspectRatio: false
+                });
+                var f21 = function(x) { return (3/1600)*x*x; };
+                b21.create('functiongraph', [f21, -200, 200], {strokeColor: '#b91c1c', strokeWidth: 3});
+                b21.create('line', [[-200, 12], [200, 12]], {strokeColor: '#eab308', dash: 2});
+                b21.create('text', [-180, 20, 'Chiều dài cáp ≥ 12m khi |x| ≥ 80m'], {color: '#b91c1c', fontSize: 12});
+            } catch(e){ console.log(e); }
+
+            // 7. JSXGraph Box 23: Xe Container qua cổng Parabol
+            try {
+                var b23 = JXG.JSXGraph.initBoard('jsxbox23', {
+                    boundingbox: [-8, 10, 8, -1],
+                    axis: true,
+                    showNavigation: false,
+                    keepAspectRatio: false
+                });
+                var f23 = function(x) { return -(2/9)*x*x + 8; };
+                b23.create('functiongraph', [f23, -6, 6], {strokeColor: '#475569', strokeWidth: 3});
+                // Thùng xe rộng 6m (-3 đến 3) cao 6m
+                b23.create('polygon', [[-3,0], [3,0], [3,6], [-3,6]], {fillColor: '#38bdf8', fillOpacity: 0.3, strokeColor: '#0284c7'});
+                b23.create('text', [-2.5, 3, 'Xe Container (rộng 6m, cao < 6m)'], {color: '#0369a1', fontSize: 11});
+            } catch(e){ console.log(e); }
+
+            // 8. JSXGraph Box 25: Diện tích vườn S(x) = -2x² + 100x
+            try {
+                var b25 = JXG.JSXGraph.initBoard('jsxbox25', {
+                    boundingbox: [-5, 1500, 55, -200],
+                    axis: true,
+                    showNavigation: false,
+                    keepAspectRatio: false
+                });
+                var f25 = function(x) { return -2*x*x + 100*x; };
+                b25.create('functiongraph', [f25, 0, 50], {strokeColor: '#16a34a', strokeWidth: 2.5});
+                b25.create('line', [[0, 1200], [50, 1200]], {strokeColor: '#dc2626', dash: 2});
+                b25.create('text', [5, 1300, 'S ≥ 1200m² khi 20m ≤ x ≤ 30m'], {color: '#15803d', fontSize: 12});
+            } catch(e){ console.log(e); }
+
+            // 9. JSXGraph Box 29: Lợi nhuận P(x) = -20x² + 40x + 960
+            try {
+                var b29 = JXG.JSXGraph.initBoard('jsxbox29', {
+                    boundingbox: [-1, 1020, 4, 940],
+                    axis: true,
+                    showNavigation: false,
+                    keepAspectRatio: false
+                });
+                var f29 = function(x) { return -20*x*x + 40*x + 960; };
+                b29.create('functiongraph', [f29, -0.5, 3], {strokeColor: '#ea580c', strokeWidth: 2.5});
+                b29.create('line', [[-1, 980], [4, 980]], {strokeColor: '#2563eb', dash: 2});
+                b29.create('point', [1, 980], {name: 'Đỉnh Đạt 980tr (x=1)', size: 4, color: '#dc2626', fixed: true});
+            } catch(e){ console.log(e); }
+
+        });
+    </script>
+</body>
+</html>
