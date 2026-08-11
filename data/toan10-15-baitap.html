@@ -1,0 +1,1165 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buổi 15: Tổng Và Hiệu Của Hai Vectơ - Hình Học Lớp 10</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- FontAwesome Icon CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- JSXGraph CSS & JS -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraph.css" />
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraphcore.js"></script>
+    
+    <!-- MathJax Config & JS -->
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['\\(', '\\)'], ['$', '$']],
+                displayMath: [['\\[', '\\]'], ['$$', '$$']]
+            },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" id="MathJax-script" async></script>
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .jxgbox {
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            border: 2px solid #cbd5e1;
+            background-color: #ffffff;
+        }
+        @media print {
+            .no-print { display: none !important; }
+            body { background-color: #ffffff !important; color: #000000 !important; }
+            .shadow-lg, .shadow-md, .shadow-xl, .shadow-sm { box-shadow: none !important; }
+        }
+    </style>
+</head>
+<body class="bg-slate-100 text-slate-900 min-h-screen flex flex-col justify-between">
+
+    <!-- HEADER / NAVIGATION BAR -->
+    <header class="bg-white border-b-2 border-indigo-600 shadow-md sticky top-0 z-40 print:relative print:shadow-none">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex flex-wrap justify-between items-center gap-4">
+            <!-- Logos & Title -->
+            <div class="flex items-center space-x-4">
+                <img src="https://firebasestorage.googleapis.com/v0/b/link-anh-web.firebasestorage.app/o/ttbdvh.jpg?alt=media&token=f270aa9b-a2bc-48e8-8910-80742b542615" 
+                     alt="Logo TTBDVH" class="h-12 w-auto rounded-lg shadow-sm object-contain">
+                <img src="https://firebasestorage.googleapis.com/v0/b/link-anh-web.firebasestorage.app/o/Logo-chinh-hcmus.png?alt=media&token=9cf3a1de-75f1-493b-8711-fd22c7b98738" 
+                     alt="Logo HCMUS" class="h-12 w-auto object-contain">
+                <div class="hidden md:block border-l-2 border-slate-300 pl-4">
+                    <h1 class="font-extrabold text-lg text-indigo-900 leading-tight">CHUYÊN ĐỀ HÌNH HỌC LỚP 10</h1>
+                    <p class="text-xs font-bold text-slate-500 uppercase tracking-wider">Tài liệu học thuật & Giáo dục chuẩn hóa</p>
+                </div>
+            </div>
+            
+            <!-- Metadata Badge -->
+            <div class="text-right">
+                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-extrabold bg-indigo-100 text-indigo-800 border border-indigo-200 shadow-sm">
+                    <i class="fas fa-plus-minus mr-1.5 text-indigo-600"></i> Buổi 15 - Tổng Và Hiệu Vectơ
+                </span>
+                <p class="text-xs text-slate-600 font-medium mt-1">
+                    <i class="fas fa-user-check text-emerald-600 mr-1"></i> ThS. Đinh Quốc Tuấn
+                </p>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTAINER -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-grow space-y-8">
+
+        <!-- INTRO HERO BANNER -->
+        <section class="bg-gradient-to-r from-indigo-900 via-blue-900 to-slate-900 rounded-2xl p-6 sm:p-8 text-white shadow-xl relative overflow-hidden">
+            <div class="absolute right-0 top-0 opacity-10 translate-x-8 -translate-y-8 pointer-events-none">
+                <i class="fas fa-diagram-project text-9xl"></i>
+            </div>
+            <div class="relative z-10 max-w-4xl">
+                <div class="inline-flex items-center space-x-2 bg-amber-400 text-slate-950 font-black text-xs uppercase px-3 py-1 rounded-full mb-3 shadow">
+                    <i class="fas fa-star"></i> <span>Chuyên đề phép toán lượng giác & hình học</span>
+                </div>
+                <h2 class="text-2xl sm:text-4xl font-extrabold tracking-tight mb-3">
+                    BUỔI 15: TỔNG VÀ HIỆU CỦA HAI VECTƠ
+                </h2>
+                <p class="text-slate-200 text-sm sm:text-base leading-relaxed mb-4">
+                    Chào các em! Rất vui được gặp lại các em trong <strong>Buổi 15</strong>. Hôm nay, chúng ta sẽ đi sâu vào các phép toán nền tảng nhất của vectơ: <strong>Tổng và hiệu của hai vectơ</strong>. Cùng với đó là việc vận dụng các công cụ cực kì mạnh mẽ như: <strong>Quy tắc ba điểm, quy tắc hình bình hành, quy tắc trừ, và tính chất trung điểm, trọng tâm</strong>.
+                </p>
+                <p class="text-slate-300 text-xs sm:text-sm leading-relaxed mb-4">
+                    Dưới đây là hệ thống <strong>30 bài tập</strong> được chia làm 3 cấp độ từ Cơ bản, Nâng cao đến Vận dụng thực tiễn. Thầy đã thiết kế kèm theo các gợi ý mô hình trực quan (JSXGraph) để các em dễ dàng thực hành trên máy tính nhé!
+                </p>
+                <div class="flex flex-wrap gap-2 text-xs font-bold">
+                    <span class="bg-blue-800/80 text-blue-200 px-3 py-1.5 rounded-lg border border-blue-600/50 flex items-center"><i class="fas fa-layer-group mr-1.5 text-blue-400"></i> 30 Bài tập phân cấp</span>
+                    <span class="bg-purple-800/80 text-purple-200 px-3 py-1.5 rounded-lg border border-purple-600/50 flex items-center"><i class="fas fa-cube mr-1.5 text-purple-400"></i> Mô phỏng JSXGraph trực quan</span>
+                    <span class="bg-emerald-800/80 text-emerald-200 px-3 py-1.5 rounded-lg border border-emerald-600/50 flex items-center"><i class="fas fa-check-circle mr-1.5 text-emerald-400"></i> Trắc nghiệm gửi điểm online</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- CHEAT SHEET FORMULAS & CONCEPTS -->
+        <section class="bg-white rounded-xl p-6 border border-slate-200 shadow-md space-y-4">
+            <h3 class="text-lg font-extrabold text-slate-800 flex items-center border-b pb-3 border-slate-200">
+                <i class="fas fa-book-open text-amber-500 mr-2.5 text-xl"></i> TỔNG HỢP CÁC QUY TẮC PHÉP CỘNG VÀ TRỪ VECTƠ
+            </h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 text-sm">
+                <div class="bg-amber-50 border-l-4 border-amber-500 p-4 rounded-r-xl space-y-1">
+                    <h4 class="font-extrabold text-amber-900 flex items-center"><i class="fas fa-route mr-1.5"></i> 1. Quy tắc 3 điểm</h4>
+                    <p class="text-slate-800 font-medium">Cộng nối đuôi: \(\overrightarrow{AB} + \overrightarrow{BC} = \overrightarrow{AC}\)</p>
+                    <p class="text-xs text-slate-500">Chèn điểm \(M\): \(\overrightarrow{AB} = \overrightarrow{AM} + \overrightarrow{MB}\)</p>
+                </div>
+                <div class="bg-blue-50 border-l-4 border-blue-500 p-4 rounded-r-xl space-y-1">
+                    <h4 class="font-extrabold text-blue-900 flex items-center"><i class="fas fa-draw-polygon mr-1.5"></i> 2. Quy tắc Hình bình hành</h4>
+                    <p class="text-slate-800 font-medium">Với hình bình hành \(ABCD\):</p>
+                    <p class="text-xs text-indigo-900 font-bold">\(\overrightarrow{AB} + \overrightarrow{AD} = \overrightarrow{AC}\)</p>
+                </div>
+                <div class="bg-emerald-50 border-l-4 border-emerald-500 p-4 rounded-r-xl space-y-1">
+                    <h4 class="font-extrabold text-emerald-900 flex items-center"><i class="fas fa-minus mr-1.5"></i> 3. Quy tắc Hiệu (Trừ)</h4>
+                    <p class="text-slate-800 font-medium">Chung điểm đầu: \(\overrightarrow{OB} - \overrightarrow{OA} = \overrightarrow{AB}\)</p>
+                    <p class="text-xs text-slate-500">Vectơ đối: \(\overrightarrow{AB} = -\overrightarrow{BA}\)</p>
+                </div>
+                <div class="bg-purple-50 border-l-4 border-purple-500 p-4 rounded-r-xl space-y-1">
+                    <h4 class="font-extrabold text-purple-900 flex items-center"><i class="fas fa-location-crosshairs mr-1.5"></i> 4. Trung điểm & Trọng tâm</h4>
+                    <p class="text-slate-800 font-medium">\(I\) là trung điểm \(AB \iff \overrightarrow{IA} + \overrightarrow{IB} = \overrightarrow{0}\)</p>
+                    <p class="text-xs text-slate-600">\(G\) là trọng tâm \(\Delta ABC \iff \overrightarrow{GA} + \overrightarrow{GB} + \overrightarrow{GC} = \overrightarrow{0}\)</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= PHẦN 1: CƠ BẢN ================= -->
+        <section class="space-y-6">
+            <div class="flex items-center justify-between bg-gradient-to-r from-emerald-600 to-teal-700 text-white px-6 py-4 rounded-xl shadow-md">
+                <h3 class="text-xl font-extrabold flex items-center">
+                    <i class="fas fa-seedling mr-3 text-emerald-200"></i> PHẦN 1: CẤP ĐỘ CƠ BẢN (10 BÀI)
+                </h3>
+                <span class="bg-white/20 text-xs px-3 py-1 rounded-full font-bold uppercase tracking-wider">Áp dụng trực tiếp quy tắc</span>
+            </div>
+
+            <div class="grid grid-cols-1 gap-6">
+                <!-- BÀI 1 -->
+                <div class="bg-white rounded-xl p-6 border border-slate-200 shadow-sm space-y-4">
+                    <div class="flex items-center justify-between">
+                        <span class="inline-block bg-emerald-100 text-emerald-800 font-extrabold px-3 py-1 rounded-lg text-sm">
+                            Bài 1.
+                        </span>
+                        <span class="text-xs font-bold text-slate-400 uppercase"><i class="fas fa-tag mr-1"></i>Quy tắc 3 điểm</span>
+                    </div>
+                    <p class="text-slate-800 leading-relaxed font-medium">
+                        Áp dụng quy tắc ba điểm, hãy rút gọn biểu thức sau: \(A = \overrightarrow{AB} + \overrightarrow{BC} + \overrightarrow{CD}\).
+                    </p>
+
+                    <button id="btn-sol-1" onclick="toggleSolution('sol-1')" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-4 py-2 rounded-lg text-sm transition-colors shadow-sm flex items-center">
+                        <i class="fas fa-lightbulb mr-2"></i> Xem Lời Giải & Gợi Ý
+                    </button>
+                    
+                    <div id="sol-1" class="hidden bg-slate-50 border-l-4 border-indigo-500 p-4 rounded-r-lg space-y-2 text-sm text-slate-700">
+                        <h5 class="font-bold text-indigo-900"><i class="fas fa-check-circle text-emerald-500 mr-1"></i> Lời giải chi tiết:</h5>
+                        <p>Áp dụng quy tắc ba điểm liên tiếp (cộng nối đuôi):</p>
+                        <p>\[A = (\overrightarrow{AB} + \overrightarrow{BC}) + \overrightarrow{CD} = \overrightarrow{AC} + \overrightarrow{CD} = \overrightarrow{AD}\]</p>
+                        <p>Vậy biểu thức rút gọn là \(\overrightarrow{AD}\).</p>
+                    </div>
+                </div>
+
+                <!-- BÀI 2 -->
+                <div class="bg-white rounded-xl p-6 border border-slate-200 shadow-sm space-y-4">
+                    <span class="inline-block bg-emerald-100 text-emerald-800 font-extrabold px-3 py-1 rounded-lg text-sm">
+                        Bài 2.
+                    </span>
+                    <p class="text-slate-800 leading-relaxed font-medium">
+                        Áp dụng quy tắc trừ, hãy rút gọn biểu thức sau: \(B = \overrightarrow{MN} - \overrightarrow{PN} + \overrightarrow{PQ} - \overrightarrow{MQ}\).
+                    </p>
+
+                    <button id="btn-sol-2" onclick="toggleSolution('sol-2')" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-4 py-2 rounded-lg text-sm transition-colors shadow-sm flex items-center">
+                        <i class="fas fa-lightbulb mr-2"></i> Xem Lời Giải & Gợi Ý
+                    </button>
+                    <div id="sol-2" class="hidden bg-slate-50 border-l-4 border-indigo-500 p-4 rounded-r-lg space-y-2 text-sm text-slate-700">
+                        <p>• Đổi dấu trừ thành cộng vectơ đối: \(-\overrightarrow{PN} = \overrightarrow{NP}\) và \(-\overrightarrow{MQ} = \overrightarrow{QM}\).</p>
+                        <p>• Nhóm lại theo quy tắc nối đuôi: \(B = \overrightarrow{MN} + \overrightarrow{NP} + \overrightarrow{PQ} + \overrightarrow{QM}\).</p>
+                        <p>• Rút gọn: \(B = (\overrightarrow{MN} + \overrightarrow{NP}) + (\overrightarrow{PQ} + \overrightarrow{QM}) = \overrightarrow{MP} + \overrightarrow{PM} = \overrightarrow{MM} = \overrightarrow{0}\).</p>
+                        <p>Vậy kết quả là vectơ-không \(\overrightarrow{0}\).</p>
+                    </div>
+                </div>
+
+                <!-- BÀI 3 -->
+                <div class="bg-white rounded-xl p-6 border border-slate-200 shadow-sm space-y-4">
+                    <span class="inline-block bg-emerald-100 text-emerald-800 font-extrabold px-3 py-1 rounded-lg text-sm">
+                        Bài 3.
+                    </span>
+                    <p class="text-slate-800 leading-relaxed font-medium">
+                        Cho hình bình hành \(ABCD\). Rút gọn biểu thức \(C = \overrightarrow{AB} + \overrightarrow{AD}\).
+                    </p>
+
+                    <!-- JSXGraph Model Bài 3 -->
+                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-2">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-bold text-indigo-700 uppercase flex items-center">
+                                <i class="fas fa-cubes mr-1.5"></i> Mô hình JSXGraph: Quy tắc hình bình hành ABCD
+                            </span>
+                        </div>
+                        <div id="jsxbox-3" class="jxgbox w-full h-80"></div>
+                    </div>
+
+                    <button id="btn-sol-3" onclick="toggleSolution('sol-3')" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-4 py-2 rounded-lg text-sm transition-colors shadow-sm flex items-center">
+                        <i class="fas fa-lightbulb mr-2"></i> Xem Lời Giải & Gợi Ý
+                    </button>
+                    <div id="sol-3" class="hidden bg-slate-50 border-l-4 border-indigo-500 p-4 rounded-r-lg space-y-2 text-sm text-slate-700">
+                        <p>Theo quy tắc hình bình hành đối với hai vectơ xuất phát từ cùng một đỉnh \(A\):</p>
+                        <p>\[C = \overrightarrow{AB} + \overrightarrow{AD} = \overrightarrow{AC}\]</p>
+                        <p>Hoặc giải thích: Do \(ABCD\) là hình bình hành nên \(\overrightarrow{AD} = \overrightarrow{BC}\). Do đó \(\overrightarrow{AB} + \overrightarrow{AD} = \overrightarrow{AB} + \overrightarrow{BC} = \overrightarrow{AC}\).</p>
+                    </div>
+                </div>
+
+                <!-- BÀI 4 -->
+                <div class="bg-white rounded-xl p-6 border border-slate-200 shadow-sm space-y-4">
+                    <span class="inline-block bg-emerald-100 text-emerald-800 font-extrabold px-3 py-1 rounded-lg text-sm">
+                        Bài 4.
+                    </span>
+                    <p class="text-slate-800 leading-relaxed font-medium">
+                        Cho đoạn thẳng \(AB\) có trung điểm \(I\). Hãy điền vào chỗ trống để hoàn thành tính chất trung điểm: \(\overrightarrow{IA} + \overrightarrow{IB} = \dots\)
+                    </p>
+                    <button id="btn-sol-4" onclick="toggleSolution('sol-4')" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-4 py-2 rounded-lg text-sm transition-colors shadow-sm flex items-center">
+                        <i class="fas fa-lightbulb mr-2"></i> Xem Lời Giải & Gợi Ý
+                    </button>
+                    <div id="sol-4" class="hidden bg-slate-50 border-l-4 border-indigo-500 p-4 rounded-r-lg space-y-2 text-sm text-slate-700">
+                        <p>Vì \(I\) là trung điểm của đoạn thẳng \(AB\) nên hai vectơ \(\overrightarrow{IA}\) và \(\overrightarrow{IB}\) là hai vectơ đối nhau (cùng độ dài \(IA = IB\) và ngược hướng).</p>
+                        <p>Do đó: \(\overrightarrow{IA} + \overrightarrow{IB} = \overrightarrow{0}\).</p>
+                    </div>
+                </div>
+
+                <!-- BÀI 5 -->
+                <div class="bg-white rounded-xl p-6 border border-slate-200 shadow-sm space-y-4">
+                    <span class="inline-block bg-emerald-100 text-emerald-800 font-extrabold px-3 py-1 rounded-lg text-sm">
+                        Bài 5.
+                    </span>
+                    <p class="text-slate-800 leading-relaxed font-medium">
+                        Cho tam giác \(ABC\) có trọng tâm \(G\). Khẳng định nào sau đây là đúng?
+                    </p>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm font-medium text-slate-700 bg-slate-50 p-3 rounded-lg border">
+                        <div>A. \(\overrightarrow{GA} + \overrightarrow{GB} + \overrightarrow{GC} = 0\)</div>
+                        <div>B. \(\overrightarrow{GA} + \overrightarrow{GB} + \overrightarrow{GC} = \overrightarrow{0}\)</div>
+                        <div>C. \(\overrightarrow{AG} + \overrightarrow{BG} + \overrightarrow{CG} = \overrightarrow{0}\)</div>
+                        <div class="text-emerald-700 font-bold">D. Cả B và C đều đúng.</div>
+                    </div>
+                    <button id="btn-sol-5" onclick="toggleSolution('sol-5')" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-4 py-2 rounded-lg text-sm transition-colors shadow-sm flex items-center">
+                        <i class="fas fa-lightbulb mr-2"></i> Xem Lời Giải & Gợi Ý
+                    </button>
+                    <div id="sol-5" class="hidden bg-slate-50 border-l-4 border-indigo-500 p-4 rounded-r-lg space-y-2 text-sm text-slate-700">
+                        <p>• Theo tính chất trọng tâm: \(\overrightarrow{GA} + \overrightarrow{GB} + \overrightarrow{GC} = \overrightarrow{0}\) (B đúng, lưu ý vế phải là vectơ \(\overrightarrow{0}\), không phải số \(0\)).</p>
+                        <p>• Đổi dấu hai vế: \(-(\overrightarrow{AG} + \overrightarrow{BG} + \overrightarrow{CG}) = \overrightarrow{0} \iff \overrightarrow{AG} + \overrightarrow{BG} + \overrightarrow{CG} = \overrightarrow{0}\) (C đúng).</p>
+                        <p>• <strong>Đáp án đúng: D.</strong> Cả B và C đều đúng.</p>
+                    </div>
+                </div>
+
+                <!-- BÀI 6 -->
+                <div class="bg-white rounded-xl p-6 border border-slate-200 shadow-sm space-y-4">
+                    <span class="inline-block bg-emerald-100 text-emerald-800 font-extrabold px-3 py-1 rounded-lg text-sm">
+                        Bài 6.
+                    </span>
+                    <p class="text-slate-800 leading-relaxed font-medium">
+                        Cho bốn điểm \(A, B, C, D\) bất kì. Chứng minh đẳng thức: \(\overrightarrow{AB} + \overrightarrow{CD} = \overrightarrow{AD} + \overrightarrow{CB}\).
+                    </p>
+                    <button id="btn-sol-6" onclick="toggleSolution('sol-6')" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-4 py-2 rounded-lg text-sm transition-colors shadow-sm flex items-center">
+                        <i class="fas fa-lightbulb mr-2"></i> Xem Lời Giải & Gợi Ý
+                    </button>
+                    <div id="sol-6" class="hidden bg-slate-50 border-l-4 border-indigo-500 p-4 rounded-r-lg space-y-2 text-sm text-slate-700">
+                        <p>Biến đổi VT - VP:</p>
+                        <p>\[\text{VT} - \text{VP} = (\overrightarrow{AB} - \overrightarrow{AD}) + (\overrightarrow{CD} - \overrightarrow{CB})\]</p>
+                        <p>Theo quy tắc trừ: \(\overrightarrow{AB} - \overrightarrow{AD} = \overrightarrow{DB}\) và \(\overrightarrow{CD} - \overrightarrow{CB} = \overrightarrow{BD}\).</p>
+                        <p>\[\Rightarrow \text{VT} - \text{VP} = \overrightarrow{DB} + \overrightarrow{BD} = \overrightarrow{0}\]</p>
+                        <p>Suy ra \(\text{VT} = \text{VP}\) (ĐPCM).</p>
+                    </div>
+                </div>
+
+                <!-- BÀI 7 -->
+                <div class="bg-white rounded-xl p-6 border border-slate-200 shadow-sm space-y-4">
+                    <span class="inline-block bg-emerald-100 text-emerald-800 font-extrabold px-3 py-1 rounded-lg text-sm">
+                        Bài 7.
+                    </span>
+                    <p class="text-slate-800 leading-relaxed font-medium">
+                        Tính độ dài vectơ tổng: Cho hình vuông \(ABCD\) có cạnh bằng \(a\). Hãy tính độ dài của vectơ \(\overrightarrow{AB} + \overrightarrow{AD}\).
+                    </p>
+
+                    <!-- JSXGraph Model Bài 7 -->
+                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-2">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-bold text-indigo-700 uppercase flex items-center">
+                                <i class="fas fa-cubes mr-1.5"></i> Mô hình JSXGraph: Hình vuông ABCD & Vectơ đường chéo AC
+                            </span>
+                        </div>
+                        <div id="jsxbox-7" class="jxgbox w-full h-80"></div>
+                    </div>
+
+                    <button id="btn-sol-7" onclick="toggleSolution('sol-7')" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-4 py-2 rounded-lg text-sm transition-colors shadow-sm flex items-center">
+                        <i class="fas fa-lightbulb mr-2"></i> Xem Lời Giải & Gợi Ý
+                    </button>
+                    <div id="sol-7" class="hidden bg-slate-50 border-l-4 border-indigo-500 p-4 rounded-r-lg space-y-2 text-sm text-slate-700">
+                        <p>Theo quy tắc hình bình hành trong hình vuông \(ABCD\):</p>
+                        <p>\[\overrightarrow{AB} + \overrightarrow{AD} = \overrightarrow{AC}\]</p>
+                        <p>Do đó độ dài vectơ tổng: \(|\overrightarrow{AB} + \overrightarrow{AD}| = |\overrightarrow{AC}| = AC\).</p>
+                        <p>Đường chéo hình vuông cạnh \(a\) có độ dài \(AC = a\sqrt{2}\). Vậy kết quả là \(a\sqrt{2}\).</p>
+                    </div>
+                </div>
+
+                <!-- BÀI 8 -->
+                <div class="bg-white rounded-xl p-6 border border-slate-200 shadow-sm space-y-4">
+                    <span class="inline-block bg-emerald-100 text-emerald-800 font-extrabold px-3 py-1 rounded-lg text-sm">
+                        Bài 8.
+                    </span>
+                    <p class="text-slate-800 leading-relaxed font-medium">
+                        Tính độ dài vectơ hiệu: Cho tam giác đều \(ABC\) cạnh \(a\). Tính độ dài của vectơ \(\overrightarrow{AB} - \overrightarrow{AC}\).
+                    </p>
+                    <button id="btn-sol-8" onclick="toggleSolution('sol-8')" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-4 py-2 rounded-lg text-sm transition-colors shadow-sm flex items-center">
+                        <i class="fas fa-lightbulb mr-2"></i> Xem Lời Giải & Gợi Ý
+                    </button>
+                    <div id="sol-8" class="hidden bg-slate-50 border-l-4 border-indigo-500 p-4 rounded-r-lg space-y-2 text-sm text-slate-700">
+                        <p>Theo quy tắc trừ chung điểm đầu \(A\):</p>
+                        <p>\[\overrightarrow{AB} - \overrightarrow{AC} = \overrightarrow{CB}\]</p>
+                        <p>Do đó độ dài vectơ hiệu: \(|\overrightarrow{AB} - \overrightarrow{AC}| = |\overrightarrow{CB}| = CB\).</p>
+                        <p>Vì tam giác \(ABC\) đều cạnh \(a\) nên \(CB = a\). Vậy kết quả bằng \(a\).</p>
+                    </div>
+                </div>
+
+                <!-- BÀI 9 -->
+                <div class="bg-white rounded-xl p-6 border border-slate-200 shadow-sm space-y-4">
+                    <span class="inline-block bg-emerald-100 text-emerald-800 font-extrabold px-3 py-1 rounded-lg text-sm">
+                        Bài 9.
+                    </span>
+                    <p class="text-slate-800 leading-relaxed font-medium">
+                        Cho 6 điểm \(A, B, C, D, E, F\). Hãy tính tổng \(\overrightarrow{AB} + \overrightarrow{BC} + \overrightarrow{CD} + \overrightarrow{DE} + \overrightarrow{EF} + \overrightarrow{FA}\).
+                    </p>
+                    <button id="btn-sol-9" onclick="toggleSolution('sol-9')" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-4 py-2 rounded-lg text-sm transition-colors shadow-sm flex items-center">
+                        <i class="fas fa-lightbulb mr-2"></i> Xem Lời Giải & Gợi Ý
+                    </button>
+                    <div id="sol-9" class="hidden bg-slate-50 border-l-4 border-indigo-500 p-4 rounded-r-lg space-y-2 text-sm text-slate-700">
+                        <p>Áp dụng quy tắc cộng nối đuôi liên tiếp cho 6 điểm tạo thành đường gấp khúc khép kín:</p>
+                        <p>\[\overrightarrow{AB} + \overrightarrow{BC} + \overrightarrow{CD} + \overrightarrow{DE} + \overrightarrow{EF} + \overrightarrow{FA} = \overrightarrow{AA} = \overrightarrow{0}\]</p>
+                    </div>
+                </div>
+
+                <!-- BÀI 10 -->
+                <div class="bg-white rounded-xl p-6 border border-slate-200 shadow-sm space-y-4">
+                    <span class="inline-block bg-emerald-100 text-emerald-800 font-extrabold px-3 py-1 rounded-lg text-sm">
+                        Bài 10.
+                    </span>
+                    <p class="text-slate-800 leading-relaxed font-medium">
+                        Cho tam giác \(ABC\). Gọi \(M, N, P\) lần lượt là trung điểm của các cạnh \(AB, BC, CA\). Chứng minh rằng \(\overrightarrow{AM} + \overrightarrow{BN} + \overrightarrow{CP} = \overrightarrow{0}\).
+                    </p>
+                    <button id="btn-sol-10" onclick="toggleSolution('sol-10')" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-4 py-2 rounded-lg text-sm transition-colors shadow-sm flex items-center">
+                        <i class="fas fa-lightbulb mr-2"></i> Xem Lời Giải & Gợi Ý
+                    </button>
+                    <div id="sol-10" class="hidden bg-slate-50 border-l-4 border-indigo-500 p-4 rounded-r-lg space-y-2 text-sm text-slate-700">
+                        <p>Vì \(M, N, P\) là trung điểm của \(AB, BC, CA\) nên:</p>
+                        <p>\[\overrightarrow{AM} = \frac{1}{2}\overrightarrow{AB}, \quad \overrightarrow{BN} = \frac{1}{2}\overrightarrow{BC}, \quad \overrightarrow{CP} = \frac{1}{2}\overrightarrow{CA}\]</p>
+                        <p>Cộng vế theo vế:</p>
+                        <p>\[\overrightarrow{AM} + \overrightarrow{BN} + \overrightarrow{CP} = \frac{1}{2}(\overrightarrow{AB} + \overrightarrow{BC} + \overrightarrow{CA}) = \frac{1}{2}\overrightarrow{AA} = \frac{1}{2}\overrightarrow{0} = \overrightarrow{0} \quad (\text{ĐPCM})\]</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ================= PHẦN 2: NÂNG CAO ================= -->
+        <section class="space-y-6">
+            <div class="flex items-center justify-between bg-gradient-to-r from-blue-700 to-indigo-800 text-white px-6 py-4 rounded-xl shadow-md">
+                <h3 class="text-xl font-extrabold flex items-center">
+                    <i class="fas fa-brain mr-3 text-blue-200"></i> PHẦN 2: CẤP ĐỘ NÂNG CAO (10 BÀI)
+                </h3>
+                <span class="bg-white/20 text-xs px-3 py-1 rounded-full font-bold uppercase tracking-wider">Chứng minh Đẳng thức & Biện luận Quỹ tích</span>
+            </div>
+
+            <div class="grid grid-cols-1 gap-6">
+                <!-- BÀI 11 -->
+                <div class="bg-white rounded-xl p-6 border border-slate-200 shadow-sm space-y-4">
+                    <span class="inline-block bg-blue-100 text-blue-800 font-extrabold px-3 py-1 rounded-lg text-sm">
+                        Bài 11.
+                    </span>
+                    <p class="text-slate-800 leading-relaxed font-medium">
+                        Cho 6 điểm \(A, B, C, D, E, F\). Chứng minh đẳng thức: \(\overrightarrow{AD} + \overrightarrow{BE} + \overrightarrow{CF} = \overrightarrow{AE} + \overrightarrow{BF} + \overrightarrow{CD}\).
+                    </p>
+
+                    <button id="btn-sol-11" onclick="toggleSolution('sol-11')" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-4 py-2 rounded-lg text-sm transition-colors shadow-sm flex items-center">
+                        <i class="fas fa-lightbulb mr-2"></i> Xem Lời Giải & Gợi Ý
+                    </button>
+                    <div id="sol-11" class="hidden bg-slate-50 border-l-4 border-indigo-500 p-4 rounded-r-lg space-y-2 text-sm text-slate-700">
+                        <p>Chèn điểm vào vế trái:</p>
+                        <p>• \(\overrightarrow{AD} = \overrightarrow{AE} + \overrightarrow{ED}\)</p>
+                        <p>• \(\overrightarrow{BE} = \overrightarrow{BF} + \overrightarrow{FE}\)</p>
+                        <p>• \(\overrightarrow{CF} = \overrightarrow{CD} + \overrightarrow{DF}\)</p>
+                        <p>Cộng vế theo vế:</p>
+                        <p>\[\text{VT} = (\overrightarrow{AE} + \overrightarrow{BF} + \overrightarrow{CD}) + (\overrightarrow{ED} + \overrightarrow{FE} + \overrightarrow{DF})\]</p>
+                        <p>Sắp xếp lại nhóm thứ hai: \(\overrightarrow{ED} + \overrightarrow{DF} + \overrightarrow{FE} = \overrightarrow{EE} = \overrightarrow{0}\).</p>
+                        <p>\[\Rightarrow \text{VT} = \overrightarrow{AE} + \overrightarrow{BF} + \overrightarrow{CD} = \text{VP} \quad (\text{ĐPCM})\]</p>
+                    </div>
+                </div>
+
+                <!-- BÀI 12 -->
+                <div class="bg-white rounded-xl p-6 border border-slate-200 shadow-sm space-y-4">
+                    <span class="inline-block bg-blue-100 text-blue-800 font-extrabold px-3 py-1 rounded-lg text-sm">
+                        Bài 12.
+                    </span>
+                    <p class="text-slate-800 leading-relaxed font-medium">
+                        Cho tứ giác \(ABCD\). Gọi \(I, J\) lần lượt là trung điểm của \(AB\) và \(CD\). Chứng minh rằng \(\overrightarrow{AD} + \overrightarrow{BC} = 2\overrightarrow{IJ}\).
+                    </p>
+
+                    <!-- JSXGraph Model Bài 12 -->
+                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-2">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-bold text-indigo-700 uppercase flex items-center">
+                                <i class="fas fa-cubes mr-1.5"></i> Mô hình JSXGraph: Trung điểm I, J & Vectơ IJ của tứ giác ABCD
+                            </span>
+                        </div>
+                        <div id="jsxbox-12" class="jxgbox w-full h-80"></div>
+                    </div>
+
+                    <button id="btn-sol-12" onclick="toggleSolution('sol-12')" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-4 py-2 rounded-lg text-sm transition-colors shadow-sm flex items-center">
+                        <i class="fas fa-lightbulb mr-2"></i> Xem Lời Giải & Gợi Ý
+                    </button>
+                    <div id="sol-12" class="hidden bg-slate-50 border-l-4 border-indigo-500 p-4 rounded-r-lg space-y-2 text-sm text-slate-700">
+                        <p>Biến đổi bằng cách chèn điểm \(I\) và \(J\):</p>
+                        <p>• \(\overrightarrow{AD} = \overrightarrow{AI} + \overrightarrow{IJ} + \overrightarrow{JD}\)</p>
+                        <p>• \(\overrightarrow{BC} = \overrightarrow{BI} + \overrightarrow{IJ} + \overrightarrow{JC}\)</p>
+                        <p>Cộng hai đẳng thức lại:</p>
+                        <p>\[\overrightarrow{AD} + \overrightarrow{BC} = 2\overrightarrow{IJ} + (\overrightarrow{AI} + \overrightarrow{BI}) + (\overrightarrow{JD} + \overrightarrow{JC})\]</p>
+                        <p>Vì \(I\) là trung điểm \(AB \Rightarrow \overrightarrow{AI} + \overrightarrow{BI} = \overrightarrow{0}\). Vì \(J\) là trung điểm \(CD \Rightarrow \overrightarrow{JD} + \overrightarrow{JC} = \overrightarrow{0}\).</p>
+                        <p>\[\Rightarrow \overrightarrow{AD} + \overrightarrow{BC} = 2\overrightarrow{IJ} \quad (\text{ĐPCM})\]</p>
+                    </div>
+                </div>
+
+                <!-- BÀI 13 -->
+                <div class="bg-white rounded-xl p-6 border border-slate-200 shadow-sm space-y-4">
+                    <span class="inline-block bg-blue-100 text-blue-800 font-extrabold px-3 py-1 rounded-lg text-sm">
+                        Bài 13.
+                    </span>
+                    <p class="text-slate-800 leading-relaxed font-medium">
+                        Cho hai tam giác \(ABC\) và \(A'B'C'\) có trọng tâm lần lượt là \(G\) và \(G'\). Chứng minh rằng \(\overrightarrow{AA'} + \overrightarrow{BB'} + \overrightarrow{CC'} = 3\overrightarrow{GG'}\).
+                    </p>
+                    <button id="btn-sol-13" onclick="toggleSolution('sol-13')" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-4 py-2 rounded-lg text-sm transition-colors shadow-sm flex items-center">
+                        <i class="fas fa-lightbulb mr-2"></i> Xem Lời Giải & Gợi Ý
+                    </button>
+                    <div id="sol-13" class="hidden bg-slate-50 border-l-4 border-indigo-500 p-4 rounded-r-lg space-y-2 text-sm text-slate-700">
+                        <p>Chèn điểm \(G\) và \(G'\) vào các vectơ vế trái:</p>
+                        <p>• \(\overrightarrow{AA'} = \overrightarrow{AG} + \overrightarrow{GG'} + \overrightarrow{G'A'}\)</p>
+                        <p>• \(\overrightarrow{BB'} = \overrightarrow{BG} + \overrightarrow{GG'} + \overrightarrow{G'B'}\)</p>
+                        <p>• \(\overrightarrow{CC'} = \overrightarrow{CG} + \overrightarrow{GG'} + \overrightarrow{G'C'}\)</p>
+                        <p>Cộng vế theo vế:</p>
+                        <p>\[\text{VT} = 3\overrightarrow{GG'} + (\overrightarrow{AG} + \overrightarrow{BG} + \overrightarrow{CG}) + (\overrightarrow{G'A'} + \overrightarrow{G'B'} + \overrightarrow{G'C'})\]</p>
+                        <p>Do \(G\) là trọng tâm \(\Delta ABC \Rightarrow \overrightarrow{AG} + \overrightarrow{BG} + \overrightarrow{CG} = \overrightarrow{0}\).</p>
+                        <p>Do \(G'\) là trọng tâm \(\Delta A'B'C' \Rightarrow \overrightarrow{G'A'} + \overrightarrow{G'B'} + \overrightarrow{G'C'} = \overrightarrow{0}\).</p>
+                        <p>\[\Rightarrow \text{VT} = 3\overrightarrow{GG'} \quad (\text{ĐPCM})\]</p>
+                    </div>
+                </div>
+
+                <!-- BÀI 14 -->
+                <div class="bg-white rounded-xl p-6 border border-slate-200 shadow-sm space-y-4">
+                    <span class="inline-block bg-blue-100 text-blue-800 font-extrabold px-3 py-1 rounded-lg text-sm">
+                        Bài 14.
+                    </span>
+                    <p class="text-slate-800 leading-relaxed font-medium">
+                        Từ đẳng thức ở Bài 13, suy ra điều kiện cần và đủ để hai tam giác \(ABC\) và \(A'B'C'\) có cùng trọng tâm là gì?
+                    </p>
+                    <button id="btn-sol-14" onclick="toggleSolution('sol-14')" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-4 py-2 rounded-lg text-sm transition-colors shadow-sm flex items-center">
+                        <i class="fas fa-lightbulb mr-2"></i> Xem Lời Giải & Gợi Ý
+                    </button>
+                    <div id="sol-14" class="hidden bg-slate-50 border-l-4 border-indigo-500 p-4 rounded-r-lg space-y-2 text-sm text-slate-700">
+                        <p>Hai tam giác \(ABC\) và \(A'B'C'\) có cùng trọng tâm \(\iff G \equiv G' \iff \overrightarrow{GG'} = \overrightarrow{0}\).</p>
+                        <p>Thay vào công thức Bài 13, điều kiện cần và đủ là:</p>
+                        <p>\[\overrightarrow{AA'} + \overrightarrow{BB'} + \overrightarrow{CC'} = \overrightarrow{0}\]</p>
+                    </div>
+                </div>
+
+                <!-- BÀI 15 -->
+                <div class="bg-white rounded-xl p-6 border border-slate-200 shadow-sm space-y-4">
+                    <span class="inline-block bg-blue-100 text-blue-800 font-extrabold px-3 py-1 rounded-lg text-sm">
+                        Bài 15.
+                    </span>
+                    <p class="text-slate-800 leading-relaxed font-medium">
+                        Xác định vị trí điểm: Cho tam giác \(ABC\). Hãy xác định điểm \(M\) thỏa mãn điều kiện: \(\overrightarrow{MA} + 2\overrightarrow{MB} = \overrightarrow{0}\).
+                    </p>
+                    <button id="btn-sol-15" onclick="toggleSolution('sol-15')" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-4 py-2 rounded-lg text-sm transition-colors shadow-sm flex items-center">
+                        <i class="fas fa-lightbulb mr-2"></i> Xem Lời Giải & Gợi Ý
+                    </button>
+                    <div id="sol-15" class="hidden bg-slate-50 border-l-4 border-indigo-500 p-4 rounded-r-lg space-y-2 text-sm text-slate-700">
+                        <p>Biến đổi hệ thức:</p>
+                        <p>\[\overrightarrow{MA} + 2\overrightarrow{MB} = \overrightarrow{0} \iff \overrightarrow{MA} = -2\overrightarrow{MB} \iff \overrightarrow{AM} = 2\overrightarrow{MB}\]</p>
+                        <p>• Nhận xét: Vectơ \(\overrightarrow{AM}\) cùng hướng với \(\overrightarrow{MB}\), do đó điểm \(M\) nằm giữa hai điểm \(A\) và \(B\).</p>
+                        <p>• Về độ dài: \(AM = 2MB\).</p>
+                        <p><strong>Kết luận:</strong> Điểm \(M\) thuộc đoạn thẳng \(AB\) sao cho \(AM = \frac{2}{3}AB\).</p>
+                    </div>
+                </div>
+
+                <!-- BÀI 16 -->
+                <div class="bg-white rounded-xl p-6 border border-slate-200 shadow-sm space-y-4">
+                    <span class="inline-block bg-blue-100 text-blue-800 font-extrabold px-3 py-1 rounded-lg text-sm">
+                        Bài 16.
+                    </span>
+                    <p class="text-slate-800 leading-relaxed font-medium">
+                        Bài toán quỹ tích: Cho hai điểm \(A, B\) phân biệt. Tìm tập hợp các điểm \(M\) trong mặt phẳng thỏa mãn điều kiện: \(|\overrightarrow{MA} + \overrightarrow{MB}| = |\overrightarrow{MA} - \overrightarrow{MB}|\).
+                    </p>
+
+                    <!-- JSXGraph Model Bài 16 -->
+                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-2">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-bold text-indigo-700 uppercase flex items-center">
+                                <i class="fas fa-cubes mr-1.5"></i> Mô hình JSXGraph: Quỹ tích điểm M tạo đường tròn đường kính AB
+                            </span>
+                        </div>
+                        <div id="jsxbox-16" class="jxgbox w-full h-80"></div>
+                    </div>
+
+                    <button id="btn-sol-16" onclick="toggleSolution('sol-16')" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-4 py-2 rounded-lg text-sm transition-colors shadow-sm flex items-center">
+                        <i class="fas fa-lightbulb mr-2"></i> Xem Lời Giải & Gợi Ý
+                    </button>
+                    <div id="sol-16" class="hidden bg-slate-50 border-l-4 border-indigo-500 p-4 rounded-r-lg space-y-2 text-sm text-slate-700">
+                        <p>Gọi \(I\) là trung điểm của đoạn thẳng \(AB\).</p>
+                        <p>• Vế trái: \(\overrightarrow{MA} + \overrightarrow{MB} = 2\overrightarrow{MI} \Rightarrow |\overrightarrow{MA} + \overrightarrow{MB}| = 2MI\).</p>
+                        <p>• Vế phải: \(\overrightarrow{MA} - \overrightarrow{MB} = \overrightarrow{BA} \Rightarrow |\overrightarrow{MA} - \overrightarrow{MB}| = BA\).</p>
+                        <p>Thay vào đẳng thức đề bài:</p>
+                        <p>\[2MI = BA \iff MI = \frac{AB}{2}\]</p>
+                        <p><strong>Kết luận:</strong> Tập hợp các điểm \(M\) là <strong>Đường tròn tâm I (trung điểm AB) bán kính R = AB/2</strong> (tức là đường tròn đường kính \(AB\)).</p>
+                    </div>
+                </div>
+
+                <!-- BÀI 17 -->
+                <div class="bg-white rounded-xl p-6 border border-slate-200 shadow-sm space-y-4">
+                    <span class="inline-block bg-blue-100 text-blue-800 font-extrabold px-3 py-1 rounded-lg text-sm">
+                        Bài 17.
+                    </span>
+                    <p class="text-slate-800 leading-relaxed font-medium">
+                        Cho hình chữ nhật \(ABCD\) tâm \(O\). Gọi \(M\) là một điểm tùy ý. Chứng minh rằng: \(\overrightarrow{MA} + \overrightarrow{MC} = \overrightarrow{MB} + \overrightarrow{MD}\).
+                    </p>
+                    <button id="btn-sol-17" onclick="toggleSolution('sol-17')" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-4 py-2 rounded-lg text-sm transition-colors shadow-sm flex items-center">
+                        <i class="fas fa-lightbulb mr-2"></i> Xem Lời Giải & Gợi Ý
+                    </button>
+                    <div id="sol-17" class="hidden bg-slate-50 border-l-4 border-indigo-500 p-4 rounded-r-lg space-y-2 text-sm text-slate-700">
+                        <p>Vì \(ABCD\) là hình chữ nhật tâm \(O\) nên \(O\) là trung điểm của cả hai đường chéo \(AC\) và \(BD\).</p>
+                        <p>• Áp dụng tính chất trung điểm với điểm \(M\) bất kì:</p>
+                        <p>\[\overrightarrow{MA} + \overrightarrow{MC} = 2\overrightarrow{MO}\]</p>
+                        <p>\[\overrightarrow{MB} + \overrightarrow{MD} = 2\overrightarrow{MO}\]</p>
+                        <p>Suy ra \(\overrightarrow{MA} + \overrightarrow{MC} = \overrightarrow{MB} + \overrightarrow{MD}\) (ĐPCM).</p>
+                    </div>
+                </div>
+
+                <!-- BÀI 18 -->
+                <div class="bg-white rounded-xl p-6 border border-slate-200 shadow-sm space-y-4">
+                    <span class="inline-block bg-blue-100 text-blue-800 font-extrabold px-3 py-1 rounded-lg text-sm">
+                        Bài 18.
+                    </span>
+                    <p class="text-slate-800 leading-relaxed font-medium">
+                        Cho lục giác đều \(ABCDEF\) tâm \(O\). Chứng minh rằng \(\overrightarrow{OA} + \overrightarrow{OB} + \overrightarrow{OC} + \overrightarrow{OD} + \overrightarrow{OE} + \overrightarrow{OF} = \overrightarrow{0}\).
+                    </p>
+                    <button id="btn-sol-18" onclick="toggleSolution('sol-18')" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-4 py-2 rounded-lg text-sm transition-colors shadow-sm flex items-center">
+                        <i class="fas fa-lightbulb mr-2"></i> Xem Lời Giải & Gợi Ý
+                    </button>
+                    <div id="sol-18" class="hidden bg-slate-50 border-l-4 border-indigo-500 p-4 rounded-r-lg space-y-2 text-sm text-slate-700">
+                        <p>Trong lục giác đều tâm \(O\), các đường chéo chính cắt nhau tại \(O\) và \(O\) là trung điểm của các đoạn \(AD, BE, CF\).</p>
+                        <p>• Nhóm các cặp vectơ đối nhau:</p>
+                        <p>\[\overrightarrow{OA} + \overrightarrow{OD} = \overrightarrow{0}, \quad \overrightarrow{OB} + \overrightarrow{OE} = \overrightarrow{0}, \quad \overrightarrow{OC} + \overrightarrow{OF} = \overrightarrow{0}\]</p>
+                        <p>Cộng cả 3 nhóm lại:</p>
+                        <p>\[(\overrightarrow{OA} + \overrightarrow{OD}) + (\overrightarrow{OB} + \overrightarrow{OE}) + (\overrightarrow{OC} + \overrightarrow{OF}) = \overrightarrow{0} + \overrightarrow{0} + \overrightarrow{0} = \overrightarrow{0} \quad (\text{ĐPCM})\]</p>
+                    </div>
+                </div>
+
+                <!-- BÀI 19 -->
+                <div class="bg-white rounded-xl p-6 border border-slate-200 shadow-sm space-y-4">
+                    <span class="inline-block bg-blue-100 text-blue-800 font-extrabold px-3 py-1 rounded-lg text-sm">
+                        Bài 19.
+                    </span>
+                    <p class="text-slate-800 leading-relaxed font-medium">
+                        Cho tam giác \(ABC\) có trọng tâm \(G\). Lấy điểm \(M\) tùy ý, chứng minh rằng: \(\overrightarrow{MA} + \overrightarrow{MB} + \overrightarrow{MC} = 3\overrightarrow{MG}\).
+                    </p>
+                    <button id="btn-sol-19" onclick="toggleSolution('sol-19')" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-4 py-2 rounded-lg text-sm transition-colors shadow-sm flex items-center">
+                        <i class="fas fa-lightbulb mr-2"></i> Xem Lời Giải & Gợi Ý
+                    </button>
+                    <div id="sol-19" class="hidden bg-slate-50 border-l-4 border-indigo-500 p-4 rounded-r-lg space-y-2 text-sm text-slate-700">
+                        <p>Chèn điểm \(G\) vào các vectơ ở vế trái:</p>
+                        <p>• \(\overrightarrow{MA} = \overrightarrow{MG} + \overrightarrow{GA}\)</p>
+                        <p>• \(\overrightarrow{MB} = \overrightarrow{MG} + \overrightarrow{GB}\)</p>
+                        <p>• \(\overrightarrow{MC} = \overrightarrow{MG} + \overrightarrow{GC}\)</p>
+                        <p>Cộng vế theo vế:</p>
+                        <p>\[\text{VT} = 3\overrightarrow{MG} + (\overrightarrow{GA} + \overrightarrow{GB} + \overrightarrow{GC})\]</p>
+                        <p>Vì \(G\) là trọng tâm \(\Delta ABC \Rightarrow \overrightarrow{GA} + \overrightarrow{GB} + \overrightarrow{GC} = \overrightarrow{0}\).</p>
+                        <p>\[\Rightarrow \text{VT} = 3\overrightarrow{MG} \quad (\text{ĐPCM})\]</p>
+                    </div>
+                </div>
+
+                <!-- BÀI 20 -->
+                <div class="bg-white rounded-xl p-6 border border-slate-200 shadow-sm space-y-4">
+                    <span class="inline-block bg-blue-100 text-blue-800 font-extrabold px-3 py-1 rounded-lg text-sm">
+                        Bài 20.
+                    </span>
+                    <p class="text-slate-800 leading-relaxed font-medium">
+                        Cho hình thoi \(ABCD\) có góc \(\widehat{BAD} = 60^\circ\) và cạnh bằng \(a\). Tính độ dài của vectơ \(\overrightarrow{AB} + \overrightarrow{AD}\) và \(\overrightarrow{AB} - \overrightarrow{AD}\).
+                    </p>
+                    <button id="btn-sol-20" onclick="toggleSolution('sol-20')" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-4 py-2 rounded-lg text-sm transition-colors shadow-sm flex items-center">
+                        <i class="fas fa-lightbulb mr-2"></i> Xem Lời Giải & Gợi Ý
+                    </button>
+                    <div id="sol-20" class="hidden bg-slate-50 border-l-4 border-indigo-500 p-4 rounded-r-lg space-y-2 text-sm text-slate-700">
+                        <p>• \(\overrightarrow{AB} + \overrightarrow{AD} = \overrightarrow{AC}\). Tam giác \(ABD\) cân tại \(A\) có góc \(60^\circ\) nên là tam giác đều cạnh \(a \Rightarrow BD = a\). Đường chéo \(AC = 2 \times \frac{a\sqrt{3}}{2} = a\sqrt{3}\).</p>
+                        <p>\[\Rightarrow |\overrightarrow{AB} + \overrightarrow{AD}| = |\overrightarrow{AC}| = a\sqrt{3}\]</p>
+                        <p>• \(\overrightarrow{AB} - \overrightarrow{AD} = \overrightarrow{DB}\).</p>
+                        <p>\[\Rightarrow |\overrightarrow{AB} - \overrightarrow{AD}| = |\overrightarrow{DB}| = BD = a\]</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ================= PHẦN 3: VẬN DỤNG THỰC TIỄN ================= -->
+        <section class="space-y-6">
+            <div class="flex items-center justify-between bg-gradient-to-r from-purple-700 to-pink-800 text-white px-6 py-4 rounded-xl shadow-md">
+                <h3 class="text-xl font-extrabold flex items-center">
+                    <i class="fas fa-compass mr-3 text-pink-200"></i> PHẦN 3: CẤP ĐỘ VẬN DỤNG THỰC TIỄN (10 BÀI)
+                </h3>
+                <span class="bg-white/20 text-xs px-3 py-1 rounded-full font-bold uppercase tracking-wider">Ứng dụng Tổng hợp lực & Vận tốc</span>
+            </div>
+
+            <div class="grid grid-cols-1 gap-6">
+                <!-- BÀI 21 -->
+                <div class="bg-white rounded-xl p-6 border border-slate-200 shadow-sm space-y-4">
+                    <span class="inline-block bg-purple-100 text-purple-800 font-extrabold px-3 py-1 rounded-lg text-sm">
+                        Bài 21. <span class="font-normal text-slate-600">(Tổng hợp lực)</span>
+                    </span>
+                    <p class="text-slate-800 leading-relaxed font-medium">
+                        Hai lực \(\overrightarrow{F_1}\) và \(\overrightarrow{F_2}\) cùng tác động vào một vật tại điểm \(M\). Biết độ lớn của hai lực đều là \(100\text{ N}\) và góc tạo bởi hai lực là \(\widehat{AMB} = 60^\circ\). Tính độ lớn của hợp lực tác động lên vật.
+                    </p>
+
+                    <!-- JSXGraph Model Bài 21 -->
+                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-2">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-bold text-indigo-700 uppercase flex items-center">
+                                <i class="fas fa-cubes mr-1.5"></i> Mô hình JSXGraph: Hợp lực hai vectơ F1, F2 tạo góc 60°
+                            </span>
+                        </div>
+                        <div id="jsxbox-21" class="jxgbox w-full h-80"></div>
+                    </div>
+
+                    <button id="btn-sol-21" onclick="toggleSolution('sol-21')" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-4 py-2 rounded-lg text-sm transition-colors shadow-sm flex items-center">
+                        <i class="fas fa-lightbulb mr-2"></i> Xem Lời Giải & Gợi Ý
+                    </button>
+                    <div id="sol-21" class="hidden bg-slate-50 border-l-4 border-indigo-500 p-4 rounded-r-lg space-y-2 text-sm text-slate-700">
+                        <p>Dựng hình bình hành \(MACB\) biểu diễn tổng hợp lực \(\vec{F} = \overrightarrow{F_1} + \overrightarrow{F_2} = \overrightarrow{MC}\).</p>
+                        <p>Vì \(MA = MB = 100\text{ N}\) và \(\widehat{AMB} = 60^\circ\) nên \(MACB\) là hình thoi gồm 2 tam giác đều ghép lại.</p>
+                        <p>Độ lớn hợp lực: \(F = MC = 2 \times 100 \times \cos 30^\circ = 200 \times \frac{\sqrt{3}}{2} = 100\sqrt{3} \approx 173,2\text{ N}\).</p>
+                    </div>
+                </div>
+
+                <!-- BÀI 22 -->
+                <div class="bg-white rounded-xl p-6 border border-slate-200 shadow-sm space-y-4">
+                    <span class="inline-block bg-purple-100 text-purple-800 font-extrabold px-3 py-1 rounded-lg text-sm">
+                        Bài 22. <span class="font-normal text-slate-600">(Cân bằng 3 lực)</span>
+                    </span>
+                    <p class="text-slate-800 leading-relaxed font-medium">
+                        Trạng thái cân bằng: Một vật đứng yên dưới tác dụng của ba lực \(\overrightarrow{F_1}, \overrightarrow{F_2}, \overrightarrow{F_3}\). Cho biết \(\overrightarrow{F_1}\) và \(\overrightarrow{F_2}\) có phương vuông góc với nhau và có độ lớn lần lượt là \(30\text{ N}\) và \(40\text{ N}\). Tìm độ lớn và hướng của lực \(\overrightarrow{F_3}\).
+                    </p>
+                    <button id="btn-sol-22" onclick="toggleSolution('sol-22')" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-4 py-2 rounded-lg text-sm transition-colors shadow-sm flex items-center">
+                        <i class="fas fa-lightbulb mr-2"></i> Xem Lời Giải & Gợi Ý
+                    </button>
+                    <div id="sol-22" class="hidden bg-slate-50 border-l-4 border-indigo-500 p-4 rounded-r-lg space-y-2 text-sm text-slate-700">
+                        <p>Để vật đứng yên cân bằng: \(\overrightarrow{F_1} + \overrightarrow{F_2} + \overrightarrow{F_3} = \overrightarrow{0} \iff \overrightarrow{F_3} = -(\overrightarrow{F_1} + \overrightarrow{F_2})\).</p>
+                        <p>• Do \(\overrightarrow{F_1} \perp \overrightarrow{F_2}\) nên độ lớn của hợp lực \(|\overrightarrow{F_1} + \overrightarrow{F_2}| = \sqrt{F_1^2 + F_2^2} = \sqrt{30^2 + 40^2} = 50\text{ N}\).</p>
+                        <p>• Kết luận: Lực \(\overrightarrow{F_3}\) có độ lớn bằng \(50\text{ N}\) và có hướng <strong>ngược hướng</strong> với vectơ hợp lực \(\overrightarrow{F_1} + \overrightarrow{F_2}\).</p>
+                    </div>
+                </div>
+
+                <!-- BÀI 23 -->
+                <div class="bg-white rounded-xl p-6 border border-slate-200 shadow-sm space-y-4">
+                    <span class="inline-block bg-purple-100 text-purple-800 font-extrabold px-3 py-1 rounded-lg text-sm">
+                        Bài 23. <span class="font-normal text-slate-600">(Vận tốc máy bay khi có gió)</span>
+                    </span>
+                    <p class="text-slate-800 leading-relaxed font-medium">
+                        Một máy bay bay với vectơ vận tốc \(\vec{v}\) chỉ hướng bắc, vận tốc gió là một vectơ \(\vec{a}\) theo hướng đông. Biết độ lớn vận tốc máy bay là \(200\text{ km/h}\), vận tốc gió là \(60\text{ km/h}\). Tính độ dài vectơ tổng của hai vectơ nói trên (vận tốc thực tế của máy bay).
+                    </p>
+                    <button id="btn-sol-23" onclick="toggleSolution('sol-23')" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-4 py-2 rounded-lg text-sm transition-colors shadow-sm flex items-center">
+                        <i class="fas fa-lightbulb mr-2"></i> Xem Lời Giải & Gợi Ý
+                    </button>
+                    <div id="sol-23" class="hidden bg-slate-50 border-l-4 border-indigo-500 p-4 rounded-r-lg space-y-2 text-sm text-slate-700">
+                        <p>Hướng Bắc và hướng Đông vuông góc với nhau \(\Rightarrow \vec{v} \perp \vec{a}\).</p>
+                        <p>Vận tốc thực tế \(\vec{v}_{tt} = \vec{v} + \vec{a}\).</p>
+                        <p>Theo quy tắc hình chữ nhật (định lí Pythagore):</p>
+                        <p>\[v_{tt} = |\vec{v} + \vec{a}| = \sqrt{v^2 + a^2} = \sqrt{200^2 + 60^2} = \sqrt{43600} \approx 208,8\text{ km/h}\]</p>
+                    </div>
+                </div>
+
+                <!-- BÀI 24 -->
+                <div class="bg-white rounded-xl p-6 border border-slate-200 shadow-sm space-y-4">
+                    <span class="inline-block bg-purple-100 text-purple-800 font-extrabold px-3 py-1 rounded-lg text-sm">
+                        Bài 24. <span class="font-normal text-slate-600">(Thuyền chèo qua sông)</span>
+                    </span>
+                    <p class="text-slate-800 leading-relaxed font-medium">
+                        Một con tàu chuyển động từ bờ bên này sang bờ bên kia của một dòng sông với vận tốc riêng là \(30\text{ km/h}\) hướng thẳng góc với bờ. Dòng nước chảy với vận tốc \(10\text{ km/h}\). Tính vận tốc thực tế của con tàu và góc lệch của tàu so với phương ngang.
+                    </p>
+
+                    <!-- JSXGraph Model Bài 24 -->
+                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-2">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-bold text-indigo-700 uppercase flex items-center">
+                                <i class="fas fa-cubes mr-1.5"></i> Mô hình JSXGraph: Tàu chèo qua sông bị nước đẩy lệch
+                            </span>
+                        </div>
+                        <div id="jsxbox-24" class="jxgbox w-full h-80"></div>
+                    </div>
+
+                    <button id="btn-sol-24" onclick="toggleSolution('sol-24')" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-4 py-2 rounded-lg text-sm transition-colors shadow-sm flex items-center">
+                        <i class="fas fa-lightbulb mr-2"></i> Xem Lời Giải & Gợi Ý
+                    </button>
+                    <div id="sol-24" class="hidden bg-slate-50 border-l-4 border-indigo-500 p-4 rounded-r-lg space-y-2 text-sm text-slate-700">
+                        <p>• Vận tốc thực tế: \(v = \sqrt{v_{tàu}^2 + v_{nước}^2} = \sqrt{30^2 + 10^2} = \sqrt{1000} \approx 31,62\text{ km/h}\).</p>
+                        <p>• Góc lệch \(\alpha\) so với bờ sông (phương ngang): \(\tan \alpha = \frac{v_{tàu}}{v_{nước}} = \frac{30}{10} = 3 \Rightarrow \alpha \approx 71,57^\circ\) (hoặc lệch \(18,43^\circ\) so với phương vuông góc bờ).</p>
+                    </div>
+                </div>
+
+                <!-- BÀI 25 -->
+                <div class="bg-white rounded-xl p-6 border border-slate-200 shadow-sm space-y-4">
+                    <span class="inline-block bg-purple-100 text-purple-800 font-extrabold px-3 py-1 rounded-lg text-sm">
+                        Bài 25. <span class="font-normal text-slate-600">(Kéo thuyền dọc kênh)</span>
+                    </span>
+                    <p class="text-slate-800 leading-relaxed font-medium">
+                        Hai người đi dọc hai bên bờ kênh và cùng kéo một con thuyền với hai lực \(\overrightarrow{F_1}\) và \(\overrightarrow{F_2}\). Biết \(|\overrightarrow{F_1}| = 50\text{ N}\), \(|\overrightarrow{F_2}| = 40\text{ N}\) và góc tạo bởi hai lực bằng \(60^\circ\). Hợp lực tác động lên thuyền có độ lớn bằng bao nhiêu?
+                    </p>
+                    <button id="btn-sol-25" onclick="toggleSolution('sol-25')" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-4 py-2 rounded-lg text-sm transition-colors shadow-sm flex items-center">
+                        <i class="fas fa-lightbulb mr-2"></i> Xem Lời Giải & Gợi Ý
+                    </button>
+                    <div id="sol-25" class="hidden bg-slate-50 border-l-4 border-indigo-500 p-4 rounded-r-lg space-y-2 text-sm text-slate-700">
+                        <p>Áp dụng công thức tính độ lớn hợp lực theo quy tắc hình bình hành:</p>
+                        <p>\[F^2 = F_1^2 + F_2^2 + 2F_1F_2\cos 60^\circ = 50^2 + 40^2 + 2 \cdot 50 \cdot 40 \cdot 0,5 = 2500 + 1600 + 2000 = 6100\]</p>
+                        <p>Độ lớn hợp lực: \(F = \sqrt{6100} \approx 78,1\text{ N}\).</p>
+                    </div>
+                </div>
+
+                <!-- BÀI 26 -->
+                <div class="bg-white rounded-xl p-6 border border-slate-200 shadow-sm space-y-4">
+                    <span class="inline-block bg-purple-100 text-purple-800 font-extrabold px-3 py-1 rounded-lg text-sm">
+                        Bài 26. <span class="font-normal text-slate-600">(Thay đổi hướng bay)</span>
+                    </span>
+                    <p class="text-slate-800 leading-relaxed font-medium">
+                        Một máy bay đang bay từ hướng đông sang hướng tây với tốc độ \(250\text{ km/h}\) thì gặp luồng gió thổi từ hướng đông bắc sang hướng tây nam với tốc độ \(50\text{ km/h}\). Tìm tốc độ mới của máy bay (làm tròn đến hàng đơn vị).
+                    </p>
+                    <button id="btn-sol-26" onclick="toggleSolution('sol-26')" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-4 py-2 rounded-lg text-sm transition-colors shadow-sm flex items-center">
+                        <i class="fas fa-lightbulb mr-2"></i> Xem Lời Giải & Gợi Ý
+                    </button>
+                    <div id="sol-26" class="hidden bg-slate-50 border-l-4 border-indigo-500 p-4 rounded-r-lg space-y-2 text-sm text-slate-700">
+                        <p>• Hướng Tây là góc \(180^\circ\). Hướng Đông Bắc sang Tây Nam là góc \(225^\circ\).</p>
+                        <p>• Góc giữa vectơ vận tốc máy bay và vectơ vận tốc gió là \(\theta = 45^\circ\).</p>
+                        <p>• Tốc độ mới: \(v^2 = 250^2 + 50^2 + 2 \cdot 250 \cdot 50 \cdot \cos 45^\circ \approx 62500 + 2500 + 17677,67 = 82677,67\).</p>
+                        <p>\[v = \sqrt{82677,67} \approx 287,5 \approx 288\text{ km/h}\]</p>
+                    </div>
+                </div>
+
+                <!-- BÀI 27 -->
+                <div class="bg-white rounded-xl p-6 border border-slate-200 shadow-sm space-y-4">
+                    <span class="inline-block bg-purple-100 text-purple-800 font-extrabold px-3 py-1 rounded-lg text-sm">
+                        Bài 27. <span class="font-normal text-slate-600">(Cùng kéo và đẩy ô tô)</span>
+                    </span>
+                    <p class="text-slate-800 leading-relaxed font-medium">
+                        Một chiếc xe ô tô con bị mắc kẹt trong bùn lầy. Để kéo xe ra, người ta dùng một xe tải kéo với cáp tạo một lực \(\overrightarrow{F_1}\) có độ lớn \(1500\text{ N}\) theo phương ngang. Đồng thời, một nhóm người đẩy xe từ phía sau với lực \(\overrightarrow{F_2}\) có độ lớn \(400\text{ N}\) hợp với phương ngang một góc \(30^\circ\). Bỏ qua ma sát, tính độ lớn của tổng lực tác dụng lên xe.
+                    </p>
+                    <button id="btn-sol-27" onclick="toggleSolution('sol-27')" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-4 py-2 rounded-lg text-sm transition-colors shadow-sm flex items-center">
+                        <i class="fas fa-lightbulb mr-2"></i> Xem Lời Giải & Gợi Ý
+                    </button>
+                    <div id="sol-27" class="hidden bg-slate-50 border-l-4 border-indigo-500 p-4 rounded-r-lg space-y-2 text-sm text-slate-700">
+                        <p>Góc giữa hai lực kéo và đẩy là \(\alpha = 30^\circ\).</p>
+                        <p>\[F^2 = F_1^2 + F_2^2 + 2F_1F_2\cos 30^\circ = 1500^2 + 400^2 + 2 \cdot 1500 \cdot 400 \cdot \frac{\sqrt{3}}{2}\]</p>
+                        <p>\[F^2 = 2250000 + 160000 + 1039230,48 = 3449230,48 \Rightarrow F \approx 1857,2\text{ N}\]</p>
+                    </div>
+                </div>
+
+                <!-- BÀI 28 -->
+                <div class="bg-white rounded-xl p-6 border border-slate-200 shadow-sm space-y-4">
+                    <span class="inline-block bg-purple-100 text-purple-800 font-extrabold px-3 py-1 rounded-lg text-sm">
+                        Bài 28. <span class="font-normal text-slate-600">(Vật treo dây cáp cân bằng)</span>
+                    </span>
+                    <p class="text-slate-800 leading-relaxed font-medium">
+                        Cần trục: Một vật nặng được treo bởi hai sợi dây cáp cố định vào trần nhà. Sợi dây thứ nhất chịu lực căng \(\overrightarrow{T_1}\), sợi thứ hai chịu lực căng \(\overrightarrow{T_2}\). Vật nặng chịu trọng lực \(\overrightarrow{P}\) có độ lớn \(500\text{ N}\). Để vật cân bằng, tổng các lực tác dụng lên vật phải bằng vectơ \(\overrightarrow{0}\). Viết hệ thức vectơ biểu diễn sự cân bằng này.
+                    </p>
+                    <button id="btn-sol-28" onclick="toggleSolution('sol-28')" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-4 py-2 rounded-lg text-sm transition-colors shadow-sm flex items-center">
+                        <i class="fas fa-lightbulb mr-2"></i> Xem Lời Giải & Gợi Ý
+                    </button>
+                    <div id="sol-28" class="hidden bg-slate-50 border-l-4 border-indigo-500 p-4 rounded-r-lg space-y-2 text-sm text-slate-700">
+                        <p>Điều kiện cân bằng lực tác dụng lên điểm treo vật nặng:</p>
+                        <p>\[\overrightarrow{T_1} + \overrightarrow{T_2} + \overrightarrow{P} = \overrightarrow{0}\]</p>
+                        <p>Suy ra lực tổng hợp của hai lực căng dây \(\overrightarrow{T_1} + \overrightarrow{T_2} = -\overrightarrow{P}\) (có độ lớn bằng \(500\text{ N}\) và hướng thẳng đứng lên trên).</p>
+                    </div>
+                </div>
+
+                <!-- BÀI 29 -->
+                <div class="bg-white rounded-xl p-6 border border-slate-200 shadow-sm space-y-4">
+                    <span class="inline-block bg-purple-100 text-purple-800 font-extrabold px-3 py-1 rounded-lg text-sm">
+                        Bài 29. <span class="font-normal text-slate-600">(Khinh khí cầu)</span>
+                    </span>
+                    <p class="text-slate-800 leading-relaxed font-medium">
+                        Một khinh khí cầu đang bay lên thẳng đứng với vận tốc \(5\text{ m/s}\). Bỗng có một luồng gió thổi ngang với vận tốc \(2\text{ m/s}\). Vận tốc thực tế của khinh khí cầu (so với mặt đất) là bao nhiêu?
+                    </p>
+                    <button id="btn-sol-29" onclick="toggleSolution('sol-29')" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-4 py-2 rounded-lg text-sm transition-colors shadow-sm flex items-center">
+                        <i class="fas fa-lightbulb mr-2"></i> Xem Lời Giải & Gợi Ý
+                    </button>
+                    <div id="sol-29" class="hidden bg-slate-50 border-l-4 border-indigo-500 p-4 rounded-r-lg space-y-2 text-sm text-slate-700">
+                        <p>Vận tốc đứng và vận tốc gió ngang vuông góc với nhau.</p>
+                        <p>Vận tốc thực tế: \(v = \sqrt{v_{đứng}^2 + v_{ngang}^2} = \sqrt{5^2 + 2^2} = \sqrt{29} \approx 5,39\text{ m/s}\).</p>
+                    </div>
+                </div>
+
+                <!-- BÀI 30 -->
+                <div class="bg-white rounded-xl p-6 border border-slate-200 shadow-sm space-y-4">
+                    <span class="inline-block bg-purple-100 text-purple-800 font-extrabold px-3 py-1 rounded-lg text-sm">
+                        Bài 30. <span class="font-normal text-slate-600">(Hai tàu kéo xà lan vuông góc)</span>
+                    </span>
+                    <p class="text-slate-800 leading-relaxed font-medium">
+                        Hai chiếc tàu kéo cùng lúc một chiếc xà lan. Tàu \(A\) kéo với lực \(F_1 = 300\text{ N}\), tàu \(B\) kéo với lực \(F_2 = 400\text{ N}\). Góc tạo bởi hai dây cáp kéo là \(90^\circ\). Hỏi hợp lực kéo xà lan có độ lớn bao nhiêu và xà lan sẽ di chuyển theo hướng nào (so với dây cáp của tàu \(A\))?
+                    </p>
+                    <button id="btn-sol-30" onclick="toggleSolution('sol-30')" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-4 py-2 rounded-lg text-sm transition-colors shadow-sm flex items-center">
+                        <i class="fas fa-lightbulb mr-2"></i> Xem Lời Giải & Gợi Ý
+                    </button>
+                    <div id="sol-30" class="hidden bg-slate-50 border-l-4 border-indigo-500 p-4 rounded-r-lg space-y-2 text-sm text-slate-700">
+                        <p>• Vì góc giữa hai cáp kéo là \(90^\circ\) nên hình bình hành hợp lực là hình chữ nhật.</p>
+                        <p>• Độ lớn hợp lực: \(F = \sqrt{F_1^2 + F_2^2} = \sqrt{300^2 + 400^2} = 500\text{ N}\).</p>
+                        <p>• Hướng di chuyển: \(\tan \alpha = \frac{F_2}{F_1} = \frac{400}{300} = \frac{4}{3} \Rightarrow \alpha \approx 53,13^\circ\).</p>
+                        <p>Vậy xà lan chuyển động theo hướng hợp với dây cáp tàu A một góc khoảng \(53^\circ 8'\).</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ================= PHẦN ĐÁNH GIÁ NĂNG LỰC TẠI LỚP ================= -->
+        <section class="bg-white rounded-2xl p-6 sm:p-8 border-2 border-indigo-600 shadow-xl space-y-6">
+            <div class="border-b pb-4 border-slate-200 flex flex-wrap justify-between items-center gap-4">
+                <div>
+                    <span class="bg-red-600 text-white text-xs font-black uppercase px-3 py-1 rounded-full shadow-sm"><i class="fas fa-bolt mr-1"></i> Trắc nghiệm Online Realtime</span>
+                    <h3 class="text-2xl font-black text-slate-900 mt-2">BÀI TẬP ĐÁNH GIÁ NĂNG LỰC TẠI LỚP</h3>
+                    <p class="text-sm text-slate-600 font-medium">Hoàn thành 5 câu trắc nghiệm dưới đây để đánh giá mức độ thông hiểu Buổi 15.</p>
+                </div>
+                <div class="bg-indigo-50 p-3 rounded-xl border border-indigo-200 text-xs font-bold text-indigo-900 flex items-center">
+                    <i class="fas fa-server text-indigo-600 mr-2 text-base"></i> Tự động đồng bộ điểm số về Google Apps Script
+                </div>
+            </div>
+
+            <!-- Student Info Form -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 bg-slate-50 p-4 rounded-xl border border-slate-200">
+                <div>
+                    <label class="block text-xs font-extrabold uppercase text-slate-700 mb-1">Họ và Tên Học Sinh <span class="text-red-500">*</span></label>
+                    <input type="text" id="student-name" placeholder="Ví dụ: Nguyễn Văn An" class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none text-sm font-semibold">
+                </div>
+                <div>
+                    <label class="block text-xs font-extrabold uppercase text-slate-700 mb-1">Mã Lớp / Buổi Học</label>
+                    <input type="text" id="exam-id" value="Toan10-Buoi15" readonly class="w-full px-3 py-2 border border-slate-200 bg-slate-100 rounded-lg text-slate-600 text-sm font-bold">
+                </div>
+            </div>
+
+            <!-- 5 MCQ QUESTIONS -->
+            <div class="space-y-6">
+                <!-- Question 1 -->
+                <div class="p-4 border border-slate-200 rounded-xl space-y-3 bg-white hover:border-indigo-300 transition-colors">
+                    <p class="font-bold text-slate-900 text-sm">
+                        <span class="text-indigo-600 font-black">Câu 1:</span> Đẳng thức nào sau đây diễn tả đúng Quy tắc ba điểm của phép cộng vectơ?
+                    </p>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm">
+                        <label class="flex items-center space-x-2 p-2.5 border rounded-lg hover:bg-slate-50 cursor-pointer font-medium"><input type="radio" name="q1" value="A"> <span>A. \(\overrightarrow{AB} + \overrightarrow{BC} = \overrightarrow{CA}\)</span></label>
+                        <label class="flex items-center space-x-2 p-2.5 border rounded-lg hover:bg-slate-50 cursor-pointer font-medium"><input type="radio" name="q1" value="B"> <span>B. \(\overrightarrow{AB} + \overrightarrow{BC} = \overrightarrow{AC}\)</span></label>
+                        <label class="flex items-center space-x-2 p-2.5 border rounded-lg hover:bg-slate-50 cursor-pointer font-medium"><input type="radio" name="q1" value="C"> <span>C. \(\overrightarrow{AB} - \overrightarrow{AC} = \overrightarrow{BC}\)</span></label>
+                        <label class="flex items-center space-x-2 p-2.5 border rounded-lg hover:bg-slate-50 cursor-pointer font-medium"><input type="radio" name="q1" value="D"> <span>D. \(\overrightarrow{AB} + \overrightarrow{AC} = \overrightarrow{BC}\)</span></label>
+                    </div>
+                </div>
+
+                <!-- Question 2 -->
+                <div class="p-4 border border-slate-200 rounded-xl space-y-3 bg-white hover:border-indigo-300 transition-colors">
+                    <p class="font-bold text-slate-900 text-sm">
+                        <span class="text-indigo-600 font-black">Câu 2:</span> Cho hình vuông \(ABCD\) cạnh bằng \(a\). Độ dài của vectơ tổng \(\overrightarrow{AB} + \overrightarrow{AD}\) bằng:
+                    </p>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm">
+                        <label class="flex items-center space-x-2 p-2.5 border rounded-lg hover:bg-slate-50 cursor-pointer font-medium"><input type="radio" name="q2" value="A"> <span>A. \(a\)</span></label>
+                        <label class="flex items-center space-x-2 p-2.5 border rounded-lg hover:bg-slate-50 cursor-pointer font-medium"><input type="radio" name="q2" value="B"> <span>B. \(2a\)</span></label>
+                        <label class="flex items-center space-x-2 p-2.5 border rounded-lg hover:bg-slate-50 cursor-pointer font-medium"><input type="radio" name="q2" value="C"> <span>C. \(a\sqrt{2}\)</span></label>
+                        <label class="flex items-center space-x-2 p-2.5 border rounded-lg hover:bg-slate-50 cursor-pointer font-medium"><input type="radio" name="q2" value="D"> <span>D. \(\frac{a\sqrt{2}}{2}\)</span></label>
+                    </div>
+                </div>
+
+                <!-- Question 3 -->
+                <div class="p-4 border border-slate-200 rounded-xl space-y-3 bg-white hover:border-indigo-300 transition-colors">
+                    <p class="font-bold text-slate-900 text-sm">
+                        <span class="text-indigo-600 font-black">Câu 3:</span> Cho hai điểm phân biệt \(A, B\). Tập hợp các điểm \(M\) thỏa mãn \(|\overrightarrow{MA} + \overrightarrow{MB}| = |\overrightarrow{MA} - \overrightarrow{MB}|\) là:
+                    </p>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm">
+                        <label class="flex items-center space-x-2 p-2.5 border rounded-lg hover:bg-slate-50 cursor-pointer font-medium"><input type="radio" name="q3" value="A"> <span>A. Đường trung trực của đoạn thẳng \(AB\).</span></label>
+                        <label class="flex items-center space-x-2 p-2.5 border rounded-lg hover:bg-slate-50 cursor-pointer font-medium"><input type="radio" name="q3" value="B"> <span>B. Đường tròn đường kính \(AB\).</span></label>
+                        <label class="flex items-center space-x-2 p-2.5 border rounded-lg hover:bg-slate-50 cursor-pointer font-medium"><input type="radio" name="q3" value="C"> <span>C. Đường tròn tâm \(A\) bán kính \(AB\).</span></label>
+                        <label class="flex items-center space-x-2 p-2.5 border rounded-lg hover:bg-slate-50 cursor-pointer font-medium"><input type="radio" name="q3" value="D"> <span>D. Đoạn thẳng \(AB\).</span></label>
+                    </div>
+                </div>
+
+                <!-- Question 4 -->
+                <div class="p-4 border border-slate-200 rounded-xl space-y-3 bg-white hover:border-indigo-300 transition-colors">
+                    <p class="font-bold text-slate-900 text-sm">
+                        <span class="text-indigo-600 font-black">Câu 4:</span> Hai lực \(\overrightarrow{F_1}\) và \(\overrightarrow{F_2}\) có độ lớn đều bằng \(100\text{ N}\) tạo với nhau góc \(60^\circ\). Độ lớn của hợp lực bằng:
+                    </p>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm">
+                        <label class="flex items-center space-x-2 p-2.5 border rounded-lg hover:bg-slate-50 cursor-pointer font-medium"><input type="radio" name="q4" value="A"> <span>A. \(100\text{ N}\)</span></label>
+                        <label class="flex items-center space-x-2 p-2.5 border rounded-lg hover:bg-slate-50 cursor-pointer font-medium"><input type="radio" name="q4" value="B"> <span>B. \(200\text{ N}\)</span></label>
+                        <label class="flex items-center space-x-2 p-2.5 border rounded-lg hover:bg-slate-50 cursor-pointer font-medium"><input type="radio" name="q4" value="C"> <span>C. \(100\sqrt{3}\text{ N}\)</span></label>
+                        <label class="flex items-center space-x-2 p-2.5 border rounded-lg hover:bg-slate-50 cursor-pointer font-medium"><input type="radio" name="q4" value="D"> <span>D. \(100\sqrt{2}\text{ N}\)</span></label>
+                    </div>
+                </div>
+
+                <!-- Question 5 -->
+                <div class="p-4 border border-slate-200 rounded-xl space-y-3 bg-white hover:border-indigo-300 transition-colors">
+                    <p class="font-bold text-slate-900 text-sm">
+                        <span class="text-indigo-600 font-black">Câu 5:</span> Tàu chèo vuông góc qua sông vận tốc \(30\text{ km/h}\), bị nước chảy đẩy vận tốc \(10\text{ km/h}\). Vận tốc thực tế của tàu bằng:
+                    </p>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm">
+                        <label class="flex items-center space-x-2 p-2.5 border rounded-lg hover:bg-slate-50 cursor-pointer font-medium"><input type="radio" name="q5" value="A"> <span>A. \(40\text{ km/h}\)</span></label>
+                        <label class="flex items-center space-x-2 p-2.5 border rounded-lg hover:bg-slate-50 cursor-pointer font-medium"><input type="radio" name="q5" value="B"> <span>B. \(31,62\text{ km/h}\)</span></label>
+                        <label class="flex items-center space-x-2 p-2.5 border rounded-lg hover:bg-slate-50 cursor-pointer font-medium"><input type="radio" name="q5" value="C"> <span>C. \(20\text{ km/h}\)</span></label>
+                        <label class="flex items-center space-x-2 p-2.5 border rounded-lg hover:bg-slate-50 cursor-pointer font-medium"><input type="radio" name="q5" value="D"> <span>D. \(10\sqrt{3}\text{ km/h}\)</span></label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Submit Button & Status -->
+            <div class="pt-4 flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-slate-200">
+                <button onclick="submitQuiz()" class="w-full sm:w-auto bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold px-8 py-3.5 rounded-xl shadow-lg transition-transform active:scale-95 flex items-center justify-center text-base">
+                    <i class="fas fa-paper-plane mr-2"></i> NỘP BÀI VÀ GỬI ĐIỂM SỐ
+                </button>
+                <div id="quiz-status" class="text-sm font-semibold"></div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER COPYRIGHT -->
+    <footer class="bg-slate-900 text-slate-400 py-6 mt-12 border-t border-slate-800 print:bg-white print:text-black">
+        <div class="max-w-7xl mx-auto px-4 text-center space-y-2">
+            <p class="text-sm font-bold text-slate-200">
+                @ Bản quyền thuộc ThS. Đinh Quốc Tuấn - Mục đích phi lợi nhuận - Vì giáo dục.
+            </p>
+            <p class="text-xs text-slate-500">
+                Chuyên đề Hình học 10 | Phép toán Tổng & Hiệu Vectơ | JSXGraph & Google Apps Script Integration
+            </p>
+        </div>
+    </footer>
+
+    <!-- PRINT BUTTON AT BOTTOM RIGHT -->
+    <button id="btn-print-doc" onclick="safePrint()" class="fixed bottom-5 right-5 bg-gray-900 text-white px-4 py-2 rounded-lg shadow-lg hover:bg-gray-700 print:hidden z-50">
+        <i class="fas fa-print mr-2"></i> In Tài Liệu
+    </button>
+
+    <script>
+        function safePrint() {
+            const printBtn = document.getElementById('btn-print-doc');
+            printBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Đang chuẩn bị...';
+            
+            // Đảm bảo MathJax đã render xong mọi công thức trước khi gọi hộp thoại in
+            if (window.MathJax && window.MathJax.typesetPromise) {
+                MathJax.typesetPromise().then(() => {
+                    printBtn.innerHTML = '<i class="fas fa-print mr-2"></i> In Tài Liệu';
+                    window.print();
+                });
+            } else {
+                // Fallback nếu không có công thức toán
+                setTimeout(() => window.print(), 500); 
+            }
+        }
+    </script>
+
+    <!-- CORE JAVASCRIPT LOGIC -->
+    <script>
+        // TOGGLE SOLUTION FUNCTION
+        function toggleSolution(id) {
+            const solEl = document.getElementById(id);
+            const btnEl = document.getElementById('btn-' + id);
+            if (solEl.classList.contains('hidden')) {
+                solEl.classList.remove('hidden');
+                btnEl.innerHTML = '<i class="fas fa-eye-slash mr-2"></i> Ẩn Lời Giải & Gợi Ý';
+                btnEl.classList.replace('bg-indigo-600', 'bg-slate-600');
+            } else {
+                solEl.classList.add('hidden');
+                btnEl.innerHTML = '<i class="fas fa-lightbulb mr-2"></i> Xem Lời Giải & Gợi Ý';
+                btnEl.classList.replace('bg-slate-600', 'bg-indigo-600');
+            }
+        }
+
+        // SUBMIT QUIZ TO APPS SCRIPT
+        async function submitQuiz() {
+            const nameInput = document.getElementById('student-name');
+            const hoTen = nameInput ? nameInput.value.trim() : '';
+            if (!hoTen) {
+                alert('Vui lòng nhập Họ và Tên học sinh trước khi nộp bài!');
+                nameInput.focus();
+                return;
+            }
+
+            const correctAnswers = { q1: 'B', q2: 'C', q3: 'B', q4: 'C', q5: 'B' };
+            let score = 0;
+            let wrongDetails = [];
+
+            for (let i = 1; i <= 5; i++) {
+                const qKey = 'q' + i;
+                const selected = document.querySelector(`input[name="${qKey}"]:checked`);
+                if (selected) {
+                    if (selected.value === correctAnswers[qKey]) {
+                        score += 2; // 5 questions = 10 pts
+                    } else {
+                        wrongDetails.push(`Câu ${i} chọn ${selected.value} (Đúng: ${correctAnswers[qKey]})`);
+                    }
+                } else {
+                    wrongDetails.push(`Câu ${i} chưa làm (Đúng: ${correctAnswers[qKey]})`);
+                }
+            }
+
+            const statusEl = document.getElementById('quiz-status');
+            statusEl.innerHTML = `<span class="text-blue-600 font-bold"><i class="fas fa-spinner fa-spin mr-1"></i> Đang gửi kết quả lên hệ thống...</span>`;
+
+            const payload = {
+                hoTen: hoTen,
+                maDe: document.getElementById('exam-id').value,
+                diem: score,
+                thoiGian: new Date().toLocaleString('vi-VN'),
+                cauSai: wrongDetails.length > 0 ? wrongDetails.join('; ') : 'Đúng tất cả'
+            };
+
+            const targetUrl = "https://script.google.com/macros/s/AKfycbzY7b7h4OwvhXuK5Vs6hl-aD88BPnAiAKbU5lfJobby0D4nzbIJVKT4n0AKCpAGoK0nZA/exec";
+
+            try {
+                await fetch(targetUrl, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                statusEl.innerHTML = `
+                    <div class="bg-emerald-100 border-l-4 border-emerald-500 text-emerald-900 p-4 rounded-xl shadow-sm">
+                        <h4 class="font-extrabold text-base"><i class="fas fa-check-circle text-emerald-600 mr-1.5"></i> Nộp bài thành công!</h4>
+                        <p class="text-xs mt-1">Học sinh: <strong>${hoTen}</strong> | Kết quả: <span class="text-red-600 font-extrabold text-base">${score}/10 điểm</span></p>
+                        <p class="text-xs text-slate-600">${wrongDetails.length === 0 ? 'Tuyệt vời! Bạn trả lời chính xác tất cả các câu.' : 'Ghi chú: ' + wrongDetails.join(' | ')}</p>
+                    </div>
+                `;
+            } catch (err) {
+                statusEl.innerHTML = `<span class="text-red-600 font-bold"><i class="fas fa-exclamation-triangle mr-1"></i> Lỗi kết nối: ${err.message}</span>`;
+            }
+        }
+
+        // INITIALIZE JSXGRAPH MODELS
+        document.addEventListener('DOMContentLoaded', function() {
+            // JSXGraph Bài 3: Quy tắc hình bình hành ABCD
+            if (document.getElementById('jsxbox-3')) {
+                var b3 = JXG.JSXGraph.initBoard('jsxbox-3', {boundingbox: [-1, 5, 7, -1], axis: true, grid: true, showCopyright: false, showNavigation: false});
+                var A3 = b3.create('point', [0, 0], {name: 'A (0,0)', fixed: true, color: '#dc2626'});
+                var B3 = b3.create('point', [4, 0], {name: 'B (4,0)', fixed: true, color: '#2563eb'});
+                var D3 = b3.create('point', [1, 3], {name: 'D (1,3)', fixed: true, color: '#2563eb'});
+                var C3 = b3.create('point', [5, 3], {name: 'C (5,3)', fixed: true, color: '#dc2626'});
+                
+                b3.create('polygon', [A3, B3, C3, D3], {fillColor: '#6366f1', fillOpacity: 0.1, border: {strokeWidth: 1.5, strokeColor: '#94a3b8'}});
+                
+                b3.create('arrow', [A3, B3], {strokeColor: '#2563eb', strokeWidth: 3, name: 'AB'});
+                b3.create('arrow', [A3, D3], {strokeColor: '#2563eb', strokeWidth: 3, name: 'AD'});
+                b3.create('arrow', [A3, C3], {strokeColor: '#dc2626', strokeWidth: 4, name: 'AC (Hợp lực)'});
+                
+                b3.create('text', [0.5, 4.2, 'Quy tắc Hình bình hành: AB + AD = AC'], {fontSize: 13, cssStyle: 'font-weight: bold; color: #1e1b4b;'});
+            }
+
+            // JSXGraph Bài 7: Hình vuông ABCD & Đường chéo AC
+            if (document.getElementById('jsxbox-7')) {
+                var b7 = JXG.JSXGraph.initBoard('jsxbox-7', {boundingbox: [-1, 5, 5, -1], axis: true, grid: true, showCopyright: false, showNavigation: false});
+                var A7 = b7.create('point', [0, 0], {name: 'A', fixed: true, color: '#dc2626'});
+                var B7 = b7.create('point', [3.5, 0], {name: 'B', fixed: true, color: '#2563eb'});
+                var C7 = b7.create('point', [3.5, 3.5], {name: 'C', fixed: true, color: '#dc2626'});
+                var D7 = b7.create('point', [0, 3.5], {name: 'D', fixed: true, color: '#2563eb'});
+                
+                b7.create('polygon', [A7, B7, C7, D7], {fillColor: '#10b981', fillOpacity: 0.15, border: {strokeWidth: 2, strokeColor: '#10b981'}});
+                
+                b7.create('arrow', [A7, B7], {strokeColor: '#2563eb', strokeWidth: 3});
+                b7.create('arrow', [A7, D7], {strokeColor: '#2563eb', strokeWidth: 3});
+                b7.create('arrow', [A7, C7], {strokeColor: '#dc2626', strokeWidth: 4, name: 'AC'});
+                
+                b7.create('text', [0.3, 4.2, '|AB + AD| = |AC| = a√2'], {fontSize: 13, cssStyle: 'font-weight: bold; color: #065f46;'});
+            }
+
+            // JSXGraph Bài 12: Trung điểm I, J của tứ giác ABCD
+            if (document.getElementById('jsxbox-12')) {
+                var b12 = JXG.JSXGraph.initBoard('jsxbox-12', {boundingbox: [-1, 6, 7, -1], axis: false, showCopyright: false, showNavigation: false});
+                var A12 = b12.create('point', [1, 5], {name: 'A', color: '#dc2626'});
+                var B12 = b12.create('point', [5, 4], {name: 'B', color: '#dc2626'});
+                var C12 = b12.create('point', [6, 1], {name: 'C', color: '#2563eb'});
+                var D12 = b12.create('point', [0, 0], {name: 'D', color: '#2563eb'});
+                
+                b12.create('polygon', [A12, B12, C12, D12], {fillColor: '#f59e0b', fillOpacity: 0.1, border: {strokeWidth: 2}});
+                
+                var I12 = b12.create('midpoint', [A12, B12], {name: 'I', color: '#16a34a'});
+                var J12 = b12.create('midpoint', [C12, D12], {name: 'J', color: '#16a34a'});
+                
+                b12.create('arrow', [A12, D12], {strokeColor: '#2563eb', strokeWidth: 2, name: 'AD'});
+                b12.create('arrow', [B12, C12], {strokeColor: '#2563eb', strokeWidth: 2, name: 'BC'});
+                b12.create('arrow', [I12, J12], {strokeColor: '#dc2626', strokeWidth: 4, name: 'IJ'});
+                
+                b12.create('text', [0.5, 5.5, 'AD + BC = 2 IJ (Đoạn IJ phát sáng màu đỏ)'], {fontSize: 12, cssStyle: 'font-weight: bold; color: #78350f;'});
+            }
+
+            // JSXGraph Bài 16: Tập hợp điểm M (Đường tròn đường kính AB)
+            if (document.getElementById('jsxbox-16')) {
+                var b16 = JXG.JSXGraph.initBoard('jsxbox-16', {boundingbox: [-5, 5, 5, -5], axis: true, grid: true, showCopyright: false, showNavigation: false});
+                var A16 = b16.create('point', [-3, 0], {name: 'A (-3,0)', fixed: true, color: '#dc2626'});
+                var B16 = b16.create('point', [3, 0], {name: 'B (3,0)', fixed: true, color: '#dc2626'});
+                var I16 = b16.create('midpoint', [A16, B16], {name: 'I (0,0)', fixed: true, color: '#2563eb'});
+                
+                var circ16 = b16.create('circle', [I16, A16], {strokeColor: '#9333ea', strokeWidth: 2, dash: 2});
+                var M16 = b16.create('glider', [2.12, 2.12, circ16], {name: 'M (Kéo trượt)', color: '#16a34a'});
+                
+                b16.create('segment', [M16, A16], {strokeColor: '#16a34a'});
+                b16.create('segment', [M16, B16], {strokeColor: '#16a34a'});
+                b16.create('segment', [A16, B16], {strokeColor: '#dc2626', strokeWidth: 2});
+                
+                b16.create('text', [-4, -4, 'Quỹ tích M là đường tròn đường kính AB (Tâm I, bán kính AB/2)'], {fontSize: 12, cssStyle: 'font-weight: bold; color: #581c87;'});
+            }
+
+            // JSXGraph Bài 21: Hợp lực F1, F2 tạo góc 60 deg
+            if (document.getElementById('jsxbox-21')) {
+                var b21 = JXG.JSXGraph.initBoard('jsxbox-21', {boundingbox: [-2, 12, 14, -2], axis: false, showCopyright: false, showNavigation: false});
+                var M21 = b21.create('point', [0, 0], {name: 'M (Vật)', fixed: true, color: '#dc2626'});
+                
+                // F1 along X axis length 6 (simulating 100N)
+                var A21 = b21.create('point', [6, 0], {name: 'F1 (100N)', fixed: true, color: '#2563eb'});
+                // F2 at 60 deg angle length 6
+                var B21 = b21.create('point', [6 * Math.cos(Math.PI/3), 6 * Math.sin(Math.PI/3)], {name: 'F2 (100N)', fixed: true, color: '#2563eb'});
+                
+                // Parallelogram completion C
+                var C21 = b21.create('point', [6 + 6*Math.cos(Math.PI/3), 6*Math.sin(Math.PI/3)], {name: 'F hợp lực (173.2N)', fixed: true, color: '#dc2626'});
+                
+                b21.create('polygon', [M21, A21, C21, B21], {fillColor: '#3b82f6', fillOpacity: 0.1, border: {strokeWidth: 1.5, dash: 2}});
+                
+                b21.create('arrow', [M21, A21], {strokeColor: '#2563eb', strokeWidth: 3});
+                b21.create('arrow', [M21, B21], {strokeColor: '#2563eb', strokeWidth: 3});
+                b21.create('arrow', [M21, C21], {strokeColor: '#dc2626', strokeWidth: 4});
+                
+                b21.create('text', [0, 10.5, 'Hợp lực F = √(F1² + F2² + 2F1F2 cos 60°) = 100√3 N ≈ 173.2 N'], {fontSize: 12, cssStyle: 'font-weight: bold; color: #1e1b4b;'});
+            }
+
+            // JSXGraph Bài 24: Thuyền chèo qua sông
+            if (document.getElementById('jsxbox-24')) {
+                var b24 = JXG.JSXGraph.initBoard('jsxbox-24', {boundingbox: [-2, 8, 12, -2], axis: false, showCopyright: false, showNavigation: false});
+                
+                // River banks
+                b24.create('line', [[0, 0], [10, 0]], {strokeColor: '#94a3b8', strokeWidth: 3, name: 'Bờ xuất phát'});
+                b24.create('line', [[0, 5], [10, 5]], {strokeColor: '#0284c7', strokeWidth: 3, name: 'Bờ cập bến'});
+                
+                var O24 = b24.create('point', [1, 0], {name: 'Tàu O', fixed: true, color: '#dc2626'});
+                var V_tau = b24.create('point', [1, 5], {name: 'v_tàu (30 km/h)', fixed: true, color: '#2563eb'});
+                var V_nuoc = b24.create('point', [1 + 5/3, 0], {name: 'v_nước (10 km/h)', fixed: true, color: '#0284c7'});
+                var V_thuc = b24.create('point', [1 + 5/3, 5], {name: 'v_thực tế (31.62 km/h)', fixed: true, color: '#dc2626'});
+                
+                b24.create('polygon', [O24, V_nuoc, V_thuc, V_tau], {fillColor: '#38bdf8', fillOpacity: 0.15, border: {strokeWidth: 1, dash: 2}});
+                
+                b24.create('arrow', [O24, V_tau], {strokeColor: '#2563eb', strokeWidth: 3});
+                b24.create('arrow', [O24, V_nuoc], {strokeColor: '#0284c7', strokeWidth: 3});
+                b24.create('arrow', [O24, V_thuc], {strokeColor: '#dc2626', strokeWidth: 4});
+                
+                b24.create('text', [0.5, 6.5, 'Vận tốc thực tế = √(30² + 10²) ≈ 31.62 km/h (lệch ~18.4° so với phương vuông góc)'], {fontSize: 12, cssStyle: 'font-weight: bold; color: #0c4a6e;'});
+            }
+        });
+    </script>
+</body>
+</html>
