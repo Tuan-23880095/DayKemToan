@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buổi 21: Tổng ba góc trong một tam giác & Góc ngoài</title>
+    
+    <!-- Tailwind CSS cho thiết kế giàu màu sắc, nền trắng xám -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- FontAwesome cho Icon sinh động -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- MathJax cho công thức Toán học -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <!-- JSXGraph cho Đồ họa Hình học tương tác -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraph.css" />
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraphcore.js"></script>
+
+    <style>
+        body { background-color: #f3f4f6; color: #111827; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        .math-box { overflow-x: auto; }
+        details > summary { list-style: none; cursor: pointer; }
+        details > summary::-webkit-details-marker { display: none; }
+        .jxgbox { border-radius: 8px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); border: 2px solid #e5e7eb; background: #fff; margin: 20px auto;}
+        
+        @media print {
+            body { background-color: #fff; }
+            .print\:hidden { display: none !important; }
+            .jxgbox { break-inside: avoid; }
+            details[open] summary ~ * { display: block; }
+        }
+    </style>
+</head>
+<body class="antialiased pb-20">
+
+    <!-- Header & Logos -->
+    <header class="bg-white shadow-md print:shadow-none print:border-b-2">
+        <div class="max-w-5xl mx-auto px-6 py-4 flex justify-between items-center">
+            <img src="https://firebasestorage.googleapis.com/v0/b/link-anh-web.firebasestorage.app/o/ttbdvh.jpg?alt=media&token=f270aa9b-a2bc-48e8-8910-80742b542615" alt="Logo TTBDVH" class="h-16 object-contain">
+            <div class="text-center">
+                <h1 class="text-2xl font-bold text-blue-900 uppercase">Tài Liệu Học Tập Hình Học</h1>
+                <p class="text-sm text-gray-500 font-semibold mt-1">@ Bản quyền thuộc ThS. Đinh Quốc Tuấn - Mục đích phi lợi nhuận - Vì giáo dục.</p>
+            </div>
+            <img src="https://firebasestorage.googleapis.com/v0/b/link-anh-web.firebasestorage.app/o/Logo-chinh-hcmus.png?alt=media&token=9cf3a1de-75f1-493b-8711-fd22c7b98738" alt="Logo HCMUS" class="h-16 object-contain">
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-5xl mx-auto px-6 py-8 mt-6 bg-white shadow-xl rounded-xl">
+        <h2 class="text-3xl font-extrabold text-center text-gray-800 mb-8 border-b-4 border-indigo-500 pb-4">
+            <i class="fas fa-shapes text-indigo-500 mr-2"></i> BUỔI 21: TỔNG BA GÓC TRONG MỘT TAM GIÁC & TÍNH CHẤT GÓC NGOÀI
+        </h2>
+
+        <!-- CẤP ĐỘ 1 -->
+        <section class="mb-12">
+            <div class="inline-block bg-green-100 text-green-800 px-4 py-2 rounded-full font-bold text-lg mb-4 shadow-sm border border-green-300">
+                <i class="fas fa-seedling mr-2"></i> 💡 CẤP ĐỘ 1: CƠ BẢN (BASIC)
+            </div>
+            <p class="mb-4 text-gray-700 italic"><i class="fas fa-bullseye text-red-500 mr-1"></i> Mục tiêu: Nhận biết định lý tổng ba góc, biết cách phân loại tam giác theo góc và tính số đo góc trong các tam giác cơ bản.</p>
+
+            <h3 class="text-xl font-bold text-blue-800 mt-4 mb-2">1. Định lý Tổng ba góc của một tam giác</h3>
+            <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded mb-4">
+                <p class="font-semibold">Định lý: Tổng số đo ba góc của một tam giác luôn bằng \(180^\circ\).</p>
+                <p>Trong tam giác \(ABC\), ta luôn có: \[\widehat{A} + \widehat{B} + \widehat{C} = 180^\circ\]</p>
+            </div>
+
+            <h3 class="text-xl font-bold text-blue-800 mt-4 mb-2">2. Chứng minh Định lý</h3>
+            <p><strong>Giả thiết (GT):</strong> Cho tam giác \(ABC\).<br>
+            <strong>Kết luận (KL):</strong> \(\widehat{A} + \widehat{B} + \widehat{C} = 180^\circ\).</p>
+            <p class="mt-2"><strong>Chứng minh:</strong> Qua đỉnh \(A\), kẻ đường thẳng \(xy\) song song với cạnh đáy \(BC\).<br>
+            Vì \(xy \parallel BC\) nên ta có các cặp góc bằng nhau: \(\widehat{A_1} = \widehat{B}\) (hai góc so le trong) và \(\widehat{A_2} = \widehat{C}\) (hai góc so le trong).<br>
+            Quan sát các góc tại đỉnh \(A\), ta thấy chúng tạo thành một góc bẹt:
+            \[\widehat{BAC} + \widehat{A_1} + \widehat{A_2} = \widehat{xAy} = 180^\circ\]
+            Thay \(\widehat{A_1} = \widehat{B}\) và \(\widehat{A_2} = \widehat{C}\) vào, ta thu được:
+            \[\widehat{BAC} + \widehat{B} + \widehat{C} = 180^\circ \quad (\text{đpcm})\]</p>
+
+            <div class="mt-6 bg-gray-50 p-4 rounded-lg border border-gray-200">
+                <h4 class="text-lg font-bold text-purple-700 mb-2"><i class="fas fa-laptop-code mr-2"></i> 🖼️ Kịch bản JSXGraph 1: Cắt ghép góc chứng minh Định lý</h4>
+                <p class="text-sm text-gray-600 mb-2">Tương tác: Kéo thả các đỉnh A, B, C của tam giác. Các góc sẽ tự động được "cắt và ghép" trên đường thẳng bên dưới để luôn tạo thành một góc bẹt \(180^\circ\).</p>
+                <div id="box1" class="jxgbox w-full" style="height: 400px;"></div>
+            </div>
+
+            <h3 class="text-xl font-bold text-blue-800 mt-6 mb-2">3. Phân loại tam giác theo góc</h3>
+            <ul class="list-disc ml-6 space-y-1 mb-4 text-gray-800">
+                <li><span class="text-pink-600 font-bold">Tam giác nhọn:</span> Có cả ba góc đều là góc nhọn (nhỏ hơn \(90^\circ\)).</li>
+                <li><span class="text-pink-600 font-bold">Tam giác vuông:</span> Có một góc vuông (bằng \(90^\circ\)). <i>Tính chất: Hai góc nhọn luôn phụ nhau (\(\widehat{B} + \widehat{C} = 90^\circ\)).</i></li>
+                <li><span class="text-pink-600 font-bold">Tam giác tù:</span> Có một góc tù (lớn hơn \(90^\circ\)).</li>
+            </ul>
+
+            <h3 class="text-xl font-bold text-blue-800 mt-4 mb-2">4. Ví dụ minh họa</h3>
+            
+            <!-- Ví dụ 1 có Hướng dẫn ẩn -->
+            <div class="mb-4">
+                <p><strong>Ví dụ 1:</strong> Cho tam giác \(MNP\) có số đo góc \(\widehat{M} = 55^\circ\) và \(\widehat{N} = 65^\circ\). Tính số đo của góc \(\widehat{P}\).</p>
+                <details class="mt-2 bg-blue-50 rounded-lg border border-blue-200 print:block group">
+                    <summary class="px-4 py-2 font-semibold text-blue-700 hover:bg-blue-100 transition"><i class="fas fa-eye mr-2"></i>Xem gợi ý / Lời giải</summary>
+                    <div class="p-4 border-t border-blue-200">
+                        Áp dụng định lý tổng ba góc trong tam giác \(MNP\), ta có:
+                        \[\widehat{M} + \widehat{N} + \widehat{P} = 180^\circ \Rightarrow 55^\circ + 65^\circ + \widehat{P} = 180^\circ\]
+                        \[\Rightarrow \widehat{P} = 180^\circ - 120^\circ = 60^\circ\]
+                    </div>
+                </details>
+            </div>
+            
+            <!-- Ví dụ 2 có Hướng dẫn ẩn -->
+            <div class="mb-4">
+                <p><strong>Ví dụ 2:</strong> Cho tam giác \(DEF\) vuông tại \(D\) có \(\widehat{E} = 37^\circ\). Tính số đo góc \(\widehat{F}\).</p>
+                <details class="mt-2 bg-blue-50 rounded-lg border border-blue-200 print:block group">
+                    <summary class="px-4 py-2 font-semibold text-blue-700 hover:bg-blue-100 transition"><i class="fas fa-eye mr-2"></i>Xem gợi ý / Lời giải</summary>
+                    <div class="p-4 border-t border-blue-200">
+                        Vì tam giác \(DEF\) vuông tại \(D\) nên hai góc nhọn phụ nhau:
+                        \[\widehat{E} + \widehat{F} = 90^\circ \Rightarrow 37^\circ + \widehat{F} = 90^\circ \Rightarrow \widehat{F} = 90^\circ - 37^\circ = 53^\circ\]
+                    </div>
+                </details>
+            </div>
+        </section>
+
+        <!-- CẤP ĐỘ 2 -->
+        <section class="mb-12">
+            <div class="inline-block bg-blue-100 text-blue-800 px-4 py-2 rounded-full font-bold text-lg mb-4 shadow-sm border border-blue-300">
+                <i class="fas fa-rocket mr-2"></i> 💡 CẤP ĐỘ 2: NÂNG CAO (ADVANCED)
+            </div>
+            <p class="mb-4 text-gray-700 italic"><i class="fas fa-bullseye text-red-500 mr-1"></i> Mục tiêu: Hiểu sâu về khái niệm góc ngoài, tính chất góc ngoài và ứng dụng chứng minh.</p>
+
+            <h3 class="text-xl font-bold text-blue-800 mt-4 mb-2">1. Định nghĩa và Định lý Góc ngoài</h3>
+            <ul class="list-disc ml-6 space-y-2 mb-4 text-gray-800">
+                <li><strong>Định nghĩa:</strong> Góc ngoài của một tam giác là góc kề bù với một góc trong của tam giác đó.</li>
+                <li><strong>Định lý:</strong> Mỗi góc ngoài của một tam giác có số đo bằng tổng số đo của hai góc trong không kề với nó. \(\widehat{ACx} = \widehat{A} + \widehat{B}\).</li>
+                <li><strong>Hệ quả:</strong> Góc ngoài của tam giác luôn lớn hơn mỗi góc trong không kề với nó.</li>
+            </ul>
+
+            <div class="mt-6 bg-gray-50 p-4 rounded-lg border border-gray-200">
+                <h4 class="text-lg font-bold text-purple-700 mb-2"><i class="fas fa-laptop-code mr-2"></i> 🖼️ Kịch bản JSXGraph 2: Mô phỏng Trượt dịch chuyển góc ngoài</h4>
+                <p class="text-sm text-gray-600 mb-2">Tương tác: Góc ngoài (màu cam) luôn bằng tổng 2 góc trong không kề (Đỏ + Xanh). Hộp thông tin sẽ tính toán theo thời gian thực khi bạn kéo các đỉnh.</p>
+                <div id="box2" class="jxgbox w-full" style="height: 400px;"></div>
+            </div>
+
+            <h3 class="text-xl font-bold text-blue-800 mt-6 mb-2">2. Ví dụ minh họa</h3>
+            <div class="mb-4">
+                <p><strong>Ví dụ (Bẫy tư duy phản biện):</strong> Một học sinh phát biểu: "Tớ vẽ được một tam giác có một góc trong bằng \(110^\circ\) và một góc ngoài tại đỉnh khác bằng \(100^\circ\)". Phát biểu này đúng hay sai?</p>
+                <details class="mt-2 bg-blue-50 rounded-lg border border-blue-200 print:block group">
+                    <summary class="px-4 py-2 font-semibold text-blue-700 hover:bg-blue-100 transition"><i class="fas fa-eye mr-2"></i>Xem gợi ý / Lời giải</summary>
+                    <div class="p-4 border-t border-blue-200 text-red-700 font-medium">
+                        Phát biểu của bạn học sinh là SAI. Vì góc ngoài của một tam giác luôn lớn hơn mỗi góc trong không kề với nó. Nếu góc trong bằng \(110^\circ\) thì góc ngoài ở đỉnh khác bắt buộc phải lớn hơn \(110^\circ\).
+                    </div>
+                </details>
+            </div>
+        </section>
+
+        <!-- CẤP ĐỘ 3 -->
+        <section class="mb-12">
+            <div class="inline-block bg-orange-100 text-orange-800 px-4 py-2 rounded-full font-bold text-lg mb-4 shadow-sm border border-orange-300">
+                <i class="fas fa-cogs mr-2"></i> 💡 CẤP ĐỘ 3: VẬN DỤNG (APPLIED)
+            </div>
+            <p class="mb-4 text-gray-700 italic"><i class="fas fa-bullseye text-red-500 mr-1"></i> Mục tiêu: Kết hợp tỉ lệ thức, đường thẳng phụ và liên hệ thực tế cấu trúc vì kèo xây dựng.</p>
+
+            <h3 class="text-xl font-bold text-blue-800 mt-4 mb-2">1. Phương pháp tích hợp Dãy tỉ số bằng nhau</h3>
+            <div class="bg-white p-4 border border-gray-300 rounded shadow-sm mb-4">
+                Khi biết \(\frac{\widehat{A}}{a} = \frac{\widehat{B}}{b} = \frac{\widehat{C}}{c}\), ta áp dụng tính chất:
+                \[\frac{\widehat{A}}{a} = \frac{\widehat{B}}{b} = \frac{\widehat{C}}{c} = \frac{\widehat{A} + \widehat{B} + \widehat{C}}{a+b+c} = \frac{180^\circ}{a+b+c}\]
+            </div>
+
+            <div class="mt-6 bg-gray-50 p-4 rounded-lg border border-gray-200">
+                <h4 class="text-lg font-bold text-purple-700 mb-2"><i class="fas fa-laptop-code mr-2"></i> 🖼️ Kịch bản JSXGraph 3: Kết cấu vì kèo mái nhà hình tam giác cân</h4>
+                <p class="text-sm text-gray-600 mb-2">Tương tác: Kéo thanh trượt \(\alpha\) (độ dốc mái nhà từ \(15^\circ \to 45^\circ\)) để quan sát chiều cao thanh chống đứng tự động thay đổi, hiển thị ứng dụng thực tế của góc trong kiến trúc.</p>
+                <div id="box3" class="jxgbox w-full" style="height: 400px;"></div>
+            </div>
+        </section>
+
+        <!-- BÀI TẬP TRẮC NGHIỆM TẠI LỚP -->
+        <section class="mb-12 bg-white p-6 border-2 border-indigo-200 rounded-xl shadow-lg print:border-none print:shadow-none">
+            <h2 class="text-2xl font-bold text-indigo-800 mb-4 text-center"><i class="fas fa-pencil-alt mr-2"></i> BÀI TẬP ĐÁNH GIÁ NĂNG LỰC TẠI LỚP</h2>
+            <form id="quizForm" class="space-y-6">
+                <div class="mb-4">
+                    <label class="block font-bold mb-1 text-gray-700">Họ và Tên Học Sinh:</label>
+                    <input type="text" id="hoTen" required class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500" placeholder="Nhập họ tên...">
+                </div>
+
+                <!-- Q1 -->
+                <div class="quiz-question bg-gray-50 p-4 rounded-md border border-gray-200">
+                    <p class="font-bold mb-2">Câu 1: Tổng số đo ba góc trong một tam giác bằng bao nhiêu?</p>
+                    <label class="block"><input type="radio" name="q1" value="A" required> A. \(90^\circ\)</label>
+                    <label class="block"><input type="radio" name="q1" value="B"> B. \(180^\circ\)</label>
+                    <label class="block"><input type="radio" name="q1" value="C"> C. \(360^\circ\)</label>
+                    <label class="block"><input type="radio" name="q1" value="D"> D. \(100^\circ\)</label>
+                </div>
+
+                <!-- Q2 -->
+                <div class="quiz-question bg-gray-50 p-4 rounded-md border border-gray-200">
+                    <p class="font-bold mb-2">Câu 2: Tam giác DEF vuông tại D, biết \(\widehat{E} = 40^\circ\). Số đo \(\widehat{F}\) là:</p>
+                    <label class="block"><input type="radio" name="q2" value="A" required> A. \(50^\circ\)</label>
+                    <label class="block"><input type="radio" name="q2" value="B"> B. \(40^\circ\)</label>
+                    <label class="block"><input type="radio" name="q2" value="C"> C. \(60^\circ\)</label>
+                    <label class="block"><input type="radio" name="q2" value="D"> D. \(90^\circ\)</label>
+                </div>
+
+                <!-- Q3 -->
+                <div class="quiz-question bg-gray-50 p-4 rounded-md border border-gray-200">
+                    <p class="font-bold mb-2">Câu 3: Góc ngoài của tam giác luôn bằng:</p>
+                    <label class="block"><input type="radio" name="q3" value="A" required> A. Hiệu hai góc trong không kề với nó.</label>
+                    <label class="block"><input type="radio" name="q3" value="B"> B. Tổng ba góc trong tam giác.</label>
+                    <label class="block"><input type="radio" name="q3" value="C"> C. Tổng hai góc trong không kề với nó.</label>
+                    <label class="block"><input type="radio" name="q3" value="D"> D. Góc kề bù với nó.</label>
+                </div>
+
+                <!-- Q4 -->
+                <div class="quiz-question bg-gray-50 p-4 rounded-md border border-gray-200">
+                    <p class="font-bold mb-2">Câu 4: Số đo ba góc của \(\Delta ABC\) tỉ lệ với \(1 : 2 : 3\). Tam giác ABC là tam giác gì?</p>
+                    <label class="block"><input type="radio" name="q4" value="A" required> A. Tam giác nhọn</label>
+                    <label class="block"><input type="radio" name="q4" value="B"> B. Tam giác đều</label>
+                    <label class="block"><input type="radio" name="q4" value="C"> C. Tam giác tù</label>
+                    <label class="block"><input type="radio" name="q4" value="D"> D. Tam giác vuông</label>
+                </div>
+
+                <!-- Q5 -->
+                <div class="quiz-question bg-gray-50 p-4 rounded-md border border-gray-200">
+                    <p class="font-bold mb-2">Câu 5: Cho \(\Delta ABC\) có \(\widehat{A} = 70^\circ\). Góc ngoài tại đỉnh B bằng \(120^\circ\). Số đo \(\widehat{C}\) là:</p>
+                    <label class="block"><input type="radio" name="q5" value="A" required> A. \(50^\circ\)</label>
+                    <label class="block"><input type="radio" name="q5" value="B"> B. \(70^\circ\)</label>
+                    <label class="block"><input type="radio" name="q5" value="C"> C. \(60^\circ\)</label>
+                    <label class="block"><input type="radio" name="q5" value="D"> D. \(110^\circ\)</label>
+                </div>
+
+                <div class="text-center mt-6">
+                    <button type="submit" id="btnSubmitQuiz" class="bg-indigo-600 text-white font-bold py-3 px-8 rounded-full shadow-lg hover:bg-indigo-700 transition">
+                        <i class="fas fa-paper-plane mr-2"></i> NỘP BÀI VÀ XEM ĐIỂM
+                    </button>
+                </div>
+                <div id="quizResult" class="hidden mt-4 p-4 text-center font-bold rounded-md text-lg"></div>
+            </form>
+        </section>
+    </main>
+
+    <!-- Print Button Required by Prompt -->
+    <button id="btn-print-doc" onclick="safePrint()" class="fixed bottom-5 right-5 bg-gray-900 text-white px-4 py-2 rounded-lg shadow-lg hover:bg-gray-700 print:hidden z-50">
+        <i class="fas fa-print mr-2"></i> In Tài Liệu
+    </button>
+
+    <!-- JSXGraph Scripts -->
+    <script type="text/javascript">
+        // Đảm bảo DOM load xong mới vẽ JSXGraph
+        window.onload = function() {
+            
+            /* --- Kịch bản 1: Cắt ghép góc --- */
+            var b1 = JXG.JSXGraph.initBoard('box1', {boundingbox: [-5, 8, 5, -2], axis: false, showNavigation: false});
+            var pA = b1.create('point', [0, 5], {name: 'A', color: 'black'});
+            var pB = b1.create('point', [-3, 2], {name: 'B', color: 'black'});
+            var pC = b1.create('point', [3, 2], {name: 'C', color: 'black'});
+            
+            var tri1 = b1.create('polygon', [pA, pB, pC], {borders: {strokeWidth: 2}});
+            var angA = b1.create('angle', [pB, pA, pC], {name: '', radius: 1, fillColor: 'red', fillOpacity: 0.5});
+            var angB = b1.create('angle', [pC, pB, pA], {name: '', radius: 1, fillColor: 'green', fillOpacity: 0.5});
+            var angC = b1.create('angle', [pA, pC, pB], {name: '', radius: 1, fillColor: 'blue', fillOpacity: 0.5});
+
+            // Vẽ đường thẳng ghép góc ở dưới
+            var O = b1.create('point', [0, -1], {name: 'O', fixed: true, visible: false});
+            var L1 = b1.create('point', [-4, -1], {visible: false});
+            var L2 = b1.create('point', [4, -1], {visible: false});
+            b1.create('segment', [L1, L2], {strokeColor: 'black', strokeWidth: 2});
+            
+            // Vẽ các góc ghép dưới đường thẳng
+            var pRef1 = b1.create('point', [2, -1], {visible: false});
+            // Góc C (Blue)
+            var copyAngC = b1.create('angle', [L1, O, pRef1], {
+                type: 'sector', radius: 1.5, fillColor: 'blue', fillOpacity: 0.5,
+                angle: function() { return angC.Value(); }
+            });
+            // Góc B (Green)
+            var pRef2 = b1.create('point', [
+                function() { return 2 * Math.cos(angC.Value() + Math.PI); },
+                function() { return -1 + 2 * Math.sin(angC.Value() + Math.PI); }
+            ], {visible: false});
+            var copyAngB = b1.create('angle', [pRef2, O, L1], {
+                type: 'sector', radius: 1.5, fillColor: 'green', fillOpacity: 0.5,
+                angle: function() { return angB.Value(); }
+            });
+            // Góc A (Red)
+            var copyAngA = b1.create('angle', [L2, O, pRef2], {
+                type: 'sector', radius: 1.5, fillColor: 'red', fillOpacity: 0.5,
+                angle: function() { return angA.Value(); }
+            });
+
+            b1.create('text', [-3, -1.5, "Ghép 3 góc trên một nửa đường tròn (180 độ)"], {fontSize: 16});
+
+
+            /* --- Kịch bản 2: Góc Ngoài --- */
+            var b2 = JXG.JSXGraph.initBoard('box2', {boundingbox: [-4, 5, 8, -2], axis: false, showNavigation: false});
+            var A2 = b2.create('point', [0, 3], {name: 'A', color: 'red'});
+            var B2 = b2.create('point', [-2, 0], {name: 'B', color: 'blue'});
+            var C2 = b2.create('point', [3, 0], {name: 'C', color: 'black'});
+            var Cx = b2.create('point', [7, 0], {name: 'x', fixed: true, visible: false}); // Tia đối
+            
+            b2.create('polygon', [A2, B2, C2]);
+            b2.create('segment', [B2, Cx], {strokeColor: 'black', dash: 2}); // Tia đối
+            
+            var inA = b2.create('angle', [B2, A2, C2], {radius: 1, fillColor: 'red', fillOpacity: 0.4});
+            var inB = b2.create('angle', [C2, B2, A2], {radius: 1, fillColor: 'blue', fillOpacity: 0.4});
+            var outC = b2.create('angle', [A2, C2, Cx], {radius: 1, fillColor: 'orange', fillOpacity: 0.6, name: 'Góc ngoài'});
+
+            b2.create('text', [0, -1], function() {
+                var a = (inA.Value() * 180 / Math.PI).toFixed(0);
+                var b = (inB.Value() * 180 / Math.PI).toFixed(0);
+                var c = (outC.Value() * 180 / Math.PI).toFixed(0);
+                return `Góc ngoài C (${c}°) = Góc A (${a}°) + Góc B (${b}°)`;
+            }, {fontSize: 18, strokeColor: 'purple', cssClass: 'font-bold'});
+
+
+            /* --- Kịch bản 3: Vì kèo mái nhà --- */
+            var b3 = JXG.JSXGraph.initBoard('box3', {boundingbox: [-6, 6, 6, -2], axis: false, showNavigation: false});
+            
+            // Thanh trượt cho góc dốc (từ 15 độ đến 45 độ)
+            var sliderAlpha = b3.create('slider', [[-4, -1], [2, -1], [15, 30, 45]], {name: 'Độ dốc mái (α)', snapWidth: 1});
+            
+            var B3 = b3.create('point', [-4, 0], {name: 'B', fixed: true, size: 4});
+            var C3 = b3.create('point', [4, 0], {name: 'C', fixed: true, size: 4});
+            var H3 = b3.create('point', [0, 0], {name: 'H', fixed: true, size: 2});
+            
+            // Tính toán toạ độ A dựa trên độ dốc alpha
+            var A3 = b3.create('point', [0, function(){
+                var alphaRad = sliderAlpha.Value() * Math.PI / 180;
+                return 4 * Math.tan(alphaRad); // Cạnh đáy HC = 4
+            }], {name: 'A (Nóc)', size: 4, color: 'brown'});
+            
+            // Vẽ các thanh vì kèo
+            b3.create('segment', [B3, C3], {strokeWidth: 4, strokeColor: '#8B4513'}); // Xà ngang
+            b3.create('segment', [B3, A3], {strokeWidth: 4, strokeColor: '#8B4513'}); // Kèo trái
+            b3.create('segment', [C3, A3], {strokeWidth: 4, strokeColor: '#8B4513'}); // Kèo phải
+            b3.create('segment', [A3, H3], {strokeWidth: 3, strokeColor: '#A0522D', dash: 1}); // Cột chống
+            
+            b3.create('angle', [C3, B3, A3], {radius: 1, name: 'α'});
+            
+            b3.create('text', [2, 4], function() {
+                var alpha = sliderAlpha.Value();
+                var h = (4 * Math.tan(alpha * Math.PI / 180)).toFixed(1);
+                var gocNoc = 180 - 2 * alpha;
+                return `Chiều cao cột AH = ${h} m<br>Góc nóc nhà = ${gocNoc}°`;
+            }, {fontSize: 16, strokeColor: 'blue'});
+        };
+
+        /* --- Xử lý Bài tập trắc nghiệm & Gửi dữ liệu AppScript --- */
+        const correctAnswers = { q1: 'B', q2: 'A', q3: 'C', q4: 'D', q5: 'A' };
+        
+        document.getElementById('quizForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const form = new FormData(this);
+            let score = 0;
+            let cauSai = [];
+            
+            // Tính điểm
+            for (let q in correctAnswers) {
+                let userAns = form.get(q);
+                if (userAns === correctAnswers[q]) {
+                    score += 2; // Mỗi câu 2 điểm
+                } else {
+                    cauSai.push(`${q.toUpperCase()}(Chọn:${userAns || 'Trống'})`);
+                }
+            }
+
+            const hoTen = document.getElementById('hoTen').value;
+            const thoiGian = new Date().toLocaleString('vi-VN');
+            const resultBox = document.getElementById('quizResult');
+            const btn = document.getElementById('btnSubmitQuiz');
+
+            // Cập nhật giao diện đang gửi
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Đang gửi kết quả...';
+            btn.disabled = true;
+
+            // Payload theo yêu cầu tracnghiemonline.md / GS Code
+            const payload = {
+                hoTen: hoTen,
+                maDe: "KHTN7-Buoi21",
+                diem: score,
+                thoiGian: thoiGian,
+                cauSai: cauSai.length > 0 ? cauSai.join(', ') : "Không sai câu nào"
+            };
+
+            // URL App Script Web App
+            const scriptUrl = "https://script.google.com/macros/s/AKfycbzY7b7h4OwvhXuK5Vs6hl-aD88BPnAiAKbU5lfJobby0D4nzbIJVKT4n0AKCpAGoK0nZA/exec";
+
+            fetch(scriptUrl, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "text/plain;charset=utf-8", // Tránh lỗi CORS Preflight với App Script
+                },
+                body: JSON.stringify(payload)
+            })
+            .then(res => res.json())
+            .then(data => {
+                if(data.status === "success") {
+                    resultBox.classList.remove('hidden', 'bg-red-100', 'text-red-700');
+                    resultBox.classList.add('bg-green-100', 'text-green-800');
+                    resultBox.innerHTML = `🎉 Chúc mừng <strong>${hoTen}</strong>!<br> Điểm của bạn là: <strong>${score}/10</strong>.<br> Dữ liệu đã được ghi nhận hệ thống.`;
+                } else {
+                    throw new Error("Lỗi phía server.");
+                }
+            })
+            .catch(err => {
+                // Hiển thị điểm cục bộ dù mạng lỗi không gửi được
+                resultBox.classList.remove('hidden');
+                resultBox.classList.add('bg-yellow-100', 'text-yellow-800');
+                resultBox.innerHTML = `Bạn đạt <strong>${score}/10</strong> điểm. (Chưa gửi được về server máy chủ, vui lòng kiểm tra kết nối)`;
+            })
+            .finally(() => {
+                btn.innerHTML = '<i class="fas fa-check mr-2"></i> Đã Nộp Bài';
+            });
+        });
+    </script>
+
+    <!-- Script In Tài Liệu Yêu Cầu -->
+    <script>
+        function safePrint() {
+            const printBtn = document.getElementById('btn-print-doc');
+            printBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Đang chuẩn bị...';
+
+            // Đảm bảo MathJax đã render xong mọi công thức trước khi gọi hộp thoại in
+            if (window.MathJax && window.MathJax.typesetPromise) {
+                MathJax.typesetPromise().then(() => {
+                    printBtn.innerHTML = '<i class="fas fa-print mr-2"></i> In Tài Liệu';
+                    window.print();
+                });
+            } else {
+                // Fallback nếu không có công thức toán
+                setTimeout(() => window.print(), 500);
+            }
+        }
+    </script>
+</body>
+</html>
