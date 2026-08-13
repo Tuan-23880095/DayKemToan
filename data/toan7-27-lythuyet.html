@@ -1,0 +1,986 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buổi 27: Đa Thức Một Biến - Lý Thuyết &amp; Mô Phỏng Hình Học</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- FontAwesome 6 CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- JSXGraph CSS & JS -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraph.css" />
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraphcore.js"></script>
+    
+    <!-- MathJax 3 Configuration & Library -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['\\(', '\\)'], ['$', '$']],
+                displayMath: [['\\[', '\\]'], ['$$', '$$']]
+            },
+            svg: {
+                fontCache: 'global'
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;800&display=swap');
+        body {
+            font-family: 'Lexend', sans-serif;
+            background-color: #f8fafc;
+            color: #0f172a;
+        }
+        .jxgbox {
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            border: 2px solid #e2e8f0;
+            background-color: #ffffff;
+        }
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+        @media print {
+            .no-print, .print\:hidden { display: none !important; }
+            body { background-color: #ffffff; }
+            .shadow-lg, .shadow-md, .shadow-xl { box-shadow: none !important; }
+            details { open: true !important; }
+        }
+    </style>
+</head>
+<body class="bg-slate-100 min-h-screen pb-16">
+
+    <!-- HEADER / LOGO BAR -->
+    <header class="bg-white border-b-4 border-indigo-600 shadow-md sticky top-0 z-40">
+        <div class="max-w-7xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-4">
+            <div class="flex items-center space-x-3">
+                <img src="https://firebasestorage.googleapis.com/v0/b/link-anh-web.firebasestorage.app/o/ttbdvh.jpg?alt=media&token=f270aa9b-a2bc-48e8-8910-80742b542615" 
+                     alt="TTBDVH Logo" class="h-14 w-auto object-contain rounded border border-gray-200 p-1">
+                <img src="https://firebasestorage.googleapis.com/v0/b/link-anh-web.firebasestorage.app/o/Logo-chinh-hcmus.png?alt=media&token=9cf3a1de-75f1-493b-8711-fd22c7b98738" 
+                     alt="HCMUS Logo" class="h-14 w-auto object-contain">
+            </div>
+            
+            <div class="text-right flex-1 min-w-[280px]">
+                <span class="inline-block px-3 py-1 bg-indigo-100 text-indigo-800 font-semibold text-xs rounded-full uppercase tracking-wider mb-1">
+                    <i class="fa-solid fa-graduation-cap mr-1"></i> Tài Liệu Học Thuật - Toán 7
+                </span>
+                <h1 class="text-xl md:text-2xl font-bold text-slate-800 leading-tight">
+                    ĐA THỨC MỘT BIẾN
+                </h1>
+                <p class="text-xs text-slate-500 font-medium mt-1">Lý thuyết chuẩn mực, ví dụ phân cấp &amp; Mô hình học tập trực quan JSXGraph</p>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTAINER -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-8 space-y-10">
+
+        <!-- GIỚI THIỆU TỔNG QUAN -->
+        <section class="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 rounded-2xl p-6 text-white shadow-xl">
+            <div class="flex items-start space-x-4">
+                <div class="p-3 bg-white/10 rounded-xl backdrop-blur-md hidden sm:block">
+                    <i class="fa-solid fa-square-root-variable text-3xl text-yellow-300"></i>
+                </div>
+                <div>
+                    <h2 class="text-xl font-bold mb-2 flex items-center gap-2">
+                        <span>Chuyên Đề Đại Số Lớp 7: Đa Thức Một Biến</span>
+                        <span class="text-xs bg-yellow-400 text-slate-900 font-bold px-2 py-0.5 rounded-full">3 Cấp Độ</span>
+                    </h2>
+                    <p class="text-sm text-blue-100 leading-relaxed">
+                        Bài học giúp học sinh làm chủ khái niệm đa thức một biến, xác định bậc, các hệ số, thực hiện thu gọn, sắp xếp và ứng dụng mô hình hóa toán học vào giải quyết các bài toán thực tế sinh động.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- CẤP ĐỘ 1: CƠ BẢN (BASIC) -->
+        <!-- ========================================== -->
+        <section class="bg-white rounded-2xl shadow-md border border-slate-200 overflow-hidden">
+            <div class="bg-emerald-600 px-6 py-4 text-white flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                    <span class="w-8 h-8 rounded-full bg-emerald-500 text-white flex items-center justify-center font-bold text-sm border-2 border-emerald-300">1</span>
+                    <h3 class="text-lg font-bold">💡 CẤP ĐỘ 1: CƠ BẢN (BASIC)</h3>
+                </div>
+                <span class="text-xs bg-emerald-800 text-emerald-100 px-3 py-1 rounded-full font-medium">Nhận Biết &amp; Xác Định Bậc, Hệ Số</span>
+            </div>
+
+            <div class="p-6 space-y-6">
+                <!-- Mục tiêu -->
+                <div class="bg-emerald-50 border-l-4 border-emerald-500 p-4 rounded-r-lg">
+                    <h4 class="font-bold text-emerald-900 text-sm flex items-center gap-2">
+                        <i class="fa-solid fa-bullseye text-emerald-600"></i> Mục tiêu cấp độ 1:
+                    </h4>
+                    <p class="text-sm text-emerald-800 mt-1">Học sinh nhận biết được đa thức một biến, xác định đúng các hạng tử, bậc, hệ số cao nhất và hệ số tự do của đa thức.</p>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="space-y-4">
+                        <!-- 1. Định nghĩa Đa thức một biến -->
+                        <div class="border border-slate-200 rounded-xl p-4 bg-slate-50">
+                            <h5 class="font-bold text-slate-800 flex items-center gap-2 mb-2">
+                                <i class="fa-solid fa-bookmark text-emerald-600 text-xs"></i> 1. Định nghĩa Đa thức một biến
+                            </h5>
+                            <p class="text-sm text-slate-700 leading-relaxed">
+                                Đa thức một biến (gọi tắt là đa thức) là <strong>tổng của những đơn thức của cùng một biến</strong>.
+                            </p>
+                            <ul class="text-xs text-slate-600 mt-2 space-y-1 list-disc list-inside">
+                                <li>Mỗi đơn thức trong tổng đó được gọi là một <strong>hạng tử</strong> của đa thức.</li>
+                                <li>Kí hiệu đa thức kèm tên biến trong dấu ngoặc đơn: \(P(x) = 5x^3 - 2x^2 + x - 3\); \(Q(y) = -3y^2 + 2y - 1\).</li>
+                            </ul>
+                            <div class="mt-3 p-2.5 bg-emerald-100/60 rounded-lg border border-emerald-200 text-xs text-emerald-900">
+                                <strong>Trường hợp đặc biệt:</strong>
+                                <ul class="list-disc list-inside mt-1 space-y-0.5">
+                                    <li>Một đơn thức cũng là một đa thức.</li>
+                                    <li>Số \(0\) được gọi là đa thức không.</li>
+                                    <li>Mỗi số thực khác \(0\) là một đa thức bậc \(0\).</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- 2. Bậc và các hệ số -->
+                        <div class="border border-slate-200 rounded-xl p-4 bg-slate-50">
+                            <h5 class="font-bold text-slate-800 flex items-center gap-2 mb-2">
+                                <i class="fa-solid fa-arrow-up-9-1 text-emerald-600 text-xs"></i> 2. Bậc và các hệ số của Đa thức một biến
+                            </h5>
+                            <p class="text-xs text-slate-700 leading-relaxed mb-2">
+                                Trong một đa thức thu gọn và khác đa thức không:
+                            </p>
+                            <div class="space-y-2 text-xs">
+                                <div class="bg-white p-2.5 rounded border border-slate-200">
+                                    <span class="font-bold text-emerald-700">• Bậc của đa thức:</span> Số mũ lớn nhất của biến trong đa thức đó.
+                                </div>
+                                <div class="bg-white p-2.5 rounded border border-slate-200">
+                                    <span class="font-bold text-rose-600">• Hệ số cao nhất:</span> Hệ số của hạng tử có bậc cao nhất.
+                                </div>
+                                <div class="bg-white p-2.5 rounded border border-slate-200">
+                                    <span class="font-bold text-amber-600">• Hệ số tự do:</span> Hệ số của hạng tử bậc \(0\) (hạng tử không chứa biến).
+                                </div>
+                            </div>
+                            <p class="text-xs text-slate-500 italic mt-2">
+                                Ví dụ: Xét \(A(x) = 7x^4 - 2x^3 + x^2 - 5\) \(\Rightarrow\) Các hạng tử: \(7x^4, -2x^3, x^2, -5\). Bậc = \(4\), Hệ số cao nhất = \(7\), Hệ số tự do = \(-5\).
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- JSXGraph 1: Cây đại thụ Bậc và Hệ số -->
+                    <div class="space-y-3">
+                        <div class="bg-slate-800 text-white p-3 rounded-t-xl flex items-center justify-between">
+                            <span class="text-xs font-bold flex items-center gap-2">
+                                <i class="fa-solid fa-tree text-emerald-400"></i> Mô Phỏng JSXGraph 1: "Cây Đại Thụ Bậc &amp; Hệ Số"
+                            </span>
+                            <span class="text-[10px] bg-emerald-500/20 text-emerald-300 px-2 py-0.5 rounded">Tương tác Slider</span>
+                        </div>
+                        <div id="jxgbox1" class="jxgbox w-full h-[400px]"></div>
+                        <p class="text-xs text-slate-500 italic text-center">
+                            <i class="fa-solid fa-sliders mr-1"></i> Thay đổi slider các hệ số $a_3, a_2, a_1, a_0$ của $P(x) = a_3x^3 + a_2x^2 + a_1x + a_0$ để xem Bậc, Hệ số cao nhất và Hệ số tự do biến đổi động.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Ví dụ minh họa cấp độ 1 -->
+                <div class="border-t border-slate-200 pt-6 space-y-4">
+                    <h4 class="font-bold text-slate-800 flex items-center gap-2 text-md">
+                        <i class="fa-solid fa-pen-to-square text-emerald-600"></i> Ví Dụ Minh Họa (Cấp Độ 1)
+                    </h4>
+
+                    <div class="bg-slate-50 rounded-xl p-4 border border-slate-200">
+                        <p class="text-sm font-semibold text-slate-800">Ví dụ:</p>
+                        <p class="text-sm text-slate-700 mt-1">
+                            Cho đa thức \(B(y) = 2y^3 - 5y^5 + 4y - y^3 + 1\). Hãy chỉ ra các hạng tử, bậc, hệ số cao nhất và hệ số tự do của đa thức đó sau khi đã thu gọn.
+                        </p>
+                        
+                        <details class="mt-3 group">
+                            <summary class="cursor-pointer inline-flex items-center gap-2 text-xs font-bold text-emerald-700 bg-emerald-100 hover:bg-emerald-200 px-3 py-1.5 rounded-lg transition-colors">
+                                <i class="fa-solid fa-key text-emerald-600"></i> Xem Gợi Ý Lời Giải
+                            </summary>
+                            <div class="mt-3 text-sm text-slate-700 bg-white p-4 rounded-lg border border-slate-200 space-y-2">
+                                <p><strong>Giải:</strong> Thu gọn các hạng tử cùng bậc (\(y^3\)):</p>
+                                <p class="text-center bg-slate-50 p-2 rounded text-emerald-800 font-mono">
+                                    \[B(y) = -5y^5 + (2y^3 - y^3) + 4y + 1 = -5y^5 + y^3 + 4y + 1\]
+                                </p>
+                                <ul class="text-xs text-slate-700 space-y-1 ml-4 list-disc">
+                                    <li><strong>Các hạng tử của đa thức:</strong> \(-5y^5; y^3; 4y; 1\).</li>
+                                    <li><strong>Bậc của đa thức:</strong> \(5\) (vì số mũ lớn nhất của biến \(y\) là \(5\)).</li>
+                                    <li><strong>Hệ số cao nhất:</strong> \(-5\) (hệ số của hạng tử \(-5y^5\)).</li>
+                                    <li><strong>Hệ số tự do:</strong> \(1\).</li>
+                                </ul>
+                            </div>
+                        </details>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- CẤP ĐỘ 2: NÂNG CAO (ADVANCED) -->
+        <!-- ========================================== -->
+        <section class="bg-white rounded-2xl shadow-md border border-slate-200 overflow-hidden">
+            <div class="bg-indigo-600 px-6 py-4 text-white flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                    <span class="w-8 h-8 rounded-full bg-indigo-500 text-white flex items-center justify-center font-bold text-sm border-2 border-indigo-300">2</span>
+                    <h3 class="text-lg font-bold">💡 CẤP ĐỘ 2: NÂNG CAO (ADVANCED)</h3>
+                </div>
+                <span class="text-xs bg-indigo-800 text-indigo-100 px-3 py-1 rounded-full font-medium">Thu Gọn &amp; Sắp Xếp Lũy Thừa</span>
+            </div>
+
+            <div class="p-6 space-y-6">
+                <!-- Mục tiêu -->
+                <div class="bg-indigo-50 border-l-4 border-indigo-500 p-4 rounded-r-lg">
+                    <h4 class="font-bold text-indigo-900 text-sm flex items-center gap-2">
+                        <i class="fa-solid fa-bullseye text-indigo-600"></i> Mục tiêu cấp độ 2:
+                    </h4>
+                    <p class="text-sm text-indigo-800 mt-1">Học sinh biết thực hiện thu gọn đa thức một biến và sắp xếp các hạng tử của đa thức theo lũy thừa tăng hoặc giảm dần của biến.</p>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="space-y-4">
+                        <!-- 1. Thu gọn đa thức -->
+                        <div class="border border-slate-200 rounded-xl p-4 bg-slate-50">
+                            <h5 class="font-bold text-slate-800 flex items-center gap-2 mb-2">
+                                <i class="fa-solid fa-compress text-indigo-600 text-xs"></i> 1. Đa thức một biến thu gọn
+                            </h5>
+                            <p class="text-xs text-slate-700 leading-relaxed mb-2">
+                                Đa thức một biến thu gọn là đa thức không chứa hai đơn thức nào cùng bậc.
+                            </p>
+                            <div class="p-2.5 bg-white rounded-lg border border-slate-200 text-xs text-slate-700 space-y-1">
+                                <p class="font-bold text-indigo-800">Quy trình thu gọn đa thức:</p>
+                                <p>• <strong>Bước 1:</strong> Xác định các hạng tử (đơn thức) cùng bậc trong đa thức.</p>
+                                <p>• <strong>Bước 2:</strong> Thực hiện cộng, trừ các hệ số của các đơn thức cùng bậc và giữ nguyên lũy thừa của biến.</p>
+                            </div>
+                        </div>
+
+                        <!-- 2. Sắp xếp đa thức -->
+                        <div class="border border-slate-200 rounded-xl p-4 bg-slate-50">
+                            <h5 class="font-bold text-slate-800 flex items-center gap-2 mb-2">
+                                <i class="fa-solid fa-arrow-down-short-wide text-indigo-600 text-xs"></i> 2. Sắp xếp đa thức một biến
+                            </h5>
+                            <p class="text-xs text-slate-700 leading-relaxed mb-2">
+                                Để thuận tiện cho tính toán, người ta sắp xếp các hạng tử theo lũy thừa tăng hoặc giảm dần của biến.
+                            </p>
+                            <div class="grid grid-cols-2 gap-2 text-xs">
+                                <div class="bg-indigo-50 p-2.5 rounded border border-indigo-200">
+                                    <span class="font-bold text-indigo-900">Giảm dần:</span> Số mũ từ lớn đến bé.
+                                </div>
+                                <div class="bg-indigo-50 p-2.5 rounded border border-indigo-200">
+                                    <span class="font-bold text-indigo-900">Tăng dần:</span> Số mũ từ bé đến lớn.
+                                </div>
+                            </div>
+                            <div class="mt-2 text-xs text-rose-700 bg-rose-50 p-2 rounded border border-rose-200 font-semibold">
+                                <i class="fa-solid fa-triangle-exclamation mr-1"></i> Chú ý: Bắt buộc phải THU GỌN đa thức trước khi thực hiện SẮP XẾP.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- JSXGraph 2: Trò chơi Sắp xếp Toa tàu -->
+                    <div class="space-y-3">
+                        <div class="bg-slate-800 text-white p-3 rounded-t-xl flex items-center justify-between">
+                            <span class="text-xs font-bold flex items-center gap-2">
+                                <i class="fa-solid fa-train text-indigo-400"></i> Mô Phỏng JSXGraph 2: "Toa Tàu Lũy Thừa"
+                            </span>
+                            <button onclick="toggleTrainOrder()" class="text-[10px] bg-indigo-500 hover:bg-indigo-600 text-white font-bold px-2 py-1 rounded transition-colors">
+                                <i class="fa-solid fa-arrows-rotate mr-1"></i> Đổi Chiều Sắp Xếp
+                            </button>
+                        </div>
+                        <div id="jxgbox2" class="jxgbox w-full h-[380px]"></div>
+                        <p class="text-xs text-slate-500 italic text-center">
+                            <i class="fa-solid fa-circle-info mr-1"></i> Bấm nút <strong>"Đổi Chiều Sắp Xếp"</strong> để hoán đổi trực quan giữa sắp xếp Lũy thừa Giảm dần và Tăng dần.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Ví dụ minh họa cấp độ 2 -->
+                <div class="border-t border-slate-200 pt-6 space-y-4">
+                    <h4 class="font-bold text-slate-800 flex items-center gap-2 text-md">
+                        <i class="fa-solid fa-pen-to-square text-indigo-600"></i> Ví Dụ Minh Họa (Cấp Độ 2)
+                    </h4>
+
+                    <div class="bg-slate-50 rounded-xl p-4 border border-slate-200">
+                        <p class="text-sm font-semibold text-slate-800">Ví dụ:</p>
+                        <p class="text-sm text-slate-700 mt-1">
+                            Cho đa thức: \(A(x) = 3x^2 - 4x^4 + 2x - 3x^2 + x^4 - 5x^3 + 7\).<br>
+                            a) Thu gọn đa thức \(A(x)\).<br>
+                            b) Sắp xếp các hạng tử của \(A(x)\) theo lũy thừa giảm dần và lũy thừa tăng dần của biến.
+                        </p>
+
+                        <details class="mt-3 group">
+                            <summary class="cursor-pointer inline-flex items-center gap-2 text-xs font-bold text-indigo-700 bg-indigo-100 hover:bg-indigo-200 px-3 py-1.5 rounded-lg transition-colors">
+                                <i class="fa-solid fa-key text-indigo-600"></i> Xem Gợi Ý Lời Giải
+                            </summary>
+                            <div class="mt-3 text-sm text-slate-700 bg-white p-4 rounded-lg border border-slate-200 space-y-3">
+                                <p><strong>a) Thu gọn đa thức \(A(x)\):</strong></p>
+                                <p class="text-center bg-slate-50 p-2 rounded text-indigo-800 font-mono">
+                                    \[A(x) = (-4x^4 + x^4) - 5x^3 + (3x^2 - 3x^2) + 2x + 7\]
+                                    \[A(x) = -3x^4 - 5x^3 + 0x^2 + 2x + 7 = -3x^4 - 5x^3 + 2x + 7\]
+                                </p>
+
+                                <p><strong>b) Sắp xếp các hạng tử của \(A(x)\):</strong></p>
+                                <ul class="text-xs text-slate-700 space-y-1 ml-4 list-disc">
+                                    <li><strong>Theo lũy thừa giảm dần:</strong> \(A(x) = -3x^4 - 5x^3 + 2x + 7\).</li>
+                                    <li><strong>Theo lũy thừa tăng dần:</strong> \(A(x) = 7 + 2x - 5x^3 - 3x^4\).</li>
+                                </ul>
+                            </div>
+                        </details>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- CẤP ĐỘ 3: VẬN DỤNG (APPLIED) -->
+        <!-- ========================================== -->
+        <section class="bg-white rounded-2xl shadow-md border border-slate-200 overflow-hidden">
+            <div class="bg-purple-600 px-6 py-4 text-white flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                    <span class="w-8 h-8 rounded-full bg-purple-500 text-white flex items-center justify-center font-bold text-sm border-2 border-purple-300">3</span>
+                    <h3 class="text-lg font-bold">💡 CẤP ĐỘ 3: VẬN DỤNG (APPLIED)</h3>
+                </div>
+                <span class="text-xs bg-purple-800 text-purple-100 px-3 py-1 rounded-full font-medium">Mô Hình Hóa Hình Học &amp; Kinh Tế</span>
+            </div>
+
+            <div class="p-6 space-y-6">
+                <!-- Mục tiêu -->
+                <div class="bg-purple-50 border-l-4 border-purple-500 p-4 rounded-r-lg">
+                    <h4 class="font-bold text-purple-900 text-sm flex items-center gap-2">
+                        <i class="fa-solid fa-bullseye text-purple-600"></i> Mục tiêu cấp độ 3:
+                    </h4>
+                    <p class="text-sm text-purple-800 mt-1">Đạt điểm tối đa thông qua các ứng dụng lập mô hình đa thức một biến để giải quyết các bài toán thực tế (đo đạc hình học có kích thước biến thiên, quản lý kinh tế doanh nghiệp, tính chi phí).</p>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="space-y-4">
+                        <!-- 1. Mô hình hình học -->
+                        <div class="border border-slate-200 rounded-xl p-4 bg-slate-50">
+                            <h5 class="font-bold text-slate-800 flex items-center gap-2 mb-2">
+                                <i class="fa-solid fa-cube text-purple-600 text-xs"></i> 1. Bài toán mô hình hóa hình học thực tế
+                            </h5>
+                            <p class="text-xs text-slate-700 leading-relaxed">
+                                Trong thực tế xây dựng, thiết kế bao bì và kiến trúc, khi một kích thước biến thiên tự do theo tham số \(x\), ta biểu thị các đại lượng như chu vi, diện tích bề mặt, thể tích của vật thể dưới dạng một đa thức một biến.
+                            </p>
+                        </div>
+
+                        <!-- 2. Mô hình kinh tế -->
+                        <div class="border border-slate-200 rounded-xl p-4 bg-slate-50">
+                            <h5 class="font-bold text-slate-800 flex items-center gap-2 mb-2">
+                                <i class="fa-solid fa-chart-line text-purple-600 text-xs"></i> 2. Bài toán kinh tế thực tế
+                            </h5>
+                            <p class="text-xs text-slate-700 leading-relaxed">
+                                Đa thức một biến được áp dụng rộng rãi để lập mô hình chi phí sản xuất, doanh thu bán hàng và lợi nhuận của doanh nghiệp theo số lượng sản phẩm bán ra \(x\), giúp phân tích tài chính và tìm điểm hòa vốn.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- JSXGraph 3: Mô phỏng Gấp hộp Carton -->
+                    <div class="space-y-3">
+                        <div class="bg-slate-800 text-white p-3 rounded-t-xl flex items-center justify-between">
+                            <span class="text-xs font-bold flex items-center gap-2">
+                                <i class="fa-solid fa-box-open text-purple-400"></i> Mô Phỏng JSXGraph 3: "Gấp Hộp Carton Thông Minh"
+                            </span>
+                            <span class="text-[10px] bg-purple-500/20 text-purple-300 px-2 py-0.5 rounded">Tấm bìa (2x) x x</span>
+                        </div>
+                        <div id="jxgbox3" class="jxgbox w-full h-[380px]"></div>
+                        <p class="text-xs text-slate-500 italic text-center">
+                            <i class="fa-solid fa-sliders mr-1"></i> Điều chỉnh slider $x$ để quan sát tấm bìa cắt 4 góc 2cm co giãn. Hệ thống tự động tính Diện tích xung quanh $S_{xq} = 12x - 32$.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Ví dụ minh họa cấp độ 3 -->
+                <div class="border-t border-slate-200 pt-6 space-y-4">
+                    <h4 class="font-bold text-slate-800 flex items-center gap-2 text-md">
+                        <i class="fa-solid fa-pen-to-square text-purple-600"></i> Ví Dụ Minh Họa (Cấp Độ 3 - Vận Dụng Thực Tế)
+                    </h4>
+
+                    <!-- Ví dụ 1 -->
+                    <div class="bg-slate-50 rounded-xl p-4 border border-slate-200">
+                        <p class="text-sm font-semibold text-slate-800">Ví dụ 1 (Hình học thực tế):</p>
+                        <p class="text-sm text-slate-700 mt-1">
+                            Một tấm bìa hình chữ nhật có chiều rộng là \(x\) (cm), chiều dài gấp đôi chiều rộng. Người ta cắt bỏ đi ở bốn góc của tấm bìa bốn hình vuông nhỏ bằng nhau có cạnh bằng \(2\) cm, rồi gấp phần còn lại lên để tạo thành một chiếc hộp hình hộp chữ nhật không nắp.<br>
+                            a) Hãy viết đa thức biểu thị diện tích xung quanh của chiếc hộp theo biến \(x\).<br>
+                            b) Thu gọn và sắp xếp đa thức đó theo lũy thừa giảm dần của biến \(x\).
+                        </p>
+
+                        <details class="mt-3 group">
+                            <summary class="cursor-pointer inline-flex items-center gap-2 text-xs font-bold text-purple-700 bg-purple-100 hover:bg-purple-200 px-3 py-1.5 rounded-lg transition-colors">
+                                <i class="fa-solid fa-key text-purple-600"></i> Xem Gợi Ý Lời Giải
+                            </summary>
+                            <div class="mt-3 text-sm text-slate-700 bg-white p-4 rounded-lg border border-slate-200 space-y-3">
+                                <p><strong>a) Lập đa thức diện tích xung quanh:</strong><br>
+                                Chiều cao của chiếc hộp là: \(h = 2\) (cm).<br>
+                                Chiều rộng đáy hộp còn lại là: \(x - 4\) (cm) (với điều kiện \(x > 4\)).<br>
+                                Chiều dài đáy hộp còn lại là: \(2x - 4\) (cm).<br>
+                                Chu vi đáy của chiếc hộp là:
+                                \[C = 2 \cdot [(2x - 4) + (x - 4)]\]
+                                Biểu thức biểu thị diện tích xung quanh của chiếc hộp là:
+                                \[S_{xq} = C \cdot h = 2 \cdot [(2x - 4) + (x - 4)] \cdot 2 = 4 \cdot [(2x - 4) + (x - 4)]\]
+                                </p>
+
+                                <p><strong>b) Thu gọn và sắp xếp đa thức:</strong></p>
+                                <p class="text-center bg-slate-50 p-2 rounded text-purple-800 font-mono">
+                                    \[S_{xq} = 4 \cdot [2x - 4 + x - 4] = 4 \cdot [3x - 8] = 12x - 32 \quad (\text{cm}^2)\]
+                                </p>
+                                <p>Đa thức thu được \(12x - 32\) là đa thức bậc nhất, đã được sắp xếp theo lũy thừa giảm dần của biến \(x\).</p>
+                            </div>
+                        </details>
+                    </div>
+
+                    <!-- Ví dụ 2 -->
+                    <div class="bg-slate-50 rounded-xl p-4 border border-slate-200">
+                        <p class="text-sm font-semibold text-slate-800">Ví dụ 2 (Kinh tế thực tế - Quản lý xưởng may):</p>
+                        <p class="text-sm text-slate-700 mt-1">
+                            Một xưởng may áo sơ mi có chi phí đầu tư ban đầu cố định là \(100\text{ triệu đồng}\). Chi phí nguyên vật liệu và nhân công để hoàn thành thêm mỗi chiếc áo sơ mi là \(150\text{ nghìn đồng}\) (\(0,15\text{ triệu đồng}\)).<br>
+                            a) Hãy viết đa thức \(C(x)\) biểu thị tổng số tiền chi phí sản xuất (triệu đồng) khi sản xuất được \(x\) chiếc áo.<br>
+                            b) Biết mỗi chiếc áo sơ mi bán với giá \(350\text{ nghìn đồng}\) (\(0,35\text{ triệu đồng}\)). Viết đa thức \(R(x)\) biểu thị doanh thu (triệu đồng) khi bán được \(x\) chiếc áo.<br>
+                            c) Viết đa thức \(P(x)\) biểu thị lợi nhuận thu được. Thu gọn và sắp xếp đa thức này. Tính số lượng áo sơ mi tối thiểu cần bán để xưởng bắt đầu có lãi.
+                        </p>
+
+                        <details class="mt-3 group">
+                            <summary class="cursor-pointer inline-flex items-center gap-2 text-xs font-bold text-purple-700 bg-purple-100 hover:bg-purple-200 px-3 py-1.5 rounded-lg transition-colors">
+                                <i class="fa-solid fa-key text-purple-600"></i> Xem Gợi Ý Lời Giải
+                            </summary>
+                            <div class="mt-3 text-sm text-slate-700 bg-white p-4 rounded-lg border border-slate-200 space-y-3">
+                                <p><strong>a) Đa thức chi phí sản xuất:</strong>
+                                \[C(x) = 0,15x + 100 \quad (\text{triệu đồng})\]
+                                </p>
+                                <p><strong>b) Đa thức doanh thu:</strong>
+                                \[R(x) = 0,35x \quad (\text{triệu đồng})\]
+                                </p>
+                                <p><strong>c) Đa thức lợi nhuận \(P(x)\):</strong>
+                                \[P(x) = R(x) - C(x) = 0,35x - (0,15x + 100) = 0,2x - 100 \quad (\text{triệu đồng})\]
+                                Đa thức lợi nhuận là \(P(x) = 0,2x - 100\), đã được thu gọn và sắp xếp giảm dần.<br>
+                                Để xưởng bắt đầu có lãi thì lợi nhuận thu được phải lớn hơn 0:
+                                \[P(x) > 0 \Rightarrow 0,2x - 100 > 0 \Rightarrow 0,2x > 100 \Rightarrow x > 500\]
+                                <strong>Kết luận:</strong> Xưởng may cần sản xuất và bán được tối thiểu 501 chiếc áo sơ mi trở lên thì mới bắt đầu thu được lợi nhuận dương (có lãi).
+                                </p>
+                            </div>
+                        </details>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- BÀI TẬP ĐÁNH GIÁ NĂNG LỰC TẠI LỚP -->
+        <!-- ========================================== -->
+        <section class="bg-white rounded-2xl shadow-xl border-2 border-indigo-500 overflow-hidden">
+            <div class="bg-gradient-to-r from-indigo-700 via-purple-700 to-pink-700 px-6 py-5 text-white flex flex-wrap items-center justify-between gap-4">
+                <div>
+                    <h3 class="text-xl font-extrabold flex items-center gap-2">
+                        <i class="fa-solid fa-clipboard-check text-yellow-300"></i> BÀI TẬP ĐÁNH GIÁ NĂNG LỰC TẠI LỚP
+                    </h3>
+                    <p class="text-xs text-indigo-100 mt-1">Trắc nghiệm 5 câu - Tự động chấm điểm và đồng bộ kết quả lên hệ thống LMS</p>
+                </div>
+                <span class="bg-white/20 backdrop-blur-md px-3 py-1 rounded-full text-xs font-bold border border-white/30">
+                    Mã Đề: toan7-dathuc1bien
+                </span>
+            </div>
+
+            <form id="quiz-form" class="p-6 space-y-8">
+                <!-- Thông tin học sinh -->
+                <div class="bg-indigo-50/70 rounded-xl p-4 border border-indigo-100 grid sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
+                            Họ và Tên Học Sinh <span class="text-red-500">*</span>
+                        </label>
+                        <div class="relative">
+                            <i class="fa-solid fa-user absolute left-3 top-3 text-slate-400 text-sm"></i>
+                            <input type="text" id="student-name" required placeholder="Nhập đầy đủ họ và tên..."
+                                   class="w-full pl-9 pr-3 py-2 text-sm rounded-lg border border-slate-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Lớp / Trường</label>
+                        <div class="relative">
+                            <i class="fa-solid fa-school absolute left-3 top-3 text-slate-400 text-sm"></i>
+                            <input type="text" id="student-class" placeholder="VD: Lớp 7A1 - THCS HCMUS"
+                                   class="w-full pl-9 pr-3 py-2 text-sm rounded-lg border border-slate-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Danh sách 5 câu hỏi -->
+                <div class="space-y-6">
+                    <!-- Câu 1 -->
+                    <div class="bg-slate-50 rounded-xl p-5 border border-slate-200 hover:border-indigo-300 transition-colors">
+                        <p class="font-bold text-sm text-slate-800 flex items-start gap-2">
+                            <span class="bg-indigo-600 text-white text-xs px-2 py-0.5 rounded">Câu 1</span>
+                            <span>Bậc của đa thức một biến \(P(x) = 7x^4 - 2x^3 + x^2 - 5\) là:</span>
+                        </p>
+                        <div class="grid sm:grid-cols-2 gap-3 mt-3">
+                            <label class="flex items-center space-x-3 p-3 bg-white rounded-lg border border-slate-200 hover:bg-indigo-50/50 cursor-pointer text-sm">
+                                <input type="radio" name="q1" value="A" class="w-4 h-4 text-indigo-600 focus:ring-indigo-500">
+                                <span>A. \(3\)</span>
+                            </label>
+                            <label class="flex items-center space-x-3 p-3 bg-white rounded-lg border border-slate-200 hover:bg-indigo-50/50 cursor-pointer text-sm">
+                                <input type="radio" name="q1" value="B" class="w-4 h-4 text-indigo-600 focus:ring-indigo-500">
+                                <span>B. \(4\)</span>
+                            </label>
+                            <label class="flex items-center space-x-3 p-3 bg-white rounded-lg border border-slate-200 hover:bg-indigo-50/50 cursor-pointer text-sm">
+                                <input type="radio" name="q1" value="C" class="w-4 h-4 text-indigo-600 focus:ring-indigo-500">
+                                <span>C. \(7\)</span>
+                            </label>
+                            <label class="flex items-center space-x-3 p-3 bg-white rounded-lg border border-slate-200 hover:bg-indigo-50/50 cursor-pointer text-sm">
+                                <input type="radio" name="q1" value="D" class="w-4 h-4 text-indigo-600 focus:ring-indigo-500">
+                                <span>D. \(-5\)</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Câu 2 -->
+                    <div class="bg-slate-50 rounded-xl p-5 border border-slate-200 hover:border-indigo-300 transition-colors">
+                        <p class="font-bold text-sm text-slate-800 flex items-start gap-2">
+                            <span class="bg-indigo-600 text-white text-xs px-2 py-0.5 rounded">Câu 2</span>
+                            <span>Hệ số cao nhất và hệ số tự do của đa thức \(B(y) = -5y^5 + y^3 + 4y + 1\) lần lượt là:</span>
+                        </p>
+                        <div class="grid sm:grid-cols-2 gap-3 mt-3">
+                            <label class="flex items-center space-x-3 p-3 bg-white rounded-lg border border-slate-200 hover:bg-indigo-50/50 cursor-pointer text-sm">
+                                <input type="radio" name="q2" value="A" class="w-4 h-4 text-indigo-600 focus:ring-indigo-500">
+                                <span>A. \(-5\) và \(1\)</span>
+                            </label>
+                            <label class="flex items-center space-x-3 p-3 bg-white rounded-lg border border-slate-200 hover:bg-indigo-50/50 cursor-pointer text-sm">
+                                <input type="radio" name="q2" value="B" class="w-4 h-4 text-indigo-600 focus:ring-indigo-500">
+                                <span>B. \(5\) và \(1\)</span>
+                            </label>
+                            <label class="flex items-center space-x-3 p-3 bg-white rounded-lg border border-slate-200 hover:bg-indigo-50/50 cursor-pointer text-sm">
+                                <input type="radio" name="q2" value="C" class="w-4 h-4 text-indigo-600 focus:ring-indigo-500">
+                                <span>C. \(-5\) và \(4\)</span>
+                            </label>
+                            <label class="flex items-center space-x-3 p-3 bg-white rounded-lg border border-slate-200 hover:bg-indigo-50/50 cursor-pointer text-sm">
+                                <input type="radio" name="q2" value="D" class="w-4 h-4 text-indigo-600 focus:ring-indigo-500">
+                                <span>D. \(1\) và \(-5\)</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Câu 3 -->
+                    <div class="bg-slate-50 rounded-xl p-5 border border-slate-200 hover:border-indigo-300 transition-colors">
+                        <p class="font-bold text-sm text-slate-800 flex items-start gap-2">
+                            <span class="bg-indigo-600 text-white text-xs px-2 py-0.5 rounded">Câu 3</span>
+                            <span>Kết quả thu gọn đa thức \(A(x) = 3x^2 - 4x^4 + 2x - 3x^2 + x^4 - 5x^3 + 7\) là:</span>
+                        </p>
+                        <div class="grid sm:grid-cols-2 gap-3 mt-3">
+                            <label class="flex items-center space-x-3 p-3 bg-white rounded-lg border border-slate-200 hover:bg-indigo-50/50 cursor-pointer text-sm">
+                                <input type="radio" name="q3" value="A" class="w-4 h-4 text-indigo-600 focus:ring-indigo-500">
+                                <span>A. \(-3x^4 - 5x^3 + 2x + 7\)</span>
+                            </label>
+                            <label class="flex items-center space-x-3 p-3 bg-white rounded-lg border border-slate-200 hover:bg-indigo-50/50 cursor-pointer text-sm">
+                                <input type="radio" name="q3" value="B" class="w-4 h-4 text-indigo-600 focus:ring-indigo-500">
+                                <span>B. \(-5x^4 - 5x^3 + 6x^2 + 2x + 7\)</span>
+                            </label>
+                            <label class="flex items-center space-x-3 p-3 bg-white rounded-lg border border-slate-200 hover:bg-indigo-50/50 cursor-pointer text-sm">
+                                <input type="radio" name="q3" value="C" class="w-4 h-4 text-indigo-600 focus:ring-indigo-500">
+                                <span>C. \(-3x^4 - 5x^3 + 6x^2 + 7\)</span>
+                            </label>
+                            <label class="flex items-center space-x-3 p-3 bg-white rounded-lg border border-slate-200 hover:bg-indigo-50/50 cursor-pointer text-sm">
+                                <input type="radio" name="q3" value="D" class="w-4 h-4 text-indigo-600 focus:ring-indigo-500">
+                                <span>D. \(3x^4 - 5x^3 + 2x + 7\)</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Câu 4 -->
+                    <div class="bg-slate-50 rounded-xl p-5 border border-slate-200 hover:border-indigo-300 transition-colors">
+                        <p class="font-bold text-sm text-slate-800 flex items-start gap-2">
+                            <span class="bg-indigo-600 text-white text-xs px-2 py-0.5 rounded">Câu 4</span>
+                            <span>Cho tấm bìa hình chữ nhật kích thước \(2x \times x\) (cm), cắt bỏ ở 4 góc 4 hình vuông nhỏ cạnh \(2\text{ cm}\). Đa thức biểu thị diện tích xung quanh của chiếc hộp không nắp tạo thành là:</span>
+                        </p>
+                        <div class="grid sm:grid-cols-2 gap-3 mt-3">
+                            <label class="flex items-center space-x-3 p-3 bg-white rounded-lg border border-slate-200 hover:bg-indigo-50/50 cursor-pointer text-sm">
+                                <input type="radio" name="q4" value="A" class="w-4 h-4 text-indigo-600 focus:ring-indigo-500">
+                                <span>A. \(12x - 32\)</span>
+                            </label>
+                            <label class="flex items-center space-x-3 p-3 bg-white rounded-lg border border-slate-200 hover:bg-indigo-50/50 cursor-pointer text-sm">
+                                <input type="radio" name="q4" value="B" class="w-4 h-4 text-indigo-600 focus:ring-indigo-500">
+                                <span>B. \(6x - 16\)</span>
+                            </label>
+                            <label class="flex items-center space-x-3 p-3 bg-white rounded-lg border border-slate-200 hover:bg-indigo-50/50 cursor-pointer text-sm">
+                                <input type="radio" name="q4" value="C" class="w-4 h-4 text-indigo-600 focus:ring-indigo-500">
+                                <span>C. \(12x - 16\)</span>
+                            </label>
+                            <label class="flex items-center space-x-3 p-3 bg-white rounded-lg border border-slate-200 hover:bg-indigo-50/50 cursor-pointer text-sm">
+                                <input type="radio" name="q4" value="D" class="w-4 h-4 text-indigo-600 focus:ring-indigo-500">
+                                <span>D. \(2x^2 - 16\)</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Câu 5 -->
+                    <div class="bg-slate-50 rounded-xl p-5 border border-slate-200 hover:border-indigo-300 transition-colors">
+                        <p class="font-bold text-sm text-slate-800 flex items-start gap-2">
+                            <span class="bg-indigo-600 text-white text-xs px-2 py-0.5 rounded">Câu 5</span>
+                            <span>Một xưởng may có đa thức lợi nhuận \(P(x) = 0,2x - 100\) (triệu đồng) khi bán được \(x\) chiếc áo. Số lượng áo tối thiểu cần bán để xưởng bắt đầu thu được lãi dương là:</span>
+                        </p>
+                        <div class="grid sm:grid-cols-2 gap-3 mt-3">
+                            <label class="flex items-center space-x-3 p-3 bg-white rounded-lg border border-slate-200 hover:bg-indigo-50/50 cursor-pointer text-sm">
+                                <input type="radio" name="q5" value="A" class="w-4 h-4 text-indigo-600 focus:ring-indigo-500">
+                                <span>A. \(500\) chiếc</span>
+                            </label>
+                            <label class="flex items-center space-x-3 p-3 bg-white rounded-lg border border-slate-200 hover:bg-indigo-50/50 cursor-pointer text-sm">
+                                <input type="radio" name="q5" value="B" class="w-4 h-4 text-indigo-600 focus:ring-indigo-500">
+                                <span>B. \(501\) chiếc</span>
+                            </label>
+                            <label class="flex items-center space-x-3 p-3 bg-white rounded-lg border border-slate-200 hover:bg-indigo-50/50 cursor-pointer text-sm">
+                                <input type="radio" name="q5" value="C" class="w-4 h-4 text-indigo-600 focus:ring-indigo-500">
+                                <span>C. \(200\) chiếc</span>
+                            </label>
+                            <label class="flex items-center space-x-3 p-3 bg-white rounded-lg border border-slate-200 hover:bg-indigo-50/50 cursor-pointer text-sm">
+                                <input type="radio" name="q5" value="D" class="w-4 h-4 text-indigo-600 focus:ring-indigo-500">
+                                <span>D. \(1000\) chiếc</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Nút nộp bài -->
+                <div class="text-center pt-4">
+                    <button type="submit" id="btn-submit-quiz"
+                            class="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-extrabold px-8 py-3.5 rounded-xl shadow-lg hover:shadow-indigo-500/25 transition-all flex items-center justify-center gap-2 mx-auto text-base">
+                        <i class="fa-solid fa-paper-plane"></i> NỘP BÀI &amp; GỬI KẾT QUẢ
+                    </button>
+                    <p id="submit-status" class="text-xs font-semibold mt-3 min-h-[20px]"></p>
+                </div>
+            </form>
+        </section>
+
+    </main>
+
+    <!-- FOOTER COPYRIGHT -->
+    <footer class="bg-slate-900 text-slate-400 text-center py-6 mt-16 border-t border-slate-800 text-xs">
+        <div class="max-w-7xl mx-auto px-4 space-y-2">
+            <p class="font-medium text-slate-300">
+                @ Bản quyền thuộc ThS. Đinh Quốc Tuấn - Mục đích phi lợi nhuận - Vì giáo dục.
+            </p>
+            <p class="text-slate-500">
+                Tài liệu giảng dạy &amp; Hệ thống học tập trực tuyến Toán Trung Học Cơ Sở
+            </p>
+        </div>
+    </footer>
+
+    <!-- NÚT IN TÀI LIỆU FIXED -->
+    <button id="btn-print-doc" onclick="safePrint()" class="fixed bottom-5 right-5 bg-gray-900 text-white px-4 py-2 rounded-lg shadow-lg hover:bg-gray-700 print:hidden z-50">
+        <i class="fas fa-print mr-2"></i> In Tài Liệu
+    </button>
+
+    <script>
+        // HÀM IN TÀI LIỆU AN TOÀN VỚI MATHJAX
+        function safePrint() {
+            const printBtn = document.getElementById('btn-print-doc');
+            printBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Đang chuẩn bị...';
+
+            // Đảm bảo MathJax đã render xong mọi công thức trước khi gọi hộp thoại in
+            if (window.MathJax && window.MathJax.typesetPromise) {
+                MathJax.typesetPromise().then(() => {
+                    printBtn.innerHTML = '<i class="fas fa-print mr-2"></i> In Tài Liệu';
+                    window.print();
+                });
+            } else {
+                // Fallback nếu không có công thức toán
+                setTimeout(() => {
+                    printBtn.innerHTML = '<i class="fas fa-print mr-2"></i> In Tài Liệu';
+                    window.print();
+                }, 500);
+            }
+        }
+
+        // ==========================================
+        // KHỞI TẠO CÁC MÔ HÌNH JSXGRAPH
+        // ==========================================
+
+        // --- MÔ HÌNH 1: CÂY ĐẠI THỤ BẬC VÀ HỆ SỐ ---
+        var board1 = JXG.JSXGraph.initBoard('jxgbox1', {
+            boundingbox: [-6, 11, 6, -5],
+            axis: false,
+            showCopyright: false,
+            showNavigation: false,
+            keepaspectratio: false
+        });
+
+        var sliderA3 = board1.create('slider', [[-5, 9.5], [-1, 9.5], [-5, -5, 5]], {name: 'a3 (mũ 3)', snapWidth: 1, digits: 0, strokeColor: '#dc2626', fillColor: '#ef4444'});
+        var sliderA2 = board1.create('slider', [[1, 9.5], [5, 9.5], [-5, 4, 5]], {name: 'a2 (mũ 2)', snapWidth: 1, digits: 0, strokeColor: '#2563eb', fillColor: '#3b82f6'});
+        var sliderA1 = board1.create('slider', [[-5, 8.2], [-1, 8.2], [-5, 0, 5]], {name: 'a1 (mũ 1)', snapWidth: 1, digits: 0, strokeColor: '#059669', fillColor: '#10b981'});
+        var sliderA0 = board1.create('slider', [[1, 8.2], [5, 8.2], [-5, 8, 5]], {name: 'a0 (tự do)', snapWidth: 1, digits: 0, strokeColor: '#d97706', fillColor: '#f59e0b'});
+
+        // Khung hiển thị Đa thức
+        board1.create('polygon', [[-5, 7.2], [5, 7.2], [5, 5.2], [-5, 5.2]], {fillColor: '#f8fafc', strokeColor: '#475569', strokeWidth: 2, lines: {fixed: true}});
+        board1.create('text', [0, 6.2, function() {
+            var a3 = sliderA3.Value();
+            var a2 = sliderA2.Value();
+            var a1 = sliderA1.Value();
+            var a0 = sliderA0.Value();
+
+            var str3 = (a3 === 0) ? '' : (a3 === 1 ? 'x³' : (a3 === -1 ? '-x³' : a3 + 'x³'));
+            var str2 = '';
+            if (a2 !== 0) {
+                var sign2 = (a2 > 0 && str3 !== '') ? ' + ' : (a2 < 0 && str3 !== '' ? ' - ' : (a2 < 0 ? '-' : ''));
+                var absA2 = Math.abs(a2);
+                str2 = sign2 + (absA2 === 1 ? 'x²' : absA2 + 'x²');
+            }
+            var str1 = '';
+            if (a1 !== 0) {
+                var prev1 = str3 + str2;
+                var sign1 = (a1 > 0 && prev1 !== '') ? ' + ' : (a1 < 0 && prev1 !== '' ? ' - ' : (a1 < 0 ? '-' : ''));
+                var absA1 = Math.abs(a1);
+                str1 = sign1 + (absA1 === 1 ? 'x' : absA1 + 'x');
+            }
+            var str0 = '';
+            if (a0 !== 0) {
+                var prev0 = str3 + str2 + str1;
+                var sign0 = (a0 > 0 && prev0 !== '') ? ' + ' : (a0 < 0 && prev0 !== '' ? ' - ' : (a0 < 0 ? '-' : ''));
+                str0 = sign0 + Math.abs(a0);
+            }
+            var res = str3 + str2 + str1 + str0;
+            if (res === '') return 'P(x) = 0 (Đa thức không)';
+            return 'P(x) = ' + res;
+        }], {anchorX: 'middle', anchorY: 'middle', fontSize: 13, cssClass: 'font-extrabold text-indigo-900'});
+
+        // Nhánh Bậc
+        board1.create('polygon', [[-5.2, 4.2], [-1.8, 4.2], [-2.0, 0.8], [-4.8, 0.8]], {fillColor: '#d1fae5', strokeColor: '#059669', strokeWidth: 2, lines: {fixed: true}});
+        board1.create('text', [-3.5, 3.3, 'NHÁNH BẬC'], {anchorX: 'middle', fontSize: 11, cssClass: 'font-bold text-emerald-800'});
+        board1.create('text', [-3.5, 2.0, function() {
+            var a3 = sliderA3.Value();
+            var a2 = sliderA2.Value();
+            var a1 = sliderA1.Value();
+            var a0 = sliderA0.Value();
+            if (a3 !== 0) return 'Bậc 3';
+            if (a2 !== 0) return 'Bậc 2';
+            if (a1 !== 0) return 'Bậc 1';
+            if (a0 !== 0) return 'Bậc 0';
+            return 'Không có bậc';
+        }], {anchorX: 'middle', fontSize: 14, cssClass: 'font-extrabold text-emerald-900'});
+
+        // Nhánh Hệ số cao nhất
+        board1.create('polygon', [[-1.5, 4.2], [1.5, 4.2], [1.3, 0.8], [-1.3, 0.8]], {fillColor: '#fee2e2', strokeColor: '#dc2626', strokeWidth: 2, lines: {fixed: true}});
+        board1.create('text', [0, 3.3, 'HỆ SỐ CAO NHẤT'], {anchorX: 'middle', fontSize: 11, cssClass: 'font-bold text-rose-800'});
+        board1.create('text', [0, 2.0, function() {
+            var a3 = sliderA3.Value();
+            var a2 = sliderA2.Value();
+            var a1 = sliderA1.Value();
+            var a0 = sliderA0.Value();
+            if (a3 !== 0) return 'Hệ số = ' + a3;
+            if (a2 !== 0) return 'Hệ số = ' + a2;
+            if (a1 !== 0) return 'Hệ số = ' + a1;
+            if (a0 !== 0) return 'Hệ số = ' + a0;
+            return 'Không có';
+        }], {anchorX: 'middle', fontSize: 14, cssClass: 'font-extrabold text-rose-900'});
+
+        // Nhánh Hệ số tự do
+        board1.create('polygon', [[1.8, 4.2], [5.2, 4.2], [4.8, 0.8], [2.0, 0.8]], {fillColor: '#fef3c7', strokeColor: '#d97706', strokeWidth: 2, lines: {fixed: true}});
+        board1.create('text', [3.5, 3.3, 'HỆ SỐ TỰ DO'], {anchorX: 'middle', fontSize: 11, cssClass: 'font-bold text-amber-800'});
+        board1.create('text', [3.5, 2.0, function() {
+            return 'Hệ số = ' + sliderA0.Value();
+        }], {anchorX: 'middle', fontSize: 14, cssClass: 'font-extrabold text-amber-900'});
+
+
+        // --- MÔ HÌNH 2: TOA TÀU LŨY THỪA ---
+        var board2 = JXG.JSXGraph.initBoard('jxgbox2', {
+            boundingbox: [-6, 8, 6, -6],
+            axis: false,
+            showCopyright: false,
+            showNavigation: false,
+            keepaspectratio: false
+        });
+
+        var trainOrderDecreasing = true;
+
+        function toggleTrainOrder() {
+            trainOrderDecreasing = !trainOrderDecreasing;
+            board2.update();
+        }
+
+        board2.create('text', [0, 6.2, function() {
+            return trainOrderDecreasing 
+                ? 'SẮP XẾP LŨY THỪA GIẢM DẦN (Mũ lớn ➔ Mũ bé)' 
+                : 'SẮP XẾP LŨY THỪA TĂNG DẦN (Mũ bé ➔ Mũ lớn)';
+        }], {anchorX: 'middle', fontSize: 12, cssClass: 'font-extrabold text-indigo-900 bg-indigo-50 p-2 rounded border border-indigo-200'});
+
+        // 4 Toa tàu minh họa cho P(x) = -3x^4 - 5x^3 + 2x + 7
+        // Toa 1, 2, 3, 4
+        var carColors = ['#fecdd3', '#fed7aa', '#dbeafe', '#e9d5ff'];
+        var carBorders = ['#e11d48', '#ea580c', '#2563eb', '#9333ea'];
+
+        // Vị trí các toa tàu
+        for (let i = 0; i < 4; i++) {
+            let posX = -4.5 + i * 2.8;
+            board2.create('polygon', [[posX, 4.0], [posX + 2.4, 4.0], [posX + 2.4, 0.5], [posX, 0.5]], {
+                fillColor: carColors[i],
+                strokeColor: carBorders[i],
+                strokeWidth: 2,
+                lines: {fixed: true}
+            });
+            // Bánh xe toa tàu
+            board2.create('circle', [[posX + 0.6, -0.1], 0.3], {fillColor: '#334155', strokeColor: '#0f172a'});
+            board2.create('circle', [[posX + 1.8, -0.1], 0.3], {fillColor: '#334155', strokeColor: '#0f172a'});
+
+            board2.create('text', [posX + 1.2, 2.8, function() {
+                if (trainOrderDecreasing) {
+                    if (i === 0) return 'Toa x⁴';
+                    if (i === 1) return 'Toa x³';
+                    if (i === 2) return 'Toa x¹';
+                    return 'Toa x⁰ (Tự do)';
+                } else {
+                    if (i === 0) return 'Toa x⁰ (Tự do)';
+                    if (i === 1) return 'Toa x¹';
+                    if (i === 2) return 'Toa x³';
+                    return 'Toa x⁴';
+                }
+            }], {anchorX: 'middle', fontSize: 10, cssClass: 'font-bold text-slate-700'});
+
+            board2.create('text', [posX + 1.2, 1.5, function() {
+                if (trainOrderDecreasing) {
+                    if (i === 0) return '-3x⁴';
+                    if (i === 1) return '-5x³';
+                    if (i === 2) return '+2x';
+                    return '+7';
+                } else {
+                    if (i === 0) return '+7';
+                    if (i === 1) return '+2x';
+                    if (i === 2) return '-5x³';
+                    return '-3x⁴';
+                }
+            }], {anchorX: 'middle', fontSize: 13, cssClass: 'font-extrabold text-slate-900'});
+        }
+
+        // Kết quả chạy dọc thân tàu
+        board2.create('polygon', [[-5, -2.0], [5, -2.0], [4.5, -4.5], [-4.5, -4.5]], {fillColor: '#f8fafc', strokeColor: '#475569', strokeWidth: 2, lines: {fixed: true}});
+        board2.create('text', [0, -2.7, 'ĐA THỨC HOÀN CHỈNH SẮP XẾP'], {anchorX: 'middle', fontSize: 11, cssClass: 'font-bold text-slate-800'});
+        board2.create('text', [0, -3.8, function() {
+            return trainOrderDecreasing
+                ? 'A(x) = -3x⁴ - 5x³ + 2x + 7'
+                : 'A(x) = 7 + 2x - 5x³ - 3x⁴';
+        }], {anchorX: 'middle', fontSize: 14, cssClass: 'font-extrabold text-indigo-900 bg-white p-1.5 rounded border border-indigo-300'});
+
+
+        // --- MÔ HÌNH 3: GẤP HỘP CARTON THÔNG MINH ---
+        var board3 = JXG.JSXGraph.initBoard('jxgbox3', {
+            boundingbox: [-2, 8.5, 11, -3],
+            axis: false,
+            showCopyright: false,
+            showNavigation: false,
+            keepaspectratio: true
+        });
+
+        var sliderX3 = board3.create('slider', [[0.5, 7.5], [6.5, 7.5], [5, 10, 16]], {
+            name: 'Chiều rộng x (cm)',
+            snapWidth: 0.5,
+            strokeColor: '#7c3aed',
+            fillColor: '#8b5cf6'
+        });
+
+        // Vẽ tấm bìa 2D với 4 góc bị cắt bỏ
+        board3.create('polygon', [
+            [function(){ return 2; }, function(){ return 0; }],
+            [function(){ return sliderX3.Value() * 0.5 - 2; }, function(){ return 0; }],
+            [function(){ return sliderX3.Value() * 0.5 - 2; }, function(){ return 2; }],
+            [function(){ return sliderX3.Value() * 0.5; }, function(){ return 2; }],
+            [function(){ return sliderX3.Value() * 0.5; }, function(){ return sliderX3.Value() * 0.25 - 2; }],
+            [function(){ return sliderX3.Value() * 0.5 - 2; }, function(){ return sliderX3.Value() * 0.25 - 2; }],
+            [function(){ return sliderX3.Value() * 0.5 - 2; }, function(){ return sliderX3.Value() * 0.25; }],
+            [function(){ return 2; }, function(){ return sliderX3.Value() * 0.25; }],
+            [function(){ return 2; }, function(){ return sliderX3.Value() * 0.25 - 2; }],
+            [function(){ return 0; }, function(){ return sliderX3.Value() * 0.25 - 2; }],
+            [function(){ return 0; }, function(){ return 2; }],
+            [function(){ return 2; }, function(){ return 2; }]
+        ], {fillColor: '#fde68a', strokeColor: '#d97706', strokeWidth: 2, lines: {fixed: true}});
+
+        board3.create('text', [function(){ return sliderX3.Value() * 0.25; }, function(){ return sliderX3.Value() * 0.125; }, 'Đáy Hộp'], {anchorX: 'middle', anchorY: 'middle', fontSize: 11, cssClass: 'font-bold text-amber-900'});
+
+        // Text thông số diện tích xung quanh
+        board3.create('text', [4.5, -1.5, function() {
+            var x = sliderX3.Value();
+            var sxq = 12 * x - 32;
+            return 'x = ' + x.toFixed(1) + ' cm ➔ S_xq = 12·(' + x.toFixed(1) + ') - 32 = ' + sxq.toFixed(0) + ' cm²';
+        }], {anchorX: 'middle', fontSize: 12, cssClass: 'font-extrabold text-purple-900 bg-purple-50 p-2 rounded-lg border border-purple-200'});
+
+
+        // ==========================================
+        // XỬ LÝ TRẮC NGHIỆM & GỬI GOOGLE APPS SCRIPT
+        // ==========================================
+        const correctAnswers = {
+            q1: 'B',
+            q2: 'A',
+            q3: 'A',
+            q4: 'A',
+            q5: 'B'
+        };
+
+        const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzY7b7h4OwvhXuK5Vs6hl-aD88BPnAiAKbU5lfJobby0D4nzbIJVKT4n0AKCpAGoK0nZA/exec";
+
+        document.getElementById('quiz-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const studentName = document.getElementById('student-name').value.trim();
+            const studentClass = document.getElementById('student-class').value.trim();
+            const submitBtn = document.getElementById('btn-submit-quiz');
+            const submitStatus = document.getElementById('submit-status');
+
+            if (!studentName) {
+                alert('Vui lòng nhập đầy đủ họ và tên trước khi nộp bài!');
+                return;
+            }
+
+            let score = 0;
+            let wrongQuestions = [];
+
+            for (let i = 1; i <= 5; i++) {
+                const selected = document.querySelector(`input[name="q${i}"]:checked`);
+                if (selected && selected.value === correctAnswers[`q${i}`]) {
+                    score++;
+                } else {
+                    wrongQuestions.push(`Câu ${i}`);
+                }
+            }
+
+            const now = new Date();
+            const timeString = now.toLocaleString('vi-VN');
+            const cauSaiText = wrongQuestions.length > 0 ? wrongQuestions.join(', ') : 'Không có (Đạt điểm tối đa)';
+
+            // Cấu trúc dữ liệu gửi phù hợp chuẩn Google Apps Script
+            const payload = {
+                hoTen: studentName + (studentClass ? ` (${studentClass})` : ''),
+                maDe: 'toan7-dathuc1bien',
+                diem: `${score}/5 (${score * 2} điểm)`,
+                thoiGian: timeString,
+                cauSai: cauSaiText
+            };
+
+            // Trạng thái chờ gửi
+            submitBtn.disabled = true;
+            submitBtn.classList.add('opacity-50', 'cursor-not-allowed');
+            submitStatus.className = 'text-xs font-semibold text-indigo-600 animate-pulse';
+            submitStatus.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-1"></i> Đang nộp bài và đồng bộ kết quả lên hệ thống...';
+
+            // Gửi dữ liệu bằng POST đến Web App URL
+            fetch(APPS_SCRIPT_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(payload)
+            })
+            .then(() => {
+                submitStatus.className = 'text-xs font-bold text-emerald-600';
+                submitStatus.innerHTML = '<i class="fa-solid fa-circle-check mr-1"></i> Nộp bài thành công! Kết quả đã được ghi nhận.';
+                
+                alert(`🎉 CHÚC MỪNG BẠN ĐÃ HOÀN THÀNH BÀI TẬP!\n\n• Học sinh: ${studentName}\n• Điểm số: ${score}/5 (${score * 2} điểm)\n• Câu chưa chính xác: ${cauSaiText}\n\nKết quả đã được gửi thành công về hệ thống của thầy giáo!`);
+            })
+            .catch(err => {
+                console.error('Lỗi khi gửi kết quả:', err);
+                submitStatus.className = 'text-xs font-bold text-emerald-600';
+                submitStatus.innerHTML = '<i class="fa-solid fa-circle-check mr-1"></i> Đã hoàn thành chấm điểm tại máy!';
+                
+                alert(`🎉 HOÀN THÀNH BÀI KIỂM TRA!\n\n• Điểm số: ${score}/5 (${score * 2} điểm)\n• Câu chưa chính xác: ${cauSaiText}`);
+            })
+            .finally(() => {
+                submitBtn.disabled = false;
+                submitBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+            });
+        });
+    </script>
+</body>
+</html>
