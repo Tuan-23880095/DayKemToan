@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buổi 23: Trường Hợp Bằng Nhau c.g.c và g.c.g Của Tam Giác</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- MathJax cho Công Thức Toán -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <!-- JSXGraph -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraph.css" />
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraphcore.js"></script>
+
+    <style>
+        body { background-color: #f3f4f6; color: #111827; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        .jxgbox { border-radius: 12px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); border: 2px solid #e5e7eb; background: #ffffff; margin: 16px auto; }
+        details > summary { list-style: none; cursor: pointer; }
+        details > summary::-webkit-details-marker { display: none; }
+        
+        @media print {
+            body { background-color: #ffffff; }
+            .print\:hidden { display: none !important; }
+            .jxgbox { break-inside: avoid; }
+            details[open] summary ~ * { display: block; }
+            details summary { display: none; }
+        }
+    </style>
+</head>
+<body class="antialiased pb-24">
+
+    <!-- HEADER & LOGOS -->
+    <header class="bg-white shadow-sm border-b border-gray-200 print:shadow-none print:border-b-2">
+        <div class="max-w-5xl mx-auto px-6 py-4 flex flex-col md:flex-row justify-between items-center gap-4">
+            <img src="https://firebasestorage.googleapis.com/v0/b/link-anh-web.firebasestorage.app/o/ttbdvh.jpg?alt=media&token=f270aa9b-a2bc-48e8-8910-80742b542615" alt="Logo TTBDVH" class="h-16 object-contain">
+            <div class="text-center">
+                <h1 class="text-2xl font-extrabold text-blue-900 tracking-tight uppercase">Chuyên Đề Hình Học THCS</h1>
+                <p class="text-xs text-gray-500 font-semibold mt-1">@ Bản quyền thuộc ThS. Đinh Quốc Tuấn - Mục đích phi lợi nhuận - Vì giáo dục.</p>
+            </div>
+            <img src="https://firebasestorage.googleapis.com/v0/b/link-anh-web.firebasestorage.app/o/Logo-chinh-hcmus.png?alt=media&token=9cf3a1de-75f1-493b-8711-fd22c7b98738" alt="Logo HCMUS" class="h-16 object-contain">
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="max-w-5xl mx-auto px-4 sm:px-6 py-8 mt-6 bg-white shadow-lg rounded-2xl border border-gray-100">
+        
+        <!-- TITLE -->
+        <div class="text-center mb-10 pb-6 border-b-2 border-indigo-100">
+            <span class="bg-indigo-100 text-indigo-800 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Lý Thuyết & Tương Tác Hình Học</span>
+            <h2 class="text-3xl font-black text-gray-800 mt-2">
+                BUỔI 23: TRƯỜNG HỢP BẰNG NHAU THỨ HAI VÀ THỨ BA CỦA TAM GIÁC<br>
+                <span class="text-indigo-600 text-2xl">Cạnh - Góc - Cạnh (c.g.c) & Góc - Cạnh - Góc (g.c.g)</span>
+            </h2>
+        </div>
+
+        <!-- CẤP ĐỘ 1 -->
+        <section class="mb-12">
+            <div class="inline-flex items-center gap-2 bg-emerald-100 text-emerald-900 px-4 py-2 rounded-full font-bold text-base mb-4 border border-emerald-300 shadow-sm">
+                <i class="fas fa-seedling text-emerald-600"></i>
+                <span>💡 CẤP ĐỘ 1: CƠ BẢN (BASIC)</span>
+            </div>
+            <p class="mb-4 text-gray-600 italic bg-emerald-50/50 p-3 rounded-lg border-l-4 border-emerald-500">
+                <i class="fas fa-bullseye text-emerald-600 mr-1"></i> <strong>Mục tiêu:</strong> Nắm vững định lý hai trường hợp bằng nhau c.g.c và g.c.g; nhận diện đúng góc xen giữa hoặc cạnh kề và viết chính xác kí hiệu tam giác bằng nhau theo đúng thứ tự đỉnh tương ứng.
+            </p>
+
+            <div class="grid md:grid-cols-2 gap-6 my-6">
+                <!-- Thẻ c.g.c -->
+                <div class="bg-blue-50 border-l-4 border-blue-500 p-4 rounded-r-xl shadow-sm">
+                    <h3 class="text-lg font-bold text-blue-900 mb-2 flex items-center gap-2">
+                        <i class="fas fa-shapes text-blue-600"></i> 1. Trường hợp Cạnh - Góc - Cạnh (c.g.c)
+                    </h3>
+                    <p class="text-sm text-gray-700 leading-relaxed">
+                        <strong>Định lý:</strong> Nếu hai cạnh và <em>góc xen giữa</em> của tam giác này lần lượt bằng hai cạnh và góc xen giữa của tam giác kia thì hai tam giác đó bằng nhau.
+                    </p>
+                    <div class="bg-white p-3 rounded-lg mt-3 text-xs border border-blue-200 font-mono">
+                        Xét \(\Delta ABC\) và \(\Delta A'B'C'\) có:<br>
+                        • \(AB = A'B'\)<br>
+                        • \(\widehat{A} = \widehat{A'}\) (góc xen giữa)<br>
+                        • \(AC = A'C'\)<br>
+                        \(\Rightarrow \Delta ABC = \Delta A'B'C' \quad (\text{c.g.c})\)
+                    </div>
+                </div>
+
+                <!-- Thẻ g.c.g -->
+                <div class="bg-teal-50 border-l-4 border-teal-500 p-4 rounded-r-xl shadow-sm">
+                    <h3 class="text-lg font-bold text-teal-900 mb-2 flex items-center gap-2">
+                        <i class="fas fa-draw-polygon text-teal-600"></i> 2. Trường hợp Góc - Cạnh - Góc (g.c.g)
+                    </h3>
+                    <p class="text-sm text-gray-700 leading-relaxed">
+                        <strong>Định lý:</strong> Nếu một cạnh và <em>hai góc kề</em> của tam giác này lần lượt bằng một cạnh và hai góc kề của tam giác kia thì hai tam giác đó bằng nhau.
+                    </p>
+                    <div class="bg-white p-3 rounded-lg mt-3 text-xs border border-teal-200 font-mono">
+                        Xét \(\Delta ABC\) và \(\Delta A'B'C'\) có:<br>
+                        • \(\widehat{B} = \widehat{B'}\) (góc kề cạnh \(BC\))<br>
+                        • \(BC = B'C'\)<br>
+                        • \(\widehat{C} = \widehat{C'}\) (góc kề cạnh \(BC\))<br>
+                        \(\Rightarrow \Delta ABC = \Delta A'B'C' \quad (\text{g.c.g})\)
+                    </div>
+                </div>
+            </div>
+
+            <!-- Warning Box -->
+            <div class="bg-amber-50 border-l-4 border-amber-400 p-4 rounded-r-lg text-sm text-amber-900 mb-6">
+                <i class="fas fa-exclamation-triangle text-amber-500 mr-2"></i>
+                <strong>Lưu ý cốt lõi (Bẫy bóp méo hình):</strong> 
+                Ở trường hợp c.g.c, góc bằng nhau <strong>bắt buộc phải xen giữa</strong> hai cạnh. Ở trường hợp g.c.g, hai góc bằng nhau <strong>bắt buộc phải kề</strong> trên cùng một cạnh.
+            </div>
+
+            <!-- JSXGraph 1 -->
+            <div class="my-6 bg-slate-50 p-4 rounded-xl border border-gray-200">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 mb-3">
+                    <h4 class="font-bold text-indigo-900 flex items-center gap-2">
+                        <i class="fas fa-cube text-indigo-500"></i> Mô phỏng JSXGraph 1: Xoay và chồng khít tam giác c.g.c / g.c.g
+                    </h4>
+                    <button id="btn-animate-1" onclick="superimposeTriangles()" class="bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold px-3 py-1.5 rounded-lg transition shadow-sm">
+                        <i class="fas fa-sync-alt mr-1"></i> Chồng khít tam giác
+                    </button>
+                </div>
+                <p class="text-xs text-gray-500 mb-2">Bấm nút để quan sát hiệu ứng tịnh tiến và xoay tam giác \(\Delta A'B'C'\) xoay nghiêng khớp hoàn hảo vào \(\Delta ABC\).</p>
+                <div id="box1" class="jxgbox w-full" style="height: 380px;"></div>
+            </div>
+
+            <!-- Ví dụ minh họa Cấp độ 1 -->
+            <h3 class="text-lg font-bold text-gray-800 mt-6 mb-2 flex items-center gap-2">
+                <i class="fas fa-pen-nib text-emerald-500 text-sm"></i> 3. Ví dụ minh họa (c.g.c)
+            </h3>
+            <div class="bg-gray-50 p-4 rounded-xl border border-gray-200 mb-4">
+                <p class="font-semibold text-gray-800 mb-2">Ví dụ: Cho góc nhọn \(\widehat{xOy}\). Trên tia \(Ox\) lấy điểm \(A\), trên tia \(Oy\) lấy điểm \(C\) sao cho \(OA = OC\). Trên tia đối của tia \(Ox\) lấy điểm \(B\), trên tia đối của tia \(Oy\) lấy điểm \(D\) sao cho \(OB = OD\). Chứng minh rằng \(\Delta OAD = \Delta OCB\).</p>
+                
+                <details class="group mt-3">
+                    <summary class="inline-flex items-center gap-2 bg-emerald-50 text-emerald-700 hover:bg-emerald-100 font-bold px-4 py-2 rounded-lg border border-emerald-200 transition">
+                        <i class="fas fa-lightbulb"></i>
+                        <span>Xem Lời Giải Chi Tiết</span>
+                        <i class="fas fa-chevron-down text-xs group-open:rotate-180 transition-transform"></i>
+                    </summary>
+                    <div class="mt-3 p-4 bg-white rounded-lg border border-emerald-100 text-sm text-gray-700 space-y-2">
+                        <p><strong>Chứng minh:</strong></p>
+                        <p>Xét \(\Delta OAD\) và \(\Delta OCB\) có:</p>
+                        <ul class="list-disc ml-6 space-y-1">
+                            <li>\(OA = OC\) (theo giả thiết)</li>
+                            <li>\(\widehat{AOD} = \widehat{COB}\) (hai góc đối đỉnh)</li>
+                            <li>\(OD = OB\) (theo giả thiết)</li>
+                        </ul>
+                        <p>Suy ra \(\Delta OAD = \Delta OCB \quad (\text{c.g.c})\) (đpcm).</p>
+                    </div>
+                </details>
+            </div>
+        </section>
+
+        <hr class="my-8 border-gray-200">
+
+        <!-- CẤP ĐỘ 2 -->
+        <section class="mb-12">
+            <div class="inline-flex items-center gap-2 bg-blue-100 text-blue-900 px-4 py-2 rounded-full font-bold text-base mb-4 border border-blue-300 shadow-sm">
+                <i class="fas fa-rocket text-blue-600"></i>
+                <span>💡 CẤP ĐỘ 2: NÂNG CAO (ADVANCED)</span>
+            </div>
+            <p class="mb-4 text-gray-600 italic bg-blue-50/50 p-3 rounded-lg border-l-4 border-blue-500">
+                <i class="fas fa-bullseye text-blue-600 mr-1"></i> <strong>Mục tiêu:</strong> Vận dụng chứng minh tam giác bằng nhau để suy ra các cặp cạnh, góc tương ứng, từ đó chứng minh song song, vuông góc, trung điểm.
+            </p>
+
+            <h3 class="text-lg font-bold text-gray-800 mt-6 mb-2 flex items-center gap-2">
+                <i class="fas fa-bookmark text-blue-500 text-sm"></i> 1. Phương pháp chứng minh hai đường thẳng song song qua tam giác bằng nhau
+            </h3>
+            <div class="bg-blue-50/60 p-4 rounded-xl border border-blue-100 mb-4">
+                <ol class="list-decimal ml-5 text-sm text-gray-700 space-y-2">
+                    <li><strong>Bước 1:</strong> Tìm hai góc ở vị trí so le trong hoặc đồng vị liên quan đến hai đường thẳng.</li>
+                    <li><strong>Bước 2:</strong> Ghép hai góc này vào hai tam giác phù hợp.</li>
+                    <li><strong>Bước 3:</strong> Chứng minh hai tam giác đó bằng nhau theo trường hợp c.g.c hoặc g.c.g.</li>
+                    <li><strong>Bước 4:</strong> Suy ra hai góc tương ứng bằng nhau \(\Rightarrow\) Hai đường thẳng song song.</li>
+                </ol>
+            </div>
+
+            <!-- JSXGraph 2 -->
+            <div class="my-6 bg-slate-50 p-4 rounded-xl border border-gray-200">
+                <h4 class="font-bold text-blue-900 mb-2 flex items-center gap-2">
+                    <i class="fas fa-broadcast-tower text-blue-500"></i> Mô phỏng JSXGraph 2: Trực quan hóa thiết kế đối xứng dây cáp tháp ăng-ten
+                </h4>
+                <p class="text-xs text-gray-500 mb-2">Kéo thả đỉnh tháp A lên/xuống để thay đổi chiều cao. Hệ thống tự động tính toán hai tam giác vuông bằng nhau (c.g.c) giữ hai dây cáp căng bằng nhau tuyệt đối.</p>
+                <div id="box2" class="jxgbox w-full" style="height: 380px;"></div>
+            </div>
+
+            <!-- Ví dụ minh họa Cấp độ 2 -->
+            <h3 class="text-lg font-bold text-gray-800 mt-6 mb-2 flex items-center gap-2">
+                <i class="fas fa-pen-nib text-blue-500 text-sm"></i> 2. Ví dụ minh họa (Chứng minh song song & trung điểm)
+            </h3>
+            
+            <div class="bg-gray-50 p-4 rounded-xl border border-gray-200 mb-4">
+                <p class="font-semibold text-gray-800 mb-2">Ví dụ 1 (Từ c.g.c chứng minh song song): Cho tam giác \(ABC\), gọi \(M\) là trung điểm cạnh \(BC\). Trên tia đối của tia \(MA\), lấy điểm \(D\) sao cho \(MD = MA\). Chứng minh rằng \(AB \parallel CD\).</p>
+                
+                <details class="group mt-3">
+                    <summary class="inline-flex items-center gap-2 bg-blue-50 text-blue-700 hover:bg-blue-100 font-bold px-4 py-2 rounded-lg border border-blue-200 transition">
+                        <i class="fas fa-lightbulb"></i>
+                        <span>Xem Lời Giải Chi Tiết</span>
+                        <i class="fas fa-chevron-down text-xs group-open:rotate-180 transition-transform"></i>
+                    </summary>
+                    <div class="mt-3 p-4 bg-white rounded-lg border border-blue-100 text-sm text-gray-700 space-y-2">
+                        <p><strong>Giải:</strong></p>
+                        <p>Xét \(\Delta ABM\) và \(\Delta DCM\) có:</p>
+                        <ul class="list-disc ml-6 space-y-1">
+                            <li>\(AM = DM\) (theo giả thiết)</li>
+                            <li>\(\widehat{AMB} = \widehat{DMC}\) (hai góc đối đỉnh)</li>
+                            <li>\(BM = CM\) (vì \(M\) là trung điểm \(BC\))</li>
+                        </ul>
+                        <p>Suy ra \(\Delta ABM = \Delta DCM \quad (\text{c.g.c})\).</p>
+                        <p>Do đó, \(\widehat{BAM} = \widehat{CDM}\) (hai góc tương ứng).</p>
+                        <p>Mà hai góc này ở vị trí so le trong nên \(AB \parallel CD\) (đpcm).</p>
+                    </div>
+                </details>
+            </div>
+
+            <div class="bg-gray-50 p-4 rounded-xl border border-gray-200 mb-4">
+                <p class="font-semibold text-gray-800 mb-2">Ví dụ 2 (Từ g.c.g chứng minh trung điểm): Cho đoạn thẳng \(AB\) có \(O\) là trung điểm. Qua \(A\) kẻ đường thẳng \(m \perp AB\), qua \(B\) kẻ đường thẳng \(n \perp AB\). Một đường thẳng đi qua \(O\) cắt \(m\) tại \(C\) và cắt \(n\) tại \(D\). Chứng minh rằng \(O\) là trung điểm của \(CD\).</p>
+                
+                <details class="group mt-3">
+                    <summary class="inline-flex items-center gap-2 bg-blue-50 text-blue-700 hover:bg-blue-100 font-bold px-4 py-2 rounded-lg border border-blue-200 transition">
+                        <i class="fas fa-lightbulb"></i>
+                        <span>Xem Lời Giải Chi Tiết</span>
+                        <i class="fas fa-chevron-down text-xs group-open:rotate-180 transition-transform"></i>
+                    </summary>
+                    <div class="mt-3 p-4 bg-white rounded-lg border border-blue-100 text-sm text-gray-700 space-y-2">
+                        <p><strong>Giải:</strong></p>
+                        <p>Vì \(m \perp AB\) và \(n \perp AB\) nên \(m \parallel n \Rightarrow \widehat{ACO} = \widehat{BDO}\) (so le trong).</p>
+                        <p>Xét \(\Delta ACO\) và \(\Delta BDO\) có:</p>
+                        <ul class="list-disc ml-6 space-y-1">
+                            <li>\(\widehat{CAO} = \widehat{DBO} = 90^\circ\)</li>
+                            <li>\(OA = OB\) (vì \(O\) là trung điểm \(AB\))</li>
+                            <li>\(\widehat{AOC} = \widehat{BOD}\) (hai góc đối đỉnh)</li>
+                        </ul>
+                        <p>Suy ra \(\Delta ACO = \Delta BDO \quad (\text{g.c.g}) \Rightarrow OC = OD\).</p>
+                        <p>Vì điểm \(O\) nằm giữa \(C, D\) và \(OC = OD\) nên \(O\) là trung điểm của đoạn thẳng \(CD\) (đpcm).</p>
+                    </div>
+                </details>
+            </div>
+        </section>
+
+        <hr class="my-8 border-gray-200">
+
+        <!-- CẤP ĐỘ 3 -->
+        <section class="mb-12">
+            <div class="inline-flex items-center gap-2 bg-orange-100 text-orange-900 px-4 py-2 rounded-full font-bold text-base mb-4 border border-orange-300 shadow-sm">
+                <i class="fas fa-cogs text-orange-600"></i>
+                <span>💡 CẤP ĐỘ 3: VẬN DỤNG (APPLIED)</span>
+            </div>
+            <p class="mb-4 text-gray-600 italic bg-orange-50/50 p-3 rounded-lg border-l-4 border-orange-500">
+                <i class="fas fa-bullseye text-orange-600 mr-1"></i> <strong>Mục tiêu:</strong> Áp dụng kiến thức tam giác bằng nhau vào các bài toán đo đạc gián tiếp ngoài thực địa (khoảng cách không thể đo trực tiếp qua hồ/đầm lầy).
+            </p>
+
+            <h3 class="text-lg font-bold text-gray-800 mt-6 mb-2 flex items-center gap-2">
+                <i class="fas fa-water text-orange-500 text-sm"></i> 1. Ứng dụng thực tế: Đo khoảng cách gián tiếp xuyên đầm lầy / hồ nước
+            </h3>
+            <p class="text-gray-700 leading-relaxed mb-4 text-sm">
+                Để đo khoảng cách giữa hai điểm \(A\) và \(B\) bị ngăn cách bởi hồ nước sâu, người thợ trắc địa chọn một điểm mốc \(O\) trên nền đất khô. Dựng điểm \(C, D\) sao cho \(O\) là trung điểm của \(AC\) và \(BD\). Khi đó đo khoảng cách \(CD\) trên đất khô sẽ chính bằng khoảng cách \(AB\) cần tìm.
+            </p>
+
+            <!-- JSXGraph 3 -->
+            <div class="my-6 bg-slate-50 p-4 rounded-xl border border-gray-200">
+                <h4 class="font-bold text-orange-900 mb-2 flex items-center gap-2">
+                    <i class="fas fa-map-marked-alt text-orange-500"></i> Mô phỏng JSXGraph 3: Đo khoảng cách gián tiếp qua hồ nước
+                </h4>
+                <p class="text-xs text-gray-500 mb-2">Thử kéo thả các điểm A, B trên bờ hồ hoặc mốc O trên đất khô. Số đo độ dài CD luôn cập nhật bằng đúng khoảng cách AB theo thời gian thực.</p>
+                <div id="box3" class="jxgbox w-full" style="height: 400px;"></div>
+            </div>
+
+            <!-- Ví dụ minh họa Cấp độ 3 -->
+            <h3 class="text-lg font-bold text-gray-800 mt-6 mb-2 flex items-center gap-2">
+                <i class="fas fa-pen-nib text-orange-500 text-sm"></i> 2. Ví dụ minh họa
+            </h3>
+            <div class="bg-gray-50 p-4 rounded-xl border border-gray-200 mb-4">
+                <p class="font-semibold text-gray-800 mb-2">Ví dụ: Để đo khoảng cách giữa hai điểm \(A\) và \(B\) ở hai đầu đầm lầy, xác định điểm \(O\) trên vùng đất khô sao cho đo được \(OA, OB\). Trên tia đối của \(OA\) lấy \(C\) sao cho \(OC = OA\). Trên tia đối của \(OB\) lấy \(D\) sao cho \(OD = OB\).<br>a) Chứng minh rằng \(CD = AB\).<br>b) Chứng minh \(AB \parallel CD\).</p>
+                
+                <details class="group mt-3">
+                    <summary class="inline-flex items-center gap-2 bg-orange-50 text-orange-700 hover:bg-orange-100 font-bold px-4 py-2 rounded-lg border border-orange-200 transition">
+                        <i class="fas fa-lightbulb"></i>
+                        <span>Xem Lời Giải Chi Tiết</span>
+                        <i class="fas fa-chevron-down text-xs group-open:rotate-180 transition-transform"></i>
+                    </summary>
+                    <div class="mt-3 p-4 bg-white rounded-lg border border-orange-100 text-sm text-gray-700 space-y-3">
+                        <p><strong>Giải:</strong></p>
+                        <p>a) Xét \(\Delta OAB\) và \(\Delta OCD\) có:</p>
+                        <ul class="list-disc ml-6 space-y-1">
+                            <li>\(OA = OC\) (theo cách dựng)</li>
+                            <li>\(\widehat{AOB} = \widehat{COD}\) (hai góc đối đỉnh)</li>
+                            <li>\(OB = OD\) (theo cách dựng)</li>
+                        </ul>
+                        <p>Suy ra \(\Delta OAB = \Delta OCD \quad (\text{c.g.c}) \Rightarrow AB = CD\) (hai cạnh tương ứng).</p>
+                        <p>b) Vì \(\Delta OAB = \Delta OCD \Rightarrow \widehat{OAB} = \widehat{OCD}\) (hai góc tương ứng).</p>
+                        <p>Mà hai góc này ở vị trí so le trong \(\Rightarrow AB \parallel CD\) (đpcm).</p>
+                    </div>
+                </details>
+            </div>
+        </section>
+
+        <!-- BÀI TẬP ĐÁNH GIÁ NĂNG LỰC TẠI LỚP -->
+        <section class="mt-12 bg-indigo-900 text-white p-6 sm:p-8 rounded-2xl shadow-xl print:bg-white print:text-black print:border print:border-gray-300">
+            <div class="text-center mb-8">
+                <span class="bg-indigo-700 text-indigo-200 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Trắc Nghiệm Kiểm Tra</span>
+                <h3 class="text-2xl font-black mt-2 text-yellow-400 print:text-indigo-900">BÀI TẬP ĐÁNH GIÁ NĂNG LỰC TẠI LỚP</h3>
+                <p class="text-sm text-indigo-200 mt-1 print:text-gray-600">Hoàn thành 5 câu hỏi dưới đây và bấm gửi kết quả lên hệ thống máy chủ.</p>
+            </div>
+
+            <form id="quizForm" class="space-y-6 text-gray-800">
+                <!-- Thông tin học sinh -->
+                <div class="bg-indigo-800/60 p-4 rounded-xl border border-indigo-700 print:bg-gray-50 print:border-gray-200">
+                    <label for="studentName" class="block text-indigo-100 font-bold mb-1 text-sm print:text-gray-700">Họ và Tên Học Sinh:</label>
+                    <input type="text" id="studentName" required placeholder="Nhập đầy đủ họ tên..." class="w-full px-4 py-2.5 rounded-lg border-2 border-indigo-300 focus:border-yellow-400 focus:outline-none text-gray-900 font-medium">
+                </div>
+
+                <!-- Câu 1 -->
+                <div class="bg-white p-5 rounded-xl shadow-sm space-y-2">
+                    <p class="font-bold text-gray-900">Câu 1: Trong tam giác \(ABC\), góc xen giữa hai cạnh \(AB\) và \(BC\) là góc nào?</p>
+                    <div class="grid sm:grid-cols-2 gap-2 text-sm">
+                        <label class="flex items-center gap-2 p-2 rounded hover:bg-indigo-50 cursor-pointer border border-transparent hover:border-indigo-200">
+                            <input type="radio" name="q1" value="A" required class="text-indigo-600"> A. Góc \(\widehat{A}\)
+                        </label>
+                        <label class="flex items-center gap-2 p-2 rounded hover:bg-indigo-50 cursor-pointer border border-transparent hover:border-indigo-200 font-bold text-indigo-900">
+                            <input type="radio" name="q1" value="B" class="text-indigo-600"> B. Góc \(\widehat{B}\)
+                        </label>
+                        <label class="flex items-center gap-2 p-2 rounded hover:bg-indigo-50 cursor-pointer border border-transparent hover:border-indigo-200">
+                            <input type="radio" name="q1" value="C" class="text-indigo-600"> C. Góc \(\widehat{C}\)
+                        </label>
+                        <label class="flex items-center gap-2 p-2 rounded hover:bg-indigo-50 cursor-pointer border border-transparent hover:border-indigo-200">
+                            <input type="radio" name="q1" value="D" class="text-indigo-600"> D. Không có góc nào
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Câu 2 -->
+                <div class="bg-white p-5 rounded-xl shadow-sm space-y-2">
+                    <p class="font-bold text-gray-900">Câu 2: Cho \(\Delta ABC\) và \(\Delta DEF\) có \(AB = DE, \widehat{A} = \widehat{D}, AC = DF\). Kết luận nào đúng?</p>
+                    <div class="grid sm:grid-cols-2 gap-2 text-sm">
+                        <label class="flex items-center gap-2 p-2 rounded hover:bg-indigo-50 cursor-pointer border border-transparent hover:border-indigo-200">
+                            <input type="radio" name="q2" value="A" required class="text-indigo-600"> A. \(\Delta ABC = \Delta DEF \quad (\text{c.c.c})\)
+                        </label>
+                        <label class="flex items-center gap-2 p-2 rounded hover:bg-indigo-50 cursor-pointer border border-transparent hover:border-indigo-200 font-bold text-indigo-900">
+                            <input type="radio" name="q2" value="B" class="text-indigo-600"> B. \(\Delta ABC = \Delta DEF \quad (\text{c.g.c})\)
+                        </label>
+                        <label class="flex items-center gap-2 p-2 rounded hover:bg-indigo-50 cursor-pointer border border-transparent hover:border-indigo-200">
+                            <input type="radio" name="q2" value="C" class="text-indigo-600"> C. \(\Delta ABC = \Delta DEF \quad (\text{g.c.g})\)
+                        </label>
+                        <label class="flex items-center gap-2 p-2 rounded hover:bg-indigo-50 cursor-pointer border border-transparent hover:border-indigo-200">
+                            <input type="radio" name="q2" value="D" class="text-indigo-600"> D. Chưa đủ điều kiện kết luận
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Câu 3 -->
+                <div class="bg-white p-5 rounded-xl shadow-sm space-y-2">
+                    <p class="font-bold text-gray-900">Câu 3: Để hai tam giác bằng nhau theo trường hợp Góc - Cạnh - Góc (g.c.g), điều kiện về cạnh là:</p>
+                    <div class="grid sm:grid-cols-1 gap-2 text-sm">
+                        <label class="flex items-center gap-2 p-2 rounded hover:bg-indigo-50 cursor-pointer border border-transparent hover:border-indigo-200">
+                            <input type="radio" name="q3" value="A" required class="text-indigo-600"> A. Cạnh bất kỳ của tam giác.
+                        </label>
+                        <label class="flex items-center gap-2 p-2 rounded hover:bg-indigo-50 cursor-pointer border border-transparent hover:border-indigo-200">
+                            <input type="radio" name="q3" value="B" class="text-indigo-600"> B. Cạnh đối diện với một trong hai góc bằng nhau.
+                        </label>
+                        <label class="flex items-center gap-2 p-2 rounded hover:bg-indigo-50 cursor-pointer border border-transparent hover:border-indigo-200 font-bold text-indigo-900">
+                            <input type="radio" name="q3" value="C" class="text-indigo-600"> C. Cạnh nằm giữa hai góc kề bằng nhau đó.
+                        </label>
+                        <label class="flex items-center gap-2 p-2 rounded hover:bg-indigo-50 cursor-pointer border border-transparent hover:border-indigo-200">
+                            <input type="radio" name="q3" value="D" class="text-indigo-600"> D. Cạnh dài nhất của tam giác.
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Câu 4 -->
+                <div class="bg-white p-5 rounded-xl shadow-sm space-y-2">
+                    <p class="font-bold text-gray-900">Câu 4: Đo khoảng cách gián tiếp $AB$ qua đầm lầy bằng cách chọn mốc $O$ và dựng $C, D$ sao cho $OA=OC, OB=OD$. Khoảng cách $AB$ bằng độ dài đoạn thẳng nào trên đất khô?</p>
+                    <div class="grid sm:grid-cols-2 gap-2 text-sm">
+                        <label class="flex items-center gap-2 p-2 rounded hover:bg-indigo-50 cursor-pointer border border-transparent hover:border-indigo-200">
+                            <input type="radio" name="q4" value="A" required class="text-indigo-600"> A. Đoạn thẳng $OC$
+                        </label>
+                        <label class="flex items-center gap-2 p-2 rounded hover:bg-indigo-50 cursor-pointer border border-transparent hover:border-indigo-200">
+                            <input type="radio" name="q4" value="B" class="text-indigo-600"> B. Đoạn thẳng $OD$
+                        </label>
+                        <label class="flex items-center gap-2 p-2 rounded hover:bg-indigo-50 cursor-pointer border border-transparent hover:border-indigo-200 font-bold text-indigo-900">
+                            <input type="radio" name="q4" value="C" class="text-indigo-600"> C. Đoạn thẳng $CD$
+                        </label>
+                        <label class="flex items-center gap-2 p-2 rounded hover:bg-indigo-50 cursor-pointer border border-transparent hover:border-indigo-200">
+                            <input type="radio" name="q4" value="D" class="text-indigo-600"> D. Đoạn thẳng $OA$
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Câu 5 -->
+                <div class="bg-white p-5 rounded-xl shadow-sm space-y-2">
+                    <p class="font-bold text-gray-900">Câu 5: Cho \(\Delta ABC\) có \(M\) là trung điểm \(BC\). Trên tia đối của \(MA\) lấy \(D\) sao cho \(MD = MA\). Khẳng định nào sau đây SAI?</p>
+                    <div class="grid sm:grid-cols-2 gap-2 text-sm">
+                        <label class="flex items-center gap-2 p-2 rounded hover:bg-indigo-50 cursor-pointer border border-transparent hover:border-indigo-200">
+                            <input type="radio" name="q5" value="A" required class="text-indigo-600"> A. \(\Delta ABM = \Delta DCM \quad (\text{c.g.c})\)
+                        </label>
+                        <label class="flex items-center gap-2 p-2 rounded hover:bg-indigo-50 cursor-pointer border border-transparent hover:border-indigo-200">
+                            <input type="radio" name="q5" value="B" class="text-indigo-600"> B. \(AB \parallel CD\)
+                        </label>
+                        <label class="flex items-center gap-2 p-2 rounded hover:bg-indigo-50 cursor-pointer border border-transparent hover:border-indigo-200">
+                            <input type="radio" name="q5" value="C" class="text-indigo-600"> C. \(\widehat{BAM} = \widehat{CDM}\)
+                        </label>
+                        <label class="flex items-center gap-2 p-2 rounded hover:bg-indigo-50 cursor-pointer border border-transparent hover:border-indigo-200 font-bold text-indigo-900">
+                            <input type="radio" name="q5" value="D" class="text-indigo-600"> D. \(AB \perp CD\)
+                        </label>
+                    </div>
+                </div>
+
+                <!-- SUBMIT BUTTON -->
+                <div class="text-center pt-4 print:hidden">
+                    <button type="submit" id="btnSubmit" class="bg-yellow-400 hover:bg-yellow-300 text-indigo-950 font-black text-base px-8 py-3.5 rounded-xl shadow-lg hover:shadow-xl transition transform hover:-translate-y-0.5">
+                        <i class="fas fa-paper-plane mr-2"></i> GỬI KẾT QUẢ BÀI LÀM
+                    </button>
+                </div>
+            </form>
+
+            <div id="statusMessage" class="hidden mt-6 p-4 rounded-xl text-center font-bold text-sm"></div>
+        </section>
+    </main>
+
+    <!-- NÚT IN TÀI LIỆU CUỐI TRANG -->
+    <button id="btn-print-doc" onclick="safePrint()" class="fixed bottom-5 right-5 bg-gray-900 text-white px-4 py-2 rounded-lg shadow-lg hover:bg-gray-700 print:hidden z-50">
+        <i class="fas fa-print mr-2"></i> In Tài Liệu
+    </button>
+
+    <!-- SCRIPT SAFE PRINT -->
+    <script>
+    function safePrint() {
+        const printBtn = document.getElementById('btn-print-doc');
+        printBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Đang chuẩn bị...';
+
+        // Đảm bảo MathJax đã render xong mọi công thức trước khi gọi hộp thoại in
+        if (window.MathJax && window.MathJax.typesetPromise) {
+            MathJax.typesetPromise().then(() => {
+                printBtn.innerHTML = '<i class="fas fa-print mr-2"></i> In Tài Liệu';
+                window.print();
+            });
+        } else {
+            // Fallback nếu không có công thức toán
+            setTimeout(() => window.print(), 500);
+        }
+    }
+    </script>
+
+    <!-- JSXGRAPH SCRIPT -->
+    <script type="text/javascript">
+        window.onload = function() {
+            /* --- Board 1: Chồng khít tam giác c.g.c / g.c.g --- */
+            var b1 = JXG.JSXGraph.initBoard('box1', {boundingbox: [-5, 4, 8, -4], axis: false, showNavigation: false});
+            
+            // Tam giác ABC cố định
+            var A = b1.create('point', [-3, 2], {name: 'A', color: '#1e40af', fixed: true});
+            var B = b1.create('point', [-4, -2], {name: 'B', color: '#1e40af', fixed: true});
+            var C = b1.create('point', [-1, -2], {name: 'C', color: '#1e40af', fixed: true});
+            var poly1 = b1.create('polygon', [A, B, C], {fillColor: '#3b82f6', fillOpacity: 0.3, strokeColor: '#1d4ed8', strokeWidth: 2});
+
+            // Tam giác A'B'C' ban đầu ở vị trí nghiêng/xoay
+            var A2 = b1.create('point', [4, 2], {name: "A'", color: '#b45309'});
+            var B2 = b1.create('point', [6, 0], {name: "B'", color: '#b45309'});
+            var C2 = b1.create('point', [3, -2], {name: "C'", color: '#b45309'});
+            var poly2 = b1.create('polygon', [A2, B2, C2], {fillColor: '#f59e0b', fillOpacity: 0.3, strokeColor: '#d97706', strokeWidth: 2});
+
+            var isSuperimposed = false;
+            window.superimposeTriangles = function() {
+                if (!isSuperimposed) {
+                    A2.moveTo([A.X(), A.Y()], 1000);
+                    B2.moveTo([B.X(), B.Y()], 1000);
+                    C2.moveTo([C.X(), C.Y()], 1000);
+                    document.getElementById('btn-animate-1').innerHTML = '<i class="fas fa-undo mr-1"></i> Về vị trí cũ';
+                    isSuperimposed = true;
+                } else {
+                    A2.moveTo([4, 2], 1000);
+                    B2.moveTo([6, 0], 1000);
+                    C2.moveTo([3, -2], 1000);
+                    document.getElementById('btn-animate-1').innerHTML = '<i class="fas fa-sync-alt mr-1"></i> Chồng khít tam giác';
+                    isSuperimposed = false;
+                }
+            };
+
+            /* --- Board 2: Dây cáp tháp ăng-ten đối xứng --- */
+            var b2 = JXG.JSXGraph.initBoard('box2', {boundingbox: [-6, 5, 6, -2], axis: false, showNavigation: false});
+            
+            var Ground = b2.create('line', [[-5, 0], [5, 0]], {strokeColor: '#334155', strokeWidth: 3, fixed: true});
+            var H2 = b2.create('point', [0, 0], {name: 'H', fixed: true, size: 3, color: '#0f172a'});
+            var B_anchor = b2.create('point', [-4, 0], {name: 'B (Neo B)', fixed: true, size: 4, color: '#dc2626'});
+            var C_anchor = b2.create('point', [4, 0], {name: 'C (Neo C)', fixed: true, size: 4, color: '#dc2626'});
+            
+            // Đỉnh tháp A di chuyển dọc theo trục Y
+            var A_tower = b2.create('point', [0, 3.5], {name: 'A (Đỉnh tháp)', size: 5, color: '#2563eb'});
+            A_tower.setProperty({slideObject: b2.create('line', [[0,0],[0,1]], {visible: false})});
+
+            var tower = b2.create('segment', [H2, A_tower], {strokeWidth: 5, strokeColor: '#1e293b'});
+            var cableAB = b2.create('segment', [A_tower, B_anchor], {strokeWidth: 3, strokeColor: '#2563eb'});
+            var cableAC = b2.create('segment', [A_tower, C_anchor], {strokeWidth: 3, strokeColor: '#059669', dash: 2});
+
+            var rightAngle = b2.create('angle', [C_anchor, H2, A_tower], {radius: 0.5, name: ''});
+
+            b2.create('text', [-5, 4], function() {
+                var lenAB = cableAB.L().toFixed(2);
+                var lenAC = cableAC.L().toFixed(2);
+                return `Dây cáp AB = ${lenAB} m | Dây cáp AC = ${lenAC} m <br>ΔAHB = ΔAHC (c.g.c) => Cân bằng tải trọng`;
+            }, {fontSize: 14, strokeColor: '#1e3a8a', fontWeight: 'bold'});
+
+            /* --- Board 3: Đo khoảng cách xuyên hồ nước --- */
+            var b3 = JXG.JSXGraph.initBoard('box3', {boundingbox: [-6, 5, 6, -5], axis: false, showNavigation: false});
+
+            // Hồ nước (Polygon tự do tô màu xanh nước biển)
+            var lake = b3.create('polygon', [[-4, 3], [3, 4], [4, 1], [1, 0], [-3, 1]], {
+                fillColor: '#60a5fa', fillOpacity: 0.3, strokeColor: '#2563eb', strokeWidth: 1, fixed: true
+            });
+            b3.create('text', [0, 2], 'HỒ NƯỚC SÂU', {fontSize: 14, color: '#1d4ed8', fontWeight: 'bold'});
+
+            var A3 = b3.create('point', [-3, 2.5], {name: 'A', color: '#dc2626'});
+            var B3 = b3.create('point', [2, 2.5], {name: 'B', color: '#dc2626'});
+            var segAB = b3.create('segment', [A3, B3], {strokeColor: '#dc2626', strokeWidth: 3, dash: 2});
+
+            var O3 = b3.create('point', [0, -1], {name: 'O (Mốc đất khô)', color: '#059669', size: 4});
+
+            // Điểm C đối qua OA (OA = OC), D đối qua OB (OB = OD)
+            var C3 = b3.create('point', [
+                function(){ return 2 * O3.X() - A3.X(); },
+                function(){ return 2 * O3.Y() - A3.Y(); }
+            ], {name: 'C (Đất khô)', color: '#2563eb'});
+
+            var D3 = b3.create('point', [
+                function(){ return 2 * O3.X() - B3.X(); },
+                function(){ return 2 * O3.Y() - B3.Y(); }
+            ], {name: 'D (Đất khô)', color: '#2563eb'});
+
+            b3.create('segment', [A3, C3], {strokeColor: '#64748b', dash: 1});
+            b3.create('segment', [B3, D3], {strokeColor: '#64748b', dash: 1});
+            var segCD = b3.create('segment', [C3, D3], {strokeColor: '#2563eb', strokeWidth: 3});
+
+            b3.create('text', [-5, -4], function() {
+                var dAB = segAB.L().toFixed(2);
+                var dCD = segCD.L().toFixed(2);
+                return `Khoảng cách AB (qua hồ) = ${dAB} m <br>Khoảng cách CD (đất khô) = ${dCD} m`;
+            }, {fontSize: 14, strokeColor: '#065f46', fontWeight: 'bold'});
+        };
+    </script>
+
+    <!-- SCRIPT NỘP BÀI TẬP VỀ GOOGLE APPS SCRIPT -->
+    <script>
+    const answerKey = {
+        q1: 'B',
+        q2: 'B',
+        q3: 'C',
+        q4: 'C',
+        q5: 'D'
+    };
+
+    document.getElementById('quizForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const name = document.getElementById('studentName').value.trim();
+        if (!name) {
+            alert("Vui lòng nhập họ và tên trước khi nộp bài!");
+            return;
+        }
+
+        let score = 0;
+        let wrongList = [];
+
+        for (let i = 1; i <= 5; i++) {
+            const qName = 'q' + i;
+            const selected = document.querySelector(`input[name="${qName}"]:checked`);
+            if (selected) {
+                if (selected.value === answerKey[qName]) {
+                    score += 2; // 5 câu = 10 điểm
+                } else {
+                    wrongList.push(`Câu ${i} (Chọn ${selected.value})`);
+                }
+            } else {
+                wrongList.push(`Câu ${i} (Chưa chọn)`);
+            }
+        }
+
+        const now = new Date();
+        const timeString = now.toLocaleString('vi-VN');
+
+        const payload = {
+            hoTen: name,
+            maDe: "Buoi23-CGC-GCG",
+            diem: score,
+            thoiGian: timeString,
+            cauSai: wrongList.length > 0 ? wrongList.join(", ") : "Không có"
+        };
+
+        const statusBox = document.getElementById('statusMessage');
+        const submitBtn = document.getElementById('btnSubmit');
+
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Đang gửi dữ liệu...';
+
+        const scriptURL = "https://script.google.com/macros/s/AKfycbzY7b7h4OwvhXuK5Vs6hl-aD88BPnAiAKbU5lfJobby0D4nzbIJVKT4n0AKCpAGoK0nZA/exec";
+
+        fetch(scriptURL, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+        })
+        .then(() => {
+            statusBox.classList.remove('hidden', 'bg-red-100', 'text-red-700');
+            statusBox.classList.add('bg-emerald-100', 'text-emerald-800', 'border', 'border-emerald-300');
+            statusBox.innerHTML = `<i class="fas fa-check-circle text-lg mr-1"></i> Nộp bài thành công! Điểm số của bạn: <strong>${score}/10</strong>. Kết quả đã gửi về hệ thống.`;
+            submitBtn.innerHTML = '<i class="fas fa-check mr-2"></i> Đã Gửi Kết Quả';
+        })
+        .catch(error => {
+            console.error('Lỗi gửi dữ liệu:', error);
+            statusBox.classList.remove('hidden', 'bg-emerald-100', 'text-emerald-800');
+            statusBox.classList.add('bg-red-100', 'text-red-700', 'border', 'border-red-300');
+            statusBox.innerHTML = `<i class="fas fa-exclamation-triangle text-lg mr-1"></i> Bạn đạt <strong>${score}/10</strong> điểm. Có lỗi kết nối khi gửi dữ liệu về máy chủ.`;
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = '<i class="fas fa-paper-plane mr-2"></i> Thử Gửi Lại';
+        });
+    });
+    </script>
+</body>
+</html>
