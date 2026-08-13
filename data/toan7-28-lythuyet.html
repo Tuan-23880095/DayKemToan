@@ -1,0 +1,938 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cộng và Trừ Đa Thức Một Biến - Toán 7</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- FontAwesome 6 CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- JSXGraph CSS & JS -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraph.css" />
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraphcore.js"></script>
+    
+    <!-- MathJax 3 Configuration & Library -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['\\(', '\\)'], ['$', '$']],
+                displayMath: [['\\[', '\\]'], ['$$', '$$']]
+            },
+            svg: {
+                fontCache: 'global'
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;800&display=swap');
+        body {
+            font-family: 'Lexend', sans-serif;
+            background-color: #f8fafc;
+            color: #0f172a;
+        }
+        .jxgbox {
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            border: 2px solid #e2e8f0;
+            background-color: #ffffff;
+        }
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+        @media print {
+            .no-print, .print\:hidden { display: none !important; }
+            body { background-color: #ffffff; }
+            .shadow-lg, .shadow-md, .shadow-xl { box-shadow: none !important; }
+            details { open: true !important; }
+        }
+    </style>
+</head>
+<body class="bg-slate-100 min-h-screen pb-16">
+
+    <!-- HEADER / LOGO BAR -->
+    <header class="bg-white border-b-4 border-indigo-600 shadow-md sticky top-0 z-40">
+        <div class="max-w-7xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-4">
+            <div class="flex items-center space-x-3">
+                <img src="https://firebasestorage.googleapis.com/v0/b/link-anh-web.firebasestorage.app/o/ttbdvh.jpg?alt=media&token=f270aa9b-a2bc-48e8-8910-80742b542615" 
+                     alt="TTBDVH Logo" class="h-14 w-auto object-contain rounded border border-gray-200 p-1">
+                <img src="https://firebasestorage.googleapis.com/v0/b/link-anh-web.firebasestorage.app/o/Logo-chinh-hcmus.png?alt=media&token=9cf3a1de-75f1-493b-8711-fd22c7b98738" 
+                     alt="HCMUS Logo" class="h-14 w-auto object-contain">
+            </div>
+            
+            <div class="text-right flex-1 min-w-[280px]">
+                <span class="inline-block px-3 py-1 bg-indigo-100 text-indigo-800 font-semibold text-xs rounded-full uppercase tracking-wider mb-1">
+                    <i class="fa-solid fa-graduation-cap mr-1"></i> Tài Liệu Học Thuật - Toán 7
+                </span>
+                <h1 class="text-xl md:text-2xl font-bold text-slate-800 leading-tight">
+                    CỘNG VÀ TRỪ ĐA THỨC MỘT BIẾN
+                </h1>
+                <p class="text-xs text-slate-500 font-medium mt-1">Hệ thống lý thuyết phân cấp &amp; Mô hình học tập trực quan JSXGraph</p>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTAINER -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-8 space-y-10">
+
+        <!-- GIỚI THIỆU TỔNG QUAN -->
+        <section class="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 rounded-2xl p-6 text-white shadow-xl">
+            <div class="flex items-start space-x-4">
+                <div class="p-3 bg-white/10 rounded-xl backdrop-blur-md hidden sm:block">
+                    <i class="fa-solid fa-calculator text-3xl text-yellow-300"></i>
+                </div>
+                <div>
+                    <h2 class="text-xl font-bold mb-2 flex items-center gap-2">
+                        <span>Chuyên Đề Đại Số Lớp 7: Cộng và Trừ Đa Thức Một Biến</span>
+                        <span class="text-xs bg-yellow-400 text-slate-900 font-bold px-2 py-0.5 rounded-full">3 Cấp Độ</span>
+                    </h2>
+                    <p class="text-sm text-blue-100 leading-relaxed">
+                        Chương trình học giúp học sinh làm chủ hai phương pháp cộng, trừ đa thức (hàng ngang và cột dọc), kỹ năng chuyển vế đổi dấu và ứng dụng mô hình hóa thực tế với minh họa tương tác sinh động bằng <strong>JSXGraph</strong>.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- CẤP ĐỘ 1: CƠ BẢN (BASIC) -->
+        <!-- ========================================== -->
+        <section class="bg-white rounded-2xl shadow-md border border-slate-200 overflow-hidden">
+            <div class="bg-emerald-600 px-6 py-4 text-white flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                    <span class="w-8 h-8 rounded-full bg-emerald-500 text-white flex items-center justify-center font-bold text-sm border-2 border-emerald-300">1</span>
+                    <h3 class="text-lg font-bold">💡 CẤP ĐỘ 1: CƠ BẢN (BASIC)</h3>
+                </div>
+                <span class="text-xs bg-emerald-800 text-emerald-100 px-3 py-1 rounded-full font-medium">Quy Tắc Dấu Ngoặc &amp; Đặt Tính Cột Dọc</span>
+            </div>
+
+            <div class="p-6 space-y-6">
+                <!-- Mục tiêu -->
+                <div class="bg-emerald-50 border-l-4 border-emerald-500 p-4 rounded-r-lg">
+                    <h4 class="font-bold text-emerald-900 text-sm flex items-center gap-2">
+                        <i class="fa-solid fa-bullseye text-emerald-600"></i> Mục tiêu cấp độ 1:
+                    </h4>
+                    <p class="text-sm text-emerald-800 mt-1">Học sinh hiểu rõ các quy tắc bỏ dấu ngoặc nền tảng, thực hiện thành thạo phép cộng và phép trừ hai đa thức một biến theo cả hai phương pháp hàng ngang và cột dọc.</p>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="space-y-4">
+                        <!-- 1. Quy tắc dấu ngoặc -->
+                        <div class="border border-slate-200 rounded-xl p-4 bg-slate-50">
+                            <h5 class="font-bold text-slate-800 flex items-center gap-2 mb-2">
+                                <i class="fa-solid fa-shield-halved text-emerald-600 text-xs"></i> 1. Quy tắc dấu ngoặc (Nền tảng phép tính)
+                            </h5>
+                            <p class="text-xs text-slate-700 leading-relaxed mb-2">
+                                Để thực hiện tốt các phép tính cộng, trừ đa thức, học sinh cần ghi nhớ quy tắc bỏ dấu ngoặc cốt lõi:
+                            </p>
+                            <ul class="text-xs text-slate-700 space-y-2 list-disc list-inside">
+                                <li>
+                                    <strong>Trước dấu ngoặc có dấu cộng "+":</strong> Giữ nguyên dấu của tất cả các hạng tử bên trong ngoặc.
+                                    <div class="mt-1 font-mono bg-white p-2 rounded border border-slate-200 text-emerald-800">
+                                        \[x + (y + z - t) = x + y + z - t\]
+                                    </div>
+                                </li>
+                                <li>
+                                    <strong>Trước dấu ngoặc có dấu trừ "-":</strong> Bắt buộc đổi dấu tất cả các hạng tử bên trong (dấu "+" thành "-", dấu "-" thành "+").
+                                    <div class="mt-1 font-mono bg-white p-2 rounded border border-slate-200 text-rose-800">
+                                        \[x - (y + z - t) = x - y - z + t\]
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <!-- 2. Hai phương pháp cộng trừ -->
+                        <div class="border border-slate-200 rounded-xl p-4 bg-slate-50">
+                            <h5 class="font-bold text-slate-800 flex items-center gap-2 mb-2">
+                                <i class="fa-solid fa-list-check text-emerald-600 text-xs"></i> 2. Hai phương pháp cộng, trừ đa thức một biến
+                            </h5>
+                            <div class="space-y-2 text-xs text-slate-700">
+                                <div class="bg-white p-2.5 rounded border border-slate-200">
+                                    <span class="font-bold text-emerald-700">• Cách 1 (Hàng ngang):</span>
+                                    <ol class="list-decimal list-inside mt-1 space-y-0.5 text-slate-600">
+                                        <li>Viết hai đa thức trong dấu ngoặc nối bằng dấu "+" hoặc "-".</li>
+                                        <li>Áp dụng quy tắc dấu ngoặc để bỏ ngoặc.</li>
+                                        <li>Nhóm các hạng tử cùng bậc với nhau.</li>
+                                        <li>Cộng, trừ hệ số và giữ nguyên lũy thừa của biến.</li>
+                                    </ol>
+                                </div>
+                                <div class="bg-white p-2.5 rounded border border-slate-200">
+                                    <span class="font-bold text-blue-700">• Cách 2 (Cột dọc):</span>
+                                    <ol class="list-decimal list-inside mt-1 space-y-0.5 text-slate-600">
+                                        <li>Thu gọn và sắp xếp 2 đa thức cùng thứ tự lũy thừa.</li>
+                                        <li>Đặt các hạng tử cùng bậc thẳng cột với nhau (khuyết bậc nào thì bỏ trống).</li>
+                                        <li>Thực hiện phép cộng/trừ theo từng cột dọc.</li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- JSXGraph 1: Cột dọc đồng bậc thông minh -->
+                    <div class="space-y-3">
+                        <div class="bg-slate-800 text-white p-3 rounded-t-xl flex items-center justify-between">
+                            <span class="text-xs font-bold flex items-center gap-2">
+                                <i class="fa-solid fa-[#00d2ff] fa-table-columns text-cyan-400"></i> Mô Phỏng JSXGraph 1: Cột Dọc Đồng Bậc Thông Minh
+                            </span>
+                            <span class="text-[10px] bg-emerald-500/20 text-emerald-300 px-2 py-0.5 rounded">Cộng theo cột</span>
+                        </div>
+                        <div id="jxgbox1" class="jxgbox w-full h-[400px]"></div>
+                        <p class="text-xs text-slate-500 italic text-center">
+                            <i class="fa-solid fa-sliders mr-1"></i> Điều chỉnh các slider hệ số của $P(x)$ và $Q(x)$ để quan sát quy trình đặt tính cột dọc đồng bậc và kết quả tính toán thời gian thực.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Ví dụ minh họa cấp độ 1 -->
+                <div class="border-t border-slate-200 pt-6 space-y-4">
+                    <h4 class="font-bold text-slate-800 flex items-center gap-2 text-md">
+                        <i class="fa-solid fa-pen-to-square text-emerald-600"></i> Ví Dụ Minh Họa (Cấp Độ 1)
+                    </h4>
+
+                    <div class="bg-slate-50 rounded-xl p-4 border border-slate-200">
+                        <p class="text-sm font-semibold text-slate-800">Ví dụ:</p>
+                        <p class="text-sm text-slate-700 mt-1">
+                            Cho hai đa thức \(P(x) = 6x^2 - 5x + 1\) và \(Q(x) = -3x^2 - 2x - 7\). Hãy tính tổng \(P(x) + Q(x)\) theo hai cách hàng ngang và cột dọc.
+                        </p>
+                        
+                        <details class="mt-3 group">
+                            <summary class="cursor-pointer inline-flex items-center gap-2 text-xs font-bold text-emerald-700 bg-emerald-100 hover:bg-emerald-200 px-3 py-1.5 rounded-lg transition-colors">
+                                <i class="fa-solid fa-key text-emerald-600"></i> Xem Gợi Ý Lời Giải
+                            </summary>
+                            <div class="mt-3 text-sm text-slate-700 bg-white p-4 rounded-lg border border-slate-200 space-y-3">
+                                <p><strong>Cách 1 (Hàng ngang):</strong></p>
+                                <p class="text-center bg-slate-50 p-2 rounded text-emerald-800 font-mono">
+                                    \[P(x) + Q(x) = (6x^2 - 5x + 1) + (-3x^2 - 2x - 7)\]
+                                    \[= 6x^2 - 5x + 1 - 3x^2 - 2x - 7 \quad (\text{Bỏ dấu ngoặc})\]
+                                    \[= (6x^2 - 3x^2) + (-5x - 2x) + (1 - 7) \quad (\text{Nhóm các hạng tử cùng bậc})\]
+                                    \[= 3x^2 - 7x - 6\]
+                                </p>
+
+                                <p><strong>Cách 2 (Cột dọc):</strong> Đặt các hạng tử cùng bậc thẳng cột với nhau rồi thực hiện phép cộng:</p>
+                                <div class="bg-slate-50 p-3 rounded text-center font-mono text-xs text-indigo-900 overflow-x-auto">
+                                    \[\begin{array}{r@{\quad}l}
+                                    P(x) = & \phantom{-}6x^2 - 5x + 1 \\
+                                    +\quad Q(x) = & -3x^2 - 2x - 7 \\
+                                    \hline
+                                    P(x) + Q(x) = & \phantom{-}3x^2 - 7x - 6
+                                    \end{array}\]
+                                </div>
+                            </div>
+                        </details>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- CẤP ĐỘ 2: NÂNG CAO (ADVANCED) -->
+        <!-- ========================================== -->
+        <section class="bg-white rounded-2xl shadow-md border border-slate-200 overflow-hidden">
+            <div class="bg-indigo-600 px-6 py-4 text-white flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                    <span class="w-8 h-8 rounded-full bg-indigo-500 text-white flex items-center justify-center font-bold text-sm border-2 border-indigo-300">2</span>
+                    <h3 class="text-lg font-bold">💡 CẤP ĐỘ 2: NÂNG CAO (ADVANCED)</h3>
+                </div>
+                <span class="text-xs bg-indigo-800 text-indigo-100 px-3 py-1 rounded-full font-medium">Tìm Đa Thức Chưa Biết &amp; Triệt Tiêu Biến</span>
+            </div>
+
+            <div class="p-6 space-y-6">
+                <!-- Mục tiêu -->
+                <div class="bg-indigo-50 border-l-4 border-indigo-500 p-4 rounded-r-lg">
+                    <h4 class="font-bold text-indigo-900 text-sm flex items-center gap-2">
+                        <i class="fa-solid fa-bullseye text-indigo-600"></i> Mục tiêu cấp độ 2:
+                    </h4>
+                    <p class="text-sm text-indigo-800 mt-1">Học sinh áp dụng linh hoạt quy tắc chuyển vế đổi dấu để giải bài toán tìm đa thức chưa biết, và thực hiện thu gọn đa thức phức tạp để chứng minh giá trị không phụ thuộc vào biến.</p>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="space-y-4">
+                        <!-- 1. Tìm đa thức chưa biết -->
+                        <div class="border border-slate-200 rounded-xl p-4 bg-slate-50">
+                            <h5 class="font-bold text-slate-800 flex items-center gap-2 mb-2">
+                                <i class="fa-solid fa-arrow-right-arrow-left text-indigo-600 text-xs"></i> 1. Tìm đa thức chưa biết trong một đẳng thức
+                            </h5>
+                            <p class="text-xs text-slate-700 leading-relaxed mb-2">
+                                <strong>Phương pháp giải:</strong> Để tìm đa thức chưa biết (ví dụ tìm \(N(x)\)), ta thực hiện chuyển toàn bộ các đa thức đã biết sang một vế của đẳng thức:
+                            </p>
+                            <div class="p-2.5 bg-indigo-50 rounded border border-indigo-200 text-xs text-indigo-900">
+                                <i class="fa-solid fa-lightbulb mr-1 text-amber-500"></i> Khi chuyển một đa thức sang vế bên kia, ta <strong>bắt buộc phải đổi dấu tất cả các hạng tử</strong> thuộc đa thức đó (hoặc đặt đa thức trong ngoặc có dấu "-" đằng trước).
+                            </div>
+                        </div>
+
+                        <!-- 2. Chứng minh độc lập với biến -->
+                        <div class="border border-slate-200 rounded-xl p-4 bg-slate-50">
+                            <h5 class="font-bold text-slate-800 flex items-center gap-2 mb-2">
+                                <i class="fa-solid fa-equals text-indigo-600 text-xs"></i> 2. Chứng minh giá trị đa thức không phụ thuộc vào biến
+                            </h5>
+                            <p class="text-xs text-slate-700 leading-relaxed">
+                                <strong>Phương pháp giải:</strong> Bỏ dấu ngoặc, nhóm các hạng tử cùng bậc và thu gọn. Nếu đa thức sau khi thu gọn <strong>triệt tiêu hết tất cả các số hạng chứa biến số</strong> và thu được kết quả là một hằng số (đa thức bậc 0), thì giá trị biểu thức không phụ thuộc vào giá trị của biến.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- JSXGraph 2: Cán cân chuyển vế đại số -->
+                    <div class="space-y-3">
+                        <div class="bg-slate-800 text-white p-3 rounded-t-xl flex items-center justify-between">
+                            <span class="text-xs font-bold flex items-center gap-2">
+                                <i class="fa-solid fa-scale-balanced text-indigo-400"></i> Mô Phỏng JSXGraph 2: "Cán Cân Chuyển Vế Đại Số"
+                            </span>
+                            <button onclick="stepTransposition()" class="text-[10px] bg-indigo-500 hover:bg-indigo-600 text-white font-bold px-2.5 py-1 rounded transition-colors">
+                                <i class="fa-solid fa-[#00d2ff] fa-forward-step mr-1"></i> Bước Tiếp Theo
+                            </button>
+                        </div>
+                        <div id="jxgbox2" class="jxgbox w-full h-[380px]"></div>
+                        <p class="text-xs text-slate-500 italic text-center">
+                            <i class="fa-solid fa-circle-info mr-1"></i> Bấm nút <strong>"Bước Tiếp Theo"</strong> để xem hoạt ảnh các hạng tử chuyển vế đổi dấu vượt qua dấu '=' để tìm $N(x)$.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Ví dụ minh họa cấp độ 2 -->
+                <div class="border-t border-slate-200 pt-6 space-y-4">
+                    <h4 class="font-bold text-slate-800 flex items-center gap-2 text-md">
+                        <i class="fa-solid fa-pen-to-square text-indigo-600"></i> Ví Dụ Minh Họa (Cấp Độ 2)
+                    </h4>
+
+                    <!-- Ví dụ 1 -->
+                    <div class="bg-slate-50 rounded-xl p-4 border border-slate-200">
+                        <p class="text-sm font-semibold text-slate-800">Ví dụ 1 (Tìm đa thức chưa biết):</p>
+                        <p class="text-sm text-slate-700 mt-1">
+                            Cho đa thức \(M(x) = 7x^3 - 2x^2 + 4x + 8\). Tìm đa thức \(N(x)\) sao cho \(M(x) + N(x) = 3x^2 - 2x\).
+                        </p>
+
+                        <details class="mt-3 group">
+                            <summary class="cursor-pointer inline-flex items-center gap-2 text-xs font-bold text-indigo-700 bg-indigo-100 hover:bg-indigo-200 px-3 py-1.5 rounded-lg transition-colors">
+                                <i class="fa-solid fa-key text-indigo-600"></i> Xem Gợi Ý Lời Giải
+                            </summary>
+                            <div class="mt-3 text-sm text-slate-700 bg-white p-4 rounded-lg border border-slate-200 space-y-2">
+                                <p><strong>Giải:</strong> Ta có: \(M(x) + N(x) = 3x^2 - 2x \Rightarrow N(x) = (3x^2 - 2x) - M(x)\).</p>
+                                <p>Thực hiện phép trừ đa thức bằng phương pháp hàng ngang:</p>
+                                <p class="text-center bg-slate-50 p-2 rounded text-indigo-800 font-mono">
+                                    \[N(x) = (3x^2 - 2x) - (7x^3 - 2x^2 + 4x + 8)\]
+                                    \[= 3x^2 - 2x - 7x^3 + 2x^2 - 4x - 8 \quad (\text{Đổi dấu khi phá ngoặc có dấu "-"})\]
+                                    \[= -7x^3 + (3x^2 + 2x^2) + (-2x - 4x) - 8 = -7x^3 + 5x^2 - 6x - 8\]
+                                </p>
+                                <p>Vậy đa thức \(N(x) = -7x^3 + 5x^2 - 6x - 8\).</p>
+                            </div>
+                        </details>
+                    </div>
+
+                    <!-- Ví dụ 2 -->
+                    <div class="bg-slate-50 rounded-xl p-4 border border-slate-200">
+                        <p class="text-sm font-semibold text-slate-800">Ví dụ 2 (Chứng minh biểu thức không phụ thuộc biến):</p>
+                        <p class="text-sm text-slate-700 mt-1">
+                            Chứng minh rằng giá trị của biểu thức sau không phụ thuộc vào biến \(x\):
+                            \[A(x) = (2x - 1) + [(x^2 + 3x) + (4 - 2x)] - (x^2 + 3x + 1)\]
+                        </p>
+
+                        <details class="mt-3 group">
+                            <summary class="cursor-pointer inline-flex items-center gap-2 text-xs font-bold text-indigo-700 bg-indigo-100 hover:bg-indigo-200 px-3 py-1.5 rounded-lg transition-colors">
+                                <i class="fa-solid fa-key text-indigo-600"></i> Xem Gợi Ý Lời Giải
+                            </summary>
+                            <div class="mt-3 text-sm text-slate-700 bg-white p-4 rounded-lg border border-slate-200 space-y-2">
+                                <p><strong>Giải:</strong> Thực hiện phá các dấu ngoặc từ trong ra ngoài:</p>
+                                <p class="text-center bg-slate-50 p-2 rounded text-indigo-800 font-mono">
+                                    \[A(x) = (2x - 1) + [x^2 + 3x + 4 - 2x] - x^2 - 3x - 1\]
+                                    \[= 2x - 1 + x^2 + x + 4 - x^2 - 3x - 1\]
+                                    \[= (x^2 - x^2) + (2x + x - 3x) + (-1 + 4 - 1) = 0x^2 + 0x + 2 = 2\]
+                                </p>
+                                <p>Vì kết quả sau khi thu gọn của biểu thức \(A(x)\) là hằng số \(2\) nên giá trị của biểu thức không phụ thuộc vào giá trị của biến \(x\).</p>
+                            </div>
+                        </details>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- CẤP ĐỘ 3: VẬN DỤNG (APPLIED) -->
+        <!-- ========================================== -->
+        <section class="bg-white rounded-2xl shadow-md border border-slate-200 overflow-hidden">
+            <div class="bg-purple-600 px-6 py-4 text-white flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                    <span class="w-8 h-8 rounded-full bg-purple-500 text-white flex items-center justify-center font-bold text-sm border-2 border-purple-300">3</span>
+                    <h3 class="text-lg font-bold">💡 CẤP ĐỘ 3: VẬN DỤNG (APPLIED)</h3>
+                </div>
+                <span class="text-xs bg-purple-800 text-purple-100 px-3 py-1 rounded-full font-medium">Mô Hình Hóa Hình Học &amp; Tình Huống Đời Sống</span>
+            </div>
+
+            <div class="p-6 space-y-6">
+                <!-- Mục tiêu -->
+                <div class="bg-purple-50 border-l-4 border-purple-500 p-4 rounded-r-lg">
+                    <h4 class="font-bold text-purple-900 text-sm flex items-center gap-2">
+                        <i class="fa-solid fa-bullseye text-purple-600"></i> Mục tiêu cấp độ 3:
+                    </h4>
+                    <p class="text-sm text-purple-800 mt-1">Học sinh biết sử dụng phép cộng, trừ đa thức một biến để mô hình hóa các đại lượng thực tế, thiết lập các biểu thức chu vi, diện tích hình học có kích thước biến thiên và giải quyết các tình huống đời sống.</p>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="space-y-4">
+                        <!-- 1. Bài toán mô hình hóa hình học -->
+                        <div class="border border-slate-200 rounded-xl p-4 bg-slate-50">
+                            <h5 class="font-bold text-slate-800 flex items-center gap-2 mb-2">
+                                <i class="fa-solid fa-vector-square text-purple-600 text-xs"></i> 1. Bài toán mô hình hóa Hình học thực tế
+                            </h5>
+                            <p class="text-xs text-slate-700 leading-relaxed">
+                                Trong xây dựng, thiết kế kết cấu kỹ thuật và quy hoạch đô thị, các kích thước hình học thường được biểu thị dưới dạng đa thức chứa biến. Việc thực hiện phép cộng và trừ đa thức một biến giúp các kỹ sư tối ưu hóa công thức, tính toán chu vi thực tế hoặc diện tích hao hụt dễ dàng.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- JSXGraph 3: Sân vườn biến thiên thông minh -->
+                    <div class="space-y-3">
+                        <div class="bg-slate-800 text-white p-3 rounded-t-xl flex items-center justify-between">
+                            <span class="text-xs font-bold flex items-center gap-2">
+                                <i class="fa-solid fa-tree-city text-purple-400"></i> Mô Phỏng JSXGraph 3: "Sân Vườn Biến Thiên Thông Minh"
+                            </span>
+                            <span class="text-[10px] bg-purple-500/20 text-purple-300 px-2 py-0.5 rounded">Mảnh đất (2x)²</span>
+                        </div>
+                        <div id="jxgbox3" class="jxgbox w-full h-[380px]"></div>
+                        <p class="text-xs text-slate-500 italic text-center">
+                            <i class="fa-solid fa-sliders mr-1"></i> Kéo trượt thanh $x$ để xem diện tích đất $4x^2$, diện tích nhà $3x$ và diện tích sân vườn $S_{\text{vườn}} = 4x^2 - 3x$ tính toán thời gian thực.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Ví dụ minh họa cấp độ 3 -->
+                <div class="border-t border-slate-200 pt-6 space-y-4">
+                    <h4 class="font-bold text-slate-800 flex items-center gap-2 text-md">
+                        <i class="fa-solid fa-pen-to-square text-purple-600"></i> Ví Dụ Minh Họa (Cấp Độ 3 - Vận Dụng Thực Tế)
+                    </h4>
+
+                    <!-- Ví dụ 1 -->
+                    <div class="bg-slate-50 rounded-xl p-4 border border-slate-200">
+                        <p class="text-sm font-semibold text-slate-800">Ví dụ 1 (Tính chu vi hình thang cân):</p>
+                        <p class="text-sm text-slate-700 mt-1">
+                            Một hình thang cân có các độ dài đáy lớn, đáy bé và hai cạnh bên lần lượt là \(15x - 6\) (mét), \(8x\) (mét), và hai cạnh bên đều bằng \(4x + 1\) (mét).<br>
+                            a) Tìm đa thức (biến \(x\)) biểu thị chu vi của hình thang cân đó.<br>
+                            b) Nếu hai cạnh bên của hình thang cân dài \(5\) mét thì chu vi của hình thang bằng bao nhiêu?
+                        </p>
+
+                        <details class="mt-3 group">
+                            <summary class="cursor-pointer inline-flex items-center gap-2 text-xs font-bold text-purple-700 bg-purple-100 hover:bg-purple-200 px-3 py-1.5 rounded-lg transition-colors">
+                                <i class="fa-solid fa-key text-purple-600"></i> Xem Gợi Ý Lời Giải
+                            </summary>
+                            <div class="mt-3 text-sm text-slate-700 bg-white p-4 rounded-lg border border-slate-200 space-y-3">
+                                <p><strong>a) Lập đa thức chu vi:</strong><br>
+                                Chu vi của hình thang cân bằng tổng độ dài đáy lớn, đáy bé và hai cạnh bên:
+                                \[C(x) = (15x - 6) + 8x + (4x + 1) + (4x + 1)\]
+                                \[C(x) = (15x + 8x + 4x + 4x) + (-6 + 1 + 1) = 31x - 4 \quad (\text{mét})\]
+                                Vậy đa thức biểu thị chu vi hình thang cân là \(C(x) = 31x - 4\).
+                                </p>
+
+                                <p><strong>b) Tính chu vi thực tế:</strong><br>
+                                Nếu độ dài cạnh bên bằng \(5\) mét, tức là:
+                                \[4x + 1 = 5 \Rightarrow 4x = 4 \Rightarrow x = 1 \quad (\text{mét})\]
+                                Thay \(x = 1\) vào đa thức chu vi \(C(x)\):
+                                \[C(1) = 31 \cdot 1 - 4 = 27 \quad (\text{mét})\]
+                                <strong>Đáp số:</strong> a) \(31x - 4\); b) \(27\) mét.
+                                </p>
+                            </div>
+                        </details>
+                    </div>
+
+                    <!-- Ví dụ 2 -->
+                    <div class="bg-slate-50 rounded-xl p-4 border border-slate-200">
+                        <p class="text-sm font-semibold text-slate-800">Ví dụ 2 (Tìm cạnh chưa biết của tam giác):</p>
+                        <p class="text-sm text-slate-700 mt-1">
+                            Một mảnh đất hình tam giác có chu vi được biểu thị bởi đa thức \(12t - 3\) (mét). Biết hai cạnh của mảnh đất này có độ dài lần lượt là \(3t + 8\) (mét) và \(4t - 7\) (mét). Hãy tìm đa thức biểu thị độ dài cạnh còn lại của tam giác đó.
+                        </p>
+
+                        <details class="mt-3 group">
+                            <summary class="cursor-pointer inline-flex items-center gap-2 text-xs font-bold text-purple-700 bg-purple-100 hover:bg-purple-200 px-3 py-1.5 rounded-lg transition-colors">
+                                <i class="fa-solid fa-key text-purple-600"></i> Xem Gợi Ý Lời Giải
+                            </summary>
+                            <div class="mt-3 text-sm text-slate-700 bg-white p-4 rounded-lg border border-slate-200 space-y-3">
+                                <p><strong>Giải:</strong><br>
+                                Tổng độ dài hai cạnh đã biết của tam giác là:
+                                \[(3t + 8) + (4t - 7) = (3t + 4t) + (8 - 7) = 7t + 1 \quad (\text{mét})\]
+                                Độ dài cạnh còn lại của tam giác bằng chu vi tổng trừ đi tổng hai cạnh đã biết:
+                                \[(12t - 3) - (7t + 1) = 12t - 3 - 7t - 1 = (12t - 7t) + (-3 - 1) = 5t - 4 \quad (\text{mét})\]
+                                Vậy đa thức biểu thị độ dài cạnh còn lại của tam giác là \(5t - 4\) (mét).
+                                </p>
+                            </div>
+                        </details>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- BÀI TẬP ĐÁNH GIÁ NĂNG LỰC TẠI LỚP -->
+        <!-- ========================================== -->
+        <section class="bg-white rounded-2xl shadow-xl border-2 border-indigo-500 overflow-hidden">
+            <div class="bg-gradient-to-r from-indigo-700 via-purple-700 to-pink-700 px-6 py-5 text-white flex flex-wrap items-center justify-between gap-4">
+                <div>
+                    <h3 class="text-xl font-extrabold flex items-center gap-2">
+                        <i class="fa-solid fa-clipboard-check text-yellow-300"></i> BÀI TẬP ĐÁNH GIÁ NĂNG LỰC TẠI LỚP
+                    </h3>
+                    <p class="text-xs text-indigo-100 mt-1">Trắc nghiệm 5 câu - Tự động chấm điểm và đồng bộ kết quả lên hệ thống LMS</p>
+                </div>
+                <span class="bg-white/20 backdrop-blur-md px-3 py-1 rounded-full text-xs font-bold border border-white/30">
+                    Mã Đề: toan7-congtrudathuc
+                </span>
+            </div>
+
+            <form id="quiz-form" class="p-6 space-y-8">
+                <!-- Thông tin học sinh -->
+                <div class="bg-indigo-50/70 rounded-xl p-4 border border-indigo-100 grid sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
+                            Họ và Tên Học Sinh <span class="text-red-500">*</span>
+                        </label>
+                        <div class="relative">
+                            <i class="fa-solid fa-user absolute left-3 top-3 text-slate-400 text-sm"></i>
+                            <input type="text" id="student-name" required placeholder="Nhập đầy đủ họ và tên..."
+                                   class="w-full pl-9 pr-3 py-2 text-sm rounded-lg border border-slate-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Lớp / Trường</label>
+                        <div class="relative">
+                            <i class="fa-solid fa-school absolute left-3 top-3 text-slate-400 text-sm"></i>
+                            <input type="text" id="student-class" placeholder="VD: Lớp 7A1 - THCS HCMUS"
+                                   class="w-full pl-9 pr-3 py-2 text-sm rounded-lg border border-slate-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Danh sách 5 câu hỏi -->
+                <div class="space-y-6">
+                    <!-- Câu 1 -->
+                    <div class="bg-slate-50 rounded-xl p-5 border border-slate-200 hover:border-indigo-300 transition-colors">
+                        <p class="font-bold text-sm text-slate-800 flex items-start gap-2">
+                            <span class="bg-indigo-600 text-white text-xs px-2 py-0.5 rounded">Câu 1</span>
+                            <span>Kết quả tính tổng hai đa thức \(P(x) = 6x^2 - 5x + 1\) và \(Q(x) = -3x^2 - 2x - 7\) là:</span>
+                        </p>
+                        <div class="grid sm:grid-cols-2 gap-3 mt-3">
+                            <label class="flex items-center space-x-3 p-3 bg-white rounded-lg border border-slate-200 hover:bg-indigo-50/50 cursor-pointer text-sm">
+                                <input type="radio" name="q1" value="A" class="w-4 h-4 text-indigo-600 focus:ring-indigo-500">
+                                <span>A. \(3x^2 - 7x - 6\)</span>
+                            </label>
+                            <label class="flex items-center space-x-3 p-3 bg-white rounded-lg border border-slate-200 hover:bg-indigo-50/50 cursor-pointer text-sm">
+                                <input type="radio" name="q1" value="B" class="w-4 h-4 text-indigo-600 focus:ring-indigo-500">
+                                <span>B. \(3x^2 - 3x - 6\)</span>
+                            </label>
+                            <label class="flex items-center space-x-3 p-3 bg-white rounded-lg border border-slate-200 hover:bg-indigo-50/50 cursor-pointer text-sm">
+                                <input type="radio" name="q1" value="C" class="w-4 h-4 text-indigo-600 focus:ring-indigo-500">
+                                <span>C. \(9x^2 - 7x - 6\)</span>
+                            </label>
+                            <label class="flex items-center space-x-3 p-3 bg-white rounded-lg border border-slate-200 hover:bg-indigo-50/50 cursor-pointer text-sm">
+                                <input type="radio" name="q1" value="D" class="w-4 h-4 text-indigo-600 focus:ring-indigo-500">
+                                <span>D. \(3x^2 - 7x + 8\)</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Câu 2 -->
+                    <div class="bg-slate-50 rounded-xl p-5 border border-slate-200 hover:border-indigo-300 transition-colors">
+                        <p class="font-bold text-sm text-slate-800 flex items-start gap-2">
+                            <span class="bg-indigo-600 text-white text-xs px-2 py-0.5 rounded">Câu 2</span>
+                            <span>Cho \(M(x) = 7x^3 - 2x^2 + 4x + 8\). Tìm \(N(x)\) biết \(M(x) + N(x) = 3x^2 - 2x\).</span>
+                        </p>
+                        <div class="grid sm:grid-cols-2 gap-3 mt-3">
+                            <label class="flex items-center space-x-3 p-3 bg-white rounded-lg border border-slate-200 hover:bg-indigo-50/50 cursor-pointer text-sm">
+                                <input type="radio" name="q2" value="A" class="w-4 h-4 text-indigo-600 focus:ring-indigo-500">
+                                <span>A. \(N(x) = -7x^3 + 5x^2 - 6x - 8\)</span>
+                            </label>
+                            <label class="flex items-center space-x-3 p-3 bg-white rounded-lg border border-slate-200 hover:bg-indigo-50/50 cursor-pointer text-sm">
+                                <input type="radio" name="q2" value="B" class="w-4 h-4 text-indigo-600 focus:ring-indigo-500">
+                                <span>B. \(N(x) = 7x^3 + 5x^2 - 6x - 8\)</span>
+                            </label>
+                            <label class="flex items-center space-x-3 p-3 bg-white rounded-lg border border-slate-200 hover:bg-indigo-50/50 cursor-pointer text-sm">
+                                <input type="radio" name="q2" value="C" class="w-4 h-4 text-indigo-600 focus:ring-indigo-500">
+                                <span>C. \(N(x) = -7x^3 + x^2 + 2x + 8\)</span>
+                            </label>
+                            <label class="flex items-center space-x-3 p-3 bg-white rounded-lg border border-slate-200 hover:bg-indigo-50/50 cursor-pointer text-sm">
+                                <input type="radio" name="q2" value="D" class="w-4 h-4 text-indigo-600 focus:ring-indigo-500">
+                                <span>D. \(N(x) = -7x^3 + 5x^2 + 2x - 8\)</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Câu 3 -->
+                    <div class="bg-slate-50 rounded-xl p-5 border border-slate-200 hover:border-indigo-300 transition-colors">
+                        <p class="font-bold text-sm text-slate-800 flex items-start gap-2">
+                            <span class="bg-indigo-600 text-white text-xs px-2 py-0.5 rounded">Câu 3</span>
+                            <span>Giá trị sau khi thu gọn của biểu thức \(A(x) = (2x - 1) + [(x^2 + 3x) + (4 - 2x)] - (x^2 + 3x + 1)\) bằng:</span>
+                        </p>
+                        <div class="grid sm:grid-cols-2 gap-3 mt-3">
+                            <label class="flex items-center space-x-3 p-3 bg-white rounded-lg border border-slate-200 hover:bg-indigo-50/50 cursor-pointer text-sm">
+                                <input type="radio" name="q3" value="A" class="w-4 h-4 text-indigo-600 focus:ring-indigo-500">
+                                <span>A. \(2\)</span>
+                            </label>
+                            <label class="flex items-center space-x-3 p-3 bg-white rounded-lg border border-slate-200 hover:bg-indigo-50/50 cursor-pointer text-sm">
+                                <input type="radio" name="q3" value="B" class="w-4 h-4 text-indigo-600 focus:ring-indigo-500">
+                                <span>B. \(0\)</span>
+                            </label>
+                            <label class="flex items-center space-x-3 p-3 bg-white rounded-lg border border-slate-200 hover:bg-indigo-50/50 cursor-pointer text-sm">
+                                <input type="radio" name="q3" value="C" class="w-4 h-4 text-indigo-600 focus:ring-indigo-500">
+                                <span>C. \(2x + 2\)</span>
+                            </label>
+                            <label class="flex items-center space-x-3 p-3 bg-white rounded-lg border border-slate-200 hover:bg-indigo-50/50 cursor-pointer text-sm">
+                                <input type="radio" name="q3" value="D" class="w-4 h-4 text-indigo-600 focus:ring-indigo-500">
+                                <span>D. \(4\)</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Câu 4 -->
+                    <div class="bg-slate-50 rounded-xl p-5 border border-slate-200 hover:border-indigo-300 transition-colors">
+                        <p class="font-bold text-sm text-slate-800 flex items-start gap-2">
+                            <span class="bg-indigo-600 text-white text-xs px-2 py-0.5 rounded">Câu 4</span>
+                            <span>Một hình thang cân có đáy lớn \(15x - 6\), đáy bé \(8x\) và 2 cạnh bên đều bằng \(4x + 1\). Đa thức chu vi của hình thang cân là:</span>
+                        </p>
+                        <div class="grid sm:grid-cols-2 gap-3 mt-3">
+                            <label class="flex items-center space-x-3 p-3 bg-white rounded-lg border border-slate-200 hover:bg-indigo-50/50 cursor-pointer text-sm">
+                                <input type="radio" name="q4" value="A" class="w-4 h-4 text-indigo-600 focus:ring-indigo-500">
+                                <span>A. \(31x - 4\)</span>
+                            </label>
+                            <label class="flex items-center space-x-3 p-3 bg-white rounded-lg border border-slate-200 hover:bg-indigo-50/50 cursor-pointer text-sm">
+                                <input type="radio" name="q4" value="B" class="w-4 h-4 text-indigo-600 focus:ring-indigo-500">
+                                <span>B. \(27x - 5\)</span>
+                            </label>
+                            <label class="flex items-center space-x-3 p-3 bg-white rounded-lg border border-slate-200 hover:bg-indigo-50/50 cursor-pointer text-sm">
+                                <input type="radio" name="q4" value="C" class="w-4 h-4 text-indigo-600 focus:ring-indigo-500">
+                                <span>C. \(31x - 6\)</span>
+                            </label>
+                            <label class="flex items-center space-x-3 p-3 bg-white rounded-lg border border-slate-200 hover:bg-indigo-50/50 cursor-pointer text-sm">
+                                <input type="radio" name="q4" value="D" class="w-4 h-4 text-indigo-600 focus:ring-indigo-500">
+                                <span>D. \(23x - 4\)</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Câu 5 -->
+                    <div class="bg-slate-50 rounded-xl p-5 border border-slate-200 hover:border-indigo-300 transition-colors">
+                        <p class="font-bold text-sm text-slate-800 flex items-start gap-2">
+                            <span class="bg-indigo-600 text-white text-xs px-2 py-0.5 rounded">Câu 5</span>
+                            <span>Một mảnh đất hình tam giác có chu vi \(12t - 3\). Hai cạnh đã biết có độ dài \(3t + 8\) và \(4t - 7\). Đa thức biểu thị độ dài cạnh còn lại là:</span>
+                        </p>
+                        <div class="grid sm:grid-cols-2 gap-3 mt-3">
+                            <label class="flex items-center space-x-3 p-3 bg-white rounded-lg border border-slate-200 hover:bg-indigo-50/50 cursor-pointer text-sm">
+                                <input type="radio" name="q5" value="A" class="w-4 h-4 text-indigo-600 focus:ring-indigo-500">
+                                <span>A. \(5t - 4\)</span>
+                            </label>
+                            <label class="flex items-center space-x-3 p-3 bg-white rounded-lg border border-slate-200 hover:bg-indigo-50/50 cursor-pointer text-sm">
+                                <input type="radio" name="q5" value="B" class="w-4 h-4 text-indigo-600 focus:ring-indigo-500">
+                                <span>B. \(5t + 2\)</span>
+                            </label>
+                            <label class="flex items-center space-x-3 p-3 bg-white rounded-lg border border-slate-200 hover:bg-indigo-50/50 cursor-pointer text-sm">
+                                <input type="radio" name="q5" value="C" class="w-4 h-4 text-indigo-600 focus:ring-indigo-500">
+                                <span>C. \(19t + 2\)</span>
+                            </label>
+                            <label class="flex items-center space-x-3 p-3 bg-white rounded-lg border border-slate-200 hover:bg-indigo-50/50 cursor-pointer text-sm">
+                                <input type="radio" name="q5" value="D" class="w-4 h-4 text-indigo-600 focus:ring-indigo-500">
+                                <span>D. \(5t - 2\)</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Nút nộp bài -->
+                <div class="text-center pt-4">
+                    <button type="submit" id="btn-submit-quiz"
+                            class="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-extrabold px-8 py-3.5 rounded-xl shadow-lg hover:shadow-indigo-500/25 transition-all flex items-center justify-center gap-2 mx-auto text-base">
+                        <i class="fa-solid fa-paper-plane"></i> NỘP BÀI &amp; GỬI KẾT QUẢ
+                    </button>
+                    <p id="submit-status" class="text-xs font-semibold mt-3 min-h-[20px]"></p>
+                </div>
+            </form>
+        </section>
+
+    </main>
+
+    <!-- FOOTER COPYRIGHT -->
+    <footer class="bg-slate-900 text-slate-400 text-center py-6 mt-16 border-t border-slate-800 text-xs">
+        <div class="max-w-7xl mx-auto px-4 space-y-2">
+            <p class="font-medium text-slate-300">
+                @ Bản quyền thuộc ThS. Đinh Quốc Tuấn - Mục đích phi lợi nhuận - Vì giáo dục.
+            </p>
+            <p class="text-slate-500">
+                Tài liệu giảng dạy &amp; Hệ thống học tập trực tuyến Toán Trung Học Cơ Sở
+            </p>
+        </div>
+    </footer>
+
+    <!-- NÚT IN TÀI LIỆU FIXED -->
+    <button id="btn-print-doc" onclick="safePrint()" class="fixed bottom-5 right-5 bg-gray-900 text-white px-4 py-2 rounded-lg shadow-lg hover:bg-gray-700 print:hidden z-50">
+        <i class="fas fa-print mr-2"></i> In Tài Liệu
+    </button>
+
+    <script>
+        // HÀM IN TÀI LIỆU AN TOÀN VỚI MATHJAX
+        function safePrint() {
+            const printBtn = document.getElementById('btn-print-doc');
+            printBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Đang chuẩn bị...';
+
+            // Đảm bảo MathJax đã render xong mọi công thức trước khi gọi hộp thoại in
+            if (window.MathJax && window.MathJax.typesetPromise) {
+                MathJax.typesetPromise().then(() => {
+                    printBtn.innerHTML = '<i class="fas fa-print mr-2"></i> In Tài Liệu';
+                    window.print();
+                });
+            } else {
+                // Fallback nếu không có công thức toán
+                setTimeout(() => {
+                    printBtn.innerHTML = '<i class="fas fa-print mr-2"></i> In Tài Liệu';
+                    window.print();
+                }, 500);
+            }
+        }
+
+        // ==========================================
+        // KHỞI TẠO CÁC MÔ HÌNH JSXGRAPH
+        // ==========================================
+
+        // --- MÔ HÌNH 1: CỘT DỌC ĐỒNG BẬC THÔNG MINH ---
+        var board1 = JXG.JSXGraph.initBoard('jxgbox1', {
+            boundingbox: [-6, 11, 6, -5],
+            axis: false,
+            showCopyright: false,
+            showNavigation: false,
+            keepaspectratio: false
+        });
+
+        var sliderP2 = board1.create('slider', [[-5, 9.5], [-1, 9.5], [-5, 6, 10]], {name: 'P: hệ số x²', snapWidth: 1, digits: 0, strokeColor: '#059669', fillColor: '#10b981'});
+        var sliderP1 = board1.create('slider', [[0, 9.5], [4, 9.5], [-10, -5, 10]], {name: 'P: hệ số x', snapWidth: 1, digits: 0, strokeColor: '#059669', fillColor: '#10b981'});
+        var sliderQ2 = board1.create('slider', [[-5, 8.2], [-1, 8.2], [-10, -3, 10]], {name: 'Q: hệ số x²', snapWidth: 1, digits: 0, strokeColor: '#2563eb', fillColor: '#3b82f6'});
+        var sliderQ1 = board1.create('slider', [[0, 8.2], [4, 8.2], [-10, -2, 10]], {name: 'Q: hệ số x', snapWidth: 1, digits: 0, strokeColor: '#2563eb', fillColor: '#3b82f6'});
+
+        // Tiêu đề bảng đặt tính
+        board1.create('text', [-4.5, 6.8, 'Cột x²'], {fontSize: 11, cssClass: 'font-bold text-slate-500'});
+        board1.create('text', [-1.5, 6.8, 'Cột x¹'], {fontSize: 11, cssClass: 'font-bold text-slate-500'});
+        board1.create('text', [1.5, 6.8, 'Cột x⁰ (Tự do)'], {fontSize: 11, cssClass: 'font-bold text-slate-500'});
+
+        // Hàng P(x)
+        board1.create('text', [-5.5, 5.5, 'P(x) ='], {fontSize: 12, cssClass: 'font-bold text-emerald-800'});
+        board1.create('text', [-4.5, 5.5, function() { return sliderP2.Value() + 'x²'; }], {fontSize: 12, cssClass: 'font-semibold'});
+        board1.create('text', [-1.5, 5.5, function() { var v = sliderP1.Value(); return (v >= 0 ? '+ ' : '') + v + 'x'; }], {fontSize: 12, cssClass: 'font-semibold'});
+        board1.create('text', [1.5, 5.5, '+ 1'], {fontSize: 12, cssClass: 'font-semibold'});
+
+        // Hàng Q(x)
+        board1.create('text', [-5.5, 4.2, '+ Q(x) ='], {fontSize: 12, cssClass: 'font-bold text-blue-800'});
+        board1.create('text', [-4.5, 4.2, function() { var v = sliderQ2.Value(); return (v >= 0 ? '+ ' : '') + v + 'x²'; }], {fontSize: 12, cssClass: 'font-semibold'});
+        board1.create('text', [-1.5, 4.2, function() { var v = sliderQ1.Value(); return (v >= 0 ? '+ ' : '') + v + 'x'; }], {fontSize: 12, cssClass: 'font-semibold'});
+        board1.create('text', [1.5, 4.2, '- 7'], {fontSize: 12, cssClass: 'font-semibold'});
+
+        // Đường gạch ngang
+        board1.create('line', [[-5.5, 3.2], [4.5, 3.2]], {straightFirst: false, straightLast: false, strokeColor: '#0f172a', strokeWidth: 2});
+
+        // Hàng Kết quả
+        board1.create('text', [-5.5, 2.0, 'Tổng ='], {fontSize: 13, cssClass: 'font-extrabold text-indigo-900'});
+        board1.create('text', [-4.5, 2.0, function() {
+            var sum2 = sliderP2.Value() + sliderQ2.Value();
+            return sum2 + 'x²';
+        }], {fontSize: 13, cssClass: 'font-extrabold text-emerald-700 bg-emerald-50 p-1 rounded'});
+
+        board1.create('text', [-1.5, 2.0, function() {
+            var sum1 = sliderP1.Value() + sliderQ1.Value();
+            return (sum1 >= 0 ? '+ ' : '') + sum1 + 'x';
+        }], {fontSize: 13, cssClass: 'font-extrabold text-blue-700 bg-blue-50 p-1 rounded'});
+
+        board1.create('text', [1.5, 2.0, '- 6'], {fontSize: 13, cssClass: 'font-extrabold text-purple-700 bg-purple-50 p-1 rounded'});
+
+        // Khung hiển thị tổng thể
+        board1.create('polygon', [[-5, -0.5], [5, -0.5], [4.5, -3.5], [-4.5, -3.5]], {fillColor: '#f8fafc', strokeColor: '#64748b', strokeWidth: 2, lines: {fixed: true}});
+        board1.create('text', [0, -1.3, 'KẾT QUẢ CỘNG THU GỌN HÀNG NGANG'], {anchorX: 'middle', fontSize: 11, cssClass: 'font-bold text-slate-800'});
+        board1.create('text', [0, -2.5, function() {
+            var sum2 = sliderP2.Value() + sliderQ2.Value();
+            var sum1 = sliderP1.Value() + sliderQ1.Value();
+            var str2 = (sum2 === 0) ? '' : (sum2 === 1 ? 'x²' : (sum2 === -1 ? '-x²' : sum2 + 'x²'));
+            var str1 = '';
+            if (sum1 !== 0) {
+                var sign1 = (sum1 > 0 && str2 !== '') ? ' + ' : (sum1 < 0 && str2 !== '' ? ' - ' : (sum1 < 0 ? '-' : ''));
+                var abs1 = Math.abs(sum1);
+                str1 = sign1 + (abs1 === 1 ? 'x' : abs1 + 'x');
+            }
+            return 'P(x) + Q(x) = ' + str2 + str1 + ' - 6';
+        }], {anchorX: 'middle', fontSize: 14, cssClass: 'font-extrabold text-indigo-900 bg-white p-1.5 rounded border border-indigo-200'});
+
+
+        // --- MÔ HÌNH 2: CÁN CÂN CHUYỂN VẾ ĐẠI SỐ ---
+        var board2 = JXG.JSXGraph.initBoard('jxgbox2', {
+            boundingbox: [-6, 8, 6, -6],
+            axis: false,
+            showCopyright: false,
+            showNavigation: false,
+            keepaspectratio: false
+        });
+
+        var transStep = 0;
+
+        function stepTransposition() {
+            transStep = (transStep + 1) % 3;
+            board2.update();
+        }
+
+        board2.create('text', [0, 6.2, function() {
+            if (transStep === 0) return 'BƯỚC 1: ĐẲNG THỨC BAN ĐẦU: M(x) + N(x) = 3x² - 2x';
+            if (transStep === 1) return 'BƯỚC 2: CHUYỂN VẾ M(x) SANG PHẢI VÀ ĐỔI DẤU TẤT CẢ HẠNG TỬ!';
+            return 'BƯỚC 3: THU GỌN VẾ PHẢI TÌM ĐƯỢC N(x) HOÀN CHỈNH!';
+        }], {anchorX: 'middle', fontSize: 12, cssClass: 'font-extrabold text-indigo-900 bg-indigo-50 p-2 rounded border border-indigo-200'});
+
+        // Đĩa cân trái
+        board2.create('polygon', [[-5.2, 4.0], [-1.2, 4.0], [-1.6, 1.0], [-4.8, 1.0]], {fillColor: '#dbeafe', strokeColor: '#2563eb', strokeWidth: 2, lines: {fixed: true}});
+        board2.create('text', [-3.2, 3.2, 'VẾ TRÁI'], {anchorX: 'middle', fontSize: 11, cssClass: 'font-bold text-blue-800'});
+        board2.create('text', [-3.2, 2.0, function() {
+            if (transStep === 0) return 'Hộp N(x) + M(x)';
+            return 'Chỉ còn Hộp N(x)';
+        }], {anchorX: 'middle', fontSize: 13, cssClass: 'font-extrabold text-blue-900'});
+
+        // Dấu Bằng trung tâm
+        board2.create('text', [0, 2.5, '='], {anchorX: 'middle', fontSize: 24, cssClass: 'font-extrabold text-slate-800'});
+
+        // Đĩa cân phải
+        board2.create('polygon', [[1.2, 4.0], [5.2, 4.0], [4.8, 1.0], [1.6, 1.0]], {fillColor: '#fef08a', strokeColor: '#eab308', strokeWidth: 2, lines: {fixed: true}});
+        board2.create('text', [3.4, 3.2, 'VẾ PHẢI'], {anchorX: 'middle', fontSize: 11, cssClass: 'font-bold text-amber-800'});
+        board2.create('text', [3.4, 2.0, function() {
+            if (transStep === 0) return '3x² - 2x';
+            if (transStep === 1) return '(3x² - 2x) - (7x³ - 2x² + 4x + 8)';
+            return '3x² - 2x - 7x³ + 2x² - 4x - 8';
+        }], {anchorX: 'middle', fontSize: 10, cssClass: 'font-extrabold text-amber-900'});
+
+        // Kết quả thu gọn
+        board2.create('polygon', [[-5, -1.0], [5, -1.0], [4.5, -4.5], [-4.5, -4.5]], {fillColor: '#f8fafc', strokeColor: '#475569', strokeWidth: 2, lines: {fixed: true}});
+        board2.create('text', [0, -1.8, 'KẾT QUẢ ĐA THỨC CẦN TÌM N(x)'], {anchorX: 'middle', fontSize: 11, cssClass: 'font-bold text-slate-800'});
+        board2.create('text', [0, -3.2, function() {
+            if (transStep < 2) return 'Bấm "Bước Tiếp Theo" để thu gọn kết quả...';
+            return 'N(x) = -7x³ + 5x² - 6x - 8';
+        }], {anchorX: 'middle', fontSize: 14, cssClass: 'font-extrabold text-emerald-800 bg-emerald-50 p-2 rounded border border-emerald-300'});
+
+
+        // --- MÔ HÌNH 3: SÂN VƯỜN BIẾN THIÊN THÔNG MINH ---
+        var board3 = JXG.JSXGraph.initBoard('jxgbox3', {
+            boundingbox: [-2, 13, 13, -3],
+            axis: false,
+            showCopyright: false,
+            showNavigation: false,
+            keepaspectratio: true
+        });
+
+        var sliderX3 = board3.create('slider', [[1, 11.5], [8, 11.5], [4, 6, 12]], {
+            name: 'Kích thước x (m)',
+            snapWidth: 0.5,
+            strokeColor: '#7c3aed',
+            fillColor: '#8b5cf6'
+        });
+
+        // Mảnh đất hình vuông lớn (2x x 2x) tô màu xanh
+        var pPlot = board3.create('polygon', [
+            [0, 0],
+            [function(){ return sliderX3.Value(); }, 0],
+            [function(){ return sliderX3.Value(); }, function(){ return sliderX3.Value(); }],
+            [0, function(){ return sliderX3.Value(); }]
+        ], {fillColor: '#22c55e', fillOpacity: 0.5, strokeColor: '#15803d', strokeWidth: 2, lines: {fixed: true}});
+
+        // Căn nhà hình chữ nhật (x x 3) màu trắng
+        var pHouse = board3.create('polygon', [
+            [0.5, 0.5],
+            [function(){ return Math.min(sliderX3.Value() - 0.5, 3.5); }, 0.5],
+            [function(){ return Math.min(sliderX3.Value() - 0.5, 3.5); }, function(){ return Math.min(sliderX3.Value() - 0.5, sliderX3.Value() * 0.5); }],
+            [0.5, function(){ return Math.min(sliderX3.Value() - 0.5, sliderX3.Value() * 0.5); }]
+        ], {fillColor: '#ffffff', fillOpacity: 0.9, strokeColor: '#dc2626', strokeWidth: 2, strokeDash: 2, lines: {fixed: true}});
+
+        board3.create('text', [1.5, 1.2, 'Căn Nhà'], {fontSize: 10, cssClass: 'font-bold text-red-700'});
+
+        // Text thông số thời gian thực
+        board3.create('text', [5.5, -1.5, function() {
+            var x = sliderX3.Value();
+            var sDat = 4 * x * x;
+            var sNha = 3 * x;
+            var sVuon = sDat - sNha;
+            return 'x = ' + x.toFixed(1) + 'm ➔ S_đất = ' + sDat.toFixed(0) + 'm² | S_nhà = ' + sNha.toFixed(1) + 'm² ➔ S_vườn = 4x² - 3x = ' + sVuon.toFixed(1) + ' m²';
+        }], {anchorX: 'middle', fontSize: 11, cssClass: 'font-extrabold text-purple-900 bg-purple-50 p-2 rounded-lg border border-purple-200'});
+
+
+        // ==========================================
+        // XỬ LÝ TRẮC NGHIỆM & GỬI GOOGLE APPS SCRIPT
+        // ==========================================
+        const correctAnswers = {
+            q1: 'A',
+            q2: 'A',
+            q3: 'A',
+            q4: 'A',
+            q5: 'A'
+        };
+
+        const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzY7b7h4OwvhXuK5Vs6hl-aD88BPnAiAKbU5lfJobby0D4nzbIJVKT4n0AKCpAGoK0nZA/exec";
+
+        document.getElementById('quiz-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const studentName = document.getElementById('student-name').value.trim();
+            const studentClass = document.getElementById('student-class').value.trim();
+            const submitBtn = document.getElementById('btn-submit-quiz');
+            const submitStatus = document.getElementById('submit-status');
+
+            if (!studentName) {
+                alert('Vui lòng nhập đầy đủ họ và tên trước khi nộp bài!');
+                return;
+            }
+
+            let score = 0;
+            let wrongQuestions = [];
+
+            for (let i = 1; i <= 5; i++) {
+                const selected = document.querySelector(`input[name="q${i}"]:checked`);
+                if (selected && selected.value === correctAnswers[`q${i}`]) {
+                    score++;
+                } else {
+                    wrongQuestions.push(`Câu ${i}`);
+                }
+            }
+
+            const now = new Date();
+            const timeString = now.toLocaleString('vi-VN');
+            const cauSaiText = wrongQuestions.length > 0 ? wrongQuestions.join(', ') : 'Không có (Đạt điểm tối đa)';
+
+            // Cấu trúc dữ liệu gửi phù hợp chuẩn Google Apps Script
+            const payload = {
+                hoTen: studentName + (studentClass ? ` (${studentClass})` : ''),
+                maDe: 'toan7-congtrudathuc',
+                diem: `${score}/5 (${score * 2} điểm)`,
+                thoiGian: timeString,
+                cauSai: cauSaiText
+            };
+
+            // Trạng thái chờ gửi
+            submitBtn.disabled = true;
+            submitBtn.classList.add('opacity-50', 'cursor-not-allowed');
+            submitStatus.className = 'text-xs font-semibold text-indigo-600 animate-pulse';
+            submitStatus.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-1"></i> Đang nộp bài và đồng bộ kết quả lên hệ thống...';
+
+            // Gửi dữ liệu bằng POST đến Web App URL
+            fetch(APPS_SCRIPT_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(payload)
+            })
+            .then(() => {
+                submitStatus.className = 'text-xs font-bold text-emerald-600';
+                submitStatus.innerHTML = '<i class="fa-solid fa-circle-check mr-1"></i> Nộp bài thành công! Kết quả đã được ghi nhận.';
+                
+                alert(`🎉 CHÚC MỪNG BẠN ĐÃ HOÀN THÀNH BÀI TẬP!\n\n• Học sinh: ${studentName}\n• Điểm số: ${score}/5 (${score * 2} điểm)\n• Câu chưa chính xác: ${cauSaiText}\n\nKết quả đã được gửi thành công về hệ thống của thầy giáo!`);
+            })
+            .catch(err => {
+                console.error('Lỗi khi gửi kết quả:', err);
+                submitStatus.className = 'text-xs font-bold text-emerald-600';
+                submitStatus.innerHTML = '<i class="fa-solid fa-circle-check mr-1"></i> Đã hoàn thành chấm điểm tại máy!';
+                
+                alert(`🎉 HOÀN THÀNH BÀI KIỂM TRA!\n\n• Điểm số: ${score}/5 (${score * 2} điểm)\n• Câu chưa chính xác: ${cauSaiText}`);
+            })
+            .finally(() => {
+                submitBtn.disabled = false;
+                submitBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+            });
+        });
+    </script>
+</body>
+</html>
