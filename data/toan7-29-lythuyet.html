@@ -1,0 +1,1267 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phép Nhân và Phép Chia Đa Thức Một Biến - ThS. Đinh Quốc Tuấn</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- FontAwesome 6 CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- MathJax 3 for Beautiful LaTeX -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['\\(', '\\)'], ['$', '$']],
+                displayMath: [['\\[', '\\]'], ['$$', '$$']],
+                processEscapes: true
+            },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <!-- JSXGraph Library -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraph.css" />
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraphcore.js"></script>
+
+    <style>
+        body {
+            font-family: 'Be Vietnam Pro', sans-serif;
+            background-color: #f8fafc;
+            color: #1e293b;
+        }
+        .jxgbox {
+            border-radius: 0.75rem;
+            border: 2px solid #e2e8f0;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            background-color: #ffffff;
+        }
+        .gradient-header {
+            background: linear-gradient(135deg, #1e3a8a 0%, #0369a1 50%, #0f766e 100%);
+        }
+        .gradient-card-1 {
+            background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
+            border-left: 6px solid #10b981;
+        }
+        .gradient-card-2 {
+            background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+            border-left: 6px solid #3b82f6;
+        }
+        .gradient-card-3 {
+            background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+            border-left: 6px solid #f59e0b;
+        }
+        @media print {
+            .print\\:hidden, #btn-print-doc {
+                display: none !important;
+            }
+            body {
+                background-color: #ffffff !important;
+                color: #000000 !important;
+            }
+            .shadow-lg, .shadow-md, .shadow-sm {
+                box-shadow: none !important;
+            }
+            .jxgbox {
+                border: 1px solid #94a3b8 !important;
+            }
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col">
+
+    <!-- HEADER WITH DUAL LOGOS -->
+    <header class="bg-white border-b border-slate-200 shadow-sm sticky top-0 z-40">
+        <div class="max-w-6xl mx-auto px-4 py-3 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="flex items-center space-x-4">
+                <img src="https://firebasestorage.googleapis.com/v0/b/link-anh-web.firebasestorage.app/o/ttbdvh.jpg?alt=media&token=f270aa9b-a2bc-48e8-8910-80742b542615" 
+                     alt="Logo Trung Tâm BDVH" class="h-14 w-auto object-contain rounded shadow-sm border border-slate-100">
+                <div class="h-10 w-px bg-slate-300 hidden sm:block"></div>
+                <img src="https://firebasestorage.googleapis.com/v0/b/link-anh-web.firebasestorage.app/o/Logo-chinh-hcmus.png?alt=media&token=9cf3a1de-75f1-493b-8711-fd22c7b98738" 
+                     alt="Logo HCMUS" class="h-14 w-auto object-contain">
+            </div>
+
+            <div class="text-center sm:text-right">
+                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-blue-100 text-blue-800 mb-1">
+                    <i class="fas fa-graduation-cap mr-1.5"></i> TOÁN HỌC & KHOA HỌC TỰ NHIÊN
+                </span>
+                <p class="text-xs text-slate-500 font-medium">Biên soạn: <span class="font-bold text-slate-700">ThS. Đinh Quốc Tuấn</span></p>
+                <p class="text-xs text-emerald-600 font-semibold"><i class="fas fa-shield-alt mr-1"></i> Mục đích phi lợi nhuận - Vì giáo dục</p>
+            </div>
+        </div>
+    </header>
+
+    <!-- HERO BANNER -->
+    <div class="gradient-header text-white py-10 px-4 shadow-inner">
+        <div class="max-w-6xl mx-auto text-center sm:text-left flex flex-col md:flex-row items-center justify-between gap-6">
+            <div class="space-y-3 max-w-3xl">
+                <div class="flex flex-wrap items-center justify-center sm:justify-start gap-2">
+                    <span class="px-3 py-1 bg-emerald-500/30 backdrop-blur-sm border border-emerald-400/40 rounded-lg text-emerald-200 text-xs font-bold uppercase tracking-wider">
+                        <i class="fas fa-layer-group mr-1"></i> Chương Trình Chuẩn GDPT
+                    </span>
+                    <span class="px-3 py-1 bg-amber-500/30 backdrop-blur-sm border border-amber-400/40 rounded-lg text-amber-200 text-xs font-bold uppercase tracking-wider">
+                        <i class="fas fa-brain mr-1"></i> 3 Cấp Độ Nhận Thức
+                    </span>
+                    <span class="px-3 py-1 bg-sky-500/30 backdrop-blur-sm border border-sky-400/40 rounded-lg text-sky-200 text-xs font-bold uppercase tracking-wider">
+                        <i class="fas fa-chart-line mr-1"></i> Đánh Giá Năng Lực Trực Tuyến
+                    </span>
+                </div>
+                <h1 class="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight">
+                    PHÉP NHÂN VÀ PHÉP CHIA ĐA THỨC MỘT BIẾN
+                </h1>
+                <p class="text-slate-200 text-sm sm:text-base leading-relaxed">
+                    Hệ thống lý thuyết trực quan tương tác JSXGraph, phương pháp đặt tính, ví dụ giải chi tiết và bài tập đánh giá năng lực thời gian thực.
+                </p>
+            </div>
+
+            <div class="bg-white/10 backdrop-blur-md p-4 rounded-xl border border-white/20 text-center shrink-0 w-full sm:w-auto">
+                <p class="text-xs uppercase tracking-widest font-semibold text-slate-300 mb-2">Đánh Giá Năng Lực</p>
+                <a href="#quiz-section" class="inline-flex items-center justify-center px-5 py-2.5 bg-amber-500 hover:bg-amber-600 text-slate-900 font-bold rounded-lg shadow-md hover:shadow-lg transition-all transform hover:-translate-y-0.5 text-sm">
+                    <i class="fas fa-pen-to-square mr-2"></i> Làm Bài Trắc Nghiệm (5 Câu)
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <main class="max-w-6xl mx-auto px-4 py-8 flex-grow space-y-10">
+
+        <!-- ==================== CẤP ĐỘ 1: CƠ BẢN (BASIC) ==================== -->
+        <section id="level-1" class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+            <div class="bg-emerald-600 text-white px-6 py-4 flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                    <div class="w-9 h-9 rounded-lg bg-emerald-500/50 flex items-center justify-center font-black text-lg border border-emerald-300">
+                        1
+                    </div>
+                    <div>
+                        <h2 class="text-lg sm:text-xl font-bold">CẤP ĐỘ 1: CƠ BẢN (BASIC)</h2>
+                        <p class="text-xs text-emerald-100 font-light">Nắm vững quy tắc nhân đơn thức với đa thức, chia đơn thức và đa thức cho đơn thức</p>
+                    </div>
+                </div>
+                <span class="px-3 py-1 bg-emerald-700 rounded-full text-xs font-semibold uppercase tracking-wider hidden sm:inline-block">
+                    Cơ bản
+                </span>
+            </div>
+
+            <div class="p-6 space-y-8">
+                <!-- 1. Nhân đơn thức với đa thức -->
+                <div class="space-y-4">
+                    <div class="flex items-center space-x-2 text-emerald-800 font-bold text-lg border-b pb-2">
+                        <i class="fas fa-calculator text-emerald-600"></i>
+                        <h3>1. Nhân đơn thức với đa thức</h3>
+                    </div>
+
+                    <div class="gradient-card-1 p-4 rounded-xl space-y-2">
+                        <div class="flex items-center space-x-2 text-emerald-900 font-bold text-sm">
+                            <i class="fas fa-bookmark text-emerald-600"></i>
+                            <span>QUY TẮC PHÂN PHỐI</span>
+                        </div>
+                        <p class="text-sm text-slate-700 leading-relaxed">
+                            Muốn nhân một đơn thức với một đa thức, ta nhân đơn thức với từng hạng tử của đa thức rồi cộng các tích với nhau:
+                        </p>
+                        <div class="bg-white p-3 rounded-lg border border-emerald-200 text-center font-bold text-base text-emerald-900 shadow-sm">
+                            $$A \cdot (B + C) = A \cdot B + A \cdot C$$
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="font-bold text-sm text-slate-800"><i class="fas fa-pen-clip text-emerald-600 mr-2"></i>Ví dụ 1:</span>
+                            <span class="text-xs bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded font-semibold">Cơ bản</span>
+                        </div>
+                        <p class="text-sm text-slate-700">
+                            Thực hiện phép nhân đơn thức sau:
+                            $$P(x) = (-2x^3) \cdot \left(\frac{1}{2}x^2 + 3x - 5\right)$$
+                        </p>
+                        
+                        <div>
+                            <button onclick="toggleHint('sol-1-1')" class="inline-flex items-center space-x-2 text-xs font-semibold bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-1.5 rounded-lg shadow-sm transition-colors">
+                                <i class="fas fa-eye" id="icon-sol-1-1"></i>
+                                <span>Xem Lời Giải Chi Tiết</span>
+                            </button>
+                            <div id="sol-1-1" class="hidden mt-3 p-4 bg-white rounded-lg border border-emerald-200 space-y-2 text-sm text-slate-700">
+                                <p class="font-semibold text-emerald-900"><i class="fas fa-check-circle mr-1 text-emerald-600"></i> Lời giải:</p>
+                                <p>Áp dụng quy tắc nhân phân phối, ta có:</p>
+                                <div class="bg-slate-50 p-3 rounded border text-center overflow-x-auto">
+                                    $$P(x) = (-2x^3) \cdot \left(\frac{1}{2}x^2\right) + (-2x^3) \cdot (3x) + (-2x^3) \cdot (-5)$$
+                                    $$P(x) = -x^5 - 6x^4 + 10x^3$$
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- JSXGraph 1 -->
+                    <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200 space-y-4">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center space-x-2">
+                                <span class="w-7 h-7 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold text-sm">
+                                    <i class="fas fa-shapes"></i>
+                                </span>
+                                <h4 class="font-bold text-slate-800 text-sm sm:text-base">Mô hình hình học minh họa phép nhân phân phối</h4>
+                            </div>
+                            <span class="text-xs bg-sky-100 text-sky-800 px-2.5 py-1 rounded-full font-semibold">
+                                <i class="fas fa-sliders mr-1"></i> Tương tác trực quan
+                            </span>
+                        </div>
+                        <p class="text-xs sm:text-sm text-slate-600">
+                            <strong>Thực nghiệm:</strong> Kéo các thanh trượt bên dưới để thay đổi chiều rộng \(a\) và các kích thước đáy \(b, c\). Diện tích hình chữ nhật lớn luôn bằng tổng diện tích hai hình chữ nhật thành phần: \(a(b+c) = ab + ac\).
+                        </p>
+                        
+                        <div class="w-full flex flex-col items-center">
+                            <div id="jxgbox1" class="jxgbox w-full max-w-2xl h-80 sm:h-96"></div>
+                            <div class="w-full max-w-2xl mt-3 grid grid-cols-1 sm:grid-cols-3 gap-2 text-center text-xs">
+                                <div class="bg-blue-50 border border-blue-200 p-2 rounded-lg font-semibold text-blue-900" id="box1-s1">
+                                    Hình (I): \(S_1 = a \cdot b = 0\)
+                                </div>
+                                <div class="bg-amber-50 border border-amber-200 p-2 rounded-lg font-semibold text-amber-900" id="box1-s2">
+                                    Hình (II): \(S_2 = a \cdot c = 0\)
+                                </div>
+                                <div class="bg-emerald-50 border border-emerald-200 p-2 rounded-lg font-bold text-emerald-900" id="box1-total">
+                                    Tổng: \(S = a(b+c) = 0\)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2. Chia đơn thức cho đơn thức -->
+                <div class="space-y-4 pt-4 border-t border-slate-200">
+                    <div class="flex items-center space-x-2 text-emerald-800 font-bold text-lg border-b pb-2">
+                        <i class="fas fa-divide text-emerald-600"></i>
+                        <h3>2. Chia đơn thức cho đơn thức</h3>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="gradient-card-1 p-4 rounded-xl space-y-2">
+                            <span class="font-bold text-emerald-900 text-sm flex items-center">
+                                <i class="fas fa-check-double mr-2 text-emerald-600"></i> ĐIỀU KIỆN CHIA HẾT
+                            </span>
+                            <p class="text-xs sm:text-sm text-slate-700 leading-relaxed">
+                                Cho hai đơn thức \(A = ax^m\) và \(B = bx^n\) (\(b \neq 0; m, n \in \mathbb{N}\)).<br>
+                                Đơn thức \(A\) chia hết cho \(B\) khi và chỉ khi:
+                            </p>
+                            <div class="bg-white p-2 rounded border border-emerald-200 font-bold text-center text-emerald-800">
+                                \(m \ge n\) (số mũ bị chia \(\ge\) số mũ chia)
+                            </div>
+                        </div>
+
+                        <div class="gradient-card-2 p-4 rounded-xl space-y-2">
+                            <span class="font-bold text-blue-900 text-sm flex items-center">
+                                <i class="fas fa-cogs mr-2 text-blue-600"></i> CÔNG THỨC CHIA
+                            </span>
+                            <p class="text-xs sm:text-sm text-slate-700 leading-relaxed">
+                                Lấy hệ số chia cho hệ số, lũy thừa của biến chia cho lũy thừa của biến:
+                            </p>
+                            <div class="bg-white p-2 rounded border border-blue-200 font-bold text-center text-blue-800">
+                                \((ax^m) : (bx^n) = (a : b) \cdot x^{m-n}\)
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+                        <p class="text-sm font-semibold text-slate-800 mb-2">
+                            <i class="fas fa-pencil-alt text-emerald-600 mr-2"></i>Ví dụ thực hiện:
+                        </p>
+                        <div class="bg-white p-3 rounded-lg border border-slate-200 text-sm overflow-x-auto text-center font-medium text-slate-800">
+                            \(\left(12x^5\right) : \left(6x^2\right) = (12 : 6) \cdot x^{5-2} = 2x^3\)
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3. Chia đa thức cho đơn thức -->
+                <div class="space-y-4 pt-4 border-t border-slate-200">
+                    <div class="flex items-center space-x-2 text-emerald-800 font-bold text-lg border-b pb-2">
+                        <i class="fas fa-layer-group text-emerald-600"></i>
+                        <h3>3. Chia đa thức cho đơn thức</h3>
+                    </div>
+
+                    <div class="gradient-card-1 p-4 rounded-xl space-y-2">
+                        <p class="text-sm text-slate-700 leading-relaxed">
+                            <strong>Quy tắc:</strong> Muốn chia đa thức \(A\) cho đơn thức \(B\) (trong trường hợp các hạng tử của \(A\) đều chia hết cho \(B\)), ta <strong>chia mỗi hạng tử của \(A\) cho \(B\)</strong> rồi cộng các kết quả với nhau.
+                        </p>
+                    </div>
+
+                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="font-bold text-sm text-slate-800"><i class="fas fa-pen-clip text-emerald-600 mr-2"></i>Ví dụ 2:</span>
+                            <span class="text-xs bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded font-semibold">Chia Đa thức</span>
+                        </div>
+                        <p class="text-sm text-slate-700">
+                            Thực hiện phép chia đa thức:
+                            $$\left(15x^4 - 20x^3 + 5x^2\right) : \left(5x^2\right)$$
+                        </p>
+                        <button onclick="toggleHint('sol-1-2')" class="inline-flex items-center space-x-2 text-xs font-semibold bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-1.5 rounded-lg shadow-sm transition-colors">
+                            <i class="fas fa-eye" id="icon-sol-1-2"></i>
+                            <span>Xem Lời Giải</span>
+                        </button>
+                        <div id="sol-1-2" class="hidden mt-3 p-4 bg-white rounded-lg border border-emerald-200 space-y-2 text-sm text-slate-700">
+                            <p class="font-semibold text-emerald-900"><i class="fas fa-check-circle mr-1 text-emerald-600"></i> Lời giải chi tiết:</p>
+                            <div class="bg-slate-50 p-3 rounded border text-center overflow-x-auto">
+                                $$= \left(15x^4 : 5x^2\right) + \left(-20x^3 : 5x^2\right) + \left(5x^2 : 5x^2\right)$$
+                                $$= 3x^2 - 4x + 1$$
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== CẤP ĐỘ 2: NÂNG CAO (ADVANCED) ==================== -->
+        <section id="level-2" class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+            <div class="bg-indigo-600 text-white px-6 py-4 flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                    <div class="w-9 h-9 rounded-lg bg-indigo-500/50 flex items-center justify-center font-black text-lg border border-indigo-300">
+                        2
+                    </div>
+                    <div>
+                        <h2 class="text-lg sm:text-xl font-bold">CẤP ĐỘ 2: NÂNG CAO (ADVANCED)</h2>
+                        <p class="text-xs text-indigo-100 font-light">Thành thạo phương pháp nhân hàng ngang và đặt tính cột dọc; rút gọn biểu thức đa bước</p>
+                    </div>
+                </div>
+                <span class="px-3 py-1 bg-indigo-700 rounded-full text-xs font-semibold uppercase tracking-wider hidden sm:inline-block">
+                    Nâng cao
+                </span>
+            </div>
+
+            <div class="p-6 space-y-8">
+                <!-- 1. Nhân đa thức với đa thức -->
+                <div class="space-y-4">
+                    <div class="flex items-center space-x-2 text-indigo-900 font-bold text-lg border-b pb-2">
+                        <i class="fas fa-network-wired text-indigo-600"></i>
+                        <h3>1. Nhân đa thức với đa thức</h3>
+                    </div>
+
+                    <div class="gradient-card-2 p-4 rounded-xl space-y-2">
+                        <span class="font-bold text-indigo-900 text-sm flex items-center">
+                            <i class="fas fa-bolt mr-2 text-indigo-600"></i> NGUYÊN TẮC NHÂN PHÂN PHỐI ĐA THỨC
+                        </span>
+                        <p class="text-sm text-slate-700 leading-relaxed">
+                            Muốn nhân một đa thức với một đa thức, ta nhân mỗi hạng tử của đa thức này với từng hạng tử của đa thức kia rồi cộng các tích với nhau:
+                        </p>
+                        <div class="bg-white p-3 rounded-lg border border-indigo-200 text-center font-bold text-base text-indigo-900 shadow-sm">
+                            $$(A + B) \cdot (C + D) = A \cdot C + A \cdot D + B \cdot C + B \cdot D$$
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-2">
+                            <div class="flex items-center space-x-2 text-indigo-700 font-bold text-sm">
+                                <i class="fas fa-arrows-left-right"></i>
+                                <h4>Cách 1: Hàng ngang</h4>
+                            </div>
+                            <p class="text-xs text-slate-600 leading-relaxed">
+                                Áp dụng trực tiếp tính chất phân phối trên một dòng, sau đó nhóm các đơn thức đồng dạng để thu gọn kết quả.
+                            </p>
+                        </div>
+                        <div class="p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-2">
+                            <div class="flex items-center space-x-2 text-indigo-700 font-bold text-sm">
+                                <i class="fas fa-arrows-up-down"></i>
+                                <h4>Cách 2: Đặt tính cột dọc</h4>
+                            </div>
+                            <p class="text-xs text-slate-600 leading-relaxed">
+                                Viết đa thức này dưới đa thức kia. Các tích riêng được sắp xếp thẳng cột theo các lũy thừa cùng bậc để thực hiện cộng dồn nhanh và chính xác.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- JSXGraph 2 -->
+                    <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200 space-y-4">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center space-x-2">
+                                <span class="w-7 h-7 rounded-lg bg-indigo-100 text-indigo-700 flex items-center justify-center font-bold text-sm">
+                                    <i class="fas fa-table-cells-large"></i>
+                                </span>
+                                <h4 class="font-bold text-slate-800 text-sm sm:text-base">Mô hình diện tích cho phép nhân đa thức \((a+b)(c+d)\)</h4>
+                            </div>
+                            <span class="text-xs bg-indigo-100 text-indigo-800 px-2.5 py-1 rounded-full font-semibold">
+                                <i class="fas fa-hand-pointer mr-1"></i> Tương tác 4 ô
+                            </span>
+                        </div>
+                        <p class="text-xs sm:text-sm text-slate-600">
+                            <strong>Trực quan hóa:</strong> Kéo các thanh trượt \(a, b\) (cạnh đứng) và \(c, d\) (cạnh ngang). Hình chữ nhật lớn được chia thành 4 ô màu sắc tương ứng \(ac, ad, bc, bd\).
+                        </p>
+                        
+                        <div class="w-full flex flex-col items-center">
+                            <div id="jxgbox2" class="jxgbox w-full max-w-2xl h-80 sm:h-96"></div>
+                            <div class="w-full max-w-2xl mt-3 grid grid-cols-2 sm:grid-cols-4 gap-2 text-center text-xs">
+                                <div class="bg-blue-50 border border-blue-200 p-2 rounded-lg font-semibold text-blue-900" id="box2-ac">
+                                    Ô 1: \(ac = 0\)
+                                </div>
+                                <div class="bg-emerald-50 border border-emerald-200 p-2 rounded-lg font-semibold text-emerald-900" id="box2-ad">
+                                    Ô 2: \(ad = 0\)
+                                </div>
+                                <div class="bg-amber-50 border border-amber-200 p-2 rounded-lg font-semibold text-amber-900" id="box2-bc">
+                                    Ô 3: \(bc = 0\)
+                                </div>
+                                <div class="bg-purple-50 border border-purple-200 p-2 rounded-lg font-semibold text-purple-900" id="box2-bd">
+                                    Ô 4: \(bd = 0\)
+                                </div>
+                            </div>
+                            <div class="w-full max-w-2xl mt-2 bg-indigo-50 border border-indigo-200 p-2 rounded-lg text-center font-bold text-xs sm:text-sm text-indigo-900" id="box2-total">
+                                Đẳng thức: \((a+b)(c+d) = ac + ad + bc + bd = 0\)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2. Ví dụ minh họa chi tiết -->
+                <div class="space-y-4 pt-4 border-t border-slate-200">
+                    <div class="flex items-center space-x-2 text-indigo-900 font-bold text-lg border-b pb-2">
+                        <i class="fas fa-file-lines text-indigo-600"></i>
+                        <h3>2. Ví dụ minh họa thực hiện 2 phương pháp</h3>
+                    </div>
+
+                    <!-- Ví dụ 1: Hàng ngang -->
+                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="font-bold text-sm text-slate-800"><i class="fas fa-pen-clip text-indigo-600 mr-2"></i>Ví dụ 1 (Nhân hàng ngang):</span>
+                            <span class="text-xs bg-indigo-100 text-indigo-800 px-2 py-0.5 rounded font-semibold">Hàng ngang</span>
+                        </div>
+                        <p class="text-sm text-slate-700">
+                            Thực hiện phép nhân sau:
+                            $$M(x) = (2x + 3) \cdot (x^2 - 2x + 1)$$
+                        </p>
+                        <button onclick="toggleHint('sol-2-1')" class="inline-flex items-center space-x-2 text-xs font-semibold bg-indigo-600 hover:bg-indigo-700 text-white px-3 py-1.5 rounded-lg shadow-sm transition-colors">
+                            <i class="fas fa-eye" id="icon-sol-2-1"></i>
+                            <span>Xem Lời Giải Hàng Ngang</span>
+                        </button>
+                        <div id="sol-2-1" class="hidden mt-3 p-4 bg-white rounded-lg border border-indigo-200 space-y-2 text-sm text-slate-700">
+                            <p class="font-semibold text-indigo-900"><i class="fas fa-check-circle mr-1 text-indigo-600"></i> Lời giải:</p>
+                            <div class="bg-slate-50 p-3 rounded border overflow-x-auto text-left space-y-1">
+                                $$M(x) = 2x \cdot (x^2 - 2x + 1) + 3 \cdot (x^2 - 2x + 1)$$
+                                $$= \left(2x^3 - 4x^2 + 2x\right) + \left(3x^2 - 6x + 3\right)$$
+                                $$= 2x^3 + (-4x^2 + 3x^2) + (2x - 6x) + 3$$
+                                $$\mathbf{= 2x^3 - x^2 - 4x + 3}$$
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Ví dụ 2: Cột dọc -->
+                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="font-bold text-sm text-slate-800"><i class="fas fa-pen-clip text-indigo-600 mr-2"></i>Ví dụ 2 (Đặt tính cột dọc):</span>
+                            <span class="text-xs bg-purple-100 text-purple-800 px-2 py-0.5 rounded font-semibold">Cột dọc chuẩn</span>
+                        </div>
+                        <p class="text-sm text-slate-700">
+                            Thực hiện đặt tính nhân dọc cho biểu thức \(M(x) = (x^2 - 2x + 1) \cdot (2x + 3)\):
+                        </p>
+                        <button onclick="toggleHint('sol-2-2')" class="inline-flex items-center space-x-2 text-xs font-semibold bg-purple-600 hover:bg-purple-700 text-white px-3 py-1.5 rounded-lg shadow-sm transition-colors">
+                            <i class="fas fa-eye" id="icon-sol-2-2"></i>
+                            <span>Xem Cách Đặt Tính Cột Dọc</span>
+                        </button>
+                        <div id="sol-2-2" class="hidden mt-3 p-4 bg-white rounded-lg border border-purple-200 space-y-2 text-sm text-slate-700">
+                            <p class="font-semibold text-purple-900"><i class="fas fa-check-circle mr-1 text-purple-600"></i> Bảng đặt tính nhân dọc:</p>
+                            <div class="bg-slate-50 p-4 rounded border overflow-x-auto flex justify-center">
+                                <div class="font-mono text-sm leading-relaxed text-slate-800">
+                                    $$\begin{array}{r@{\quad}l}
+                                    x^2 - 2x + 1 & \\
+                                    \times \quad\quad\quad\quad 2x + 3 & \\
+                                    \hline
+                                    3x^2 - 6x + 3 & \text{(Tích của } 3 \text{ với } x^2 - 2x + 1\text{)} \\
+                                    +\quad 2x^3 - 4x^2 + 2x\phantom{\ + 3} & \text{(Tích của } 2x \text{ với } x^2 - 2x + 1\text{, lùi 1 cột)} \\
+                                    \hline
+                                    \mathbf{2x^3 - \phantom{1}x^2 - 4x + 3} & \text{(Tổng thu gọn thẳng cột đồng bậc)}
+                                    \end{array}$$
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== CẤP ĐỘ 3: VẬN DỤNG (APPLIED) ==================== -->
+        <section id="level-3" class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+            <div class="bg-amber-600 text-white px-6 py-4 flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                    <div class="w-9 h-9 rounded-lg bg-amber-500/50 flex items-center justify-center font-black text-lg border border-amber-300">
+                        3
+                    </div>
+                    <div>
+                        <h2 class="text-lg sm:text-xl font-bold">CẤP ĐỘ 3: VẬN DỤNG (APPLIED)</h2>
+                        <p class="text-xs text-amber-100 font-light">Ứng dụng đa thức giải quyết mô hình thực tế, quy hoạch không gian và thuật toán trò chơi</p>
+                    </div>
+                </div>
+                <span class="px-3 py-1 bg-amber-700 rounded-full text-xs font-semibold uppercase tracking-wider hidden sm:inline-block">
+                    Vận dụng cao
+                </span>
+            </div>
+
+            <div class="p-6 space-y-8">
+                <!-- 1. Bài toán mô hình hóa hình học thực tế -->
+                <div class="space-y-4">
+                    <div class="flex items-center space-x-2 text-amber-900 font-bold text-lg border-b pb-2">
+                        <i class="fas fa-building text-amber-600"></i>
+                        <h3>1. Bài toán Mô hình hóa Hình học thực tế</h3>
+                    </div>
+
+                    <div class="gradient-card-3 p-4 rounded-xl space-y-2">
+                        <p class="text-sm text-slate-700 leading-relaxed">
+                            Trong đo đạc, quy hoạch đô thị và thiết kế bao bì, các kích thước vật thể thường thay đổi linh hoạt theo một tham số biến thiên \(x\). Việc lập các đa thức nhân kích thước đáy và chiều cao giúp các kỹ sư nhanh chóng thiết lập được biểu thức diện tích, thể tích thu gọn để tối ưu hóa không gian lưu trữ và vật liệu.
+                        </p>
+                    </div>
+
+                    <!-- JSXGraph 3 -->
+                    <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200 space-y-4">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center space-x-2">
+                                <span class="w-7 h-7 rounded-lg bg-amber-100 text-amber-700 flex items-center justify-center font-bold text-sm">
+                                    <i class="fas fa-person-swimming"></i>
+                                </span>
+                                <h4 class="font-bold text-slate-800 text-sm sm:text-base">Mô hình thực tế: Hồ bơi thông minh và Đất quy hoạch</h4>
+                            </div>
+                            <span class="text-xs bg-amber-100 text-amber-800 px-2.5 py-1 rounded-full font-semibold">
+                                <i class="fas fa-maximize mr-1"></i> Biến thiên theo tham số x
+                            </span>
+                        </div>
+                        <p class="text-xs sm:text-sm text-slate-600">
+                            <strong>Mô tả:</strong> Khu đất có chiều dài \(4x\) cm, chiều rộng \(2x\) cm. Hồ bơi vuông cạnh \(x\) cm. Phần còn lại (vàng) là lối đi lát gạch. Kéo thanh trượt \(x \in [5, 20]\) để quan sát sự thay đổi kích thước và diện tích tức thời.
+                        </p>
+                        
+                        <div class="w-full flex flex-col items-center">
+                            <div id="jxgbox3" class="jxgbox w-full max-w-2xl h-80 sm:h-96"></div>
+                            <div class="w-full max-w-2xl mt-3 grid grid-cols-1 sm:grid-cols-3 gap-2 text-center text-xs">
+                                <div class="bg-slate-100 border border-slate-300 p-2 rounded-lg font-semibold text-slate-800" id="box3-sdat">
+                                    Khu đất: \(S_{\text{đất}} = 4x \cdot 2x = 8x^2\)
+                                </div>
+                                <div class="bg-sky-50 border border-sky-200 p-2 rounded-lg font-semibold text-sky-900" id="box3-sho">
+                                    Mặt hồ: \(S_{\text{hồ}} = x^2\)
+                                </div>
+                                <div class="bg-amber-100 border border-amber-300 p-2 rounded-lg font-bold text-amber-900" id="box3-sloidi">
+                                    Lối đi: \(S_{\text{lối đi}} = 7x^2\)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2. Ví dụ minh họa vận dụng -->
+                <div class="space-y-6 pt-4 border-t border-slate-200">
+                    <div class="flex items-center space-x-2 text-amber-900 font-bold text-lg border-b pb-2">
+                        <i class="fas fa-lightbulb text-amber-600"></i>
+                        <h3>2. Ví dụ minh họa vận dụng thực tế & Đại số chuyên sâu</h3>
+                    </div>
+
+                    <!-- Ví dụ 1: Thể tích hình hộp -->
+                    <div class="bg-slate-50 p-5 rounded-xl border border-slate-200 space-y-4">
+                        <div class="flex items-center justify-between">
+                            <span class="font-bold text-sm text-slate-800"><i class="fas fa-cube text-amber-600 mr-2"></i>Ví dụ 1: Thể tích và Diện tích đáy hộp giấy</span>
+                            <span class="text-xs bg-amber-100 text-amber-800 px-2 py-0.5 rounded font-semibold">Hình không gian</span>
+                        </div>
+                        <p class="text-sm text-slate-700 leading-relaxed">
+                            Một chiếc hộp giấy hình hộp chữ nhật có ba kích thước lần lượt là \(x + 3\) (cm), \(x - 1\) (cm) và \(x - 2\) (cm) với \(x > 2\).<br>
+                            a) Viết đa thức biểu thị thể tích \(V(x)\) của chiếc hộp giấy đó theo biến \(x\).<br>
+                            b) Tìm diện tích đáy của chiếc hộp nếu biết chiều cao của hộp là \(x + 3\) (cm) và thể tích chiếc hộp bằng \(x^3 + 8x^2 + 19x + 12 \text{ (cm}^3\text{)}\).
+                        </p>
+                        
+                        <button onclick="toggleHint('sol-3-1')" class="inline-flex items-center space-x-2 text-xs font-semibold bg-amber-600 hover:bg-amber-700 text-white px-3 py-1.5 rounded-lg shadow-sm transition-colors">
+                            <i class="fas fa-eye" id="icon-sol-3-1"></i>
+                            <span>Xem Lời Giải Đầy Đủ</span>
+                        </button>
+                        
+                        <div id="sol-3-1" class="hidden mt-3 p-4 bg-white rounded-lg border border-amber-200 space-y-4 text-sm text-slate-700">
+                            <div>
+                                <h5 class="font-bold text-amber-900 mb-1">a) Tính đa thức thể tích \(V(x)\):</h5>
+                                <div class="bg-slate-50 p-3 rounded border text-left overflow-x-auto space-y-1">
+                                    $$V(x) = (x + 3) \cdot (x - 1) \cdot (x - 2)$$
+                                    $$= \left(x^2 + 2x - 3\right) \cdot (x - 2)$$
+                                    $$= x \cdot \left(x^2 + 2x - 3\right) - 2 \cdot \left(x^2 + 2x - 3\right)$$
+                                    $$\mathbf{V(x) = x^3 - 7x + 6 \quad (\text{cm}^3)}$$
+                                </div>
+                            </div>
+
+                            <div class="pt-2 border-t border-slate-200">
+                                <h5 class="font-bold text-amber-900 mb-1">b) Tìm diện tích đáy bằng phép chia đa thức:</h5>
+                                <p class="mb-2">Diện tích đáy: \(S_{\text{đáy}} = \left(x^3 + 8x^2 + 19x + 12\right) : (x + 3)\)</p>
+                                <div class="bg-slate-50 p-4 rounded border text-center overflow-x-auto flex justify-center">
+                                    <div class="font-mono text-sm leading-relaxed text-slate-800">
+                                        $$\begin{array}{l|l}
+                                        \phantom{-}x^3 + 8x^2 + 19x + 12 & x + 3 \\
+                                        \cline{2-2}
+                                        -\ (x^3 + 3x^2) & \mathbf{x^2 + 5x + 4} \\
+                                        \hline
+                                        \phantom{-x^3 +{}} 5x^2 + 19x + 12 & \\
+                                        \phantom{x^3}-\ (5x^2 + 15x) & \\
+                                        \hline
+                                        \phantom{-x^3 + 5x^2 +{}} 4x + 12 & \\
+                                        \phantom{x^3 + 5x^2}-\ (4x + 12) & \\
+                                        \hline
+                                        \phantom{-x^3 + 5x^2 + 4x +{}} 0 &
+                                        \end{array}$$
+                                    </div>
+                                </div>
+                                <p class="font-semibold text-emerald-700 mt-2 text-center">
+                                    \(\implies\) Kết luận: Diện tích đáy của hình hộp chữ nhật là \(S_{\text{đáy}} = x^2 + 5x + 4 \quad (\text{cm}^2)\).
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Ví dụ 2: Đoán tuổi -->
+                    <div class="bg-slate-50 p-5 rounded-xl border border-slate-200 space-y-4">
+                        <div class="flex items-center justify-between">
+                            <span class="font-bold text-sm text-slate-800"><i class="fas fa-wand-magic-sparkles text-amber-600 mr-2"></i>Ví dụ 2: Ảo thuật đoán tuổi bằng toán học</span>
+                            <span class="text-xs bg-purple-100 text-purple-800 px-2 py-0.5 rounded font-semibold">Ứng dụng thuật toán</span>
+                        </div>
+                        <div class="bg-white p-3 rounded-lg border border-slate-200 text-xs sm:text-sm text-slate-700 space-y-1">
+                            <p class="font-semibold text-slate-800">Một nhà ảo thuật bảo bạn làm theo các bước sau:</p>
+                            <ol class="list-decimal list-inside space-y-1 text-slate-600 ml-2">
+                                <li>Lấy số tuổi của mình cộng thêm \(7\).</li>
+                                <li>Được bao nhiêu đem nhân với \(4\).</li>
+                                <li>Lấy kết quả vừa tìm được cộng với \(12\).</li>
+                                <li>Nhân kết quả vừa tìm được với \(2,5\).</li>
+                                <li>Trừ đi \(100\) và đọc to kết quả cuối cùng.</li>
+                            </ol>
+                            <p class="pt-1 text-amber-800 font-medium italic">Nhà ảo thuật lập tức biết bạn bao nhiêu tuổi! Hãy giải thích tại sao?</p>
+                        </div>
+                        
+                        <button onclick="toggleHint('sol-3-2')" class="inline-flex items-center space-x-2 text-xs font-semibold bg-amber-600 hover:bg-amber-700 text-white px-3 py-1.5 rounded-lg shadow-sm transition-colors">
+                            <i class="fas fa-eye" id="icon-sol-3-2"></i>
+                            <span>Xem Bí Quyết Đại Số</span>
+                        </button>
+                        
+                        <div id="sol-3-2" class="hidden mt-3 p-4 bg-white rounded-lg border border-amber-200 space-y-3 text-sm text-slate-700">
+                            <p class="font-semibold text-amber-900"><i class="fas fa-key mr-1 text-amber-600"></i> Giải mã bằng biểu thức đại số:</p>
+                            <p>Gọi số tuổi của bạn là biến số \(x\) (\(x \in \mathbb{N}^*\)).</p>
+                            <div class="space-y-1 text-xs sm:text-sm bg-slate-50 p-3 rounded border">
+                                <p>• Cộng thêm 7: \(x + 7\)</p>
+                                <p>• Nhân với 4: \(4(x + 7) = 4x + 28\)</p>
+                                <p>• Cộng thêm 12: \((4x + 28) + 12 = 4x + 40\)</p>
+                                <p>• Nhân với 2,5: \(2,5 \cdot (4x + 40) = 10x + 100\)</p>
+                                <p>• Trừ đi 100: \((10x + 100) - 100 = \mathbf{10x}\)</p>
+                            </div>
+                            <div class="p-3 bg-amber-50 rounded-lg border border-amber-200 text-xs sm:text-sm text-amber-900">
+                                <strong>💡 Giải thích:</strong> Sau chuỗi phép tính, kết quả cuối cùng luôn bằng đúng <strong>10 lần số tuổi</strong> của bạn (\(10x\)). Nhà ảo thuật chỉ cần lấy số đọc lên chia cho \(10\) là ra ngay tuổi thực tế!
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== BÀI TẬP ĐÁNH GIÁ NĂNG LỰC TẠI LỚP ==================== -->
+        <section id="quiz-section" class="bg-white rounded-2xl shadow-lg border-2 border-indigo-300 overflow-hidden">
+            <div class="bg-gradient-to-r from-indigo-700 via-purple-700 to-pink-700 text-white px-6 py-5">
+                <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center text-xl font-bold">
+                            <i class="fas fa-list-check"></i>
+                        </div>
+                        <div>
+                            <h2 class="text-xl sm:text-2xl font-extrabold tracking-tight">BÀI TẬP ĐÁNH GIÁ NĂNG LỰC TẠI LỚP</h2>
+                            <p class="text-xs text-purple-200">5 câu hỏi trắc nghiệm kiểm tra hiểu biết - Điểm số lưu trữ trực tiếp trên hệ thống</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-2 bg-white/10 px-3 py-1.5 rounded-lg border border-white/20 text-xs">
+                        <i class="fas fa-clock mr-1 text-amber-300"></i>
+                        <span id="quiz-timer" class="font-mono font-bold">00:00</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="p-6 space-y-6">
+                <!-- Thông tin học sinh -->
+                <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 mb-1" for="student-name">
+                                <i class="fas fa-user text-indigo-600 mr-1"></i> Họ và Tên Học Sinh <span class="text-red-500">*</span>
+                            </label>
+                            <input type="text" id="student-name" placeholder="Ví dụ: Nguyễn Văn An" 
+                                   class="w-full px-3 py-2 text-sm rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 mb-1" for="student-class">
+                                <i class="fas fa-school text-indigo-600 mr-1"></i> Lớp / Trường
+                            </label>
+                            <input type="text" id="student-class" placeholder="Ví dụ: Lớp 8A1 - THCS Chuyên" 
+                                   class="w-full px-3 py-2 text-sm rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Form Trắc nghiệm 5 Câu -->
+                <form id="assessment-form" class="space-y-6">
+                    
+                    <!-- Câu 1 -->
+                    <div class="p-4 rounded-xl border border-slate-200 bg-slate-50/50 hover:bg-white transition-all space-y-3" id="q-container-1">
+                        <div class="flex items-start justify-between gap-2">
+                            <span class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-bold bg-indigo-100 text-indigo-800">
+                                Câu 1 (Cơ bản)
+                            </span>
+                            <span class="text-xs text-slate-500">2.0 điểm</span>
+                        </div>
+                        <p class="text-sm font-medium text-slate-800">
+                            Kết quả của phép nhân đơn thức \((-3x^2) \cdot (2x^3 - 5x + 1)\) là:
+                        </p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs sm:text-sm">
+                            <label class="flex items-center p-3 rounded-lg border border-slate-200 bg-white hover:border-indigo-400 cursor-pointer transition-colors">
+                                <input type="radio" name="q1" value="A" class="text-indigo-600 focus:ring-indigo-500 mr-2.5">
+                                <span>A. \(-6x^5 + 15x^3 - 3x^2\)</span>
+                            </label>
+                            <label class="flex items-center p-3 rounded-lg border border-slate-200 bg-white hover:border-indigo-400 cursor-pointer transition-colors">
+                                <input type="radio" name="q1" value="B" class="text-indigo-600 focus:ring-indigo-500 mr-2.5">
+                                <span>B. \(-6x^6 + 15x^2 - 3x^2\)</span>
+                            </label>
+                            <label class="flex items-center p-3 rounded-lg border border-slate-200 bg-white hover:border-indigo-400 cursor-pointer transition-colors">
+                                <input type="radio" name="q1" value="C" class="text-indigo-600 focus:ring-indigo-500 mr-2.5">
+                                <span>C. \(-6x^5 - 15x^3 + 3x^2\)</span>
+                            </label>
+                            <label class="flex items-center p-3 rounded-lg border border-slate-200 bg-white hover:border-indigo-400 cursor-pointer transition-colors">
+                                <input type="radio" name="q1" value="D" class="text-indigo-600 focus:ring-indigo-500 mr-2.5">
+                                <span>D. \(6x^5 - 15x^3 + 3x^2\)</span>
+                            </label>
+                        </div>
+                        <div id="feedback-q1" class="hidden text-xs p-2.5 rounded-lg"></div>
+                    </div>
+
+                    <!-- Câu 2 -->
+                    <div class="p-4 rounded-xl border border-slate-200 bg-slate-50/50 hover:bg-white transition-all space-y-3" id="q-container-2">
+                        <div class="flex items-start justify-between gap-2">
+                            <span class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-bold bg-indigo-100 text-indigo-800">
+                                Câu 2 (Cơ bản - Chia đa thức)
+                            </span>
+                            <span class="text-xs text-slate-500">2.0 điểm</span>
+                        </div>
+                        <p class="text-sm font-medium text-slate-800">
+                            Thực hiện phép chia \(\left(12x^5 - 8x^4 + 4x^3\right) : \left(4x^3\right)\), kết quả thu được là:
+                        </p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs sm:text-sm">
+                            <label class="flex items-center p-3 rounded-lg border border-slate-200 bg-white hover:border-indigo-400 cursor-pointer transition-colors">
+                                <input type="radio" name="q2" value="A" class="text-indigo-600 focus:ring-indigo-500 mr-2.5">
+                                <span>A. \(3x^2 - 2x + 1\)</span>
+                            </label>
+                            <label class="flex items-center p-3 rounded-lg border border-slate-200 bg-white hover:border-indigo-400 cursor-pointer transition-colors">
+                                <input type="radio" name="q2" value="B" class="text-indigo-600 focus:ring-indigo-500 mr-2.5">
+                                <span>B. \(3x^2 - 2x\)</span>
+                            </label>
+                            <label class="flex items-center p-3 rounded-lg border border-slate-200 bg-white hover:border-indigo-400 cursor-pointer transition-colors">
+                                <input type="radio" name="q2" value="C" class="text-indigo-600 focus:ring-indigo-500 mr-2.5">
+                                <span>C. \(3x^2 - 2x + 4\)</span>
+                            </label>
+                            <label class="flex items-center p-3 rounded-lg border border-slate-200 bg-white hover:border-indigo-400 cursor-pointer transition-colors">
+                                <input type="radio" name="q2" value="D" class="text-indigo-600 focus:ring-indigo-500 mr-2.5">
+                                <span>D. \(3x^2 + 2x + 1\)</span>
+                            </label>
+                        </div>
+                        <div id="feedback-q2" class="hidden text-xs p-2.5 rounded-lg"></div>
+                    </div>
+
+                    <!-- Câu 3 -->
+                    <div class="p-4 rounded-xl border border-slate-200 bg-slate-50/50 hover:bg-white transition-all space-y-3" id="q-container-3">
+                        <div class="flex items-start justify-between gap-2">
+                            <span class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-bold bg-indigo-100 text-indigo-800">
+                                Câu 3 (Nâng cao - Rút gọn)
+                            </span>
+                            <span class="text-xs text-slate-500">2.0 điểm</span>
+                        </div>
+                        <p class="text-sm font-medium text-slate-800">
+                            Rút gọn biểu thức \(A = (2x - 1)(x + 3) - 2x(x + 2)\), ta được:
+                        </p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs sm:text-sm">
+                            <label class="flex items-center p-3 rounded-lg border border-slate-200 bg-white hover:border-indigo-400 cursor-pointer transition-colors">
+                                <input type="radio" name="q3" value="A" class="text-indigo-600 focus:ring-indigo-500 mr-2.5">
+                                <span>A. \(x - 3\)</span>
+                            </label>
+                            <label class="flex items-center p-3 rounded-lg border border-slate-200 bg-white hover:border-indigo-400 cursor-pointer transition-colors">
+                                <input type="radio" name="q3" value="B" class="text-indigo-600 focus:ring-indigo-500 mr-2.5">
+                                <span>B. \(9x - 3\)</span>
+                            </label>
+                            <label class="flex items-center p-3 rounded-lg border border-slate-200 bg-white hover:border-indigo-400 cursor-pointer transition-colors">
+                                <input type="radio" name="q3" value="C" class="text-indigo-600 focus:ring-indigo-500 mr-2.5">
+                                <span>C. \(-x - 3\)</span>
+                            </label>
+                            <label class="flex items-center p-3 rounded-lg border border-slate-200 bg-white hover:border-indigo-400 cursor-pointer transition-colors">
+                                <input type="radio" name="q3" value="D" class="text-indigo-600 focus:ring-indigo-500 mr-2.5">
+                                <span>D. \(4x^2 + x - 3\)</span>
+                            </label>
+                        </div>
+                        <div id="feedback-q3" class="hidden text-xs p-2.5 rounded-lg"></div>
+                    </div>
+
+                    <!-- Câu 4 -->
+                    <div class="p-4 rounded-xl border border-slate-200 bg-slate-50/50 hover:bg-white transition-all space-y-3" id="q-container-4">
+                        <div class="flex items-start justify-between gap-2">
+                            <span class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-bold bg-amber-100 text-amber-800">
+                                Câu 4 (Vận dụng thực tế)
+                            </span>
+                            <span class="text-xs text-slate-500">2.0 điểm</span>
+                        </div>
+                        <p class="text-sm font-medium text-slate-800 leading-relaxed">
+                            Một khu vườn hình chữ nhật có chiều dài \((2x + 5)\text{ m}\) và chiều rộng \((x + 2)\text{ m}\). Người ta làm một lối đi lát đá diện tích \((x^2 + 4x + 3)\text{ m}^2\). Biểu thức diện tích đất còn lại để trồng hoa là:
+                        </p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs sm:text-sm">
+                            <label class="flex items-center p-3 rounded-lg border border-slate-200 bg-white hover:border-indigo-400 cursor-pointer transition-colors">
+                                <input type="radio" name="q4" value="A" class="text-indigo-600 focus:ring-indigo-500 mr-2.5">
+                                <span>A. \(x^2 + 5x + 7\)</span>
+                            </label>
+                            <label class="flex items-center p-3 rounded-lg border border-slate-200 bg-white hover:border-indigo-400 cursor-pointer transition-colors">
+                                <input type="radio" name="q4" value="B" class="text-indigo-600 focus:ring-indigo-500 mr-2.5">
+                                <span>B. \(x^2 + 13x + 13\)</span>
+                            </label>
+                            <label class="flex items-center p-3 rounded-lg border border-slate-200 bg-white hover:border-indigo-400 cursor-pointer transition-colors">
+                                <input type="radio" name="q4" value="C" class="text-indigo-600 focus:ring-indigo-500 mr-2.5">
+                                <span>C. \(3x^2 + 13x + 13\)</span>
+                            </label>
+                            <label class="flex items-center p-3 rounded-lg border border-slate-200 bg-white hover:border-indigo-400 cursor-pointer transition-colors">
+                                <input type="radio" name="q4" value="D" class="text-indigo-600 focus:ring-indigo-500 mr-2.5">
+                                <span>D. \(x^2 + 5x + 10\)</span>
+                            </label>
+                        </div>
+                        <div id="feedback-q4" class="hidden text-xs p-2.5 rounded-lg"></div>
+                    </div>
+
+                    <!-- Câu 5 -->
+                    <div class="p-4 rounded-xl border border-slate-200 bg-slate-50/50 hover:bg-white transition-all space-y-3" id="q-container-5">
+                        <div class="flex items-start justify-between gap-2">
+                            <span class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-bold bg-purple-100 text-purple-800">
+                                Câu 5 (Vận dụng cao - Tìm tham số a)
+                            </span>
+                            <span class="text-xs text-slate-500">2.0 điểm</span>
+                        </div>
+                        <p class="text-sm font-medium text-slate-800 leading-relaxed">
+                            Cho đa thức \(P(x) = 2x^3 - 3x^2 + x + a\). Để đa thức \(P(x)\) chia hết cho nhị thức \((x - 2)\) thì hằng số \(a\) phải nhận giá trị bằng:
+                        </p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs sm:text-sm">
+                            <label class="flex items-center p-3 rounded-lg border border-slate-200 bg-white hover:border-indigo-400 cursor-pointer transition-colors">
+                                <input type="radio" name="q5" value="A" class="text-indigo-600 focus:ring-indigo-500 mr-2.5">
+                                <span>A. \(a = -6\)</span>
+                            </label>
+                            <label class="flex items-center p-3 rounded-lg border border-slate-200 bg-white hover:border-indigo-400 cursor-pointer transition-colors">
+                                <input type="radio" name="q5" value="B" class="text-indigo-600 focus:ring-indigo-500 mr-2.5">
+                                <span>B. \(a = 6\)</span>
+                            </label>
+                            <label class="flex items-center p-3 rounded-lg border border-slate-200 bg-white hover:border-indigo-400 cursor-pointer transition-colors">
+                                <input type="radio" name="q5" value="C" class="text-indigo-600 focus:ring-indigo-500 mr-2.5">
+                                <span>C. \(a = -2\)</span>
+                            </label>
+                            <label class="flex items-center p-3 rounded-lg border border-slate-200 bg-white hover:border-indigo-400 cursor-pointer transition-colors">
+                                <input type="radio" name="q5" value="D" class="text-indigo-600 focus:ring-indigo-500 mr-2.5">
+                                <span>D. \(a = 4\)</span>
+                            </label>
+                        </div>
+                        <div id="feedback-q5" class="hidden text-xs p-2.5 rounded-lg"></div>
+                    </div>
+
+                    <!-- Nút Nộp Bài -->
+                    <div class="pt-4 flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-slate-200">
+                        <button type="button" onclick="submitAssessment()" id="btn-submit" 
+                                class="w-full sm:w-auto px-8 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-bold rounded-xl shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-0.5 flex items-center justify-center space-x-2">
+                            <i class="fas fa-paper-plane"></i>
+                            <span>NỘP BÀI & XEM KẾT QUẢ</span>
+                        </button>
+                        
+                        <div id="submit-status" class="text-xs text-slate-500 italic">
+                            Chưa nộp bài
+                        </div>
+                    </div>
+                </form>
+
+                <!-- Result Card -->
+                <div id="result-box" class="hidden p-6 rounded-2xl border-2 text-center space-y-3 transition-all">
+                    <div class="text-4xl" id="result-icon"></div>
+                    <h3 class="text-xl font-black text-slate-800" id="result-title">KẾT QUẢ ĐÁNH GIÁ</h3>
+                    <p class="text-3xl font-extrabold" id="result-score">0 / 10 Điểm</p>
+                    <p class="text-xs sm:text-sm text-slate-600" id="result-message"></p>
+                    <div id="apps-script-notice" class="text-xs text-slate-400"></div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-slate-900 text-slate-400 py-8 px-4 border-t border-slate-800 text-xs text-center space-y-3">
+        <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="text-left space-y-1">
+                <p class="font-bold text-slate-200">HỆ THỐNG GIẢNG DẠY & HỌC TẬP TOÁN - KHOA HỌC TỰ NHIÊN</p>
+                <p>© Bản quyền thuộc <span class="text-white font-semibold">ThS. Đinh Quốc Tuấn</span> - Mục đích phi lợi nhuận - Vì giáo dục.</p>
+            </div>
+            <div class="flex items-center space-x-4">
+                <span class="px-3 py-1 bg-slate-800 text-slate-300 rounded border border-slate-700"><i class="fas fa-code mr-1"></i> HTML5 + Tailwind + JSXGraph</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- PRINT BUTTON -->
+    <button id="btn-print-doc" onclick="safePrint()" class="fixed bottom-5 right-5 bg-gray-900 text-white px-4 py-2 rounded-lg shadow-lg hover:bg-gray-700 print:hidden z-50">
+        <i class="fas fa-print mr-2"></i> In Tài Liệu
+    </button>
+
+    <script>
+    function safePrint() {
+        const printBtn = document.getElementById('btn-print-doc');
+        printBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Đang chuẩn bị...';
+
+        // Đảm bảo MathJax đã render xong mọi công thức trước khi gọi hộp thoại in
+        if (window.MathJax && window.MathJax.typesetPromise) {
+            MathJax.typesetPromise().then(() => {
+                printBtn.innerHTML = '<i class="fas fa-print mr-2"></i> In Tài Liệu';
+                window.print();
+            });
+        } else {
+            // Fallback nếu không có công thức toán
+            setTimeout(() => window.print(), 500);
+        }
+    }
+    </script>
+
+    <!-- INTERACTIVITY & JSXGRAPH SCRIPT -->
+    <script>
+        // Toggle Hints
+        function toggleHint(elementId) {
+            const el = document.getElementById(elementId);
+            const icon = document.getElementById('icon-' + elementId);
+            if (el.classList.contains('hidden')) {
+                el.classList.remove('hidden');
+                if (icon) {
+                    icon.classList.remove('fa-eye');
+                    icon.classList.add('fa-eye-slash');
+                }
+                if (window.MathJax && window.MathJax.typesetPromise) {
+                    MathJax.typesetPromise([el]);
+                }
+            } else {
+                el.classList.add('hidden');
+                if (icon) {
+                    icon.classList.remove('fa-eye-slash');
+                    icon.classList.add('fa-eye');
+                }
+            }
+        }
+
+        // Timer
+        let seconds = 0;
+        const timerEl = document.getElementById('quiz-timer');
+        setInterval(() => {
+            seconds++;
+            const m = Math.floor(seconds / 60).toString().padStart(2, '0');
+            const s = (seconds % 60).toString().padStart(2, '0');
+            if (timerEl) timerEl.innerText = `${m}:${s}`;
+        }, 1000);
+
+        // JSXGraph Boards
+        window.addEventListener('load', function() {
+            // BOARD 1: a(b + c)
+            try {
+                const b1 = JXG.JSXGraph.initBoard('jxgbox1', {
+                    boundingbox: [-1, 7, 12, -2],
+                    axis: false,
+                    showCopyright: false,
+                    showNavigation: false
+                });
+
+                const sa = b1.create('slider', [[0.5, 6], [4.5, 6], [1, 3, 5]], { name: 'Chiều rộng a', snapWidth: 0.5, strokeColor: '#059669', fillColor: '#10b981' });
+                const sb = b1.create('slider', [[0.5, 5], [4.5, 5], [1, 4, 5]], { name: 'Độ dài b', snapWidth: 0.5, strokeColor: '#0284c7', fillColor: '#38bdf8' });
+                const sc = b1.create('slider', [[6, 5], [10, 5], [1, 3, 5]], { name: 'Độ dài c', snapWidth: 0.5, strokeColor: '#d97706', fillColor: '#fbbf24' });
+
+                const ox = 0.5, oy = -1;
+
+                const p1 = b1.create('point', [ox, oy], { visible: false });
+                const p2 = b1.create('point', [function() { return ox + sb.Value(); }, oy], { visible: false });
+                const p3 = b1.create('point', [function() { return ox + sb.Value(); }, function() { return oy + sa.Value(); }], { visible: false });
+                const p4 = b1.create('point', [ox, function() { return oy + sa.Value(); }], { visible: false });
+
+                b1.create('polygon', [p1, p2, p3, p4], {
+                    fillColor: '#38bdf8',
+                    fillOpacity: 0.5,
+                    borders: { strokeColor: '#0284c7', strokeWidth: 2 }
+                });
+
+                const p5 = b1.create('point', [function() { return ox + sb.Value() + sc.Value(); }, oy], { visible: false });
+                const p6 = b1.create('point', [function() { return ox + sb.Value() + sc.Value(); }, function() { return oy + sa.Value(); }], { visible: false });
+
+                b1.create('polygon', [p2, p5, p6, p3], {
+                    fillColor: '#fbbf24',
+                    fillOpacity: 0.5,
+                    borders: { strokeColor: '#d97706', strokeWidth: 2 }
+                });
+
+                b1.create('text', [function() { return ox + sb.Value()/2 - 0.5; }, function() { return oy + sa.Value()/2; }, 
+                    function() { return '<b>(I) ' + (sa.Value()*sb.Value()).toFixed(1) + '</b>'; }], { fontSize: 13, color: '#0369a1' });
+                
+                b1.create('text', [function() { return ox + sb.Value() + sc.Value()/2 - 0.5; }, function() { return oy + sa.Value()/2; }, 
+                    function() { return '<b>(II) ' + (sa.Value()*sc.Value()).toFixed(1) + '</b>'; }], { fontSize: 13, color: '#92400e' });
+
+                function updateBoard1Text() {
+                    const a = sa.Value(), b = sb.Value(), c = sc.Value();
+                    const s1 = (a * b).toFixed(1), s2 = (a * c).toFixed(1), total = (a * (b + c)).toFixed(1);
+
+                    const el1 = document.getElementById('box1-s1');
+                    const el2 = document.getElementById('box1-s2');
+                    const elTot = document.getElementById('box1-total');
+
+                    if (el1) el1.innerHTML = `Hình (I): \\(S_1 = a \\cdot b = ${s1}\\)`;
+                    if (el2) el2.innerHTML = `Hình (II): \\(S_2 = a \\cdot c = ${s2}\\)`;
+                    if (elTot) elTot.innerHTML = `Tổng: \\(S = a(b+c) = ${total}\\)`;
+
+                    if (window.MathJax && window.MathJax.typesetPromise) {
+                        MathJax.typesetPromise([el1, el2, elTot]);
+                    }
+                }
+
+                sa.on('drag', updateBoard1Text);
+                sb.on('drag', updateBoard1Text);
+                sc.on('drag', updateBoard1Text);
+                updateBoard1Text();
+            } catch(e) { console.error(e); }
+
+            // BOARD 2: (a+b)(c+d)
+            try {
+                const b2 = JXG.JSXGraph.initBoard('jxgbox2', {
+                    boundingbox: [-1, 9, 12, -2],
+                    axis: false,
+                    showCopyright: false,
+                    showNavigation: false
+                });
+
+                const sa2 = b2.create('slider', [[0.5, 8], [4.5, 8], [1, 2.5, 4]], { name: 'Đoạn a', snapWidth: 0.5, strokeColor: '#2563eb', fillColor: '#60a5fa' });
+                const sb2 = b2.create('slider', [[6, 8], [10, 8], [1, 2, 4]], { name: 'Đoạn b', snapWidth: 0.5, strokeColor: '#7c3aed', fillColor: '#c084fc' });
+                const sc2 = b2.create('slider', [[0.5, 7], [4.5, 7], [1, 3, 4]], { name: 'Đoạn c', snapWidth: 0.5, strokeColor: '#059669', fillColor: '#34d399' });
+                const sd2 = b2.create('slider', [[6, 7], [10, 7], [1, 2, 4]], { name: 'Đoạn d', snapWidth: 0.5, strokeColor: '#d97706', fillColor: '#fbbf24' });
+
+                const ox2 = 0.5, oy2 = -1;
+
+                const pt00 = b2.create('point', [ox2, function() { return oy2 + sb2.Value(); }], { visible: false });
+                const pt10 = b2.create('point', [function() { return ox2 + sc2.Value(); }, function() { return oy2 + sb2.Value(); }], { visible: false });
+                const pt11 = b2.create('point', [function() { return ox2 + sc2.Value(); }, function() { return oy2 + sb2.Value() + sa2.Value(); }], { visible: false });
+                const pt01 = b2.create('point', [ox2, function() { return oy2 + sb2.Value() + sa2.Value(); }], { visible: false });
+                b2.create('polygon', [pt00, pt10, pt11, pt01], { fillColor: '#60a5fa', fillOpacity: 0.5, borders: { strokeColor: '#2563eb' } });
+
+                const pt20 = b2.create('point', [function() { return ox2 + sc2.Value() + sd2.Value(); }, function() { return oy2 + sb2.Value(); }], { visible: false });
+                const pt21 = b2.create('point', [function() { return ox2 + sc2.Value() + sd2.Value(); }, function() { return oy2 + sb2.Value() + sa2.Value(); }], { visible: false });
+                b2.create('polygon', [pt10, pt20, pt21, pt11], { fillColor: '#34d399', fillOpacity: 0.5, borders: { strokeColor: '#059669' } });
+
+                const pb00 = b2.create('point', [ox2, oy2], { visible: false });
+                const pb10 = b2.create('point', [function() { return ox2 + sc2.Value(); }, oy2], { visible: false });
+                b2.create('polygon', [pb00, pb10, pt10, pt00], { fillColor: '#fbbf24', fillOpacity: 0.5, borders: { strokeColor: '#d97706' } });
+
+                const pb20 = b2.create('point', [function() { return ox2 + sc2.Value() + sd2.Value(); }, oy2], { visible: false });
+                b2.create('polygon', [pb10, pb20, pt20, pt10], { fillColor: '#c084fc', fillOpacity: 0.5, borders: { strokeColor: '#7c3aed' } });
+
+                b2.create('text', [function() { return ox2 + sc2.Value()/2 - 0.4; }, function() { return oy2 + sb2.Value() + sa2.Value()/2; }, 
+                    function() { return '<b>ac: ' + (sa2.Value()*sc2.Value()).toFixed(1) + '</b>'; }], { fontSize: 12, color: '#1e3a8a' });
+                b2.create('text', [function() { return ox2 + sc2.Value() + sd2.Value()/2 - 0.4; }, function() { return oy2 + sb2.Value() + sa2.Value()/2; }, 
+                    function() { return '<b>ad: ' + (sa2.Value()*sd2.Value()).toFixed(1) + '</b>'; }], { fontSize: 12, color: '#065f46' });
+                b2.create('text', [function() { return ox2 + sc2.Value()/2 - 0.4; }, function() { return oy2 + sb2.Value()/2; }, 
+                    function() { return '<b>bc: ' + (sb2.Value()*sc2.Value()).toFixed(1) + '</b>'; }], { fontSize: 12, color: '#92400e' });
+                b2.create('text', [function() { return ox2 + sc2.Value() + sd2.Value()/2 - 0.4; }, function() { return oy2 + sb2.Value()/2; }, 
+                    function() { return '<b>bd: ' + (sb2.Value()*sd2.Value()).toFixed(1) + '</b>'; }], { fontSize: 12, color: '#581c87' });
+
+                function updateBoard2Text() {
+                    const a = sa2.Value(), b = sb2.Value(), c = sc2.Value(), d = sd2.Value();
+                    const ac = (a*c).toFixed(1), ad = (a*d).toFixed(1), bc = (b*c).toFixed(1), bd = (b*d).toFixed(1);
+                    const total = ((a+b)*(c+d)).toFixed(1);
+
+                    const elAc = document.getElementById('box2-ac');
+                    const elAd = document.getElementById('box2-ad');
+                    const elBc = document.getElementById('box2-bc');
+                    const elBd = document.getElementById('box2-bd');
+                    const elTot = document.getElementById('box2-total');
+
+                    if (elAc) elAc.innerHTML = `Ô 1: \\(ac = ${ac}\\)`;
+                    if (elAd) elAd.innerHTML = `Ô 2: \\(ad = ${ad}\\)`;
+                    if (elBc) elBc.innerHTML = `Ô 3: \\(bc = ${bc}\\)`;
+                    if (elBd) elBd.innerHTML = `Ô 4: \\(bd = ${bd}\\)`;
+                    if (elTot) elTot.innerHTML = `Đẳng thức: \\((a+b)(c+d) = ac + ad + bc + bd = ${total}\\)`;
+
+                    if (window.MathJax && window.MathJax.typesetPromise) {
+                        MathJax.typesetPromise([elAc, elAd, elBc, elBd, elTot]);
+                    }
+                }
+
+                sa2.on('drag', updateBoard2Text);
+                sb2.on('drag', updateBoard2Text);
+                sc2.on('drag', updateBoard2Text);
+                sd2.on('drag', updateBoard2Text);
+                updateBoard2Text();
+            } catch(e) { console.error(e); }
+
+            // BOARD 3: Real World Model
+            try {
+                const b3 = JXG.JSXGraph.initBoard('jxgbox3', {
+                    boundingbox: [-2, 11, 24, -2],
+                    axis: false,
+                    showCopyright: false,
+                    showNavigation: false
+                });
+
+                const sx = b3.create('slider', [[1, 9.5], [15, 9.5], [5, 10, 20]], { 
+                    name: 'Tham số x', 
+                    snapWidth: 1, 
+                    strokeColor: '#d97706', 
+                    fillColor: '#f59e0b' 
+                });
+
+                const scale = 0.2, ox3 = 1, oy3 = -0.5;
+
+                const pLand1 = b3.create('point', [ox3, oy3], { visible: false });
+                const pLand2 = b3.create('point', [function() { return ox3 + 4 * sx.Value() * scale; }, oy3], { visible: false });
+                const pLand3 = b3.create('point', [function() { return ox3 + 4 * sx.Value() * scale; }, function() { return oy3 + 2 * sx.Value() * scale; }], { visible: false });
+                const pLand4 = b3.create('point', [ox3, function() { return oy3 + 2 * sx.Value() * scale; }], { visible: false });
+
+                b3.create('polygon', [pLand1, pLand2, pLand3, pLand4], {
+                    fillColor: '#fde047',
+                    fillOpacity: 0.6,
+                    borders: { strokeColor: '#ca8a04', strokeWidth: 2 }
+                });
+
+                const pPool1 = b3.create('point', [function() { return ox3 + 1.5 * sx.Value() * scale; }, function() { return oy3 + 0.5 * sx.Value() * scale; }], { visible: false });
+                const pPool2 = b3.create('point', [function() { return ox3 + 2.5 * sx.Value() * scale; }, function() { return oy3 + 0.5 * sx.Value() * scale; }], { visible: false });
+                const pPool3 = b3.create('point', [function() { return ox3 + 2.5 * sx.Value() * scale; }, function() { return oy3 + 1.5 * sx.Value() * scale; }], { visible: false });
+                const pPool4 = b3.create('point', [function() { return ox3 + 1.5 * sx.Value() * scale; }, function() { return oy3 + 1.5 * sx.Value() * scale; }], { visible: false });
+
+                b3.create('polygon', [pPool1, pPool2, pPool3, pPool4], {
+                    fillColor: '#38bdf8',
+                    fillOpacity: 0.8,
+                    borders: { strokeColor: '#0284c7', strokeWidth: 2, dash: 2 }
+                });
+
+                b3.create('text', [function() { return ox3 + 2 * sx.Value() * scale - 1.2; }, function() { return oy3 + 1 * sx.Value() * scale; }, 
+                    '<b>MẶT HỒ BƠI</b><br><span style="font-size:10px">(Cạnh x)</span>'], { fontSize: 11, color: '#0369a1' });
+
+                b3.create('text', [function() { return ox3 + 0.2; }, function() { return oy3 + 0.2; }, 
+                    '<b>LỐI ĐI LÁT GẠCH (Màu vàng)</b>'], { fontSize: 10, color: '#854d0e' });
+
+                function updateBoard3Text() {
+                    const x = sx.Value();
+                    const sDat = 8 * x * x, sHo = x * x, sLoiDi = 7 * x * x;
+
+                    const elDat = document.getElementById('box3-sdat');
+                    const elHo = document.getElementById('box3-sho');
+                    const elLoi = document.getElementById('box3-sloidi');
+
+                    if (elDat) elDat.innerHTML = `Khu đất: \\(S_{\\text{đất}} = 8x^2 = ${sDat}\\text{ cm}^2\\)`;
+                    if (elHo) elHo.innerHTML = `Mặt hồ: \\(S_{\\text{hồ}} = x^2 = ${sHo}\\text{ cm}^2\\)`;
+                    if (elLoi) elLoi.innerHTML = `Lối đi: \\(S_{\\text{lối đi}} = 7x^2 = ${sLoiDi}\\text{ cm}^2\\)`;
+
+                    if (window.MathJax && window.MathJax.typesetPromise) {
+                        MathJax.typesetPromise([elDat, elHo, elLoi]);
+                    }
+                }
+
+                sx.on('drag', updateBoard3Text);
+                updateBoard3Text();
+            } catch(e) { console.error(e); }
+        });
+
+        // 4. Assessment Submission
+        const correctAnswers = {
+            q1: { ans: 'A', exp: '(-3x^2)(2x^3 - 5x + 1) = -6x^5 + 15x^3 - 3x^2' },
+            q2: { ans: 'A', exp: '(12x^5 - 8x^4 + 4x^3) : (4x^3) = 3x^2 - 2x + 1' },
+            q3: { ans: 'A', exp: '(2x-1)(x+3) - 2x(x+2) = (2x^2 + 5x - 3) - (2x^2 + 4x) = x - 3' },
+            q4: { ans: 'A', exp: 'S_vườn = (2x+5)(x+2) = 2x^2 + 9x + 10. S_còn = (2x^2 + 9x + 10) - (x^2 + 4x + 3) = x^2 + 5x + 7' },
+            q5: { ans: 'A', exp: 'P(2) = 2(8) - 3(4) + 2 + a = 6 + a = 0 => a = -6' }
+        };
+
+        function submitAssessment() {
+            const studentName = document.getElementById('student-name').value.trim();
+            if (!studentName) {
+                alert('Vui lòng nhập Họ và Tên học sinh trước khi nộp bài!');
+                document.getElementById('student-name').focus();
+                return;
+            }
+
+            let score = 0;
+            const form = document.getElementById('assessment-form');
+            const incorrectList = [];
+
+            for (let i = 1; i <= 5; i++) {
+                const qName = 'q' + i;
+                const radios = form.elements[qName];
+                let selectedVal = null;
+                if (radios) {
+                    for (let r of radios) {
+                        if (r.checked) {
+                            selectedVal = r.value;
+                            break;
+                        }
+                    }
+                }
+
+                const feedbackEl = document.getElementById('feedback-' + qName);
+
+                if (selectedVal === correctAnswers[qName].ans) {
+                    score += 2;
+                    feedbackEl.className = 'text-xs p-2.5 rounded-lg bg-emerald-50 text-emerald-800 border border-emerald-200 block';
+                    feedbackEl.innerHTML = `<i class="fas fa-check-circle text-emerald-600 mr-1"></i> <strong>Chính xác! (+2.0đ)</strong> Giải thích: ${correctAnswers[qName].exp}`;
+                } else {
+                    const chosenText = selectedVal ? selectedVal : 'Chưa chọn';
+                    incorrectList.push(`Câu ${i} (Chọn: ${chosenText} | Đúng: ${correctAnswers[qName].ans})`);
+                    feedbackEl.className = 'text-xs p-2.5 rounded-lg bg-red-50 text-red-800 border border-red-200 block';
+                    feedbackEl.innerHTML = `<i class="fas fa-times-circle text-red-600 mr-1"></i> <strong>Chưa chính xác! (0đ)</strong> Đáp án đúng là <strong>${correctAnswers[qName].ans}</strong>. Giải thích: ${correctAnswers[qName].exp}`;
+                }
+            }
+
+            const resultBox = document.getElementById('result-box');
+            const resultScore = document.getElementById('result-score');
+            const resultIcon = document.getElementById('result-icon');
+            const resultMessage = document.getElementById('result-message');
+            const statusEl = document.getElementById('submit-status');
+
+            resultBox.classList.remove('hidden');
+            resultScore.innerText = `${score} / 10 Điểm`;
+
+            if (score >= 8) {
+                resultBox.className = 'p-6 rounded-2xl border-2 border-emerald-400 bg-emerald-50 text-center space-y-2';
+                resultIcon.innerHTML = '<i class="fas fa-trophy text-emerald-500"></i>';
+                resultScore.className = 'text-3xl font-extrabold text-emerald-700';
+                resultMessage.innerText = 'Xuất sắc! Bạn đã nắm rất vững kiến thức nhân chia đa thức!';
+            } else if (score >= 6) {
+                resultBox.className = 'p-6 rounded-2xl border-2 border-indigo-400 bg-indigo-50 text-center space-y-2';
+                resultIcon.innerHTML = '<i class="fas fa-thumbs-up text-indigo-500"></i>';
+                resultScore.className = 'text-3xl font-extrabold text-indigo-700';
+                resultMessage.innerText = 'Khá tốt! Hãy ôn lại các câu chưa chính xác ở trên để đạt điểm tuyệt đối nhé!';
+            } else {
+                resultBox.className = 'p-6 rounded-2xl border-2 border-amber-400 bg-amber-50 text-center space-y-2';
+                resultIcon.innerHTML = '<i class="fas fa-book-open-reader text-amber-500"></i>';
+                resultScore.className = 'text-3xl font-extrabold text-amber-700';
+                resultMessage.innerText = 'Cần cố gắng thêm! Hãy đọc lại kỹ lý thuyết và mô hình trực quan ở trên!';
+            }
+
+            const timeString = timerEl ? timerEl.innerText : '00:00';
+            const studentClass = document.getElementById('student-class').value.trim();
+            const fullNameWithClass = studentClass ? `${studentName} (${studentClass})` : studentName;
+            const cauSaiString = incorrectList.length > 0 ? incorrectList.join('; ') : 'Đúng toàn bộ 5/5 câu';
+
+            const payload = {
+                hoTen: fullNameWithClass,
+                maDe: "TOAN8-NHAN-CHIA-DA-THUC",
+                diem: score,
+                thoiGian: timeString,
+                cauSai: cauSaiString
+            };
+
+            statusEl.innerHTML = '<i class="fas fa-spinner fa-spin text-indigo-600 mr-1"></i> Đang gửi điểm lên máy chủ...';
+
+            const scriptUrl = "https://script.google.com/macros/s/AKfycbzY7b7h4OwvhXuK5Vs6hl-aD88BPnAiAKbU5lfJobby0D4nzbIJVKT4n0AKCpAGoK0nZA/exec";
+
+            fetch(scriptUrl, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(payload)
+            }).then(() => {
+                statusEl.innerHTML = '<i class="fas fa-cloud-arrow-up text-emerald-600 mr-1"></i> <span class="text-emerald-700 font-bold">Đã lưu điểm thành công vào hệ thống!</span>';
+                document.getElementById('apps-script-notice').innerText = `Dữ liệu kết quả của học sinh [${fullNameWithClass}] đã được gửi về hệ thống quản lý học tập.`;
+            }).catch((err) => {
+                console.warn('Lỗi kết nối AppScript:', err);
+                statusEl.innerHTML = '<i class="fas fa-check text-emerald-600 mr-1"></i> Đã hoàn thành bài làm trên trình duyệt!';
+            });
+
+            resultBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+    </script>
+</body>
+</html>
