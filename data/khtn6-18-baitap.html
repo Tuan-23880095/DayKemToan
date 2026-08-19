@@ -1,0 +1,1267 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KHTN 6 - Buổi 18: Năng Lượng và Tiết Kiệm Năng Lượng | ThS. Đinh Quốc Tuấn</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- JSXGraph CDN -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraph.css" />
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraphcore.js"></script>
+    
+    <!-- MathJax CDN -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;600&display=swap');
+        
+        body {
+            font-family: 'Lexend', sans-serif;
+            background-color: #f8fafc;
+            color: #0f172a;
+        }
+
+        .jxgbox {
+            border-radius: 0.875rem;
+            box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.05);
+            background-color: #ffffff;
+            border: 1px solid #e2e8f0;
+        }
+
+        .solution-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-out, opacity 0.3s ease-out;
+            opacity: 0;
+        }
+
+        .solution-content.show {
+            max-height: 3200px;
+            opacity: 1;
+            transition: max-height 0.6s ease-in, opacity 0.4s ease-in;
+        }
+
+        @media print {
+            .no-print, #btn-print-doc, .quiz-controls, .solution-toggle-btn, header nav {
+                display: none !important;
+            }
+            .solution-content {
+                max-height: none !important;
+                opacity: 1 !important;
+                display: block !important;
+            }
+            body {
+                background: white !important;
+                color: black !important;
+            }
+            .shadow-lg, .shadow-md, .shadow-sm, .shadow-xl {
+                box-shadow: none !important;
+            }
+            .border {
+                border-color: #cbd5e1 !important;
+            }
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-indigo-600 selection:text-white">
+
+    <!-- HEADER / BANNER -->
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-40 shadow-sm backdrop-blur-md bg-white/95">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex flex-wrap items-center justify-between gap-4">
+            <!-- Logos -->
+            <div class="flex items-center space-x-3">
+                <img src="https://firebasestorage.googleapis.com/v0/b/link-anh-web.firebasestorage.app/o/ttbdvh.jpg?alt=media&token=f270aa9b-a2bc-48e8-8910-80742b542615" 
+                     alt="Logo BDVH" class="h-12 w-auto object-contain rounded-lg shadow-sm border border-slate-100">
+                <img src="https://firebasestorage.googleapis.com/v0/b/link-anh-web.firebasestorage.app/o/Logo-chinh-hcmus.png?alt=media&token=9cf3a1de-75f1-493b-8711-fd22c7b98738" 
+                     alt="Logo HCMUS" class="h-12 w-auto object-contain">
+                <div class="hidden sm:block border-l-2 border-slate-200 pl-3">
+                    <span class="text-xs font-bold uppercase tracking-wider text-indigo-600 block">Tài Liệu Dạy Học KHTN 6 (Vật Lí)</span>
+                    <span class="text-sm font-extrabold text-slate-800">Chuyên Đề: Năng Lượng & Tiết Kiệm Năng Lượng</span>
+                </div>
+            </div>
+
+            <!-- Navigation Tags -->
+            <nav class="flex items-center flex-wrap gap-2 text-xs font-semibold">
+                <a href="#phan-1" class="px-3 py-1.5 rounded-full bg-emerald-100 text-emerald-800 hover:bg-emerald-200 transition">
+                    <i class="fas fa-seedling mr-1"></i> Phần 1: Cơ Bản
+                </a>
+                <a href="#phan-2" class="px-3 py-1.5 rounded-full bg-blue-100 text-blue-800 hover:bg-blue-200 transition">
+                    <i class="fas fa-brain mr-1"></i> Phần 2: Nâng Cao
+                </a>
+                <a href="#phan-3" class="px-3 py-1.5 rounded-full bg-amber-100 text-amber-800 hover:bg-amber-200 transition">
+                    <i class="fas fa-rocket mr-1"></i> Phần 3: Vận Dụng
+                </a>
+                <a href="#quiz-online" class="px-3 py-1.5 rounded-full bg-rose-600 text-white hover:bg-rose-700 shadow-sm transition animate-pulse">
+                    <i class="fas fa-check-circle mr-1"></i> Đánh Giá Năng Lực
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- HERO TITLE -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-4">
+        <div class="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 rounded-3xl p-6 sm:p-10 text-white shadow-xl relative overflow-hidden">
+            <div class="absolute right-0 top-0 translate-x-12 -translate-y-12 w-96 h-96 bg-indigo-500/20 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="absolute left-1/3 bottom-0 w-80 h-80 bg-teal-500/20 rounded-full blur-3xl pointer-events-none"></div>
+            
+            <div class="relative z-10">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 text-teal-300 text-xs font-semibold mb-3 border border-white/10">
+                    <i class="fas fa-book-open"></i> BỘ BÀI TẬP CHI TIẾT - BUỔI 18
+                </div>
+                <h1 class="text-2xl sm:text-4xl font-extrabold tracking-tight mb-2 text-white">
+                    CHỦ ĐỀ: NĂNG LƯỢNG & TIẾT KIỆM NĂNG LƯỢNG
+                </h1>
+                <p class="text-slate-300 text-sm sm:text-base max-w-3xl leading-relaxed">
+                    Hệ thống 30 bài tập chuẩn hóa 3 cấp độ (Cơ bản - Nâng cao - Vận dụng) với đáp án, lời giải chi tiết, mô hình thí nghiệm tương tác hình học <strong class="text-teal-300">JSXGraph</strong> và bộ trắc nghiệm trực tuyến tự động chấm lưu trữ qua Google Apps Script.
+                </p>
+                <div class="mt-4 pt-4 border-t border-white/10 flex flex-wrap items-center justify-between gap-3 text-xs text-slate-300">
+                    <div class="flex items-center gap-2">
+                        <i class="fas fa-user-tie text-teal-400"></i>
+                        <span>Biên soạn: <strong>ThS. Đinh Quốc Tuấn</strong></span>
+                    </div>
+                    <div class="flex items-center gap-4">
+                        <button onclick="toggleAllSolutions(true)" class="hover:text-teal-300 underline font-medium cursor-pointer">
+                            <i class="fas fa-eye mr-1"></i> Hiện tất cả lời giải
+                        </button>
+                        <button onclick="toggleAllSolutions(false)" class="hover:text-teal-300 underline font-medium cursor-pointer">
+                            <i class="fas fa-eye-slash mr-1"></i> Ẩn tất cả lời giải
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN CONTAINER -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-12">
+
+        <!-- ========================================== -->
+        <!-- PHẦN 1: MỨC ĐỘ CƠ BẢN (10 BÀI) -->
+        <!-- ========================================== -->
+        <section id="phan-1" class="scroll-mt-20">
+            <div class="flex items-center gap-3 mb-6">
+                <span class="flex items-center justify-center w-10 h-10 rounded-2xl bg-emerald-500 text-white font-bold text-lg shadow-md shadow-emerald-500/20">
+                    <i class="fas fa-seedling"></i>
+                </span>
+                <div>
+                    <h2 class="text-xl sm:text-2xl font-extrabold text-slate-800">PHẦN 1: MỨC ĐỘ CƠ BẢN</h2>
+                    <p class="text-xs sm:text-sm text-slate-500 font-medium">Nhận biết & Ghi nhớ bản chất năng lượng, các dạng năng lượng cơ học & phi cơ học (10 Bài)</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 gap-6">
+
+                <!-- Bài 1: Khái niệm & Đơn vị năng lượng -->
+                <div class="bg-white border border-slate-200/90 rounded-2xl p-5 sm:p-6 shadow-sm hover:shadow-md transition">
+                    <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+                        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 text-xs font-bold border border-emerald-200">
+                            <i class="fas fa-tag"></i> Bài 1: Khái niệm năng lượng và đơn vị đo tiêu chuẩn
+                        </span>
+                        <span class="text-xs text-slate-400 font-mono">ID: KHTN6-B18-C01</span>
+                    </div>
+                    <h3 class="text-base font-bold text-slate-800 mb-3 leading-snug">
+                        Năng lượng là gì? Năng lượng được kí hiệu bằng chữ cái nào và có đơn vị đo tiêu chuẩn trong hệ SI là gì? Hãy kể thêm 2 đơn vị đo năng lượng khác thường gặp trong thực tế cuộc sống.
+                    </h3>
+
+                    <button onclick="toggleSolution('sol-1')" class="solution-toggle-btn w-full py-2 px-4 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold flex items-center justify-between transition mt-2">
+                        <span><i class="fas fa-lightbulb text-amber-500 mr-1.5"></i> Gợi ý & Đáp án chi tiết</span>
+                        <i id="icon-sol-1" class="fas fa-chevron-down transition-transform"></i>
+                    </button>
+                    <div id="sol-1" class="solution-content">
+                        <div class="mt-3 p-4 bg-emerald-50/70 border border-emerald-200 rounded-xl text-sm text-slate-700 space-y-2">
+                            <p class="font-bold text-emerald-900"><i class="fas fa-check-circle mr-1"></i> Lời giải chi tiết:</p>
+                            <ul class="list-disc pl-5 space-y-1 text-xs sm:text-sm">
+                                <li><strong>Khái niệm:</strong> Năng lượng là đại lượng vật lý đặc trưng cho khả năng tác dụng lực hoặc thực hiện công của vật. Mọi quá trình biến đổi trong tự nhiên đều cần năng lượng.</li>
+                                <li><strong>Kí hiệu & Đơn vị SI:</strong> Kí hiệu là <strong>E</strong>. Đơn vị chuẩn là <strong>jun (J)</strong>.</li>
+                                <li><strong>Đơn vị thực tế khác:</strong>
+                                    <br>1. <em>Calo (cal) / Kilocalo (kcal):</em> Dùng đo năng lượng hóa năng chứa trong thức ăn hàng ngày.
+                                    <br>2. <em>Kilôoat giờ (kWh):</em> Dùng đo điện năng tiêu thụ trong hóa đơn tiền điện sinh hoạt (1 số điện = 1 kWh).
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bài 3: Thế năng hấp dẫn (JSXGraph Tương tác Độ cao) -->
+                <div class="bg-white border border-slate-200/90 rounded-2xl p-5 sm:p-6 shadow-sm hover:shadow-md transition">
+                    <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+                        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 text-xs font-bold border border-emerald-200">
+                            <i class="fas fa-tag"></i> Bài 3: Thế năng hấp dẫn (Thế năng trọng trường)
+                        </span>
+                        <span class="text-xs text-slate-400 font-mono">ID: KHTN6-B18-C03</span>
+                    </div>
+                    <h3 class="text-base font-bold text-slate-800 mb-3 leading-snug">
+                        Thế năng hấp dẫn là gì? Trong các trường hợp: (1) Quả táo nằm yên trên mặt đất; (2) Quả táo trên cành cao 2 m; (3) Quả táo trên bàn cao 1 m. Trường hợp nào quả táo sở hữu thế năng hấp dẫn lớn nhất?
+                    </h3>
+
+                    <!-- JSXGraph Minh Họa Bài 3: Thế năng hấp dẫn theo độ cao -->
+                    <div class="my-4 bg-slate-50 p-4 rounded-xl border border-slate-200">
+                        <div class="text-xs font-semibold text-slate-600 mb-2 flex items-center justify-between">
+                            <span><i class="fas fa-apple-alt text-rose-500 mr-1"></i> Mô phỏng: Kéo quả táo lên cao để quan sát biến thiên Thế năng hấp dẫn ($E_t = 10 \cdot m \cdot h$)</span>
+                            <span class="text-[10px] text-slate-400">JSXGraph Interactive</span>
+                        </div>
+                        <div id="jsx_b3" class="jxgbox w-full h-64"></div>
+                    </div>
+
+                    <button onclick="toggleSolution('sol-3')" class="solution-toggle-btn w-full py-2 px-4 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold flex items-center justify-between transition mt-2">
+                        <span><i class="fas fa-lightbulb text-amber-500 mr-1.5"></i> Gợi ý & Đáp án chi tiết</span>
+                        <i id="icon-sol-3" class="fas fa-chevron-down transition-transform"></i>
+                    </button>
+                    <div id="sol-3" class="solution-content">
+                        <div class="mt-3 p-4 bg-emerald-50/70 border border-emerald-200 rounded-xl text-sm text-slate-700 space-y-2">
+                            <p class="font-bold text-emerald-900"><i class="fas fa-check-circle mr-1"></i> Lời giải chi tiết:</p>
+                            <ul class="list-disc pl-5 space-y-1 text-xs sm:text-sm">
+                                <li><strong>Định nghĩa:</strong> Thế năng hấp dẫn là dạng năng lượng của một vật có được khi nó ở một độ cao nhất định so với mặt đất (hoặc vật chọn làm mốc).</li>
+                                <li><strong>So sánh:</strong> Quả táo trên cành cao 2 m có thế năng hấp dẫn lớn nhất vì độ cao lớn nhất ($2\text{ m} > 1\text{ m} > 0\text{ m}$). Độ cao càng lớn thì thế năng tích lũy càng cao.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bài 2 & Bài 4 & Bài 5 -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <!-- Bài 2: Động năng -->
+                    <div class="bg-white border border-slate-200/90 rounded-2xl p-4 sm:p-5 shadow-sm">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 text-xs font-bold border border-emerald-200">Bài 2: Động năng</span>
+                            <span class="text-xs text-slate-400 font-mono">KHTN6-B18-C02</span>
+                        </div>
+                        <p class="text-xs sm:text-sm font-semibold text-slate-800 mb-2">Động năng là gì? Vật nào có động năng: Gạch nằm yên, Xe máy đang chạy, Lò xo nén, hay Cung kéo căng?</p>
+                        <button onclick="toggleSolution('sol-2')" class="solution-toggle-btn text-xs text-indigo-600 hover:text-indigo-800 font-bold">
+                            <i class="fas fa-chevron-circle-right mr-1"></i> Xem đáp án
+                        </button>
+                        <div id="sol-2" class="solution-content">
+                            <div class="mt-2 p-3 bg-slate-50 rounded-lg text-xs space-y-1 text-slate-700">
+                                <p>• <strong>Động năng:</strong> Là năng lượng vật có được do đang <strong>chuyển động</strong>.</p>
+                                <p>• <strong>Đáp án đúng:</strong> Xe máy đang chạy trên đường (có vận tốc khác 0).</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Bài 4: Thế năng đàn hồi -->
+                    <div class="bg-white border border-slate-200/90 rounded-2xl p-4 sm:p-5 shadow-sm">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 text-xs font-bold border border-emerald-200">Bài 4: Thế năng đàn hồi</span>
+                            <span class="text-xs text-slate-400 font-mono">KHTN6-B18-C04</span>
+                        </div>
+                        <p class="text-xs sm:text-sm font-semibold text-slate-800 mb-2">Thế năng đàn hồi là gì? Nêu 3 ví dụ vật tích lũy thế năng đàn hồi trong thực tế.</p>
+                        <button onclick="toggleSolution('sol-4')" class="solution-toggle-btn text-xs text-indigo-600 hover:text-indigo-800 font-bold">
+                            <i class="fas fa-chevron-circle-right mr-1"></i> Xem đáp án
+                        </button>
+                        <div id="sol-4" class="solution-content">
+                            <div class="mt-2 p-3 bg-slate-50 rounded-lg text-xs space-y-1 text-slate-700">
+                                <p>• Là năng lượng vật có được khi bị <strong>biến dạng đàn hồi</strong> (kéo dãn, nén, uốn cong).</p>
+                                <p>• <em>Ví dụ:</em> Dây thun kéo căng, Lò xo bút bi bị nén, Cánh cung kéo căng.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Bài 5: Năng lượng phi cơ học -->
+                    <div class="bg-white border border-slate-200/90 rounded-2xl p-4 sm:p-5 shadow-sm">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 text-xs font-bold border border-emerald-200">Bài 5: Dạng năng lượng khác</span>
+                            <span class="text-xs text-slate-400 font-mono">KHTN6-B18-C05</span>
+                        </div>
+                        <p class="text-xs sm:text-sm font-semibold text-slate-800 mb-2">Phân biệt: Quang năng, Nhiệt năng, Điện năng và Hóa năng trong đời sống.</p>
+                        <button onclick="toggleSolution('sol-5')" class="solution-toggle-btn text-xs text-indigo-600 hover:text-indigo-800 font-bold">
+                            <i class="fas fa-chevron-circle-right mr-1"></i> Xem đáp án
+                        </button>
+                        <div id="sol-5" class="solution-content">
+                            <div class="mt-2 p-3 bg-slate-50 rounded-lg text-xs space-y-1 text-slate-700">
+                                <p>• <strong>Quang năng:</strong> Ánh sáng Mặt Trời, bóng đèn.</p>
+                                <p>• <strong>Nhiệt năng:</strong> Tỏa ra từ lò sưởi, bếp than.</p>
+                                <p>• <strong>Điện năng:</strong> Dòng điện chạy qua dây dẫn.</p>
+                                <p>• <strong>Hóa năng:</strong> Pin, xăng dầu, thức ăn.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bài 6: Phân dòng năng lượng Hữu ích & Hao phí (JSXGraph) -->
+                <div class="bg-white border border-slate-200/90 rounded-2xl p-5 sm:p-6 shadow-sm hover:shadow-md transition">
+                    <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+                        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 text-xs font-bold border border-emerald-200">
+                            <i class="fas fa-tag"></i> Bài 6: Năng lượng hữu ích và Năng lượng hao phí (Bóng đèn LED)
+                        </span>
+                        <span class="text-xs text-slate-400 font-mono">ID: KHTN6-B18-C06</span>
+                    </div>
+                    <h3 class="text-base font-bold text-slate-800 mb-3 leading-snug">
+                        Khi cắm điện thắp sáng một bóng đèn LED, điện năng chuyển hóa thành những dạng năng lượng nào? Dạng nào là hữu ích và dạng nào là hao phí?
+                    </h3>
+
+                    <!-- JSXGraph Minh Họa Bài 6: Phân dòng năng lượng Sankey -->
+                    <div class="my-4 bg-slate-50 p-4 rounded-xl border border-slate-200">
+                        <div class="text-xs font-semibold text-slate-600 mb-2 flex items-center justify-between">
+                            <span><i class="fas fa-project-diagram text-indigo-500 mr-1"></i> Sơ đồ phân dòng năng lượng: Điện năng (100%) $\rightarrow$ Quang năng (85%) & Nhiệt năng (15%)</span>
+                            <span class="text-[10px] text-slate-400">JSXGraph Visualization</span>
+                        </div>
+                        <div id="jsx_b6" class="jxgbox w-full h-56"></div>
+                    </div>
+
+                    <button onclick="toggleSolution('sol-6')" class="solution-toggle-btn w-full py-2 px-4 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold flex items-center justify-between transition mt-2">
+                        <span><i class="fas fa-lightbulb text-amber-500 mr-1.5"></i> Gợi ý & Đáp án chi tiết</span>
+                        <i id="icon-sol-6" class="fas fa-chevron-down transition-transform"></i>
+                    </button>
+                    <div id="sol-6" class="solution-content">
+                        <div class="mt-3 p-4 bg-emerald-50/70 border border-emerald-200 rounded-xl text-sm text-slate-700 space-y-2">
+                            <p class="font-bold text-emerald-900"><i class="fas fa-check-circle mr-1"></i> Lời giải chi tiết:</p>
+                            <ul class="list-disc pl-5 space-y-1 text-xs sm:text-sm">
+                                <li><strong>Chuyển hóa:</strong> Điện năng $\rightarrow$ <strong>Quang năng</strong> (ánh sáng) + <strong>Nhiệt năng</strong> (nhiệt tỏa ra làm nóng đèn).</li>
+                                <li><strong>Quang năng là năng lượng hữu ích</strong> vì phục vụ trực tiếp mục đích chiếu sáng.</li>
+                                <li><strong>Nhiệt năng là năng lượng hao phí</strong> vì tỏa nhiệt ngoài ý muốn ra môi trường.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bài 7, 8, 9, 10 Tóm lược Cơ bản -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <!-- Bài 8: Bảo toàn năng lượng -->
+                    <div class="bg-white border border-slate-200/90 rounded-2xl p-4 sm:p-5 shadow-sm">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 text-xs font-bold border border-emerald-200">Bài 8: Định luật bảo toàn năng lượng</span>
+                            <span class="text-xs text-slate-400 font-mono">KHTN6-B18-C08</span>
+                        </div>
+                        <p class="text-xs sm:text-sm font-semibold text-slate-800 mb-2">Phát biểu định luật bảo toàn năng lượng. Lấy 1 ví dụ thực tế chứng minh.</p>
+                        <button onclick="toggleSolution('sol-8')" class="solution-toggle-btn text-xs text-indigo-600 hover:text-indigo-800 font-bold">
+                            <i class="fas fa-chevron-circle-right mr-1"></i> Xem đáp án
+                        </button>
+                        <div id="sol-8" class="solution-content">
+                            <div class="mt-2 p-3 bg-slate-50 rounded-lg text-xs space-y-1 text-slate-700">
+                                <p>• <strong>Phát biểu:</strong> Năng lượng không tự sinh ra cũng không tự mất đi, chỉ truyền từ vật này sang vật khác hoặc chuyển hóa từ dạng này sang dạng khác.</p>
+                                <p>• <em>Ví dụ:</em> Xoa hai tay vào nhau $\rightarrow$ Động năng cọ xát biến đổi hoàn toàn thành Nhiệt năng làm ấm tay.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Bài 9: Tái tạo vs Không tái tạo -->
+                    <div class="bg-white border border-slate-200/90 rounded-2xl p-4 sm:p-5 shadow-sm">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 text-xs font-bold border border-emerald-200">Bài 9: Năng lượng tái tạo</span>
+                            <span class="text-xs text-slate-400 font-mono">KHTN6-B18-C09</span>
+                        </div>
+                        <p class="text-xs sm:text-sm font-semibold text-slate-800 mb-2">Phân biệt nguồn tái tạo và không tái tạo: Than đá, Gió, Dầu mỏ, Mặt Trời, Khí thiên nhiên.</p>
+                        <button onclick="toggleSolution('sol-9')" class="solution-toggle-btn text-xs text-indigo-600 hover:text-indigo-800 font-bold">
+                            <i class="fas fa-chevron-circle-right mr-1"></i> Xem đáp án
+                        </button>
+                        <div id="sol-9" class="solution-content">
+                            <div class="mt-2 p-3 bg-slate-50 rounded-lg text-xs space-y-1 text-slate-700">
+                                <p>• <strong>Tái tạo:</strong> Năng lượng Gió, Năng lượng Mặt Trời (vô hạn, tự bổ sung liên tục).</p>
+                                <p>• <strong>Không tái tạo:</strong> Than đá, Dầu mỏ, Khí thiên nhiên (trữ lượng hữu hạn, cạn kiệt khi dùng).</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Bài 7: Bếp gas -->
+                    <div class="bg-white border border-slate-200/90 rounded-2xl p-4 sm:p-5 shadow-sm">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 text-xs font-bold border border-emerald-200">Bài 7: Đun nước bằng bếp gas</span>
+                            <span class="text-xs text-slate-400 font-mono">KHTN6-B18-C07</span>
+                        </div>
+                        <p class="text-xs sm:text-sm font-semibold text-slate-800 mb-2">Chuyển hóa năng lượng khi đun nước bằng bếp gas: Dạng nào hữu ích, dạng nào hao phí?</p>
+                        <button onclick="toggleSolution('sol-7')" class="solution-toggle-btn text-xs text-indigo-600 hover:text-indigo-800 font-bold">
+                            <i class="fas fa-chevron-circle-right mr-1"></i> Xem đáp án
+                        </button>
+                        <div id="sol-7" class="solution-content">
+                            <div class="mt-2 p-3 bg-slate-50 rounded-lg text-xs space-y-1 text-slate-700">
+                                <p>• Hóa năng của khí gas $\rightarrow$ Nhiệt năng.</p>
+                                <p>• <strong>Hữu ích:</strong> Nhiệt truyền qua đáy ấm đun sôi nước.</p>
+                                <p>• <strong>Hao phí:</strong> Nhiệt tỏa ra không khí xung quanh, kiềng bếp và vỏ ấm.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Bài 10: Vì sao tiết kiệm -->
+                    <div class="bg-white border border-slate-200/90 rounded-2xl p-4 sm:p-5 shadow-sm">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 text-xs font-bold border border-emerald-200">Bài 10: Ý nghĩa tiết kiệm năng lượng</span>
+                            <span class="text-xs text-slate-400 font-mono">KHTN6-B18-C10</span>
+                        </div>
+                        <p class="text-xs sm:text-sm font-semibold text-slate-800 mb-2">Nêu 3 lý do quan trọng vì sao mọi người phải thực hành tiết kiệm năng lượng.</p>
+                        <button onclick="toggleSolution('sol-10')" class="solution-toggle-btn text-xs text-indigo-600 hover:text-indigo-800 font-bold">
+                            <i class="fas fa-chevron-circle-right mr-1"></i> Xem đáp án
+                        </button>
+                        <div id="sol-10" class="solution-content">
+                            <div class="mt-2 p-3 bg-slate-50 rounded-lg text-xs space-y-1 text-slate-700">
+                                <p>1. Bảo tồn tài nguyên hóa thạch không tái tạo.</p>
+                                <p>2. Giảm phát thải khí $CO_2$, bảo vệ môi trường chống biến đổi khí hậu.</p>
+                                <p>3. Tiết kiệm chi phí tiền điện sinh hoạt cho gia đình và quốc gia.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- PHẦN 2: MỨC ĐỘ NÂNG CAO (10 BÀI) -->
+        <!-- ========================================== -->
+        <section id="phan-2" class="scroll-mt-20">
+            <div class="flex items-center gap-3 mb-6">
+                <span class="flex items-center justify-center w-10 h-10 rounded-2xl bg-blue-600 text-white font-bold text-lg shadow-md shadow-blue-500/20">
+                    <i class="fas fa-brain"></i>
+                </span>
+                <div>
+                    <h2 class="text-xl sm:text-2xl font-extrabold text-slate-800">PHẦN 2: MỨC ĐỘ NÂNG CAO</h2>
+                    <p class="text-xs sm:text-sm text-slate-500 font-medium">Phân tích chuỗi chuyển hóa, con lắc dao động, tính toán điện năng tiêu thụ $A = \mathcal{P} \cdot t$ (10 Bài)</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 gap-6">
+
+                <!-- Bài 15: Con lắc đơn (JSXGraph Động năng vs Thế năng) -->
+                <div class="bg-white border border-slate-200/90 rounded-2xl p-5 sm:p-6 shadow-sm hover:shadow-md transition">
+                    <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+                        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 text-blue-700 text-xs font-bold border border-blue-200">
+                            <i class="fas fa-tag"></i> Bài 15: Phân tích sự chuyển hóa năng lượng của Con lắc đơn
+                        </span>
+                        <span class="text-xs text-slate-400 font-mono">ID: KHTN6-B18-N15</span>
+                    </div>
+                    <h3 class="text-base font-bold text-slate-800 mb-3 leading-snug">
+                        Phân tích sự chuyển hóa qua lại giữa động năng ($E_d$) và thế năng ($E_t$) của con lắc đơn tại vị trí cao nhất (biên) và vị trí thấp nhất (cân bằng). Vì sao con lắc dao động một thời gian rồi dừng lại?
+                    </h3>
+
+                    <!-- JSXGraph Minh Họa Bài 15: Con lắc đơn dao động -->
+                    <div class="my-4 bg-slate-50 p-4 rounded-xl border border-slate-200">
+                        <div class="text-xs font-semibold text-slate-600 mb-2 flex items-center justify-between">
+                            <span><i class="fas fa-sync-alt text-indigo-500 mr-1"></i> Mô phỏng dao động Con lắc đơn & Chuyển hóa Động năng $\leftrightarrow$ Thế năng</span>
+                            <span class="text-[10px] text-slate-400">JSXGraph Interactive Animation</span>
+                        </div>
+                        <div id="jsx_b15" class="jxgbox w-full h-64"></div>
+                        <div class="mt-2 flex gap-2 justify-center">
+                            <button onclick="startPendulum()" class="px-4 py-1.5 text-xs font-bold rounded-lg bg-indigo-600 text-white hover:bg-indigo-700 shadow-sm transition">
+                                <i class="fas fa-play mr-1"></i> Kéo Lệch & Thả Dao Động
+                            </button>
+                            <button onclick="resetPendulum()" class="px-4 py-1.5 text-xs font-bold rounded-lg bg-slate-200 text-slate-700 hover:bg-slate-300 transition">
+                                <i class="fas fa-undo mr-1"></i> Về Vị Trí Cân Bằng
+                            </button>
+                        </div>
+                    </div>
+
+                    <button onclick="toggleSolution('sol-15')" class="solution-toggle-btn w-full py-2 px-4 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold flex items-center justify-between transition mt-2">
+                        <span><i class="fas fa-lightbulb text-amber-500 mr-1.5"></i> Gợi ý & Đáp án chi tiết</span>
+                        <i id="icon-sol-15" class="fas fa-chevron-down transition-transform"></i>
+                    </button>
+                    <div id="sol-15" class="solution-content">
+                        <div class="mt-3 p-4 bg-blue-50/70 border border-blue-200 rounded-xl text-sm text-slate-700 space-y-2">
+                            <p class="font-bold text-blue-900"><i class="fas fa-check-circle mr-1"></i> Lời giải chi tiết:</p>
+                            <ul class="list-disc pl-5 space-y-1.5 text-xs sm:text-sm">
+                                <li><strong>Tại vị trí biên cao nhất:</strong> Vận tốc bằng 0 $\implies$ Động năng $E_d = 0$; Độ cao cực đại $\implies$ <strong>Thế năng $E_t$ đạt cực đại</strong>.</li>
+                                <li><strong>Trong quá trình đi xuống:</strong> Độ cao giảm, vận tốc tăng $\implies$ <strong>Thế năng chuyển hóa thành Động năng</strong>.</li>
+                                <li><strong>Tại vị trí cân bằng thấp nhất:</strong> Độ cao cực tiểu $\implies$ Thế năng cực tiểu; Vận tốc cực đại $\implies$ <strong>Động năng $E_d$ đạt cực đại</strong>.</li>
+                                <li><strong>Nguyên nhân dừng lại:</strong> Lực cản không khí và ma sát ở điểm treo làm cơ năng chuyển hóa dần thành <strong>nhiệt năng hao phí</strong> tỏa ra môi trường (dao động tắt dần).</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bài 19: Tính điện năng tiêu thụ & Số điện (JSXGraph Công tơ điện) -->
+                <div class="bg-white border border-slate-200/90 rounded-2xl p-5 sm:p-6 shadow-sm hover:shadow-md transition">
+                    <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+                        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 text-blue-700 text-xs font-bold border border-blue-200">
+                            <i class="fas fa-tag"></i> Bài 19: Bài toán tính điện năng tiêu thụ ($A = \mathcal{P} \cdot t$) và số điện (kWh)
+                        </span>
+                        <span class="text-xs text-slate-400 font-mono">ID: KHTN6-B18-N19</span>
+                    </div>
+                    <h3 class="text-base font-bold text-slate-800 mb-3 leading-snug">
+                        Một chiếc điều hòa có công suất $\mathcal{P} = 1000\text{ W} = 1\text{ kW}$. Sử dụng liên tục trong $8\text{ h}$ mỗi ngày.
+                        1. Tính điện năng tiêu thụ trong 1 ngày (kWh).
+                        2. Trong 30 ngày sử dụng, điều hòa tiêu tốn bao nhiêu "số điện"?
+                    </h3>
+
+                    <!-- JSXGraph Minh Họa Bài 19: Đồ thị điện năng theo thời gian -->
+                    <div class="my-4 bg-slate-50 p-4 rounded-xl border border-slate-200">
+                        <div class="text-xs font-semibold text-slate-600 mb-2 flex items-center justify-between">
+                            <span><i class="fas fa-tachometer-alt text-indigo-500 mr-1"></i> Đồ thị: Điện năng tiêu thụ $A$ (kWh) tỉ lệ thuận với số giờ sử dụng $t$ (giờ)</span>
+                            <span class="text-[10px] text-slate-400">JSXGraph Engine</span>
+                        </div>
+                        <div id="jsx_b19" class="jxgbox w-full h-56"></div>
+                    </div>
+
+                    <button onclick="toggleSolution('sol-19')" class="solution-toggle-btn w-full py-2 px-4 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold flex items-center justify-between transition mt-2">
+                        <span><i class="fas fa-lightbulb text-amber-500 mr-1.5"></i> Gợi ý & Đáp án chi tiết</span>
+                        <i id="icon-sol-19" class="fas fa-chevron-down transition-transform"></i>
+                    </button>
+                    <div id="sol-19" class="solution-content">
+                        <div class="mt-3 p-4 bg-blue-50/70 border border-blue-200 rounded-xl text-sm text-slate-700 space-y-2">
+                            <p class="font-bold text-blue-900"><i class="fas fa-check-circle mr-1"></i> Lời giải chi tiết:</p>
+                            <ol class="list-decimal pl-5 space-y-1.5 text-xs sm:text-sm">
+                                <li><strong>Điện năng tiêu thụ trong 1 ngày:</strong>
+                                    $$A_1 = \mathcal{P} \cdot t = 1\text{ kW} \cdot 8\text{ h} = 8\text{ kWh}$$
+                                </li>
+                                <li><strong>Điện năng tiêu thụ trong 30 ngày:</strong>
+                                    $$A_{30} = 8\text{ kWh/ngày} \cdot 30\text{ ngày} = 240\text{ kWh}$$
+                                    Vì $1\text{ kWh} = 1$ "số điện" nên điều hòa tiêu tốn <strong>240 số điện</strong> trong tháng.
+                                </li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bài 11, 14, 17, 18 Tóm lược Nâng cao -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <!-- Bài 11: Quả bóng rơi nảy -->
+                    <div class="bg-white border border-slate-200/90 rounded-2xl p-4 sm:p-5 shadow-sm">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 text-xs font-bold border border-blue-200">Bài 11: Quả bóng rơi nảy giảm độ cao</span>
+                            <span class="text-xs text-slate-400 font-mono">KHTN6-B18-N11</span>
+                        </div>
+                        <p class="text-xs sm:text-sm font-semibold text-slate-800 mb-2">Quả bóng rơi nảy độ cao giảm dần có vi phạm định luật bảo toàn năng lượng không? Vì sao?</p>
+                        <button onclick="toggleSolution('sol-11')" class="solution-toggle-btn text-xs text-indigo-600 hover:text-indigo-800 font-bold">
+                            <i class="fas fa-chevron-circle-right mr-1"></i> Xem giải thích
+                        </button>
+                        <div id="sol-11" class="solution-content">
+                            <div class="mt-2 p-3 bg-slate-50 rounded-lg text-xs space-y-1 text-slate-700">
+                                <p>• <strong>KHÔNG vi phạm</strong>.</p>
+                                <p>• Phần cơ năng giảm đi đã chuyển hóa chính xác thành <strong>nhiệt năng</strong> làm nóng bóng, mặt sàn và <strong>năng lượng âm thanh</strong> (tiếng đập).</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Bài 14: Thủy điện -->
+                    <div class="bg-white border border-slate-200/90 rounded-2xl p-4 sm:p-5 shadow-sm">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 text-xs font-bold border border-blue-200">Bài 14: Chuỗi chuyển hóa trong Nhà máy Thủy điện</span>
+                            <span class="text-xs text-slate-400 font-mono">KHTN6-B18-N14</span>
+                        </div>
+                        <p class="text-xs sm:text-sm font-semibold text-slate-800 mb-2">Phân tích chuỗi chuyển hóa năng lượng từ hồ chứa nước trên núi cao đến dòng điện thắp sáng.</p>
+                        <button onclick="toggleSolution('sol-14')" class="solution-toggle-btn text-xs text-indigo-600 hover:text-indigo-800 font-bold">
+                            <i class="fas fa-chevron-circle-right mr-1"></i> Xem chuỗi chuyển hóa
+                        </button>
+                        <div id="sol-14" class="solution-content">
+                            <div class="mt-2 p-3 bg-slate-50 rounded-lg text-xs space-y-1 text-slate-700">
+                                <p>• <strong>Thế năng của nước</strong> ở đập cao $\rightarrow$ <strong>Động năng của dòng nước</strong> chảy $\rightarrow$ <strong>Động năng của tuabin</strong> quay $\rightarrow$ <strong>Điện năng</strong> từ máy phát.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Bài 17: Đèn dây tóc vs Đèn LED -->
+                    <div class="bg-white border border-slate-200/90 rounded-2xl p-4 sm:p-5 shadow-sm">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 text-xs font-bold border border-blue-200">Bài 17: Hiệu suất Đèn dây tóc vs Đèn LED</span>
+                            <span class="text-xs text-slate-400 font-mono">KHTN6-B18-N17</span>
+                        </div>
+                        <p class="text-xs sm:text-sm font-semibold text-slate-800 mb-2">Vì sao khuyến khích thay đèn sợi đốt bằng đèn LED dưới góc độ hiệu suất năng lượng?</p>
+                        <button onclick="toggleSolution('sol-17')" class="solution-toggle-btn text-xs text-indigo-600 hover:text-indigo-800 font-bold">
+                            <i class="fas fa-chevron-circle-right mr-1"></i> Xem so sánh hiệu suất
+                        </button>
+                        <div id="sol-17" class="solution-content">
+                            <div class="mt-2 p-3 bg-slate-50 rounded-lg text-xs space-y-1 text-slate-700">
+                                <p>• <strong>Đèn sợi đốt:</strong> Chỉ $5\% - 10\%$ điện năng thành Quang năng, $90\% - 95\%$ hao phí thành Nhiệt năng.</p>
+                                <p>• <strong>Đèn LED:</strong> $70\% - 80\%$ điện năng thành Quang năng, tiết kiệm hơn $70\%$ điện tiêu thụ.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Bài 20: Dầu mỏ không tái tạo -->
+                    <div class="bg-white border border-slate-200/90 rounded-2xl p-4 sm:p-5 shadow-sm">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 text-xs font-bold border border-blue-200">Bài 20: Vì sao Dầu mỏ là nguồn không tái tạo?</span>
+                            <span class="text-xs text-slate-400 font-mono">KHTN6-B18-N20</span>
+                        </div>
+                        <p class="text-xs sm:text-sm font-semibold text-slate-800 mb-2">Dầu mỏ hình thành tự nhiên từ sinh vật biển cổ nhưng vì sao lại là nguồn không tái tạo?</p>
+                        <button onclick="toggleSolution('sol-20')" class="solution-toggle-btn text-xs text-indigo-600 hover:text-indigo-800 font-bold">
+                            <i class="fas fa-chevron-circle-right mr-1"></i> Xem giải thích
+                        </button>
+                        <div id="sol-20" class="solution-content">
+                            <div class="mt-2 p-3 bg-slate-50 rounded-lg text-xs space-y-1 text-slate-700">
+                                <p>• Thời gian hình thành mất <strong>hàng trăm triệu năm</strong>, trong khi tốc độ con người khai thác và đốt cháy diễn ra cực nhanh.</p>
+                                <p>• Không thể tự bù đắp kịp thời trong vòng đời nhân loại $\implies$ sẽ cạn kiệt trong tương lai gần.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- PHẦN 3: MỨC ĐỘ VẬN DỤNG (10 BÀI) -->
+        <!-- ========================================== -->
+        <section id="phan-3" class="scroll-mt-20">
+            <div class="flex items-center gap-3 mb-6">
+                <span class="flex items-center justify-center w-10 h-10 rounded-2xl bg-amber-500 text-white font-bold text-lg shadow-md shadow-amber-500/20">
+                    <i class="fas fa-rocket"></i>
+                </span>
+                <div>
+                    <h2 class="text-xl sm:text-2xl font-extrabold text-slate-800">PHẦN 3: MỨC ĐỘ VẬN DỤNG</h2>
+                    <p class="text-xs sm:text-sm text-slate-500 font-medium">Tính toán tiền điện gia đình, Năng lượng mặt trời, Máng trượt Parabol & Kế hoạch tiết kiệm (10 Bài)</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 gap-6">
+
+                <!-- Bài 22: Tính toán tiền điện sinh hoạt tháng -->
+                <div class="bg-white border border-slate-200/90 rounded-2xl p-5 sm:p-6 shadow-sm hover:shadow-md transition">
+                    <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+                        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-50 text-amber-700 text-xs font-bold border border-amber-200">
+                            <i class="fas fa-tag"></i> Bài 22: Bài toán tính chi phí tiền điện sinh hoạt gia đình trong tháng
+                        </span>
+                        <span class="text-xs text-slate-400 font-mono">ID: KHTN6-B18-V22</span>
+                    </div>
+                    <h3 class="text-base font-bold text-slate-800 mb-3 leading-snug">
+                        Gia đình Nam sử dụng: 4 bóng LED ($25\text{ W}$, $6\text{ h/ngày}$); 1 quạt máy ($80\text{ W}$, $10\text{ h/ngày}$); 1 tivi ($120\text{ W}$, $4\text{ h/ngày}$).
+                        1. Tính tổng điện năng tiêu thụ trong 30 ngày (kWh).
+                        2. Tính tiền điện phải trả biết giá bán điện là $2000\text{ đồng/kWh}$.
+                    </h3>
+
+                    <button onclick="toggleSolution('sol-22')" class="solution-toggle-btn w-full py-2 px-4 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold flex items-center justify-between transition mt-2">
+                        <span><i class="fas fa-lightbulb text-amber-500 mr-1.5"></i> Gợi ý & Lời giải chi tiết</span>
+                        <i id="icon-sol-22" class="fas fa-chevron-down transition-transform"></i>
+                    </button>
+                    <div id="sol-22" class="solution-content">
+                        <div class="mt-3 p-4 bg-amber-50/70 border border-amber-200 rounded-xl text-sm text-slate-700 space-y-2">
+                            <p class="font-bold text-amber-900"><i class="fas fa-check-circle mr-1"></i> Lời giải chi tiết:</p>
+                            <ol class="list-decimal pl-5 space-y-1.5 text-xs sm:text-sm">
+                                <li><strong>Điện năng tiêu thụ trong 1 ngày:</strong>
+                                    <br>• 4 bóng LED: $A_{đèn} = 4 \cdot 0.025\text{ kW} \cdot 6\text{ h} = 0.6\text{ kWh}$.
+                                    <br>• 1 quạt máy: $A_{quạt} = 1 \cdot 0.08\text{ kW} \cdot 10\text{ h} = 0.8\text{ kWh}$.
+                                    <br>• 1 tivi: $A_{tivi} = 1 \cdot 0.12\text{ kW} \cdot 4\text{ h} = 0.48\text{ kWh}$.
+                                    <br>• Tổng 1 ngày: $A_{1} = 0.6 + 0.8 + 0.48 = 1.88\text{ kWh}$.
+                                    <br>• Tổng trong 30 ngày: $$A_{30} = 1.88 \cdot 30 = 56.4\text{ kWh}$$
+                                </li>
+                                <li><strong>Tiền điện phải trả:</strong>
+                                    $$T = 56.4\text{ kWh} \cdot 2000\text{ đ/kWh} = 112.800\text{ đồng}$$
+                                </li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bài 25: Máng trượt Parabol (JSXGraph Mô phỏng Hao phí Ma sát) -->
+                <div class="bg-white border border-slate-200/90 rounded-2xl p-5 sm:p-6 shadow-sm hover:shadow-md transition">
+                    <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+                        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-50 text-amber-700 text-xs font-bold border border-amber-200">
+                            <i class="fas fa-tag"></i> Bài 25: Bài toán tính năng lượng hao phí do ma sát trượt máng parabol
+                        </span>
+                        <span class="text-xs text-slate-400 font-mono">ID: KHTN6-B18-V25</span>
+                    </div>
+                    <h3 class="text-base font-bold text-slate-800 mb-3 leading-snug">
+                        Viên bi sắt $m = 0.2\text{ kg}$ thả rơi từ độ cao $h_1 = 1.5\text{ m}$ trên máng cong parabol, trượt sang bên kia đạt độ cao $h_2 = 1.2\text{ m}$. Tính thế năng tại hai vị trí cực đại ($E_t = 10 \cdot m \cdot h$) và năng lượng hao phí thành nhiệt năng do ma sát.
+                    </h3>
+
+                    <!-- JSXGraph Minh Họa Bài 25: Máng trượt Parabol -->
+                    <div class="my-4 bg-slate-50 p-4 rounded-xl border border-slate-200">
+                        <div class="text-xs font-semibold text-slate-600 mb-2 flex items-center justify-between">
+                            <span><i class="fas fa-chart-area text-indigo-500 mr-1"></i> Mô phỏng: Bi trượt máng parabol $y = 0.5 x^2$ & Giảm dần biên độ do ma sát</span>
+                            <span class="text-[10px] text-slate-400">JSXGraph Engine</span>
+                        </div>
+                        <div id="jsx_b25" class="jxgbox w-full h-64"></div>
+                    </div>
+
+                    <button onclick="toggleSolution('sol-25')" class="solution-toggle-btn w-full py-2 px-4 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold flex items-center justify-between transition mt-2">
+                        <span><i class="fas fa-lightbulb text-amber-500 mr-1.5"></i> Gợi ý & Lời giải chi tiết</span>
+                        <i id="icon-sol-25" class="fas fa-chevron-down transition-transform"></i>
+                    </button>
+                    <div id="sol-25" class="solution-content">
+                        <div class="mt-3 p-4 bg-amber-50/70 border border-amber-200 rounded-xl text-sm text-slate-700 space-y-2">
+                            <p class="font-bold text-amber-900"><i class="fas fa-check-circle mr-1"></i> Lời giải chi tiết:</p>
+                            <ol class="list-decimal pl-5 space-y-1.5 text-xs sm:text-sm">
+                                <li><strong>Thế năng ban đầu ($h_1 = 1.5\text{ m}$):</strong>
+                                    $$E_{t1} = 10 \cdot m \cdot h_1 = 10 \cdot 0.2 \cdot 1.5 = 3.0\text{ J}$$
+                                </li>
+                                <li><strong>Thế năng lúc sau ($h_2 = 1.2\text{ m}$):</strong>
+                                    $$E_{t2} = 10 \cdot m \cdot h_2 = 10 \cdot 0.2 \cdot 1.2 = 2.4\text{ J}$$
+                                </li>
+                                <li><strong>Cơ năng hao phí chuyển thành nhiệt năng do ma sát:</strong>
+                                    $$\Delta E = E_{t1} - E_{t2} = 3.0\text{ J} - 2.4\text{ J} = 0.6\text{ J}$$
+                                </li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bài 23 & Bài 24 -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <!-- Bài 23: 5 giải pháp tiết kiệm điện -->
+                    <div class="bg-white border border-slate-200/90 rounded-2xl p-4 sm:p-5 shadow-sm">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="px-2.5 py-0.5 rounded-full bg-amber-50 text-amber-700 text-xs font-bold border border-amber-200">Bài 23: 5 Giải pháp tiết kiệm điện gia đình</span>
+                            <span class="text-xs text-slate-400 font-mono">KHTN6-B18-V23</span>
+                        </div>
+                        <p class="text-xs sm:text-sm font-semibold text-slate-800 mb-2">Đề xuất 5 giải pháp cụ thể cắt giảm điện năng lãng phí trong gia đình kèm cơ sở vật lý.</p>
+                        <button onclick="toggleSolution('sol-23')" class="solution-toggle-btn text-xs text-indigo-600 hover:text-indigo-800 font-bold">
+                            <i class="fas fa-chevron-circle-right mr-1"></i> Xem 5 giải pháp
+                        </button>
+                        <div id="sol-23" class="solution-content">
+                            <div class="mt-2 p-3 bg-slate-50 rounded-lg text-xs space-y-1.5 text-slate-700">
+                                <p>1. <strong>Tắt và rút phích cắm khi không dùng:</strong> Triệt tiêu dòng tiêu thụ chờ (standby).</p>
+                                <p>2. <strong>Cài điều hòa $26 - 28^\circ\text{C}$ + quạt nhẹ:</strong> Giảm chênh lệch nhiệt, giảm tải máy nén.</p>
+                                <p>3. <strong>Mở cửa lấy gió và ánh sáng tự nhiên ban ngày:</strong> Thay thế quang năng nhân tạo.</p>
+                                <p>4. <strong>Hạn chế mở tủ lạnh lâu:</strong> Tránh thất thoát không khí lạnh nặng chìm dưới.</p>
+                                <p>5. <strong>Vệ sinh màng lọc và cánh quạt định kỳ:</strong> Giảm lực cản ma sát không khí.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Bài 24: Bơm tưới Mặt Trời -->
+                    <div class="bg-white border border-slate-200/90 rounded-2xl p-4 sm:p-5 shadow-sm">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="px-2.5 py-0.5 rounded-full bg-amber-50 text-amber-700 text-xs font-bold border border-amber-200">Bài 24: Bơm tưới Năng lượng Mặt Trời</span>
+                            <span class="text-xs text-slate-400 font-mono">KHTN6-B18-V24</span>
+                        </div>
+                        <p class="text-xs sm:text-sm font-semibold text-slate-800 mb-2">Sơ đồ chuyển hóa năng lượng của hệ thống bơm tưới tự động dùng pin Mặt Trời và ưu điểm.</p>
+                        <button onclick="toggleSolution('sol-24')" class="solution-toggle-btn text-xs text-indigo-600 hover:text-indigo-800 font-bold">
+                            <i class="fas fa-chevron-circle-right mr-1"></i> Xem phân tích
+                        </button>
+                        <div id="sol-24" class="solution-content">
+                            <div class="mt-2 p-3 bg-slate-50 rounded-lg text-xs space-y-1.5 text-slate-700">
+                                <p>• <strong>Sơ đồ:</strong> Quang năng Mặt Trời $\rightarrow$ Điện năng $\rightarrow$ Hóa năng trong acquy $\rightarrow$ Động năng máy bơm $\rightarrow$ Động năng & Thế năng dòng nước.</p>
+                                <p>• <strong>Ưu điểm:</strong> Năng lượng tái tạo miễn phí, không tốn xăng, không phát thải khí nhà kính $CO_2$.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bài 28 & Bài 30 -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <!-- Bài 28: Kiến trúc xanh -->
+                    <div class="bg-white border border-slate-200/90 rounded-2xl p-4 sm:p-5 shadow-sm">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="px-2.5 py-0.5 rounded-full bg-amber-50 text-amber-700 text-xs font-bold border border-amber-200">Bài 28: Kiến trúc xanh giảm tải điều hòa</span>
+                            <span class="text-xs text-slate-400 font-mono">KHTN6-B18-V28</span>
+                        </div>
+                        <p class="text-xs sm:text-sm font-semibold text-slate-800 mb-2">Vì sao nên sơn tường ngoài màu sáng và trồng nhiều cây xanh bóng mát xung quanh nhà?</p>
+                        <button onclick="toggleSolution('sol-28')" class="solution-toggle-btn text-xs text-indigo-600 hover:text-indigo-800 font-bold">
+                            <i class="fas fa-chevron-circle-right mr-1"></i> Xem giải thích
+                        </button>
+                        <div id="sol-28" class="solution-content">
+                            <div class="mt-2 p-3 bg-slate-50 rounded-lg text-xs space-y-1 text-slate-700">
+                                <p>• <strong>Sơn màu sáng:</strong> Phản xạ hầu hết bức xạ nhiệt Mặt Trời, giảm hấp thụ nhiệt qua tường.</p>
+                                <p>• <strong>Cây xanh:</strong> Che chắn bóng mát và thoát hơi nước hấp thụ nhiệt làm mát không khí xung quanh $2 - 3^\circ\text{C}$.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Bài 30: Kế hoạch một ngày không lãng phí điện -->
+                    <div class="bg-white border border-slate-200/90 rounded-2xl p-4 sm:p-5 shadow-sm">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="px-2.5 py-0.5 rounded-full bg-amber-50 text-amber-700 text-xs font-bold border border-amber-200">Bài 30: Kế hoạch 1 ngày không lãng phí điện</span>
+                            <span class="text-xs text-slate-400 font-mono">KHTN6-B18-V30</span>
+                        </div>
+                        <p class="text-xs sm:text-sm font-semibold text-slate-800 mb-2">Ước tính lượng điện năng (kWh) gia đình có thể cắt giảm được trong 1 ngày.</p>
+                        <button onclick="toggleSolution('sol-30')" class="solution-toggle-btn text-xs text-indigo-600 hover:text-indigo-800 font-bold">
+                            <i class="fas fa-chevron-circle-right mr-1"></i> Xem bảng ước tính
+                        </button>
+                        <div id="sol-30" class="solution-content">
+                            <div class="mt-2 p-3 bg-slate-50 rounded-lg text-xs space-y-1 text-slate-700">
+                                <p>• Tắt sớm điều hòa 2h: tiết kiệm $\approx 2.0\text{ kWh}$.</p>
+                                <p>• Tận dụng ánh sáng ban ngày tắt bóng thừa: $\approx 0.4\text{ kWh}$.</p>
+                                <p>• Rút phích cắm standby TV, quạt: $\approx 0.2\text{ kWh}$.</p>
+                                <p>• <strong>Tổng cắt giảm:</strong> $\approx 2.6\text{ kWh/ngày}$ ($\approx 150.000\text{ đồng/tháng}$).</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- BÀI TẬP ĐÁNH GIÁ NĂNG LỰC TẠI LỚP (TRẮC NGHIỆM) -->
+        <!-- ========================================== -->
+        <section id="quiz-online" class="scroll-mt-20">
+            <div class="bg-white border-2 border-indigo-500/30 rounded-3xl p-6 sm:p-8 shadow-xl relative overflow-hidden">
+                <div class="flex items-center gap-3 mb-4">
+                    <span class="flex items-center justify-center w-12 h-12 rounded-2xl bg-indigo-600 text-white font-bold text-xl shadow-lg shadow-indigo-600/30">
+                        <i class="fas fa-clipboard-check"></i>
+                    </span>
+                    <div>
+                        <h2 class="text-xl sm:text-2xl font-extrabold text-slate-900">BÀI TẬP ĐÁNH GIÁ NĂNG LỰC TẠI LỚP</h2>
+                        <p class="text-xs sm:text-sm text-slate-500 font-medium">Kiểm tra nhanh 5 câu trắc nghiệm • Tự động chấm & Gửi kết quả về máy chủ</p>
+                    </div>
+                </div>
+
+                <!-- Form Học Sinh -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6 p-4 bg-slate-50 rounded-2xl border border-slate-200">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
+                            <i class="fas fa-user-graduate text-indigo-500 mr-1"></i> Họ và Tên Học Sinh:
+                        </label>
+                        <input type="text" id="student-name" placeholder="Nhập đầy đủ Họ và Tên..." 
+                               class="w-full px-3.5 py-2 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm bg-white">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
+                            <i class="fas fa-school text-indigo-500 mr-1"></i> Lớp / Mã Đề:
+                        </label>
+                        <input type="text" id="exam-id" value="khtn6-18" readonly 
+                               class="w-full px-3.5 py-2 rounded-xl border border-slate-200 bg-slate-100 text-slate-600 font-mono text-sm">
+                    </div>
+                </div>
+
+                <!-- 5 CÂU TRẮC NGHIỆM -->
+                <div id="quiz-container" class="space-y-6">
+                    
+                    <!-- Câu 1 -->
+                    <div class="quiz-item p-4 sm:p-5 rounded-2xl border border-slate-200 bg-white" data-q="1" data-correct="B">
+                        <p class="text-sm font-bold text-slate-800 mb-3">
+                            <span class="px-2 py-0.5 rounded-md bg-indigo-100 text-indigo-800 text-xs mr-1">Câu 1</span>
+                            Đơn vị đo tiêu chuẩn của năng lượng trong hệ đo lường quốc tế (SI) là gì?
+                        </p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs sm:text-sm">
+                            <label class="flex items-center p-3 rounded-xl border border-slate-200 hover:bg-indigo-50/50 cursor-pointer transition">
+                                <input type="radio" name="q1" value="A" class="mr-2.5 text-indigo-600"> A. Oát (W)
+                            </label>
+                            <label class="flex items-center p-3 rounded-xl border border-slate-200 hover:bg-indigo-50/50 cursor-pointer transition">
+                                <input type="radio" name="q1" value="B" class="mr-2.5 text-indigo-600"> B. Jun (J)
+                            </label>
+                            <label class="flex items-center p-3 rounded-xl border border-slate-200 hover:bg-indigo-50/50 cursor-pointer transition">
+                                <input type="radio" name="q1" value="C" class="mr-2.5 text-indigo-600"> C. Newton (N)
+                            </label>
+                            <label class="flex items-center p-3 rounded-xl border border-slate-200 hover:bg-indigo-50/50 cursor-pointer transition">
+                                <input type="radio" name="q1" value="D" class="mr-2.5 text-indigo-600"> D. Mét trên giây (m/s)
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Câu 2 -->
+                    <div class="quiz-item p-4 sm:p-5 rounded-2xl border border-slate-200 bg-white" data-q="2" data-correct="C">
+                        <p class="text-sm font-bold text-slate-800 mb-3">
+                            <span class="px-2 py-0.5 rounded-md bg-indigo-100 text-indigo-800 text-xs mr-1">Câu 2</span>
+                            Dạng năng lượng mà một vật có được do nó đang <strong>chuyển động</strong> được gọi là:
+                        </p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs sm:text-sm">
+                            <label class="flex items-center p-3 rounded-xl border border-slate-200 hover:bg-indigo-50/50 cursor-pointer transition">
+                                <input type="radio" name="q2" value="A" class="mr-2.5 text-indigo-600"> A. Thế năng hấp dẫn
+                            </label>
+                            <label class="flex items-center p-3 rounded-xl border border-slate-200 hover:bg-indigo-50/50 cursor-pointer transition">
+                                <input type="radio" name="q2" value="B" class="mr-2.5 text-indigo-600"> B. Thế năng đàn hồi
+                            </label>
+                            <label class="flex items-center p-3 rounded-xl border border-slate-200 hover:bg-indigo-50/50 cursor-pointer transition">
+                                <input type="radio" name="q2" value="C" class="mr-2.5 text-indigo-600"> C. Động năng
+                            </label>
+                            <label class="flex items-center p-3 rounded-xl border border-slate-200 hover:bg-indigo-50/50 cursor-pointer transition">
+                                <input type="radio" name="q2" value="D" class="mr-2.5 text-indigo-600"> D. Hóa năng
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Câu 3 -->
+                    <div class="quiz-item p-4 sm:p-5 rounded-2xl border border-slate-200 bg-white" data-q="3" data-correct="A">
+                        <p class="text-sm font-bold text-slate-800 mb-3">
+                            <span class="px-2 py-0.5 rounded-md bg-indigo-100 text-indigo-800 text-xs mr-1">Câu 3</span>
+                            Dưới góc độ hiệu suất năng lượng, thiết bị chiếu sáng nào chuyển hóa điện năng thành quang năng với hiệu suất cao nhất hiện nay?
+                        </p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs sm:text-sm">
+                            <label class="flex items-center p-3 rounded-xl border border-slate-200 hover:bg-indigo-50/50 cursor-pointer transition">
+                                <input type="radio" name="q3" value="A" class="mr-2.5 text-indigo-600"> A. Bóng đèn LED
+                            </label>
+                            <label class="flex items-center p-3 rounded-xl border border-slate-200 hover:bg-indigo-50/50 cursor-pointer transition">
+                                <input type="radio" name="q3" value="B" class="mr-2.5 text-indigo-600"> B. Bóng đèn sợi đốt (dây tóc)
+                            </label>
+                            <label class="flex items-center p-3 rounded-xl border border-slate-200 hover:bg-indigo-50/50 cursor-pointer transition">
+                                <input type="radio" name="q3" value="C" class="mr-2.5 text-indigo-600"> C. Đèn dầu
+                            </label>
+                            <label class="flex items-center p-3 rounded-xl border border-slate-200 hover:bg-indigo-50/50 cursor-pointer transition">
+                                <input type="radio" name="q3" value="D" class="mr-2.5 text-indigo-600"> D. Ngọn nến
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Câu 4 -->
+                    <div class="quiz-item p-4 sm:p-5 rounded-2xl border border-slate-200 bg-white" data-q="4" data-correct="D">
+                        <p class="text-sm font-bold text-slate-800 mb-3">
+                            <span class="px-2 py-0.5 rounded-md bg-indigo-100 text-indigo-800 text-xs mr-1">Câu 4</span>
+                            Một chiếc tivi công suất $\mathcal{P} = 100\text{ W} = 0.1\text{ kW}$ hoạt động $5\text{ h}$ mỗi ngày. Trong 30 ngày, tivi tiêu thụ bao nhiêu số điện (kWh)?
+                        </p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs sm:text-sm">
+                            <label class="flex items-center p-3 rounded-xl border border-slate-200 hover:bg-indigo-50/50 cursor-pointer transition">
+                                <input type="radio" name="q4" value="A" class="mr-2.5 text-indigo-600"> A. 5 kWh
+                            </label>
+                            <label class="flex items-center p-3 rounded-xl border border-slate-200 hover:bg-indigo-50/50 cursor-pointer transition">
+                                <input type="radio" name="q4" value="B" class="mr-2.5 text-indigo-600"> B. 50 kWh
+                            </label>
+                            <label class="flex items-center p-3 rounded-xl border border-slate-200 hover:bg-indigo-50/50 cursor-pointer transition">
+                                <input type="radio" name="q4" value="C" class="mr-2.5 text-indigo-600"> C. 30 kWh
+                            </label>
+                            <label class="flex items-center p-3 rounded-xl border border-slate-200 hover:bg-indigo-50/50 cursor-pointer transition">
+                                <input type="radio" name="q4" value="D" class="mr-2.5 text-indigo-600"> D. 15 kWh
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Câu 5 -->
+                    <div class="quiz-item p-4 sm:p-5 rounded-2xl border border-slate-200 bg-white" data-q="5" data-correct="B">
+                        <p class="text-sm font-bold text-slate-800 mb-3">
+                            <span class="px-2 py-0.5 rounded-md bg-indigo-100 text-indigo-800 text-xs mr-1">Câu 5</span>
+                            Nhóm nguồn năng lượng nào sau đây hoàn toàn là <strong>nguồn năng lượng tái tạo</strong>?
+                        </p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs sm:text-sm">
+                            <label class="flex items-center p-3 rounded-xl border border-slate-200 hover:bg-indigo-50/50 cursor-pointer transition">
+                                <input type="radio" name="q5" value="A" class="mr-2.5 text-indigo-600"> A. Than đá, Dầu mỏ, Gió
+                            </label>
+                            <label class="flex items-center p-3 rounded-xl border border-slate-200 hover:bg-indigo-50/50 cursor-pointer transition">
+                                <input type="radio" name="q5" value="B" class="mr-2.5 text-indigo-600"> B. Năng lượng Gió, Năng lượng Mặt Trời, Thủy triều
+                            </label>
+                            <label class="flex items-center p-3 rounded-xl border border-slate-200 hover:bg-indigo-50/50 cursor-pointer transition">
+                                <input type="radio" name="q5" value="C" class="mr-2.5 text-indigo-600"> C. Dầu mỏ, Khí thiên nhiên, Mặt Trời
+                            </label>
+                            <label class="flex items-center p-3 rounded-xl border border-slate-200 hover:bg-indigo-50/50 cursor-pointer transition">
+                                <input type="radio" name="q5" value="D" class="mr-2.5 text-indigo-600"> D. Than đá, Khí đốt, Uranium
+                            </label>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Nút Nộp Bài & Bảng Kết Quả -->
+                <div class="mt-8 pt-6 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-4">
+                    <button id="btn-submit-quiz" onclick="submitQuiz()" 
+                            class="w-full sm:w-auto px-8 py-3 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-sm shadow-lg shadow-indigo-600/30 transition flex items-center justify-center gap-2 cursor-pointer">
+                        <i class="fas fa-paper-plane"></i> Nộp Bài & Chấm Điểm
+                    </button>
+                    <div id="quiz-status" class="text-xs sm:text-sm font-semibold text-slate-600 text-center sm:text-right">
+                        Chưa nộp bài
+                    </div>
+                </div>
+
+                <!-- Kết Quả Chấm Chi Tiết -->
+                <div id="result-box" class="hidden mt-6 p-5 rounded-2xl bg-slate-50 border border-slate-200">
+                    <div class="flex items-center justify-between mb-3">
+                        <h4 class="font-extrabold text-slate-800 text-base" id="score-text">Kết quả: 0/10 điểm</h4>
+                        <span id="badge-result" class="px-3 py-1 rounded-full text-xs font-bold bg-indigo-100 text-indigo-800">Hoàn thành</span>
+                    </div>
+                    <p id="detail-feedback" class="text-xs sm:text-sm text-slate-600 leading-relaxed"></p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER BẢN QUYỀN -->
+    <footer class="bg-white border-t border-slate-200 py-8 mt-12 text-center text-xs text-slate-500">
+        <div class="max-w-7xl mx-auto px-4 space-y-2">
+            <p class="font-bold text-slate-700">@ Bản quyền thuộc ThS. Đinh Quốc Tuấn - Mục đích phi lợi nhuận - Vì giáo dục.</p>
+            <p>Hệ thống học liệu Khoa Học Tự Nhiên & Toán học chuẩn mực sư phạm • Ứng dụng công nghệ JSXGraph & Web tương tác</p>
+        </div>
+    </footer>
+
+    <!-- NÚT IN TÀI LIỆU (THEO ĐÚNG MÃ NGUỒN YÊU CẦU) -->
+    <button id="btn-print-doc" onclick="safePrint()" class="fixed bottom-5 right-5 bg-gray-900 text-white px-4 py-2 rounded-lg shadow-lg hover:bg-gray-700 print:hidden z-50">
+        <i class="fas fa-print mr-2"></i> In Tài Liệu
+    </button>
+
+    <!-- SCRIPT IN TÀI LIỆU AN TOÀN -->
+    <script>
+        function safePrint() {
+            const printBtn = document.getElementById('btn-print-doc');
+            printBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Đang chuẩn bị...';
+            
+            // Đảm bảo MathJax đã render xong mọi công thức trước khi gọi hộp thoại in
+            if (window.MathJax && window.MathJax.typesetPromise) {
+                MathJax.typesetPromise().then(() => {
+                    printBtn.innerHTML = '<i class="fas fa-print mr-2"></i> In Tài Liệu';
+                    window.print();
+                });
+            } else {
+                // Fallback nếu không có công thức toán
+                setTimeout(() => window.print(), 500); 
+            }
+        }
+
+        // Toggle Lời Giải Accordion
+        function toggleSolution(id) {
+            const content = document.getElementById(id);
+            const icon = document.getElementById('icon-' + id);
+            if (content.classList.contains('show')) {
+                content.classList.remove('show');
+                if (icon) icon.style.transform = 'rotate(0deg)';
+            } else {
+                content.classList.add('show');
+                if (icon) icon.style.transform = 'rotate(180deg)';
+            }
+        }
+
+        function toggleAllSolutions(show) {
+            const allSolutions = document.querySelectorAll('.solution-content');
+            allSolutions.forEach(sol => {
+                if (show) {
+                    sol.classList.add('show');
+                } else {
+                    sol.classList.remove('show');
+                }
+            });
+        }
+    </script>
+
+    <!-- ========================================== -->
+    <!-- JAVASCRIPT: JSXGRAPH BOARDS INITIALIZATION -->
+    <!-- ========================================== -->
+    <script>
+        let boardPendulum, pendulumBob, pendulumRod, pendulumAnimId, pendulumAngle = 0.8, pendulumOmega = 0;
+
+        window.addEventListener('DOMContentLoaded', () => {
+            
+            // 1. Board Bài 3: Thế năng hấp dẫn theo độ cao
+            try {
+                const b3 = JXG.JSXGraph.initBoard('jsx_b3', {
+                    boundingbox: [-1, 6, 8, -1],
+                    keepaspectratio: false,
+                    showNavigation: false,
+                    showCopyright: false,
+                    axis: false
+                });
+                // Mặt đất mốc
+                b3.create('line', [[-1, 0], [8, 0]], {strokeColor: '#475569', strokeWidth: 3, fixed: true});
+                b3.create('text', [0.2, -0.4, 'MẶT ĐẤT (Mốc h = 0 m)'], {fontSize: 10, strokeColor: '#475569', fixed: true});
+
+                // Cột đo độ cao
+                b3.create('segment', [[2, 0], [2, 5]], {strokeColor: '#94a3b8', strokeWidth: 2, dash: 2, fixed: true});
+                
+                // Điểm điều chỉnh độ cao quả táo (Glider)
+                const gApple = b3.create('glider', [2, 3, b3.create('line', [[2, 0], [2, 5]], {visible: false})], {
+                    name: 'Kéo quả táo', color: '#dc2626', size: 6
+                });
+
+                // Biểu diễn thế năng bên cạnh (cột hình chữ nhật)
+                b3.create('polygon', [
+                    [5, 0],
+                    [6.2, 0],
+                    [6.2, () => gApple.Y()],
+                    [5, () => gApple.Y()]
+                ], {fillColor: '#f87171', strokeColor: '#dc2626', fillOpacity: 0.8});
+
+                b3.create('text', [4.8, () => Math.max(0.4, gApple.Y() + 0.4), () => {
+                    let h = gApple.Y().toFixed(1);
+                    let Et = (10 * 0.2 * gApple.Y()).toFixed(1);
+                    return `h = ${h} m<br>E_t = ${Et} J`;
+                }], {fontSize: 11, strokeColor: '#b91c1c', fontStyle: 'bold'});
+            } catch(e) { console.log(e); }
+
+            // 2. Board Bài 6: Sơ đồ dòng năng lượng Sankey (Bóng đèn LED)
+            try {
+                const b6 = JXG.JSXGraph.initBoard('jsx_b6', {
+                    boundingbox: [-1, 4, 10, -1],
+                    keepaspectratio: false,
+                    showNavigation: false,
+                    showCopyright: false,
+                    axis: false
+                });
+                // Khối nguồn điện năng
+                b6.create('polygon', [[0.5, 1.2], [2.8, 1.2], [2.8, 2.8], [0.5, 2.8]], {
+                    fillColor: '#38bdf8', strokeColor: '#0284c7', fillOpacity: 0.8
+                });
+                b6.create('text', [0.7, 2, 'ĐIỆN NĂNG<br>NẠP VÀO (100%)'], {fontSize: 10, strokeColor: '#0c4a6e', fontStyle: 'bold'});
+
+                // Nhánh Quang năng hữu ích (85%)
+                b6.create('arrow', [[2.8, 2.3], [7.5, 2.3]], {strokeColor: '#eab308', strokeWidth: 6});
+                b6.create('polygon', [[7.5, 1.8], [9.5, 1.8], [9.5, 2.8], [7.5, 2.8]], {
+                    fillColor: '#fef08a', strokeColor: '#ca8a04', fillOpacity: 0.9
+                });
+                b6.create('text', [7.6, 2.3, 'QUANG NĂNG<br>HỮU ÍCH (85%)'], {fontSize: 9, strokeColor: '#854d0e', fontStyle: 'bold'});
+
+                // Nhánh Nhiệt năng hao phí (15%)
+                b6.create('arrow', [[2.8, 1.5], [6.5, 0.4]], {strokeColor: '#f87171', strokeWidth: 3, dash: 2});
+                b6.create('polygon', [[6.5, 0], [9.2, 0], [9.2, 0.8], [6.5, 0.8]], {
+                    fillColor: '#fee2e2', strokeColor: '#ef4444', fillOpacity: 0.9
+                });
+                b6.create('text', [6.6, 0.4, 'NHIỆT NĂNG HAO PHÍ (15%)'], {fontSize: 8, strokeColor: '#991b1b', fontStyle: 'bold'});
+            } catch(e) { console.log(e); }
+
+            // 3. Board Bài 15: Con lắc đơn dao động & Động năng vs Thế năng
+            try {
+                boardPendulum = JXG.JSXGraph.initBoard('jsx_b15', {
+                    boundingbox: [-4, 3.5, 4, -3.5],
+                    keepaspectratio: true,
+                    showNavigation: false,
+                    showCopyright: false,
+                    axis: false
+                });
+                const origin = boardPendulum.create('point', [0, 2.5], {name: 'O', size: 3, color: '#334155', fixed: true});
+                pendulumBob = boardPendulum.create('point', [0, -0.5], {name: '', size: 6, color: '#2563eb'});
+                pendulumRod = boardPendulum.create('segment', [origin, pendulumBob], {strokeColor: '#64748b', strokeWidth: 2.5});
+
+                // Vị trí cân bằng mốc nét đứt
+                boardPendulum.create('segment', [[0, 2.5], [0, -0.5]], {strokeColor: '#cbd5e1', strokeWidth: 1.5, dash: 2, fixed: true});
+                
+                // Nhãn hiển thị năng lượng
+                boardPendulum.create('text', [-3.5, -2.8, () => {
+                    let hRel = (Math.cos(0) - Math.cos(pendulumAngle)) * 3;
+                    let Et = Math.max(0, (hRel * 10).toFixed(1));
+                    let Ed = Math.max(0, (30 - Et).toFixed(1));
+                    return `Thế năng E_t: ${Et} J | Động năng E_d: ${Ed} J`;
+                }], {fontSize: 11, strokeColor: '#0f172a', fontStyle: 'bold'});
+            } catch(e) { console.log(e); }
+
+            // 4. Board Bài 19: Đồ thị điện năng A = P * t
+            try {
+                const b19 = JXG.JSXGraph.initBoard('jsx_b19', {
+                    boundingbox: [-1, 14, 12, -2],
+                    axis: true,
+                    showNavigation: false,
+                    showCopyright: false
+                });
+                b19.create('text', [9.5, -1, 'Thời gian t (giờ)'], {fontSize: 10, strokeColor: '#475569'});
+                b19.create('text', [0.4, 13, 'Điện năng A (kWh)'], {fontSize: 10, strokeColor: '#475569'});
+
+                // Đường A = 1 * t
+                b19.create('functiongraph', [function(t) { return 1 * t; }, 0, 10], {
+                    strokeColor: '#2563eb', strokeWidth: 3
+                });
+                b19.create('point', [8, 8], {name: '(8h, 8 kWh)', color: '#dc2626', size: 4, fixed: true});
+            } catch(e) { console.log(e); }
+
+            // 5. Board Bài 25: Máng trượt Parabol & Giảm dần biên độ
+            try {
+                const b25 = JXG.JSXGraph.initBoard('jsx_b25', {
+                    boundingbox: [-3, 4, 3, -1],
+                    axis: true,
+                    showNavigation: false,
+                    showCopyright: false
+                });
+                b25.create('text', [2.2, -0.4, 'x (m)'], {fontSize: 10, strokeColor: '#475569'});
+                b25.create('text', [0.2, 3.6, 'Độ cao y (m)'], {fontSize: 10, strokeColor: '#475569'});
+
+                // Đường cong máng trượt y = 0.5 * x^2
+                b25.create('functiongraph', [function(x) { return 0.5 * x * x; }, -2.5, 2.5], {
+                    strokeColor: '#059669', strokeWidth: 3.5
+                });
+                // Điểm h1 = 1.5m (x = -sqrt(3) ~ -1.73)
+                b25.create('point', [-1.73, 1.5], {name: 'Thả ban đầu: h1 = 1.5 m (3.0 J)', color: '#dc2626', size: 5, fixed: true});
+                // Điểm h2 = 1.2m (x = sqrt(2.4) ~ 1.55)
+                b25.create('point', [1.55, 1.2], {name: 'Đỉnh bên kia: h2 = 1.2 m (2.4 J)', color: '#2563eb', size: 5, fixed: true});
+            } catch(e) { console.log(e); }
+
+        });
+
+        // Animation Con lắc đơn Bài 15
+        function startPendulum() {
+            if (pendulumAnimId) cancelAnimationFrame(pendulumAnimId);
+            pendulumAngle = 0.8;
+            pendulumOmega = 0;
+
+            function step() {
+                // Phương trình vi phân con lắc d^2(theta)/dt^2 = - (g/L)*sin(theta) - ma sát
+                let alpha = - (9.8 / 3.0) * Math.sin(pendulumAngle) - 0.08 * pendulumOmega;
+                pendulumOmega += alpha * 0.04;
+                pendulumAngle += pendulumOmega * 0.04;
+
+                let x = 3.0 * Math.sin(pendulumAngle);
+                let y = 2.5 - 3.0 * Math.cos(pendulumAngle);
+                pendulumBob.setPosition(JXG.COORDS_BY_USER, [x, y]);
+                boardPendulum.update();
+
+                if (Math.abs(pendulumAngle) > 0.01 || Math.abs(pendulumOmega) > 0.01) {
+                    pendulumAnimId = requestAnimationFrame(step);
+                }
+            }
+            pendulumAnimId = requestAnimationFrame(step);
+        }
+
+        function resetPendulum() {
+            if (pendulumAnimId) cancelAnimationFrame(pendulumAnimId);
+            pendulumAngle = 0;
+            pendulumOmega = 0;
+            pendulumBob.setPosition(JXG.COORDS_BY_USER, [0, -0.5]);
+            boardPendulum.update();
+        }
+
+        // ==========================================
+        // XỬ LÝ NỘP BÀI & GỬI GOOGLE APPS SCRIPT
+        // ==========================================
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzY7b7h4OwvhXuK5Vs6hl-aD88BPnAiAKbU5lfJobby0D4nzbIJVKT4n0AKCpAGoK0nZA/exec";
+        const startTime = new Date();
+
+        function submitQuiz() {
+            const nameInput = document.getElementById('student-name');
+            const hoTen = nameInput.value.trim();
+            if (!hoTen) {
+                alert('Vui lòng nhập đầy đủ Họ và Tên trước khi nộp bài!');
+                nameInput.focus();
+                return;
+            }
+
+            const quizItems = document.querySelectorAll('.quiz-item');
+            let correctCount = 0;
+            const totalQuestions = quizItems.length;
+            const wrongDetails = [];
+
+            quizItems.forEach(item => {
+                const qNum = item.getAttribute('data-q');
+                const correctAns = item.getAttribute('data-correct');
+                const selected = item.querySelector(`input[name="q${qNum}"]:checked`);
+                
+                // Reset styling
+                item.classList.remove('border-emerald-400', 'border-rose-400', 'bg-emerald-50/40', 'bg-rose-50/40');
+
+                if (selected && selected.value === correctAns) {
+                    correctCount++;
+                    item.classList.add('border-emerald-400', 'bg-emerald-50/40');
+                } else {
+                    const userVal = selected ? selected.value : 'Chưa chọn';
+                    wrongDetails.push(`Câu ${qNum} (Chọn: ${userVal} | Đúng: ${correctAns})`);
+                    item.classList.add('border-rose-400', 'bg-rose-50/40');
+                }
+            });
+
+            const diem = ((correctCount / totalQuestions) * 10).toFixed(1);
+            const endTime = new Date();
+            const thoiGianGiay = Math.round((endTime - startTime) / 1000);
+            const thoiGian = `${Math.floor(thoiGianGiay / 60)} phút ${thoiGianGiay % 60} giây`;
+            const cauSai = wrongDetails.length > 0 ? wrongDetails.join('; ') : 'Đúng tất cả 100%';
+
+            // Hiển thị giao diện kết quả
+            const resultBox = document.getElementById('result-box');
+            const scoreText = document.getElementById('score-text');
+            const detailFeedback = document.getElementById('detail-feedback');
+            const quizStatus = document.getElementById('quiz-status');
+            const submitBtn = document.getElementById('btn-submit-quiz');
+
+            resultBox.classList.remove('hidden');
+            scoreText.innerHTML = `Kết quả: <span class="text-indigo-600 font-black">${diem}/10 Điểm</span> (${correctCount}/${totalQuestions} câu đúng)`;
+            detailFeedback.innerHTML = `<strong>Học sinh:</strong> ${hoTen} &nbsp;|&nbsp; <strong>Thời gian:</strong> ${thoiGian}<br><strong>Chi tiết:</strong> ${cauSai}`;
+
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Đang gửi kết quả...';
+            quizStatus.innerHTML = '<span class="text-amber-600"><i class="fas fa-sync fa-spin mr-1"></i> Đang đồng bộ Google Sheets...</span>';
+
+            // Payload POST chuẩn cấu trúc
+            const payload = {
+                hoTen: hoTen,
+                maDe: document.getElementById('exam-id').value || "khtn6-18",
+                diem: parseFloat(diem),
+                thoiGian: thoiGian,
+                cauSai: cauSai
+            };
+
+            // Gửi dữ liệu tới Google Apps Script Web App
+            fetch(SCRIPT_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(payload)
+            })
+            .then(() => {
+                submitBtn.innerHTML = '<i class="fas fa-check-circle mr-1"></i> Đã Gửi Kết Quả';
+                submitBtn.classList.remove('bg-indigo-600', 'hover:bg-indigo-700');
+                submitBtn.classList.add('bg-emerald-600');
+                quizStatus.innerHTML = '<span class="text-emerald-600 font-bold"><i class="fas fa-cloud-check mr-1"></i> Điểm đã được lưu vào hệ thống thành công!</span>';
+            })
+            .catch(err => {
+                console.error(err);
+                submitBtn.innerHTML = '<i class="fas fa-exclamation-triangle mr-1"></i> Hoàn Thành Tại Lớp';
+                quizStatus.innerHTML = '<span class="text-emerald-600 font-bold"><i class="fas fa-check-circle mr-1"></i> Đã chấm xong (Chế độ offline/local)</span>';
+            });
+        }
+    </script>
+</body>
+</html>
