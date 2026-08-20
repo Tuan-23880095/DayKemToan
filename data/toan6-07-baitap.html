@@ -3,657 +3,1550 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chuyên Đề Toán 6 - Buổi 7: Ước chung & ƯCLN</title>
-    
-    <!-- Tailwind CSS -->
+    <title>Toán Học Lớp 6 • Buổi 7: Ước Chung & Ước Chung Lớn Nhất (ƯCLN)</title>
+
+    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
     
-    <!-- MathJax Config -->
+    <!-- FontAwesome 6 CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- JSXGraph CDN -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraph.css" />
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraphcore.js"></script>
+
+    <!-- MathJax 3 CDN -->
     <script>
         window.MathJax = {
             tex: {
-                inlineMath: [['$', '$'], ['\\(', '\\)']],
-                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+                inlineMath: [['\\(', '\\)'], ['$', '$']],
+                displayMath: [['\\[', '\\]'], ['$$', '$$']]
             },
-            startup: {
-                typeset: true
-            }
+            svg: { fontCache: 'global' }
         };
     </script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
         body {
-            font-family: 'Nunito', sans-serif;
-            background-color: #fafbfc;
-            color: #1e293b;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #f8fafc;
+            color: #0f172a;
         }
-        .title-font {
-            font-family: 'Quicksand', sans-serif;
-        }
-        .exercise-card {
-            background: #ffffff;
-            border: 1px solid #e2e8f0;
+        .jxgbox {
             border-radius: 1rem;
-            transition: all 0.3s ease;
+            border: 2px solid #e2e8f0;
+            background-color: #ffffff;
+            box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.04);
         }
-        .exercise-card:hover {
-            box-shadow: 0 4px 20px rgba(148, 163, 184, 0.12);
-            border-color: #cbd5e1;
+        details[open] summary .toggle-icon {
+            transform: rotate(180deg);
         }
-        .section-header {
-            font-family: 'Quicksand', sans-serif;
-            font-weight: 700;
+        @media print {
+            .print\:hidden, #btn-print-doc, nav, #submit-btn-container, .quiz-controls {
+                display: none !important;
+            }
+            body {
+                background: white !important;
+                color: black !important;
+            }
+            details {
+                display: block !important;
+            }
+            details summary {
+                display: none !important;
+            }
+            .solution-body {
+                display: block !important;
+                border-left: 3px solid #64748b !important;
+                padding-left: 1rem !important;
+            }
+            .page-break {
+                page-break-before: always;
+            }
         }
     </style>
 </head>
-<body class="min-h-screen flex flex-col justify-between">
+<body class="bg-slate-50 text-slate-900 antialiased min-h-screen">
 
-    <!-- Header -->
-    <header class="bg-white border-b-4 border-indigo-500 py-6 px-6 shadow-sm sticky top-0 z-50">
-        <div class="max-w-5xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
-            <div class="flex items-center gap-4">
-                <div class="bg-indigo-50 p-3 rounded-2xl border border-indigo-100">
-                    <span class="text-3xl">📐</span>
-                </div>
-                <div>
-                    <h1 class="text-2xl font-black title-font text-gray-900 tracking-tight">
-                        TOÁN 6 • BUỔI 7: ƯỚC CHUNG & ƯCLN
-                    </h1>
-                    <p class="text-xs text-gray-500 font-bold uppercase tracking-wider">Hệ thống bài tập tự luyện và đánh giá năng lực</p>
+    <!-- HEADER & LOGO BAR -->
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-40 shadow-xs print:relative print:border-none">
+        <div class="max-w-6xl mx-auto px-4 py-3 flex flex-wrap justify-between items-center gap-4">
+            <div class="flex items-center gap-3 sm:gap-4">
+                <img src="https://firebasestorage.googleapis.com/v0/b/link-anh-web.firebasestorage.app/o/ttbdvh.jpg?alt=media&token=f270aa9b-a2bc-48e8-8910-80742b542615" 
+                     alt="Logo TTBDVH" class="h-12 w-auto object-contain rounded-lg border border-slate-100 shadow-xs">
+                <img src="https://firebasestorage.googleapis.com/v0/b/link-anh-web.firebasestorage.app/o/Logo-chinh-hcmus.png?alt=media&token=9cf3a1de-75f1-493b-8711-fd22c7b98738" 
+                     alt="Logo HCMUS" class="h-12 w-auto object-contain">
+                <div class="border-l-2 border-indigo-500 pl-3">
+                    <h1 class="text-base sm:text-lg font-bold text-slate-900 uppercase tracking-tight">Toán Học Lớp 6 &bull; Buổi 7</h1>
+                    <p class="text-xs text-slate-500 font-medium">Ước Chung &bull; Ước Chung Lớn Nhất (ƯCLN)</p>
                 </div>
             </div>
-            
-            <div class="text-right flex flex-col items-center md:items-end">
-                <span class="text-xs font-semibold text-gray-500 italic">© Bản quyền thuộc ThS. Đinh Quốc Tuấn</span>
-                <span class="text-xs text-indigo-600 font-bold">Mục đích phi lợi nhuận - Vì giáo dục</span>
+            <div class="flex items-center gap-2">
+                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-blue-50 text-blue-700 border border-blue-200">
+                    <i class="fas fa-layer-group mr-1.5 text-blue-500"></i> 3 Cấp Độ
+                </span>
+                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                    <i class="fas fa-shapes mr-1.5 text-emerald-500"></i> 6 JSXGraph
+                </span>
+                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-purple-50 text-purple-700 border border-purple-200">
+                    <i class="fas fa-award mr-1.5 text-purple-500"></i> 5 Câu ĐGNL
+                </span>
             </div>
         </div>
     </header>
 
-    <!-- Main Content -->
-    <main class="flex-grow container mx-auto px-4 py-8 max-w-5xl">
-        
-        <!-- Welcome & Info Box -->
-        <div class="bg-gradient-to-r from-indigo-50 to-blue-50 border border-indigo-100 p-6 rounded-2xl mb-8 shadow-sm">
-            <h2 class="text-lg font-black text-indigo-900 title-font mb-4 flex items-center gap-2">
-                🚀 THÔNG TIN HỌC SINH & BẮT ĐẦU
-            </h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                    <label class="block text-xs font-extrabold text-indigo-700 uppercase mb-1">Họ và Tên Học Sinh <span class="text-red-500">*</span></label>
-                    <input type="text" id="student-name" placeholder="Ví dụ: Nguyễn Văn A" 
-                        class="w-full px-4 py-3 border-2 border-indigo-100 rounded-xl focus:outline-none focus:border-indigo-500 text-gray-900 font-semibold bg-white transition-all">
+    <!-- NAVIGATION TABS -->
+    <nav class="max-w-6xl mx-auto px-4 mt-6 print:hidden">
+        <div class="bg-white p-2 rounded-2xl border border-slate-200 shadow-xs flex flex-wrap gap-2 justify-center sm:justify-start">
+            <a href="#phan-1" class="px-4 py-2 text-sm font-semibold rounded-xl text-blue-700 bg-blue-50 hover:bg-blue-100 transition flex items-center gap-2">
+                <i class="fas fa-seedling text-blue-500"></i> Phần 1: Cơ Bản (12 Bài)
+            </a>
+            <a href="#phan-2" class="px-4 py-2 text-sm font-semibold rounded-xl text-amber-700 bg-amber-50 hover:bg-amber-100 transition flex items-center gap-2">
+                <i class="fas fa-chart-line text-amber-500"></i> Phần 2: Nâng Cao (10 Bài)
+            </a>
+            <a href="#phan-3" class="px-4 py-2 text-sm font-semibold rounded-xl text-emerald-700 bg-emerald-50 hover:bg-emerald-100 transition flex items-center gap-2">
+                <i class="fas fa-cubes-stacked text-emerald-500"></i> Phần 3: Vận Dụng (8 Bài)
+            </a>
+            <a href="#trac-nghiem" class="px-4 py-2 text-sm font-semibold rounded-xl text-purple-700 bg-purple-50 hover:bg-purple-100 transition flex items-center gap-2">
+                <i class="fas fa-file-signature text-purple-500"></i> Khảo Sát ĐGNL (5 Câu)
+            </a>
+        </div>
+    </nav>
+
+    <!-- HERO BANNER -->
+    <main class="max-w-6xl mx-auto px-4 py-6">
+        <div class="bg-gradient-to-r from-slate-900 via-indigo-950 to-blue-900 text-white rounded-3xl p-6 sm:p-8 shadow-xl relative overflow-hidden mb-8">
+            <div class="relative z-10 max-w-3xl">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-white/10 backdrop-blur-md text-amber-300 text-xs font-semibold mb-3">
+                    <i class="fas fa-book-open-reader"></i> Học Liệu Chuẩn Sư Phạm 2026
                 </div>
-                <div>
-                    <label class="block text-xs font-extrabold text-indigo-700 uppercase mb-1">Lớp / Nhóm Học tập <span class="text-red-500">*</span></label>
-                    <input type="text" id="student-class" placeholder="Ví dụ: Lớp 6A - Nhóm 4" 
-                        class="w-full px-4 py-3 border-2 border-indigo-100 rounded-xl focus:outline-none focus:border-indigo-500 text-gray-900 font-semibold bg-white transition-all">
-                </div>
+                <h2 class="text-2xl sm:text-3xl font-black tracking-tight text-white mb-2">
+                    Buổi 7: Ước Chung &bull; Ước Chung Lớn Nhất (ƯCLN)
+                </h2>
+                <p class="text-slate-200 text-sm sm:text-base leading-relaxed">
+                    Hệ thống <strong>30 bài toán phân loại chuẩn kiến thức - kỹ năng</strong> kèm lời giải chi tiết, tích hợp <strong>6 ứng dụng đồ họa tương tác JSXGraph</strong> và khảo sát trắc nghiệm trực tuyến có cơ chế tự động ghi điểm về Google Sheets.
+                </p>
             </div>
-            <p class="text-xs text-gray-500 mt-4 leading-relaxed">
-                * <strong>Hướng dẫn làm bài:</strong> Hoàn thành 14 câu hỏi bên dưới. Nhập đáp án chính xác vào ô trống. Nhấn nút <strong>"Gợi ý & Đáp án"</strong> để xem lời giải chi tiết (sau khi xem gợi ý, hãy cố gắng tự làm lại!). Khi hoàn thành toàn bộ phiếu bài tập, hãy nhấn nút <strong>"Nộp bài & Lưu kết quả"</strong> ở cuối trang để hoàn thành.
-            </p>
+            <div class="absolute -right-6 -bottom-6 opacity-10 text-9xl text-white select-none pointer-events-none">
+                <i class="fas fa-bezier-curve"></i>
+            </div>
         </div>
 
+        <!-- ========================================================================= -->
         <!-- PHẦN 1: MỨC ĐỘ CƠ BẢN -->
-        <div class="mb-10">
-            <div class="bg-indigo-600 text-white px-6 py-3 rounded-xl mb-6 shadow-sm flex items-center gap-2">
-                <span class="text-xl">🟢</span>
-                <h3 class="section-header text-lg font-bold">PHẦN 1: MỨC ĐỘ CƠ BẢN (5 Bài)</h3>
+        <!-- ========================================================================= -->
+        <section id="phan-1" class="mb-12 scroll-mt-20">
+            <div class="flex items-center justify-between border-b-2 border-blue-500 pb-3 mb-6">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-blue-600 text-white flex items-center justify-center font-bold text-lg shadow-md shadow-blue-200">
+                        1
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-slate-900 uppercase">Phần 1: Mức Độ Cơ Bản (12 Bài)</h3>
+                        <p class="text-xs sm:text-sm text-slate-500">Mục tiêu: Nhận biết khái niệm ƯC, ƯCLN, ký hiệu, kiểm tra hai số nguyên tố cùng nhau và tìm ƯCLN qua phân tích thừa số nguyên tố.</p>
+                    </div>
+                </div>
+                <span class="px-3 py-1 bg-blue-100 text-blue-800 text-xs font-bold rounded-lg hidden sm:inline-block">12 Bài Toán</span>
             </div>
-            <div class="space-y-6">
-                
+
+            <div class="grid grid-cols-1 gap-6">
+
                 <!-- Bài 1 -->
-                <div class="exercise-card p-6" id="card-1">
-                    <div class="flex justify-between items-start gap-4 mb-4">
-                        <span class="bg-indigo-50 text-indigo-700 px-3 py-1 rounded-full text-xs font-extrabold uppercase">Bài 1</span>
-                        <span class="text-xs text-gray-400 font-bold">Thao tác cơ bản</span>
+                <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="px-3 py-1 bg-blue-50 text-blue-700 text-xs font-bold rounded-md border border-blue-200">Bài 1 &bull; Khái niệm ƯC và ƯCLN</span>
+                        <span class="text-xs text-slate-400 font-medium"><i class="far fa-clock mr-1"></i> Lý thuyết cơ bản</span>
                     </div>
-                    <p class="text-gray-800 font-semibold mb-4 leading-relaxed">
-                        Tìm ƯCLN của các số sau bằng cách phân tích ra thừa số nguyên tố:
+                    <p class="text-slate-800 font-medium mb-3">
+                        a) Thế nào là ước chung của hai hay nhiều số?<br>
+                        b) Ước chung lớn nhất (ƯCLN) của hai hay nhiều số là số như thế nào trong tập hợp các ước chung?
                     </p>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-                        <div class="bg-slate-50 p-3 rounded-lg border border-slate-100">
-                            <span class="block text-xs font-bold text-gray-500 mb-1">a) $16$ và $24$</span>
-                            <input type="text" id="ans-1-a" placeholder="Đáp án..." class="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-indigo-500 font-bold text-indigo-700 text-center">
+                    <details class="group mt-4">
+                        <summary class="flex items-center justify-between px-4 py-2.5 bg-slate-50 hover:bg-slate-100 rounded-xl cursor-pointer select-none text-sm font-semibold text-slate-700 transition">
+                            <span class="flex items-center gap-2"><i class="fas fa-lightbulb text-amber-500"></i> Gợi ý &amp; Lời giải chi tiết</span>
+                            <i class="fas fa-chevron-down toggle-icon text-slate-400 transition-transform"></i>
+                        </summary>
+                        <div class="solution-body p-4 mt-2 bg-blue-50/50 rounded-xl border border-blue-100 text-sm text-slate-700 space-y-2">
+                            <p><strong>a)</strong> Ước chung của hai hay nhiều số là số vừa là ước của số này, vừa là ước của các số kia.</p>
+                            <p><strong>b)</strong> Ước chung lớn nhất (ƯCLN) của hai hay nhiều số là số lớn nhất trong tập hợp các ước chung của các số đó.</p>
                         </div>
-                        <div class="bg-slate-50 p-3 rounded-lg border border-slate-100">
-                            <span class="block text-xs font-bold text-gray-500 mb-1">b) $60$ và $90$</span>
-                            <input type="text" id="ans-1-b" placeholder="Đáp án..." class="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-indigo-500 font-bold text-indigo-700 text-center">
-                        </div>
-                        <div class="bg-slate-50 p-3 rounded-lg border border-slate-100">
-                            <span class="block text-xs font-bold text-gray-500 mb-1">c) $24, 36$ và $72$</span>
-                            <input type="text" id="ans-1-c" placeholder="Đáp án..." class="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-indigo-500 font-bold text-indigo-700 text-center">
-                        </div>
-                    </div>
-                    <button onclick="toggleHint(1)" class="text-xs font-bold text-indigo-600 hover:text-indigo-800 transition flex items-center gap-1">💡 Xem Gợi ý & Đáp án</button>
-                    <div id="hint-1" class="hidden mt-4 p-4 bg-amber-50/60 border border-amber-100 rounded-xl text-sm text-amber-900 leading-relaxed">
-                        <strong>Gợi ý:</strong> Phân tích các số ra thừa số nguyên tố, chọn các thừa số chung với số mũ nhỏ nhất.<br>
-                        <strong>Lời giải chi tiết:</strong><br>
-                        a) $16 = 2^4; 24 = 2^3 \cdot 3 \rightarrow \text{ƯCLN}(16, 24) = 2^3 = 8$.<br>
-                        b) $60 = 2^2 \cdot 3 \cdot 5; 90 = 2 \cdot 3^2 \cdot 5 \rightarrow \text{ƯCLN}(60, 90) = 2 \cdot 3 \cdot 5 = 30$.<br>
-                        c) $24 = 2^3 \cdot 3; 36 = 2^2 \cdot 3^2; 72 = 2^3 \cdot 3^2 \rightarrow \text{ƯCLN}(24, 36, 72) = 2^2 \cdot 3 = 12$.
-                    </div>
+                    </details>
                 </div>
 
                 <!-- Bài 2 -->
-                <div class="exercise-card p-6" id="card-2">
-                    <div class="flex justify-between items-start gap-4 mb-4">
-                        <span class="bg-indigo-50 text-indigo-700 px-3 py-1 rounded-full text-xs font-extrabold uppercase">Bài 2</span>
-                        <span class="text-xs text-gray-400 font-bold">ƯC thông qua ƯCLN</span>
+                <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="px-3 py-1 bg-blue-50 text-blue-700 text-xs font-bold rounded-md border border-blue-200">Bài 2 &bull; Liệt kê tìm ƯC và ƯCLN</span>
                     </div>
-                    <p class="text-gray-800 font-semibold mb-4 leading-relaxed">
-                        Tìm ƯCLN rồi từ đó tìm tập hợp các Ước chung (ƯC) của:
+                    <p class="text-slate-800 font-medium mb-3">
+                        Cho tập hợp ước của 12 và ước của 18:<br>
+                        a) Viết tập hợp \(\text{Ư}(12)\) và \(\text{Ư}(18)\).<br>
+                        b) Xác định tập hợp \(\text{ƯC}(12, 18)\).<br>
+                        c) Tìm số lớn nhất trong tập hợp ước chung đó và ký hiệu là \(\text{ƯCLN}(12, 18)\).
                     </p>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                        <div class="bg-slate-50 p-3 rounded-lg border border-slate-100">
-                            <span class="block text-xs font-bold text-gray-500 mb-1">a) $48$ và $60$ (Nhập ƯCLN)</span>
-                            <input type="text" id="ans-2-a" placeholder="Nhập ƯCLN của 48 và 60..." class="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-indigo-500 font-bold text-indigo-700 text-center">
+                    <details class="group mt-4">
+                        <summary class="flex items-center justify-between px-4 py-2.5 bg-slate-50 hover:bg-slate-100 rounded-xl cursor-pointer select-none text-sm font-semibold text-slate-700 transition">
+                            <span class="flex items-center gap-2"><i class="fas fa-lightbulb text-amber-500"></i> Gợi ý &amp; Lời giải chi tiết</span>
+                            <i class="fas fa-chevron-down toggle-icon text-slate-400 transition-transform"></i>
+                        </summary>
+                        <div class="solution-body p-4 mt-2 bg-blue-50/50 rounded-xl border border-blue-100 text-sm text-slate-700 space-y-1">
+                            <p><strong>a)</strong> \(\text{Ư}(12) = \{1; 2; 3; 4; 6; 12\}\); \(\text{Ư}(18) = \{1; 2; 3; 6; 9; 18\}\).</p>
+                            <p><strong>b)</strong> \(\text{ƯC}(12, 18) = \text{Ư}(12) \cap \text{Ư}(18) = \{1; 2; 3; 6\}\).</p>
+                            <p><strong>c)</strong> Số lớn nhất là \(6\) &rarr; Ký hiệu: \(\text{ƯCLN}(12, 18) = 6\).</p>
                         </div>
-                        <div class="bg-slate-50 p-3 rounded-lg border border-slate-100">
-                            <span class="block text-xs font-bold text-gray-500 mb-1">b) $42$ và $70$ (Nhập ƯCLN)</span>
-                            <input type="text" id="ans-2-b" placeholder="Nhập ƯCLN của 42 và 70..." class="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-indigo-500 font-bold text-indigo-700 text-center">
-                        </div>
-                    </div>
-                    <button onclick="toggleHint(2)" class="text-xs font-bold text-indigo-600 hover:text-indigo-800 transition flex items-center gap-1">💡 Xem Gợi ý & Đáp án</button>
-                    <div id="hint-2" class="hidden mt-4 p-4 bg-amber-50/60 border border-amber-100 rounded-xl text-sm text-amber-900 leading-relaxed">
-                        <strong>Gợi ý:</strong> Tập hợp Ước chung của các số chính là tập hợp các Ước của ƯCLN.<br>
-                        <strong>Lời giải chi tiết:</strong><br>
-                        a) $48 = 2^4 \cdot 3; 60 = 2^2 \cdot 3 \cdot 5 \rightarrow \text{ƯCLN}(48, 60) = 12$.<br>
-                        $\text{ƯC}(48, 60) = \text{Ư}(12) = \{1; 2; 3; 4; 6; 12\}$.<br>
-                        b) $42 = 2 \cdot 3 \cdot 7; 70 = 2 \cdot 5 \cdot 7 \rightarrow \text{ƯCLN}(42, 70) = 14$.<br>
-                        $\text{ƯC}(42, 70) = \text{Ư}(14) = \{1; 2; 7; 14\}$.
-                    </div>
+                    </details>
                 </div>
 
                 <!-- Bài 3 -->
-                <div class="exercise-card p-6" id="card-3">
-                    <div class="flex justify-between items-start gap-4 mb-4">
-                        <span class="bg-indigo-50 text-indigo-700 px-3 py-1 rounded-full text-xs font-extrabold uppercase">Bài 3</span>
-                        <span class="text-xs text-gray-400 font-bold">Số nguyên tố cùng nhau</span>
+                <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="px-3 py-1 bg-blue-50 text-blue-700 text-xs font-bold rounded-md border border-blue-200">Bài 3 &bull; Tìm ƯCLN các cặp số cơ bản</span>
                     </div>
-                    <p class="text-gray-800 font-semibold mb-4 leading-relaxed">
-                        Hai số được gọi là nguyên tố cùng nhau nếu ƯCLN của chúng bằng $1$. Trong các cặp số sau, cặp nào là hai số nguyên tố cùng nhau? (Nhập <strong>Có</strong> hoặc <strong>Không</strong>):
+                    <p class="text-slate-800 font-medium mb-3">
+                        Tìm ƯCLN của các cặp số sau:<br>
+                        a) \(\text{ƯCLN}(8, 20)\)<br>
+                        b) \(\text{ƯCLN}(12, 36)\)<br>
+                        c) \(\text{ƯCLN}(5, 11)\)
                     </p>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-                        <div class="bg-slate-50 p-3 rounded-lg border border-slate-100">
-                            <span class="block text-xs font-bold text-gray-500 mb-1">a) $8$ và $9$</span>
-                            <input type="text" id="ans-3-a" placeholder="Có / Không?" class="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-indigo-500 font-bold text-indigo-700 text-center">
+                    <details class="group mt-4">
+                        <summary class="flex items-center justify-between px-4 py-2.5 bg-slate-50 hover:bg-slate-100 rounded-xl cursor-pointer select-none text-sm font-semibold text-slate-700 transition">
+                            <span class="flex items-center gap-2"><i class="fas fa-lightbulb text-amber-500"></i> Gợi ý &amp; Lời giải chi tiết</span>
+                            <i class="fas fa-chevron-down toggle-icon text-slate-400 transition-transform"></i>
+                        </summary>
+                        <div class="solution-body p-4 mt-2 bg-blue-50/50 rounded-xl border border-blue-100 text-sm text-slate-700 space-y-1">
+                            <p><strong>a)</strong> \(\text{Ư}(8) = \{1; 2; 4; 8\}\), \(\text{Ư}(20) = \{1; 2; 4; 5; 10; 20\} \Rightarrow \text{ƯCLN}(8, 20) = 4\).</p>
+                            <p><strong>b)</strong> Vì \(36 \ \vdots \ 12 \Rightarrow \text{ƯCLN}(12, 36) = 12\).</p>
+                            <p><strong>c)</strong> 5 và 11 là hai số nguyên tố \(\Rightarrow \text{ƯCLN}(5, 11) = 1\).</p>
                         </div>
-                        <div class="bg-slate-50 p-3 rounded-lg border border-slate-100">
-                            <span class="block text-xs font-bold text-gray-500 mb-1">b) $15$ và $28$</span>
-                            <input type="text" id="ans-3-b" placeholder="Có / Không?" class="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-indigo-500 font-bold text-indigo-700 text-center">
-                        </div>
-                        <div class="bg-slate-50 p-3 rounded-lg border border-slate-100">
-                            <span class="block text-xs font-bold text-gray-500 mb-1">c) $21$ và $35$</span>
-                            <input type="text" id="ans-3-c" placeholder="Có / Không?" class="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-indigo-500 font-bold text-indigo-700 text-center">
-                        </div>
-                    </div>
-                    <button onclick="toggleHint(3)" class="text-xs font-bold text-indigo-600 hover:text-indigo-800 transition flex items-center gap-1">💡 Xem Gợi ý & Đáp án</button>
-                    <div id="hint-3" class="hidden mt-4 p-4 bg-amber-50/60 border border-amber-100 rounded-xl text-sm text-amber-900 leading-relaxed">
-                        <strong>Gợi ý:</strong> Hãy tìm ƯCLN của từng cặp số.<br>
-                        <strong>Lời giải chi tiết:</strong><br>
-                        a) Có vì $\text{ƯCLN}(8, 9) = 1$.<br>
-                        b) Có vì $\text{ƯCLN}(15, 28) = 1$.<br>
-                        c) Không vì $\text{ƯCLN}(21, 35) = 7 \neq 1$.
-                    </div>
+                    </details>
                 </div>
 
-                <!-- Bài 4 -->
-                <div class="exercise-card p-6" id="card-4">
-                    <div class="flex justify-between items-start gap-4 mb-4">
-                        <span class="bg-indigo-50 text-indigo-700 px-3 py-1 rounded-full text-xs font-extrabold uppercase">Bài 4</span>
-                        <span class="text-xs text-gray-400 font-bold">Ứng dụng rút gọn</span>
+                <!-- Bài 4 (JSXGraph 1) -->
+                <div class="bg-white rounded-2xl p-6 border-2 border-indigo-200 shadow-sm hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="px-3 py-1 bg-indigo-100 text-indigo-800 text-xs font-bold rounded-md flex items-center gap-1.5">
+                            <i class="fas fa-circle-nodes text-indigo-600"></i> Bài 4 &bull; JSXGraph 1: Giản đồ Venn Ước chung của 12 và 16
+                        </span>
+                        <span class="text-xs px-2.5 py-0.5 bg-emerald-100 text-emerald-800 font-bold rounded">Giản đồ tập hợp</span>
                     </div>
-                    <p class="text-gray-800 font-semibold mb-4 leading-relaxed">
-                        Rút gọn các phân số sau để được phân số tối giản bằng cách chia cả tử và mẫu cho ƯCLN (Ví dụ nhập dạng: a/b hoặc -a/b):
+                    <p class="text-slate-800 font-medium mb-3">
+                        Dựa vào mô hình trực quan giản đồ Venn ở trên, em hãy thực hiện phân loại các ước của 12 và 16, từ đó chỉ ra tập hợp \(\text{ƯC}(12, 16)\) và \(\text{ƯCLN}(12, 16)\).
                     </p>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-                        <div class="bg-slate-50 p-3 rounded-lg border border-slate-100">
-                            <span class="block text-xs font-bold text-gray-500 mb-1">a) $\frac{60}{72}$</span>
-                            <input type="text" id="ans-4-a" placeholder="Phân số rút gọn..." class="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-indigo-500 font-bold text-indigo-700 text-center">
+
+                    <!-- JSXGraph 1 Container -->
+                    <div class="my-4">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-xs font-bold text-slate-600"><i class="fas fa-eye text-indigo-500 mr-1"></i> Giản đồ Venn phân loại ước của 12 và 16:</span>
                         </div>
-                        <div class="bg-slate-50 p-3 rounded-lg border border-slate-100">
-                            <span class="block text-xs font-bold text-gray-500 mb-1">b) $\frac{70}{95}$</span>
-                            <input type="text" id="ans-4-b" placeholder="Phân số rút gọn..." class="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-indigo-500 font-bold text-indigo-700 text-center">
-                        </div>
-                        <div class="bg-slate-50 p-3 rounded-lg border border-slate-100">
-                            <span class="block text-xs font-bold text-gray-500 mb-1">c) $\frac{150}{360}$</span>
-                            <input type="text" id="ans-4-c" placeholder="Phân số rút gọn..." class="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-indigo-500 font-bold text-indigo-700 text-center">
-                        </div>
+                        <div id="jsx1_box" class="jxgbox w-full h-[260px] mx-auto"></div>
                     </div>
-                    <button onclick="toggleHint(4)" class="text-xs font-bold text-indigo-600 hover:text-indigo-800 transition flex items-center gap-1">💡 Xem Gợi ý & Đáp án</button>
-                    <div id="hint-4" class="hidden mt-4 p-4 bg-amber-50/60 border border-amber-100 rounded-xl text-sm text-amber-900 leading-relaxed">
-                        <strong>Gợi ý:</strong> Chia cả tử số và mẫu số cho ước chung lớn nhất của chúng.<br>
-                        <strong>Lời giải chi tiết:</strong><br>
-                        a) $\text{ƯCLN}(60, 72) = 12 \rightarrow \frac{60 : 12}{72 : 12} = \frac{5}{6}$.<br>
-                        b) $\text{ƯCLN}(70, 95) = 5 \rightarrow \frac{70 : 5}{95 : 5} = \frac{14}{19}$.<br>
-                        c) $\text{ƯCLN}(150, 360) = 30 \rightarrow \frac{150 : 30}{360 : 30} = \frac{5}{12}$.
-                    </div>
+
+                    <details class="group mt-4">
+                        <summary class="flex items-center justify-between px-4 py-2.5 bg-slate-50 hover:bg-slate-100 rounded-xl cursor-pointer select-none text-sm font-semibold text-slate-700 transition">
+                            <span class="flex items-center gap-2"><i class="fas fa-lightbulb text-amber-500"></i> Gợi ý &amp; Lời giải chi tiết</span>
+                            <i class="fas fa-chevron-down toggle-icon text-slate-400 transition-transform"></i>
+                        </summary>
+                        <div class="solution-body p-4 mt-2 bg-indigo-50/50 rounded-xl border border-indigo-100 text-sm text-slate-700 space-y-1">
+                            <p>&bull; <strong>Ước riêng của 12:</strong> \(\{3; 6; 12\}\).</p>
+                            <p>&bull; <strong>Ước riêng của 16:</strong> \(\{8; 16\}\).</p>
+                            <p>&bull; <strong>Ước chung ở phần giao nhau:</strong> \(\text{ƯC}(12, 16) = \{1; 2; 4\}\).</p>
+                            <p>&rarr; Số lớn nhất ở phần giao nhau là <strong>\(\text{ƯCLN}(12, 16) = 4\)</strong>.</p>
+                        </div>
+                    </details>
                 </div>
 
                 <!-- Bài 5 -->
-                <div class="exercise-card p-6" id="card-5">
-                    <div class="flex justify-between items-start gap-4 mb-4">
-                        <span class="bg-indigo-50 text-indigo-700 px-3 py-1 rounded-full text-xs font-extrabold uppercase">Bài 5</span>
-                        <span class="text-xs text-gray-400 font-bold">Tìm số chưa biết</span>
+                <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="px-3 py-1 bg-blue-50 text-blue-700 text-xs font-bold rounded-md border border-blue-200">Bài 5 &bull; Sử dụng ký hiệu tập hợp</span>
                     </div>
-                    <p class="text-gray-800 font-semibold mb-3 leading-relaxed">
-                        Tìm số tự nhiên $x$ lớn nhất biết rằng $420 \vdots x$ và $700 \vdots x$.
+                    <p class="text-slate-800 font-medium mb-3">
+                        Điền ký hiệu \(\in\) hoặc \(\notin\) thích hợp vào ô trống:<br>
+                        a) \(3 \ \square \ \text{ƯC}(9, 15)\)<br>
+                        b) \(4 \ \square \ \text{ƯC}(8, 14)\)<br>
+                        c) \(6 \ \square \ \text{ƯC}(12, 18, 24)\)
                     </p>
-                    <div class="w-full md:w-1/3 mb-4">
-                        <input type="text" id="ans-5" placeholder="Nhập giá trị x..." class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-indigo-500 font-bold text-indigo-700 text-center bg-slate-50">
-                    </div>
-                    <button onclick="toggleHint(5)" class="text-xs font-bold text-indigo-600 hover:text-indigo-800 transition flex items-center gap-1">💡 Xem Gợi ý & Đáp án</button>
-                    <div id="hint-5" class="hidden mt-4 p-4 bg-amber-50/60 border border-amber-100 rounded-xl text-sm text-amber-900 leading-relaxed">
-                        <strong>Gợi ý:</strong> Vì $420 \vdots x$ và $700 \vdots x$ nên $x \in \text{ƯC}(420, 700)$. Do $x$ là lớn nhất nên $x = \text{ƯCLN}(420, 700)$.<br>
-                        <strong>Lời giải chi tiết:</strong><br>
-                        $420 = 2^2 \cdot 3 \cdot 5 \cdot 7$<br>
-                        $700 = 2^2 \cdot 5^2 \cdot 7$<br>
-                        $\rightarrow x = \text{ƯCLN}(420, 700) = 2^2 \cdot 5 \cdot 7 = 140$.
-                    </div>
+                    <details class="group mt-4">
+                        <summary class="flex items-center justify-between px-4 py-2.5 bg-slate-50 hover:bg-slate-100 rounded-xl cursor-pointer select-none text-sm font-semibold text-slate-700 transition">
+                            <span class="flex items-center gap-2"><i class="fas fa-lightbulb text-amber-500"></i> Gợi ý &amp; Lời giải chi tiết</span>
+                            <i class="fas fa-chevron-down toggle-icon text-slate-400 transition-transform"></i>
+                        </summary>
+                        <div class="solution-body p-4 mt-2 bg-blue-50/50 rounded-xl border border-blue-100 text-sm text-slate-700 space-y-1">
+                            <p><strong>a)</strong> \(3 \in \text{ƯC}(9, 15)\) (vì \(9 \ \vdots \ 3\) và \(15 \ \vdots \ 3\)).</p>
+                            <p><strong>b)</strong> \(4 \notin \text{ƯC}(8, 14)\) (vì \(14\) không chia hết cho 4).</p>
+                            <p><strong>c)</strong> \(6 \in \text{ƯC}(12, 18, 24)\) (vì 12, 18, 24 đều chia hết cho 6).</p>
+                        </div>
+                    </details>
                 </div>
 
-            </div>
-        </div>
-
-        <!-- PHẦN 2: MỨC ĐỘ VẬN DỤNG THỰC TẾ -->
-        <div class="mb-10">
-            <div class="bg-emerald-600 text-white px-6 py-3 rounded-xl mb-6 shadow-sm flex items-center gap-2">
-                <span class="text-xl">🔵</span>
-                <h3 class="section-header text-lg font-bold">PHẦN 2: MỨC ĐỘ VẬN DỤNG THỰC TẾ (4 Bài)</h3>
-            </div>
-            <div class="space-y-6">
-                
                 <!-- Bài 6 -->
-                <div class="exercise-card p-6" id="card-6">
-                    <div class="flex justify-between items-start gap-4 mb-4">
-                        <span class="bg-emerald-50 text-emerald-700 px-3 py-1 rounded-full text-xs font-extrabold uppercase">Bài 6</span>
-                        <span class="text-xs text-gray-400 font-bold">Bài toán chia tổ</span>
+                <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="px-3 py-1 bg-blue-50 text-blue-700 text-xs font-bold rounded-md border border-blue-200">Bài 6 &bull; Tìm ƯCLN của ba số qua phân tích thừa số</span>
                     </div>
-                    <p class="text-gray-800 font-semibold mb-4 leading-relaxed">
-                        Bệnh viện A đã huy động $24$ bác sĩ và $108$ y tá để hỗ trợ y tế dự phòng. Việc chia tổ cần đảm bảo sao cho số bác sĩ và y tá được chia đều vào các tổ. Hỏi có thể chia được nhiều nhất thành mấy tổ công tác? Khi đó, mỗi tổ có bao nhiêu bác sĩ và bao nhiêu y tá?
+                    <p class="text-slate-800 font-medium mb-3">
+                        Tìm \(\text{ƯCLN}(18, 30, 42)\) bằng cách thực hiện phân tích các số này ra thừa số nguyên tố.
                     </p>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-                        <div class="bg-slate-50 p-3 rounded-lg border border-slate-100">
-                            <span class="block text-xs font-bold text-gray-500 mb-1">Số tổ nhiều nhất</span>
-                            <input type="text" id="ans-6-a" placeholder="Ví dụ: 12" class="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-emerald-500 font-bold text-emerald-700 text-center">
+                    <details class="group mt-4">
+                        <summary class="flex items-center justify-between px-4 py-2.5 bg-slate-50 hover:bg-slate-100 rounded-xl cursor-pointer select-none text-sm font-semibold text-slate-700 transition">
+                            <span class="flex items-center gap-2"><i class="fas fa-lightbulb text-amber-500"></i> Gợi ý &amp; Lời giải chi tiết</span>
+                            <i class="fas fa-chevron-down toggle-icon text-slate-400 transition-transform"></i>
+                        </summary>
+                        <div class="solution-body p-4 mt-2 bg-blue-50/50 rounded-xl border border-blue-100 text-sm text-slate-700 space-y-2">
+                            <p>Phân tích từng số:</p>
+                            <p>&bull; \(18 = 2 \cdot 3^2\)</p>
+                            <p>&bull; \(30 = 2 \cdot 3 \cdot 5\)</p>
+                            <p>&bull; \(42 = 2 \cdot 3 \cdot 7\)</p>
+                            <p>Các thừa số nguyên tố chung là \(2\) và \(3\) với số mũ nhỏ nhất là \(1\).</p>
+                            <p>&rarr; \(\text{ƯCLN}(18, 30, 42) = 2 \cdot 3 = 6\).</p>
                         </div>
-                        <div class="bg-slate-50 p-3 rounded-lg border border-slate-100">
-                            <span class="block text-xs font-bold text-gray-500 mb-1">Bác sĩ mỗi tổ</span>
-                            <input type="text" id="ans-6-b" placeholder="Ví dụ: 2" class="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-emerald-500 font-bold text-emerald-700 text-center">
-                        </div>
-                        <div class="bg-slate-50 p-3 rounded-lg border border-slate-100">
-                            <span class="block text-xs font-bold text-gray-500 mb-1">Y tá mỗi tổ</span>
-                            <input type="text" id="ans-6-c" placeholder="Ví dụ: 9" class="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-emerald-500 font-bold text-emerald-700 text-center">
-                        </div>
-                    </div>
-                    <button onclick="toggleHint(6)" class="text-xs font-bold text-emerald-600 hover:text-emerald-800 transition flex items-center gap-1">💡 Xem Gợi ý & Đáp án</button>
-                    <div id="hint-6" class="hidden mt-4 p-4 bg-amber-50/60 border border-amber-100 rounded-xl text-sm text-amber-900 leading-relaxed">
-                        <strong>Gợi ý:</strong> Số tổ phải là ước chung của 24 và 108. Vì số tổ là nhiều nhất nên số tổ chính là $\text{ƯCLN}(24, 108)$.<br>
-                        <strong>Lời giải chi tiết:</strong><br>
-                        $24 = 2^3 \cdot 3; 108 = 2^2 \cdot 3^3 \rightarrow \text{ƯCLN}(24, 108) = 2^2 \cdot 3 = 12$.<br>
-                        Vậy có thể chia nhiều nhất thành 12 tổ.<br>
-                        Mỗi tổ có: $24 : 12 = 2$ bác sĩ; và $108 : 12 = 9$ y tá.
-                    </div>
+                    </details>
                 </div>
 
                 <!-- Bài 7 -->
-                <div class="exercise-card p-6" id="card-7">
-                    <div class="flex justify-between items-start gap-4 mb-4">
-                        <span class="bg-emerald-50 text-emerald-700 px-3 py-1 rounded-full text-xs font-extrabold uppercase">Bài 7</span>
-                        <span class="text-xs text-gray-400 font-bold">Chia phần thưởng</span>
+                <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="px-3 py-1 bg-blue-50 text-blue-700 text-xs font-bold rounded-md border border-blue-200">Bài 7 &bull; Hai số nguyên tố cùng nhau</span>
                     </div>
-                    <p class="text-gray-800 font-semibold mb-3 leading-relaxed">
-                        Trong dịp sơ kết học kì, cô giáo chủ nhiệm có $240$ chiếc bút bi, $210$ chiếc bút chì và $180$ quyển vở. Cô muốn chia thành các phần thưởng sao cho mỗi phần thưởng có số bút và số vở như nhau. Hỏi cô giáo có thể chia được nhiều nhất bao nhiêu phần thưởng?
+                    <p class="text-slate-800 font-medium mb-3">
+                        Hai số \(9\) và \(16\) có phải là hai số nguyên tố cùng nhau không? Giải thích vì sao dựa vào định nghĩa ƯCLN.
                     </p>
-                    <div class="w-full md:w-1/3 mb-4">
-                        <input type="text" id="ans-7" placeholder="Số phần thưởng..." class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-emerald-500 font-bold text-emerald-700 text-center bg-slate-50">
-                    </div>
-                    <button onclick="toggleHint(7)" class="text-xs font-bold text-emerald-600 hover:text-emerald-800 transition flex items-center gap-1">💡 Xem Gợi ý & Đáp án</button>
-                    <div id="hint-7" class="hidden mt-4 p-4 bg-amber-50/60 border border-amber-100 rounded-xl text-sm text-amber-900 leading-relaxed">
-                        <strong>Gợi ý:</strong> Số phần thưởng là lớn nhất nên nó là ƯCLN của 240, 210 và 180.<br>
-                        <strong>Lời giải chi tiết:</strong><br>
-                        $240 = 2^4 \cdot 3 \cdot 5$<br>
-                        $210 = 2 \cdot 3 \cdot 5 \cdot 7$<br>
-                        $180 = 2^2 \cdot 3^2 \cdot 5$<br>
-                        $\rightarrow \text{ƯCLN}(240, 210, 180) = 2 \cdot 3 \cdot 5 = 30$.<br>
-                        Vậy cô giáo có thể chia được nhiều nhất 30 phần thưởng.
-                    </div>
+                    <details class="group mt-4">
+                        <summary class="flex items-center justify-between px-4 py-2.5 bg-slate-50 hover:bg-slate-100 rounded-xl cursor-pointer select-none text-sm font-semibold text-slate-700 transition">
+                            <span class="flex items-center gap-2"><i class="fas fa-lightbulb text-amber-500"></i> Gợi ý &amp; Lời giải chi tiết</span>
+                            <i class="fas fa-chevron-down toggle-icon text-slate-400 transition-transform"></i>
+                        </summary>
+                        <div class="solution-body p-4 mt-2 bg-blue-50/50 rounded-xl border border-blue-100 text-sm text-slate-700 space-y-1">
+                            <p>Ta có: \(9 = 3^2\) và \(16 = 2^4\).</p>
+                            <p>Vì 9 và 16 không có thừa số nguyên tố chung nào nên \(\text{ƯCLN}(9, 16) = 1\).</p>
+                            <p>&rarr; Theo định nghĩa, <strong>\(9\) và \(16\) là hai số nguyên tố cùng nhau</strong>.</p>
+                        </div>
+                    </details>
                 </div>
 
-                <!-- Bài 8 -->
-                <div class="exercise-card p-6" id="card-8">
-                    <div class="flex justify-between items-start gap-4 mb-4">
-                        <span class="bg-emerald-50 text-emerald-700 px-3 py-1 rounded-full text-xs font-extrabold uppercase">Bài 8</span>
-                        <span class="text-xs text-gray-400 font-bold">Xếp hàng diễu hành</span>
+                <!-- Bài 8 (JSXGraph 2) -->
+                <div class="bg-white rounded-2xl p-6 border-2 border-indigo-200 shadow-sm hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="px-3 py-1 bg-indigo-100 text-indigo-800 text-xs font-bold rounded-md flex items-center gap-1.5">
+                            <i class="fas fa-chart-simple text-indigo-600"></i> Bài 8 &bull; JSXGraph 2: Sơ đồ cột phân tích thừa số tìm ƯCLN
+                        </span>
+                        <span class="text-xs px-2.5 py-0.5 bg-purple-100 text-purple-800 font-bold rounded">Phân tích cột dọc</span>
                     </div>
-                    <p class="text-gray-800 font-semibold mb-3 leading-relaxed">
-                        Ba khối 6, 7 và 8 lần lượt có $300$ học sinh, $276$ học sinh và $252$ học sinh xếp thành các hàng dọc để diễu hành sao cho số hàng dọc của mỗi khối là như nhau. Có thể xếp nhiều nhất thành mấy hàng dọc để mỗi khối đều không có ai lẻ hàng?
+                    <p class="text-slate-800 font-medium mb-3">
+                        Trình bày các bước tìm \(\text{ƯCLN}(24, 60)\) bằng phương pháp phân tích ra thừa số nguyên tố.
                     </p>
-                    <div class="w-full md:w-1/3 mb-4">
-                        <input type="text" id="ans-8" placeholder="Số hàng dọc..." class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-emerald-500 font-bold text-emerald-700 text-center bg-slate-50">
+
+                    <!-- JSXGraph 2 Container -->
+                    <div class="my-4">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-xs font-bold text-slate-600"><i class="fas fa-columns text-indigo-500 mr-1"></i> Bảng phân tích song song hai số 24 và 60:</span>
+                            <button onclick="renderVerticalGCD()" class="px-3 py-1 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold rounded-lg transition shadow-xs">Xem Phân Tích</button>
+                        </div>
+                        <div id="jsx2_box" class="jxgbox w-full h-[260px] mx-auto"></div>
                     </div>
-                    <button onclick="toggleHint(8)" class="text-xs font-bold text-emerald-600 hover:text-emerald-800 transition flex items-center gap-1">💡 Xem Gợi ý & Đáp án</button>
-                    <div id="hint-8" class="hidden mt-4 p-4 bg-amber-50/60 border border-amber-100 rounded-xl text-sm text-amber-900 leading-relaxed">
-                        <strong>Gợi ý:</strong> Số hàng dọc nhiều nhất bằng $\text{ƯCLN}(300, 276, 252)$.<br>
-                        <strong>Lời giải chi tiết:</strong><br>
-                        $300 = 2^2 \cdot 3 \cdot 5^2$<br>
-                        $276 = 2^2 \cdot 3 \cdot 23$<br>
-                        $252 = 2^2 \cdot 3^2 \cdot 7$<br>
-                        $\rightarrow \text{ƯCLN}(300, 276, 252) = 2^2 \cdot 3 = 12$.<br>
-                        Vậy có thể xếp nhiều nhất 12 hàng dọc.
-                    </div>
+
+                    <details class="group mt-4">
+                        <summary class="flex items-center justify-between px-4 py-2.5 bg-slate-50 hover:bg-slate-100 rounded-xl cursor-pointer select-none text-sm font-semibold text-slate-700 transition">
+                            <span class="flex items-center gap-2"><i class="fas fa-lightbulb text-amber-500"></i> Gợi ý &amp; Lời giải chi tiết</span>
+                            <i class="fas fa-chevron-down toggle-icon text-slate-400 transition-transform"></i>
+                        </summary>
+                        <div class="solution-body p-4 mt-2 bg-indigo-50/50 rounded-xl border border-indigo-100 text-sm text-slate-700 space-y-2">
+                            <p>&bull; Bước 1: \(24 = 2^3 \cdot 3\) và \(60 = 2^2 \cdot 3 \cdot 5\).</p>
+                            <p>&bull; Bước 2: Thừa số nguyên tố chung là \(2\) và \(3\).</p>
+                            <p>&bull; Bước 3: Lấy số mũ nhỏ nhất: của 2 là 2, của 3 là 1.</p>
+                            <p>&rarr; \(\text{ƯCLN}(24, 60) = 2^2 \cdot 3 = 12\).</p>
+                        </div>
+                    </details>
                 </div>
 
                 <!-- Bài 9 -->
-                <div class="exercise-card p-6" id="card-9">
-                    <div class="flex justify-between items-start gap-4 mb-4">
-                        <span class="bg-emerald-50 text-emerald-700 px-3 py-1 rounded-full text-xs font-extrabold uppercase">Bài 9</span>
-                        <span class="text-xs text-gray-400 font-bold">Hình học phẳng</span>
+                <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="px-3 py-1 bg-blue-50 text-blue-700 text-xs font-bold rounded-md border border-blue-200">Bài 9 &bull; Tìm ƯCLN của một số với số 1</span>
                     </div>
-                    <p class="text-gray-800 font-semibold mb-3 leading-relaxed">
-                        Mai có một tờ giấy màu hình chữ nhật kích thước $20$ cm và $30$ cm. Mai muốn cắt tờ giấy thành các mảnh nhỏ hình vuông bằng nhau để làm thủ công sao cho tờ giấy được cắt vừa hết, không còn thừa mảnh nào. Tính độ dài lớn nhất của cạnh hình vuông nhỏ (đơn vị: cm).
+                    <p class="text-slate-800 font-medium mb-3">
+                        a) Tìm \(\text{ƯCLN}(25, 1)\).<br>
+                        b) Rút ra nhận xét tổng quát về \(\text{ƯCLN}(a, 1)\) với mọi số tự nhiên \(a\).
                     </p>
-                    <div class="w-full md:w-1/3 mb-4">
-                        <input type="text" id="ans-9" placeholder="Cạnh hình vuông lớn nhất..." class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-emerald-500 font-bold text-emerald-700 text-center bg-slate-50">
-                    </div>
-                    <button onclick="toggleHint(9)" class="text-xs font-bold text-emerald-600 hover:text-emerald-800 transition flex items-center gap-1">💡 Xem Gợi ý & Đáp án</button>
-                    <div id="hint-9" class="hidden mt-4 p-4 bg-amber-50/60 border border-amber-100 rounded-xl text-sm text-amber-900 leading-relaxed">
-                        <strong>Gợi ý:</strong> Để cắt vừa hết không thừa mảnh nào, độ dài cạnh hình vuông phải là $\text{ƯC}(20, 30)$. Lớn nhất chính là $\text{ƯCLN}(20, 30)$.<br>
-                        <strong>Lời giải chi tiết:</strong><br>
-                        $20 = 2^2 \cdot 5; 30 = 2 \cdot 3 \cdot 5 \rightarrow \text{ƯCLN}(20, 30) = 10$.<br>
-                        Vậy độ dài lớn nhất của cạnh hình vuông nhỏ là 10 cm.
-                    </div>
+                    <details class="group mt-4">
+                        <summary class="flex items-center justify-between px-4 py-2.5 bg-slate-50 hover:bg-slate-100 rounded-xl cursor-pointer select-none text-sm font-semibold text-slate-700 transition">
+                            <span class="flex items-center gap-2"><i class="fas fa-lightbulb text-amber-500"></i> Gợi ý &amp; Lời giải chi tiết</span>
+                            <i class="fas fa-chevron-down toggle-icon text-slate-400 transition-transform"></i>
+                        </summary>
+                        <div class="solution-body p-4 mt-2 bg-blue-50/50 rounded-xl border border-blue-100 text-sm text-slate-700 space-y-1">
+                            <p><strong>a)</strong> Vì \(\text{Ư}(1) = \{1\}\) nên \(\text{ƯC}(25, 1) = \{1\} \Rightarrow \text{ƯCLN}(25, 1) = 1\).</p>
+                            <p><strong>b) Tổng quát:</strong> Với mọi số tự nhiên \(a\), ta luôn có: \(\text{ƯCLN}(a, 1) = 1\) và \(\text{ƯCLN}(a, b, 1) = 1\).</p>
+                        </div>
+                    </details>
                 </div>
 
-            </div>
-        </div>
-
-        <!-- PHẦN 3: MỨC ĐỘ NÂNG CAO -->
-        <div class="mb-10">
-            <div class="bg-violet-600 text-white px-6 py-3 rounded-xl mb-6 shadow-sm flex items-center gap-2">
-                <span class="text-xl">🔴</span>
-                <h3 class="section-header text-lg font-bold">PHẦN 3: MỨC ĐỘ NÂNG CAO (5 Bài)</h3>
-            </div>
-            <div class="space-y-6">
-                
                 <!-- Bài 10 -->
-                <div class="exercise-card p-6" id="card-10">
-                    <div class="flex justify-between items-start gap-4 mb-4">
-                        <span class="bg-violet-50 text-violet-700 px-3 py-1 rounded-full text-xs font-extrabold uppercase">Bài 10</span>
-                        <span class="text-xs text-gray-400 font-bold">Ràng buộc khoảng</span>
+                <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="px-3 py-1 bg-blue-50 text-blue-700 text-xs font-bold rounded-md border border-blue-200">Bài 10 &bull; Mối quan hệ giữa ƯC và ƯCLN</span>
                     </div>
-                    <p class="text-gray-800 font-semibold mb-3 leading-relaxed">
-                        Tìm số tự nhiên $x$ thỏa mãn $126 \vdots x, 210 \vdots x$ và $15 < x < 30$.
+                    <p class="text-slate-800 font-medium mb-3">
+                        Biết rằng \(\text{ƯCLN}(a, b) = 6\). Hãy liệt kê toàn bộ các phần tử của tập hợp \(\text{ƯC}(a, b)\).
                     </p>
-                    <div class="w-full md:w-1/3 mb-4">
-                        <input type="text" id="ans-10" placeholder="Nhập giá trị x..." class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-violet-500 font-bold text-violet-700 text-center bg-slate-50">
-                    </div>
-                    <button onclick="toggleHint(10)" class="text-xs font-bold text-violet-600 hover:text-violet-800 transition flex items-center gap-1">💡 Xem Gợi ý & Đáp án</button>
-                    <div id="hint-10" class="hidden mt-4 p-4 bg-amber-50/60 border border-amber-100 rounded-xl text-sm text-amber-900 leading-relaxed">
-                        <strong>Gợi ý:</strong> Vì $126 \vdots x$ và $210 \vdots x$ nên $x \in \text{ƯC}(126, 210)$. Tìm ƯCLN của chúng rồi suy ra các ƯC.<br>
-                        <strong>Lời giải chi tiết:</strong><br>
-                        $126 = 2 \cdot 3^2 \cdot 7; 210 = 2 \cdot 3 \cdot 5 \cdot 7 \rightarrow \text{ƯCLN}(126, 210) = 2 \cdot 3 \cdot 7 = 42$.<br>
-                        Do đó, $x \in \text{ƯC}(126, 210) = \text{Ư}(42) = \{1; 2; 3; 6; 7; 14; 21; 42\}$.<br>
-                        Vì $15 < x < 30$ nên ta chọn $x = 21$.
-                    </div>
+                    <details class="group mt-4">
+                        <summary class="flex items-center justify-between px-4 py-2.5 bg-slate-50 hover:bg-slate-100 rounded-xl cursor-pointer select-none text-sm font-semibold text-slate-700 transition">
+                            <span class="flex items-center gap-2"><i class="fas fa-lightbulb text-amber-500"></i> Gợi ý &amp; Lời giải chi tiết</span>
+                            <i class="fas fa-chevron-down toggle-icon text-slate-400 transition-transform"></i>
+                        </summary>
+                        <div class="solution-body p-4 mt-2 bg-blue-50/50 rounded-xl border border-blue-100 text-sm text-slate-700">
+                            <p>Tất cả các ước chung của \(a\) và \(b\) đều là ước của \(\text{ƯCLN}(a, b)\).</p>
+                            <p>\(\text{ƯC}(a, b) = \text{Ư}(6) = \{1; 2; 3; 6\}\).</p>
+                        </div>
+                    </details>
                 </div>
 
                 <!-- Bài 11 -->
-                <div class="exercise-card p-6" id="card-11">
-                    <div class="flex justify-between items-start gap-4 mb-4">
-                        <span class="bg-violet-50 text-violet-700 px-3 py-1 rounded-full text-xs font-extrabold uppercase">Bài 11</span>
-                        <span class="text-xs text-gray-400 font-bold">Phép chia có dư</span>
+                <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="px-3 py-1 bg-blue-50 text-blue-700 text-xs font-bold rounded-md border border-blue-200">Bài 11 &bull; Trường hợp một số chia hết cho số kia</span>
                     </div>
-                    <p class="text-gray-800 font-semibold mb-3 leading-relaxed">
-                        Tìm số tự nhiên $a$ lớn nhất biết rằng khi chia $111$ cho $a$ thì dư $15$, còn khi chia $180$ cho $a$ thì dư $20$.
+                    <p class="text-slate-800 font-medium mb-3">
+                        Nếu số tự nhiên \(a\) chia hết cho số tự nhiên \(b\) (\(a \ \vdots \ b\)) thì \(\text{ƯCLN}(a, b)\) bằng bao nhiêu? Áp dụng tìm nhanh \(\text{ƯCLN}(48, 12)\).
                     </p>
-                    <div class="w-full md:w-1/3 mb-4">
-                        <input type="text" id="ans-11" placeholder="Nhập giá trị a..." class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-violet-500 font-bold text-violet-700 text-center bg-slate-50">
-                    </div>
-                    <button onclick="toggleHint(11)" class="text-xs font-bold text-violet-600 hover:text-violet-800 transition flex items-center gap-1">💡 Xem Gợi ý & Đáp án</button>
-                    <div id="hint-11" class="hidden mt-4 p-4 bg-amber-50/60 border border-amber-100 rounded-xl text-sm text-amber-900 leading-relaxed">
-                        <strong>Gợi ý:</strong> Vì dư lần lượt là 15 và 20 nên số chia $a$ phải lớn hơn số dư: $a > 20$. Đồng thời $111 - 15 = 96 \vdots a$ và $180 - 20 = 160 \vdots a$. Từ đó tìm ước chung lớn nhất.<br>
-                        <strong>Lời giải chi tiết:</strong><br>
-                        Số chia $a > 20$.<br>
-                        Ta có: $96 \vdots a$ và $160 \vdots a$. Do $a$ lớn nhất nên $a = \text{ƯCLN}(96, 160)$.<br>
-                        $96 = 2^5 \cdot 3; 160 = 2^5 \cdot 5 \rightarrow \text{ƯCLN}(96, 160) = 2^5 = 32$.<br>
-                        Vì $32 > 20$ nên $a = 32$ thỏa mãn điều kiện đề bài.
-                    </div>
+                    <details class="group mt-4">
+                        <summary class="flex items-center justify-between px-4 py-2.5 bg-slate-50 hover:bg-slate-100 rounded-xl cursor-pointer select-none text-sm font-semibold text-slate-700 transition">
+                            <span class="flex items-center gap-2"><i class="fas fa-lightbulb text-amber-500"></i> Gợi ý &amp; Lời giải chi tiết</span>
+                            <i class="fas fa-chevron-down toggle-icon text-slate-400 transition-transform"></i>
+                        </summary>
+                        <div class="solution-body p-4 mt-2 bg-blue-50/50 rounded-xl border border-blue-100 text-sm text-slate-700 space-y-1">
+                            <p>&bull; Nếu \(a \ \vdots \ b\) thì \(\text{ƯCLN}(a, b) = b\).</p>
+                            <p>&bull; Áp dụng: Vì \(48 \ \vdots \ 12 \Rightarrow \text{ƯCLN}(48, 12) = 12\).</p>
+                        </div>
+                    </details>
                 </div>
 
                 <!-- Bài 12 -->
-                <div class="exercise-card p-6" id="card-12">
-                    <div class="flex justify-between items-start gap-4 mb-4">
-                        <span class="bg-violet-50 text-violet-700 px-3 py-1 rounded-full text-xs font-extrabold uppercase">Bài 12</span>
-                        <span class="text-xs text-gray-400 font-bold">Giải hệ điều kiện</span>
+                <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="px-3 py-1 bg-blue-50 text-blue-700 text-xs font-bold rounded-md border border-blue-200">Bài 12 &bull; Tìm phần tử ước chung có điều kiện</span>
                     </div>
-                    <p class="text-gray-800 font-semibold mb-3 leading-relaxed">
-                        Tìm hai số tự nhiên $a, b$ (với $a > b > 0$), biết tổng của chúng bằng $128$ và $\text{ƯCLN}(a, b) = 16$. (Nhập đáp án theo định dạng: <strong>a, b</strong>. Ví dụ: 112, 16 hoặc 80, 48)
+                    <p class="text-slate-800 font-medium mb-3">
+                        Tìm số tự nhiên \(x\) biết rằng \(x \in \text{ƯC}(18, 24)\) và \(x > 2\).
                     </p>
-                    <div class="w-full md:w-1/2 mb-4">
-                        <input type="text" id="ans-12" placeholder="Ví dụ: 112, 16 hoặc 80, 48" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-violet-500 font-bold text-violet-700 text-center bg-slate-50">
+                    <details class="group mt-4">
+                        <summary class="flex items-center justify-between px-4 py-2.5 bg-slate-50 hover:bg-slate-100 rounded-xl cursor-pointer select-none text-sm font-semibold text-slate-700 transition">
+                            <span class="flex items-center gap-2"><i class="fas fa-lightbulb text-amber-500"></i> Gợi ý &amp; Lời giải chi tiết</span>
+                            <i class="fas fa-chevron-down toggle-icon text-slate-400 transition-transform"></i>
+                        </summary>
+                        <div class="solution-body p-4 mt-2 bg-blue-50/50 rounded-xl border border-blue-100 text-sm text-slate-700 space-y-1">
+                            <p>Ta có \(\text{ƯCLN}(18, 24) = 6 \Rightarrow \text{ƯC}(18, 24) = \{1; 2; 3; 6\}\).</p>
+                            <p>Vì \(x > 2\) nên \(x \in \{3; 6\}\).</p>
+                        </div>
+                    </details>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ========================================================================= -->
+        <!-- PHẦN 2: MỨC ĐỘ NÂNG CAO -->
+        <!-- ========================================================================= -->
+        <section id="phan-2" class="mb-12 scroll-mt-20">
+            <div class="flex items-center justify-between border-b-2 border-amber-500 pb-3 mb-6">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-amber-600 text-white flex items-center justify-center font-bold text-lg shadow-md shadow-amber-200">
+                        2
                     </div>
-                    <button onclick="toggleHint(12)" class="text-xs font-bold text-violet-600 hover:text-violet-800 transition flex items-center gap-1">💡 Xem Gợi ý & Đáp án</button>
-                    <div id="hint-12" class="hidden mt-4 p-4 bg-amber-50/60 border border-amber-100 rounded-xl text-sm text-amber-900 leading-relaxed">
-                        <strong>Gợi ý:</strong> Đặt $a = 16m, b = 16n$ với $\text{ƯCLN}(m, n) = 1$ và $m > n > 0$. Thay vào điều kiện tổng để tìm $m, n$.<br>
-                        <strong>Lời giải chi tiết:</strong><br>
-                        Ta có $16m + 16n = 128 \rightarrow 16(m + n) = 128 \rightarrow m + n = 8$.<br>
-                        Vì $\text{ƯCLN}(m, n) = 1$ và $m > n > 0$ nên ta chọn các cặp sau:<br>
-                        - Cặp 1: $m = 7, n = 1 \rightarrow a = 16 \cdot 7 = 112$ và $b = 16 \cdot 1 = 16$.<br>
-                        - Cặp 2: $m = 5, n = 3 \rightarrow a = 16 \cdot 5 = 80$ và $b = 16 \cdot 3 = 48$.<br>
-                        Vậy hai cặp số $(a, b)$ thỏa mãn là: $(112, 16)$ hoặc $(80, 48)$.
+                    <div>
+                        <h3 class="text-xl font-bold text-slate-900 uppercase">Phần 2: Mức Độ Nâng Cao (10 Bài)</h3>
+                        <p class="text-xs sm:text-sm text-slate-500">Mục tiêu: Tìm ƯCLN biểu thức lũy thừa, rút gọn phân số, giải bài toán tìm biến số và thuật toán Euclid hình học.</p>
                     </div>
                 </div>
+                <span class="px-3 py-1 bg-amber-100 text-amber-800 text-xs font-bold rounded-lg hidden sm:inline-block">10 Bài Toán</span>
+            </div>
+
+            <div class="grid grid-cols-1 gap-6">
 
                 <!-- Bài 13 -->
-                <div class="exercise-card p-6" id="card-13">
-                    <div class="flex justify-between items-start gap-4 mb-4">
-                        <span class="bg-violet-50 text-violet-700 px-3 py-1 rounded-full text-xs font-extrabold uppercase">Bài 13</span>
-                        <span class="text-xs text-gray-400 font-bold">Chứng minh tổng quát</span>
+                <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="px-3 py-1 bg-amber-50 text-amber-700 text-xs font-bold rounded-md border border-amber-200">Bài 13 &bull; Tìm ƯCLN của biểu thức chữ chứa thừa số</span>
                     </div>
-                    <p class="text-gray-800 font-semibold mb-3 leading-relaxed">
-                        Chứng tỏ rằng với mọi số tự nhiên $n$, phân số $\frac{n+4}{n+5}$ là phân số tối giản.<br>
-                        <em>Câu hỏi đánh giá:</em> Gọi $d$ là $\text{ƯCLN}(n+4, n+5)$. Giá trị của $d$ là bao nhiêu?
+                    <p class="text-slate-800 font-medium mb-3">
+                        Cho hai số biểu diễn dưới dạng thừa số nguyên tố:<br>
+                        \(a = 2^3 \cdot 3^2 \cdot 5\)<br>
+                        \(b = 2^2 \cdot 3 \cdot 7\)<br>
+                        Tìm \(\text{ƯCLN}(a, b)\).
                     </p>
-                    <div class="w-full md:w-1/3 mb-4">
-                        <input type="text" id="ans-13" placeholder="Nhập giá trị d..." class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-violet-500 font-bold text-violet-700 text-center bg-slate-50">
+                    <details class="group mt-4">
+                        <summary class="flex items-center justify-between px-4 py-2.5 bg-slate-50 hover:bg-slate-100 rounded-xl cursor-pointer select-none text-sm font-semibold text-slate-700 transition">
+                            <span class="flex items-center gap-2"><i class="fas fa-lightbulb text-amber-500"></i> Gợi ý &amp; Lời giải chi tiết</span>
+                            <i class="fas fa-chevron-down toggle-icon text-slate-400 transition-transform"></i>
+                        </summary>
+                        <div class="solution-body p-4 mt-2 bg-amber-50/50 rounded-xl border border-amber-100 text-sm text-slate-700 space-y-1">
+                            <p>Các thừa số nguyên tố chung của \(a\) và \(b\) là \(2\) và \(3\).</p>
+                            <p>Số mũ nhỏ nhất của 2 là 2, của 3 là 1.</p>
+                            <p>&rarr; \(\text{ƯCLN}(a, b) = 2^2 \cdot 3 = 4 \cdot 3 = 12\).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 14 (JSXGraph 3) -->
+                <div class="bg-white rounded-2xl p-6 border-2 border-amber-200 shadow-sm hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="px-3 py-1 bg-amber-100 text-amber-800 text-xs font-bold rounded-md flex items-center gap-1.5">
+                            <i class="fas fa-filter text-amber-600"></i> Bài 14 &bull; JSXGraph 3: Máy rút gọn phân số qua ƯCLN
+                        </span>
+                        <span class="text-xs px-2.5 py-0.5 bg-purple-100 text-purple-800 font-bold rounded">Ứng dụng phân số</span>
                     </div>
-                    <button onclick="toggleHint(13)" class="text-xs font-bold text-violet-600 hover:text-violet-800 transition flex items-center gap-1">💡 Xem Gợi ý & Đáp án</button>
-                    <div id="hint-13" class="hidden mt-4 p-4 bg-amber-50/60 border border-amber-100 rounded-xl text-sm text-amber-900 leading-relaxed">
-                        <strong>Gợi ý:</strong> Gọi $d = \text{ƯCLN}(n+4, n+5)$. Khi đó cả tử và mẫu đều chia hết cho $d$. Thực hiện phép trừ giữa hai số hạng để triệt tiêu $n$.<br>
-                        <strong>Lời giải chi tiết:</strong><br>
-                        Giả sử $\text{ƯCLN}(n+4, n+5) = d$.<br>
-                        $\rightarrow (n+5) \vdots d$ và $(n+4) \vdots d$.<br>
-                        $\rightarrow [(n+5) - (n+4)] \vdots d \rightarrow 1 \vdots d \rightarrow d = 1$.<br>
-                        Vì ƯCLN của tử và mẫu bằng 1 với mọi số tự nhiên $n$ nên phân số trên luôn tối giản.
+                    <p class="text-slate-800 font-medium mb-3">
+                        Áp dụng phương pháp tìm ƯCLN của tử và mẫu để rút gọn các phân số sau về phân số tối giản:<br>
+                        a) \(\frac{40}{60}\)<br>
+                        b) \(\frac{84}{108}\)
+                    </p>
+
+                    <!-- JSXGraph 3 Container -->
+                    <div class="my-4">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-xs font-bold text-slate-600"><i class="fas fa-gears text-amber-500 mr-1"></i> Mô phỏng máy rút gọn phân số \(\frac{48}{72}\):</span>
+                            <button onclick="runFractionReducer()" class="px-3 py-1 bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold rounded-lg transition shadow-xs">Rút gọn chia cho 24</button>
+                        </div>
+                        <div id="jsx3_box" class="jxgbox w-full h-[250px] mx-auto"></div>
+                    </div>
+
+                    <details class="group mt-4">
+                        <summary class="flex items-center justify-between px-4 py-2.5 bg-slate-50 hover:bg-slate-100 rounded-xl cursor-pointer select-none text-sm font-semibold text-slate-700 transition">
+                            <span class="flex items-center gap-2"><i class="fas fa-lightbulb text-amber-500"></i> Gợi ý &amp; Lời giải chi tiết</span>
+                            <i class="fas fa-chevron-down toggle-icon text-slate-400 transition-transform"></i>
+                        </summary>
+                        <div class="solution-body p-4 mt-2 bg-amber-50/50 rounded-xl border border-amber-100 text-sm text-slate-700 space-y-2">
+                            <p><strong>a)</strong> \(\text{ƯCLN}(40, 60) = 20 \Rightarrow \frac{40}{60} = \frac{40 : 20}{60 : 20} = \frac{2}{3}\).</p>
+                            <p><strong>b)</strong> Ta có \(84 = 2^2 \cdot 3 \cdot 7\), \(108 = 2^2 \cdot 3^3 \Rightarrow \text{ƯCLN}(84, 108) = 2^2 \cdot 3 = 12\).<br>
+                            &rarr; \(\frac{84}{108} = \frac{84 : 12}{108 : 12} = \frac{7}{9}\).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 15 -->
+                <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="px-3 py-1 bg-amber-50 text-amber-700 text-xs font-bold rounded-md border border-amber-200">Bài 15 &bull; Tìm số tự nhiên lớn nhất thỏa mãn tính chia hết</span>
+                    </div>
+                    <p class="text-slate-800 font-medium mb-3">
+                        Tìm số tự nhiên \(x\) lớn nhất biết rằng \(120 \ \vdots \ x\) và \(160 \ \vdots \ x\).
+                    </p>
+                    <details class="group mt-4">
+                        <summary class="flex items-center justify-between px-4 py-2.5 bg-slate-50 hover:bg-slate-100 rounded-xl cursor-pointer select-none text-sm font-semibold text-slate-700 transition">
+                            <span class="flex items-center gap-2"><i class="fas fa-lightbulb text-amber-500"></i> Gợi ý &amp; Lời giải chi tiết</span>
+                            <i class="fas fa-chevron-down toggle-icon text-slate-400 transition-transform"></i>
+                        </summary>
+                        <div class="solution-body p-4 mt-2 bg-amber-50/50 rounded-xl border border-amber-100 text-sm text-slate-700 space-y-2">
+                            <p>Vì \(120 \ \vdots \ x\) và \(160 \ \vdots \ x\) mà \(x\) lớn nhất nên \(x = \text{ƯCLN}(120, 160)\).</p>
+                            <p>Phân tích: \(120 = 2^3 \cdot 3 \cdot 5\) và \(160 = 2^5 \cdot 5\).</p>
+                            <p>&rarr; \(x = \text{ƯCLN}(120, 160) = 2^3 \cdot 5 = 40\).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 16 -->
+                <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="px-3 py-1 bg-amber-50 text-amber-700 text-xs font-bold rounded-md border border-amber-200">Bài 16 &bull; Tìm ước chung có hai chữ số</span>
+                    </div>
+                    <p class="text-slate-800 font-medium mb-3">
+                        Tìm tập hợp các ước chung của \(144\) và \(192\) sao cho các ước chung đó là số có hai chữ số.
+                    </p>
+                    <details class="group mt-4">
+                        <summary class="flex items-center justify-between px-4 py-2.5 bg-slate-50 hover:bg-slate-100 rounded-xl cursor-pointer select-none text-sm font-semibold text-slate-700 transition">
+                            <span class="flex items-center gap-2"><i class="fas fa-lightbulb text-amber-500"></i> Gợi ý &amp; Lời giải chi tiết</span>
+                            <i class="fas fa-chevron-down toggle-icon text-slate-400 transition-transform"></i>
+                        </summary>
+                        <div class="solution-body p-4 mt-2 bg-amber-50/50 rounded-xl border border-amber-100 text-sm text-slate-700 space-y-2">
+                            <p>Ta có \(144 = 2^4 \cdot 3^2\) và \(192 = 2^6 \cdot 3 \Rightarrow \text{ƯCLN}(144, 192) = 2^4 \cdot 3 = 48\).</p>
+                            <p>\(\text{ƯC}(144, 192) = \text{Ư}(48) = \{1; 2; 3; 4; 6; 8; 12; 16; 24; 48\}\).</p>
+                            <p>&rarr; Các ước chung có hai chữ số là: <strong>\(\{12; 16; 24; 48\}\)</strong>.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 17 -->
+                <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="px-3 py-1 bg-amber-50 text-amber-700 text-xs font-bold rounded-md border border-amber-200">Bài 17 &bull; Tìm cặp số biết tích và ƯCLN</span>
+                    </div>
+                    <p class="text-slate-800 font-medium mb-3">
+                        Tìm hai số tự nhiên \(a\) và \(b\) (\(a > b\)) biết rằng tích \(a \cdot b = 180\) và \(\text{ƯCLN}(a, b) = 3\).
+                    </p>
+                    <details class="group mt-4">
+                        <summary class="flex items-center justify-between px-4 py-2.5 bg-slate-50 hover:bg-slate-100 rounded-xl cursor-pointer select-none text-sm font-semibold text-slate-700 transition">
+                            <span class="flex items-center gap-2"><i class="fas fa-lightbulb text-amber-500"></i> Gợi ý &amp; Lời giải chi tiết</span>
+                            <i class="fas fa-chevron-down toggle-icon text-slate-400 transition-transform"></i>
+                        </summary>
+                        <div class="solution-body p-4 mt-2 bg-amber-50/50 rounded-xl border border-amber-100 text-sm text-slate-700 space-y-2">
+                            <p>Vì \(\text{ƯCLN}(a, b) = 3\) nên đặt \(a = 3m, b = 3n\) với \(m, n \in \mathbb{N}^*, m > n, \text{ƯCLN}(m, n) = 1\).</p>
+                            <p>Ta có: \(a \cdot b = 3m \cdot 3n = 9mn = 180 \Rightarrow mn = 20\).</p>
+                            <p>Vì \(m > n\) và \(\text{ƯCLN}(m, n) = 1\) nên:</p>
+                            <ul class="list-disc pl-5 space-y-1">
+                                <li>\(m = 20, n = 1 \Rightarrow a = 60, b = 3\).</li>
+                                <li>\(m = 5, n = 4 \Rightarrow a = 15, b = 12\).</li>
+                            </ul>
+                            <p>&rarr; Có 2 cặp thỏa mãn: <strong>\((60; 3)\)</strong> và <strong>\((15; 12)\)</strong>.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 18 -->
+                <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="px-3 py-1 bg-amber-50 text-amber-700 text-xs font-bold rounded-md border border-amber-200">Bài 18 &bull; Chứng minh hai số liên tiếp nguyên tố cùng nhau</span>
+                    </div>
+                    <p class="text-slate-800 font-medium mb-3">
+                        Chứng tỏ rằng với mọi số tự nhiên \(n\), hai số liên tiếp \(n + 1\) và \(n + 2\) luôn luôn là hai số nguyên tố cùng nhau.
+                    </p>
+                    <details class="group mt-4">
+                        <summary class="flex items-center justify-between px-4 py-2.5 bg-slate-50 hover:bg-slate-100 rounded-xl cursor-pointer select-none text-sm font-semibold text-slate-700 transition">
+                            <span class="flex items-center gap-2"><i class="fas fa-lightbulb text-amber-500"></i> Gợi ý &amp; Lời giải chi tiết</span>
+                            <i class="fas fa-chevron-down toggle-icon text-slate-400 transition-transform"></i>
+                        </summary>
+                        <div class="solution-body p-4 mt-2 bg-amber-50/50 rounded-xl border border-amber-100 text-sm text-slate-700 space-y-2">
+                            <p>Gọi \(d = \text{ƯCLN}(n + 1, n + 2)\) (\(d \in \mathbb{N}^*\)).</p>
+                            <p>Khi đó \((n + 1) \ \vdots \ d\) và \((n + 2) \ \vdots \ d\).</p>
+                            <p>Suy ra hiệu: \([(n + 2) - (n + 1)] \ \vdots \ d \Rightarrow 1 \ \vdots \ d \Rightarrow d = 1\).</p>
+                            <p>&rarr; Vậy \(n + 1\) và \(n + 2\) luôn là hai số nguyên tố cùng nhau (đpcm).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 19 (JSXGraph 4) -->
+                <div class="bg-white rounded-2xl p-6 border-2 border-amber-200 shadow-sm hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="px-3 py-1 bg-amber-100 text-amber-800 text-xs font-bold rounded-md flex items-center gap-1.5">
+                            <i class="fas fa-square-full text-amber-600"></i> Bài 19 &bull; JSXGraph 4: Thuật toán hình học Euclid tìm ƯCLN
+                        </span>
+                        <span class="text-xs px-2.5 py-0.5 bg-emerald-100 text-emerald-800 font-bold rounded">Thuật toán Euclid</span>
+                    </div>
+                    <p class="text-slate-800 font-medium mb-3">
+                        Dựa trên thuật toán trừ hình học trực quan cắt hình chữ nhật \(105 \times 75\) thành các hình vuông, em hãy trình bày cách tìm \(\text{ƯCLN}(105, 75)\).
+                    </p>
+
+                    <!-- JSXGraph 4 Container -->
+                    <div class="my-4">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-xs font-bold text-slate-600"><i class="fas fa-shapes text-amber-500 mr-1"></i> Các bước chia lưới hình vuông của hình chữ nhật \(105 \times 75\):</span>
+                            <button onclick="renderEuclidAlgorithm()" class="px-3 py-1 bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold rounded-lg transition shadow-xs">Cắt hình vuông</button>
+                        </div>
+                        <div id="jsx4_box" class="jxgbox w-full h-[260px] mx-auto"></div>
+                    </div>
+
+                    <details class="group mt-4">
+                        <summary class="flex items-center justify-between px-4 py-2.5 bg-slate-50 hover:bg-slate-100 rounded-xl cursor-pointer select-none text-sm font-semibold text-slate-700 transition">
+                            <span class="flex items-center gap-2"><i class="fas fa-lightbulb text-amber-500"></i> Gợi ý &amp; Lời giải chi tiết</span>
+                            <i class="fas fa-chevron-down toggle-icon text-slate-400 transition-transform"></i>
+                        </summary>
+                        <div class="solution-body p-4 mt-2 bg-amber-50/50 rounded-xl border border-amber-100 text-sm text-slate-700 space-y-2">
+                            <p>Thuật toán Euclid liên tiếp:</p>
+                            <p>&bull; \(105 = 75 \times 1 + 30\)</p>
+                            <p>&bull; \(75 = 30 \times 2 + 15\)</p>
+                            <p>&bull; \(30 = 15 \times 2 + 0\)</p>
+                            <p>&rarr; Số dư cuối cùng khác 0 là 15, do đó <strong>\(\text{ƯCLN}(105, 75) = 15\)</strong>.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 20 -->
+                <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="px-3 py-1 bg-amber-50 text-amber-700 text-xs font-bold rounded-md border border-amber-200">Bài 20 &bull; Tìm số chia hết đồng thời cho ba số</span>
+                    </div>
+                    <p class="text-slate-800 font-medium mb-3">
+                        Tìm số tự nhiên \(x\) lớn nhất thỏa mãn ba điều kiện: \(150 \ \vdots \ x\), \(84 \ \vdots \ x\) và \(30 \ \vdots \ x\).
+                    </p>
+                    <details class="group mt-4">
+                        <summary class="flex items-center justify-between px-4 py-2.5 bg-slate-50 hover:bg-slate-100 rounded-xl cursor-pointer select-none text-sm font-semibold text-slate-700 transition">
+                            <span class="flex items-center gap-2"><i class="fas fa-lightbulb text-amber-500"></i> Gợi ý &amp; Lời giải chi tiết</span>
+                            <i class="fas fa-chevron-down toggle-icon text-slate-400 transition-transform"></i>
+                        </summary>
+                        <div class="solution-body p-4 mt-2 bg-amber-50/50 rounded-xl border border-amber-100 text-sm text-slate-700 space-y-2">
+                            <p>\(x = \text{ƯCLN}(150, 84, 30)\).</p>
+                            <p>Phân tích: \(150 = 2 \cdot 3 \cdot 5^2\); \(84 = 2^2 \cdot 3 \cdot 7\); \(30 = 2 \cdot 3 \cdot 5\).</p>
+                            <p>&rarr; \(x = 2 \cdot 3 = 6\).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 21 -->
+                <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="px-3 py-1 bg-amber-50 text-amber-700 text-xs font-bold rounded-md border border-amber-200">Bài 21 &bull; Tìm số lượng phần tử tập hợp ước chung</span>
+                    </div>
+                    <p class="text-slate-800 font-medium mb-3">
+                        Cho tập hợp \(A = \{x \in \mathbb{N} \mid 100 \ \vdots \ x \text{ và } 150 \ \vdots \ x\}\). Tập hợp \(A\) có bao nhiêu phần tử? Hãy liệt kê các phần tử đó.
+                    </p>
+                    <details class="group mt-4">
+                        <summary class="flex items-center justify-between px-4 py-2.5 bg-slate-50 hover:bg-slate-100 rounded-xl cursor-pointer select-none text-sm font-semibold text-slate-700 transition">
+                            <span class="flex items-center gap-2"><i class="fas fa-lightbulb text-amber-500"></i> Gợi ý &amp; Lời giải chi tiết</span>
+                            <i class="fas fa-chevron-down toggle-icon text-slate-400 transition-transform"></i>
+                        </summary>
+                        <div class="solution-body p-4 mt-2 bg-amber-50/50 rounded-xl border border-amber-100 text-sm text-slate-700 space-y-2">
+                            <p>Ta có \(\text{ƯCLN}(100, 150) = 50\).</p>
+                            <p>\(A = \text{ƯC}(100, 150) = \text{Ư}(50) = \{1; 2; 5; 10; 25; 50\}\).</p>
+                            <p>&rarr; Tập hợp \(A\) có <strong>\(6\) phần tử</strong>.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 22 -->
+                <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="px-3 py-1 bg-amber-50 text-amber-700 text-xs font-bold rounded-md border border-amber-200">Bài 22 &bull; Tìm hai số biết tỉ số và ƯCLN</span>
+                    </div>
+                    <p class="text-slate-800 font-medium mb-3">
+                        Tìm hai số tự nhiên \(a\) và \(b\) biết rằng \(\text{ƯCLN}(a, b) = 10\) và tỉ số giữa chúng là \(\frac{a}{b} = \frac{3}{4}\).
+                    </p>
+                    <details class="group mt-4">
+                        <summary class="flex items-center justify-between px-4 py-2.5 bg-slate-50 hover:bg-slate-100 rounded-xl cursor-pointer select-none text-sm font-semibold text-slate-700 transition">
+                            <span class="flex items-center gap-2"><i class="fas fa-lightbulb text-amber-500"></i> Gợi ý &amp; Lời giải chi tiết</span>
+                            <i class="fas fa-chevron-down toggle-icon text-slate-400 transition-transform"></i>
+                        </summary>
+                        <div class="solution-body p-4 mt-2 bg-amber-50/50 rounded-xl border border-amber-100 text-sm text-slate-700 space-y-2">
+                            <p>Vì \(\frac{a}{b} = \frac{3}{4}\) là phân số tối giản (\(\text{ƯCLN}(3, 4) = 1\)) nên:</p>
+                            <p>\(a = 3 \times \text{ƯCLN}(a, b) = 3 \times 10 = 30\).</p>
+                            <p>\(b = 4 \times \text{ƯCLN}(a, b) = 4 \times 10 = 40\).</p>
+                            <p>&rarr; Vậy <strong>\(a = 30\)</strong> và <strong>\(b = 40\)</strong>.</p>
+                        </div>
+                    </details>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ========================================================================= -->
+        <!-- PHẦN 3: MỨC ĐỘ VẬN DỤNG -->
+        <!-- ========================================================================= -->
+        <section id="phan-3" class="mb-12 scroll-mt-20">
+            <div class="flex items-center justify-between border-b-2 border-emerald-500 pb-3 mb-6">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-emerald-600 text-white flex items-center justify-center font-bold text-lg shadow-md shadow-emerald-200">
+                        3
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-slate-900 uppercase">Phần 3: Mức Độ Vận Dụng Thực Tế (8 Bài)</h3>
+                        <p class="text-xs sm:text-sm text-slate-500">Mục tiêu: Áp dụng ƯCLN và ƯC vào chia tổ y tế, đóng gói phần thưởng, phân chia ô đất, cắt vải may khăn, xếp hàng diễu hành và lát gạch nền nhà.</p>
+                    </div>
+                </div>
+                <span class="px-3 py-1 bg-emerald-100 text-emerald-800 text-xs font-bold rounded-lg hidden sm:inline-block">8 Bài Toán</span>
+            </div>
+
+            <div class="grid grid-cols-1 gap-6">
+
+                <!-- Bài 23 -->
+                <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="px-3 py-1 bg-emerald-50 text-emerald-700 text-xs font-bold rounded-md border border-emerald-200">Bài 23 &bull; Chia tổ đội y tế phản ứng nhanh</span>
+                    </div>
+                    <p class="text-slate-800 font-medium mb-3">
+                        Một đội y tế phản ứng nhanh của bệnh viện gồm có \(24\) bác sĩ và \(108\) y tá. Người ta muốn chia đội y tế đó nhiều nhất thành bao nhiêu tổ để số bác sĩ và y tá được chia đều vào các tổ? Khi đó, mỗi tổ gồm bao nhiêu bác sĩ và bao nhiêu y tá?
+                    </p>
+                    <details class="group mt-4">
+                        <summary class="flex items-center justify-between px-4 py-2.5 bg-slate-50 hover:bg-slate-100 rounded-xl cursor-pointer select-none text-sm font-semibold text-slate-700 transition">
+                            <span class="flex items-center gap-2"><i class="fas fa-lightbulb text-amber-500"></i> Gợi ý &amp; Lời giải chi tiết</span>
+                            <i class="fas fa-chevron-down toggle-icon text-slate-400 transition-transform"></i>
+                        </summary>
+                        <div class="solution-body p-4 mt-2 bg-emerald-50/50 rounded-xl border border-emerald-100 text-sm text-slate-700 space-y-2">
+                            <p>Số tổ nhiều nhất là \(\text{ƯCLN}(24, 108)\).</p>
+                            <p>Ta có \(24 = 2^3 \cdot 3\) và \(108 = 2^2 \cdot 3^3 \Rightarrow \text{ƯCLN}(24, 108) = 2^2 \cdot 3 = 12\).</p>
+                            <p>&rarr; Chia được nhiều nhất thành <strong>\(12\) tổ</strong>.</p>
+                            <p>Khi đó mỗi tổ có: \(24 : 12 = 2\) (bác sĩ) và \(108 : 12 = 9\) (y tá).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 24 -->
+                <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="px-3 py-1 bg-emerald-50 text-emerald-700 text-xs font-bold rounded-md border border-emerald-200">Bài 24 &bull; Đóng gói phần thưởng học sinh</span>
+                    </div>
+                    <p class="text-slate-800 font-medium mb-3">
+                        Cô giáo chủ nhiệm lớp 6A có \(60\) quyển vở, \(48\) chiếc bút bi và \(36\) hộp sáp màu. Cô muốn chia đều số đồ dùng học tập này thành các phần quà giống hệt nhau:<br>
+                        a) Hỏi cô giáo có thể chia được nhiều nhất thành bao nhiêu phần quà?<br>
+                        b) Khi đó, mỗi phần quà gồm bao nhiêu món đồ dùng học tập mỗi loại?
+                    </p>
+                    <details class="group mt-4">
+                        <summary class="flex items-center justify-between px-4 py-2.5 bg-slate-50 hover:bg-slate-100 rounded-xl cursor-pointer select-none text-sm font-semibold text-slate-700 transition">
+                            <span class="flex items-center gap-2"><i class="fas fa-lightbulb text-amber-500"></i> Gợi ý &amp; Lời giải chi tiết</span>
+                            <i class="fas fa-chevron-down toggle-icon text-slate-400 transition-transform"></i>
+                        </summary>
+                        <div class="solution-body p-4 mt-2 bg-emerald-50/50 rounded-xl border border-emerald-100 text-sm text-slate-700 space-y-2">
+                            <p><strong>a)</strong> Số phần quà nhiều nhất là \(\text{ƯCLN}(60, 48, 36) = 12\) (phần quà).</p>
+                            <p><strong>b)</strong> Mỗi phần quà có: \(60 : 12 = 5\) (vở), \(48 : 12 = 4\) (bút), \(36 : 12 = 3\) (hộp sáp màu).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 25 (JSXGraph 5) -->
+                <div class="bg-white rounded-2xl p-6 border-2 border-emerald-200 shadow-sm hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="px-3 py-1 bg-emerald-100 text-emerald-800 text-xs font-bold rounded-md flex items-center gap-1.5">
+                            <i class="fas fa-border-all text-emerald-600"></i> Bài 25 &bull; JSXGraph 5: Bản đồ chia ô đất vườn rau hình chữ nhật
+                        </span>
+                        <span class="text-xs px-2.5 py-0.5 bg-blue-100 text-blue-800 font-bold rounded">Mô hình chia đất</span>
+                    </div>
+                    <p class="text-slate-800 font-medium mb-3">
+                        Một mảnh vườn hình chữ nhật có chiều dài \(60\text{ m}\) và chiều rộng \(48\text{ m}\). Người ta muốn chia mảnh vườn này thành các ô vuông bằng nhau để trồng rau mà không thừa mảnh đất nào. Tính độ dài cạnh lớn nhất của ô vuông đó.
+                    </p>
+
+                    <!-- JSXGraph 5 Container -->
+                    <div class="my-4">
+                        <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+                            <span class="text-xs font-bold text-slate-600"><i class="fas fa-sliders-h text-emerald-500 mr-1"></i> Chọn kích thước cạnh ô vuông chia đất:</span>
+                            <div class="flex gap-2">
+                                <button onclick="renderGardenGrid(6)" class="px-2.5 py-1 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold rounded border border-slate-300">Cạnh 6m (10×8 ô)</button>
+                                <button onclick="renderGardenGrid(12)" class="px-2.5 py-1 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold rounded shadow-xs">Cạnh 12m (Lớn nhất: 5×4 ô)</button>
+                            </div>
+                        </div>
+                        <div id="jsx5_box" class="jxgbox w-full h-[260px] mx-auto"></div>
+                    </div>
+
+                    <details class="group mt-4">
+                        <summary class="flex items-center justify-between px-4 py-2.5 bg-slate-50 hover:bg-slate-100 rounded-xl cursor-pointer select-none text-sm font-semibold text-slate-700 transition">
+                            <span class="flex items-center gap-2"><i class="fas fa-lightbulb text-amber-500"></i> Gợi ý &amp; Lời giải chi tiết</span>
+                            <i class="fas fa-chevron-down toggle-icon text-slate-400 transition-transform"></i>
+                        </summary>
+                        <div class="solution-body p-4 mt-2 bg-emerald-50/50 rounded-xl border border-emerald-100 text-sm text-slate-700 space-y-2">
+                            <p>Độ dài cạnh ô vuông lớn nhất là \(\text{ƯCLN}(60, 48)\).</p>
+                            <p>Ta có: \(60 = 2^2 \cdot 3 \cdot 5\) và \(48 = 2^4 \cdot 3 \Rightarrow \text{ƯCLN}(60, 48) = 2^2 \cdot 3 = 12\text{ m}\).</p>
+                            <p>&rarr; Cạnh ô vuông lớn nhất có độ dài bằng <strong>\(12\text{ m}\)</strong> (khi đó chia được \(5 \times 4 = 20\) ô vuông).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 26 -->
+                <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="px-3 py-1 bg-emerald-50 text-emerald-700 text-xs font-bold rounded-md border border-emerald-200">Bài 26 &bull; Cắt vải may khăn tay</span>
+                    </div>
+                    <p class="text-slate-800 font-medium mb-3">
+                        Một thợ may có một tấm vải hình chữ nhật dài \(120\text{ cm}\) và rộng \(80\text{ cm}\). Người thợ muốn cắt tấm vải này thành các mảnh hình vuông nhỏ bằng nhau mà không bị thừa mảnh nào.<br>
+                        a) Hỏi độ dài cạnh hình vuông lớn nhất có thể cắt là bao nhiêu?<br>
+                        b) Với kích thước cạnh lớn nhất đó, người thợ may cắt được tất cả bao nhiêu chiếc khăn tay?
+                    </p>
+                    <details class="group mt-4">
+                        <summary class="flex items-center justify-between px-4 py-2.5 bg-slate-50 hover:bg-slate-100 rounded-xl cursor-pointer select-none text-sm font-semibold text-slate-700 transition">
+                            <span class="flex items-center gap-2"><i class="fas fa-lightbulb text-amber-500"></i> Gợi ý &amp; Lời giải chi tiết</span>
+                            <i class="fas fa-chevron-down toggle-icon text-slate-400 transition-transform"></i>
+                        </summary>
+                        <div class="solution-body p-4 mt-2 bg-emerald-50/50 rounded-xl border border-emerald-100 text-sm text-slate-700 space-y-2">
+                            <p><strong>a)</strong> Cạnh hình vuông lớn nhất là \(\text{ƯCLN}(120, 80) = 40\text{ cm}\).</p>
+                            <p><strong>b)</strong> Số khăn tay cắt được là: \((120 : 40) \times (80 : 40) = 3 \times 2 = 6\) (chiếc khăn tay).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 27 -->
+                <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="px-3 py-1 bg-emerald-50 text-emerald-700 text-xs font-bold rounded-md border border-emerald-200">Bài 27 &bull; Xếp hàng dọc diễu hành thể thao</span>
+                    </div>
+                    <p class="text-slate-800 font-medium mb-3">
+                        Học sinh khối 6, khối 7 và khối 8 lần lượt có \(300\) em, \(276\) em và \(252\) em tham gia diễu hành. Ban tổ chức muốn xếp các khối thành các hàng dọc đều nhau sao cho số hàng dọc của mỗi khối là như nhau. Hỏi có thể xếp nhiều nhất thành bao nhiêu hàng dọc? Khi đó mỗi khối xếp thành bao nhiêu hàng ngang?
+                    </p>
+                    <details class="group mt-4">
+                        <summary class="flex items-center justify-between px-4 py-2.5 bg-slate-50 hover:bg-slate-100 rounded-xl cursor-pointer select-none text-sm font-semibold text-slate-700 transition">
+                            <span class="flex items-center gap-2"><i class="fas fa-lightbulb text-amber-500"></i> Gợi ý &amp; Lời giải chi tiết</span>
+                            <i class="fas fa-chevron-down toggle-icon text-slate-400 transition-transform"></i>
+                        </summary>
+                        <div class="solution-body p-4 mt-2 bg-emerald-50/50 rounded-xl border border-emerald-100 text-sm text-slate-700 space-y-2">
+                            <p>Số hàng dọc nhiều nhất là \(\text{ƯCLN}(300, 276, 252)\).</p>
+                            <p>Ta có: \(300 = 2^2 \cdot 3 \cdot 5^2\); \(276 = 2^2 \cdot 3 \cdot 23\); \(252 = 2^2 \cdot 3^2 \cdot 7\).</p>
+                            <p>&rarr; \(\text{ƯCLN}(300, 276, 252) = 2^2 \cdot 3 = 12\) (hàng dọc).</p>
+                            <p>Số hàng ngang mỗi khối:</p>
+                            <ul class="list-disc pl-5 space-y-1">
+                                <li>Khối 6: \(300 : 12 = 25\) hàng ngang.</li>
+                                <li>Khối 7: \(276 : 12 = 23\) hàng ngang.</li>
+                                <li>Khối 8: \(252 : 12 = 21\) hàng ngang.</li>
+                            </ul>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 28 -->
+                <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="px-3 py-1 bg-emerald-50 text-emerald-700 text-xs font-bold rounded-md border border-emerald-200">Bài 28 &bull; Chia nhóm cắm trại dã ngoại</span>
+                    </div>
+                    <p class="text-slate-800 font-medium mb-3">
+                        Lớp 6C có \(28\) học sinh nam và \(21\) học sinh nữ được chia thành các nhóm nhỏ sao cho số nam và số nữ ở mỗi nhóm đều bằng nhau:<br>
+                        a) Có bao nhiêu cách chia nhóm như vậy? (Kể cả cách chia thành 1 nhóm).<br>
+                        b) Cách chia nhóm nào giúp cho mỗi nhóm có số học sinh ít nhất?
+                    </p>
+                    <details class="group mt-4">
+                        <summary class="flex items-center justify-between px-4 py-2.5 bg-slate-50 hover:bg-slate-100 rounded-xl cursor-pointer select-none text-sm font-semibold text-slate-700 transition">
+                            <span class="flex items-center gap-2"><i class="fas fa-lightbulb text-amber-500"></i> Gợi ý &amp; Lời giải chi tiết</span>
+                            <i class="fas fa-chevron-down toggle-icon text-slate-400 transition-transform"></i>
+                        </summary>
+                        <div class="solution-body p-4 mt-2 bg-emerald-50/50 rounded-xl border border-emerald-100 text-sm text-slate-700 space-y-2">
+                            <p>Số nhóm phải là ước chung của 28 và 21. Ta có \(\text{ƯCLN}(28, 21) = 7\).</p>
+                            <p>Các ước chung là: \(\text{ƯC}(28, 21) = \{1; 7\}\).</p>
+                            <p><strong>a)</strong> Có <strong>\(2\) cách chia nhóm</strong>: Chia thành \(1\) nhóm hoặc chia thành \(7\) nhóm.</p>
+                            <p><strong>b)</strong> Để mỗi nhóm có số học sinh ít nhất thì số nhóm phải nhiều nhất (\(7\) nhóm). Khi đó mỗi nhóm có \(28 : 7 = 4\) nam và \(21 : 7 = 3\) nữ (tổng cộng \(7\) học sinh/nhóm).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 29 (JSXGraph 6) -->
+                <div class="bg-white rounded-2xl p-6 border-2 border-emerald-200 shadow-sm hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="px-3 py-1 bg-emerald-100 text-emerald-800 text-xs font-bold rounded-md flex items-center gap-1.5">
+                            <i class="fas fa-table-cells text-emerald-600"></i> Bài 29 &bull; JSXGraph 6: Lát gạch sàn nhà vệ sinh
+                        </span>
+                        <span class="text-xs px-2.5 py-0.5 bg-indigo-100 text-indigo-800 font-bold rounded">Thực tế xây dựng</span>
+                    </div>
+                    <p class="text-slate-800 font-medium mb-3">
+                        Mặt sàn nhà vệ sinh kích thước \(300\text{ cm} \times 180\text{ cm}\). Trong các viên gạch vuông có kích thước cạnh \(20\text{ cm}, 30\text{ cm}, 40\text{ cm}, 50\text{ cm}\), giải thích tại sao gạch kích thước \(30\text{ cm}\) là loại lớn nhất lát vừa khít sàn nhà mà không phải cắt gạch.
+                    </p>
+
+                    <!-- JSXGraph 6 Container -->
+                    <div class="my-4">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-xs font-bold text-slate-600"><i class="fas fa-layer-group text-emerald-500 mr-1"></i> Lưới lát sàn nhà \(300 \times 180\) bằng gạch \(30 \times 30\):</span>
+                        </div>
+                        <div id="jsx6_box" class="jxgbox w-full h-[260px] mx-auto"></div>
+                    </div>
+
+                    <details class="group mt-4">
+                        <summary class="flex items-center justify-between px-4 py-2.5 bg-slate-50 hover:bg-slate-100 rounded-xl cursor-pointer select-none text-sm font-semibold text-slate-700 transition">
+                            <span class="flex items-center gap-2"><i class="fas fa-lightbulb text-amber-500"></i> Gợi ý &amp; Lời giải chi tiết</span>
+                            <i class="fas fa-chevron-down toggle-icon text-slate-400 transition-transform"></i>
+                        </summary>
+                        <div class="solution-body p-4 mt-2 bg-emerald-50/50 rounded-xl border border-emerald-100 text-sm text-slate-700 space-y-2">
+                            <p>Để lát vừa khít không cần cắt gạch thì cạnh của viên gạch phải là ước chung của 300 và 180.</p>
+                            <p>Ta có \(\text{ƯCLN}(300, 180) = 60\). Các ước của 60 là \(\{1; 2; 3; 4; 5; 6; 10; 12; 15; 20; 30; 60\}\).</p>
+                            <p>Trong các kích thước có sẵn \(\{20; 30; 40; 50\}\), chỉ có \(20\) và \(30\) là ước chung của 300 và 180.</p>
+                            <p>&rarr; Viên gạch lớn nhất trong khay lát vừa khít là loại <strong>\(30\text{ cm}\)</strong> (cần \((300:30) \times (180:30) = 10 \times 6 = 60\) viên).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 30 -->
+                <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="px-3 py-1 bg-emerald-50 text-emerald-700 text-xs font-bold rounded-md border border-emerald-200">Bài 30 &bull; Phân phối nhu yếu phẩm thiện nguyện</span>
+                    </div>
+                    <p class="text-slate-800 font-medium mb-3">
+                        Một ban tổ chức nhận được \(140\) gói mì ăn liền, \(84\) hộp sữa tươi và \(56\) chai nước lọc. Ban tổ chức muốn chia toàn bộ thành các suất quà như nhau.<br>
+                        a) Hỏi có thể chia được tối đa bao nhiêu suất quà?<br>
+                        b) Có cách chia nào để mỗi suất quà nhận được đúng \(10\) gói mì ăn liền không? Vì sao?
+                    </p>
+                    <details class="group mt-4">
+                        <summary class="flex items-center justify-between px-4 py-2.5 bg-slate-50 hover:bg-slate-100 rounded-xl cursor-pointer select-none text-sm font-semibold text-slate-700 transition">
+                            <span class="flex items-center gap-2"><i class="fas fa-lightbulb text-amber-500"></i> Gợi ý &amp; Lời giải chi tiết</span>
+                            <i class="fas fa-chevron-down toggle-icon text-slate-400 transition-transform"></i>
+                        </summary>
+                        <div class="solution-body p-4 mt-2 bg-emerald-50/50 rounded-xl border border-emerald-100 text-sm text-slate-700 space-y-2">
+                            <p><strong>a)</strong> Số suất quà tối đa là \(\text{ƯCLN}(140, 84, 56) = 28\) (suất quà).</p>
+                            <p><strong>b)</strong> Nếu mỗi suất nhận 10 gói mì thì số suất quà phải là \(140 : 10 = 14\) (suất quà).<br>
+                            Vì \(14\) là ước của \(84\) (\(84 : 14 = 6\) hộp sữa) và \(14\) là ước của \(56\) (\(56 : 14 = 4\) chai nước) nên <strong>hoàn toàn có thể chia được</strong> thành \(14\) suất quà thỏa mãn.</p>
+                        </div>
+                    </details>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ========================================================================= -->
+        <!-- PHẦN TRẮC NGHIỆM ĐÁNH GIÁ NĂNG LỰC TẠI LỚP (5 CÂU) -->
+        <!-- ========================================================================= -->
+        <section id="trac-nghiem" class="mb-16 scroll-mt-20">
+            <div class="bg-white rounded-3xl p-6 sm:p-8 border-2 border-purple-300 shadow-xl">
+                
+                <div class="flex flex-wrap items-center justify-between gap-4 border-b border-purple-100 pb-4 mb-6">
+                    <div class="flex items-center gap-3">
+                        <div class="w-12 h-12 rounded-2xl bg-purple-600 text-white flex items-center justify-center font-bold text-xl shadow-md shadow-purple-200">
+                            <i class="fas fa-check-double"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl sm:text-2xl font-extrabold text-slate-900">BÀI TẬP ĐÁNH GIÁ NĂNG LỰC TẠI LỚP</h3>
+                            <p class="text-xs sm:text-sm text-slate-500">Khảo sát trực tuyến 5 câu &bull; Tự động chấm điểm &amp; Gửi kết quả về máy chủ</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-3 bg-purple-50 px-4 py-2 rounded-xl border border-purple-200">
+                        <i class="fas fa-stopwatch text-purple-600 text-lg"></i>
+                        <span id="timer-display" class="font-mono text-base font-bold text-purple-900">15:00</span>
                     </div>
                 </div>
 
-                <!-- Bài 14 -->
-                <div class="exercise-card p-6" id="card-14">
-                    <div class="flex justify-between items-start gap-4 mb-4">
-                        <span class="bg-violet-50 text-violet-700 px-3 py-1 rounded-full text-xs font-extrabold uppercase">Bài 14</span>
-                        <span class="text-xs text-gray-400 font-bold">Tham số toán học</span>
+                <!-- Student Info Form -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6 bg-slate-50 p-4 rounded-2xl border border-slate-200">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Họ và tên học sinh <span class="text-rose-500">*</span></label>
+                        <input type="text" id="student_name" placeholder="Ví dụ: Hoàng Tuấn Kiệt" 
+                               class="w-full px-3.5 py-2 text-sm bg-white border border-slate-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:outline-none">
                     </div>
-                    <p class="text-gray-800 font-semibold mb-3 leading-relaxed">
-                        Tìm ƯCLN của hai biểu thức $7n + 3$ và $8n - 1$ (với $n \in \mathbb{N}$).<br>
-                        <em>Câu hỏi đánh giá:</em> ƯCLN của hai biểu thức trên có thể bằng $1$ hoặc bằng số nguyên tố nào khác?
-                    </p>
-                    <div class="w-full md:w-1/3 mb-4">
-                        <input type="text" id="ans-14" placeholder="Nhập số nguyên tố đó..." class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-violet-500 font-bold text-violet-700 text-center bg-slate-50">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Mã bài kiểm tra</label>
+                        <input type="text" id="exam_code" value="toan6-07" readonly 
+                               class="w-full px-3.5 py-2 text-sm bg-slate-100 border border-slate-300 rounded-xl text-slate-500 font-mono font-bold">
                     </div>
-                    <button onclick="toggleHint(14)" class="text-xs font-bold text-violet-600 hover:text-violet-800 transition flex items-center gap-1">💡 Xem Gợi ý & Đáp án</button>
-                    <div id="hint-14" class="hidden mt-4 p-4 bg-amber-50/60 border border-amber-100 rounded-xl text-sm text-amber-900 leading-relaxed">
-                        <strong>Gợi ý:</strong> Gọi $d = \text{ƯCLN}(7n + 3, 8n - 1)$. Nhân các biểu thức với các hệ số tương ứng sao cho khi trừ nhau sẽ triệt tiêu biến $n$.<br>
-                        <strong>Lời giải chi tiết:</strong><br>
-                        Gọi $\text{ƯCLN}(7n + 3, 8n - 1) = d$.<br>
-                        $\rightarrow (7n + 3) \vdots d \rightarrow 8 \cdot (7n + 3) = 56n + 24 \vdots d$.<br>
-                        $\rightarrow (8n - 1) \vdots d \rightarrow 7 \cdot (8n - 1) = 56n - 7 \vdots d$.<br>
-                        $\rightarrow [(56n + 24) - (56n - 7)] \vdots d \rightarrow 31 \vdots d$.<br>
-                        Vì $31$ là số nguyên tố nên $d \in \{1; 31\}$.
+                </div>
+
+                <!-- 5 Quiz Questions -->
+                <div class="space-y-6" id="quiz-container">
+
+                    <!-- Câu 1 -->
+                    <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-xs" data-q="1">
+                        <p class="font-bold text-slate-900 mb-3 text-sm sm:text-base">
+                            <span class="inline-block px-2.5 py-1 bg-purple-100 text-purple-800 rounded-lg text-xs font-bold mr-1.5">Câu 1</span>
+                            Ước chung lớn nhất của hai số \(18\) và \(30\) là:
+                        </p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-sm">
+                            <label class="flex items-center p-3 rounded-xl border border-slate-200 hover:bg-purple-50/50 cursor-pointer transition">
+                                <input type="radio" name="q1" value="A" class="w-4 h-4 text-purple-600 mr-3"> A. 3
+                            </label>
+                            <label class="flex items-center p-3 rounded-xl border border-slate-200 hover:bg-purple-50/50 cursor-pointer transition">
+                                <input type="radio" name="q1" value="B" class="w-4 h-4 text-purple-600 mr-3"> B. 6
+                            </label>
+                            <label class="flex items-center p-3 rounded-xl border border-slate-200 hover:bg-purple-50/50 cursor-pointer transition">
+                                <input type="radio" name="q1" value="C" class="w-4 h-4 text-purple-600 mr-3"> C. 9
+                            </label>
+                            <label class="flex items-center p-3 rounded-xl border border-slate-200 hover:bg-purple-50/50 cursor-pointer transition">
+                                <input type="radio" name="q1" value="D" class="w-4 h-4 text-purple-600 mr-3"> D. 12
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Câu 2 -->
+                    <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-xs" data-q="2">
+                        <p class="font-bold text-slate-900 mb-3 text-sm sm:text-base">
+                            <span class="inline-block px-2.5 py-1 bg-purple-100 text-purple-800 rounded-lg text-xs font-bold mr-1.5">Câu 2</span>
+                            Hai số nguyên tố cùng nhau là hai số có:
+                        </p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-sm">
+                            <label class="flex items-center p-3 rounded-xl border border-slate-200 hover:bg-purple-50/50 cursor-pointer transition">
+                                <input type="radio" name="q2" value="A" class="w-4 h-4 text-purple-600 mr-3"> A. BCNN bằng 1
+                            </label>
+                            <label class="flex items-center p-3 rounded-xl border border-slate-200 hover:bg-purple-50/50 cursor-pointer transition">
+                                <input type="radio" name="q2" value="B" class="w-4 h-4 text-purple-600 mr-3"> B. Hiệu bằng 1
+                            </label>
+                            <label class="flex items-center p-3 rounded-xl border border-slate-200 hover:bg-purple-50/50 cursor-pointer transition">
+                                <input type="radio" name="q2" value="C" class="w-4 h-4 text-purple-600 mr-3"> C. ƯCLN bằng 1
+                            </label>
+                            <label class="flex items-center p-3 rounded-xl border border-slate-200 hover:bg-purple-50/50 cursor-pointer transition">
+                                <input type="radio" name="q2" value="D" class="w-4 h-4 text-purple-600 mr-3"> D. Tổng là số nguyên tố
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Câu 3 -->
+                    <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-xs" data-q="3">
+                        <p class="font-bold text-slate-900 mb-3 text-sm sm:text-base">
+                            <span class="inline-block px-2.5 py-1 bg-purple-100 text-purple-800 rounded-lg text-xs font-bold mr-1.5">Câu 3</span>
+                            Rút gọn phân số \(\frac{36}{48}\) về phân số tối giản bằng cách chia cho ƯCLN ta được:
+                        </p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-sm">
+                            <label class="flex items-center p-3 rounded-xl border border-slate-200 hover:bg-purple-50/50 cursor-pointer transition">
+                                <input type="radio" name="q3" value="A" class="w-4 h-4 text-purple-600 mr-3"> A. \(\frac{6}{8}\)
+                            </label>
+                            <label class="flex items-center p-3 rounded-xl border border-slate-200 hover:bg-purple-50/50 cursor-pointer transition">
+                                <input type="radio" name="q3" value="B" class="w-4 h-4 text-purple-600 mr-3"> B. \(\frac{9}{12}\)
+                            </label>
+                            <label class="flex items-center p-3 rounded-xl border border-slate-200 hover:bg-purple-50/50 cursor-pointer transition">
+                                <input type="radio" name="q3" value="C" class="w-4 h-4 text-purple-600 mr-3"> C. \(\frac{3}{4}\)
+                            </label>
+                            <label class="flex items-center p-3 rounded-xl border border-slate-200 hover:bg-purple-50/50 cursor-pointer transition">
+                                <input type="radio" name="q3" value="D" class="w-4 h-4 text-purple-600 mr-3"> D. \(\frac{18}{24}\)
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Câu 4 -->
+                    <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-xs" data-q="4">
+                        <p class="font-bold text-slate-900 mb-3 text-sm sm:text-base">
+                            <span class="inline-block px-2.5 py-1 bg-purple-100 text-purple-800 rounded-lg text-xs font-bold mr-1.5">Câu 4</span>
+                            Một lớp có \(24\) học sinh nam và \(18\) học sinh nữ. Muốn chia thành nhiều nhóm nhất sao cho số nam và nữ ở các nhóm bằng nhau thì chia được:
+                        </p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-sm">
+                            <label class="flex items-center p-3 rounded-xl border border-slate-200 hover:bg-purple-50/50 cursor-pointer transition">
+                                <input type="radio" name="q4" value="A" class="w-4 h-4 text-purple-600 mr-3"> A. 6 nhóm
+                            </label>
+                            <label class="flex items-center p-3 rounded-xl border border-slate-200 hover:bg-purple-50/50 cursor-pointer transition">
+                                <input type="radio" name="q4" value="B" class="w-4 h-4 text-purple-600 mr-3"> B. 3 nhóm
+                            </label>
+                            <label class="flex items-center p-3 rounded-xl border border-slate-200 hover:bg-purple-50/50 cursor-pointer transition">
+                                <input type="radio" name="q4" value="C" class="w-4 h-4 text-purple-600 mr-3"> C. 4 nhóm
+                            </label>
+                            <label class="flex items-center p-3 rounded-xl border border-slate-200 hover:bg-purple-50/50 cursor-pointer transition">
+                                <input type="radio" name="q4" value="D" class="w-4 h-4 text-purple-600 mr-3"> D. 8 nhóm
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Câu 5 -->
+                    <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-xs" data-q="5">
+                        <p class="font-bold text-slate-900 mb-3 text-sm sm:text-base">
+                            <span class="inline-block px-2.5 py-1 bg-purple-100 text-purple-800 rounded-lg text-xs font-bold mr-1.5">Câu 5</span>
+                            Nếu \(\text{ƯCLN}(a, b) = 15\) thì tập hợp \(\text{ƯC}(a, b)\) là:
+                        </p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-sm">
+                            <label class="flex items-center p-3 rounded-xl border border-slate-200 hover:bg-purple-50/50 cursor-pointer transition">
+                                <input type="radio" name="q5" value="A" class="w-4 h-4 text-purple-600 mr-3"> A. \(\{1; 3; 5; 15\}\)
+                            </label>
+                            <label class="flex items-center p-3 rounded-xl border border-slate-200 hover:bg-purple-50/50 cursor-pointer transition">
+                                <input type="radio" name="q5" value="B" class="w-4 h-4 text-purple-600 mr-3"> B. \(\{1; 5; 15\}\)
+                            </label>
+                            <label class="flex items-center p-3 rounded-xl border border-slate-200 hover:bg-purple-50/50 cursor-pointer transition">
+                                <input type="radio" name="q5" value="C" class="w-4 h-4 text-purple-600 mr-3"> C. \(\{3; 5; 15\}\)
+                            </label>
+                            <label class="flex items-center p-3 rounded-xl border border-slate-200 hover:bg-purple-50/50 cursor-pointer transition">
+                                <input type="radio" name="q5" value="D" class="w-4 h-4 text-purple-600 mr-3"> D. \(\{0; 15; 30\}\)
+                            </label>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Submit & Result Actions -->
+                <div id="submit-btn-container" class="mt-8 text-center">
+                    <button onclick="submitQuiz()" id="btn-submit-quiz"
+                            class="px-8 py-3.5 bg-purple-700 hover:bg-purple-800 text-white font-bold text-base rounded-2xl shadow-lg hover:shadow-purple-300 transition flex items-center gap-2 mx-auto">
+                        <i class="fas fa-paper-plane"></i> Nộp Bài &amp; Gửi Điểm Hệ Thống
+                    </button>
+                </div>
+
+                <!-- Result Card -->
+                <div id="quiz-result-box" class="hidden mt-6 p-6 rounded-2xl bg-purple-50 border-2 border-purple-200 text-center">
+                    <h4 class="text-xl font-extrabold text-purple-900 mb-1">KẾT QUẢ ĐÁNH GIÁ CỦA BẠN</h4>
+                    <p id="result-score-text" class="text-3xl font-black text-purple-700 my-2">0/10 Điểm</p>
+                    <p id="result-detail-text" class="text-sm text-slate-600 mb-3"></p>
+                    <div id="api-status-badge" class="inline-flex items-center gap-1.5 text-xs font-semibold px-3.5 py-1.5 rounded-full bg-slate-200 text-slate-700">
+                        <i class="fas fa-spinner fa-spin"></i> Đang kết nối máy chủ Google Sheets...
                     </div>
                 </div>
 
             </div>
-        </div>
-
-        <!-- Submit & Results Board -->
-        <div class="bg-white border-2 border-indigo-200 rounded-2xl p-6 shadow-md text-center">
-            <h3 class="text-xl font-extrabold text-indigo-900 title-font mb-2">🏁 HOÀN THÀNH PHIẾU BÀI TẬP</h3>
-            <p class="text-sm text-gray-500 mb-6">Vui lòng kiểm tra kỹ tất cả các ô đáp án của em trước khi nhấn nút nộp bài để được ghi nhận kết quả chính xác nhất.</p>
-            
-            <div id="status-message" class="text-sm font-semibold text-gray-600 mb-6 hidden bg-slate-50 py-3 px-4 rounded-xl border border-slate-200">
-                ⏳ Đang lưu trữ dữ liệu điểm số lên hệ thống...
-            </div>
-
-            <button onclick="submitWorksheet()" id="btn-submit" class="w-full sm:w-auto px-12 py-4 bg-indigo-600 hover:bg-indigo-700 text-white font-extrabold text-lg rounded-xl shadow-lg hover:shadow-xl transition transform active:scale-95 flex items-center justify-center gap-2 mx-auto">
-                Nộp Bài & Lưu Kết Quả 🚀
-            </button>
-        </div>
+        </section>
 
     </main>
 
-    <!-- Footer -->
-    <footer class="bg-gray-900 text-gray-400 py-6 mt-12 text-center text-xs border-t border-gray-800">
-        <div class="max-w-5xl mx-auto px-4 space-y-2">
-            <p class="font-semibold text-gray-300">© Bản quyền thuộc ThS. Đinh Quốc Tuấn - Giáo viên Chuyên môn Toán và KHTN</p>
-            <p>Ứng dụng học tập thông minh trực tuyến • Phi lợi nhuận phục vụ Giáo dục và Cộng đồng học sinh</p>
+    <!-- FOOTER COPYRIGHT -->
+    <footer class="bg-white border-t border-slate-200 py-8 text-center text-slate-600 text-xs sm:text-sm">
+        <div class="max-w-6xl mx-auto px-4 space-y-2">
+            <p class="font-bold text-slate-800 tracking-wide">
+                &copy; Bản quyền thuộc ThS. Đinh Quốc Tuấn - Mục đích phi lợi nhuận - Vì giáo dục.
+            </p>
+            <p class="text-slate-500">
+                Khoa Toán - Tin học &bull; Trường Đại học Khoa học Tự nhiên, ĐHQG-HCM
+            </p>
         </div>
     </footer>
 
-    <!-- Custom Alert Box -->
-    <div id="custom-alert" class="hidden fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
-        <div class="bg-white p-6 rounded-2xl max-w-sm w-full shadow-2xl border-2 border-indigo-500 text-center transform scale-95 transition-all duration-200">
-            <span class="text-4xl mb-2 block" id="alert-icon">⚠️</span>
-            <h3 class="text-lg font-bold text-gray-900 mb-2" id="alert-title">Thông báo</h3>
-            <p id="alert-message" class="text-sm text-gray-600 mb-5"></p>
-            <button onclick="closeAlert()" class="px-6 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl transition-all">Đồng ý</button>
-        </div>
-    </div>
+    <!-- IN TÀI LIỆU BUTTON -->
+    <button id="btn-print-doc" onclick="safePrint()" class="fixed bottom-5 right-5 bg-gray-900 text-white px-4 py-2 rounded-lg shadow-lg hover:bg-gray-700 print:hidden z-50">
+        <i class="fas fa-print mr-2"></i> In Tài Liệu
+    </button>
 
+    <!-- SCRIPT PRINT -->
     <script>
-        const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzY7b7h4OwvhXuK5Vs6hl-aD88BPnAiAKbU5lfJobby0D4nzbIJVKT4n0AKCpAGoK0nZA/exec";
-        
-        // Correct answers list (normalized for comparison)
-        const keys = {
-            "ans-1-a": "8",
-            "ans-1-b": "30",
-            "ans-1-c": "12",
-            "ans-2-a": "12",
-            "ans-2-b": "14",
-            "ans-3-a": "có",
-            "ans-3-b": "có",
-            "ans-3-c": "không",
-            "ans-4-a": "5/6",
-            "ans-4-b": "14/19",
-            "ans-4-c": "5/12",
-            "ans-5": "140",
-            "ans-6-a": "12",
-            "ans-6-b": "2",
-            "ans-6-c": "9",
-            "ans-7": "30",
-            "ans-8": "12",
-            "ans-9": "10",
-            "ans-10": "21",
-            "ans-11": "32",
-            "ans-12": ["112, 16", "80, 48", "112,16", "80,48"],
-            "ans-13": "1",
-            "ans-14": "31"
-        };
+        function safePrint() {
+            const printBtn = document.getElementById('btn-print-doc');
+            printBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Đang chuẩn bị...';
+            
+            // Đảm bảo MathJax đã render xong mọi công thức trước khi gọi hộp thoại in
+            if (window.MathJax && window.MathJax.typesetPromise) {
+                MathJax.typesetPromise().then(() => {
+                    printBtn.innerHTML = '<i class="fas fa-print mr-2"></i> In Tài Liệu';
+                    window.print();
+                });
+            } else {
+                // Fallback nếu không có công thức toán
+                setTimeout(() => window.print(), 500); 
+            }
+        }
+    </script>
 
-        let startTime = Date.now();
+    <!-- ========================================================================= -->
+    <!-- JSXGRAPH INTERACTIVE MODELS JAVASCRIPT -->
+    <!-- ========================================================================= -->
+    <script>
+        // -------------------------------------------------------------
+        // JSXGraph 1: Giản đồ Venn ƯC(12, 16) và ƯCLN = 4 (Bài 4)
+        // -------------------------------------------------------------
+        var board1;
+        function initJSX1() {
+            board1 = JXG.JSXGraph.initBoard('jsx1_box', {
+                boundingbox: [-6, 5, 6, -5],
+                axis: false,
+                showNavigation: false,
+                showCopyright: false
+            });
 
-        function toggleHint(index) {
-            const el = document.getElementById(`hint-${index}`);
-            el.classList.toggle("hidden");
+            // Circle 1: Ư(12) (Left)
+            board1.create('circle', [[-1.5, 0], 3.2], {
+                strokeColor: '#db2777', strokeWidth: 2.5, fillColor: '#f472b6', fillOpacity: 0.15
+            });
+            board1.create('text', [-3.2, 3.7, 'Ư(12) = {1, 2, 3, 4, 6, 12}'], {
+                fontSize: 12, fontStyle: 'bold', strokeColor: '#be185d'
+            });
+
+            // Circle 2: Ư(16) (Right)
+            board1.create('circle', [[1.5, 0], 3.2], {
+                strokeColor: '#2563eb', strokeWidth: 2.5, fillColor: '#60a5fa', fillOpacity: 0.15
+            });
+            board1.create('text', [1.2, 3.7, 'Ư(16) = {1, 2, 4, 8, 16}'], {
+                fontSize: 12, fontStyle: 'bold', strokeColor: '#1d4ed8'
+            });
+
+            // Elements in Left only (3, 6, 12)
+            board1.create('text', [-3.0, 1.2, '3'], { fontSize: 13, fontStyle: 'bold', strokeColor: '#9d174d' });
+            board1.create('text', [-3.2, -0.3, '6'], { fontSize: 13, fontStyle: 'bold', strokeColor: '#9d174d' });
+            board1.create('text', [-2.5, -1.8, '12'], { fontSize: 13, fontStyle: 'bold', strokeColor: '#9d174d' });
+
+            // Elements in Right only (8, 16)
+            board1.create('text', [3.0, 0.8, '8'], { fontSize: 13, fontStyle: 'bold', strokeColor: '#1e3a8a' });
+            board1.create('text', [2.8, -1.2, '16'], { fontSize: 13, fontStyle: 'bold', strokeColor: '#1e3a8a' });
+
+            // Elements in Intersection (1, 2, 4)
+            board1.create('text', [0, 1.3, '1'], { anchorX: 'middle', fontSize: 13, fontStyle: 'bold', strokeColor: '#047857' });
+            board1.create('text', [0, 0.0, '2'], { anchorX: 'middle', fontSize: 13, fontStyle: 'bold', strokeColor: '#047857' });
+            
+            // Highlight GCD = 4
+            board1.create('circle', [[0, -1.3], 0.45], { strokeColor: '#d97706', fillColor: '#fef3c7', fillOpacity: 0.9 });
+            board1.create('text', [0, -1.3, '4'], { anchorX: 'middle', anchorY: 'middle', fontSize: 14, fontStyle: 'bold', strokeColor: '#b45309' });
+
+            board1.create('text', [0, -3.8, 'ƯC(12, 16) = {1; 2; 4} ➔ ƯCLN(12, 16) = 4'], {
+                anchorX: 'middle', fontSize: 13, fontStyle: 'bold', strokeColor: '#b45309'
+            });
         }
 
-        function showAlert(title, msg, icon = "⚠️") {
-            document.getElementById("alert-title").innerText = title;
-            document.getElementById("alert-message").innerText = msg;
-            document.getElementById("alert-icon").innerText = icon;
-            document.getElementById("custom-alert").classList.remove("hidden");
+        // -------------------------------------------------------------
+        // JSXGraph 2: Cột dọc phân tích 24 và 60 (Bài 8)
+        // -------------------------------------------------------------
+        var board2;
+        function initJSX2() {
+            renderVerticalGCD();
+        }
+        function renderVerticalGCD() {
+            if (board2) { JXG.JSXGraph.freeBoard(board2); }
+            board2 = JXG.JSXGraph.initBoard('jsx2_box', {
+                boundingbox: [-6, 5, 6, -3],
+                axis: false,
+                showNavigation: false,
+                showCopyright: false
+            });
+
+            // Tower 24 (Left)
+            board2.create('segment', [[-3.5, 4.2], [-3.5, -1.8]], { strokeColor: '#0f172a', strokeWidth: 2.5 });
+            let col24 = [
+                { left: "24", right: "2", y: 3.5 },
+                { left: "12", right: "2", y: 2.1 },
+                { left: "6", right: "2", y: 0.7 },
+                { left: "3", right: "3", y: -0.7 },
+                { left: "1", right: "", y: -1.8 }
+            ];
+            col24.forEach(r => {
+                board2.create('text', [-4.2, r.y, r.left], { anchorX: 'middle', fontSize: 13, fontStyle: 'bold', strokeColor: '#1e3a8a' });
+                if (r.right) board2.create('text', [-2.8, r.y, r.right], { anchorX: 'middle', fontSize: 13, fontStyle: 'bold', strokeColor: '#059669' });
+            });
+            board2.create('text', [-3.5, 4.6, '24 = 2³ · 3'], { anchorX: 'middle', fontSize: 12, fontStyle: 'bold', strokeColor: '#1e3a8a' });
+
+            // Tower 60 (Right)
+            board2.create('segment', [[0.5, 4.2], [0.5, -1.8]], { strokeColor: '#0f172a', strokeWidth: 2.5 });
+            let col60 = [
+                { left: "60", right: "2", y: 3.5 },
+                { left: "30", right: "2", y: 2.1 },
+                { left: "15", right: "3", y: 0.7 },
+                { left: "5", right: "5", y: -0.7 },
+                { left: "1", right: "", y: -1.8 }
+            ];
+            col60.forEach(r => {
+                board2.create('text', [-0.2, r.y, r.left], { anchorX: 'middle', fontSize: 13, fontStyle: 'bold', strokeColor: '#1e3a8a' });
+                if (r.right) board2.create('text', [1.2, r.y, r.right], { anchorX: 'middle', fontSize: 13, fontStyle: 'bold', strokeColor: '#059669' });
+            });
+            board2.create('text', [0.5, 4.6, '60 = 2² · 3 · 5'], { anchorX: 'middle', fontSize: 12, fontStyle: 'bold', strokeColor: '#1e3a8a' });
+
+            // Summary result
+            board2.create('text', [4.2, 1.2, 'Thừa số chung:\n2² và 3¹\n\nƯCLN(24, 60)\n= 2² · 3 = 12'], {
+                anchorX: 'middle', fontSize: 13, fontStyle: 'bold', strokeColor: '#b45309'
+            });
         }
 
-        function closeAlert() {
-            document.getElementById("custom-alert").classList.add("hidden");
+        // -------------------------------------------------------------
+        // JSXGraph 3: Máy rút gọn phân số (Bài 14)
+        // -------------------------------------------------------------
+        var board3;
+        function initJSX3() {
+            drawReducerModel(false);
+        }
+        function runFractionReducer() {
+            drawReducerModel(true);
+        }
+        function drawReducerModel(done) {
+            if (board3) { JXG.JSXGraph.freeBoard(board3); }
+            board3 = JXG.JSXGraph.initBoard('jsx3_box', {
+                boundingbox: [-0.5, 5, 11.5, -0.5],
+                axis: false,
+                showNavigation: false,
+                showCopyright: false
+            });
+
+            // Input Fraction Box 48/72
+            board3.create('polygon', [[0.5, 3.8], [3.2, 3.8], [3.2, 1.2], [0.5, 1.2]], {
+                fillColor: '#f1f5f9', fillOpacity: 0.9, strokeColor: '#94a3b8', strokeWidth: 2, withLines: true
+            });
+            board3.create('text', [1.85, 2.5, 'Phân số gốc:\n48 / 72'], { anchorX: 'middle', anchorY: 'middle', fontSize: 13, fontStyle: 'bold', strokeColor: '#1e293b' });
+
+            // Process Core (GCD = 24)
+            board3.create('polygon', [[4.5, 4.2], [7.5, 4.2], [7.5, 0.8], [4.5, 0.8]], {
+                fillColor: '#fef3c7', fillOpacity: 0.8, strokeColor: '#d97706', strokeWidth: 2.5, withLines: true
+            });
+            board3.create('text', [6.0, 2.5, '⚙️ Chia cả tử & mẫu\ncho ƯCLN = 24'], { anchorX: 'middle', anchorY: 'middle', fontSize: 12, fontStyle: 'bold', strokeColor: '#b45309' });
+
+            // Arrows
+            board3.create('arrow', [[3.3, 2.5], [4.4, 2.5]], { strokeColor: '#64748b', strokeWidth: 3 });
+            board3.create('arrow', [[7.6, 2.5], [8.7, 2.5]], { strokeColor: '#64748b', strokeWidth: 3 });
+
+            // Output Fraction Box 2/3
+            let c = done ? '#10b981' : '#94a3b8';
+            let bg = done ? '#d1fae5' : '#f8fafc';
+            let txt = done ? 'Phân số tối giản:\n2 / 3' : 'Đang xử lý...';
+            board3.create('polygon', [[8.8, 3.8], [11.2, 3.8], [11.2, 1.2], [8.8, 1.2]], {
+                fillColor: bg, fillOpacity: 0.9, strokeColor: c, strokeWidth: 2, withLines: true
+            });
+            board3.create('text', [10.0, 2.5, txt], { anchorX: 'middle', anchorY: 'middle', fontSize: 13, fontStyle: 'bold', strokeColor: done ? '#047857' : '#64748b' });
         }
 
-        function submitWorksheet() {
-            const name = document.getElementById("student-name").value.trim();
-            const clazz = document.getElementById("student-class").value.trim();
+        // -------------------------------------------------------------
+        // JSXGraph 4: Thuật toán hình học Euclid (Bài 19)
+        // -------------------------------------------------------------
+        var board4;
+        function initJSX4() {
+            renderEuclidAlgorithm();
+        }
+        function renderEuclidAlgorithm() {
+            if (board4) { JXG.JSXGraph.freeBoard(board4); }
+            board4 = JXG.JSXGraph.initBoard('jsx4_box', {
+                boundingbox: [-0.5, 8.5, 11.5, -0.5],
+                axis: false,
+                showNavigation: false,
+                showCopyright: false
+            });
 
-            if (!name || !clazz) {
-                showAlert("Thiếu thông tin", "Em vui lòng điền đầy đủ Họ và Tên cùng với tên Lớp ở khung phía trên trước khi nộp bài nhé!");
+            // Outer rectangle 105 x 75 (Scaled down: 10.5 x 7.5)
+            board4.create('polygon', [[0.5, 8.0], [11.0, 8.0], [11.0, 0.5], [0.5, 0.5]], {
+                fillColor: '#f8fafc', strokeColor: '#0f172a', strokeWidth: 2, withLines: true
+            });
+
+            // Square 1: 75 x 75 (7.5 x 7.5)
+            board4.create('polygon', [[0.5, 8.0], [8.0, 8.0], [8.0, 0.5], [0.5, 0.5]], {
+                fillColor: '#fed7aa', fillOpacity: 0.6, strokeColor: '#ea580c', strokeWidth: 2, withLines: true
+            });
+            board4.create('text', [4.25, 4.25, 'Hình vuông 1\n(75 × 75)'], { anchorX: 'middle', anchorY: 'middle', fontSize: 12, fontStyle: 'bold', strokeColor: '#c2410c' });
+
+            // Remaining 75 x 30 (3.0 x 7.5 on right)
+            // Square 2: 30 x 30
+            board4.create('polygon', [[8.0, 8.0], [11.0, 8.0], [11.0, 5.0], [8.0, 5.0]], {
+                fillColor: '#bfdbfe', fillOpacity: 0.6, strokeColor: '#2563eb', strokeWidth: 1.5, withLines: true
+            });
+            board4.create('text', [9.5, 6.5, '30 × 30'], { anchorX: 'middle', anchorY: 'middle', fontSize: 10, fontStyle: 'bold', strokeColor: '#1d4ed8' });
+
+            // Square 3: 30 x 30
+            board4.create('polygon', [[8.0, 5.0], [11.0, 5.0], [11.0, 2.0], [8.0, 2.0]], {
+                fillColor: '#bfdbfe', fillOpacity: 0.6, strokeColor: '#2563eb', strokeWidth: 1.5, withLines: true
+            });
+            board4.create('text', [9.5, 3.5, '30 × 30'], { anchorX: 'middle', anchorY: 'middle', fontSize: 10, fontStyle: 'bold', strokeColor: '#1d4ed8' });
+
+            // Remaining 30 x 15 (2 squares 15 x 15)
+            board4.create('polygon', [[8.0, 2.0], [9.5, 2.0], [9.5, 0.5], [8.0, 0.5]], {
+                fillColor: '#bbf7d0', fillOpacity: 0.8, strokeColor: '#16a34a', strokeWidth: 1.5, withLines: true
+            });
+            board4.create('text', [8.75, 1.25, '15'], { anchorX: 'middle', anchorY: 'middle', fontSize: 9, fontStyle: 'bold', strokeColor: '#15803d' });
+
+            board4.create('polygon', [[9.5, 2.0], [11.0, 2.0], [11.0, 0.5], [9.5, 0.5]], {
+                fillColor: '#bbf7d0', fillOpacity: 0.8, strokeColor: '#16a34a', strokeWidth: 1.5, withLines: true
+            });
+            board4.create('text', [10.25, 1.25, '15'], { anchorX: 'middle', anchorY: 'middle', fontSize: 9, fontStyle: 'bold', strokeColor: '#15803d' });
+
+            board4.create('text', [6.0, 8.3, 'Cạnh hình vuông cuối cùng vừa khít: 15 ➔ ƯCLN(105, 75) = 15'], {
+                anchorX: 'middle', fontSize: 12, fontStyle: 'bold', strokeColor: '#059669'
+            });
+        }
+
+        // -------------------------------------------------------------
+        // JSXGraph 5: Bản đồ chia ô đất 60m x 48m (Bài 25)
+        // -------------------------------------------------------------
+        var board5;
+        function initJSX5() {
+            renderGardenGrid(12);
+        }
+        function renderGardenGrid(tileSize) {
+            if (board5) { JXG.JSXGraph.freeBoard(board5); }
+            board5 = JXG.JSXGraph.initBoard('jsx5_box', {
+                boundingbox: [-0.5, 6, 11.5, -0.5],
+                axis: false,
+                showNavigation: false,
+                showCopyright: false
+            });
+
+            // Land rectangle: 60m x 48m (Scaled: 10 x 5)
+            board5.create('polygon', [[0.5, 5.2], [10.5, 5.2], [10.5, 0.8], [0.5, 0.8]], {
+                fillColor: '#ecfdf5', strokeColor: '#059669', strokeWidth: 2.5, withLines: true
+            });
+
+            let cols = 60 / tileSize;
+            let rows = 48 / tileSize;
+            let dx = 10 / cols;
+            let dy = 4.4 / rows;
+
+            for (let i = 0; i <= cols; i++) {
+                board5.create('segment', [[0.5 + i * dx, 5.2], [0.5 + i * dx, 0.8]], { strokeColor: '#10b981', strokeWidth: 1, dash: 2 });
+            }
+            for (let j = 0; j <= rows; j++) {
+                board5.create('segment', [[0.5, 0.8 + j * dy], [10.5, 0.8 + j * dy]], { strokeColor: '#10b981', strokeWidth: 1, dash: 2 });
+            }
+
+            board5.create('text', [5.5, 5.6, 'Mảnh vườn 60m × 48m chia thành ' + cols + ' × ' + rows + ' = ' + (cols * rows) + ' ô vuông (Cạnh ' + tileSize + 'm)'], {
+                anchorX: 'middle', fontSize: 12, fontStyle: 'bold', strokeColor: '#047857'
+            });
+        }
+
+        // -------------------------------------------------------------
+        // JSXGraph 6: Lát gạch sàn nhà vệ sinh 300cm x 180cm (Bài 29)
+        // -------------------------------------------------------------
+        var board6;
+        function initJSX6() {
+            board6 = JXG.JSXGraph.initBoard('jsx6_box', {
+                boundingbox: [-0.5, 5.5, 11.5, -0.5],
+                axis: false,
+                showNavigation: false,
+                showCopyright: false
+            });
+
+            // Floor 300 x 180 (Scaled: 10 x 4.2)
+            board6.create('polygon', [[0.5, 4.8], [10.5, 4.8], [10.5, 1.2], [0.5, 1.2]], {
+                fillColor: '#f1f5f9', strokeColor: '#334155', strokeWidth: 2, withLines: true
+            });
+
+            // 10 columns x 6 rows (Tile 30x30)
+            let dx = 10 / 10;
+            let dy = 3.6 / 6;
+
+            for (let c = 0; c < 10; c++) {
+                for (let r = 0; r < 6; r++) {
+                    board6.create('polygon', [
+                        [0.5 + c * dx, 1.2 + r * dy],
+                        [0.5 + (c + 1) * dx, 1.2 + r * dy],
+                        [0.5 + (c + 1) * dx, 1.2 + (r + 1) * dy],
+                        [0.5 + c * dx, 1.2 + (r + 1) * dy]
+                    ], {
+                        fillColor: (c + r) % 2 === 0 ? '#e0e7ff' : '#ffffff',
+                        strokeColor: '#6366f1',
+                        strokeWidth: 1,
+                        withLines: true
+                    });
+                }
+            }
+
+            board6.create('text', [5.5, 5.2, 'Sàn 300cm × 180cm lát vừa khít bởi 10 × 6 = 60 viên gạch vuông 30cm'], {
+                anchorX: 'middle', fontSize: 12, fontStyle: 'bold', strokeColor: '#4338ca'
+            });
+        }
+
+        // Initialize all boards on page load
+        window.addEventListener('DOMContentLoaded', () => {
+            initJSX1();
+            initJSX2();
+            initJSX3();
+            initJSX4();
+            initJSX5();
+            initJSX6();
+        });
+    </script>
+
+    <!-- ========================================================================= -->
+    <!-- QUIZ ONLINE & APPS SCRIPT SUBMISSION SCRIPT -->
+    <!-- ========================================================================= -->
+    <script>
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzY7b7h4OwvhXuK5Vs6hl-aD88BPnAiAKbU5lfJobby0D4nzbIJVKT4n0AKCpAGoK0nZA/exec";
+        const correctAnswers = { q1: "B", q2: "C", q3: "C", q4: "A", q5: "A" };
+        let timeLeft = 900; // 15 phút
+
+        const timerInterval = setInterval(() => {
+            if (timeLeft <= 0) {
+                clearInterval(timerInterval);
+                document.getElementById("timer-display").innerText = "00:00 - Hết giờ";
+                submitQuiz();
+            } else {
+                let m = Math.floor(timeLeft / 60);
+                let s = timeLeft % 60;
+                document.getElementById("timer-display").innerText = 
+                    (m < 10 ? "0" + m : m) + ":" + (s < 10 ? "0" + s : s);
+                timeLeft--;
+            }
+        }, 1000);
+
+        function submitQuiz() {
+            const studentName = document.getElementById("student_name").value.trim();
+            if (!studentName) {
+                alert("Vui lòng nhập đầy đủ Họ và tên học sinh trước khi nộp bài!");
+                document.getElementById("student_name").focus();
                 return;
             }
 
-            // Grade questions
-            let totalCorrect = 0;
-            let totalQuestions = 0;
-            let wrongDetail = [];
+            const examCode = document.getElementById("exam_code").value.trim();
+            const submitBtn = document.getElementById("btn-submit-quiz");
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Đang chấm & gửi điểm...';
 
-            for (const [id, keyVal] of Object.entries(keys)) {
-                totalQuestions++;
-                const inputEl = document.getElementById(id);
-                if (!inputEl) continue;
+            let score = 0;
+            let wrongDetails = [];
 
-                const userVal = inputEl.value.trim().toLowerCase();
-                let isCorrect = false;
+            for (let i = 1; i <= 5; i++) {
+                let qName = "q" + i;
+                let selected = document.querySelector(`input[name="${qName}"]:checked`);
+                let userVal = selected ? selected.value : "Chưa chọn";
+                let correctVal = correctAnswers[qName];
 
-                if (Array.isArray(keyVal)) {
-                    isCorrect = keyVal.some(v => userVal.replace(/\s+/g, '') === v.replace(/\s+/g, ''));
+                if (userVal === correctVal) {
+                    score += 2;
                 } else {
-                    isCorrect = (userVal === keyVal);
-                }
-
-                if (isCorrect) {
-                    totalCorrect++;
-                    inputEl.className = "w-full px-3 py-2 border border-green-500 bg-green-50 rounded-md focus:outline-none text-green-700 font-bold text-center";
-                } else {
-                    wrongDetail.push(`${id.replace('ans-', 'Câu ')} (Nhập: "${userVal || 'bỏ trống'}")`);
-                    inputEl.className = "w-full px-3 py-2 border border-red-500 bg-red-50 rounded-md focus:outline-none text-red-700 font-bold text-center";
+                    wrongDetails.push(`Câu ${i} (Chọn ${userVal}, Đúng ${correctVal})`);
                 }
             }
 
-            const finalScore = Math.round((totalCorrect / totalQuestions) * 100);
-            const timeElapsedSec = Math.round((Date.now() - startTime) / 1000);
-            const timeStr = `${Math.floor(timeElapsedSec / 60)} phút ${timeElapsedSec % 60} giây`;
+            let spentSeconds = 900 - timeLeft;
+            let spentM = Math.floor(spentSeconds / 60);
+            let spentS = spentSeconds % 60;
+            let timeStr = `${spentM}p ${spentS}s`;
 
-            const statusMsg = document.getElementById("status-message");
-            statusMsg.classList.remove("hidden");
-            statusMsg.innerText = "⏳ Hệ thống đang kết nối và nộp bài lên bảng điểm trực tuyến...";
-            statusMsg.className = "text-sm font-semibold text-indigo-700 mb-6 bg-indigo-50 py-3 px-4 rounded-xl border border-indigo-200";
+            let wrongStr = wrongDetails.length > 0 ? wrongDetails.join("; ") : "Không có (Đạt 10/10)";
 
+            // Show result card
+            document.getElementById("quiz-result-box").classList.remove("hidden");
+            document.getElementById("result-score-text").innerText = `${score} / 10 Điểm`;
+            document.getElementById("result-detail-text").innerText = `Học sinh: ${studentName} | Thời gian: ${timeStr} | Số câu đúng: ${score / 2} / 5 câu`;
+
+            // Prepare Payload for Apps Script
             const payload = {
-                hoTen: `${name} (${clazz})`,
-                maDe: "ucln6-07",
-                diem: `${finalScore}/100`,
+                hoTen: studentName,
+                maDe: examCode,
+                diem: `${score}/10`,
                 thoiGian: timeStr,
-                cauSai: wrongDetail.join("; ") || "Không có câu sai"
+                cauSai: wrongStr
             };
 
-            fetch(GOOGLE_SCRIPT_URL, {
+            const statusBadge = document.getElementById("api-status-badge");
+
+            // Post to Google Apps Script
+            fetch(SCRIPT_URL, {
                 method: "POST",
                 mode: "no-cors",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(payload)
             })
             .then(() => {
-                statusMsg.innerText = `✅ Đã lưu kết quả thành công! Điểm số: ${finalScore}/100.`;
-                statusMsg.className = "text-sm font-semibold text-green-700 mb-6 bg-green-50 py-3 px-4 rounded-xl border border-green-200";
-                showAlert("Nộp bài thành công 🎉", `Chúc mừng ${name} đã hoàn thành phiếu bài tập toán về Ước chung & ƯCLN!\n\nSố câu đúng: ${totalCorrect}/${totalQuestions}\nĐiểm số: ${finalScore}/100\nThời gian làm bài: ${timeStr}`, "🎉");
+                statusBadge.className = "inline-flex items-center gap-1.5 text-xs font-semibold px-3.5 py-1.5 rounded-full bg-emerald-100 text-emerald-800";
+                statusBadge.innerHTML = '<i class="fas fa-check-circle"></i> Đã gửi điểm thành công về Google Sheets giáo viên!';
+                submitBtn.innerHTML = '<i class="fas fa-check-double mr-2"></i> Đã Hoàn Thành Khảo Sát';
             })
-            .catch(error => {
-                console.error("Error submitting points:", error);
-                statusMsg.innerText = "❌ Không thể lưu điểm tự động do lỗi kết nối mạng. Hãy chụp màn hình kết quả này gửi trực tiếp cho Thầy nhé!";
-                statusMsg.className = "text-sm font-semibold text-red-700 mb-6 bg-red-50 py-3 px-4 rounded-xl border border-red-200";
-                showAlert("Lỗi mạng", "Hệ thống gặp sự cố kết nối nhưng bài của em đã được chấm xong cục bộ! Hãy chụp lại màn hình bài làm gửi Thầy nhé.", "❌");
+            .catch(err => {
+                statusBadge.className = "inline-flex items-center gap-1.5 text-xs font-semibold px-3.5 py-1.5 rounded-full bg-amber-100 text-amber-800";
+                statusBadge.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Điểm ghi nhận cục bộ (Lỗi mạng: ' + err.message + ')';
             });
         }
     </script>
