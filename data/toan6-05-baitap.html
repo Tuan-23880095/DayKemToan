@@ -3,312 +3,1526 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Phiếu Bài Tập Toán 6 - Buổi 5: Quan hệ chia hết và Dấu hiệu chia hết</title>
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/dist/external/tex-chtml.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <title>Toán Học Lớp 6 • Buổi 5: Quan Hệ Chia Hết & Dấu Hiệu Chia Hết</title>
 
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- FontAwesome 6 CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- JSXGraph CDN -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraph.css" />
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraphcore.js"></script>
+
+    <!-- MathJax 3 CDN -->
     <script>
         window.MathJax = {
-            tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] }
+            tex: {
+                inlineMath: [['\\(', '\\)'], ['$', '$']],
+                displayMath: [['\\[', '\\]'], ['$$', '$$']]
+            },
+            svg: { fontCache: 'global' }
         };
     </script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    
+
     <style>
-        :root {
-            --primary-color: #2c3e50;
-            --secondary-color: #16a085;
-            --accent-color: #e74c3c;
-            --bg-color: #f8f9fa;
-            --text-color: #2c3e50;
-            --border-color: #bdc3c7;
-        }
-
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            line-height: 1.6;
-            margin: 0;
-            padding: 20px;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #f8fafc;
+            color: #0f172a;
         }
-
-        .container {
-            max-width: 850px;
-            background: #ffffff;
-            margin: 0 auto;
-            padding: 40px;
-            border-radius: 8px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            border-top: 6px solid var(--secondary-color);
+        .jxgbox {
+            border-radius: 1rem;
+            border: 2px solid #e2e8f0;
+            background-color: #ffffff;
+            box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.04);
         }
-
-        .header {
-            text-align: center;
-            border-bottom: 2px dashed var(--border-color);
-            padding-bottom: 20px;
-            margin-bottom: 25px;
+        details[open] summary .toggle-icon {
+            transform: rotate(180deg);
         }
-
-        .header h1 {
-            color: var(--primary-color);
-            font-size: 24px;
-            margin: 0 0 10px 0;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .header p {
-            color: #7f8c8d;
-            font-style: italic;
-            margin: 5px 0;
-            font-size: 15px;
-        }
-
-        .student-info {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            background: #f1f2f6;
-            padding: 15px 20px;
-            border-radius: 6px;
-            margin-bottom: 30px;
-            border: 1px solid #e4e7eb;
-        }
-
-        .info-field {
-            border-bottom: 1px dotted #7f8c8d;
-            padding-bottom: 5px;
-            font-size: 14px;
-        }
-
-        .level-title {
-            background-color: var(--primary-color);
-            color: #ffffff;
-            padding: 10px 15px;
-            font-size: 16px;
-            font-weight: bold;
-            border-radius: 4px;
-            margin-top: 35px;
-            margin-bottom: 20px;
-            text-transform: uppercase;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-        }
-
-        .level-desc {
-            font-style: italic;
-            color: #7f8c8d;
-            margin-top: -15px;
-            margin-bottom: 20px;
-            padding-left: 5px;
-            font-size: 14px;
-        }
-
-        .exercise-group {
-            margin-bottom: 25px;
-            page-break-inside: avoid;
-        }
-
-        .question {
-            font-weight: 600;
-            margin-bottom: 8px;
-            text-align: justify;
-        }
-
-        .sub-question {
-            padding-left: 20px;
-            margin-top: 5px;
-        }
-
-        /* Vùng trống giả lập dòng kẻ ly cho học sinh làm bài tự luận */
-        .answer-space {
-            border: 1px solid #dcdde1;
-            height: 100px;
-            border-radius: 4px;
-            margin-top: 12px;
-            margin-bottom: 15px;
-            background-image: linear-gradient(#f8f9fa 96%, #e4e7eb 4%);
-            background-size: 100% 25px;
-        }
-
-        .answer-space.large {
-            height: 150px;
-        }
-
-        .pedagogical-hint {
-            background-color: #fff9db;
-            border-left: 4px solid #f59f00;
-            padding: 15px;
-            margin-top: 40px;
-            border-radius: 0 4px 4px 0;
-            font-size: 14px;
-        }
-
-        .pedagogical-hint strong {
-            color: #f59f00;
-        }
-
-        .footer {
-            text-align: center;
-            margin-top: 40px;
-            color: #95a5a6;
-            font-size: 13px;
-            border-top: 1px solid #ecf0f1;
-            padding-top: 20px;
-        }
-
-        /* Tối ưu hóa định dạng khi in ra giấy */
         @media print {
+            .print\:hidden, #btn-print-doc, nav, #submit-btn-container, .quiz-controls {
+                display: none !important;
+            }
             body {
-                background-color: #fff;
-                padding: 0;
+                background: white !important;
+                color: black !important;
             }
-            .container {
-                box-shadow: none;
-                padding: 10px;
-                max-width: 100%;
+            details {
+                display: block !important;
             }
-            .answer-space {
-                background-image: linear-gradient(#fff 96%, #dcdde1 4%);
+            details summary {
+                display: none !important;
             }
-            .pedagogical-hint {
-                display: none; /* Ẩn gợi ý sư phạm khi in phiếu cho học sinh */
+            .solution-body {
+                display: block !important;
+                border-left: 3px solid #64748b !important;
+                padding-left: 1rem !important;
+            }
+            .page-break {
+                page-break-before: always;
             }
         }
     </style>
 </head>
-<body>
+<body class="bg-slate-50 text-slate-900 antialiased min-h-screen">
 
-<div class="container">
-    <div class="header">
-        <h1>Phiếu Bài Tập Toán Lớp 6</h1>
-        <p>Buổi 5: Quan hệ chia hết và Dấu hiệu chia hết (cho 2, 3, 5, 9)</p>
-        <p><em>Mã tài liệu: toan6-05-baitap</em></p>
-    </div>
+    <!-- HEADER LOGO BAR -->
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-40 shadow-xs print:relative print:border-none">
+        <div class="max-w-6xl mx-auto px-4 py-3 flex flex-wrap justify-between items-center gap-4">
+            <div class="flex items-center gap-3 sm:gap-4">
+                <img src="https://firebasestorage.googleapis.com/v0/b/link-anh-web.firebasestorage.app/o/ttbdvh.jpg?alt=media&token=f270aa9b-a2bc-48e8-8910-80742b542615" 
+                     alt="Logo BDVH" class="h-12 w-auto object-contain rounded-lg border border-slate-100 shadow-xs">
+                <img src="https://firebasestorage.googleapis.com/v0/b/link-anh-web.firebasestorage.app/o/Logo-chinh-hcmus.png?alt=media&token=9cf3a1de-75f1-493b-8711-fd22c7b98738" 
+                     alt="Logo HCMUS" class="h-12 w-auto object-contain">
+                <div class="border-l-2 border-indigo-500 pl-3">
+                    <h1 class="text-base sm:text-lg font-bold text-slate-900 uppercase tracking-tight">Toán Học Lớp 6 &bull; Buổi 5</h1>
+                    <p class="text-xs text-slate-500 font-medium">Quan Hệ Chia Hết &bull; Dấu Hiệu Chia Hết Cho 2, 5, 3, 9</p>
+                </div>
+            </div>
+            <div class="flex items-center gap-2">
+                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-blue-50 text-blue-700 border border-blue-200">
+                    <i class="fas fa-layer-group mr-1.5 text-blue-500"></i> 3 Cấp Độ
+                </span>
+                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                    <i class="fas fa-shapes mr-1.5 text-emerald-500"></i> 6 JSXGraph
+                </span>
+                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-purple-50 text-purple-700 border border-purple-200">
+                    <i class="fas fa-award mr-1.5 text-purple-500"></i> 5 Câu ĐGNL
+                </span>
+            </div>
+        </div>
+    </header>
 
-    <div class="student-info">
-        <div class="info-field">Họ và tên học sinh: .............................................................</div>
-        <div class="info-field">Lớp: .....................................................................................</div>
-        <div class="info-field">Ngày làm bài: ..................................................................</div>
-        <div class="info-field">Điểm số: .............................................................................</div>
-    </div>
+    <!-- NAVIGATION TABS -->
+    <nav class="max-w-6xl mx-auto px-4 mt-6 print:hidden">
+        <div class="bg-white p-2 rounded-2xl border border-slate-200 shadow-xs flex flex-wrap gap-2 justify-center sm:justify-start">
+            <a href="#phan-1" class="px-4 py-2 text-sm font-semibold rounded-xl text-blue-700 bg-blue-50 hover:bg-blue-100 transition flex items-center gap-2">
+                <i class="fas fa-seedling text-blue-500"></i> Phần 1: Cơ Bản (12 Bài)
+            </a>
+            <a href="#phan-2" class="px-4 py-2 text-sm font-semibold rounded-xl text-amber-700 bg-amber-50 hover:bg-amber-100 transition flex items-center gap-2">
+                <i class="fas fa-chart-line text-amber-500"></i> Phần 2: Nâng Cao (10 Bài)
+            </a>
+            <a href="#phan-3" class="px-4 py-2 text-sm font-semibold rounded-xl text-emerald-700 bg-emerald-50 hover:bg-emerald-100 transition flex items-center gap-2">
+                <i class="fas fa-truck-ramp-box text-emerald-500"></i> Phần 3: Vận Dụng (8 Bài)
+            </a>
+            <a href="#trac-nghiem" class="px-4 py-2 text-sm font-semibold rounded-xl text-purple-700 bg-purple-50 hover:bg-purple-100 transition flex items-center gap-2">
+                <i class="fas fa-file-signature text-purple-500"></i> Khảo Sát ĐGNL (5 Câu)
+            </a>
+        </div>
+    </nav>
 
-    <div class="level-title">Mức độ 1: Cơ bản (Nhận biết và Áp dụng trực tiếp)</div>
-    <div class="level-desc">Mục tiêu: Ghi nhớ dấu hiệu nhận biết ở chữ số tận cùng và tổng các chữ số, hiểu tính chất chia hết của một tổng.</div>
+    <!-- HERO BANNER -->
+    <main class="max-w-6xl mx-auto px-4 py-6">
+        <div class="bg-gradient-to-r from-slate-900 via-indigo-950 to-blue-900 text-white rounded-3xl p-6 sm:p-8 shadow-xl relative overflow-hidden mb-8">
+            <div class="relative z-10 max-w-3xl">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-white/10 backdrop-blur-md text-amber-300 text-xs font-semibold mb-3">
+                    <i class="fas fa-divide"></i> Chuyên Đề Số Học Trọng Tâm
+                </div>
+                <h2 class="text-2xl sm:text-3xl font-black tracking-tight text-white mb-2">
+                    Buổi 5: Quan Hệ Chia Hết &amp; Dấu Hiệu Chia Hết Cho 2, 5, 3, 9
+                </h2>
+                <p class="text-slate-200 text-sm sm:text-base leading-relaxed">
+                    Hệ thống <strong>30 bài toán phân loại chuẩn GDPT 2018</strong> kèm hướng dẫn giải ẩn, tích hợp <strong>6 mô hình tương tác trực quan JSXGraph</strong> và bài khảo sát trực tuyến tự động chấm điểm, gửi dữ liệu về máy chủ Google Sheets.
+                </p>
+            </div>
+            <div class="absolute -right-6 -bottom-6 opacity-10 text-9xl text-white select-none pointer-events-none">
+                <i class="fas fa-percent"></i>
+            </div>
+        </div>
 
-    <div class="exercise-group">
-        <div class="question">Bài 1: Trong các số sau: $\(324; 248; 2020; 2025\)$:</div>
-        <div class="sub-question">a) Số nào chia hết cho $\(2\$)?</div>
-        <div class="sub-question">b) Số nào chia hết cho \(5\)?</div>
-        <div class="answer-space"></div>
-    </div>
+        <!-- ========================================================================= -->
+        <!-- PHẦN 1: MỨC ĐỘ CƠ BẢN -->
+        <!-- ========================================================================= -->
+        <section id="phan-1" class="mb-12 scroll-mt-20">
+            <div class="flex items-center justify-between border-b-2 border-blue-500 pb-3 mb-6">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-blue-600 text-white flex items-center justify-center font-bold text-lg shadow-md shadow-blue-200">
+                        1
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-slate-900 uppercase">Phần 1: Mức Độ Cơ Bản (12 Bài)</h3>
+                        <p class="text-xs sm:text-sm text-slate-500">Mục tiêu: Nắm vững khái niệm chia hết, phép chia có dư, nhận biết dấu hiệu chia hết cho 2, 5, 3, 9 và tính chất chia hết của một tổng.</p>
+                    </div>
+                </div>
+                <span class="px-3 py-1 bg-blue-100 text-blue-800 text-xs font-bold rounded-lg hidden sm:inline-block">12 Bài Toán</span>
+            </div>
 
-    <div class="exercise-group">
-        <div class="question">Bài 2: Trong các số sau: \(117; 3447; 5085; 136\):</div>
-        <div class="sub-question">a) Số nào chia hết cho \(3\)?</div>
-        <div class="sub-question">b) Số nào chia hết cho \(9\)?</div>
-        <div class="answer-space"></div>
-    </div>
+            <div class="grid grid-cols-1 gap-6">
 
-    <div class="exercise-group">
-        <div class="question">Bài 3: Không thực hiện phép tính, hãy dùng tính chất chia hết của một tổng (hiệu) để xét xem các biểu thức sau có chia hết cho \(6\) không?</div>
-        <div class="sub-question">a) \(42 + 54\)</div>
-        <div class="sub-question">b) \(600 - 15\)</div>
-        <div class="answer-space"></div>
-    </div>
+                <!-- Bài 1 -->
+                <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="px-3 py-1 bg-blue-50 text-blue-700 text-xs font-bold rounded-md border border-blue-200">Bài 1 &bull; Khái niệm chia hết</span>
+                        <span class="text-xs text-slate-400 font-medium"><i class="far fa-clock mr-1"></i> Cơ bản</span>
+                    </div>
+                    <p class="text-slate-800 font-medium mb-3">
+                        Điền từ "chia hết" hoặc "không chia hết" thích hợp vào chỗ trống:<br>
+                        a) Số \(48\) .................... cho \(6\).<br>
+                        b) Số \(53\) .................... cho \(5\).<br>
+                        c) Số \(120\) .................... cho \(10\).
+                    </p>
+                    <details class="group mt-4">
+                        <summary class="flex items-center justify-between px-4 py-2.5 bg-slate-50 hover:bg-slate-100 rounded-xl cursor-pointer select-none text-sm font-semibold text-slate-700 transition">
+                            <span class="flex items-center gap-2"><i class="fas fa-lightbulb text-amber-500"></i> Gợi ý &amp; Lời giải chi tiết</span>
+                            <i class="fas fa-chevron-down toggle-icon text-slate-400 transition-transform"></i>
+                        </summary>
+                        <div class="solution-body p-4 mt-2 bg-blue-50/50 rounded-xl border border-blue-100 text-sm text-slate-700 space-y-1">
+                            <p><strong>a)</strong> Số \(48\) <strong>chia hết</strong> cho \(6\) (vì \(48 = 6 \times 8\)).</p>
+                            <p><strong>b)</strong> Số \(53\) <strong>không chia hết</strong> cho \(5\) (vì \(53 = 5 \times 10 + 3\), dư 3).</p>
+                            <p><strong>c)</strong> Số \(120\) <strong>chia hết</strong> cho \(10\) (vì \(120 = 10 \times 12\)).</p>
+                        </div>
+                    </details>
+                </div>
 
-    <div class="exercise-group">
-        <div class="question">Bài 4: Điền ký hiệu \(\vdots\) (chia hết) hoặc \(\not\vdots\) (không chia hết) vào chỗ trống:</div>
-        <div class="sub-question">a) \(120 \quad \dots \quad 5\)</div>
-        <div class="sub-question">b) \(423 \quad \dots \quad 2\)</div>
-        <div class="sub-question">c) \((10 + 25 + 34 + 2000) \quad \dots \quad 5\)</div>
-        <div class="sub-question">d) \((135 + 756) \quad \dots \quad 9\)</div>
-        <div class="answer-space"></div>
-    </div>
+                <!-- Bài 2 -->
+                <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="px-3 py-1 bg-blue-50 text-blue-700 text-xs font-bold rounded-md border border-blue-200">Bài 2 &bull; Phép chia có dư</span>
+                    </div>
+                    <p class="text-slate-800 font-medium mb-3">
+                        Thực hiện phép chia và viết kết quả dưới dạng biểu thức \(a = b \cdot q + r\) (với \(0 \le r < b\)):<br>
+                        a) \(85 : 9\)<br>
+                        b) \(142 : 12\)
+                    </p>
+                    <details class="group mt-4">
+                        <summary class="flex items-center justify-between px-4 py-2.5 bg-slate-50 hover:bg-slate-100 rounded-xl cursor-pointer select-none text-sm font-semibold text-slate-700 transition">
+                            <span class="flex items-center gap-2"><i class="fas fa-lightbulb text-amber-500"></i> Gợi ý &amp; Lời giải chi tiết</span>
+                            <i class="fas fa-chevron-down toggle-icon text-slate-400 transition-transform"></i>
+                        </summary>
+                        <div class="solution-body p-4 mt-2 bg-blue-50/50 rounded-xl border border-blue-100 text-sm text-slate-700 space-y-1">
+                            <p><strong>a)</strong> \(85 = 9 \cdot 9 + 4\) (Thương \(q = 9\), số dư \(r = 4 < 9\)).</p>
+                            <p><strong>b)</strong> \(142 = 12 \cdot 11 + 10\) (Thương \(q = 11\), số dư \(r = 10 < 12\)).</p>
+                        </div>
+                    </details>
+                </div>
 
-    <div class="exercise-group">
-        <div class="question">Bài 5: Thay dấu \(*\) bởi một chữ số để số \(\overline{345*}\) thỏa mãn:</div>
-        <div class="sub-question">a) Chia hết cho \(2\).</div>
-        <div class="sub-question">b) Chia hết cho \(5\).</div>
-        <div class="answer-space"></div>
-    </div>
+                <!-- Bài 3 (JSXGraph 1) -->
+                <div class="bg-white rounded-2xl p-6 border-2 border-indigo-200 shadow-sm hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="px-3 py-1 bg-indigo-100 text-indigo-800 text-xs font-bold rounded-md flex items-center gap-1.5">
+                            <i class="fas fa-cubes text-indigo-600"></i> Bài 3 &bull; JSXGraph 1: Trực quan hóa phép chia có dư
+                        </span>
+                        <span class="text-xs px-2.5 py-0.5 bg-emerald-100 text-emerald-800 font-bold rounded">Mô hình động</span>
+                    </div>
+                    <p class="text-slate-800 font-medium mb-3">
+                        Dựa vào mô hình trực quan chia bi vào các hộp, em hãy thực hiện phép chia \(26\) cho \(4\) và chỉ rõ các thành phần: <strong>Số bị chia</strong>, <strong>Số chia</strong>, <strong>Thương</strong> và <strong>Số dư</strong>.
+                    </p>
 
+                    <!-- JSXGraph 1 Container -->
+                    <div class="my-4">
+                        <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+                            <span class="text-xs font-bold text-slate-600"><i class="fas fa-sliders-h text-indigo-500 mr-1"></i> Điều chỉnh số bi chia vào mỗi hộp:</span>
+                            <div class="flex gap-2">
+                                <button onclick="setMarbleDivision(26, 4)" class="px-3 py-1 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold rounded shadow-xs">Mô hình: \(26 : 4\)</button>
+                                <button onclick="setMarbleDivision(17, 3)" class="px-3 py-1 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold rounded border border-slate-300">Mô hình: \(17 : 3\)</button>
+                            </div>
+                        </div>
+                        <div id="jsx1_box" class="jxgbox w-full h-[250px] mx-auto"></div>
+                    </div>
 
-    <div class="level-title">Mức độ 2: Nâng cao (Tư duy suy luận và Kết hợp dấu hiệu)</div>
-    <div class="level-desc">Mục tiêu: Đòi hỏi kết hợp đồng thời từ 2 đến 3 dấu hiệu chia hết và làm quen với dạng toán chia có dư.</div>
+                    <details class="group mt-4">
+                        <summary class="flex items-center justify-between px-4 py-2.5 bg-slate-50 hover:bg-slate-100 rounded-xl cursor-pointer select-none text-sm font-semibold text-slate-700 transition">
+                            <span class="flex items-center gap-2"><i class="fas fa-lightbulb text-amber-500"></i> Gợi ý &amp; Lời giải chi tiết</span>
+                            <i class="fas fa-chevron-down toggle-icon text-slate-400 transition-transform"></i>
+                        </summary>
+                        <div class="solution-body p-4 mt-2 bg-indigo-50/50 rounded-xl border border-indigo-100 text-sm text-slate-700 space-y-2">
+                            <p>Ta có: \(26 = 4 \times 6 + 2\) (với \(2 < 4\)).</p>
+                            <ul class="list-disc pl-5 space-y-1">
+                                <li><strong>Số bị chia:</strong> \(26\).</li>
+                                <li><strong>Số chia:</strong> \(4\).</li>
+                                <li><strong>Thương:</strong> \(6\) (mỗi hộp nhận 6 viên bi).</li>
+                                <li><strong>Số dư:</strong> \(2\) (còn lại 2 viên bi chưa đủ chia đều).</li>
+                            </ul>
+                        </div>
+                    </details>
+                </div>
 
-    <div class="exercise-group">
-        <div class="question">Bài 6: Tìm các chữ số \(x, y\) biết rằng số \(\overline{23x5y}\) chia hết cho cả \(2, 5\) và \(9\).</div>
-        <div class="answer-space"></div>
-    </div>
+                <!-- Bài 4 -->
+                <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="px-3 py-1 bg-blue-50 text-blue-700 text-xs font-bold rounded-md border border-blue-200">Bài 4 &bull; Dấu hiệu chia hết cho 2 và 5</span>
+                    </div>
+                    <p class="text-slate-800 font-medium mb-3">
+                        Cho các số sau: \(125; 230; 544; 905; 1\,008\). Trong các số đó:<br>
+                        a) Số nào chia hết cho \(2\)?<br>
+                        b) Số nào chia hết cho \(5\)?<br>
+                        c) Số nào chia hết cho cả \(2\) và \(5\)?
+                    </p>
+                    <details class="group mt-4">
+                        <summary class="flex items-center justify-between px-4 py-2.5 bg-slate-50 hover:bg-slate-100 rounded-xl cursor-pointer select-none text-sm font-semibold text-slate-700 transition">
+                            <span class="flex items-center gap-2"><i class="fas fa-lightbulb text-amber-500"></i> Gợi ý &amp; Lời giải chi tiết</span>
+                            <i class="fas fa-chevron-down toggle-icon text-slate-400 transition-transform"></i>
+                        </summary>
+                        <div class="solution-body p-4 mt-2 bg-blue-50/50 rounded-xl border border-blue-100 text-sm text-slate-700 space-y-1">
+                            <p><strong>a)</strong> Các số chia hết cho \(2\) (tận cùng là chữ số chẵn: 0, 4, 8): <strong>\(230; 544; 1\,008\)</strong>.</p>
+                            <p><strong>b)</strong> Các số chia hết cho \(5\) (tận cùng là 0 hoặc 5): <strong>\(125; 230; 905\)</strong>.</p>
+                            <p><strong>c)</strong> Các số chia hết cho cả \(2\) và \(5\) (tận cùng là 0): <strong>\(230\)</strong>.</p>
+                        </div>
+                    </details>
+                </div>
 
-    <div class="exercise-group">
-        <div class="question">Bài 7: Dùng cả ba chữ số \(4; 5; 9\) để ghép thành số có ba chữ số (mỗi chữ số chỉ dùng một lần):</div>
-        <div class="sub-question">a) Nhỏ nhất và chia hết cho \(2\).</div>
-        <div class="sub-question">b) Lớn nhất và chia hết cho \(5\).</div>
-        <div class="answer-space"></div>
-    </div>
+                <!-- Bài 5 -->
+                <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="px-3 py-1 bg-blue-50 text-blue-700 text-xs font-bold rounded-md border border-blue-200">Bài 5 &bull; Dấu hiệu chia hết cho 3 và 9</span>
+                    </div>
+                    <p class="text-slate-800 font-medium mb-3">
+                        Trong các số: \(234; 507; 819; 1\,002; 2\,025\):<br>
+                        a) Số nào chia hết cho \(3\)?<br>
+                        b) Số nào chia hết cho \(9\)?<br>
+                        c) Số nào chia hết cho \(3\) nhưng không chia hết cho \(9\)?
+                    </p>
+                    <details class="group mt-4">
+                        <summary class="flex items-center justify-between px-4 py-2.5 bg-slate-50 hover:bg-slate-100 rounded-xl cursor-pointer select-none text-sm font-semibold text-slate-700 transition">
+                            <span class="flex items-center gap-2"><i class="fas fa-lightbulb text-amber-500"></i> Gợi ý &amp; Lời giải chi tiết</span>
+                            <i class="fas fa-chevron-down toggle-icon text-slate-400 transition-transform"></i>
+                        </summary>
+                        <div class="solution-body p-4 mt-2 bg-blue-50/50 rounded-xl border border-blue-100 text-sm text-slate-700 space-y-2">
+                            <p>Tính tổng các chữ số:</p>
+                            <p>&bull; \(234\) có tổng \(2+3+4=9 \vdots 9, 3\). &bull; \(507\) có tổng \(5+0+7=12 \vdots 3\) (không chia hết 9).</p>
+                            <p>&bull; \(819\) có tổng \(8+1+9=18 \vdots 9, 3\). &bull; \(1\,002\) có tổng \(1+0+0+2=3 \vdots 3\) (không chia hết 9).</p>
+                            <p>&bull; \(2\,025\) có tổng \(2+0+2+5=9 \vdots 9, 3\).</p>
+                            <p><strong>a)</strong> Chia hết cho \(3\): <strong>Tất cả 5 số (\(234; 507; 819; 1\,002; 2\,025\))</strong>.</p>
+                            <p><strong>b)</strong> Chia hết cho \(9\): <strong>\(234; 819; 2\,025\)</strong>.</p>
+                            <p><strong>c)</strong> Chia hết cho \(3\) nhưng không chia hết cho \(9\): <strong>\(507; 1\,002\)</strong>.</p>
+                        </div>
+                    </details>
+                </div>
 
-    <div class="exercise-group">
-        <div class="question">Bài 8: Tìm chữ số thích hợp thay cho dấu \(*\) để số \(\overline{5432*}\) thỏa mãn điều kiện:</div>
-        <div class="sub-question">a) Chia hết cho \(3\).</div>
-        <div class="sub-question">b) Chia hết cho \(9\).</div>
-        <div class="sub-question">c) Chia hết cho \(3\) nhưng không chia hết cho \(9\).</div>
-        <div class="answer-space"></div>
-    </div>
+                <!-- Bài 6 (JSXGraph 2) -->
+                <div class="bg-white rounded-2xl p-6 border-2 border-indigo-200 shadow-sm hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="px-3 py-1 bg-indigo-100 text-indigo-800 text-xs font-bold rounded-md flex items-center gap-1.5">
+                            <i class="fas fa-circle-nodes text-indigo-600"></i> Bài 6 &bull; JSXGraph 2: Giản đồ Venn phân loại số
+                        </span>
+                        <span class="text-xs px-2.5 py-0.5 bg-purple-100 text-purple-800 font-bold rounded">Giản đồ tập hợp</span>
+                    </div>
+                    <p class="text-slate-800 font-medium mb-3">
+                        Từ mô hình phân loại trên giản đồ Venn cho các số \(\{12, 15, 30, 44, 55, 60, 82, 95\}\), em hãy chỉ ra đặc điểm tận cùng của những số nằm ở phần giao nhau của hai vòng tròn (chia hết cho cả \(2\) và \(5\)).
+                    </p>
 
-    <div class="exercise-group">
-        <div class="question">Bài 9: Tìm các chữ số \(a, b\) để số \(\overline{4a5b}\) chia cho \(2\), chia cho \(5\) và chia cho \(9\) đều dư \(1\).</div>
-        <div class="answer-space"></div>
-    </div>
+                    <!-- JSXGraph 2 Container -->
+                    <div class="my-4">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-xs font-bold text-slate-600"><i class="fas fa-eye text-indigo-500 mr-1"></i> Giản đồ phân loại số chia hết cho 2 và 5:</span>
+                        </div>
+                        <div id="jsx2_box" class="jxgbox w-full h-[260px] mx-auto"></div>
+                    </div>
 
-    <div class="exercise-group">
-        <div class="question">Bài 10: Cho tổng \(A = 12 + 15 + 21 + x\) với \(x\) là số tự nhiên. Dựa vào tính chất chia hết của một tổng, hãy cho biết:</div>
-        <div class="sub-question">a) Điều kiện của \(x\) để \(A\) chia hết cho \(3\)?</div>
-        <div class="sub-question">b) Điều kiện của \(x\) để \(A\) không chia hết cho \(3\)?</div>
-        <div class="answer-space"></div>
-    </div>
+                    <details class="group mt-4">
+                        <summary class="flex items-center justify-between px-4 py-2.5 bg-slate-50 hover:bg-slate-100 rounded-xl cursor-pointer select-none text-sm font-semibold text-slate-700 transition">
+                            <span class="flex items-center gap-2"><i class="fas fa-lightbulb text-amber-500"></i> Gợi ý &amp; Lời giải chi tiết</span>
+                            <i class="fas fa-chevron-down toggle-icon text-slate-400 transition-transform"></i>
+                        </summary>
+                        <div class="solution-body p-4 mt-2 bg-indigo-50/50 rounded-xl border border-indigo-100 text-sm text-slate-700 space-y-1">
+                            <p>&bull; <strong>Chỉ chia hết cho 2:</strong> \(12, 44, 82\) (tận cùng chẵn khác 0).</p>
+                            <p>&bull; <strong>Chỉ chia hết cho 5:</strong> \(15, 55, 95\) (tận cùng là 5).</p>
+                            <p>&bull; <strong>Giao nhau (chia hết cho cả 2 và 5):</strong> \(30, 60\).</p>
+                            <p>&rarr; <strong>Đặc điểm:</strong> Các số chia hết cho cả \(2\) và \(5\) luôn có <strong>chữ số tận cùng là \(0\)</strong>.</p>
+                        </div>
+                    </details>
+                </div>
 
+                <!-- Bài 7 -->
+                <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="px-3 py-1 bg-blue-50 text-blue-700 text-xs font-bold rounded-md border border-blue-200">Bài 7 &bull; Tính chất chia hết của một tổng</span>
+                    </div>
+                    <p class="text-slate-800 font-medium mb-3">
+                        Không tính giá trị cụ thể, hãy giải thích tại sao:<br>
+                        a) Tổng \(15 + 20 + 35\) chia hết cho \(5\).<br>
+                        b) Tổng \(18 + 27 + 31\) không chia hết cho \(9\).
+                    </p>
+                    <details class="group mt-4">
+                        <summary class="flex items-center justify-between px-4 py-2.5 bg-slate-50 hover:bg-slate-100 rounded-xl cursor-pointer select-none text-sm font-semibold text-slate-700 transition">
+                            <span class="flex items-center gap-2"><i class="fas fa-lightbulb text-amber-500"></i> Gợi ý &amp; Lời giải chi tiết</span>
+                            <i class="fas fa-chevron-down toggle-icon text-slate-400 transition-transform"></i>
+                        </summary>
+                        <div class="solution-body p-4 mt-2 bg-blue-50/50 rounded-xl border border-blue-100 text-sm text-slate-700 space-y-2">
+                            <p><strong>a)</strong> Vì \(15 \vdots 5\), \(20 \vdots 5\), \(35 \vdots 5\) nên theo tính chất chia hết của một tổng: \((15 + 20 + 35) \vdots 5\).</p>
+                            <p><strong>b)</strong> Vì \(18 \vdots 9\), \(27 \vdots 9\) nhưng \(31 \not\vdots 9\) (chia 9 dư 4) nên theo tính chất: \((18 + 27 + 31) \not\vdots 9\).</p>
+                        </div>
+                    </details>
+                </div>
 
-    <div class="level-title">Mức độ 3: Vận dụng (Bài toán thực tế)</div>
-    <div class="level-desc">Mục tiêu: Chuyển đổi ngôn ngữ đời sống thực tế thành ngôn ngữ Toán học (quan hệ chia hết), rèn tư duy giải quyết vấn đề.</div>
+                <!-- Bài 8 -->
+                <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="px-3 py-1 bg-blue-50 text-blue-700 text-xs font-bold rounded-md border border-blue-200">Bài 8 &bull; Tìm chữ số còn thiếu</span>
+                    </div>
+                    <p class="text-slate-800 font-medium mb-3">
+                        Thay dấu \(*\) bằng một chữ số thích hợp để:<br>
+                        a) Số \(\overline{43*}\) chia hết cho \(2\).<br>
+                        b) Số \(\overline{7*5}\) chia hết cho \(9\).
+                    </p>
+                    <details class="group mt-4">
+                        <summary class="flex items-center justify-between px-4 py-2.5 bg-slate-50 hover:bg-slate-100 rounded-xl cursor-pointer select-none text-sm font-semibold text-slate-700 transition">
+                            <span class="flex items-center gap-2"><i class="fas fa-lightbulb text-amber-500"></i> Gợi ý &amp; Lời giải chi tiết</span>
+                            <i class="fas fa-chevron-down toggle-icon text-slate-400 transition-transform"></i>
+                        </summary>
+                        <div class="solution-body p-4 mt-2 bg-blue-50/50 rounded-xl border border-blue-100 text-sm text-slate-700 space-y-2">
+                            <p><strong>a)</strong> Để \(\overline{43*} \vdots 2\) thì \(* \in \{0; 2; 4; 6; 8\}\).</p>
+                            <p><strong>b)</strong> Để \(\overline{7*5} \vdots 9\) thì tổng các chữ số \((7 + * + 5) = 12 + * \vdots 9\). Vì \(* \in \{0,1,\dots,9\}\) nên chọn \(* = 6\) (để \(12 + 6 = 18 \vdots 9\)).</p>
+                        </div>
+                    </details>
+                </div>
 
-    <div class="exercise-group">
-        <div class="question">Bài 11: Mật mã của một chiếc két sắt là một số có 3 chữ số có dạng \(\overline{5a6}\). Biết số này chia hết cho \(9\). Em hãy tìm mật mã để mở chiếc két sắt đó.</div>
-        <div class="answer-space"></div>
-    </div>
+                <!-- Bài 9 -->
+                <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="px-3 py-1 bg-blue-50 text-blue-700 text-xs font-bold rounded-md border border-blue-200">Bài 9 &bull; Quy tắc về số dư</span>
+                    </div>
+                    <p class="text-slate-800 font-medium mb-3">
+                        Trong một phép chia số tự nhiên cho \(8\):<br>
+                        a) Số dư lớn nhất có thể có là bao nhiêu?<br>
+                        b) Nếu số dư của phép chia đó là \(8\) thì phép chia đó có đúng quy tắc không? Giải thích vì sao.
+                    </p>
+                    <details class="group mt-4">
+                        <summary class="flex items-center justify-between px-4 py-2.5 bg-slate-50 hover:bg-slate-100 rounded-xl cursor-pointer select-none text-sm font-semibold text-slate-700 transition">
+                            <span class="flex items-center gap-2"><i class="fas fa-lightbulb text-amber-500"></i> Gợi ý &amp; Lời giải chi tiết</span>
+                            <i class="fas fa-chevron-down toggle-icon text-slate-400 transition-transform"></i>
+                        </summary>
+                        <div class="solution-body p-4 mt-2 bg-blue-50/50 rounded-xl border border-blue-100 text-sm text-slate-700 space-y-1">
+                            <p><strong>a)</strong> Trong phép chia cho số chia \(b = 8\), số dư \(r\) thỏa mãn \(0 \le r < 8\). Do đó số dư lớn nhất có thể có là <strong>\(7\)</strong>.</p>
+                            <p><strong>b)</strong> Không đúng quy tắc vì số dư luôn phải nhỏ hơn số chia (\(r < b\)). Nếu dư \(8\) thì thương phải tăng thêm 1 đơn vị và số dư thực tế bằng \(0\).</p>
+                        </div>
+                    </details>
+                </div>
 
-    <div class="exercise-group">
-        <div class="question">Bài 12: Bốn lớp 6A, 6B, 6C, 6D lần lượt có \(35; 36; 39; 40\) học sinh.</div>
-        <div class="sub-question">a) Lớp nào có thể chia thành \(5\) tổ có cùng số tổ viên (không thừa bạn nào)?</div>
-        <div class="sub-question">b) Lớp nào có thể chia tất cả các bạn thành các "đôi bạn học tập" (nhóm 2 người)?</div>
-        <div class="answer-space"></div>
-    </div>
+                <!-- Bài 10 -->
+                <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="px-3 py-1 bg-blue-50 text-blue-700 text-xs font-bold rounded-md border border-blue-200">Bài 10 &bull; Liệt kê phần tử tập hợp</span>
+                    </div>
+                    <p class="text-slate-800 font-medium mb-3">
+                        Cho tập hợp \(A = \{x \in \mathbb{N} \mid 10 \le x \le 30, x \vdots 3\}\). Hãy viết tập hợp \(A\) bằng cách liệt kê các phần tử.
+                    </p>
+                    <details class="group mt-4">
+                        <summary class="flex items-center justify-between px-4 py-2.5 bg-slate-50 hover:bg-slate-100 rounded-xl cursor-pointer select-none text-sm font-semibold text-slate-700 transition">
+                            <span class="flex items-center gap-2"><i class="fas fa-lightbulb text-amber-500"></i> Gợi ý &amp; Lời giải chi tiết</span>
+                            <i class="fas fa-chevron-down toggle-icon text-slate-400 transition-transform"></i>
+                        </summary>
+                        <div class="solution-body p-4 mt-2 bg-blue-50/50 rounded-xl border border-blue-100 text-sm text-slate-700">
+                            <p>Các bội của 3 từ 10 đến 30 là: \(12, 15, 18, 21, 24, 27, 30\).</p>
+                            <p class="font-bold text-blue-900 mt-1">\(A = \{12; 15; 18; 21; 24; 27; 30\}\).</p>
+                        </div>
+                    </details>
+                </div>
 
-    <div class="exercise-group">
-        <div class="question">Bài 13: Bà Huệ có \(19\) quả xoài và \(40\) quả quýt. Bà có thể chia số quả này thành \(5\) phần bằng nhau (mỗi phần có cùng số xoài, cùng số quýt) mà không phải cắt quả nào ra được không? Hãy dùng toán học để giải thích cho bà.</div>
-        <div class="answer-space large"></div>
-    </div>
+                <!-- Bài 11 -->
+                <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="px-3 py-1 bg-blue-50 text-blue-700 text-xs font-bold rounded-md border border-blue-200">Bài 11 &bull; Tìm ước và bội cơ bản</span>
+                    </div>
+                    <p class="text-slate-800 font-medium mb-3">
+                        a) Viết tập hợp các số tự nhiên là ước của \(15\).<br>
+                        b) Viết tập hợp các số tự nhiên là bội của \(6\) nhỏ hơn \(40\).
+                    </p>
+                    <details class="group mt-4">
+                        <summary class="flex items-center justify-between px-4 py-2.5 bg-slate-50 hover:bg-slate-100 rounded-xl cursor-pointer select-none text-sm font-semibold text-slate-700 transition">
+                            <span class="flex items-center gap-2"><i class="fas fa-lightbulb text-amber-500"></i> Gợi ý &amp; Lời giải chi tiết</span>
+                            <i class="fas fa-chevron-down toggle-icon text-slate-400 transition-transform"></i>
+                        </summary>
+                        <div class="solution-body p-4 mt-2 bg-blue-50/50 rounded-xl border border-blue-100 text-sm text-slate-700 space-y-1">
+                            <p><strong>a)</strong> Tập hợp các ước của 15: \(\text{Ư}(15) = \{1; 3; 5; 15\}\).</p>
+                            <p><strong>b)</strong> Tập hợp bội của 6 nhỏ hơn 40: \(\{0; 6; 12; 18; 24; 30; 36\}\).</p>
+                        </div>
+                    </details>
+                </div>
 
-    <div class="exercise-group">
-        <div class="question">Bài 14: Lớp 6A có \(42\) học sinh. Trong giờ Thể dục, thầy giáo muốn xếp cả lớp thành các hàng có số lượng học sinh bằng nhau. Hỏi thầy giáo có thể xếp lớp thành \(3\) hàng hoặc xếp thành \(5\) hàng được không? Vì sao?</div>
-        <div class="answer-space large"></div>
-    </div>
+                <!-- Bài 12 -->
+                <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="px-3 py-1 bg-blue-50 text-blue-700 text-xs font-bold rounded-md border border-blue-200">Bài 12 &bull; Lập số có ba chữ số khác nhau</span>
+                    </div>
+                    <p class="text-slate-800 font-medium mb-3">
+                        Từ ba chữ số \(4; 5; 0\), hãy viết tất cả các số tự nhiên có ba chữ số khác nhau sao cho các số đó vừa chia hết cho \(2\) vừa chia hết cho \(5\).
+                    </p>
+                    <details class="group mt-4">
+                        <summary class="flex items-center justify-between px-4 py-2.5 bg-slate-50 hover:bg-slate-100 rounded-xl cursor-pointer select-none text-sm font-semibold text-slate-700 transition">
+                            <span class="flex items-center gap-2"><i class="fas fa-lightbulb text-amber-500"></i> Gợi ý &amp; Lời giải chi tiết</span>
+                            <i class="fas fa-chevron-down toggle-icon text-slate-400 transition-transform"></i>
+                        </summary>
+                        <div class="solution-body p-4 mt-2 bg-blue-50/50 rounded-xl border border-blue-100 text-sm text-slate-700 space-y-2">
+                            <p>Số chia hết cho cả 2 và 5 bắt buộc phải có chữ số hàng đơn vị bằng \(0\).</p>
+                            <p>Các chữ số hàng trăm và hàng chục lấy từ tập \(\{4; 5\}\):</p>
+                            <p>&rarr; Có 2 số thỏa mãn: <strong>\(450\)</strong> và <strong>\(540\)</strong>.</p>
+                        </div>
+                    </details>
+                </div>
 
-    <div class="exercise-group">
-        <div class="question">Bài 15: Cô thủ thư thư viện trường có \(135\) quyển vở và \(45\) chiếc bút. Cô muốn chia đều số vở và số bút đó thành \(9\) phần thưởng cho học sinh xuất sắc. Không cần thực hiện phép chia để tính số lượng cụ thể, em hãy vận dụng tính chất chia hết để giải thích xem cô có thể chia đều được không?</div>
-        <div class="answer-space large"></div>
-    </div>
+            </div>
+        </section>
 
-    <div class="pedagogical-hint">
-        <strong>* Gợi ý sư phạm cho giáo viên:</strong> Với các bài ở mức độ 3 (Vận dụng), giáo viên nên yêu cầu học sinh hoạt động nhóm, cùng nhau thảo luận để dịch từ cụm từ thực tế <em>"chia đều / chia thành các phần bằng nhau"</em> sang khái niệm <em>"chia hết"</em> của Toán học trước khi bắt tay vào trình bày lời giải.
-    </div>
+        <!-- ========================================================================= -->
+        <!-- PHẦN 2: MỨC ĐỘ NÂNG CAO -->
+        <!-- ========================================================================= -->
+        <section id="phan-2" class="mb-12 scroll-mt-20">
+            <div class="flex items-center justify-between border-b-2 border-amber-500 pb-3 mb-6">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-amber-600 text-white flex items-center justify-center font-bold text-lg shadow-md shadow-amber-200">
+                        2
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-slate-900 uppercase">Phần 2: Mức Độ Nâng Cao (10 Bài)</h3>
+                        <p class="text-xs sm:text-sm text-slate-500">Mục tiêu: Áp dụng tính chất chia hết để biện luận, tìm biến số, giải toán chữ số chưa biết và đồng dư.</p>
+                    </div>
+                </div>
+                <span class="px-3 py-1 bg-amber-100 text-amber-800 text-xs font-bold rounded-lg hidden sm:inline-block">10 Bài Toán</span>
+            </div>
 
-    <div class="footer">
-        Chúc các em làm bài tốt! &copy; 2026 - Phiếu bài tập Toán 6 THCS
-    </div>
-</div>
+            <div class="grid grid-cols-1 gap-6">
 
+                <!-- Bài 13 -->
+                <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="px-3 py-1 bg-amber-50 text-amber-700 text-xs font-bold rounded-md border border-amber-200">Bài 13 &bull; Tìm điều kiện của biến trong tổng chia hết</span>
+                    </div>
+                    <p class="text-slate-800 font-medium mb-3">
+                        Cho tổng \(A = 12 + 15 + 21 + x\) (với \(x \in \mathbb{N}\)). Tìm điều kiện của \(x\) để:<br>
+                        a) \(A\) chia hết cho \(3\).<br>
+                        b) \(A\) không chia hết cho \(3\).
+                    </p>
+                    <details class="group mt-4">
+                        <summary class="flex items-center justify-between px-4 py-2.5 bg-slate-50 hover:bg-slate-100 rounded-xl cursor-pointer select-none text-sm font-semibold text-slate-700 transition">
+                            <span class="flex items-center gap-2"><i class="fas fa-lightbulb text-amber-500"></i> Gợi ý &amp; Lời giải chi tiết</span>
+                            <i class="fas fa-chevron-down toggle-icon text-slate-400 transition-transform"></i>
+                        </summary>
+                        <div class="solution-body p-4 mt-2 bg-amber-50/50 rounded-xl border border-amber-100 text-sm text-slate-700 space-y-2">
+                            <p>Ta thấy \(12 \vdots 3\), \(15 \vdots 3\), \(21 \vdots 3\).</p>
+                            <p><strong>a)</strong> Để \(A \vdots 3\) thì bắt buộc \(x \vdots 3\) (tức \(x\) là bội của 3: \(x = 3k, k \in \mathbb{N}\)).</p>
+                            <p><strong>b)</strong> Để \(A \not\vdots 3\) thì bắt buộc \(x \not\vdots 3\) (tức \(x\) chia 3 có số dư là 1 hoặc 2: \(x = 3k + 1\) hoặc \(x = 3k + 2, k \in \mathbb{N}\)).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 14 -->
+                <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="px-3 py-1 bg-amber-50 text-amber-700 text-xs font-bold rounded-md border border-amber-200">Bài 14 &bull; Tìm đồng thời hai chữ số a và b</span>
+                    </div>
+                    <p class="text-slate-800 font-medium mb-3">
+                        Tìm các chữ số \(a\) và \(b\) để:<br>
+                        a) Số \(\overline{2a5b}\) chia hết cho cả \(2; 5\) và \(9\).<br>
+                        b) Số \(\overline{1a2b}\) chia hết cho cả \(5\) và \(3\) nhưng không chia hết cho \(2\).
+                    </p>
+                    <details class="group mt-4">
+                        <summary class="flex items-center justify-between px-4 py-2.5 bg-slate-50 hover:bg-slate-100 rounded-xl cursor-pointer select-none text-sm font-semibold text-slate-700 transition">
+                            <span class="flex items-center gap-2"><i class="fas fa-lightbulb text-amber-500"></i> Gợi ý &amp; Lời giải chi tiết</span>
+                            <i class="fas fa-chevron-down toggle-icon text-slate-400 transition-transform"></i>
+                        </summary>
+                        <div class="solution-body p-4 mt-2 bg-amber-50/50 rounded-xl border border-amber-100 text-sm text-slate-700 space-y-2">
+                            <p><strong>a)</strong> Vì \(\overline{2a5b} \vdots 2\) và \(5 \Rightarrow b = 0\). Số trở thành \(\overline{2a50}\).<br>
+                            Để chia hết cho \(9\): \((2 + a + 5 + 0) = 7 + a \vdots 9 \Rightarrow a = 2\). Vậy \((a; b) = (2; 0)\).</p>
+                            <p><strong>b)</strong> Vì \(\overline{1a2b} \vdots 5\) nhưng không chia hết cho \(2 \Rightarrow b = 5\). Số trở thành \(\overline{1a25}\).<br>
+                            Để chia hết cho \(3\): \((1 + a + 2 + 5) = 8 + a \vdots 3 \Rightarrow a \in \{1; 4; 7\}\). Vậy có 3 cặp: \((1; 5), (4; 5), (7; 5)\).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 15 (JSXGraph 3) -->
+                <div class="bg-white rounded-2xl p-6 border-2 border-amber-200 shadow-sm hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="px-3 py-1 bg-amber-100 text-amber-800 text-xs font-bold rounded-md flex items-center gap-1.5">
+                            <i class="fas fa-lock text-amber-600"></i> Bài 15 &bull; JSXGraph 3: Khóa số mật mã xoay vòng
+                        </span>
+                        <span class="text-xs px-2.5 py-0.5 bg-rose-100 text-rose-800 font-bold rounded">Mật mã số học</span>
+                    </div>
+                    <p class="text-slate-800 font-medium mb-3">
+                        Cho số dạng \(\overline{4a5b}\). Em hãy tính xem có tất cả bao nhiêu cặp chữ số \((a; b)\) để số trên chia hết cho cả \(2, 5\) và \(3\)?
+                    </p>
+
+                    <!-- JSXGraph 3 Container -->
+                    <div class="my-4">
+                        <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+                            <span class="text-xs font-bold text-slate-600"><i class="fas fa-key text-amber-500 mr-1"></i> Thử nghiệm cặp chữ số \((a; b)\) trên ổ khóa:</span>
+                            <div class="flex gap-2">
+                                <button onclick="setLockDigits(0, 0)" class="px-2.5 py-1 bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold rounded shadow-xs">(0; 0) [4050 ✔️]</button>
+                                <button onclick="setLockDigits(3, 0)" class="px-2.5 py-1 bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold rounded shadow-xs">(3; 0) [4350 ✔️]</button>
+                                <button onclick="setLockDigits(2, 5)" class="px-2.5 py-1 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold rounded border border-slate-300">(2; 5) [4255 ❌]</button>
+                            </div>
+                        </div>
+                        <div id="jsx3_box" class="jxgbox w-full h-[250px] mx-auto"></div>
+                    </div>
+
+                    <details class="group mt-4">
+                        <summary class="flex items-center justify-between px-4 py-2.5 bg-slate-50 hover:bg-slate-100 rounded-xl cursor-pointer select-none text-sm font-semibold text-slate-700 transition">
+                            <span class="flex items-center gap-2"><i class="fas fa-lightbulb text-amber-500"></i> Gợi ý &amp; Lời giải chi tiết</span>
+                            <i class="fas fa-chevron-down toggle-icon text-slate-400 transition-transform"></i>
+                        </summary>
+                        <div class="solution-body p-4 mt-2 bg-amber-50/50 rounded-xl border border-amber-100 text-sm text-slate-700 space-y-2">
+                            <p>&bull; Chia hết cho cả 2 và 5 bắt buộc \(b = 0\).</p>
+                            <p>&bull; Để \(\overline{4a50} \vdots 3 \Rightarrow (4 + a + 5 + 0) = 9 + a \vdots 3 \Rightarrow a \in \{0; 3; 6; 9\}\).</p>
+                            <p>&rarr; Có tất cả <strong>\(4\) cặp</strong> \((a; b)\) thỏa mãn là: \((0; 0), (3; 0), (6; 0), (9; 0)\).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 16 -->
+                <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="px-3 py-1 bg-amber-50 text-amber-700 text-xs font-bold rounded-md border border-amber-200">Bài 16 &bull; Tìm x trong quan hệ chia hết</span>
+                    </div>
+                    <p class="text-slate-800 font-medium mb-3">
+                        Tìm số tự nhiên \(x\) sao cho:<br>
+                        a) \(x + 10\) chia hết cho \(x\).<br>
+                        b) \(18\) chia hết cho \(x - 1\).
+                    </p>
+                    <details class="group mt-4">
+                        <summary class="flex items-center justify-between px-4 py-2.5 bg-slate-50 hover:bg-slate-100 rounded-xl cursor-pointer select-none text-sm font-semibold text-slate-700 transition">
+                            <span class="flex items-center gap-2"><i class="fas fa-lightbulb text-amber-500"></i> Gợi ý &amp; Lời giải chi tiết</span>
+                            <i class="fas fa-chevron-down toggle-icon text-slate-400 transition-transform"></i>
+                        </summary>
+                        <div class="solution-body p-4 mt-2 bg-amber-50/50 rounded-xl border border-amber-100 text-sm text-slate-700 space-y-2">
+                            <p><strong>a)</strong> Vì \((x + 10) \vdots x\) mà \(x \vdots x\) nên \(10 \vdots x \Rightarrow x \in \text{Ư}(10) = \{1; 2; 5; 10\}\).</p>
+                            <p><strong>b)</strong> Vì \(18 \vdots (x - 1) \Rightarrow x - 1 \in \text{Ư}(18) = \{1; 2; 3; 6; 9; 18\}\).<br>
+                            &rarr; \(x \in \{2; 3; 4; 7; 10; 19\}\).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 17 -->
+                <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="px-3 py-1 bg-amber-50 text-amber-700 text-xs font-bold rounded-md border border-amber-200">Bài 17 &bull; Tìm bội trong khoảng giới hạn</span>
+                    </div>
+                    <p class="text-slate-800 font-medium mb-3">
+                        Tìm số tự nhiên \(x\), biết rằng \(x \vdots 12\) và \(24 < x \le 84\).
+                    </p>
+                    <details class="group mt-4">
+                        <summary class="flex items-center justify-between px-4 py-2.5 bg-slate-50 hover:bg-slate-100 rounded-xl cursor-pointer select-none text-sm font-semibold text-slate-700 transition">
+                            <span class="flex items-center gap-2"><i class="fas fa-lightbulb text-amber-500"></i> Gợi ý &amp; Lời giải chi tiết</span>
+                            <i class="fas fa-chevron-down toggle-icon text-slate-400 transition-transform"></i>
+                        </summary>
+                        <div class="solution-body p-4 mt-2 bg-amber-50/50 rounded-xl border border-amber-100 text-sm text-slate-700 space-y-2">
+                            <p>Vì \(x \vdots 12\) nên \(x \in \text{B}(12) = \{0; 12; 24; 36; 48; 60; 72; 84; 96; \dots\}\).</p>
+                            <p>Kết hợp điều kiện \(24 < x \le 84\), ta được:</p>
+                            <p class="font-bold text-amber-900">\(x \in \{36; 48; 60; 72; 84\}\).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 18 -->
+                <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="px-3 py-1 bg-amber-50 text-amber-700 text-xs font-bold rounded-md border border-amber-200">Bài 18 &bull; Tìm số dư thông qua tổng chữ số</span>
+                    </div>
+                    <p class="text-slate-800 font-medium mb-3">
+                        Không thực hiện phép tính chia, hãy tìm số dư khi chia số \(A = 123\,456\,789\) cho \(9\) và giải thích cách làm.
+                    </p>
+                    <details class="group mt-4">
+                        <summary class="flex items-center justify-between px-4 py-2.5 bg-slate-50 hover:bg-slate-100 rounded-xl cursor-pointer select-none text-sm font-semibold text-slate-700 transition">
+                            <span class="flex items-center gap-2"><i class="fas fa-lightbulb text-amber-500"></i> Gợi ý &amp; Lời giải chi tiết</span>
+                            <i class="fas fa-chevron-down toggle-icon text-slate-400 transition-transform"></i>
+                        </summary>
+                        <div class="solution-body p-4 mt-2 bg-amber-50/50 rounded-xl border border-amber-100 text-sm text-slate-700 space-y-2">
+                            <p>Số dư của một số khi chia cho \(9\) bằng chính số dư của tổng các chữ số của nó khi chia cho \(9\).</p>
+                            <p>Tổng các chữ số của \(A\) là: \(S = 1 + 2 + 3 + 4 + 5 + 6 + 7 + 8 + 9 = 45\).</p>
+                            <p>Vì \(45 \vdots 9\) (dư 0) nên số \(A\) chia cho \(9\) có <strong>số dư bằng \(0\)</strong> (tức \(A \vdots 9\)).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 19 -->
+                <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="px-3 py-1 bg-amber-50 text-amber-700 text-xs font-bold rounded-md border border-amber-200">Bài 19 &bull; Chứng minh chia hết tổng quát</span>
+                    </div>
+                    <p class="text-slate-800 font-medium mb-3">
+                        Chứng tỏ rằng với mọi số tự nhiên \(n\), tổng của ba số tự nhiên liên tiếp luôn luôn chia hết cho \(3\).
+                    </p>
+                    <details class="group mt-4">
+                        <summary class="flex items-center justify-between px-4 py-2.5 bg-slate-50 hover:bg-slate-100 rounded-xl cursor-pointer select-none text-sm font-semibold text-slate-700 transition">
+                            <span class="flex items-center gap-2"><i class="fas fa-lightbulb text-amber-500"></i> Gợi ý &amp; Lời giải chi tiết</span>
+                            <i class="fas fa-chevron-down toggle-icon text-slate-400 transition-transform"></i>
+                        </summary>
+                        <div class="solution-body p-4 mt-2 bg-amber-50/50 rounded-xl border border-amber-100 text-sm text-slate-700 space-y-2">
+                            <p>Gọi ba số tự nhiên liên tiếp là: \(n, n + 1, n + 2\) (\(n \in \mathbb{N}\)).</p>
+                            <p>Tổng của chúng là:</p>
+                            <p>\(S = n + (n + 1) + (n + 2) = 3n + 3 = 3(n + 1)\).</p>
+                            <p>Vì \(3(n + 1) \vdots 3\) với mọi \(n\) nên tổng ba số tự nhiên liên tiếp luôn chia hết cho \(3\) (đpcm).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 20 (JSXGraph 4) -->
+                <div class="bg-white rounded-2xl p-6 border-2 border-amber-200 shadow-sm hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="px-3 py-1 bg-amber-100 text-amber-800 text-xs font-bold rounded-md flex items-center gap-1.5">
+                            <i class="fas fa-balance-scale text-amber-600"></i> Bài 20 &bull; JSXGraph 4: Đĩa cân đồng dư số học
+                        </span>
+                        <span class="text-xs px-2.5 py-0.5 bg-purple-100 text-purple-800 font-bold rounded">Tính chất đồng dư</span>
+                    </div>
+                    <p class="text-slate-800 font-medium mb-3">
+                        Áp dụng tính chất chia hết và đồng dư từ mô phỏng cân đĩa, em hãy tìm số dư của phép chia biểu thức sau cho \(3\) (với \(x, y \in \mathbb{N}\)):<br>
+                        \[Q = 6x + 9y + 17\]
+                    </p>
+
+                    <!-- JSXGraph 4 Container -->
+                    <div class="my-4">
+                        <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+                            <span class="text-xs font-bold text-slate-600"><i class="fas fa-weight-hanging text-amber-500 mr-1"></i> Chọn quả cân số dư khi chia cho 3:</span>
+                            <div class="flex gap-2">
+                                <button onclick="setRemainderWeight(0)" class="px-2.5 py-1 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold rounded border border-slate-300">Dư 0</button>
+                                <button onclick="setRemainderWeight(1)" class="px-2.5 py-1 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold rounded border border-slate-300">Dư 1</button>
+                                <button onclick="setRemainderWeight(2)" class="px-2.5 py-1 bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold rounded shadow-xs">Dư 2 (Đúng)</button>
+                            </div>
+                        </div>
+                        <div id="jsx4_box" class="jxgbox w-full h-[250px] mx-auto"></div>
+                    </div>
+
+                    <details class="group mt-4">
+                        <summary class="flex items-center justify-between px-4 py-2.5 bg-slate-50 hover:bg-slate-100 rounded-xl cursor-pointer select-none text-sm font-semibold text-slate-700 transition">
+                            <span class="flex items-center gap-2"><i class="fas fa-lightbulb text-amber-500"></i> Gợi ý &amp; Lời giải chi tiết</span>
+                            <i class="fas fa-chevron-down toggle-icon text-slate-400 transition-transform"></i>
+                        </summary>
+                        <div class="solution-body p-4 mt-2 bg-amber-50/50 rounded-xl border border-amber-100 text-sm text-slate-700 space-y-2">
+                            <p>Ta có: \(6x = 3 \cdot 2x \vdots 3\) và \(9y = 3 \cdot 3y \vdots 3\).</p>
+                            <p>Tách số hạng tự do: \(17 = 15 + 2 = 3 \cdot 5 + 2\).</p>
+                            <p>Khi đó: \(Q = (6x + 9y + 15) + 2 = 3(2x + 3y + 5) + 2\).</p>
+                            <p>&rarr; Số dư của \(Q\) khi chia cho \(3\) là <strong>\(2\)</strong>.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 21 -->
+                <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="px-3 py-1 bg-amber-50 text-amber-700 text-xs font-bold rounded-md border border-amber-200">Bài 21 &bull; Tìm chữ số xuất hiện nhiều lần</span>
+                    </div>
+                    <p class="text-slate-800 font-medium mb-3">
+                        Tìm chữ số \(a\) để số \(\overline{2a3a}\) chia hết cho \(3\).
+                    </p>
+                    <details class="group mt-4">
+                        <summary class="flex items-center justify-between px-4 py-2.5 bg-slate-50 hover:bg-slate-100 rounded-xl cursor-pointer select-none text-sm font-semibold text-slate-700 transition">
+                            <span class="flex items-center gap-2"><i class="fas fa-lightbulb text-amber-500"></i> Gợi ý &amp; Lời giải chi tiết</span>
+                            <i class="fas fa-chevron-down toggle-icon text-slate-400 transition-transform"></i>
+                        </summary>
+                        <div class="solution-body p-4 mt-2 bg-amber-50/50 rounded-xl border border-amber-100 text-sm text-slate-700 space-y-2">
+                            <p>Tổng các chữ số của \(\overline{2a3a}\) là: \(2 + a + 3 + a = 5 + 2a\).</p>
+                            <p>Để số đó chia hết cho \(3\) thì \((5 + 2a) \vdots 3\) với \(a \in \{0; 1; 2; 3; 4; 5; 6; 7; 8; 9\}\):</p>
+                            <ul class="list-disc pl-5 space-y-1">
+                                <li>Nếu \(a = 2 \Rightarrow 5 + 4 = 9 \vdots 3\) (chọn).</li>
+                                <li>Nếu \(a = 5 \Rightarrow 5 + 10 = 15 \vdots 3\) (chọn).</li>
+                                <li>Nếu \(a = 8 \Rightarrow 5 + 16 = 21 \vdots 3\) (chọn).</li>
+                            </ul>
+                            <p>&rarr; Vậy \(a \in \{2; 5; 8\}\).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 22 -->
+                <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="px-3 py-1 bg-amber-50 text-amber-700 text-xs font-bold rounded-md border border-amber-200">Bài 22 &bull; Nhóm cặp chứng minh tổng lũy thừa chia hết</span>
+                    </div>
+                    <p class="text-slate-800 font-medium mb-3">
+                        Chứng minh rằng biểu thức sau chia hết cho \(4\):<br>
+                        \[S = 3 + 3^2 + 3^3 + 3^4 + \dots + 3^{19} + 3^{20}\]
+                    </p>
+                    <details class="group mt-4">
+                        <summary class="flex items-center justify-between px-4 py-2.5 bg-slate-50 hover:bg-slate-100 rounded-xl cursor-pointer select-none text-sm font-semibold text-slate-700 transition">
+                            <span class="flex items-center gap-2"><i class="fas fa-lightbulb text-amber-500"></i> Gợi ý &amp; Lời giải chi tiết</span>
+                            <i class="fas fa-chevron-down toggle-icon text-slate-400 transition-transform"></i>
+                        </summary>
+                        <div class="solution-body p-4 mt-2 bg-amber-50/50 rounded-xl border border-amber-100 text-sm text-slate-700 space-y-2">
+                            <p>Tổng \(S\) có \(20\) số hạng. Ta nhóm từng cặp 2 số hạng liền kề:</p>
+                            <p>\(S = (3 + 3^2) + (3^3 + 3^4) + \dots + (3^{19} + 3^{20})\)</p>
+                            <p>\(S = 3(1 + 3) + 3^3(1 + 3) + \dots + 3^{19}(1 + 3)\)</p>
+                            <p>\(S = 4 \cdot (3 + 3^3 + \dots + 3^{19})\).</p>
+                            <p>Vì tích chứa thừa số \(4\) nên \(S \vdots 4\) (đpcm).</p>
+                        </div>
+                    </details>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ========================================================================= -->
+        <!-- PHẦN 3: MỨC ĐỘ VẬN DỤNG -->
+        <!-- ========================================================================= -->
+        <section id="phan-3" class="mb-12 scroll-mt-20">
+            <div class="flex items-center justify-between border-b-2 border-emerald-500 pb-3 mb-6">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-emerald-600 text-white flex items-center justify-center font-bold text-lg shadow-md shadow-emerald-200">
+                        3
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-slate-900 uppercase">Phần 3: Mức Độ Vận Dụng Thực Tế (8 Bài)</h3>
+                        <p class="text-xs sm:text-sm text-slate-500">Mục tiêu: Đưa quan hệ chia hết vào tình huống thực tế: phân nhóm học tập, xếp hàng, hóa đơn, phân luồng xe, đóng gói và trực nhật.</p>
+                    </div>
+                </div>
+                <span class="px-3 py-1 bg-emerald-100 text-emerald-800 text-xs font-bold rounded-lg hidden sm:inline-block">8 Bài Toán</span>
+            </div>
+
+            <div class="grid grid-cols-1 gap-6">
+
+                <!-- Bài 23 -->
+                <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="px-3 py-1 bg-emerald-50 text-emerald-700 text-xs font-bold rounded-md border border-emerald-200">Bài 23 &bull; Phân chia đội nhóm học tập</span>
+                    </div>
+                    <p class="text-slate-800 font-medium mb-3">
+                        Lớp 6A có \(40\) học sinh. Cô giáo chủ nhiệm muốn chia lớp thành các nhóm học tập sao cho số học sinh ở mỗi nhóm bằng nhau và mỗi nhóm có nhiều hơn \(3\) học sinh nhưng ít hơn \(12\) học sinh. Hỏi cô giáo có thể chia lớp thành bao nhiêu nhóm? Khi đó mỗi nhóm có bao nhiêu học sinh?
+                    </p>
+                    <details class="group mt-4">
+                        <summary class="flex items-center justify-between px-4 py-2.5 bg-slate-50 hover:bg-slate-100 rounded-xl cursor-pointer select-none text-sm font-semibold text-slate-700 transition">
+                            <span class="flex items-center gap-2"><i class="fas fa-lightbulb text-amber-500"></i> Gợi ý &amp; Lời giải chi tiết</span>
+                            <i class="fas fa-chevron-down toggle-icon text-slate-400 transition-transform"></i>
+                        </summary>
+                        <div class="solution-body p-4 mt-2 bg-emerald-50/50 rounded-xl border border-emerald-100 text-sm text-slate-700 space-y-2">
+                            <p>Số học sinh mỗi nhóm phải là ước của \(40\). Ta có:</p>
+                            <p>\(\text{Ư}(40) = \{1; 2; 4; 5; 8; 10; 20; 40\}\).</p>
+                            <p>Vì số học sinh mỗi nhóm lớn hơn 3 và nhỏ hơn 12 nên số học sinh mỗi nhóm có thể là: \(4, 5, 8\) hoặc \(10\).</p>
+                            <ul class="list-disc pl-5 space-y-1">
+                                <li>Mỗi nhóm <strong>4 học sinh</strong> &rarr; chia được <strong>10 nhóm</strong>.</li>
+                                <li>Mỗi nhóm <strong>5 học sinh</strong> &rarr; chia được <strong>8 nhóm</strong>.</li>
+                                <li>Mỗi nhóm <strong>8 học sinh</strong> &rarr; chia được <strong>5 nhóm</strong>.</li>
+                                <li>Mỗi nhóm <strong>10 học sinh</strong> &rarr; chia được <strong>4 nhóm</strong>.</li>
+                            </ul>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 24 -->
+                <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="px-3 py-1 bg-emerald-50 text-emerald-700 text-xs font-bold rounded-md border border-emerald-200">Bài 24 &bull; Xếp hàng diễu hành khối 6</span>
+                    </div>
+                    <p class="text-slate-800 font-medium mb-3">
+                        Một khối học sinh lớp 6 khi xếp hàng diễu hành thể thao thành \(2\) hàng hoặc \(5\) hàng đều vừa đủ. Biết rằng số học sinh của khối đó nằm trong khoảng từ \(135\) đến \(155\) em. Tính số học sinh của khối 6.
+                    </p>
+                    <details class="group mt-4">
+                        <summary class="flex items-center justify-between px-4 py-2.5 bg-slate-50 hover:bg-slate-100 rounded-xl cursor-pointer select-none text-sm font-semibold text-slate-700 transition">
+                            <span class="flex items-center gap-2"><i class="fas fa-lightbulb text-amber-500"></i> Gợi ý &amp; Lời giải chi tiết</span>
+                            <i class="fas fa-chevron-down toggle-icon text-slate-400 transition-transform"></i>
+                        </summary>
+                        <div class="solution-body p-4 mt-2 bg-emerald-50/50 rounded-xl border border-emerald-100 text-sm text-slate-700 space-y-2">
+                            <p>Gọi số học sinh là \(x\) (\(135 \le x \le 155\)).</p>
+                            <p>Vì \(x \vdots 2\) và \(x \vdots 5\) nên chữ số tận cùng của \(x\) phải là \(0\).</p>
+                            <p>Các số có tận cùng bằng \(0\) trong khoảng trên là: \(140\) và \(150\).</p>
+                            <p>&rarr; Số học sinh khối 6 có thể là <strong>\(140\) học sinh</strong> hoặc <strong>\(150\) học sinh</strong>.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 25 (JSXGraph 5) -->
+                <div class="bg-white rounded-2xl p-6 border-2 border-emerald-200 shadow-sm hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="px-3 py-1 bg-emerald-100 text-emerald-800 text-xs font-bold rounded-md flex items-center gap-1.5">
+                            <i class="fas fa-bus text-emerald-600"></i> Bài 25 &bull; JSXGraph 5: Sơ đồ phân luồng bến xe buýt
+                        </span>
+                        <span class="text-xs px-2.5 py-0.5 bg-blue-100 text-blue-800 font-bold rounded">Phân luồng thông minh</span>
+                    </div>
+                    <p class="text-slate-800 font-medium mb-3">
+                        Dựa trên sơ đồ bến xe buýt có 3 làn (Làn A: chia hết cho 3, Làn B: chia hết cho 5, Làn C: chia hết cho cả 3 và 5), em hãy cho biết xe buýt mang số hiệu \(240\) có thể đỗ vào những làn xe nào? Làn xe nào là tối ưu nhất?
+                    </p>
+
+                    <!-- JSXGraph 5 Container -->
+                    <div class="my-4">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-xs font-bold text-slate-600"><i class="fas fa-route text-emerald-500 mr-1"></i> Sơ đồ 3 làn xe buýt trung tâm:</span>
+                        </div>
+                        <div id="jsx5_box" class="jxgbox w-full h-[250px] mx-auto"></div>
+                    </div>
+
+                    <details class="group mt-4">
+                        <summary class="flex items-center justify-between px-4 py-2.5 bg-slate-50 hover:bg-slate-100 rounded-xl cursor-pointer select-none text-sm font-semibold text-slate-700 transition">
+                            <span class="flex items-center gap-2"><i class="fas fa-lightbulb text-amber-500"></i> Gợi ý &amp; Lời giải chi tiết</span>
+                            <i class="fas fa-chevron-down toggle-icon text-slate-400 transition-transform"></i>
+                        </summary>
+                        <div class="solution-body p-4 mt-2 bg-emerald-50/50 rounded-xl border border-emerald-100 text-sm text-slate-700 space-y-2">
+                            <p>Xét số hiệu \(240\):</p>
+                            <p>&bull; Tận cùng là \(0 \Rightarrow 240 \vdots 5\) (được phép vào làn B).</p>
+                            <p>&bull; Tổng chữ số \(2 + 4 + 0 = 6 \vdots 3 \Rightarrow 240 \vdots 3\) (được phép vào làn A).</p>
+                            <p>&rarr; Xe buýt \(240\) chia hết cho cả 3 và 5, do đó có thể đỗ ở cả 3 làn (A, B, C), và <strong>Làn C</strong> là làn phân loại chuẩn xác nhất.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 26 -->
+                <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="px-3 py-1 bg-emerald-50 text-emerald-700 text-xs font-bold rounded-md border border-emerald-200">Bài 26 &bull; Kiểm tra tính đúng đắn hóa đơn</span>
+                    </div>
+                    <p class="text-slate-800 font-medium mb-3">
+                        Bạn An đi nhà sách mua: \(3\) chiếc bút bi cùng loại và \(1\) cuốn sổ tay giá \(25\,000\) đồng. Khi thanh toán, thu ngân báo tổng số tiền là \(44\,000\) đồng. Không cần biết giá tiền cụ thể của một chiếc bút, hãy giải thích tại sao An khẳng định ngay thu ngân đã tính nhầm.
+                    </p>
+                    <details class="group mt-4">
+                        <summary class="flex items-center justify-between px-4 py-2.5 bg-slate-50 hover:bg-slate-100 rounded-xl cursor-pointer select-none text-sm font-semibold text-slate-700 transition">
+                            <span class="flex items-center gap-2"><i class="fas fa-lightbulb text-amber-500"></i> Gợi ý &amp; Lời giải chi tiết</span>
+                            <i class="fas fa-chevron-down toggle-icon text-slate-400 transition-transform"></i>
+                        </summary>
+                        <div class="solution-body p-4 mt-2 bg-emerald-50/50 rounded-xl border border-emerald-100 text-sm text-slate-700 space-y-2">
+                            <p>Số tiền của 3 chiếc bút bi phải là: \(44\,000 - 25\,000 = 19\,000\) (đồng).</p>
+                            <p>Vì giá mỗi chiếc bút là số nguyên đồng nên tổng tiền 3 chiếc bút bắt buộc phải chia hết cho \(3\).</p>
+                            <p>Tuy nhiên \(19\,000\) có tổng các chữ số là \(1 + 9 = 10 \not\vdots 3\), nên \(19\,000\) không chia hết cho 3.</p>
+                            <p>&rarr; An khẳng định thu ngân đã tính nhầm là hoàn toàn chính xác.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 27 -->
+                <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="px-3 py-1 bg-emerald-50 text-emerald-700 text-xs font-bold rounded-md border border-emerald-200">Bài 27 &bull; Đóng gói xoài cát Hòa Lộc</span>
+                    </div>
+                    <p class="text-slate-800 font-medium mb-3">
+                        Một nông trại thu hoạch được \(345\text{ kg}\) xoài. Có hai loại thùng: Thùng nhỏ \(5\text{ kg}\) và Thùng lớn \(9\text{ kg}\).<br>
+                        a) Nếu chỉ dùng thùng nhỏ \(5\text{ kg}\), có đóng hết vừa đủ không? Cần bao nhiêu thùng?<br>
+                        b) Nếu chỉ dùng thùng lớn \(9\text{ kg}\), có đóng hết vừa đủ không? Còn thừa bao nhiêu kg xoài?
+                    </p>
+                    <details class="group mt-4">
+                        <summary class="flex items-center justify-between px-4 py-2.5 bg-slate-50 hover:bg-slate-100 rounded-xl cursor-pointer select-none text-sm font-semibold text-slate-700 transition">
+                            <span class="flex items-center gap-2"><i class="fas fa-lightbulb text-amber-500"></i> Gợi ý &amp; Lời giải chi tiết</span>
+                            <i class="fas fa-chevron-down toggle-icon text-slate-400 transition-transform"></i>
+                        </summary>
+                        <div class="solution-body p-4 mt-2 bg-emerald-50/50 rounded-xl border border-emerald-100 text-sm text-slate-700 space-y-2">
+                            <p><strong>a)</strong> Vì \(345\) tận cùng là \(5 \Rightarrow 345 \vdots 5\). Nông trại đóng vừa đủ hết. Số thùng cần là: \(345 : 5 = 69\) (thùng).</p>
+                            <p><strong>b)</strong> Tổng chữ số của \(345\) là \(3 + 4 + 5 = 12\). Vì \(12\) chia 9 dư 3 nên \(345\) không chia hết cho 9.<br>
+                            Ta có: \(345 = 9 \times 38 + 3\). Nông trại đóng được \(38\) thùng và còn <strong>thừa \(3\text{ kg}\) xoài</strong>.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 28 -->
+                <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="px-3 py-1 bg-emerald-50 text-emerald-700 text-xs font-bold rounded-md border border-emerald-200">Bài 28 &bull; Chia quà Trung thu cho trẻ em</span>
+                    </div>
+                    <p class="text-slate-800 font-medium mb-3">
+                        Đoàn thanh niên chuẩn bị \(120\) suất bánh và \(96\) suất kẹo để chia đều vào các phần quà. Hỏi đoàn thanh niên có thể chia được nhiều nhất thành bao nhiêu phần quà sao cho số bánh và kẹo ở mỗi phần đều bằng nhau?
+                    </p>
+                    <details class="group mt-4">
+                        <summary class="flex items-center justify-between px-4 py-2.5 bg-slate-50 hover:bg-slate-100 rounded-xl cursor-pointer select-none text-sm font-semibold text-slate-700 transition">
+                            <span class="flex items-center gap-2"><i class="fas fa-lightbulb text-amber-500"></i> Gợi ý &amp; Lời giải chi tiết</span>
+                            <i class="fas fa-chevron-down toggle-icon text-slate-400 transition-transform"></i>
+                        </summary>
+                        <div class="solution-body p-4 mt-2 bg-emerald-50/50 rounded-xl border border-emerald-100 text-sm text-slate-700 space-y-2">
+                            <p>Số phần quà nhiều nhất chính là Ước chung lớn nhất của \(120\) và \(96\).</p>
+                            <p>Ta có: \(120 = 24 \times 5\) và \(96 = 24 \times 4\).</p>
+                            <p>&rarr; \(\text{ƯCLN}(120; 96) = 24\).</p>
+                            <p>&rarr; Có thể chia nhiều nhất thành <strong>\(24\) phần quà</strong> (mỗi phần gồm \(5\) bánh và \(4\) kẹo).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 29 (JSXGraph 6) -->
+                <div class="bg-white rounded-2xl p-6 border-2 border-emerald-200 shadow-sm hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="px-3 py-1 bg-emerald-100 text-emerald-800 text-xs font-bold rounded-md flex items-center gap-1.5">
+                            <i class="fas fa-recycle text-emerald-600"></i> Bài 29 &bull; JSXGraph 6: Thùng rác thông minh phân loại chia hết
+                        </span>
+                        <span class="text-xs px-2.5 py-0.5 bg-emerald-100 text-emerald-800 font-bold rounded">Bảo vệ môi trường</span>
+                    </div>
+                    <p class="text-slate-800 font-medium mb-3">
+                        Thùng Xanh nhận mã \(\vdots 2\), Thùng Vàng nhận mã \(\vdots 3\), Thùng Xám nhận mã khác. Hãy phân loại các chai nhựa mang mã số: \(246, 135, 579, 303, 442\).
+                    </p>
+
+                    <!-- JSXGraph 6 Container -->
+                    <div class="my-4">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-xs font-bold text-slate-600"><i class="fas fa-trash-alt text-emerald-500 mr-1"></i> Băng chuyền phân loại rác thông minh:</span>
+                        </div>
+                        <div id="jsx6_box" class="jxgbox w-full h-[250px] mx-auto"></div>
+                    </div>
+
+                    <details class="group mt-4">
+                        <summary class="flex items-center justify-between px-4 py-2.5 bg-slate-50 hover:bg-slate-100 rounded-xl cursor-pointer select-none text-sm font-semibold text-slate-700 transition">
+                            <span class="flex items-center gap-2"><i class="fas fa-lightbulb text-amber-500"></i> Gợi ý &amp; Lời giải chi tiết</span>
+                            <i class="fas fa-chevron-down toggle-icon text-slate-400 transition-transform"></i>
+                        </summary>
+                        <div class="solution-body p-4 mt-2 bg-emerald-50/50 rounded-xl border border-emerald-100 text-sm text-slate-700 space-y-1">
+                            <p>&bull; <strong>Thùng Xanh (chia hết cho 2):</strong> \(246\) (cũng chia hết cho 3), \(442\).</p>
+                            <p>&bull; <strong>Thùng Vàng (chia hết cho 3):</strong> \(135, 579, 303\).</p>
+                            <p>&bull; <strong>Thùng Xám (mã khác):</strong> Không có mã nào trong danh sách trên.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 30 -->
+                <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="px-3 py-1 bg-emerald-50 text-emerald-700 text-xs font-bold rounded-md border border-emerald-200">Bài 30 &bull; Lập lịch trực nhật chu kỳ</span>
+                    </div>
+                    <p class="text-slate-800 font-medium mb-3">
+                        An cứ \(2\) ngày trực nhật một lần; Bình cứ \(3\) ngày trực một lần; Cường cứ \(5\) ngày trực một lần. Cả ba bạn cùng trực nhật vào thứ Hai. Hỏi sau ít nhất bao nhiêu ngày nữa thì cả ba bạn lại cùng trực nhật chung?
+                    </p>
+                    <details class="group mt-4">
+                        <summary class="flex items-center justify-between px-4 py-2.5 bg-slate-50 hover:bg-slate-100 rounded-xl cursor-pointer select-none text-sm font-semibold text-slate-700 transition">
+                            <span class="flex items-center gap-2"><i class="fas fa-lightbulb text-amber-500"></i> Gợi ý &amp; Lời giải chi tiết</span>
+                            <i class="fas fa-chevron-down toggle-icon text-slate-400 transition-transform"></i>
+                        </summary>
+                        <div class="solution-body p-4 mt-2 bg-emerald-50/50 rounded-xl border border-emerald-100 text-sm text-slate-700 space-y-2">
+                            <p>Số ngày để cả ba bạn cùng trực nhật lại là Bội chung nhỏ nhất của \(2, 3, 5\).</p>
+                            <p>Vì \(2, 3, 5\) là các số nguyên tố đôi một cùng nhau nên:</p>
+                            <p>\(\text{BCNN}(2; 3; 5) = 2 \times 3 \times 5 = 30\).</p>
+                            <p>&rarr; Sau ít nhất <strong>\(30\) ngày</strong> nữa, cả ba bạn sẽ lại cùng trực nhật chung một ngày.</p>
+                        </div>
+                    </details>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ========================================================================= -->
+        <!-- PHẦN TRẮC NGHIỆM ĐÁNH GIÁ NĂNG LỰC TẠI LỚP (5 CÂU) -->
+        <!-- ========================================================================= -->
+        <section id="trac-nghiem" class="mb-16 scroll-mt-20">
+            <div class="bg-white rounded-3xl p-6 sm:p-8 border-2 border-purple-300 shadow-xl">
+                
+                <div class="flex flex-wrap items-center justify-between gap-4 border-b border-purple-100 pb-4 mb-6">
+                    <div class="flex items-center gap-3">
+                        <div class="w-12 h-12 rounded-2xl bg-purple-600 text-white flex items-center justify-center font-bold text-xl shadow-md shadow-purple-200">
+                            <i class="fas fa-check-double"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl sm:text-2xl font-extrabold text-slate-900">BÀI TẬP ĐÁNH GIÁ NĂNG LỰC TẠI LỚP</h3>
+                            <p class="text-xs sm:text-sm text-slate-500">Khảo sát trực tuyến 5 câu &bull; Tự động chấm điểm &amp; Gửi kết quả về máy chủ</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-3 bg-purple-50 px-4 py-2 rounded-xl border border-purple-200">
+                        <i class="fas fa-stopwatch text-purple-600 text-lg"></i>
+                        <span id="timer-display" class="font-mono text-base font-bold text-purple-900">15:00</span>
+                    </div>
+                </div>
+
+                <!-- Student Info Form -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6 bg-slate-50 p-4 rounded-2xl border border-slate-200">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Họ và tên học sinh <span class="text-rose-500">*</span></label>
+                        <input type="text" id="student_name" placeholder="Ví dụ: Đinh Quốc Bảo" 
+                               class="w-full px-3.5 py-2 text-sm bg-white border border-slate-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Mã bài kiểm tra</label>
+                        <input type="text" id="exam_code" value="toan6-05" readonly 
+                               class="w-full px-3.5 py-2 text-sm bg-slate-100 border border-slate-300 rounded-xl text-slate-500 font-mono font-bold">
+                    </div>
+                </div>
+
+                <!-- 5 Quiz Questions -->
+                <div class="space-y-6" id="quiz-container">
+
+                    <!-- Câu 1 -->
+                    <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-xs" data-q="1">
+                        <p class="font-bold text-slate-900 mb-3 text-sm sm:text-base">
+                            <span class="inline-block px-2.5 py-1 bg-purple-100 text-purple-800 rounded-lg text-xs font-bold mr-1.5">Câu 1</span>
+                            Số nào sau đây chia hết cho cả \(2\) và \(5\)?
+                        </p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-sm">
+                            <label class="flex items-center p-3 rounded-xl border border-slate-200 hover:bg-purple-50/50 cursor-pointer transition">
+                                <input type="radio" name="q1" value="A" class="w-4 h-4 text-purple-600 mr-3"> A. \(125\)
+                            </label>
+                            <label class="flex items-center p-3 rounded-xl border border-slate-200 hover:bg-purple-50/50 cursor-pointer transition">
+                                <input type="radio" name="q1" value="B" class="w-4 h-4 text-purple-600 mr-3"> B. \(250\)
+                            </label>
+                            <label class="flex items-center p-3 rounded-xl border border-slate-200 hover:bg-purple-50/50 cursor-pointer transition">
+                                <input type="radio" name="q1" value="C" class="w-4 h-4 text-purple-600 mr-3"> C. \(342\)
+                            </label>
+                            <label class="flex items-center p-3 rounded-xl border border-slate-200 hover:bg-purple-50/50 cursor-pointer transition">
+                                <input type="radio" name="q1" value="D" class="w-4 h-4 text-purple-600 mr-3"> D. \(505\)
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Câu 2 -->
+                    <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-xs" data-q="2">
+                        <p class="font-bold text-slate-900 mb-3 text-sm sm:text-base">
+                            <span class="inline-block px-2.5 py-1 bg-purple-100 text-purple-800 rounded-lg text-xs font-bold mr-1.5">Câu 2</span>
+                            Trong các số sau, số chia hết cho cả \(3\) và \(9\) là:
+                        </p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-sm">
+                            <label class="flex items-center p-3 rounded-xl border border-slate-200 hover:bg-purple-50/50 cursor-pointer transition">
+                                <input type="radio" name="q2" value="A" class="w-4 h-4 text-purple-600 mr-3"> A. \(102\)
+                            </label>
+                            <label class="flex items-center p-3 rounded-xl border border-slate-200 hover:bg-purple-50/50 cursor-pointer transition">
+                                <input type="radio" name="q2" value="B" class="w-4 h-4 text-purple-600 mr-3"> B. \(204\)
+                            </label>
+                            <label class="flex items-center p-3 rounded-xl border border-slate-200 hover:bg-purple-50/50 cursor-pointer transition">
+                                <input type="radio" name="q2" value="C" class="w-4 h-4 text-purple-600 mr-3"> C. \(2\,025\)
+                            </label>
+                            <label class="flex items-center p-3 rounded-xl border border-slate-200 hover:bg-purple-50/50 cursor-pointer transition">
+                                <input type="radio" name="q2" value="D" class="w-4 h-4 text-purple-600 mr-3"> D. \(303\)
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Câu 3 -->
+                    <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-xs" data-q="3">
+                        <p class="font-bold text-slate-900 mb-3 text-sm sm:text-base">
+                            <span class="inline-block px-2.5 py-1 bg-purple-100 text-purple-800 rounded-lg text-xs font-bold mr-1.5">Câu 3</span>
+                            Số dư trong phép chia một số tự nhiên bất kỳ cho \(7\) có thể nhận giá trị lớn nhất là:
+                        </p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-sm">
+                            <label class="flex items-center p-3 rounded-xl border border-slate-200 hover:bg-purple-50/50 cursor-pointer transition">
+                                <input type="radio" name="q3" value="A" class="w-4 h-4 text-purple-600 mr-3"> A. 7
+                            </label>
+                            <label class="flex items-center p-3 rounded-xl border border-slate-200 hover:bg-purple-50/50 cursor-pointer transition">
+                                <input type="radio" name="q3" value="B" class="w-4 h-4 text-purple-600 mr-3"> B. 6
+                            </label>
+                            <label class="flex items-center p-3 rounded-xl border border-slate-200 hover:bg-purple-50/50 cursor-pointer transition">
+                                <input type="radio" name="q3" value="C" class="w-4 h-4 text-purple-600 mr-3"> C. 8
+                            </label>
+                            <label class="flex items-center p-3 rounded-xl border border-slate-200 hover:bg-purple-50/50 cursor-pointer transition">
+                                <input type="radio" name="q3" value="D" class="w-4 h-4 text-purple-600 mr-3"> D. 0
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Câu 4 -->
+                    <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-xs" data-q="4">
+                        <p class="font-bold text-slate-900 mb-3 text-sm sm:text-base">
+                            <span class="inline-block px-2.5 py-1 bg-purple-100 text-purple-800 rounded-lg text-xs font-bold mr-1.5">Câu 4</span>
+                            Thay chữ số \(x\) vào số \(\overline{5x2}\) để số đó chia hết cho \(3\):
+                        </p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-sm">
+                            <label class="flex items-center p-3 rounded-xl border border-slate-200 hover:bg-purple-50/50 cursor-pointer transition">
+                                <input type="radio" name="q4" value="A" class="w-4 h-4 text-purple-600 mr-3"> A. \(x \in \{1; 4; 7\}\)
+                            </label>
+                            <label class="flex items-center p-3 rounded-xl border border-slate-200 hover:bg-purple-50/50 cursor-pointer transition">
+                                <input type="radio" name="q4" value="B" class="w-4 h-4 text-purple-600 mr-3"> B. \(x \in \{2; 5; 8\}\)
+                            </label>
+                            <label class="flex items-center p-3 rounded-xl border border-slate-200 hover:bg-purple-50/50 cursor-pointer transition">
+                                <input type="radio" name="q4" value="C" class="w-4 h-4 text-purple-600 mr-3"> C. \(x \in \{0; 3; 6; 9\}\)
+                            </label>
+                            <label class="flex items-center p-3 rounded-xl border border-slate-200 hover:bg-purple-50/50 cursor-pointer transition">
+                                <input type="radio" name="q4" value="D" class="w-4 h-4 text-purple-600 mr-3"> D. \(x = 2\)
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Câu 5 -->
+                    <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-xs" data-q="5">
+                        <p class="font-bold text-slate-900 mb-3 text-sm sm:text-base">
+                            <span class="inline-block px-2.5 py-1 bg-purple-100 text-purple-800 rounded-lg text-xs font-bold mr-1.5">Câu 5</span>
+                            Bạn An mua 3 quyển vở cùng loại và 1 cây bút giá \(10\,000\) đồng. Tổng số tiền thanh toán hợp lý có thể là:
+                        </p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-sm">
+                            <label class="flex items-center p-3 rounded-xl border border-slate-200 hover:bg-purple-50/50 cursor-pointer transition">
+                                <input type="radio" name="q5" value="A" class="w-4 h-4 text-purple-600 mr-3"> A. \(35\,000\) đồng
+                            </label>
+                            <label class="flex items-center p-3 rounded-xl border border-slate-200 hover:bg-purple-50/50 cursor-pointer transition">
+                                <input type="radio" name="q5" value="B" class="w-4 h-4 text-purple-600 mr-3"> B. \(40\,000\) đồng
+                            </label>
+                            <label class="flex items-center p-3 rounded-xl border border-slate-200 hover:bg-purple-50/50 cursor-pointer transition">
+                                <input type="radio" name="q5" value="C" class="w-4 h-4 text-purple-600 mr-3"> C. \(43\,000\) đồng
+                            </label>
+                            <label class="flex items-center p-3 rounded-xl border border-slate-200 hover:bg-purple-50/50 cursor-pointer transition">
+                                <input type="radio" name="q5" value="D" class="w-4 h-4 text-purple-600 mr-3"> D. \(47\,000\) đồng
+                            </label>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Submit & Result Actions -->
+                <div id="submit-btn-container" class="mt-8 text-center">
+                    <button onclick="submitQuiz()" id="btn-submit-quiz"
+                            class="px-8 py-3.5 bg-purple-700 hover:bg-purple-800 text-white font-bold text-base rounded-2xl shadow-lg hover:shadow-purple-300 transition flex items-center gap-2 mx-auto">
+                        <i class="fas fa-paper-plane"></i> Nộp Bài &amp; Gửi Điểm Hệ Thống
+                    </button>
+                </div>
+
+                <!-- Result Card -->
+                <div id="quiz-result-box" class="hidden mt-6 p-6 rounded-2xl bg-purple-50 border-2 border-purple-200 text-center">
+                    <h4 class="text-xl font-extrabold text-purple-900 mb-1">KẾT QUẢ ĐÁNH GIÁ CỦA BẠN</h4>
+                    <p id="result-score-text" class="text-3xl font-black text-purple-700 my-2">0/10 Điểm</p>
+                    <p id="result-detail-text" class="text-sm text-slate-600 mb-3"></p>
+                    <div id="api-status-badge" class="inline-flex items-center gap-1.5 text-xs font-semibold px-3.5 py-1.5 rounded-full bg-slate-200 text-slate-700">
+                        <i class="fas fa-spinner fa-spin"></i> Đang kết nối máy chủ Google Sheets...
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER COPYRIGHT -->
+    <footer class="bg-white border-t border-slate-200 py-8 text-center text-slate-600 text-xs sm:text-sm">
+        <div class="max-w-6xl mx-auto px-4 space-y-2">
+            <p class="font-bold text-slate-800 tracking-wide">
+                &copy; Bản quyền thuộc ThS. Đinh Quốc Tuấn - Mục đích phi lợi nhuận - Vì giáo dục.
+            </p>
+            <p class="text-slate-500">
+                Khoa Toán - Tin học &bull; Trường Đại học Khoa học Tự nhiên, ĐHQG-HCM
+            </p>
+        </div>
+    </footer>
+
+    <!-- IN TÀI LIỆU BUTTON -->
+    <button id="btn-print-doc" onclick="safePrint()" class="fixed bottom-5 right-5 bg-gray-900 text-white px-4 py-2 rounded-lg shadow-lg hover:bg-gray-700 print:hidden z-50">
+        <i class="fas fa-print mr-2"></i> In Tài Liệu
+    </button>
+
+    <!-- SCRIPT PRINT -->
+    <script>
+        function safePrint() {
+            const printBtn = document.getElementById('btn-print-doc');
+            printBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Đang chuẩn bị...';
+            
+            // Đảm bảo MathJax đã render xong mọi công thức trước khi gọi hộp thoại in
+            if (window.MathJax && window.MathJax.typesetPromise) {
+                MathJax.typesetPromise().then(() => {
+                    printBtn.innerHTML = '<i class="fas fa-print mr-2"></i> In Tài Liệu';
+                    window.print();
+                });
+            } else {
+                // Fallback nếu không có công thức toán
+                setTimeout(() => window.print(), 500); 
+            }
+        }
+    </script>
+
+    <!-- ========================================================================= -->
+    <!-- JSXGRAPH INTERACTIVE MODELS JAVASCRIPT -->
+    <!-- ========================================================================= -->
+    <script>
+        // -------------------------------------------------------------
+        // JSXGraph 1: Trực quan hóa số dư (Bài 3)
+        // -------------------------------------------------------------
+        var board1;
+        function initJSX1() {
+            setMarbleDivision(26, 4);
+        }
+        function setMarbleDivision(total, boxes) {
+            if (board1) { JXG.JSXGraph.freeBoard(board1); }
+            board1 = JXG.JSXGraph.initBoard('jsx1_box', {
+                boundingbox: [-1, 6, 11, -1],
+                axis: false,
+                showNavigation: false,
+                showCopyright: false
+            });
+
+            let quotient = Math.floor(total / boxes);
+            let remainder = total % boxes;
+
+            board1.create('text', [5, 5.2, 'Phép chia: ' + total + ' : ' + boxes + ' = ' + quotient + ' (dư ' + remainder + ')'], {
+                anchorX: 'middle', fontSize: 14, fontStyle: 'bold', strokeColor: '#0f172a'
+            });
+
+            // Draw boxes
+            let boxWidth = 8 / boxes;
+            for (let i = 0; i < boxes; i++) {
+                let x = 1 + i * boxWidth;
+                board1.create('polygon', [[x, 3.5], [x + boxWidth - 0.3, 3.5], [x + boxWidth - 0.3, 1.2], [x, 1.2]], {
+                    fillColor: '#3b82f6', fillOpacity: 0.15, strokeColor: '#2563eb', strokeWidth: 2, withLines: true
+                });
+                board1.create('text', [x + (boxWidth - 0.3) / 2, 0.7, 'Hộp ' + (i + 1) + ' (' + quotient + ' bi)'], {
+                    anchorX: 'middle', fontSize: 11, fontStyle: 'bold', strokeColor: '#1e3a8a'
+                });
+            }
+
+            // Remainder tray
+            board1.create('polygon', [[8.5, 3.5], [10.2, 3.5], [10.2, 1.2], [8.5, 1.2]], {
+                fillColor: '#ef4444', fillOpacity: 0.15, strokeColor: '#dc2626', strokeWidth: 2, withLines: true
+            });
+            board1.create('text', [9.35, 0.7, 'Dư: ' + remainder + ' bi'], {
+                anchorX: 'middle', fontSize: 11, fontStyle: 'bold', strokeColor: '#991b1b'
+            });
+        }
+
+        // -------------------------------------------------------------
+        // JSXGraph 2: Giản đồ Venn chia hết cho 2 và 5 (Bài 6)
+        // -------------------------------------------------------------
+        var board2;
+        function initJSX2() {
+            board2 = JXG.JSXGraph.initBoard('jsx2_box', {
+                boundingbox: [-6, 5, 6, -5],
+                axis: false,
+                showNavigation: false,
+                showCopyright: false
+            });
+
+            // Circle 1: Divisible by 2 (Left)
+            board2.create('circle', [[-1.5, 0], 3.2], {
+                strokeColor: '#2563eb', strokeWidth: 2.5, fillColor: '#3b82f6', fillOpacity: 0.1
+            });
+            board2.create('text', [-3.2, 3.7, 'Chia hết cho 2 (⋮ 2)'], {
+                fontSize: 12, fontStyle: 'bold', strokeColor: '#1d4ed8'
+            });
+
+            // Circle 2: Divisible by 5 (Right)
+            board2.create('circle', [[1.5, 0], 3.2], {
+                strokeColor: '#059669', strokeWidth: 2.5, fillColor: '#10b981', fillOpacity: 0.1
+            });
+            board2.create('text', [1.2, 3.7, 'Chia hết cho 5 (⋮ 5)'], {
+                fontSize: 12, fontStyle: 'bold', strokeColor: '#047857'
+            });
+
+            // Numbers in Left (only div 2)
+            board2.create('text', [-3.0, 1.0, '12'], { fontSize: 13, fontStyle: 'bold', strokeColor: '#1e3a8a' });
+            board2.create('text', [-3.2, -0.5, '44'], { fontSize: 13, fontStyle: 'bold', strokeColor: '#1e3a8a' });
+            board2.create('text', [-2.5, -1.8, '82'], { fontSize: 13, fontStyle: 'bold', strokeColor: '#1e3a8a' });
+
+            // Numbers in Right (only div 5)
+            board2.create('text', [3.0, 1.0, '15'], { fontSize: 13, fontStyle: 'bold', strokeColor: '#065f46' });
+            board2.create('text', [3.2, -0.5, '55'], { fontSize: 13, fontStyle: 'bold', strokeColor: '#065f46' });
+            board2.create('text', [2.5, -1.8, '95'], { fontSize: 13, fontStyle: 'bold', strokeColor: '#065f46' });
+
+            // Numbers in Center (both div 2 & 5: end in 0)
+            board2.create('text', [0, 0.8, '30'], { anchorX: 'middle', fontSize: 14, fontStyle: 'bold', strokeColor: '#7c3aed' });
+            board2.create('text', [0, -0.8, '60'], { anchorX: 'middle', fontSize: 14, fontStyle: 'bold', strokeColor: '#7c3aed' });
+            board2.create('text', [0, -3.8, 'Giao nhau: Tận cùng là 0 (30, 60)'], {
+                anchorX: 'middle', fontSize: 12, fontStyle: 'bold', strokeColor: '#5b21b6'
+            });
+        }
+
+        // -------------------------------------------------------------
+        // JSXGraph 3: Khóa số mật mã (Bài 15)
+        // -------------------------------------------------------------
+        var board3;
+        function initJSX3() {
+            setLockDigits(0, 0);
+        }
+        function setLockDigits(a, b) {
+            if (board3) { JXG.JSXGraph.freeBoard(board3); }
+            board3 = JXG.JSXGraph.initBoard('jsx3_box', {
+                boundingbox: [-5, 5, 5, -3],
+                axis: false,
+                showNavigation: false,
+                showCopyright: false
+            });
+
+            // Draw lock body
+            board3.create('polygon', [[-3, 2.5], [3, 2.5], [3, -1.5], [-3, -1.5]], {
+                fillColor: '#f1f5f9', fillOpacity: 0.9, strokeColor: '#475569', strokeWidth: 3, withLines: true
+            });
+
+            // 4 digit slots
+            let digits = [4, a, 5, b];
+            let colors = ['#0f172a', '#2563eb', '#0f172a', '#16a34a'];
+            for (let i = 0; i < 4; i++) {
+                let x = -2.1 + i * 1.4;
+                board3.create('polygon', [[x - 0.5, 1.8], [x + 0.5, 1.8], [x + 0.5, 0.2], [x - 0.5, 0.2]], {
+                    fillColor: '#ffffff', strokeColor: colors[i], strokeWidth: 2, withLines: true
+                });
+                board3.create('text', [x, 1.0, digits[i]], {
+                    anchorX: 'middle', anchorY: 'middle', fontSize: 20, fontStyle: 'bold', strokeColor: colors[i]
+                });
+            }
+
+            let sum = 4 + a + 5 + b;
+            let div2 = (b % 2 === 0);
+            let div5 = (b === 0 || b === 5);
+            let div3 = (sum % 3 === 0);
+            let isValid = div2 && div5 && div3;
+
+            let status = isValid ? '🔓 MẬT MÃ CHÍNH XÁC: 4' + a + '5' + b + ' (⋮ 2, 5, 3)' : '🔒 KHÓA ĐÓNG: 4' + a + '5' + b + ' không thỏa mãn';
+            let color = isValid ? '#059669' : '#dc2626';
+            board3.create('text', [0, -2.2, status], { anchorX: 'middle', fontSize: 13, fontStyle: 'bold', strokeColor: color });
+        }
+
+        // -------------------------------------------------------------
+        // JSXGraph 4: Đĩa cân đồng dư (Bài 20)
+        // -------------------------------------------------------------
+        var board4;
+        function initJSX4() {
+            setRemainderWeight(2);
+        }
+        function setRemainderWeight(r) {
+            if (board4) { JXG.JSXGraph.freeBoard(board4); }
+            board4 = JXG.JSXGraph.initBoard('jsx4_box', {
+                boundingbox: [-6, 6, 6, -2],
+                axis: false,
+                showNavigation: false,
+                showCopyright: false
+            });
+
+            // Base Fulcrum
+            board4.create('polygon', [[-1, -1.5], [1, -1.5], [0, 1.5]], {
+                fillColor: '#64748b', fillOpacity: 0.5, strokeColor: '#334155', strokeWidth: 2
+            });
+
+            let tilt = (r === 2) ? 0 : (r < 2 ? 0.6 : -0.6);
+            let L = [-4, 1.5 + tilt], R = [4, 1.5 - tilt];
+
+            // Beam
+            board4.create('segment', [L, R], { strokeColor: '#0f172a', strokeWidth: 5 });
+
+            // Left Pan (Q = 6x + 9y + 17)
+            board4.create('segment', [L, [L[0] - 1.2, L[1] - 1.5]], { strokeColor: '#94a3b8', strokeWidth: 2 });
+            board4.create('segment', [L, [L[0] + 1.2, L[1] - 1.5]], { strokeColor: '#94a3b8', strokeWidth: 2 });
+            board4.create('polygon', [[L[0] - 1.5, L[1] - 1.5], [L[0] + 1.5, L[1] - 1.5], [L[0] + 1.1, L[1] - 1.8], [L[0] - 1.1, L[1] - 1.8]], {
+                fillColor: '#3b82f6', fillOpacity: 0.25, strokeColor: '#1d4ed8', strokeWidth: 2
+            });
+            board4.create('text', [L[0], L[1] - 1.2, 'Q = 6x + 9y + 17'], { anchorX: 'middle', fontSize: 11, fontStyle: 'bold', strokeColor: '#1e3a8a' });
+
+            // Right Pan (Remainder Weight)
+            board4.create('segment', [R, [R[0] - 1.2, R[1] - 1.5]], { strokeColor: '#94a3b8', strokeWidth: 2 });
+            board4.create('segment', [R, [R[0] + 1.2, R[1] - 1.5]], { strokeColor: '#94a3b8', strokeWidth: 2 });
+            board4.create('polygon', [[R[0] - 1.5, R[1] - 1.5], [R[0] + 1.5, R[1] - 1.5], [R[0] + 1.1, R[1] - 1.8], [R[0] - 1.1, R[1] - 1.8]], {
+                fillColor: (r === 2) ? '#10b981' : '#f59e0b', fillOpacity: 0.3, strokeColor: (r === 2) ? '#047857' : '#b45309', strokeWidth: 2
+            });
+            board4.create('text', [R[0], R[1] - 1.2, 'Số dư: ' + r], { anchorX: 'middle', fontSize: 12, fontStyle: 'bold', strokeColor: '#0f172a' });
+
+            let msg = (r === 2) ? '⚖️ CÂN THĂNG BẰNG: 17 chia 3 dư 2 ➔ Q chia 3 dư 2' : '⚠️ Cân nghiêng: Số dư chưa chính xác';
+            let col = (r === 2) ? '#059669' : '#dc2626';
+            board4.create('text', [0, 4.8, msg], { anchorX: 'middle', fontSize: 13, fontStyle: 'bold', strokeColor: col });
+        }
+
+        // -------------------------------------------------------------
+        // JSXGraph 5: Phân luồng xe buýt (Bài 25)
+        // -------------------------------------------------------------
+        var board5;
+        function initJSX5() {
+            board5 = JXG.JSXGraph.initBoard('jsx5_box', {
+                boundingbox: [-0.5, 5, 11.5, -0.5],
+                axis: false,
+                showNavigation: false,
+                showCopyright: false
+            });
+
+            // 3 lanes
+            drawLane(board5, 2, "Làn A (⋮ 3)\n[105, 312]", '#3b82f6');
+            drawLane(board5, 5.5, "Làn B (⋮ 5)\n[105, 415]", '#f59e0b');
+            drawLane(board5, 9, "Làn C (⋮ 3 & ⋮ 5)\n[Xe 240]", '#10b981');
+
+            board5.create('text', [5.5, 0.8, 'Xe 240 có 2+4+0=6 ⋮ 3 và tận cùng là 0 ⋮ 5 ➔ Vào Làn C'], {
+                anchorX: 'middle', fontSize: 12, fontStyle: 'bold', strokeColor: '#047857'
+            });
+        }
+        function drawLane(b, x, title, color) {
+            b.create('polygon', [[x - 1.4, 4.2], [x + 1.4, 4.2], [x + 1.4, 1.8], [x - 1.4, 1.8]], {
+                fillColor: color, fillOpacity: 0.15, strokeColor: color, strokeWidth: 2, withLines: true
+            });
+            b.create('text', [x, 3.0, title], { anchorX: 'middle', anchorY: 'middle', fontSize: 11, fontStyle: 'bold', strokeColor: color });
+        }
+
+        // -------------------------------------------------------------
+        // JSXGraph 6: Thùng rác thông minh (Bài 29)
+        // -------------------------------------------------------------
+        var board6;
+        function initJSX6() {
+            board6 = JXG.JSXGraph.initBoard('jsx6_box', {
+                boundingbox: [-0.5, 5, 11.5, -0.5],
+                axis: false,
+                showNavigation: false,
+                showCopyright: false
+            });
+
+            drawTrashBin(board6, 2, "🗑️ Thùng Xanh (⋮ 2)\n246, 442", '#2563eb');
+            drawTrashBin(board6, 5.5, "🗑️ Thùng Vàng (⋮ 3)\n135, 579, 303", '#d97706');
+            drawTrashBin(board6, 9, "🗑️ Thùng Xám (Khác)\n(Trống)", '#64748b');
+
+            board6.create('text', [5.5, 0.8, 'Phân loại hoàn tất: Đúng 100% quy luật chia hết'], {
+                anchorX: 'middle', fontSize: 12, fontStyle: 'bold', strokeColor: '#059669'
+            });
+        }
+        function drawTrashBin(b, x, title, color) {
+            b.create('polygon', [[x - 1.4, 4.2], [x + 1.4, 4.2], [x + 1.2, 1.8], [x - 1.2, 1.8]], {
+                fillColor: color, fillOpacity: 0.15, strokeColor: color, strokeWidth: 2, withLines: true
+            });
+            b.create('text', [x, 3.0, title], { anchorX: 'middle', anchorY: 'middle', fontSize: 11, fontStyle: 'bold', strokeColor: color });
+        }
+
+        // Initialize all boards on page load
+        window.addEventListener('DOMContentLoaded', () => {
+            initJSX1();
+            initJSX2();
+            initJSX3();
+            initJSX4();
+            initJSX5();
+            initJSX6();
+        });
+    </script>
+
+    <!-- ========================================================================= -->
+    <!-- QUIZ ONLINE & APPS SCRIPT SUBMISSION SCRIPT -->
+    <!-- ========================================================================= -->
+    <script>
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzY7b7h4OwvhXuK5Vs6hl-aD88BPnAiAKbU5lfJobby0D4nzbIJVKT4n0AKCpAGoK0nZA/exec";
+        const correctAnswers = { q1: "B", q2: "C", q3: "B", q4: "B", q5: "B" };
+        let timeLeft = 900; // 15 phút
+
+        const timerInterval = setInterval(() => {
+            if (timeLeft <= 0) {
+                clearInterval(timerInterval);
+                document.getElementById("timer-display").innerText = "00:00 - Hết giờ";
+                submitQuiz();
+            } else {
+                let m = Math.floor(timeLeft / 60);
+                let s = timeLeft % 60;
+                document.getElementById("timer-display").innerText = 
+                    (m < 10 ? "0" + m : m) + ":" + (s < 10 ? "0" + s : s);
+                timeLeft--;
+            }
+        }, 1000);
+
+        function submitQuiz() {
+            const studentName = document.getElementById("student_name").value.trim();
+            if (!studentName) {
+                alert("Vui lòng nhập đầy đủ Họ và tên học sinh trước khi nộp bài!");
+                document.getElementById("student_name").focus();
+                return;
+            }
+
+            const examCode = document.getElementById("exam_code").value.trim();
+            const submitBtn = document.getElementById("btn-submit-quiz");
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Đang chấm & gửi điểm...';
+
+            let score = 0;
+            let wrongDetails = [];
+
+            for (let i = 1; i <= 5; i++) {
+                let qName = "q" + i;
+                let selected = document.querySelector(`input[name="${qName}"]:checked`);
+                let userVal = selected ? selected.value : "Chưa chọn";
+                let correctVal = correctAnswers[qName];
+
+                if (userVal === correctVal) {
+                    score += 2;
+                } else {
+                    wrongDetails.push(`Câu ${i} (Chọn ${userVal}, Đúng ${correctVal})`);
+                }
+            }
+
+            let spentSeconds = 900 - timeLeft;
+            let spentM = Math.floor(spentSeconds / 60);
+            let spentS = spentSeconds % 60;
+            let timeStr = `${spentM}p ${spentS}s`;
+
+            let wrongStr = wrongDetails.length > 0 ? wrongDetails.join("; ") : "Không có (Đạt 10/10)";
+
+            // Show result card
+            document.getElementById("quiz-result-box").classList.remove("hidden");
+            document.getElementById("result-score-text").innerText = `${score} / 10 Điểm`;
+            document.getElementById("result-detail-text").innerText = `Học sinh: ${studentName} | Thời gian: ${timeStr} | Số câu đúng: ${score / 2} / 5 câu`;
+
+            // Prepare Payload for Apps Script
+            const payload = {
+                hoTen: studentName,
+                maDe: examCode,
+                diem: `${score}/10`,
+                thoiGian: timeStr,
+                cauSai: wrongStr
+            };
+
+            const statusBadge = document.getElementById("api-status-badge");
+
+            // Post to Google Apps Script
+            fetch(SCRIPT_URL, {
+                method: "POST",
+                mode: "no-cors",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payload)
+            })
+            .then(() => {
+                statusBadge.className = "inline-flex items-center gap-1.5 text-xs font-semibold px-3.5 py-1.5 rounded-full bg-emerald-100 text-emerald-800";
+                statusBadge.innerHTML = '<i class="fas fa-check-circle"></i> Đã gửi điểm thành công về Google Sheets giáo viên!';
+                submitBtn.innerHTML = '<i class="fas fa-check-double mr-2"></i> Đã Hoàn Thành Khảo Sát';
+            })
+            .catch(err => {
+                statusBadge.className = "inline-flex items-center gap-1.5 text-xs font-semibold px-3.5 py-1.5 rounded-full bg-amber-100 text-amber-800";
+                statusBadge.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Điểm ghi nhận cục bộ (Lỗi mạng: ' + err.message + ')';
+            });
+        }
+    </script>
 </body>
 </html>
