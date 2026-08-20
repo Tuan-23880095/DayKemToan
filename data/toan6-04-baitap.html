@@ -3,324 +3,1448 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Phiếu Bài Tập Toán 6 - Buổi 4</title>
+    <title>Toán Học Lớp 6 • Buổi 4: Thứ Tự Thực Hiện Phép Tính & Giá Trị Biểu Thức</title>
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
     
-    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght=500;600;700&family=Roboto:wght=400;500&display=swap" rel="stylesheet">
-    
+    <!-- FontAwesome 6 CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- JSXGraph CDN -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraph.css" />
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraphcore.js"></script>
+
+    <!-- MathJax 3 CDN -->
     <script>
         window.MathJax = {
-            tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] }
+            tex: {
+                inlineMath: [['\\(', '\\)'], ['$', '$']],
+                displayMath: [['\\[', '\\]'], ['$$', '$$']]
+            },
+            svg: { fontCache: 'global' }
         };
     </script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
     <style>
-        /* Thiết lập chung: Nền trắng, chữ đen chính */
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
         body {
-            font-family: 'Roboto', sans-serif;
-            background-color: #ffffff;
-            color: #1a1a1a;
-            line-height: 1.8;
-            margin: 0;
-            padding: 10px;
-        }
-
-        .worksheet-container {
-            max-width: 850px;
-            margin: 20px auto;
-            padding: 30px;
-            border: 2px solid #e2e8f0;
-            border-radius: 16px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-            background: #ffffff;
-        }
-
-        /* Tiêu đề chính rực rỡ */
-        .header-title {
-            font-family: 'Quicksand', sans-serif;
-            text-align: center;
-            color: #0284c7; /* Xanh dương sáng */
-            font-size: 24px;
-            font-weight: 700;
-            margin-top: 5px;
-            margin-bottom: 5px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .subtitle {
-            text-align: center;
-            font-weight: 500;
-            color: #475569;
-            margin-bottom: 25px;
-        }
-
-        /* Khung thông tin học sinh điền */
-        .student-info {
+            font-family: 'Plus Jakarta Sans', sans-serif;
             background-color: #f8fafc;
-            border: 1px dashed #cbd5e1;
-            padding: 15px;
-            border-radius: 8px;
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 35px;
-            font-weight: 500;
-        }
-
-        /* Tiêu đề phần lớn (Phần I, Phần II) */
-        .section-title {
-            font-family: 'Quicksand', sans-serif;
-            font-size: 18px;
-            color: #ffffff;
-            background: linear-gradient(135deg, #0ea5e9, #2563eb);
-            padding: 8px 16px;
-            border-radius: 6px;
-            margin-top: 35px;
-            font-weight: 700;
-            display: inline-block;
-        }
-
-        .section-title.homework {
-            background: linear-gradient(135deg, #f59e0b, #d97706); /* Màu cam cho thử thách */
-        }
-
-        /* Tiêu đề Dạng bài và Phương pháp giải */
-        .exercise-type {
-            font-family: 'Quicksand', sans-serif;
-            font-size: 16px;
             color: #0f172a;
-            margin-top: 25px;
-            font-weight: 700;
-            border-left: 4px solid #10b981; /* Vạch xanh lá */
-            padding-left: 10px;
         }
-
-        .method-box {
-            background-color: #f0fdf4; /* Nền xanh lá nhạt */
-            border: 1px solid #bbf7d0;
-            padding: 12px 16px;
-            border-radius: 8px;
-            margin-top: 8px;
-            margin-bottom: 15px;
-            font-size: 14.5px;
-            color: #166534;
+        .jxgbox {
+            border-radius: 1rem;
+            border: 2px solid #e2e8f0;
+            background-color: #ffffff;
+            box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.04);
         }
-
-        /* Định dạng danh sách câu hỏi toán học dạng lưới (Grid) */
-        .grid-questions {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 15px 30px;
-            margin-bottom: 25px;
-            padding-left: 5px;
+        details[open] summary .toggle-icon {
+            transform: rotate(180deg);
         }
-
-        .question-item {
-            display: flex;
-            align-items: baseline;
-            padding: 8px;
-            border-bottom: 1px dashed #f1f5f9;
-        }
-
-        .question-label {
-            font-weight: bold;
-            color: #475569;
-            margin-right: 10px;
-            white-space: nowrap;
-        }
-
-        /* Khung ghi chú / Lời khuyên ở cuối */
-        .footer-note {
-            background-color: #fff1f2; /* Nền hồng nhạt */
-            border: 1px solid #fecdd3;
-            padding: 20px;
-            border-radius: 12px;
-            margin-top: 40px;
-            box-shadow: 0 2px 6px rgba(225, 29, 72, 0.05);
-        }
-
-        .note-title {
-            font-family: 'Quicksand', sans-serif;
-            font-weight: 700;
-            color: #e11d48;
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .note-content ul {
-            margin: 0;
-            padding-left: 20px;
-        }
-
-        .note-content li {
-            margin-bottom: 6px;
-        }
-
-        /* Ẩn bớt hiệu ứng đổ bóng khi in ra giấy */
         @media print {
-            body { padding: 0; }
-            .worksheet-container {
-                border: none;
-                box-shadow: none;
-                padding: 0;
+            .print\:hidden, #btn-print-doc, nav, #submit-btn-container, .quiz-controls {
+                display: none !important;
+            }
+            body {
+                background: white !important;
+                color: black !important;
+            }
+            details {
+                display: block !important;
+            }
+            details summary {
+                display: none !important;
+            }
+            .solution-body {
+                display: block !important;
+                border-left: 3px solid #64748b !important;
+                padding-left: 1rem !important;
+            }
+            .page-break {
+                page-break-before: always;
             }
         }
     </style>
 </head>
-<body>
+<body class="bg-slate-50 text-slate-900 antialiased min-h-screen">
 
-<div class="worksheet-container">
-    
-    <div class="header-title">📋 PHIẾU BÀI TẬP TOÁN 6 - BUỔI 4</div>
-    <div class="subtitle">Chủ đề: Thực hành Lũy thừa và Thứ tự thực hiện phép tính (45 phút)</div>
+    <!-- HEADER & LOGO BAR -->
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-40 shadow-xs print:relative print:border-none">
+        <div class="max-w-6xl mx-auto px-4 py-3 flex flex-wrap justify-between items-center gap-4">
+            <div class="flex items-center gap-3 sm:gap-4">
+                <img src="https://firebasestorage.googleapis.com/v0/b/link-anh-web.firebasestorage.app/o/ttbdvh.jpg?alt=media&token=f270aa9b-a2bc-48e8-8910-80742b542615" 
+                     alt="Logo TTBDVH" class="h-12 w-auto object-contain rounded-lg border border-slate-100 shadow-xs">
+                <img src="https://firebasestorage.googleapis.com/v0/b/link-anh-web.firebasestorage.app/o/Logo-chinh-hcmus.png?alt=media&token=9cf3a1de-75f1-493b-8711-fd22c7b98738" 
+                     alt="Logo HCMUS" class="h-12 w-auto object-contain">
+                <div class="border-l-2 border-indigo-500 pl-3">
+                    <h1 class="text-base sm:text-lg font-bold text-slate-900 uppercase tracking-tight">Toán Học Lớp 6 &bull; Buổi 4</h1>
+                    <p class="text-xs text-slate-500 font-medium">Thứ Tự Thực Hiện Phép Tính &bull; Giá Trị Biểu Thức</p>
+                </div>
+            </div>
+            <div class="flex items-center gap-2">
+                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-blue-50 text-blue-700 border border-blue-200">
+                    <i class="fas fa-layer-group mr-1.5 text-blue-500"></i> 3 Cấp Độ
+                </span>
+                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-indigo-50 text-indigo-700 border border-indigo-200">
+                    <i class="fas fa-cubes mr-1.5 text-indigo-500"></i> 4 JSXGraph
+                </span>
+                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-purple-50 text-purple-700 border border-purple-200">
+                    <i class="fas fa-award mr-1.5 text-purple-500"></i> 5 Câu ĐGNL
+                </span>
+            </div>
+        </div>
+    </header>
 
-    <div class="student-info">
-        <div>Họ và tên học sinh: ........................................................</div>
-        <div>Lớp: ..................</div>
-    </div>
+    <!-- NAVIGATION TABS -->
+    <nav class="max-w-6xl mx-auto px-4 mt-6 print:hidden">
+        <div class="bg-white p-2 rounded-2xl border border-slate-200 shadow-xs flex flex-wrap gap-2 justify-center sm:justify-start">
+            <a href="#phan-1" class="px-4 py-2 text-sm font-semibold rounded-xl text-blue-700 bg-blue-50 hover:bg-blue-100 transition flex items-center gap-2">
+                <i class="fas fa-seedling text-blue-500"></i> Phần 1: Cơ Bản (12 Bài)
+            </a>
+            <a href="#phan-2" class="px-4 py-2 text-sm font-semibold rounded-xl text-amber-700 bg-amber-50 hover:bg-amber-100 transition flex items-center gap-2">
+                <i class="fas fa-chart-line text-amber-500"></i> Phần 2: Nâng Cao (10 Bài)
+            </a>
+            <a href="#phan-3" class="px-4 py-2 text-sm font-semibold rounded-xl text-emerald-700 bg-emerald-50 hover:bg-emerald-100 transition flex items-center gap-2">
+                <i class="fas fa-shopping-cart text-emerald-500"></i> Phần 3: Vận Dụng (8 Bài)
+            </a>
+            <a href="#trac-nghiem" class="px-4 py-2 text-sm font-semibold rounded-xl text-purple-700 bg-purple-50 hover:bg-purple-100 transition flex items-center gap-2">
+                <i class="fas fa-file-signature text-purple-500"></i> Khảo Sát ĐGNL (5 Câu)
+            </a>
+        </div>
+    </nav>
 
-    <div class="section-title">PHẦN I. BÀI TẬP THỰC HÀNH TRÊN LỚP</div>
+    <!-- HERO BANNER -->
+    <main class="max-w-6xl mx-auto px-4 py-6">
+        <div class="bg-gradient-to-r from-slate-900 via-indigo-950 to-blue-900 text-white rounded-3xl p-6 sm:p-8 shadow-xl relative overflow-hidden mb-8">
+            <div class="relative z-10 max-w-3xl">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-white/10 backdrop-blur-md text-amber-300 text-xs font-semibold mb-3">
+                    <i class="fas fa-calculator"></i> Học Liệu Chuẩn Sư Phạm 2026
+                </div>
+                <h2 class="text-2xl sm:text-3xl font-black tracking-tight text-white mb-2">
+                    Buổi 4: Thứ Tự Thực Hiện Phép Tính &bull; Giá Trị Biểu Thức
+                </h2>
+                <p class="text-slate-200 text-sm sm:text-base leading-relaxed">
+                    Hệ thống <strong>30 bài toán phân loại chuẩn mực</strong> kèm hướng dẫn ẩn chi tiết, tích hợp <strong>4 mô hình đồ họa tương tác JSXGraph</strong> và khảo sát trắc nghiệm trực tuyến tự động chấm điểm, gửi dữ liệu về hệ thống quản lý học tập Google Sheets.
+                </p>
+            </div>
+            <div class="absolute -right-6 -bottom-6 opacity-10 text-9xl text-white select-none pointer-events-none">
+                <i class="fas fa-project-diagram"></i>
+            </div>
+        </div>
 
-    <div class="exercise-type">VÒNG 1: KHỞI ĐỘNG NHANH - NHẬN DIỆN LŨY THỪA (10 PHÚT)</div>
-    <div class="method-box">
-        <strong>Mục tiêu & Cách tổ chức:</strong> Phản xạ nhanh với cách viết gọn và giá trị cơ bản của lũy thừa. Tránh lỗi sai lấy cơ số nhân với số mũ. Giáo viên gọi lần lượt từng học sinh lên bảng hoàn thành theo cặp câu.
-    </div>
-    
-    <p><strong>Bài 1 (Viết gọn thành lũy thừa):</strong> Biến đổi các tích sau về dạng lũy thừa:</p>
-    <div class="grid-questions">
-        <div class="question-item">
-            <span class="question-label">a)</span>
-            <span>$4 \cdot 4 \cdot 4 \cdot 4$</span>
-        </div>
-        <div class="question-item">
-            <span class="question-label">b)</span>
-            <span>$x \cdot x \cdot x \cdot x$</span>
-        </div>
-        <div class="question-item">
-            <span class="question-label">c)</span>
-            <span>$10 \cdot 10 \cdot 10 \cdot 100$</span>
-        </div>
-        <div class="question-item">
-            <span class="question-label">d)</span>
-            <span>$2 \cdot 2 \cdot 2 \cdot 2 \cdot 2$</span>
-        </div>
-    </div>
+        <!-- ========================================================================= -->
+        <!-- PHẦN 1: MỨC ĐỘ CƠ BẢN -->
+        <!-- ========================================================================= -->
+        <section id="phan-1" class="mb-12 scroll-mt-20">
+            <div class="flex items-center justify-between border-b-2 border-blue-500 pb-3 mb-6">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-blue-600 text-white flex items-center justify-center font-bold text-lg shadow-md shadow-blue-200">
+                        1
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-slate-900 uppercase">Phần 1: Mức Độ Cơ Bản (12 Bài)</h3>
+                        <p class="text-xs sm:text-sm text-slate-500">Mục tiêu: Nhận biết và áp dụng đúng thứ tự ưu tiên các phép toán (Lũy thừa &rarr; Nhân, chia &rarr; Cộng, trừ) và các cấp dấu ngoặc (( ) &rarr; [ ] &rarr; { }).</p>
+                    </div>
+                </div>
+                <span class="px-3 py-1 bg-blue-100 text-blue-800 text-xs font-bold rounded-lg hidden sm:inline-block">12 Bài Toán</span>
+            </div>
 
-    <p><strong>Bài 2 (Tính giá trị lũy thừa):</strong> Tính giá trị các biểu thức sau (Nhẩm to kết quả):</p>
-    <div class="grid-questions">
-        <div class="question-item">
-            <span class="question-label">a)</span>
-            <span>$3^3$</span>
-        </div>
-        <div class="question-item">
-            <span class="question-label">b)</span>
-            <span>$5^2$ <em style="color: #64748b; font-size: 0.9em;">(Lưu ý: $5^2 \neq 10$)</em></span>
-        </div>
-        <div class="question-item">
-            <span class="question-label">c)</span>
-            <span>$2^4$</span>
-        </div>
-        <div class="question-item">
-            <span class="question-label">d)</span>
-            <span>$4^3$</span>
-        </div>
-    </div>
+            <div class="grid grid-cols-1 gap-6">
 
-    <div class="exercise-type">VÒNG 2: RÈN LUYỆN KĨ NĂNG - NHÂN, CHIA HAI LŨY THỪA CÙNG CƠ SỐ (10 PHÚT)</div>
-    <div class="method-box">
-        <strong>Phương pháp:</strong> Thuộc lòng quy tắc "Nhân cộng, Chia trừ" số mũ: $a^m \cdot a^n = a^{m+n}$ và $a^m : a^n = a^{m-n}$. Giữ nguyên cơ số, tuyệt đối không nhân hoặc chia các cơ số với nhau.
-    </div>
+                <!-- Bài 1 -->
+                <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="px-3 py-1 bg-blue-50 text-blue-700 text-xs font-bold rounded-md border border-blue-200">Bài 1 &bull; Quy tắc thứ tự thực hiện phép tính</span>
+                        <span class="text-xs text-slate-400 font-medium"><i class="far fa-clock mr-1"></i> Lý thuyết trọng tâm</span>
+                    </div>
+                    <p class="text-slate-800 font-medium mb-3">
+                        Phát biểu quy tắc thứ tự thực hiện phép tính đối với biểu thức không có dấu ngoặc và biểu thức có dấu ngoặc.
+                    </p>
+                    <details class="group mt-4">
+                        <summary class="flex items-center justify-between px-4 py-2.5 bg-slate-50 hover:bg-slate-100 rounded-xl cursor-pointer select-none text-sm font-semibold text-slate-700 transition">
+                            <span class="flex items-center gap-2"><i class="fas fa-lightbulb text-amber-500"></i> Gợi ý &amp; Lời giải chi tiết</span>
+                            <i class="fas fa-chevron-down toggle-icon text-slate-400 transition-transform"></i>
+                        </summary>
+                        <div class="solution-body p-4 mt-2 bg-blue-50/50 rounded-xl border border-blue-100 text-sm text-slate-700 space-y-2">
+                            <p><strong>1. Biểu thức không có dấu ngoặc:</strong></p>
+                            <ul class="list-disc pl-5 space-y-1">
+                                <li>Nếu chỉ có phép cộng, trừ hoặc chỉ có phép nhân, chia: thực hiện từ <strong>trái sang phải</strong>.</li>
+                                <li>Nếu có các phép toán cộng, trừ, nhân, chia, nâng lên lũy thừa: thực hiện theo thứ tự: <strong>Lũy thừa &rarr; Nhân và chia &rarr; Cộng và trừ</strong>.</li>
+                            </ul>
+                            <p><strong>2. Biểu thức có dấu ngoặc:</strong> Thực hiện theo thứ tự trong ngoặc trước, ngoài ngoặc sau: <strong>Ngoặc tròn \(( )\) &rarr; Ngoặc vuông \([ ]\) &rarr; Ngoặc nhọn \(\{ \}\)</strong>.</p>
+                        </div>
+                    </details>
+                </div>
 
-    <p><strong>Bài 3.</strong> Viết kết quả các phép tính sau dưới dạng một lũy thừa:</p>
-    <div class="grid-questions">
-        <div class="question-item">
-            <span class="question-label">a)</span>
-            <span>$3^3 \cdot 3^4$</span>
-        </div>
-        <div class="question-item">
-            <span class="question-label">b)</span>
-            <span>$5^2 \cdot 5^7$</span>
-        </div>
-        <div class="question-item">
-            <span class="question-label">c)</span>
-            <span>$7^5 : 7^2$</span>
-        </div>
-        <div class="question-item">
-            <span class="question-label">d)</span>
-            <span>$10^8 : 10^3$</span>
-        </div>
-    </div>
+                <!-- Bài 2 -->
+                <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="px-3 py-1 bg-blue-50 text-blue-700 text-xs font-bold rounded-md border border-blue-200">Bài 2 &bull; Thực hiện phép tính cùng cấp</span>
+                    </div>
+                    <p class="text-slate-800 font-medium mb-3">
+                        Thực hiện các phép tính sau (lưu ý tính từ trái sang phải đối với các phép toán cùng cấp):<br>
+                        a) \(45 - 25 + 10\)<br>
+                        b) \(80 : 4 \times 2\)
+                    </p>
+                    <details class="group mt-4">
+                        <summary class="flex items-center justify-between px-4 py-2.5 bg-slate-50 hover:bg-slate-100 rounded-xl cursor-pointer select-none text-sm font-semibold text-slate-700 transition">
+                            <span class="flex items-center gap-2"><i class="fas fa-lightbulb text-amber-500"></i> Gợi ý &amp; Lời giải chi tiết</span>
+                            <i class="fas fa-chevron-down toggle-icon text-slate-400 transition-transform"></i>
+                        </summary>
+                        <div class="solution-body p-4 mt-2 bg-blue-50/50 rounded-xl border border-blue-100 text-sm text-slate-700 space-y-1">
+                            <p><strong>a)</strong> \(45 - 25 + 10 = 20 + 10 = 30\).</p>
+                            <p><strong>b)</strong> \(80 : 4 \times 2 = 20 \times 2 = 40\) <em>(không thực hiện phép nhân \(4 \times 2\) trước)</em>.</p>
+                        </div>
+                    </details>
+                </div>
 
-    <p><strong>⚠️ Câu hỏi tình huống (Thảo luận nhóm):</strong> Thực hiện phép tính sau từ trái sang phải: $(2^3 \cdot 2^4) : 2^5$</p>
+                <!-- Bài 3 -->
+                <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="px-3 py-1 bg-blue-50 text-blue-700 text-xs font-bold rounded-md border border-blue-200">Bài 3 &bull; Thứ tự ưu tiên có lũy thừa</span>
+                    </div>
+                    <p class="text-slate-800 font-medium mb-3">
+                        Tính giá trị của các biểu thức sau:<br>
+                        a) \(3 \cdot 2^3\)<br>
+                        b) \(5 \cdot 4^2 - 15\)
+                    </p>
+                    <details class="group mt-4">
+                        <summary class="flex items-center justify-between px-4 py-2.5 bg-slate-50 hover:bg-slate-100 rounded-xl cursor-pointer select-none text-sm font-semibold text-slate-700 transition">
+                            <span class="flex items-center gap-2"><i class="fas fa-lightbulb text-amber-500"></i> Gợi ý &amp; Lời giải chi tiết</span>
+                            <i class="fas fa-chevron-down toggle-icon text-slate-400 transition-transform"></i>
+                        </summary>
+                        <div class="solution-body p-4 mt-2 bg-blue-50/50 rounded-xl border border-blue-100 text-sm text-slate-700 space-y-1">
+                            <p><strong>a)</strong> \(3 \cdot 2^3 = 3 \cdot 8 = 24\).</p>
+                            <p><strong>b)</strong> \(5 \cdot 4^2 - 15 = 5 \cdot 16 - 15 = 80 - 15 = 65\).</p>
+                        </div>
+                    </details>
+                </div>
 
-    <div class="exercise-type">VÒNG 3: TRỌNG TÂM - VƯỢT CHƯỚNG NGẠI VẬT "THỨ TỰ PHÉP TÍNH" (15 PHÚT)</div>
-    <div class="method-box">
-        <strong>Sơ đồ ưu tiên:</strong> Lũy thừa $\rightarrow$ Nhân/Chia $\rightarrow$ Cộng/Trừ. Đối với ngoặc: $( ) \rightarrow [ ] \rightarrow \{ \}$. Nhân/chia hoặc cộng/trừ đứng liền nhau thì làm từ trái sang phải.
-    </div>
+                <!-- Bài 4 (JSXGraph 1) -->
+                <div class="bg-white rounded-2xl p-6 border-2 border-indigo-200 shadow-sm hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="px-3 py-1 bg-indigo-100 text-indigo-800 text-xs font-bold rounded-md flex items-center gap-1.5">
+                            <i class="fas fa-microchip text-indigo-600"></i> Bài 4 &bull; JSXGraph 1: Sơ đồ máy tính tự động (Flowchart Pipeline)
+                        </span>
+                        <span class="text-xs px-2.5 py-0.5 bg-emerald-100 text-emerald-800 font-bold rounded">Mô phỏng thuật toán</span>
+                    </div>
+                    <p class="text-slate-800 font-medium mb-3">
+                        Em hãy viết biểu thức toán học tương ứng với sơ đồ máy tính tự động dưới đây: Số đầu vào \(x \rightarrow\) [Lũy thừa bậc 2] \(\rightarrow\) [Nhân với 5] \(\rightarrow\) [Trừ đi 10] \(\rightarrow\) Số đầu ra. Tính giá trị đầu ra của biểu thức khi số đầu vào \(x = 3\).
+                    </p>
 
-    <p><strong>Bài 4 (Mức độ 1 - Không chứa dấu ngoặc):</strong> Thực hiện phép tính:</p>
-    <div class="grid-questions">
-        <div class="question-item">
-            <span class="question-label">a)</span>
-            <span>$5 \cdot 2^2 - 18 : 3$</span>
-        </div>
-        <div class="question-item">
-            <span class="question-label">b)</span>
-            <span>$8 + 36 : 3 \cdot 2$ <em style="color: #dc2626; font-size: 0.9em;">(Cẩn thận bẫy tính sai thứ tự)</em></span>
-        </div>
-    </div>
+                    <!-- JSXGraph 1 Container -->
+                    <div class="my-4">
+                        <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+                            <span class="text-xs font-bold text-slate-600"><i class="fas fa-sliders-h text-indigo-500 mr-1"></i> Chọn giá trị đầu vào \(x\) để chạy thử quy trình:</span>
+                            <div class="flex gap-2">
+                                <button onclick="runPipeline(2)" class="px-3 py-1 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold rounded border border-slate-300">\(x = 2\)</button>
+                                <button onclick="runPipeline(3)" class="px-3 py-1 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold rounded shadow-xs">\(x = 3\) (Đề bài)</button>
+                                <button onclick="runPipeline(4)" class="px-3 py-1 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold rounded border border-slate-300">\(x = 4\)</button>
+                            </div>
+                        </div>
+                        <div id="jsx1_box" class="jxgbox w-full h-[250px] mx-auto"></div>
+                    </div>
 
-    <p><strong>Bài 5 (Mức độ 2 - Có chứa dấu ngoặc):</strong> Áp dụng quy tắc bóc tách từ trong ra ngoài:</p>
-    <div class="grid-questions">
-        <div class="question-item">
-            <span class="question-label">a)</span>
-            <span>$80 - [130 - (12 - 4)^2]$</span>
-        </div>
-        <div class="question-item">
-            <span class="question-label">b)</span>
-            <span>$120 - [82 - (5 - 1)^2]$</span>
-        </div>
-    </div>
+                    <details class="group mt-4">
+                        <summary class="flex items-center justify-between px-4 py-2.5 bg-slate-50 hover:bg-slate-100 rounded-xl cursor-pointer select-none text-sm font-semibold text-slate-700 transition">
+                            <span class="flex items-center gap-2"><i class="fas fa-lightbulb text-amber-500"></i> Gợi ý &amp; Lời giải chi tiết</span>
+                            <i class="fas fa-chevron-down toggle-icon text-slate-400 transition-transform"></i>
+                        </summary>
+                        <div class="solution-body p-4 mt-2 bg-indigo-50/50 rounded-xl border border-indigo-100 text-sm text-slate-700 space-y-2">
+                            <p>&bull; <strong>Biểu thức toán học:</strong> \(f(x) = 5 \cdot x^2 - 10\).</p>
+                            <p>&bull; <strong>Khi \(x = 3\):</strong></p>
+                            <p>Bước 1 (Lũy thừa): \(3^2 = 9\).</p>
+                            <p>Bước 2 (Nhân): \(9 \cdot 5 = 45\).</p>
+                            <p>Bước 3 (Trừ): \(45 - 10 = 35\).</p>
+                            <p>&rarr; Giá trị đầu ra là <strong>\(35\)</strong>.</p>
+                        </div>
+                    </details>
+                </div>
 
-    <div class="section-title homework">PHẦN II. VÒNG 4: THỬ THÁCH TƯ DUY - TÌM X TRÊN SỐ MŨ (10 PHÚT)</div>
-    <div class="method-box">
-        <strong>Gợi ý phương pháp:</strong> Để tìm $x$ nằm ở số mũ, ta cần biến đổi số ở vế còn lại thành một lũy thừa có cùng cơ số với vế chứa $x$. Ví dụ: $a^x = a^n \Rightarrow x = n$.
-    </div>
-    
-    <p><strong>Bài 6.</strong> Tìm số tự nhiên $x$, biết:</p>
-    <div class="grid-questions">
-        <div class="question-item">
-            <span class="question-label">a)</span>
-            <span>$3^x = 9$</span>
-        </div>
-        <div class="question-item">
-            <span class="question-label">b)</span>
-            <span>$2^x = 16$</span>
-        </div>
-        <div class="question-item">
-            <span class="question-label">c)</span>
-            <span>$4^x = 64$</span>
-        </div>
-        <div class="question-item">
-            <span class="question-label">d)</span>
-            <span>$5^x = 125$</span>
-        </div>
-    </div>
+                <!-- Bài 5 -->
+                <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="px-3 py-1 bg-blue-50 text-blue-700 text-xs font-bold rounded-md border border-blue-200">Bài 5 &bull; Phép tính có dấu ngoặc tròn đơn giản</span>
+                    </div>
+                    <p class="text-slate-800 font-medium mb-3">
+                        Thực hiện các phép tính có ngoặc đơn giản sau:<br>
+                        a) \(120 - (50 - 20)\)<br>
+                        b) \(160 : (15 + 5)\)
+                    </p>
+                    <details class="group mt-4">
+                        <summary class="flex items-center justify-between px-4 py-2.5 bg-slate-50 hover:bg-slate-100 rounded-xl cursor-pointer select-none text-sm font-semibold text-slate-700 transition">
+                            <span class="flex items-center gap-2"><i class="fas fa-lightbulb text-amber-500"></i> Gợi ý &amp; Lời giải chi tiết</span>
+                            <i class="fas fa-chevron-down toggle-icon text-slate-400 transition-transform"></i>
+                        </summary>
+                        <div class="solution-body p-4 mt-2 bg-blue-50/50 rounded-xl border border-blue-100 text-sm text-slate-700 space-y-1">
+                            <p><strong>a)</strong> \(120 - (50 - 20) = 120 - 30 = 90\).</p>
+                            <p><strong>b)</strong> \(160 : (15 + 5) = 160 : 20 = 8\).</p>
+                        </div>
+                    </details>
+                </div>
 
-    <div class="footer-note">
-        <div class="note-title">💡 Lưu ý sư phạm khi trình bày (Dành cho học sinh):</div>
-        <div class="note-content">
-            <ul>
-                <li>Khi làm các bài toán tính giá trị biểu thức, bắt buộc phải trình bày theo <strong>hàng dọc</strong>.</li>
-                <li>Hãy giữ các dấu bằng <strong>" = " thẳng hàng với nhau</strong> qua từng dòng biến đổi.</li>
-                <li>Việc hạ từng dòng tương ứng với một bước tính toán cụ thể sẽ giúp các em kiểm soát lỗi sai và không bị rối khi gặp các biểu thức phức tạp chứa nhiều loại ngoặc.</li>
-            </ul>
+                <!-- Bài 6 -->
+                <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="px-3 py-1 bg-blue-50 text-blue-700 text-xs font-bold rounded-md border border-blue-200">Bài 6 &bull; Thứ tự ưu tiên giữa các loại dấu ngoặc</span>
+                    </div>
+                    <p class="text-slate-800 font-medium mb-3">
+                        Hãy sắp xếp các loại dấu ngoặc sau đây theo đúng thứ tự thực hiện từ trước đến sau trong một biểu thức: ngoặc vuông \([ ]\), ngoặc nhọn \(\{ \}\), ngoặc tròn \(( )\).
+                    </p>
+                    <details class="group mt-4">
+                        <summary class="flex items-center justify-between px-4 py-2.5 bg-slate-50 hover:bg-slate-100 rounded-xl cursor-pointer select-none text-sm font-semibold text-slate-700 transition">
+                            <span class="flex items-center gap-2"><i class="fas fa-lightbulb text-amber-500"></i> Gợi ý &amp; Lời giải chi tiết</span>
+                            <i class="fas fa-chevron-down toggle-icon text-slate-400 transition-transform"></i>
+                        </summary>
+                        <div class="solution-body p-4 mt-2 bg-blue-50/50 rounded-xl border border-blue-100 text-sm text-slate-700">
+                            <p>Thứ tự chuẩn từ trong ra ngoài:</p>
+                            <p class="font-bold text-blue-900 mt-1">Ngoặc tròn \(( )\) &rarr; Ngoặc vuông \([ ]\) &rarr; Ngoặc nhọn \(\{ \}\).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 7 -->
+                <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="px-3 py-1 bg-blue-50 text-blue-700 text-xs font-bold rounded-md border border-blue-200">Bài 7 &bull; Kết hợp ngoặc tròn và ngoặc vuông</span>
+                    </div>
+                    <p class="text-slate-800 font-medium mb-3">
+                        Tính giá trị của biểu thức:<br>
+                        \(A = 150 - [120 - (7 - 2)^2]\)
+                    </p>
+                    <details class="group mt-4">
+                        <summary class="flex items-center justify-between px-4 py-2.5 bg-slate-50 hover:bg-slate-100 rounded-xl cursor-pointer select-none text-sm font-semibold text-slate-700 transition">
+                            <span class="flex items-center gap-2"><i class="fas fa-lightbulb text-amber-500"></i> Gợi ý &amp; Lời giải chi tiết</span>
+                            <i class="fas fa-chevron-down toggle-icon text-slate-400 transition-transform"></i>
+                        </summary>
+                        <div class="solution-body p-4 mt-2 bg-blue-50/50 rounded-xl border border-blue-100 text-sm text-slate-700 space-y-1">
+                            <p>\(A = 150 - [120 - 5^2]\)</p>
+                            <p>\(A = 150 - [120 - 25] = 150 - 95 = 55\).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 8 -->
+                <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="px-3 py-1 bg-blue-50 text-blue-700 text-xs font-bold rounded-md border border-blue-200">Bài 8 &bull; Điền dấu phép tính</span>
+                    </div>
+                    <p class="text-slate-800 font-medium mb-3">
+                        Điền các dấu phép tính \(+\), \(-\), \(\times\), \(:\) thích hợp vào ô trống để được kết quả đúng:<br>
+                        a) \(6 \dots 2 \dots 5 = 17\)<br>
+                        b) \(24 \dots 4 \dots 3 = 18\)
+                    </p>
+                    <details class="group mt-4">
+                        <summary class="flex items-center justify-between px-4 py-2.5 bg-slate-50 hover:bg-slate-100 rounded-xl cursor-pointer select-none text-sm font-semibold text-slate-700 transition">
+                            <span class="flex items-center gap-2"><i class="fas fa-lightbulb text-amber-500"></i> Gợi ý &amp; Lời giải chi tiết</span>
+                            <i class="fas fa-chevron-down toggle-icon text-slate-400 transition-transform"></i>
+                        </summary>
+                        <div class="solution-body p-4 mt-2 bg-blue-50/50 rounded-xl border border-blue-100 text-sm text-slate-700 space-y-1">
+                            <p><strong>a)</strong> \(6 \times 2 + 5 = 12 + 5 = 17\) &rarr; Điền dấu \(\times\) và \(+\).</p>
+                            <p><strong>b)</strong> \(24 : 4 \times 3 = 6 \times 3 = 18\) &rarr; Điền dấu \(:\) và \(\times\).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 9 -->
+                <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="px-3 py-1 bg-blue-50 text-blue-700 text-xs font-bold rounded-md border border-blue-200">Bài 9 &bull; Phát hiện và sửa lỗi sai phép tính</span>
+                    </div>
+                    <p class="text-slate-800 font-medium mb-3">
+                        Hãy chỉ ra lỗi sai trong cách thực hiện phép tính sau đây và thực hiện lại cho đúng:<br>
+                        <span class="text-rose-600 font-semibold">\(18 + 12 : 3 \times 2 = 30 : 3 \times 2 = 10 \times 2 = 20\)</span>
+                    </p>
+                    <details class="group mt-4">
+                        <summary class="flex items-center justify-between px-4 py-2.5 bg-slate-50 hover:bg-slate-100 rounded-xl cursor-pointer select-none text-sm font-semibold text-slate-700 transition">
+                            <span class="flex items-center gap-2"><i class="fas fa-lightbulb text-amber-500"></i> Gợi ý &amp; Lời giải chi tiết</span>
+                            <i class="fas fa-chevron-down toggle-icon text-slate-400 transition-transform"></i>
+                        </summary>
+                        <div class="solution-body p-4 mt-2 bg-blue-50/50 rounded-xl border border-blue-100 text-sm text-slate-700 space-y-2">
+                            <p><strong>Lỗi sai:</strong> Người làm đã thực hiện phép cộng \(18 + 12 = 30\) trước phép chia và phép nhân, vi phạm quy tắc ưu tiên nhân chia trước cộng trừ sau.</p>
+                            <p><strong>Thực hiện lại đúng:</strong></p>
+                            <p>\(18 + 12 : 3 \times 2 = 18 + 4 \times 2 = 18 + 8 = 26\).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 10 -->
+                <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="px-3 py-1 bg-blue-50 text-blue-700 text-xs font-bold rounded-md border border-blue-200">Bài 10 &bull; Tính nhanh dựa vào tính chất kết hợp</span>
+                    </div>
+                    <p class="text-slate-800 font-medium mb-3">
+                        Áp dụng tính chất kết hợp và thứ tự thực hiện phép tính để tính nhanh giá trị biểu thức:<br>
+                        \(B = 12 \cdot 25 \cdot 4\)
+                    </p>
+                    <details class="group mt-4">
+                        <summary class="flex items-center justify-between px-4 py-2.5 bg-slate-50 hover:bg-slate-100 rounded-xl cursor-pointer select-none text-sm font-semibold text-slate-700 transition">
+                            <span class="flex items-center gap-2"><i class="fas fa-lightbulb text-amber-500"></i> Gợi ý &amp; Lời giải chi tiết</span>
+                            <i class="fas fa-chevron-down toggle-icon text-slate-400 transition-transform"></i>
+                        </summary>
+                        <div class="solution-body p-4 mt-2 bg-blue-50/50 rounded-xl border border-blue-100 text-sm text-slate-700 space-y-1">
+                            <p>Nhóm hai thừa số có tích tròn trăm:</p>
+                            <p>\(B = 12 \cdot (25 \cdot 4) = 12 \cdot 100 = 1\,200\).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 11 -->
+                <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="px-3 py-1 bg-blue-50 text-blue-700 text-xs font-bold rounded-md border border-blue-200">Bài 11 &bull; Tranh luận toán học</span>
+                    </div>
+                    <p class="text-slate-800 font-medium mb-3">
+                        Cho biểu thức \(C = 100 - 4 \cdot 5^2\). Bạn Nam tính ra kết quả là \(2\,400\), bạn Hà tính ra kết quả là \(0\). Theo em bạn nào tính đúng, bạn nào tính sai? Hãy giải thích nguyên nhân.
+                    </p>
+                    <details class="group mt-4">
+                        <summary class="flex items-center justify-between px-4 py-2.5 bg-slate-50 hover:bg-slate-100 rounded-xl cursor-pointer select-none text-sm font-semibold text-slate-700 transition">
+                            <span class="flex items-center gap-2"><i class="fas fa-lightbulb text-amber-500"></i> Gợi ý &amp; Lời giải chi tiết</span>
+                            <i class="fas fa-chevron-down toggle-icon text-slate-400 transition-transform"></i>
+                        </summary>
+                        <div class="solution-body p-4 mt-2 bg-blue-50/50 rounded-xl border border-blue-100 text-sm text-slate-700 space-y-2">
+                            <p>&bull; <strong>Bạn Hà tính đúng:</strong> \(C = 100 - 4 \cdot 25 = 100 - 100 = 0\).</p>
+                            <p>&bull; <strong>Bạn Nam tính sai:</strong> Nam đã lấy \(100 - 4 = 96\) rồi nhân với \(25\) thành \(96 \cdot 25 = 2\,400\) (sai vì trừ trước khi nhân và lũy thừa).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 12 -->
+                <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="px-3 py-1 bg-blue-50 text-blue-700 text-xs font-bold rounded-md border border-blue-200">Bài 12 &bull; Tính giá trị biểu thức tổng hợp cơ bản</span>
+                    </div>
+                    <p class="text-slate-800 font-medium mb-3">
+                        Tính giá trị của các biểu thức sau:<br>
+                        a) \(6 \cdot 2^3 - 4 \cdot 5\)<br>
+                        b) \(100 : 2^2 + 15\)
+                    </p>
+                    <details class="group mt-4">
+                        <summary class="flex items-center justify-between px-4 py-2.5 bg-slate-50 hover:bg-slate-100 rounded-xl cursor-pointer select-none text-sm font-semibold text-slate-700 transition">
+                            <span class="flex items-center gap-2"><i class="fas fa-lightbulb text-amber-500"></i> Gợi ý &amp; Lời giải chi tiết</span>
+                            <i class="fas fa-chevron-down toggle-icon text-slate-400 transition-transform"></i>
+                        </summary>
+                        <div class="solution-body p-4 mt-2 bg-blue-50/50 rounded-xl border border-blue-100 text-sm text-slate-700 space-y-1">
+                            <p><strong>a)</strong> \(6 \cdot 8 - 20 = 48 - 20 = 28\).</p>
+                            <p><strong>b)</strong> \(100 : 4 + 15 = 25 + 15 = 40\).</p>
+                        </div>
+                    </details>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ========================================================================= -->
+        <!-- PHẦN 2: MỨC ĐỘ NÂNG CAO -->
+        <!-- ========================================================================= -->
+        <section id="phan-2" class="mb-12 scroll-mt-20">
+            <div class="flex items-center justify-between border-b-2 border-amber-500 pb-3 mb-6">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-amber-600 text-white flex items-center justify-center font-bold text-lg shadow-md shadow-amber-200">
+                        2
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-slate-900 uppercase">Phần 2: Mức Độ Nâng Cao (10 Bài)</h3>
+                        <p class="text-xs sm:text-sm text-slate-500">Mục tiêu: Biểu thức đa tầng ngoặc, nhiều lũy thừa, giải bài toán tìm x bằng phương pháp giải ngược thứ tự phép tính.</p>
+                    </div>
+                </div>
+                <span class="px-3 py-1 bg-amber-100 text-amber-800 text-xs font-bold rounded-lg hidden sm:inline-block">10 Bài Toán</span>
+            </div>
+
+            <div class="grid grid-cols-1 gap-6">
+
+                <!-- Bài 13 -->
+                <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="px-3 py-1 bg-amber-50 text-amber-700 text-xs font-bold rounded-md border border-amber-200">Bài 13 &bull; Biểu thức đủ 3 tầng ngoặc</span>
+                    </div>
+                    <p class="text-slate-800 font-medium mb-3">
+                        Tính giá trị của biểu thức chứa nhiều tầng ngoặc:<br>
+                        \(D = 200 - \{50 - [68 - (12 - 8)^2]\}\)
+                    </p>
+                    <details class="group mt-4">
+                        <summary class="flex items-center justify-between px-4 py-2.5 bg-slate-50 hover:bg-slate-100 rounded-xl cursor-pointer select-none text-sm font-semibold text-slate-700 transition">
+                            <span class="flex items-center gap-2"><i class="fas fa-lightbulb text-amber-500"></i> Gợi ý &amp; Lời giải chi tiết</span>
+                            <i class="fas fa-chevron-down toggle-icon text-slate-400 transition-transform"></i>
+                        </summary>
+                        <div class="solution-body p-4 mt-2 bg-amber-50/50 rounded-xl border border-amber-100 text-sm text-slate-700 space-y-1">
+                            <p>\(D = 200 - \{50 - [68 - 4^2]\}\)</p>
+                            <p>\(D = 200 - \{50 - [68 - 16]\}\)</p>
+                            <p>\(D = 200 - \{50 - 52\} = 200 - (-2) = 202\).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 14 (JSXGraph 2) -->
+                <div class="bg-white rounded-2xl p-6 border-2 border-amber-200 shadow-sm hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="px-3 py-1 bg-amber-100 text-amber-800 text-xs font-bold rounded-md flex items-center gap-1.5">
+                            <i class="fas fa-layer-group text-amber-600"></i> Bài 14 &bull; JSXGraph 2: Cây phân tích độ ưu tiên phép tính
+                        </span>
+                        <span class="text-xs px-2.5 py-0.5 bg-purple-100 text-purple-800 font-bold rounded">Phân rã biểu thức</span>
+                    </div>
+                    <p class="text-slate-800 font-medium mb-3">
+                        Cho biểu thức: \(B = 80 - [30 - (6 - 1)^2 \cdot 2] : 5\).<br>
+                        a) Hãy viết thứ tự các bước thực hiện các phép tính trong biểu thức trên.<br>
+                        b) Tính giá trị của biểu thức \(B\).
+                    </p>
+
+                    <!-- JSXGraph 2 Container -->
+                    <div class="my-4">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-xs font-bold text-slate-600"><i class="fas fa-sitemap text-amber-500 mr-1"></i> Bấm để xem từng tầng ưu tiên giải mã:</span>
+                            <div class="flex gap-2">
+                                <button onclick="setTreeStep(1)" class="px-2.5 py-1 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold rounded border border-slate-300">Bước 1: Ngoặc tròn</button>
+                                <button onclick="setTreeStep(2)" class="px-2.5 py-1 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold rounded border border-slate-300">Bước 2: Lũy thừa</button>
+                                <button onclick="setTreeStep(3)" class="px-2.5 py-1 bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold rounded shadow-xs">Toàn bộ cây</button>
+                            </div>
+                        </div>
+                        <div id="jsx2_box" class="jxgbox w-full h-[260px] mx-auto"></div>
+                    </div>
+
+                    <details class="group mt-4">
+                        <summary class="flex items-center justify-between px-4 py-2.5 bg-slate-50 hover:bg-slate-100 rounded-xl cursor-pointer select-none text-sm font-semibold text-slate-700 transition">
+                            <span class="flex items-center gap-2"><i class="fas fa-lightbulb text-amber-500"></i> Gợi ý &amp; Lời giải chi tiết</span>
+                            <i class="fas fa-chevron-down toggle-icon text-slate-400 transition-transform"></i>
+                        </summary>
+                        <div class="solution-body p-4 mt-2 bg-amber-50/50 rounded-xl border border-amber-100 text-sm text-slate-700 space-y-2">
+                            <p><strong>a) Thứ tự các bước:</strong></p>
+                            <ol class="list-decimal pl-5 space-y-1">
+                                <li>Tính trong ngoặc tròn: \(6 - 1 = 5\).</li>
+                                <li>Nâng lên lũy thừa: \(5^2 = 25\).</li>
+                                <li>Nhân trong ngoặc vuông: \(25 \cdot 2 = 50\).</li>
+                                <li>Trừ trong ngoặc vuông: \(30 - 50 = -20\).</li>
+                                <li>Chia ngoài ngoặc: \((-20) : 5 = -4\).</li>
+                                <li>Trừ cuối cùng: \(80 - (-4) = 84\).</li>
+                            </ol>
+                            <p><strong>b) Kết quả:</strong> \(B = 84\).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 15 -->
+                <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="px-3 py-1 bg-amber-50 text-amber-700 text-xs font-bold rounded-md border border-amber-200">Bài 15 &bull; Biểu thức lồng nhiều lũy thừa</span>
+                    </div>
+                    <p class="text-slate-800 font-medium mb-3">
+                        Thực hiện phép tính phức tạp chứa lũy thừa và ngoặc:<br>
+                        \(E = 4^3 \cdot 5 - [150 - (5^2 \cdot 3 - 2 \cdot 3^3)]\)
+                    </p>
+                    <details class="group mt-4">
+                        <summary class="flex items-center justify-between px-4 py-2.5 bg-slate-50 hover:bg-slate-100 rounded-xl cursor-pointer select-none text-sm font-semibold text-slate-700 transition">
+                            <span class="flex items-center gap-2"><i class="fas fa-lightbulb text-amber-500"></i> Gợi ý &amp; Lời giải chi tiết</span>
+                            <i class="fas fa-chevron-down toggle-icon text-slate-400 transition-transform"></i>
+                        </summary>
+                        <div class="solution-body p-4 mt-2 bg-amber-50/50 rounded-xl border border-amber-100 text-sm text-slate-700 space-y-1">
+                            <p>\(E = 64 \cdot 5 - [150 - (25 \cdot 3 - 2 \cdot 27)]\)</p>
+                            <p>\(E = 320 - [150 - (75 - 54)]\)</p>
+                            <p>\(E = 320 - [150 - 21] = 320 - 129 = 191\).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 16 -->
+                <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="px-3 py-1 bg-amber-50 text-amber-700 text-xs font-bold rounded-md border border-amber-200">Bài 16 &bull; Tìm x giải ngược biểu thức</span>
+                    </div>
+                    <p class="text-slate-800 font-medium mb-3">
+                        Tìm số tự nhiên \(x\), biết:<br>
+                        \(3 \cdot x - 128 = 2^3 \cdot 3^2\)
+                    </p>
+                    <details class="group mt-4">
+                        <summary class="flex items-center justify-between px-4 py-2.5 bg-slate-50 hover:bg-slate-100 rounded-xl cursor-pointer select-none text-sm font-semibold text-slate-700 transition">
+                            <span class="flex items-center gap-2"><i class="fas fa-lightbulb text-amber-500"></i> Gợi ý &amp; Lời giải chi tiết</span>
+                            <i class="fas fa-chevron-down toggle-icon text-slate-400 transition-transform"></i>
+                        </summary>
+                        <div class="solution-body p-4 mt-2 bg-amber-50/50 rounded-xl border border-amber-100 text-sm text-slate-700 space-y-1">
+                            <p>\(3 \cdot x - 128 = 8 \cdot 9 = 72\)</p>
+                            <p>\(3 \cdot x = 72 + 128 = 200 \Rightarrow x = \frac{200}{3}\) (Nếu xét trên tập số tự nhiên thì phương trình không có nghiệm \(x \in \mathbb{N}\)).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 17 -->
+                <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="px-3 py-1 bg-amber-50 text-amber-700 text-xs font-bold rounded-md border border-amber-200">Bài 17 &bull; Tìm x ở số chia và bình phương</span>
+                    </div>
+                    <p class="text-slate-800 font-medium mb-3">
+                        Tìm số tự nhiên \(x\), biết (áp dụng quy tắc giải ngược từ ngoài vào trong ngoặc):<br>
+                        \(35 + 144 : (x - 2)^2 = 51\)
+                    </p>
+                    <details class="group mt-4">
+                        <summary class="flex items-center justify-between px-4 py-2.5 bg-slate-50 hover:bg-slate-100 rounded-xl cursor-pointer select-none text-sm font-semibold text-slate-700 transition">
+                            <span class="flex items-center gap-2"><i class="fas fa-lightbulb text-amber-500"></i> Gợi ý &amp; Lời giải chi tiết</span>
+                            <i class="fas fa-chevron-down toggle-icon text-slate-400 transition-transform"></i>
+                        </summary>
+                        <div class="solution-body p-4 mt-2 bg-amber-50/50 rounded-xl border border-amber-100 text-sm text-slate-700 space-y-1">
+                            <p>\(144 : (x - 2)^2 = 51 - 35 = 16\)</p>
+                            <p>\((x - 2)^2 = 144 : 16 = 9 = 3^2\)</p>
+                            <p>\(x - 2 = 3 \Rightarrow x = 5\).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 18 -->
+                <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="px-3 py-1 bg-amber-50 text-amber-700 text-xs font-bold rounded-md border border-amber-200">Bài 18 &bull; Tìm x phá ngoặc lồng nhau</span>
+                    </div>
+                    <p class="text-slate-800 font-medium mb-3">
+                        Tìm số tự nhiên \(x\), biết:<br>
+                        \([(6x - 12) : 3 - 4] \cdot 5 = 20\)
+                    </p>
+                    <details class="group mt-4">
+                        <summary class="flex items-center justify-between px-4 py-2.5 bg-slate-50 hover:bg-slate-100 rounded-xl cursor-pointer select-none text-sm font-semibold text-slate-700 transition">
+                            <span class="flex items-center gap-2"><i class="fas fa-lightbulb text-amber-500"></i> Gợi ý &amp; Lời giải chi tiết</span>
+                            <i class="fas fa-chevron-down toggle-icon text-slate-400 transition-transform"></i>
+                        </summary>
+                        <div class="solution-body p-4 mt-2 bg-amber-50/50 rounded-xl border border-amber-100 text-sm text-slate-700 space-y-1">
+                            <p>\((6x - 12) : 3 - 4 = 20 : 5 = 4\)</p>
+                            <p>\((6x - 12) : 3 = 4 + 4 = 8\)</p>
+                            <p>\(6x - 12 = 8 \cdot 3 = 24 \Rightarrow 6x = 36 \Rightarrow x = 6\).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 19 -->
+                <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="px-3 py-1 bg-amber-50 text-amber-700 text-xs font-bold rounded-md border border-amber-200">Bài 19 &bull; Nhóm thừa số chung kết hợp lũy thừa</span>
+                    </div>
+                    <p class="text-slate-800 font-medium mb-3">
+                        Tính nhanh giá trị biểu thức bằng cách nhóm các số hạng hợp lý:<br>
+                        \(F = 35 \cdot 124 - 35 \cdot 24 + 1800 : 3^2\)
+                    </p>
+                    <details class="group mt-4">
+                        <summary class="flex items-center justify-between px-4 py-2.5 bg-slate-50 hover:bg-slate-100 rounded-xl cursor-pointer select-none text-sm font-semibold text-slate-700 transition">
+                            <span class="flex items-center gap-2"><i class="fas fa-lightbulb text-amber-500"></i> Gợi ý &amp; Lời giải chi tiết</span>
+                            <i class="fas fa-chevron-down toggle-icon text-slate-400 transition-transform"></i>
+                        </summary>
+                        <div class="solution-body p-4 mt-2 bg-amber-50/50 rounded-xl border border-amber-100 text-sm text-slate-700 space-y-1">
+                            <p>\(F = 35 \cdot (124 - 24) + 1800 : 9\)</p>
+                            <p>\(F = 35 \cdot 100 + 200 = 3500 + 200 = 3700\).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 20 -->
+                <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="px-3 py-1 bg-amber-50 text-amber-700 text-xs font-bold rounded-md border border-amber-200">Bài 20 &bull; So sánh giá trị hai biểu thức</span>
+                    </div>
+                    <p class="text-slate-800 font-medium mb-3">
+                        Cho hai biểu thức sau:<br>
+                        \(M = 5 \cdot 4^2 - 3 \cdot 2^3\)<br>
+                        \(N = 4^4 : 4^2 + 3 \cdot 5\)<br>
+                        Hãy tính giá trị của \(M, N\) rồi so sánh hai kết quả đó.
+                    </p>
+                    <details class="group mt-4">
+                        <summary class="flex items-center justify-between px-4 py-2.5 bg-slate-50 hover:bg-slate-100 rounded-xl cursor-pointer select-none text-sm font-semibold text-slate-700 transition">
+                            <span class="flex items-center gap-2"><i class="fas fa-lightbulb text-amber-500"></i> Gợi ý &amp; Lời giải chi tiết</span>
+                            <i class="fas fa-chevron-down toggle-icon text-slate-400 transition-transform"></i>
+                        </summary>
+                        <div class="solution-body p-4 mt-2 bg-amber-50/50 rounded-xl border border-amber-100 text-sm text-slate-700 space-y-2">
+                            <p>&bull; \(M = 5 \cdot 16 - 3 \cdot 8 = 80 - 24 = 56\).</p>
+                            <p>&bull; \(N = 4^{4-2} + 15 = 4^2 + 15 = 16 + 15 = 31\).</p>
+                            <p>&rarr; Vì \(56 > 31\) nên \(M > N\).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 21 (JSXGraph 3) -->
+                <div class="bg-white rounded-2xl p-6 border-2 border-amber-200 shadow-sm hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="px-3 py-1 bg-amber-100 text-amber-800 text-xs font-bold rounded-md flex items-center gap-1.5">
+                            <i class="fas fa-balance-scale text-amber-600"></i> Bài 21 &bull; JSXGraph 3: Cân đĩa thăng bằng tìm ẩn x
+                        </span>
+                        <span class="text-xs px-2.5 py-0.5 bg-emerald-100 text-emerald-800 font-bold rounded">Giải ngược sơ đồ</span>
+                    </div>
+                    <p class="text-slate-800 font-medium mb-3">
+                        Dựa vào sơ đồ trực quan giải toán bằng phương pháp cân đĩa thăng bằng, em hãy trình bày các bước biến đổi toán học tìm số tự nhiên \(x\) thỏa mãn:<br>
+                        <span class="text-base font-bold text-amber-800">\(2 \cdot (3x + 12) = 60\)</span>
+                    </p>
+
+                    <!-- JSXGraph 3 Container -->
+                    <div class="my-4">
+                        <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+                            <span class="text-xs font-bold text-slate-600"><i class="fas fa-wrench text-amber-500 mr-1"></i> Bấm từng bước bớt khối lượng trên 2 đĩa cân:</span>
+                            <div class="flex gap-2">
+                                <button onclick="setBalanceStep(0)" class="px-2.5 py-1 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold rounded border border-slate-300">Ban đầu: \(2(3x+12)=60\)</button>
+                                <button onclick="setBalanceStep(1)" class="px-2.5 py-1 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold rounded border border-slate-300">Bước 1: Chia 2</button>
+                                <button onclick="setBalanceStep(2)" class="px-2.5 py-1 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold rounded border border-slate-300">Bước 2: Bớt 12</button>
+                                <button onclick="setBalanceStep(3)" class="px-2.5 py-1 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold rounded shadow-xs">Bước 3: \(x = 6\)</button>
+                            </div>
+                        </div>
+                        <div id="jsx3_box" class="jxgbox w-full h-[260px] mx-auto"></div>
+                    </div>
+
+                    <details class="group mt-4">
+                        <summary class="flex items-center justify-between px-4 py-2.5 bg-slate-50 hover:bg-slate-100 rounded-xl cursor-pointer select-none text-sm font-semibold text-slate-700 transition">
+                            <span class="flex items-center gap-2"><i class="fas fa-lightbulb text-amber-500"></i> Gợi ý &amp; Lời giải chi tiết</span>
+                            <i class="fas fa-chevron-down toggle-icon text-slate-400 transition-transform"></i>
+                        </summary>
+                        <div class="solution-body p-4 mt-2 bg-amber-50/50 rounded-xl border border-amber-100 text-sm text-slate-700 space-y-2">
+                            <p><strong>Bước 1 (Chia 2 cả 2 vế):</strong> \(3x + 12 = 60 : 2 = 30\).</p>
+                            <p><strong>Bước 2 (Bớt 12 ở cả 2 vế):</strong> \(3x = 30 - 12 = 18\).</p>
+                            <p><strong>Bước 3 (Chia 3 tìm x):</strong> \(x = 18 : 3 = 6\).</p>
+                            <p>&rarr; Nghiệm là <strong>\(x = 6\)</strong>.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 22 -->
+                <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="px-3 py-1 bg-amber-50 text-amber-700 text-xs font-bold rounded-md border border-amber-200">Bài 22 &bull; Chứng minh biểu thức không phụ thuộc vào biến</span>
+                    </div>
+                    <p class="text-slate-800 font-medium mb-3">
+                        Chứng tỏ rằng giá trị của biểu thức sau không phụ thuộc vào giá trị của biến số \(a\):<br>
+                        \(P = 4 \cdot (a + 5) - (2 \cdot a + 20) - 2 \cdot a + 15\)
+                    </p>
+                    <details class="group mt-4">
+                        <summary class="flex items-center justify-between px-4 py-2.5 bg-slate-50 hover:bg-slate-100 rounded-xl cursor-pointer select-none text-sm font-semibold text-slate-700 transition">
+                            <span class="flex items-center gap-2"><i class="fas fa-lightbulb text-amber-500"></i> Gợi ý &amp; Lời giải chi tiết</span>
+                            <i class="fas fa-chevron-down toggle-icon text-slate-400 transition-transform"></i>
+                        </summary>
+                        <div class="solution-body p-4 mt-2 bg-amber-50/50 rounded-xl border border-amber-100 text-sm text-slate-700 space-y-2">
+                            <p>Áp dụng tính chất phân phối và quy tắc dấu ngoặc:</p>
+                            <p>\(P = (4a + 20) - (2a + 20) - 2a + 15\)</p>
+                            <p>\(P = 4a + 20 - 2a - 20 - 2a + 15\)</p>
+                            <p>\(P = (4a - 2a - 2a) + (20 - 20) + 15 = 0 + 0 + 15 = 15\).</p>
+                            <p>&rarr; Giá trị của \(P\) luôn bằng \(15\) với mọi \(a\), tức không phụ thuộc vào giá trị của \(a\).</p>
+                        </div>
+                    </details>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ========================================================================= -->
+        <!-- PHẦN 3: MỨC ĐỘ VẬN DỤNG -->
+        <!-- ========================================================================= -->
+        <section id="phan-3" class="mb-12 scroll-mt-20">
+            <div class="flex items-center justify-between border-b-2 border-emerald-500 pb-3 mb-6">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-emerald-600 text-white flex items-center justify-center font-bold text-lg shadow-md shadow-emerald-200">
+                        3
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-slate-900 uppercase">Phần 3: Mức Độ Vận Dụng Thực Tế (8 Bài)</h3>
+                        <p class="text-xs sm:text-sm text-slate-500">Mục tiêu: Tự thiết lập biểu thức toán học và tính toán theo thứ tự ưu tiên trong đời sống: hóa đơn mua sắm, điện lực, vận chuyển dã ngoại, tài chính tiết kiệm.</p>
+                    </div>
+                </div>
+                <span class="px-3 py-1 bg-emerald-100 text-emerald-800 text-xs font-bold rounded-lg hidden sm:inline-block">8 Bài Toán</span>
+            </div>
+
+            <div class="grid grid-cols-1 gap-6">
+
+                <!-- Bài 23 -->
+                <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="px-3 py-1 bg-emerald-50 text-emerald-700 text-xs font-bold rounded-md border border-emerald-200">Bài 23 &bull; Mua sắm dụng cụ học tập</span>
+                    </div>
+                    <p class="text-slate-800 font-medium mb-3">
+                        Bạn Hà mua \(5\) quyển vở với giá \(8\,000\) đồng/quyển và \(4\) chiếc bút bi giá \(5\,000\) đồng/chiếc. Hà đưa cho cô bán hàng tờ tiền mệnh giá \(100\,000\) đồng.<br>
+                        a) Hãy lập một biểu thức toán học biểu thị số tiền thừa mà Hà nhận lại được.<br>
+                        b) Tính số tiền thừa đó bằng cách thực hiện phép tính theo đúng quy tắc thứ tự.
+                    </p>
+                    <details class="group mt-4">
+                        <summary class="flex items-center justify-between px-4 py-2.5 bg-slate-50 hover:bg-slate-100 rounded-xl cursor-pointer select-none text-sm font-semibold text-slate-700 transition">
+                            <span class="flex items-center gap-2"><i class="fas fa-lightbulb text-amber-500"></i> Gợi ý &amp; Lời giải chi tiết</span>
+                            <i class="fas fa-chevron-down toggle-icon text-slate-400 transition-transform"></i>
+                        </summary>
+                        <div class="solution-body p-4 mt-2 bg-emerald-50/50 rounded-xl border border-emerald-100 text-sm text-slate-700 space-y-2">
+                            <p><strong>a) Biểu thức:</strong> \(T = 100\,000 - (5 \cdot 8\,000 + 4 \cdot 5\,000)\).</p>
+                            <p><strong>b) Tính toán:</strong></p>
+                            <p>\(T = 100\,000 - (40\,000 + 20\,000) = 100\,000 - 60\,000 = 40\,000\) (đồng).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 24 -->
+                <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="px-3 py-1 bg-emerald-50 text-emerald-700 text-xs font-bold rounded-md border border-emerald-200">Bài 24 &bull; Tính hóa đơn tiền điện sinh hoạt bậc thang</span>
+                    </div>
+                    <p class="text-slate-800 font-medium mb-3">
+                        Một hộ gia đình sử dụng điện sinh hoạt trong tháng với đơn giá lũy tiến quy định như sau: \(50\text{ kWh}\) đầu tiên có giá \(1\,678\) đồng/kWh; các kWh tiếp theo (từ kWh thứ 51 đến 100) có giá \(1\,734\) đồng/kWh. Trong tháng, gia đình sử dụng hết tổng cộng \(95\text{ kWh}\).<br>
+                        a) Hãy lập một biểu thức tính tổng số tiền điện gia đình đó phải trả (chưa tính thuế).<br>
+                        b) Tính giá trị biểu thức đó để ra số tiền thực tế.
+                    </p>
+                    <details class="group mt-4">
+                        <summary class="flex items-center justify-between px-4 py-2.5 bg-slate-50 hover:bg-slate-100 rounded-xl cursor-pointer select-none text-sm font-semibold text-slate-700 transition">
+                            <span class="flex items-center gap-2"><i class="fas fa-lightbulb text-amber-500"></i> Gợi ý &amp; Lời giải chi tiết</span>
+                            <i class="fas fa-chevron-down toggle-icon text-slate-400 transition-transform"></i>
+                        </summary>
+                        <div class="solution-body p-4 mt-2 bg-emerald-50/50 rounded-xl border border-emerald-100 text-sm text-slate-700 space-y-2">
+                            <p>Số kWh ở bậc hai là: \(95 - 50 = 45\text{ kWh}\).</p>
+                            <p><strong>a) Biểu thức:</strong> \(E = 50 \cdot 1\,678 + (95 - 50) \cdot 1\,734\).</p>
+                            <p><strong>b) Tính toán:</strong></p>
+                            <p>\(E = 83\,900 + 45 \cdot 1\,734 = 83\,900 + 78\,030 = 161\,930\) (đồng).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 25 -->
+                <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="px-3 py-1 bg-emerald-50 text-emerald-700 text-xs font-bold rounded-md border border-emerald-200">Bài 25 &bull; Sắp xếp phương tiện dã ngoại</span>
+                    </div>
+                    <p class="text-slate-800 font-medium mb-3">
+                        Trường THCS tổ chức cho \(335\) học sinh khối 6 và \(15\) giáo viên đi trải nghiệm thực tế bằng xe ô tô. Nhà trường thuê \(5\) chiếc xe lớn loại \(45\) chỗ ngồi, số người còn lại sẽ được xếp đều vào các xe nhỏ loại \(29\) chỗ ngồi.<br>
+                        a) Viết biểu thức biểu thị số lượng xe loại \(29\) chỗ cần thuê tối thiểu để chở vừa đủ số người còn lại.<br>
+                        b) Thực hiện tính toán giá trị biểu thức trên để tìm ra số xe nhỏ cần thuê.
+                    </p>
+                    <details class="group mt-4">
+                        <summary class="flex items-center justify-between px-4 py-2.5 bg-slate-50 hover:bg-slate-100 rounded-xl cursor-pointer select-none text-sm font-semibold text-slate-700 transition">
+                            <span class="flex items-center gap-2"><i class="fas fa-lightbulb text-amber-500"></i> Gợi ý &amp; Lời giải chi tiết</span>
+                            <i class="fas fa-chevron-down toggle-icon text-slate-400 transition-transform"></i>
+                        </summary>
+                        <div class="solution-body p-4 mt-2 bg-emerald-50/50 rounded-xl border border-emerald-100 text-sm text-slate-700 space-y-2">
+                            <p>Tổng số người: \(335 + 15 = 350\) (người).</p>
+                            <p>Số người đi xe 45 chỗ: \(5 \cdot 45 = 225\) (người).</p>
+                            <p><strong>a) Biểu thức số xe nhỏ:</strong> \(X = [ (335 + 15) - 5 \cdot 45 ] : 29\).</p>
+                            <p><strong>b) Tính toán:</strong></p>
+                            <p>\(X = [350 - 225] : 29 = 125 : 29 = 4\) (dư \(9\)).</p>
+                            <p>&rarr; Cần thuê ít nhất: \(4 + 1 = 5\) (chiếc xe 29 chỗ).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 26 (JSXGraph 4) -->
+                <div class="bg-white rounded-2xl p-6 border-2 border-emerald-200 shadow-sm hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="px-3 py-1 bg-emerald-100 text-emerald-800 text-xs font-bold rounded-md flex items-center gap-1.5">
+                            <i class="fas fa-cash-register text-emerald-600"></i> Bài 26 &bull; JSXGraph 4: Giỏ hàng thanh toán thông minh
+                        </span>
+                        <span class="text-xs px-2.5 py-0.5 bg-indigo-100 text-indigo-800 font-bold rounded">Thực tế mua sắm</span>
+                    </div>
+                    <p class="text-slate-800 font-medium mb-3">
+                        Dựa vào mô hình trực quan mua sắm tại siêu thị gồm 3 hộp sữa tươi (mỗi hộp giá \(15\,000\) đồng) và 2 gói bánh quy (mỗi gói giá \(30\,000\) đồng), khách hàng áp dụng voucher giảm trực tiếp \(20\,000\) đồng. Em hãy lập biểu thức và tính tổng số tiền thực tế khách hàng cần thanh toán.
+                    </p>
+
+                    <!-- JSXGraph 4 Container -->
+                    <div class="my-4">
+                        <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+                            <span class="text-xs font-bold text-slate-600"><i class="fas fa-barcode text-emerald-500 mr-1"></i> Máy tính tiền POS siêu thị:</span>
+                            <button onclick="calcPOSInvoice()" class="px-3 py-1 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold rounded-lg shadow-xs transition">In hóa đơn thanh toán</button>
+                        </div>
+                        <div id="jsx4_box" class="jxgbox w-full h-[260px] mx-auto"></div>
+                    </div>
+
+                    <details class="group mt-4">
+                        <summary class="flex items-center justify-between px-4 py-2.5 bg-slate-50 hover:bg-slate-100 rounded-xl cursor-pointer select-none text-sm font-semibold text-slate-700 transition">
+                            <span class="flex items-center gap-2"><i class="fas fa-lightbulb text-amber-500"></i> Gợi ý &amp; Lời giải chi tiết</span>
+                            <i class="fas fa-chevron-down toggle-icon text-slate-400 transition-transform"></i>
+                        </summary>
+                        <div class="solution-body p-4 mt-2 bg-emerald-50/50 rounded-xl border border-emerald-100 text-sm text-slate-700 space-y-2">
+                            <p>&bull; <strong>Biểu thức:</strong> \(H = 3 \cdot 15\,000 + 2 \cdot 30\,000 - 20\,000\).</p>
+                            <p>&bull; <strong>Tính toán theo thứ tự:</strong></p>
+                            <p>\(H = 45\,000 + 60\,000 - 20\,000 = 105\,000 - 20\,000 = 85\,000\) (đồng).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 27 -->
+                <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="px-3 py-1 bg-emerald-50 text-emerald-700 text-xs font-bold rounded-md border border-emerald-200">Bài 27 &bull; Đóng gói và xuất khẩu nông sản</span>
+                    </div>
+                    <p class="text-slate-800 font-medium mb-3">
+                        Một trang trại thu hoạch được \(450\text{ kg}\) táo. Giữ lại \(50\text{ kg}\) táo trầy xước làm nước ép, số táo chất lượng cao còn lại được đóng vào các thùng, mỗi thùng \(16\text{ kg}\). Sau đó bán mỗi thùng với giá \(250\,000\) đồng/thùng.<br>
+                        a) Thiết lập biểu thức tính số tiền thu về từ việc bán các thùng táo.<br>
+                        b) Tính giá trị biểu thức vừa lập.
+                    </p>
+                    <details class="group mt-4">
+                        <summary class="flex items-center justify-between px-4 py-2.5 bg-slate-50 hover:bg-slate-100 rounded-xl cursor-pointer select-none text-sm font-semibold text-slate-700 transition">
+                            <span class="flex items-center gap-2"><i class="fas fa-lightbulb text-amber-500"></i> Gợi ý &amp; Lời giải chi tiết</span>
+                            <i class="fas fa-chevron-down toggle-icon text-slate-400 transition-transform"></i>
+                        </summary>
+                        <div class="solution-body p-4 mt-2 bg-emerald-50/50 rounded-xl border border-emerald-100 text-sm text-slate-700 space-y-2">
+                            <p><strong>a) Biểu thức:</strong> \(V = [ (450 - 50) : 16 ] \cdot 250\,000\).</p>
+                            <p><strong>b) Tính toán:</strong></p>
+                            <p>\(V = [400 : 16] \cdot 250\,000 = 25 \cdot 250\,000 = 6\,250\,000\) (đồng).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 28 -->
+                <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="px-3 py-1 bg-emerald-50 text-emerald-700 text-xs font-bold rounded-md border border-emerald-200">Bài 28 &bull; Xếp sách vào thư viện trường</span>
+                    </div>
+                    <p class="text-slate-800 font-medium mb-3">
+                        Thư viện nhận về \(5\) thùng sách, mỗi thùng chứa \(4\) gói sách và mỗi gói có \(12\) cuốn sách kỹ năng sống. Thư viện còn nhận thêm \(80\) cuốn truyện tranh. Tất cả chia đều vào \(8\) ngăn của tủ lớn.<br>
+                        a) Lập biểu thức biểu thị số lượng sách xếp vào mỗi ngăn tủ.<br>
+                        b) Thực hiện tính toán để tìm ra số sách mỗi ngăn.
+                    </p>
+                    <details class="group mt-4">
+                        <summary class="flex items-center justify-between px-4 py-2.5 bg-slate-50 hover:bg-slate-100 rounded-xl cursor-pointer select-none text-sm font-semibold text-slate-700 transition">
+                            <span class="flex items-center gap-2"><i class="fas fa-lightbulb text-amber-500"></i> Gợi ý &amp; Lời giải chi tiết</span>
+                            <i class="fas fa-chevron-down toggle-icon text-slate-400 transition-transform"></i>
+                        </summary>
+                        <div class="solution-body p-4 mt-2 bg-emerald-50/50 rounded-xl border border-emerald-100 text-sm text-slate-700 space-y-2">
+                            <p><strong>a) Biểu thức:</strong> \(S = (5 \cdot 4 \cdot 12 + 80) : 8\).</p>
+                            <p><strong>b) Tính toán:</strong></p>
+                            <p>\(S = (240 + 80) : 8 = 320 : 8 = 40\) (cuốn sách/ngăn).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 29 -->
+                <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="px-3 py-1 bg-emerald-50 text-emerald-700 text-xs font-bold rounded-md border border-emerald-200">Bài 29 &bull; Phân chia tiền thưởng dự án STEM</span>
+                    </div>
+                    <p class="text-slate-800 font-medium mb-3">
+                        Một nhóm 4 bạn đạt giải thưởng tái chế trị giá \(2\,000\,000\) đồng. Nhóm trích \(400\,000\) đồng liên hoan và \(200\,000\) đồng tặng quà thầy hướng dẫn, số tiền còn lại chia đều cho 4 bạn.<br>
+                        a) Lập biểu thức tính số tiền mỗi bạn nhận được.<br>
+                        b) Tính giá trị biểu thức đó.
+                    </p>
+                    <details class="group mt-4">
+                        <summary class="flex items-center justify-between px-4 py-2.5 bg-slate-50 hover:bg-slate-100 rounded-xl cursor-pointer select-none text-sm font-semibold text-slate-700 transition">
+                            <span class="flex items-center gap-2"><i class="fas fa-lightbulb text-amber-500"></i> Gợi ý &amp; Lời giải chi tiết</span>
+                            <i class="fas fa-chevron-down toggle-icon text-slate-400 transition-transform"></i>
+                        </summary>
+                        <div class="solution-body p-4 mt-2 bg-emerald-50/50 rounded-xl border border-emerald-100 text-sm text-slate-700 space-y-2">
+                            <p><strong>a) Biểu thức:</strong> \(M = [2\,000\,000 - (400\,000 + 200\,000)] : 4\).</p>
+                            <p><strong>b) Tính toán:</strong></p>
+                            <p>\(M = [2\,000\,000 - 600\,000] : 4 = 1\,400\,000 : 4 = 350\,000\) (đồng/bạn).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 30 -->
+                <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="px-3 py-1 bg-emerald-50 text-emerald-700 text-xs font-bold rounded-md border border-emerald-200">Bài 30 &bull; Kế hoạch tiết kiệm tài chính cá nhân</span>
+                    </div>
+                    <p class="text-slate-800 font-medium mb-3">
+                        Mỗi tuần bạn Nam được cho \(150\,000\) đồng tiêu vặt. Nam ăn sáng hết \(15\,000\) đồng/ngày (từ thứ Hai đến thứ Sáu), mua thêm 1 cuốn vở \(12\,000\) đồng vào giữa tuần. Số tiền còn lại bỏ heo đất.<br>
+                        a) Viết biểu thức tính tổng số tiền Nam tiết kiệm được sau \(4\) tuần.<br>
+                        b) Tính giá trị của biểu thức đó.
+                    </p>
+                    <details class="group mt-4">
+                        <summary class="flex items-center justify-between px-4 py-2.5 bg-slate-50 hover:bg-slate-100 rounded-xl cursor-pointer select-none text-sm font-semibold text-slate-700 transition">
+                            <span class="flex items-center gap-2"><i class="fas fa-lightbulb text-amber-500"></i> Gợi ý &amp; Lời giải chi tiết</span>
+                            <i class="fas fa-chevron-down toggle-icon text-slate-400 transition-transform"></i>
+                        </summary>
+                        <div class="solution-body p-4 mt-2 bg-emerald-50/50 rounded-xl border border-emerald-100 text-sm text-slate-700 space-y-2">
+                            <p>Số tiền Nam chi trong 1 tuần: \(5 \cdot 15\,000 + 12\,000 = 75\,000 + 12\,000 = 87\,000\) (đồng).</p>
+                            <p>Số tiền Nam tiết kiệm 1 tuần: \(150\,000 - 87\,000 = 63\,000\) (đồng).</p>
+                            <p><strong>a) Biểu thức 4 tuần:</strong> \(K = 4 \cdot [ 150\,000 - (5 \cdot 15\,000 + 12\,000) ]\).</p>
+                            <p><strong>b) Tính toán:</strong></p>
+                            <p>\(K = 4 \cdot [ 150\,000 - 87\,000 ] = 4 \cdot 63\,000 = 252\,000\) (đồng).</p>
+                        </div>
+                    </details>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ========================================================================= -->
+        <!-- PHẦN TRẮC NGHIỆM ĐÁNH GIÁ NĂNG LỰC TẠI LỚP (5 CÂU) -->
+        <!-- ========================================================================= -->
+        <section id="trac-nghiem" class="mb-16 scroll-mt-20">
+            <div class="bg-white rounded-3xl p-6 sm:p-8 border-2 border-purple-300 shadow-xl">
+                
+                <div class="flex flex-wrap items-center justify-between gap-4 border-b border-purple-100 pb-4 mb-6">
+                    <div class="flex items-center gap-3">
+                        <div class="w-12 h-12 rounded-2xl bg-purple-600 text-white flex items-center justify-center font-bold text-xl shadow-md shadow-purple-200">
+                            <i class="fas fa-check-double"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl sm:text-2xl font-extrabold text-slate-900">BÀI TẬP ĐÁNH GIÁ NĂNG LỰC TẠI LỚP</h3>
+                            <p class="text-xs sm:text-sm text-slate-500">Khảo sát trực tuyến 5 câu &bull; Tự động chấm điểm &amp; Gửi kết quả về máy chủ</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-3 bg-purple-50 px-4 py-2 rounded-xl border border-purple-200">
+                        <i class="fas fa-stopwatch text-purple-600 text-lg"></i>
+                        <span id="timer-display" class="font-mono text-base font-bold text-purple-900">15:00</span>
+                    </div>
+                </div>
+
+                <!-- Student Info Form -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6 bg-slate-50 p-4 rounded-2xl border border-slate-200">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Họ và tên học sinh <span class="text-rose-500">*</span></label>
+                        <input type="text" id="student_name" placeholder="Ví dụ: Lê Bảo Ngọc" 
+                               class="w-full px-3.5 py-2 text-sm bg-white border border-slate-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Mã bài kiểm tra</label>
+                        <input type="text" id="exam_code" value="toan6-04" readonly 
+                               class="w-full px-3.5 py-2 text-sm bg-slate-100 border border-slate-300 rounded-xl text-slate-500 font-mono font-bold">
+                    </div>
+                </div>
+
+                <!-- 5 Quiz Questions -->
+                <div class="space-y-6" id="quiz-container">
+
+                    <!-- Câu 1 -->
+                    <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-xs" data-q="1">
+                        <p class="font-bold text-slate-900 mb-3 text-sm sm:text-base">
+                            <span class="inline-block px-2.5 py-1 bg-purple-100 text-purple-800 rounded-lg text-xs font-bold mr-1.5">Câu 1</span>
+                            Đối với biểu thức không có dấu ngoặc và có các phép tính cộng, trừ, nhân, chia, lũy thừa, thứ tự thực hiện đúng là:
+                        </p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-sm">
+                            <label class="flex items-center p-3 rounded-xl border border-slate-200 hover:bg-purple-50/50 cursor-pointer transition">
+                                <input type="radio" name="q1" value="A" class="w-4 h-4 text-purple-600 mr-3"> A. Nhân, chia &rarr; Lũy thừa &rarr; Cộng, trừ
+                            </label>
+                            <label class="flex items-center p-3 rounded-xl border border-slate-200 hover:bg-purple-50/50 cursor-pointer transition">
+                                <input type="radio" name="q1" value="B" class="w-4 h-4 text-purple-600 mr-3"> B. Lũy thừa &rarr; Nhân, chia &rarr; Cộng, trừ
+                            </label>
+                            <label class="flex items-center p-3 rounded-xl border border-slate-200 hover:bg-purple-50/50 cursor-pointer transition">
+                                <input type="radio" name="q1" value="C" class="w-4 h-4 text-purple-600 mr-3"> C. Cộng, trừ &rarr; Nhân, chia &rarr; Lũy thừa
+                            </label>
+                            <label class="flex items-center p-3 rounded-xl border border-slate-200 hover:bg-purple-50/50 cursor-pointer transition">
+                                <input type="radio" name="q1" value="D" class="w-4 h-4 text-purple-600 mr-3"> D. Từ trái sang phải bất kỳ
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Câu 2 -->
+                    <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-xs" data-q="2">
+                        <p class="font-bold text-slate-900 mb-3 text-sm sm:text-base">
+                            <span class="inline-block px-2.5 py-1 bg-purple-100 text-purple-800 rounded-lg text-xs font-bold mr-1.5">Câu 2</span>
+                            Giá trị của biểu thức \(A = 50 - 3 \cdot 2^3\) là:
+                        </p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-sm">
+                            <label class="flex items-center p-3 rounded-xl border border-slate-200 hover:bg-purple-50/50 cursor-pointer transition">
+                                <input type="radio" name="q2" value="A" class="w-4 h-4 text-purple-600 mr-3"> A. 376
+                            </label>
+                            <label class="flex items-center p-3 rounded-xl border border-slate-200 hover:bg-purple-50/50 cursor-pointer transition">
+                                <input type="radio" name="q2" value="B" class="w-4 h-4 text-purple-600 mr-3"> B. 26
+                            </label>
+                            <label class="flex items-center p-3 rounded-xl border border-slate-200 hover:bg-purple-50/50 cursor-pointer transition">
+                                <input type="radio" name="q2" value="C" class="w-4 h-4 text-purple-600 mr-3"> C. 352
+                            </label>
+                            <label class="flex items-center p-3 rounded-xl border border-slate-200 hover:bg-purple-50/50 cursor-pointer transition">
+                                <input type="radio" name="q2" value="D" class="w-4 h-4 text-purple-600 mr-3"> D. 16
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Câu 3 -->
+                    <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-xs" data-q="3">
+                        <p class="font-bold text-slate-900 mb-3 text-sm sm:text-base">
+                            <span class="inline-block px-2.5 py-1 bg-purple-100 text-purple-800 rounded-lg text-xs font-bold mr-1.5">Câu 3</span>
+                            Tìm số tự nhiên \(x\) thỏa mãn: \(2 \cdot (x - 3) = 16\).
+                        </p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-sm">
+                            <label class="flex items-center p-3 rounded-xl border border-slate-200 hover:bg-purple-50/50 cursor-pointer transition">
+                                <input type="radio" name="q3" value="A" class="w-4 h-4 text-purple-600 mr-3"> A. \(x = 11\)
+                            </label>
+                            <label class="flex items-center p-3 rounded-xl border border-slate-200 hover:bg-purple-50/50 cursor-pointer transition">
+                                <input type="radio" name="q3" value="B" class="w-4 h-4 text-purple-600 mr-3"> B. \(x = 8\)
+                            </label>
+                            <label class="flex items-center p-3 rounded-xl border border-slate-200 hover:bg-purple-50/50 cursor-pointer transition">
+                                <input type="radio" name="q3" value="C" class="w-4 h-4 text-purple-600 mr-3"> C. \(x = 5\)
+                            </label>
+                            <label class="flex items-center p-3 rounded-xl border border-slate-200 hover:bg-purple-50/50 cursor-pointer transition">
+                                <input type="radio" name="q3" value="D" class="w-4 h-4 text-purple-600 mr-3"> D. \(x = 14\)
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Câu 4 -->
+                    <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-xs" data-q="4">
+                        <p class="font-bold text-slate-900 mb-3 text-sm sm:text-base">
+                            <span class="inline-block px-2.5 py-1 bg-purple-100 text-purple-800 rounded-lg text-xs font-bold mr-1.5">Câu 4</span>
+                            Giá trị của biểu thức \(B = 100 : [15 + (10 - 5)]\) là:
+                        </p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-sm">
+                            <label class="flex items-center p-3 rounded-xl border border-slate-200 hover:bg-purple-50/50 cursor-pointer transition">
+                                <input type="radio" name="q4" value="A" class="w-4 h-4 text-purple-600 mr-3"> A. 20
+                            </label>
+                            <label class="flex items-center p-3 rounded-xl border border-slate-200 hover:bg-purple-50/50 cursor-pointer transition">
+                                <input type="radio" name="q4" value="B" class="w-4 h-4 text-purple-600 mr-3"> B. 10
+                            </label>
+                            <label class="flex items-center p-3 rounded-xl border border-slate-200 hover:bg-purple-50/50 cursor-pointer transition">
+                                <input type="radio" name="q4" value="C" class="w-4 h-4 text-purple-600 mr-3"> C. 5
+                            </label>
+                            <label class="flex items-center p-3 rounded-xl border border-slate-200 hover:bg-purple-50/50 cursor-pointer transition">
+                                <input type="radio" name="q4" value="D" class="w-4 h-4 text-purple-600 mr-3"> D. 2
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Câu 5 -->
+                    <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-xs" data-q="5">
+                        <p class="font-bold text-slate-900 mb-3 text-sm sm:text-base">
+                            <span class="inline-block px-2.5 py-1 bg-purple-100 text-purple-800 rounded-lg text-xs font-bold mr-1.5">Câu 5</span>
+                            Bạn Lan mua 3 cây bút giá \(6\,000\) đồng/cây và 2 quyển tập giá \(10\,000\) đồng/quyển. Lan đưa \(50\,000\) đồng. Số tiền thừa Lan nhận lại là:
+                        </p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-sm">
+                            <label class="flex items-center p-3 rounded-xl border border-slate-200 hover:bg-purple-50/50 cursor-pointer transition">
+                                <input type="radio" name="q5" value="A" class="w-4 h-4 text-purple-600 mr-3"> A. \(12\,000\) đồng
+                            </label>
+                            <label class="flex items-center p-3 rounded-xl border border-slate-200 hover:bg-purple-50/50 cursor-pointer transition">
+                                <input type="radio" name="q5" value="B" class="w-4 h-4 text-purple-600 mr-3"> B. \(18\,000\) đồng
+                            </label>
+                            <label class="flex items-center p-3 rounded-xl border border-slate-200 hover:bg-purple-50/50 cursor-pointer transition">
+                                <input type="radio" name="q5" value="C" class="w-4 h-4 text-purple-600 mr-3"> C. \(22\,000\) đồng
+                            </label>
+                            <label class="flex items-center p-3 rounded-xl border border-slate-200 hover:bg-purple-50/50 cursor-pointer transition">
+                                <input type="radio" name="q5" value="D" class="w-4 h-4 text-purple-600 mr-3"> D. \(32\,000\) đồng
+                            </label>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Submit & Result Actions -->
+                <div id="submit-btn-container" class="mt-8 text-center">
+                    <button onclick="submitQuiz()" id="btn-submit-quiz"
+                            class="px-8 py-3.5 bg-purple-700 hover:bg-purple-800 text-white font-bold text-base rounded-2xl shadow-lg hover:shadow-purple-300 transition flex items-center gap-2 mx-auto">
+                        <i class="fas fa-paper-plane"></i> Nộp Bài &amp; Gửi Điểm Hệ Thống
+                    </button>
+                </div>
+
+                <!-- Result Card -->
+                <div id="quiz-result-box" class="hidden mt-6 p-6 rounded-2xl bg-purple-50 border-2 border-purple-200 text-center">
+                    <h4 class="text-xl font-extrabold text-purple-900 mb-1">KẾT QUẢ ĐÁNH GIÁ CỦA BẠN</h4>
+                    <p id="result-score-text" class="text-3xl font-black text-purple-700 my-2">0/10 Điểm</p>
+                    <p id="result-detail-text" class="text-sm text-slate-600 mb-3"></p>
+                    <div id="api-status-badge" class="inline-flex items-center gap-1.5 text-xs font-semibold px-3.5 py-1.5 rounded-full bg-slate-200 text-slate-700">
+                        <i class="fas fa-spinner fa-spin"></i> Đang kết nối máy chủ Google Sheets...
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER COPYRIGHT -->
+    <footer class="bg-white border-t border-slate-200 py-8 text-center text-slate-600 text-xs sm:text-sm">
+        <div class="max-w-6xl mx-auto px-4 space-y-2">
+            <p class="font-bold text-slate-800 tracking-wide">
+                &copy; Bản quyền thuộc ThS. Đinh Quốc Tuấn - Mục đích phi lợi nhuận - Vì giáo dục.
+            </p>
+            <p class="text-slate-500">
+                Khoa Toán - Tin học &bull; Trường Đại học Khoa học Tự nhiên, ĐHQG-HCM
+            </p>
         </div>
-    </div>
+    </footer>
 
-</div>
+    <!-- IN TÀI LIỆU BUTTON -->
+    <button id="btn-print-doc" onclick="safePrint()" class="fixed bottom-5 right-5 bg-gray-900 text-white px-4 py-2 rounded-lg shadow-lg hover:bg-gray-700 print:hidden z-50">
+        <i class="fas fa-print mr-2"></i> In Tài Liệu
+    </button>
 
+    <!-- SCRIPT PRINT -->
+    <script>
+        function safePrint() {
+            const printBtn = document.getElementById('btn-print-doc');
+            printBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Đang chuẩn bị...';
+            
+            // Đảm bảo MathJax đã render xong mọi công thức trước khi gọi hộp thoại in
+            if (window.MathJax && window.MathJax.typesetPromise) {
+                MathJax.typesetPromise().then(() => {
+                    printBtn.innerHTML = '<i class="fas fa-print mr-2"></i> In Tài Liệu';
+                    window.print();
+                });
+            } else {
+                // Fallback nếu không có công thức toán
+                setTimeout(() => window.print(), 500); 
+            }
+        }
+    </script>
+
+    <!-- ========================================================================= -->
+    <!-- JSXGRAPH INTERACTIVE MODELS JAVASCRIPT -->
+    <!-- ========================================================================= -->
+    <script>
+        // -------------------------------------------------------------
+        // JSXGraph 1: Sơ đồ máy tính Flowchart Pipeline (Bài 4)
+        // -------------------------------------------------------------
+        var board1;
+        function initJSX1() {
+            runPipeline(3);
+        }
+        function runPipeline(xVal) {
+            if (board1) { JXG.JSXGraph.freeBoard(board1); }
+            board1 = JXG.JSXGraph.initBoard('jsx1_box', {
+                boundingbox: [-0.5, 4.5, 11.5, -0.5],
+                axis: false,
+                showNavigation: false,
+                showCopyright: false
+            });
+
+            let sq = xVal * xVal;
+            let mult = sq * 5;
+            let out = mult - 10;
+
+            // Pipeline blocks
+            drawBlock(board1, 0.5, 2, "Input x\n(" + xVal + ")", '#3b82f6');
+            drawBlock(board1, 3.2, 2, "Lũy thừa 2\n" + xVal + "² = " + sq, '#8b5cf6');
+            drawBlock(board1, 6.0, 2, "Nhân 5\n" + sq + " × 5 = " + mult, '#f59e0b');
+            drawBlock(board1, 8.8, 2, "Trừ 10\n" + mult + " - 10 = " + out, '#10b981');
+
+            // Arrows
+            board1.create('arrow', [[1.8, 2], [3.1, 2]], { strokeColor: '#64748b', strokeWidth: 3 });
+            board1.create('arrow', [[4.6, 2], [5.9, 2]], { strokeColor: '#64748b', strokeWidth: 3 });
+            board1.create('arrow', [[7.4, 2], [8.7, 2]], { strokeColor: '#64748b', strokeWidth: 3 });
+
+            // Title
+            board1.create('text', [5.5, 3.8, 'Biểu thức: f(' + xVal + ') = 5 × ' + xVal + '² - 10 = ' + out], {
+                anchorX: 'middle', fontSize: 13, fontStyle: 'bold', strokeColor: '#0f172a'
+            });
+        }
+        function drawBlock(b, x, y, label, color) {
+            b.create('polygon', [[x - 0.7, y + 0.65], [x + 0.7, y + 0.65], [x + 0.7, y - 0.65], [x - 0.7, y - 0.65]], {
+                fillColor: color, fillOpacity: 0.15, strokeColor: color, strokeWidth: 2, withLines: true
+            });
+            b.create('text', [x, y, label], {
+                anchorX: 'middle', anchorY: 'middle', fontSize: 11, fontStyle: 'bold', strokeColor: color
+            });
+        }
+
+        // -------------------------------------------------------------
+        // JSXGraph 2: Cây phân tích độ ưu tiên (Bài 14)
+        // -------------------------------------------------------------
+        var board2;
+        function initJSX2() {
+            setTreeStep(3);
+        }
+        function setTreeStep(step) {
+            if (board2) { JXG.JSXGraph.freeBoard(board2); }
+            board2 = JXG.JSXGraph.initBoard('jsx2_box', {
+                boundingbox: [-1, 5, 11, -1],
+                axis: false,
+                showNavigation: false,
+                showCopyright: false
+            });
+
+            board2.create('text', [5, 4.3, 'B = 80 - [30 - (6 - 1)² × 2] : 5'], {
+                anchorX: 'middle', fontSize: 14, fontStyle: 'bold', strokeColor: '#1e293b'
+            });
+
+            // Step 1: Parentheses
+            let c1 = (step >= 1) ? '#10b981' : '#94a3b8';
+            drawStepBox(board2, 2, 2.7, "① (6 - 1) = 5", c1);
+
+            // Step 2: Power
+            let c2 = (step >= 2) ? '#3b82f6' : '#94a3b8';
+            drawStepBox(board2, 5, 2.7, "② 5² = 25", c2);
+
+            // Step 3: Inner multiplication & subtraction
+            let c3 = (step >= 3) ? '#d97706' : '#94a3b8';
+            drawStepBox(board2, 8, 2.7, "③ 25 × 2 = 50", c3);
+
+            if (step >= 3) {
+                drawStepBox(board2, 3.5, 1.2, "④ [30 - 50] = -20", '#8b5cf6');
+                drawStepBox(board2, 7.5, 1.2, "⑤ -20 : 5 = -4 ➔ B = 84", '#059669');
+                board2.create('arrow', [[2, 2.2], [4.5, 2.7]], { strokeColor: '#94a3b8', strokeWidth: 1.5 });
+                board2.create('arrow', [[5, 2.2], [7.5, 2.7]], { strokeColor: '#94a3b8', strokeWidth: 1.5 });
+            }
+        }
+        function drawStepBox(b, x, y, text, color) {
+            b.create('polygon', [[x - 1.2, y + 0.4], [x + 1.2, y + 0.4], [x + 1.2, y - 0.4], [x - 1.2, y - 0.4]], {
+                fillColor: color, fillOpacity: 0.15, strokeColor: color, strokeWidth: 2, withLines: true
+            });
+            b.create('text', [x, y, text], { anchorX: 'middle', anchorY: 'middle', fontSize: 11, fontStyle: 'bold', strokeColor: color });
+        }
+
+        // -------------------------------------------------------------
+        // JSXGraph 3: Cân đĩa thăng bằng tìm ẩn x (Bài 21)
+        // -------------------------------------------------------------
+        var board3;
+        function initJSX3() {
+            setBalanceStep(0);
+        }
+        function setBalanceStep(st) {
+            if (board3) { JXG.JSXGraph.freeBoard(board3); }
+            board3 = JXG.JSXGraph.initBoard('jsx3_box', {
+                boundingbox: [-6, 6, 6, -2],
+                axis: false,
+                showNavigation: false,
+                showCopyright: false
+            });
+
+            // Base
+            board3.create('polygon', [[-1, -1.5], [1, -1.5], [0, 1.5]], {
+                fillColor: '#64748b', fillOpacity: 0.5, strokeColor: '#334155', strokeWidth: 2
+            });
+
+            // Beam
+            let L = [-4, 1.5], R = [4, 1.5];
+            board3.create('segment', [L, R], { strokeColor: '#0f172a', strokeWidth: 5 });
+
+            // Left Pan
+            board3.create('segment', [L, [L[0] - 1.2, 0]], { strokeColor: '#94a3b8', strokeWidth: 2 });
+            board3.create('segment', [L, [L[0] + 1.2, 0]], { strokeColor: '#94a3b8', strokeWidth: 2 });
+            board3.create('polygon', [[L[0] - 1.5, 0], [L[0] + 1.5, 0], [L[0] + 1.1, -0.3], [L[0] - 1.1, -0.3]], {
+                fillColor: '#3b82f6', fillOpacity: 0.25, strokeColor: '#1d4ed8', strokeWidth: 2
+            });
+
+            // Right Pan
+            board3.create('segment', [R, [R[0] - 1.2, 0]], { strokeColor: '#94a3b8', strokeWidth: 2 });
+            board3.create('segment', [R, [R[0] + 1.2, 0]], { strokeColor: '#94a3b8', strokeWidth: 2 });
+            board3.create('polygon', [[R[0] - 1.5, 0], [R[0] + 1.5, 0], [R[0] + 1.1, -0.3], [R[0] - 1.1, -0.3]], {
+                fillColor: '#10b981', fillOpacity: 0.25, strokeColor: '#047857', strokeWidth: 2
+            });
+
+            let leftLabel = "2 × (3x + 12)";
+            let rightLabel = "60";
+            let desc = "Phương trình ban đầu: 2 × (3x + 12) = 60";
+
+            if (st === 1) {
+                leftLabel = "3x + 12";
+                rightLabel = "30";
+                desc = "Bước 1: Chia 2 cả 2 vế ➔ 3x + 12 = 30";
+            } else if (st === 2) {
+                leftLabel = "3x";
+                rightLabel = "18";
+                desc = "Bước 2: Bớt 12 ở cả 2 vế ➔ 3x = 18";
+            } else if (st === 3) {
+                leftLabel = "x";
+                rightLabel = "6";
+                desc = "Bước 3: Chia 3 cả 2 vế ➔ x = 6 (Hoàn tất)";
+            }
+
+            board3.create('text', [L[0], 0.35, leftLabel], { anchorX: 'middle', fontSize: 12, fontStyle: 'bold', strokeColor: '#1e3a8a' });
+            board3.create('text', [R[0], 0.35, rightLabel], { anchorX: 'middle', fontSize: 12, fontStyle: 'bold', strokeColor: '#047857' });
+            board3.create('text', [0, 4.8, desc], { anchorX: 'middle', fontSize: 13, fontStyle: 'bold', strokeColor: '#059669' });
+        }
+
+        // -------------------------------------------------------------
+        // JSXGraph 4: Giỏ hàng thanh toán POS (Bài 26)
+        // -------------------------------------------------------------
+        var board4;
+        function initJSX4() {
+            board4 = JXG.JSXGraph.initBoard('jsx4_box', {
+                boundingbox: [-0.5, 5, 11.5, -0.5],
+                axis: false,
+                showNavigation: false,
+                showCopyright: false
+            });
+
+            // Draw items
+            drawCartItem(board4, 1.8, 3.2, "🥛 3 Hộp Sữa\n3 × 15 000đ\n= 45 000đ", '#3b82f6');
+            drawCartItem(board4, 5.5, 3.2, "🍪 2 Bánh Quy\n2 × 30 000đ\n= 60 000đ", '#f59e0b');
+            drawCartItem(board4, 9.2, 3.2, "🏷️ Voucher\nGiảm trực tiếp\n- 20 000đ", '#ec4899');
+
+            board4.create('text', [5.5, 1.2, 'Tổng thanh toán: 3 × 15 000 + 2 × 30 000 - 20 000 = 85 000 đồng'], {
+                anchorX: 'middle', fontSize: 13, fontStyle: 'bold', strokeColor: '#047857'
+            });
+        }
+        function drawCartItem(b, x, y, text, color) {
+            b.create('polygon', [[x - 1.4, y + 0.8], [x + 1.4, y + 0.8], [x + 1.4, y - 0.8], [x - 1.4, y - 0.8]], {
+                fillColor: color, fillOpacity: 0.12, strokeColor: color, strokeWidth: 2, withLines: true
+            });
+            b.create('text', [x, y, text], { anchorX: 'middle', anchorY: 'middle', fontSize: 11, fontStyle: 'bold', strokeColor: color });
+        }
+        function calcPOSInvoice() {
+            alert("HÓA ĐƠN SIÊU THỊ:\n-------------------------\n3 Sữa tươi: 45 000đ\n2 Bánh quy: 60 000đ\nKhuyến mãi: -20 000đ\n-------------------------\nTỔNG CỘNG: 85 000 VNĐ\nThanh toán thành công!");
+        }
+
+        // Initialize all boards on page load
+        window.addEventListener('DOMContentLoaded', () => {
+            initJSX1();
+            initJSX2();
+            initJSX3();
+            initJSX4();
+        });
+    </script>
+
+    <!-- ========================================================================= -->
+    <!-- QUIZ ONLINE & APPS SCRIPT SUBMISSION SCRIPT -->
+    <!-- ========================================================================= -->
+    <script>
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzY7b7h4OwvhXuK5Vs6hl-aD88BPnAiAKbU5lfJobby0D4nzbIJVKT4n0AKCpAGoK0nZA/exec";
+        const correctAnswers = { q1: "B", q2: "B", q3: "A", q4: "C", q5: "A" };
+        let timeLeft = 900; // 15 phút
+
+        const timerInterval = setInterval(() => {
+            if (timeLeft <= 0) {
+                clearInterval(timerInterval);
+                document.getElementById("timer-display").innerText = "00:00 - Hết giờ";
+                submitQuiz();
+            } else {
+                let m = Math.floor(timeLeft / 60);
+                let s = timeLeft % 60;
+                document.getElementById("timer-display").innerText = 
+                    (m < 10 ? "0" + m : m) + ":" + (s < 10 ? "0" + s : s);
+                timeLeft--;
+            }
+        }, 1000);
+
+        function submitQuiz() {
+            const studentName = document.getElementById("student_name").value.trim();
+            if (!studentName) {
+                alert("Vui lòng nhập đầy đủ Họ và tên học sinh trước khi nộp bài!");
+                document.getElementById("student_name").focus();
+                return;
+            }
+
+            const examCode = document.getElementById("exam_code").value.trim();
+            const submitBtn = document.getElementById("btn-submit-quiz");
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Đang chấm & gửi điểm...';
+
+            let score = 0;
+            let wrongDetails = [];
+
+            for (let i = 1; i <= 5; i++) {
+                let qName = "q" + i;
+                let selected = document.querySelector(`input[name="${qName}"]:checked`);
+                let userVal = selected ? selected.value : "Chưa chọn";
+                let correctVal = correctAnswers[qName];
+
+                if (userVal === correctVal) {
+                    score += 2;
+                } else {
+                    wrongDetails.push(`Câu ${i} (Chọn ${userVal}, Đúng ${correctVal})`);
+                }
+            }
+
+            let spentSeconds = 900 - timeLeft;
+            let spentM = Math.floor(spentSeconds / 60);
+            let spentS = spentSeconds % 60;
+            let timeStr = `${spentM}p ${spentS}s`;
+
+            let wrongStr = wrongDetails.length > 0 ? wrongDetails.join("; ") : "Không có (Đạt 10/10)";
+
+            // Show result card
+            document.getElementById("quiz-result-box").classList.remove("hidden");
+            document.getElementById("result-score-text").innerText = `${score} / 10 Điểm`;
+            document.getElementById("result-detail-text").innerText = `Học sinh: ${studentName} | Thời gian: ${timeStr} | Số câu đúng: ${score / 2} / 5 câu`;
+
+            // Prepare Payload for Apps Script
+            const payload = {
+                hoTen: studentName,
+                maDe: examCode,
+                diem: `${score}/10`,
+                thoiGian: timeStr,
+                cauSai: wrongStr
+            };
+
+            const statusBadge = document.getElementById("api-status-badge");
+
+            // Post to Google Apps Script
+            fetch(SCRIPT_URL, {
+                method: "POST",
+                mode: "no-cors",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payload)
+            })
+            .then(() => {
+                statusBadge.className = "inline-flex items-center gap-1.5 text-xs font-semibold px-3.5 py-1.5 rounded-full bg-emerald-100 text-emerald-800";
+                statusBadge.innerHTML = '<i class="fas fa-check-circle"></i> Đã gửi điểm thành công về Google Sheets giáo viên!';
+                submitBtn.innerHTML = '<i class="fas fa-check-double mr-2"></i> Đã Hoàn Thành Khảo Sát';
+            })
+            .catch(err => {
+                statusBadge.className = "inline-flex items-center gap-1.5 text-xs font-semibold px-3.5 py-1.5 rounded-full bg-amber-100 text-amber-800";
+                statusBadge.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Điểm ghi nhận cục bộ (Lỗi mạng: ' + err.message + ')';
+            });
+        }
+    </script>
 </body>
 </html>
