@@ -1,0 +1,1465 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Toán Lớp 6 - Buổi 19: Thu Thập, Tổ Chức & Phân Tích Dữ Liệu - Biểu Đồ Cột Kép</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        display: ['"Space Grotesk"', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            500: '#10b981',
+                            600: '#059669',
+                            700: '#047857',
+                            900: '#064e3b',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- FontAwesome 6 Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- MathJax 3 with LaTeX Configuration -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['\\(', '\\)'], ['$', '$']],
+                displayMath: [['\\[', '\\]'], ['$$', '$$']],
+                processEscapes: true
+            },
+            options: {
+                ignoreHtmlClass: 'tex2jax_ignore',
+                processHtmlClass: 'tex2jax_process'
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <!-- JSXGraph CSS & JS -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraph.css" />
+    <script type="text/javascript" charset="UTF-8" src="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraphcore.js"></script>
+
+    <style>
+        body {
+            background-color: #f8fafc;
+            color: #1e293b;
+            scroll-behavior: smooth;
+        }
+        .jxgbox {
+            border-radius: 1rem;
+            border: 2px solid #e2e8f0;
+            background-color: #ffffff;
+            box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.04);
+        }
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+        @media print {
+            .no-print, #btn-print-doc, .quiz-interactive-panel {
+                display: none !important;
+            }
+            body {
+                background: white !important;
+                color: black !important;
+            }
+            details {
+                display: block !important;
+            }
+            details[open] summary ~ * {
+                display: block !important;
+            }
+            .page-break {
+                page-break-before: always;
+            }
+        }
+    </style>
+</head>
+<body class="font-sans antialiased text-slate-800 bg-slate-50">
+
+    <!-- ================= HEADER SECTION VỚI 2 LOGO ================= -->
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-40 shadow-sm">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 py-3 flex flex-col sm:flex-row items-center justify-between gap-4">
+            
+            <!-- Hai Logo Đối Tác -->
+            <div class="flex items-center space-x-4">
+                <img src="https://firebasestorage.googleapis.com/v0/b/link-anh-web.firebasestorage.app/o/ttbdvh.jpg?alt=media&token=f270aa9b-a2bc-48e8-8910-80742b542615" 
+                     alt="Logo TT Bồi Dưỡng Văn Hóa" 
+                     class="h-12 w-auto object-contain rounded-md border border-slate-100 shadow-sm">
+                <div class="h-8 w-px bg-slate-200"></div>
+                <img src="https://firebasestorage.googleapis.com/v0/b/link-anh-web.firebasestorage.app/o/Logo-chinh-hcmus.png?alt=media&token=9cf3a1de-75f1-493b-8711-fd22c7b98738" 
+                     alt="Logo ĐH KHTN HCMUS" 
+                     class="h-12 w-auto object-contain">
+            </div>
+
+            <!-- Tiêu Đề & Thông Tin Tác Giả -->
+            <div class="text-center sm:text-right">
+                <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200 mb-1">
+                    <i class="fas fa-chart-column"></i> TOÁN HỌC & KHTN LỚP 6 • MỘT SỐ YẾU TỐ THỐNG KÊ
+                </div>
+                <p class="text-xs text-slate-500 font-medium">
+                    Giảng viên: <span class="text-slate-800 font-bold">ThS. Đinh Quốc Tuấn</span> (HCMUS)
+                </p>
+            </div>
+        </div>
+    </header>
+
+    <!-- ================= HERO BANNER ================= -->
+    <section class="bg-gradient-to-br from-slate-900 via-teal-950 to-slate-900 text-white py-12 px-4 shadow-md">
+        <div class="max-w-6xl mx-auto text-center">
+            <span class="px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 inline-block mb-3">
+                Buổi 19 • Hệ Thống 30 Bài Tập Thống Kê Chuẩn Hóa
+            </span>
+            <h1 class="text-2xl sm:text-4xl md:text-5xl font-extrabold font-display tracking-tight text-white mb-4">
+                THU THẬP, TỔ CHỨC & PHÂN TÍCH DỮ LIỆU • BIỂU ĐỒ CỘT KÉP
+            </h1>
+            <p class="text-slate-300 max-w-3xl mx-auto text-xs sm:text-base leading-relaxed mb-6">
+                Nhận biết số liệu và dữ liệu không là số; phát hiện tính bất thường và mâu thuẫn trong dữ liệu; làm chủ kỹ năng đọc, vẽ, so sánh và ra quyết định thông minh trên biểu đồ tranh, biểu đồ cột đơn và biểu đồ cột kép qua mô hình tương tác <span class="text-emerald-300 font-semibold">JSXGraph</span>.
+            </p>
+
+            <div class="flex flex-wrap justify-center gap-3 text-xs sm:text-sm font-semibold">
+                <span class="bg-sky-500/15 text-sky-300 border border-sky-400/30 px-3.5 py-1.5 rounded-xl flex items-center gap-2">
+                    <i class="fas fa-seedling text-sky-400"></i> Phần 1: Cơ bản (12 Bài)
+                </span>
+                <span class="bg-indigo-500/15 text-indigo-300 border border-indigo-400/30 px-3.5 py-1.5 rounded-xl flex items-center gap-2">
+                    <i class="fas fa-gem text-indigo-400"></i> Phần 2: Nâng cao (10 Bài)
+                </span>
+                <span class="bg-emerald-500/15 text-emerald-300 border border-emerald-400/30 px-3.5 py-1.5 rounded-xl flex items-center gap-2">
+                    <i class="fas fa-cubes text-emerald-400"></i> Phần 3: Vận dụng (8 Bài)
+                </span>
+                <span class="bg-amber-500/15 text-amber-300 border border-amber-400/30 px-3.5 py-1.5 rounded-xl flex items-center gap-2">
+                    <i class="fas fa-clipboard-check text-amber-400"></i> Đánh giá năng lực (5 Câu)
+                </span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= MAIN CONTENT ================= -->
+    <main class="max-w-6xl mx-auto px-4 sm:px-6 py-10 space-y-12">
+
+        <!-- =================================================================== -->
+        <!-- PHẦN 1: MỨC ĐỘ CƠ BẢN (12 BÀI)                                      -->
+        <!-- =================================================================== -->
+        <section id="section-part1" class="space-y-6">
+            <div class="border-l-4 border-sky-500 pl-4 py-1">
+                <span class="text-xs font-bold text-sky-600 uppercase tracking-widest block">Cấp độ 1: Phân loại dữ liệu, tính hợp lý & Đọc biểu đồ cơ bản</span>
+                <h2 class="text-2xl font-bold text-slate-800 flex items-center gap-2">
+                    <i class="fas fa-layer-group text-sky-500"></i> PHẦN 1: MỨC ĐỘ CƠ BẢN (12 BÀI)
+                </h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+                <!-- Bài 1 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="px-2.5 py-1 rounded-lg text-xs font-bold bg-sky-100 text-sky-800">Bài 1</span>
+                        <span class="text-xs text-slate-400 font-medium">Phân loại dữ liệu</span>
+                    </div>
+                    <p class="text-sm font-medium text-slate-800 mb-3">
+                        Bạn Lan thực hiện khảo sát các bạn trong tổ về môn thể thao yêu thích nhất và ghi lại được kết quả: <em>Bóng đá, Cầu lông, Bóng rổ, Bóng đá, Bơi lội, Cầu lông, Bóng đá</em>.<br>
+                        a) Dữ liệu thu thập được thuộc loại nào (số liệu hay không phải là số liệu)?<br>
+                        b) Lập bảng thống kê số lượng bạn lựa chọn mỗi môn.
+                    </p>
+                    <details class="group">
+                        <summary class="cursor-pointer text-xs font-semibold text-sky-600 hover:text-sky-700 flex items-center gap-1.5 select-none">
+                            <i class="fas fa-chevron-right text-xs transition-transform group-open:rotate-90"></i>
+                            <span>Xem gợi ý lời giải</span>
+                        </summary>
+                        <div class="mt-3 p-3 bg-sky-50/70 border border-sky-100 rounded-xl text-xs leading-relaxed text-slate-700 space-y-1">
+                            <p><strong>a)</strong> Dữ liệu thu thập được là <strong>dữ liệu không phải là số liệu (dữ liệu định tính)</strong> vì đây là tên các môn thể thao.</p>
+                            <p><strong>b) Bảng thống kê:</strong></p>
+                            <p>• Bóng đá: 3 bạn | • Cầu lông: 2 bạn | • Bóng rổ: 1 bạn | • Bơi lội: 1 bạn. (Tổng cộng: 7 bạn).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 2 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="px-2.5 py-1 rounded-lg text-xs font-bold bg-sky-100 text-sky-800">Bài 2</span>
+                        <span class="text-xs text-slate-400 font-medium">Tính hợp lý của dữ liệu</span>
+                    </div>
+                    <p class="text-sm font-medium text-slate-800 mb-3">
+                        Khảo sát nhiệt độ trong một tuần tại Hà Nội ghi lại dãy dữ liệu: \(28^\circ\text{C}, 29^\circ\text{C}, 31^\circ\text{C}, \text{"Rất nóng"}, 30^\circ\text{C}, 32^\circ\text{C}, 27^\circ\text{C}\).<br>
+                        a) Chỉ ra điểm không hợp lý trong dãy dữ liệu.<br>
+                        b) Giải thích và đề xuất cách sửa lại cho đúng.
+                    </p>
+                    <details class="group">
+                        <summary class="cursor-pointer text-xs font-semibold text-sky-600 hover:text-sky-700 flex items-center gap-1.5 select-none">
+                            <i class="fas fa-chevron-right text-xs transition-transform group-open:rotate-90"></i>
+                            <span>Xem gợi ý lời giải</span>
+                        </summary>
+                        <div class="mt-3 p-3 bg-sky-50/70 border border-sky-100 rounded-xl text-xs leading-relaxed text-slate-700 space-y-1">
+                            <p><strong>a)</strong> Điểm không hợp lý là phần tử <strong>"Rất nóng"</strong>.</p>
+                            <p><strong>b)</strong> Vì nhiệt độ đang được đo lường bằng đại lượng số liệu có đơn vị $^\circ\text{C}$, còn "Rất nóng" là từ ngữ định tính mô tả cảm giác. Cần thay bằng một giá trị nhiệt độ cụ thể (ví dụ: $33^\circ\text{C}$).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 3: JSXGraph 1 Phân loại dữ liệu thông minh -->
+                <div class="bg-white p-5 rounded-2xl border-2 border-sky-300 shadow-sm md:col-span-2">
+                    <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+                        <div class="flex items-center gap-2">
+                            <span class="px-2.5 py-1 rounded-lg text-xs font-bold bg-sky-500 text-white">Bài 3</span>
+                            <span class="px-2.5 py-1 rounded-lg text-xs font-semibold bg-sky-100 text-sky-800">
+                                <i class="fas fa-boxes-stacked mr-1"></i> Mô phỏng JSXGraph 1: Trực quan hóa phân loại dữ liệu
+                            </span>
+                        </div>
+                        <span class="text-xs text-slate-400 font-medium">Số liệu vs Phi số liệu</span>
+                    </div>
+
+                    <p class="text-sm font-medium text-slate-800 mb-3">
+                        Phân loại các dữ liệu sau vào 2 nhóm: Chiều cao học sinh (145 cm, 150 cm), Phương tiện đến trường (Xe đạp, Xe máy, Đi bộ), Điểm kiểm tra Toán (8, 9, 10), Địa chỉ email.
+                    </p>
+
+                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 my-4 flex flex-col md:flex-row items-center gap-6 justify-center">
+                        <div id="jxgbox-g1" class="jxgbox w-full max-w-[420px] h-[200px]"></div>
+                        <div class="space-y-2 text-xs sm:text-sm text-slate-700 max-w-sm">
+                            <div class="p-3 bg-white rounded-xl border border-slate-200 shadow-sm space-y-1">
+                                <p class="text-blue-700 font-bold"><i class="fas fa-hashtag text-blue-500"></i> Hộp A (Dữ liệu số):</p>
+                                <p class="text-slate-600">Chiều cao (145 cm, 150 cm), Điểm Toán (8, 9, 10).</p>
+                                <p class="text-amber-700 font-bold"><i class="fas fa-font text-amber-500"></i> Hộp B (Dữ liệu không là số):</p>
+                                <p class="text-slate-600">Phương tiện đến trường, Địa chỉ email.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <details class="group">
+                        <summary class="cursor-pointer text-xs font-semibold text-sky-600 hover:text-sky-700 flex items-center gap-1.5 select-none">
+                            <i class="fas fa-chevron-right text-xs transition-transform group-open:rotate-90"></i>
+                            <span>Xem gợi ý lời giải</span>
+                        </summary>
+                        <div class="mt-3 p-3 bg-sky-50/70 border border-sky-100 rounded-xl text-xs leading-relaxed text-slate-700 space-y-1">
+                            <p>• <strong>Dữ liệu là số (Số liệu):</strong> Chiều cao của học sinh, Điểm kiểm tra Toán.</p>
+                            <p>• <strong>Dữ liệu không phải là số:</strong> Phương tiện đến trường, Địa chỉ email.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 4 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="px-2.5 py-1 rounded-lg text-xs font-bold bg-sky-100 text-sky-800">Bài 4</span>
+                        <span class="text-xs text-slate-400 font-medium">Đọc biểu đồ tranh</span>
+                    </div>
+                    <p class="text-sm font-medium text-slate-800 mb-2">
+                        Số lượng xe đạp bán được trong 4 tuần (Mỗi biểu tượng 🚲 = 10 chiếc xe):
+                    </p>
+                    <div class="text-xs text-slate-700 space-y-1 mb-3 bg-slate-50 p-2.5 rounded-xl">
+                        <p>Tuần 1: 🚲 🚲 🚲 | Tuần 2: 🚲 🚲 🚲 🚲</p>
+                        <p>Tuần 3: 🚲 🚲 | Tuần 4: 🚲 🚲 🚲 🚲 🚲</p>
+                    </div>
+                    <p class="text-xs text-slate-600 mb-2">a) Tuần nào bán nhiều nhất, tuần nào ít nhất? b) Tính tổng số xe bán được cả 4 tuần.</p>
+                    <details class="group">
+                        <summary class="cursor-pointer text-xs font-semibold text-sky-600 hover:text-sky-700 flex items-center gap-1.5 select-none">
+                            <i class="fas fa-chevron-right text-xs transition-transform group-open:rotate-90"></i>
+                            <span>Xem gợi ý lời giải</span>
+                        </summary>
+                        <div class="mt-3 p-3 bg-sky-50/70 border border-sky-100 rounded-xl text-xs leading-relaxed text-slate-700 space-y-1">
+                            <p>a) Tuần 4 bán nhiều nhất (50 chiếc); Tuần 3 bán ít nhất (20 chiếc).</p>
+                            <p>b) Tổng số xe bán được: \((3 + 4 + 2 + 5) \cdot 10 = 14 \cdot 10 = 140\text{ (chiếc xe)}\).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 5 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="px-2.5 py-1 rounded-lg text-xs font-bold bg-sky-100 text-sky-800">Bài 5</span>
+                        <span class="text-xs text-slate-400 font-medium">Chuyển sang bảng số liệu</span>
+                    </div>
+                    <p class="text-sm font-medium text-slate-800 mb-3">
+                        Dựa vào biểu đồ tranh bán xe đạp ở Bài 4, lập bảng số liệu chi tiết thể hiện số lượng xe đạp bán được qua từng tuần.
+                    </p>
+                    <details class="group">
+                        <summary class="cursor-pointer text-xs font-semibold text-sky-600 hover:text-sky-700 flex items-center gap-1.5 select-none">
+                            <i class="fas fa-chevron-right text-xs transition-transform group-open:rotate-90"></i>
+                            <span>Xem gợi ý lời giải</span>
+                        </summary>
+                        <div class="mt-3 p-3 bg-sky-50/70 border border-sky-100 rounded-xl text-xs leading-relaxed text-slate-700 space-y-1">
+                            <p>• Tuần 1: \(3 \cdot 10 = 30\text{ (chiếc)}\).</p>
+                            <p>• Tuần 2: \(4 \cdot 10 = 40\text{ (chiếc)}\).</p>
+                            <p>• Tuần 3: \(2 \cdot 10 = 20\text{ (chiếc)}\).</p>
+                            <p>• Tuần 4: \(5 \cdot 10 = 50\text{ (chiếc)}\).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 6 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="px-2.5 py-1 rounded-lg text-xs font-bold bg-sky-100 text-sky-800">Bài 6</span>
+                        <span class="text-xs text-slate-400 font-medium">Biểu đồ cột đơn</span>
+                    </div>
+                    <p class="text-sm font-medium text-slate-800 mb-2">
+                        Số lượng học sinh lớp 6B tham gia các CLB năng khiếu: Mỹ thuật (12 em), Âm nhạc (15 em), Thể thao (18 em), Tin học (8 em).
+                    </p>
+                    <p class="text-xs text-slate-600 mb-2">a) CLB nào đông nhất, CLB nào ít nhất? b) Tính tổng số lượt học sinh tham gia.</p>
+                    <details class="group">
+                        <summary class="cursor-pointer text-xs font-semibold text-sky-600 hover:text-sky-700 flex items-center gap-1.5 select-none">
+                            <i class="fas fa-chevron-right text-xs transition-transform group-open:rotate-90"></i>
+                            <span>Xem gợi ý lời giải</span>
+                        </summary>
+                        <div class="mt-3 p-3 bg-sky-50/70 border border-sky-100 rounded-xl text-xs leading-relaxed text-slate-700 space-y-1">
+                            <p>a) CLB Thể thao đông nhất (18 em); CLB Tin học ít nhất (8 em).</p>
+                            <p>b) Tổng số học sinh: \(12 + 15 + 18 + 8 = 53\text{ (lượt em)}\).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 7: JSXGraph 2 Biểu đồ cột trái cây tương tác -->
+                <div class="bg-white p-5 rounded-2xl border-2 border-sky-300 shadow-sm md:col-span-2">
+                    <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+                        <div class="flex items-center gap-2">
+                            <span class="px-2.5 py-1 rounded-lg text-xs font-bold bg-sky-500 text-white">Bài 7</span>
+                            <span class="px-2.5 py-1 rounded-lg text-xs font-semibold bg-emerald-100 text-emerald-800">
+                                <i class="fas fa-chart-simple mr-1"></i> Mô phỏng JSXGraph 2: Biểu đồ cột đo lượng trái cây bán ra
+                            </span>
+                        </div>
+                        <span class="text-xs text-slate-400 font-medium">Táo, Cam, Xoài, Dưa hấu</span>
+                    </div>
+
+                    <p class="text-sm font-medium text-slate-800 mb-3">
+                        Số liệu bán hàng: Táo (30 kg), Cam (45 kg), Xoài (25 kg), Dưa hấu (40 kg). Tính xem khối lượng Cam bán được nhiều hơn khối lượng Xoài là bao nhiêu kg?
+                    </p>
+
+                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 my-4 flex flex-col md:flex-row items-center gap-6 justify-center">
+                        <div id="jxgbox-g2" class="jxgbox w-full max-w-[420px] h-[220px]"></div>
+                        <div class="space-y-2 text-xs sm:text-sm text-slate-700 max-w-sm">
+                            <div class="p-3 bg-white rounded-xl border border-slate-200 shadow-sm space-y-1">
+                                <p class="text-emerald-700 font-bold">• Cam: 45 kg (cột cao nhất)</p>
+                                <p class="text-amber-700 font-bold">• Xoài: 25 kg (cột thấp nhất)</p>
+                                <p class="text-slate-600 font-medium">Hiệu số: \(45 - 25 = 20\text{ kg}\).</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <details class="group">
+                        <summary class="cursor-pointer text-xs font-semibold text-sky-600 hover:text-sky-700 flex items-center gap-1.5 select-none">
+                            <i class="fas fa-chevron-right text-xs transition-transform group-open:rotate-90"></i>
+                            <span>Xem gợi ý lời giải</span>
+                        </summary>
+                        <div class="mt-3 p-3 bg-sky-50/70 border border-sky-100 rounded-xl text-xs leading-relaxed text-slate-700">
+                            Khối lượng Cam bán nhiều hơn Xoài là:
+                            \[45 - 25 = 20\text{ (kg)}\]
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 8 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="px-2.5 py-1 rounded-lg text-xs font-bold bg-sky-100 text-sky-800">Bài 8</span>
+                        <span class="text-xs text-slate-400 font-medium">Biểu đồ cột đơn vs Cột kép</span>
+                    </div>
+                    <p class="text-sm font-medium text-slate-800 mb-3">
+                        Nêu sự khác biệt cơ bản giữa biểu đồ cột đơn và biểu đồ cột kép. Khi nào nên dùng biểu đồ cột kép?
+                    </p>
+                    <details class="group">
+                        <summary class="cursor-pointer text-xs font-semibold text-sky-600 hover:text-sky-700 flex items-center gap-1.5 select-none">
+                            <i class="fas fa-chevron-right text-xs transition-transform group-open:rotate-90"></i>
+                            <span>Xem gợi ý lời giải</span>
+                        </summary>
+                        <div class="mt-3 p-3 bg-sky-50/70 border border-sky-100 rounded-xl text-xs leading-relaxed text-slate-700 space-y-1">
+                            <p>• <strong>Biểu đồ cột đơn:</strong> Biểu diễn 1 dãy số liệu của từng đối tượng.</p>
+                            <p>• <strong>Biểu đồ cột kép:</strong> Đặt 2 cột cạnh nhau để <strong>so sánh trực tiếp 2 nhóm dữ liệu</strong> cùng loại của các đối tượng (ví dụ: so sánh Nam vs Nữ, Năm 2024 vs Năm 2025,...).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 9 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="px-2.5 py-1 rounded-lg text-xs font-bold bg-sky-100 text-sky-800">Bài 9</span>
+                        <span class="text-xs text-slate-400 font-medium">Đọc biểu đồ cột kép thể thao</span>
+                    </div>
+                    <p class="text-sm font-medium text-slate-800 mb-2">
+                        Số học sinh Nam và Nữ lớp 6A thích thể thao:<br>
+                        Bóng đá: Nam 15, Nữ 3 | Cầu lông: Nam 8, Nữ 12 | Bóng rổ: Nam 10, Nữ 6.
+                    </p>
+                    <p class="text-xs text-slate-600 mb-2">a) Môn nào Nam vượt trội Nữ nhiều nhất? b) Môn nào Nữ thích nhất?</p>
+                    <details class="group">
+                        <summary class="cursor-pointer text-xs font-semibold text-sky-600 hover:text-sky-700 flex items-center gap-1.5 select-none">
+                            <i class="fas fa-chevron-right text-xs transition-transform group-open:rotate-90"></i>
+                            <span>Xem gợi ý lời giải</span>
+                        </summary>
+                        <div class="mt-3 p-3 bg-sky-50/70 border border-sky-100 rounded-xl text-xs leading-relaxed text-slate-700 space-y-1">
+                            <p>a) Môn <strong>Bóng đá</strong> có số bạn nam vượt trội (15 nam so với 3 nữ, chênh lệch 12 bạn).</p>
+                            <p>b) Môn <strong>Cầu lông</strong> được các bạn nữ yêu thích nhất (12 bạn nữ).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 10 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="px-2.5 py-1 rounded-lg text-xs font-bold bg-sky-100 text-sky-800">Bài 10</span>
+                        <span class="text-xs text-slate-400 font-medium">Tính toán số liệu cột kép</span>
+                    </div>
+                    <p class="text-sm font-medium text-slate-800 mb-3">
+                        Dựa vào dữ liệu Bài 9: Tính tổng số học sinh Nam và tổng số học sinh Nữ của lớp 6A tham gia khảo sát.
+                    </p>
+                    <details class="group">
+                        <summary class="cursor-pointer text-xs font-semibold text-sky-600 hover:text-sky-700 flex items-center gap-1.5 select-none">
+                            <i class="fas fa-chevron-right text-xs transition-transform group-open:rotate-90"></i>
+                            <span>Xem gợi ý lời giải</span>
+                        </summary>
+                        <div class="mt-3 p-3 bg-sky-50/70 border border-sky-100 rounded-xl text-xs leading-relaxed text-slate-700 space-y-1">
+                            <p>a) Tổng số học sinh Nam: \(15 + 8 + 10 = 33\text{ (bạn)}\).</p>
+                            <p>b) Tổng số học sinh Nữ: \(3 + 12 + 6 = 21\text{ (bạn)}\).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 11 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="px-2.5 py-1 rounded-lg text-xs font-bold bg-sky-100 text-sky-800">Bài 11</span>
+                        <span class="text-xs text-slate-400 font-medium">Lỗi sai phân loại động vật</span>
+                    </div>
+                    <p class="text-sm font-medium text-slate-800 mb-2">
+                        Bảng phân loại vật nuôi:<br>
+                        Nhóm Gia súc: Chó, Mèo, Trâu, Bò, Gà.<br>
+                        Nhóm Gia cầm: Vịt, Ngan, Ngỗng, Lợn (Heo).
+                    </p>
+                    <p class="text-xs text-slate-600 mb-2">Chỉ ra các con vật bị phân loại sai nhóm và sửa lại.</p>
+                    <details class="group">
+                        <summary class="cursor-pointer text-xs font-semibold text-sky-600 hover:text-sky-700 flex items-center gap-1.5 select-none">
+                            <i class="fas fa-chevron-right text-xs transition-transform group-open:rotate-90"></i>
+                            <span>Xem gợi ý lời giải</span>
+                        </summary>
+                        <div class="mt-3 p-3 bg-sky-50/70 border border-sky-100 rounded-xl text-xs leading-relaxed text-slate-700 space-y-1">
+                            <p>• <strong>Gà</strong> bị xếp nhầm vào Gia súc $\implies$ Chuyển sang <strong>Gia cầm</strong> (loài có 2 chân, có lông vũ).</p>
+                            <p>• <strong>Lợn (Heo)</strong> bị xếp nhầm vào Gia cầm $\implies$ Chuyển sang <strong>Gia súc</strong> (thú nuôi 4 chân có vú).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 12 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="px-2.5 py-1 rounded-lg text-xs font-bold bg-sky-100 text-sky-800">Bài 12</span>
+                        <span class="text-xs text-slate-400 font-medium">Biểu đồ tranh ký hiệu bán phần</span>
+                    </div>
+                    <p class="text-sm font-medium text-slate-800 mb-2">
+                        Số cây cam trồng mới qua 3 năm (🌳 = 100 cây, 🍃 = 50 cây):<br>
+                        Năm 2021: 🌳 🌳 🌳 | Năm 2022: 🌳 🌳 🌳 🌳 🌳 | Năm 2023: 🌳 🌳 🌳 🌳 🍃
+                    </p>
+                    <p class="text-xs text-slate-600 mb-2">Tính số cây từng năm và tổng 3 năm.</p>
+                    <details class="group">
+                        <summary class="cursor-pointer text-xs font-semibold text-sky-600 hover:text-sky-700 flex items-center gap-1.5 select-none">
+                            <i class="fas fa-chevron-right text-xs transition-transform group-open:rotate-90"></i>
+                            <span>Xem gợi ý lời giải</span>
+                        </summary>
+                        <div class="mt-3 p-3 bg-sky-50/70 border border-sky-100 rounded-xl text-xs leading-relaxed text-slate-700 space-y-1">
+                            <p>• Năm 2021: \(3 \cdot 100 = 300\text{ (cây)}\).</p>
+                            <p>• Năm 2022: \(5 \cdot 100 = 500\text{ (cây)}\).</p>
+                            <p>• Năm 2023: \(4 \cdot 100 + 50 = 450\text{ (cây)}\).</p>
+                            <p>• Tổng số cây: \(300 + 500 + 450 = 1250\text{ (cây)}\).</p>
+                        </div>
+                    </details>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- =================================================================== -->
+        <!-- PHẦN 2: MỨC ĐỘ NÂNG CAO (10 BÀI)                                     -->
+        <!-- =================================================================== -->
+        <section id="section-part2" class="space-y-6">
+            <div class="border-l-4 border-indigo-500 pl-4 py-1">
+                <span class="text-xs font-bold text-indigo-600 uppercase tracking-widest block">Cấp độ 2: Phân tích cột kép, Điểm dị biệt & Tính toán tỉ lệ phần trăm</span>
+                <h2 class="text-2xl font-bold text-slate-800 flex items-center gap-2">
+                    <i class="fas fa-layer-group text-indigo-500"></i> PHẦN 2: MỨC ĐỘ NÂNG CAO (10 BÀI)
+                </h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+                <!-- Bài 13 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="px-2.5 py-1 rounded-lg text-xs font-bold bg-indigo-100 text-indigo-800">Bài 13</span>
+                        <span class="text-xs text-slate-400 font-medium">So sánh kết quả học tập</span>
+                    </div>
+                    <p class="text-sm font-medium text-slate-800 mb-2">
+                        Điểm trung bình học kỳ I và II của tổ 1:<br>
+                        Môn Toán: HK1 (7.5), HK2 (8.2) | Môn Ngữ văn: HK1 (7.8), HK2 (7.5).
+                    </p>
+                    <p class="text-xs text-slate-600 mb-2">a) Nhận xét điểm Toán. b) Môn nào điểm trung bình giảm và giảm bao nhiêu?</p>
+                    <details class="group">
+                        <summary class="cursor-pointer text-xs font-semibold text-indigo-600 hover:text-indigo-700 flex items-center gap-1.5 select-none">
+                            <i class="fas fa-chevron-right text-xs transition-transform group-open:rotate-90"></i>
+                            <span>Xem gợi ý lời giải</span>
+                        </summary>
+                        <div class="mt-3 p-3 bg-indigo-50/70 border border-indigo-100 rounded-xl text-xs leading-relaxed text-slate-700 space-y-1">
+                            <p>a) Điểm trung bình môn Toán tăng tiến bộ từ HK1 lên HK2 (tăng \(8.2 - 7.5 = 0.7\text{ điểm}\)).</p>
+                            <p>b) Môn Ngữ văn bị giảm điểm ở HK2, giảm đi \(7.8 - 7.5 = 0.3\text{ điểm}\).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 14 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="px-2.5 py-1 rounded-lg text-xs font-bold bg-indigo-100 text-indigo-800">Bài 14</span>
+                        <span class="text-xs text-slate-400 font-medium">Hiệu số doanh số thiết bị</span>
+                    </div>
+                    <p class="text-sm font-medium text-slate-800 mb-2">
+                        Số lượng Tủ lạnh và Máy giặt bán trong 3 tháng:<br>
+                        T1: Tủ lạnh (120), Máy giặt (150) | T2: Tủ lạnh (90), Máy giặt (80) | T3: Tủ lạnh (110), Máy giặt (130).
+                    </p>
+                    <p class="text-xs text-slate-600 mb-2">a) Tính tổng số sản phẩm 3 tháng. b) Tháng nào chênh lệch doanh số lớn nhất?</p>
+                    <details class="group">
+                        <summary class="cursor-pointer text-xs font-semibold text-indigo-600 hover:text-indigo-700 flex items-center gap-1.5 select-none">
+                            <i class="fas fa-chevron-right text-xs transition-transform group-open:rotate-90"></i>
+                            <span>Xem gợi ý lời giải</span>
+                        </summary>
+                        <div class="mt-3 p-3 bg-indigo-50/70 border border-indigo-100 rounded-xl text-xs leading-relaxed text-slate-700 space-y-1">
+                            <p>a) Tổng sản phẩm: \((120 + 90 + 110) + (150 + 80 + 130) = 320 + 360 = 680\text{ (chiếc)}\).</p>
+                            <p>b) Chênh lệch T1: \(150 - 120 = 30\); T2: \(90 - 80 = 10\); T3: \(130 - 110 = 20\).<br>
+                            Tháng 1 có chênh lệch lớn nhất (\(30\text{ chiếc}\)).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 15: JSXGraph 3 Biểu đồ cột kép 2 năm -->
+                <div class="bg-white p-5 rounded-2xl border-2 border-indigo-300 shadow-sm md:col-span-2">
+                    <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+                        <div class="flex items-center gap-2">
+                            <span class="px-2.5 py-1 rounded-lg text-xs font-bold bg-indigo-600 text-white">Bài 15</span>
+                            <span class="px-2.5 py-1 rounded-lg text-xs font-semibold bg-indigo-100 text-indigo-800">
+                                <i class="fas fa-chart-column mr-1"></i> Mô phỏng JSXGraph 3: Biểu đồ cột kép so sánh 2 năm
+                            </span>
+                        </div>
+                        <span class="text-xs text-slate-400 font-medium">Chi nhánh A, B, C</span>
+                    </div>
+
+                    <p class="text-sm font-medium text-slate-800 mb-3">
+                        Doanh số sản phẩm bán ra của 3 chi nhánh qua 2 năm: Chi nhánh A (2024: 320, 2025: 350); Chi nhánh B (2024: 400, 2025: 380); Chi nhánh C (2024: 250, 2025: 300). Tính tổng doanh số tăng trưởng của toàn hệ thống từ 2024 đến 2025.
+                    </p>
+
+                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 my-4 flex flex-col md:flex-row items-center gap-6 justify-center">
+                        <div id="jxgbox-g3" class="jxgbox w-full max-w-[440px] h-[220px]"></div>
+                        <div class="space-y-2 text-xs sm:text-sm text-slate-700 max-w-sm">
+                            <div class="p-3 bg-white rounded-xl border border-slate-200 shadow-sm space-y-1">
+                                <p class="text-rose-600 font-bold">• Cột đỏ: Năm 2024 (Tổng = 970 SP)</p>
+                                <p class="text-blue-600 font-bold">• Cột xanh: Năm 2025 (Tổng = 1030 SP)</p>
+                                <p class="text-emerald-700 font-semibold">Tăng trưởng toàn hệ thống: \(1030 - 970 = 60\text{ SP}\).</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <details class="group">
+                        <summary class="cursor-pointer text-xs font-semibold text-indigo-600 hover:text-indigo-700 flex items-center gap-1.5 select-none">
+                            <i class="fas fa-chevron-right text-xs transition-transform group-open:rotate-90"></i>
+                            <span>Xem gợi ý lời giải</span>
+                        </summary>
+                        <div class="mt-3 p-3 bg-indigo-50/70 border border-indigo-100 rounded-xl text-xs leading-relaxed text-slate-700 space-y-1">
+                            <p>• Tổng doanh số năm 2024: \(320 + 400 + 250 = 970\text{ (SP)}\).</p>
+                            <p>• Tổng doanh số năm 2025: \(350 + 380 + 300 = 1030\text{ (SP)}\).</p>
+                            <p>• Tổng doanh số toàn hệ thống tăng: \(1030 - 970 = 60\text{ (sản phẩm)}\).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 16 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="px-2.5 py-1 rounded-lg text-xs font-bold bg-indigo-100 text-indigo-800">Bài 16</span>
+                        <span class="text-xs text-slate-400 font-medium">Phát hiện mâu thuẫn số liệu</span>
+                    </div>
+                    <p class="text-sm font-medium text-slate-800 mb-2">
+                        Lớp có 40 học sinh. Lớp trưởng khảo sát phương tiện đi học: Đi bộ (15), Xe đạp (18), Xe máy (12), Xe buýt (5).
+                    </p>
+                    <p class="text-xs text-slate-600 mb-2">Chứng minh số liệu trên mâu thuẫn và không hợp lý.</p>
+                    <details class="group">
+                        <summary class="cursor-pointer text-xs font-semibold text-indigo-600 hover:text-indigo-700 flex items-center gap-1.5 select-none">
+                            <i class="fas fa-chevron-right text-xs transition-transform group-open:rotate-90"></i>
+                            <span>Xem gợi ý lời giải</span>
+                        </summary>
+                        <div class="mt-3 p-3 bg-indigo-50/70 border border-indigo-100 rounded-xl text-xs leading-relaxed text-slate-700 space-y-1">
+                            <p>Tổng số học sinh theo thống kê là: \(15 + 18 + 12 + 5 = 50\text{ (học sinh)}\).</p>
+                            <p>Vì \(50 > 40\) (vượt quá sĩ số 40 học sinh của lớp) nên số liệu này chắc chắn bị tính trùng lặp hoặc ghi chép sai sót.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 17 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="px-2.5 py-1 rounded-lg text-xs font-bold bg-indigo-100 text-indigo-800">Bài 17</span>
+                        <span class="text-xs text-slate-400 font-medium">Thiết kế biểu đồ tranh</span>
+                    </div>
+                    <p class="text-sm font-medium text-slate-800 mb-2">
+                        Số học sinh đạt điểm 10 Toán: 6A1 (25 em), 6A2 (20 em), 6A3 (15 em), 6A4 (30 em).
+                    </p>
+                    <p class="text-xs text-slate-600 mb-2">Thiết kế biểu đồ tranh ngắn gọn nhất bằng ký hiệu ⭐.</p>
+                    <details class="group">
+                        <summary class="cursor-pointer text-xs font-semibold text-indigo-600 hover:text-indigo-700 flex items-center gap-1.5 select-none">
+                            <i class="fas fa-chevron-right text-xs transition-transform group-open:rotate-90"></i>
+                            <span>Xem gợi ý lời giải</span>
+                        </summary>
+                        <div class="mt-3 p-3 bg-indigo-50/70 border border-indigo-100 rounded-xl text-xs leading-relaxed text-slate-700 space-y-1">
+                            <p>Chọn quy ước: <strong>Mỗi ⭐ đại diện cho 5 học sinh</strong> (ƯCLN của 25, 20, 15, 30 là 5).</p>
+                            <p>• 6A1: ⭐⭐⭐⭐⭐ (5 sao) | • 6A2: ⭐⭐⭐⭐ (4 sao)</p>
+                            <p>• 6A3: ⭐⭐⭐ (3 sao) | • 6A4: ⭐⭐⭐⭐⭐⭐ (6 sao)</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 18 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="px-2.5 py-1 rounded-lg text-xs font-bold bg-indigo-100 text-indigo-800">Bài 18</span>
+                        <span class="text-xs text-slate-400 font-medium">Tính tỉ số phần trăm</span>
+                    </div>
+                    <p class="text-sm font-medium text-slate-800 mb-2">
+                        Dựa trên Bài 9: (Tổng nam: 33, thích bóng đá: 15; Tổng nữ: 21, thích cầu lông: 12).
+                    </p>
+                    <p class="text-xs text-slate-600 mb-2">a) % Nam thích bóng đá trong tổng số nam. b) % Nữ thích cầu lông trong tổng số nữ.</p>
+                    <details class="group">
+                        <summary class="cursor-pointer text-xs font-semibold text-indigo-600 hover:text-indigo-700 flex items-center gap-1.5 select-none">
+                            <i class="fas fa-chevron-right text-xs transition-transform group-open:rotate-90"></i>
+                            <span>Xem gợi ý lời giải</span>
+                        </summary>
+                        <div class="mt-3 p-3 bg-indigo-50/70 border border-indigo-100 rounded-xl text-xs leading-relaxed text-slate-700 space-y-1">
+                            <p>a) Tỉ lệ nam thích bóng đá: \(\frac{15}{33} \cdot 100\% \approx 45.45\%\).</p>
+                            <p>b) Tỉ lệ nữ thích cầu lông: \(\frac{12}{21} \cdot 100\% \approx 57.14\%\).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 19 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="px-2.5 py-1 rounded-lg text-xs font-bold bg-indigo-100 text-indigo-800">Bài 19</span>
+                        <span class="text-xs text-slate-400 font-medium">Xu hướng xuất khẩu lúa</span>
+                    </div>
+                    <p class="text-sm font-medium text-slate-800 mb-2">
+                        Sản lượng xuất khẩu lúa (triệu tấn) 2021-2023:<br>
+                        Tỉnh A: (2.5, 2.8, 3.2) | Tỉnh B: (1.8, 2.2, 2.9).
+                    </p>
+                    <p class="text-xs text-slate-600 mb-2">a) Tỉnh nào tăng trưởng nhanh hơn? b) Tính tổng sản lượng 2 tỉnh trong 3 năm.</p>
+                    <details class="group">
+                        <summary class="cursor-pointer text-xs font-semibold text-indigo-600 hover:text-indigo-700 flex items-center gap-1.5 select-none">
+                            <i class="fas fa-chevron-right text-xs transition-transform group-open:rotate-90"></i>
+                            <span>Xem gợi ý lời giải</span>
+                        </summary>
+                        <div class="mt-3 p-3 bg-indigo-50/70 border border-indigo-100 rounded-xl text-xs leading-relaxed text-slate-700 space-y-1">
+                            <p>a) Tỉnh B có tốc độ tăng trưởng nhanh hơn (tăng từ 1.8 lên 2.9 triệu tấn, tăng \(61.1\%\); so với Tỉnh A tăng từ 2.5 lên 3.2 triệu tấn, tăng \(28\%\)).</p>
+                            <p>b) Tổng sản lượng cả 2 tỉnh: \((2.5+2.8+3.2) + (1.8+2.2+2.9) = 8.5 + 6.9 = 15.4\text{ (triệu tấn)}\).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 20: JSXGraph 4 Phát hiện điểm dị biệt -->
+                <div class="bg-white p-5 rounded-2xl border-2 border-indigo-300 shadow-sm md:col-span-2">
+                    <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+                        <div class="flex items-center gap-2">
+                            <span class="px-2.5 py-1 rounded-lg text-xs font-bold bg-indigo-600 text-white">Bài 20</span>
+                            <span class="px-2.5 py-1 rounded-lg text-xs font-semibold bg-rose-100 text-rose-900">
+                                <i class="fas fa-triangle-exclamation mr-1"></i> Mô phỏng JSXGraph 4: Phát hiện điểm dị biệt (Anomaly Detection)
+                            </span>
+                        </div>
+                        <span class="text-xs text-slate-400 font-medium">Nhiệt độ Sapa tháng 7 (-10°C)</span>
+                    </div>
+
+                    <p class="text-sm font-medium text-slate-800 mb-3">
+                        Đồ thị nhiệt độ Sapa trong năm có điểm tháng 7 đột ngột rơi xuống \(-10^\circ\text{C}\). Giải thích tại sao đây là điểm dị biệt dữ liệu và đề xuất nguyên nhân gây ra lỗi này.
+                    </p>
+
+                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 my-4 flex flex-col md:flex-row items-center gap-6 justify-center">
+                        <div id="jxgbox-g4" class="jxgbox w-full max-w-[440px] h-[220px]"></div>
+                        <div class="space-y-2 text-xs sm:text-sm text-slate-700 max-w-sm">
+                            <div class="p-3 bg-white rounded-xl border border-slate-200 shadow-sm space-y-1">
+                                <p class="text-rose-600 font-bold">• Điểm đỏ dị biệt (Tháng 7: -10°C): Bất hợp lý giữa mùa hè.</p>
+                                <p class="text-emerald-700 font-bold">• Điểm chuẩn sau sửa: +21°C.</p>
+                                <button onclick="fixAnomaly()" class="mt-2 px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-lg text-xs shadow-sm">
+                                    <i class="fas fa-wrench mr-1"></i> Sửa lại số liệu hợp lý
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <details class="group">
+                        <summary class="cursor-pointer text-xs font-semibold text-indigo-600 hover:text-indigo-700 flex items-center gap-1.5 select-none">
+                            <i class="fas fa-chevron-right text-xs transition-transform group-open:rotate-90"></i>
+                            <span>Xem gợi ý lời giải</span>
+                        </summary>
+                        <div class="mt-3 p-3 bg-indigo-50/70 border border-indigo-100 rounded-xl text-xs leading-relaxed text-slate-700 space-y-1">
+                            <p>• Điểm \(-10^\circ\text{C}\) ở tháng 7 là <strong>điểm dị biệt</strong> vì mùa hè tại Việt Nam nhiệt độ không thể xuống dưới $0^\circ\text{C}$.</p>
+                            <p>• <em>Nguyên nhân:</em> Người nhập dữ liệu gõ nhầm dấu âm hoặc lỗi cảm biến đo nhiệt độ.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 21 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="px-2.5 py-1 rounded-lg text-xs font-bold bg-indigo-100 text-indigo-800">Bài 21</span>
+                        <span class="text-xs text-slate-400 font-medium">Lượng mưa Hà Nội vs TP.HCM</span>
+                    </div>
+                    <p class="text-sm font-medium text-slate-800 mb-2">
+                        Lượng mưa tháng 7, 8, 9 (mm):<br>
+                        Hà Nội: (280, 320, 250) | TP.HCM: (310, 290, 330).
+                    </p>
+                    <p class="text-xs text-slate-600 mb-2">a) Tháng nào lượng mưa Hà Nội vượt TP.HCM? b) Tổng lượng mưa 3 tháng thành phố nào lớn hơn?</p>
+                    <details class="group">
+                        <summary class="cursor-pointer text-xs font-semibold text-indigo-600 hover:text-indigo-700 flex items-center gap-1.5 select-none">
+                            <i class="fas fa-chevron-right text-xs transition-transform group-open:rotate-90"></i>
+                            <span>Xem gợi ý lời giải</span>
+                        </summary>
+                        <div class="mt-3 p-3 bg-indigo-50/70 border border-indigo-100 rounded-xl text-xs leading-relaxed text-slate-700 space-y-1">
+                            <p>a) Trong <strong>Tháng 8</strong>, lượng mưa Hà Nội (320 mm) vượt TP.HCM (290 mm) là \(320 - 290 = 30\text{ mm}\).</p>
+                            <p>b) Tổng lượng mưa Hà Nội: \(280+320+250 = 850\text{ mm}\); TP.HCM: \(310+290+330 = 930\text{ mm}\).<br>
+                            TP.HCM có tổng lượng mưa lớn hơn.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 22 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="px-2.5 py-1 rounded-lg text-xs font-bold bg-indigo-100 text-indigo-800">Bài 22</span>
+                        <span class="text-xs text-slate-400 font-medium">Định tính & Định lượng nâng cao</span>
+                    </div>
+                    <p class="text-sm font-medium text-slate-800 mb-2">
+                        Phiếu khảo sát: Họ tên, Chiều cao (cm), Cân nặng (kg), Nhóm máu (A, B, O, AB), Nhịp tim, Đánh giá thể lực (Tốt, Khá, TB).
+                    </p>
+                    <p class="text-xs text-slate-600 mb-2">a) Phân loại định lượng vs định tính. b) Dữ liệu định tính nào có thể xếp thứ tự?</p>
+                    <details class="group">
+                        <summary class="cursor-pointer text-xs font-semibold text-indigo-600 hover:text-indigo-700 flex items-center gap-1.5 select-none">
+                            <i class="fas fa-chevron-right text-xs transition-transform group-open:rotate-90"></i>
+                            <span>Xem gợi ý lời giải</span>
+                        </summary>
+                        <div class="mt-3 p-3 bg-indigo-50/70 border border-indigo-100 rounded-xl text-xs leading-relaxed text-slate-700 space-y-1">
+                            <p><strong>a) Dữ liệu định lượng:</strong> Chiều cao, Cân nặng, Nhịp tim. <strong>Dữ liệu định tính:</strong> Họ tên, Nhóm máu, Đánh giá thể lực.</p>
+                            <p><strong>b)</strong> Đánh giá thể lực (Tốt > Khá > Trung bình) <em>có thể xếp thứ tự</em>; Họ tên và Nhóm máu <em>không thể xếp thứ tự</em>.</p>
+                        </div>
+                    </details>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- =================================================================== -->
+        <!-- PHẦN 3: MỨC ĐỘ VẬN DỤNG (8 BÀI)                                      -->
+        <!-- =================================================================== -->
+        <section id="section-part3" class="space-y-6">
+            <div class="border-l-4 border-emerald-500 pl-4 py-1">
+                <span class="text-xs font-bold text-emerald-600 uppercase tracking-widest block">Cấp độ 3: Ứng dụng kinh tế, môi trường, thể thao & Ra quyết định</span>
+                <h2 class="text-2xl font-bold text-slate-800 flex items-center gap-2">
+                    <i class="fas fa-layer-group text-emerald-500"></i> PHẦN 3: MỨC ĐỘ VẬN DỤNG (8 BÀI)
+                </h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+                <!-- Bài 23 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="px-2.5 py-1 rounded-lg text-xs font-bold bg-emerald-100 text-emerald-800">Bài 23</span>
+                        <span class="text-xs text-slate-400 font-medium">Khảo sát thói quen đọc sách</span>
+                    </div>
+                    <p class="text-sm text-slate-700 mb-2">
+                        Khảo sát 50 học sinh: Sách Khoa học (18), Văn học (12), Truyện tranh (15), Kỹ năng sống (5).
+                    </p>
+                    <p class="text-xs text-slate-600 mb-2">a) Tính tỉ lệ % từng loại. b) Thủ thư nên ưu tiên mua sách nào nhiều nhất?</p>
+                    <details class="group">
+                        <summary class="cursor-pointer text-xs font-semibold text-emerald-600 hover:text-emerald-700 flex items-center gap-1.5 select-none">
+                            <i class="fas fa-chevron-right text-xs transition-transform group-open:rotate-90"></i>
+                            <span>Xem gợi ý lời giải</span>
+                        </summary>
+                        <div class="mt-3 p-3 bg-emerald-50/70 border border-emerald-100 rounded-xl text-xs leading-relaxed text-slate-700 space-y-1">
+                            <p>a) Khoa học: \(36\%\); Văn học: \(24\%\); Truyện tranh: \(30\%\); Kỹ năng sống: \(10\%\).</p>
+                            <p>b) Nên ưu tiên nhập thêm <strong>Sách Khoa học</strong> (chiếm tỉ lệ cao nhất 36%) và Truyện tranh để phục vụ nhu cầu bạn đọc.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 24 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="px-2.5 py-1 rounded-lg text-xs font-bold bg-emerald-100 text-emerald-800">Bài 24</span>
+                        <span class="text-xs text-slate-400 font-medium">Chi tiêu điện nước gia đình</span>
+                    </div>
+                    <p class="text-sm text-slate-700 mb-2">
+                        Tiền điện & nước 3 tháng:<br>
+                        T10: Điện 650k, Nước 120k | T11: Điện 580k, Nước 110k | T12: Điện 720k, Nước 130k.
+                    </p>
+                    <p class="text-xs text-slate-600 mb-2">Phân tích lý do chi phí T12 tăng vọt cao nhất.</p>
+                    <details class="group">
+                        <summary class="cursor-pointer text-xs font-semibold text-emerald-600 hover:text-emerald-700 flex items-center gap-1.5 select-none">
+                            <i class="fas fa-chevron-right text-xs transition-transform group-open:rotate-90"></i>
+                            <span>Xem gợi ý lời giải</span>
+                        </summary>
+                        <div class="mt-3 p-3 bg-emerald-50/70 border border-emerald-100 rounded-xl text-xs leading-relaxed text-slate-700 space-y-1">
+                            <p>• Tổng chi phí T12: \(720k + 130k = 850,000\text{ đ}\) (cao nhất).</p>
+                            <p>• <em>Lý do thực tế:</em> Tháng 12 là mùa đông miền Bắc, gia đình sử dụng nhiều bình nóng lạnh, máy sưởi, đèn sưởi ấm dẫn tới tiền điện nước tăng vọt.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 25: JSXGraph 5 Rác tái chế & Thi đua -->
+                <div class="bg-white p-5 rounded-2xl border-2 border-emerald-300 shadow-sm md:col-span-2">
+                    <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+                        <div class="flex items-center gap-2">
+                            <span class="px-2.5 py-1 rounded-lg text-xs font-bold bg-emerald-600 text-white">Bài 25</span>
+                            <span class="px-2.5 py-1 rounded-lg text-xs font-semibold bg-emerald-100 text-emerald-800">
+                                <i class="fas fa-recycle mr-1"></i> Mô phỏng JSXGraph 5: Phong trào kế hoạch nhỏ gom rác tái chế
+                            </span>
+                        </div>
+                        <span class="text-xs text-slate-400 font-medium">Giấy vụn (5đ/kg) & Vỏ lon (10đ/kg)</span>
+                    </div>
+
+                    <p class="text-sm font-medium text-slate-800 mb-3">
+                        Số lượng thu gom: 6A (45kg giấy, 12kg lon); 6B (38kg giấy, 18kg lon); 6C (50kg giấy, 10kg lon). Tính điểm thi đua từng chi đội và xếp hạng.
+                    </p>
+
+                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 my-4 flex flex-col md:flex-row items-center gap-6 justify-center">
+                        <div id="jxgbox-g5" class="jxgbox w-full max-w-[440px] h-[220px]"></div>
+                        <div class="space-y-2 text-xs sm:text-sm text-slate-700 max-w-sm">
+                            <div class="p-3 bg-white rounded-xl border border-slate-200 shadow-sm space-y-1">
+                                <p class="text-slate-800 font-bold">• Điểm thi đua:</p>
+                                <p class="text-blue-700 font-medium">6A: \(45 \times 5 + 12 \times 10 = 345\text{ điểm}\).</p>
+                                <p class="text-emerald-700 font-bold">6B: \(38 \times 5 + 18 \times 10 = 370\text{ điểm}\) (Hạng 1 🏆).</p>
+                                <p class="text-amber-700 font-medium">6C: \(50 \times 5 + 10 \times 10 = 350\text{ điểm}\).</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <details class="group">
+                        <summary class="cursor-pointer text-xs font-semibold text-emerald-600 hover:text-emerald-700 flex items-center gap-1.5 select-none">
+                            <i class="fas fa-chevron-right text-xs transition-transform group-open:rotate-90"></i>
+                            <span>Xem gợi ý lời giải</span>
+                        </summary>
+                        <div class="mt-3 p-3 bg-emerald-50/70 border border-emerald-100 rounded-xl text-xs leading-relaxed text-slate-700 space-y-1">
+                            <p>• Điểm 6A: \(345\text{ điểm}\); Điểm 6B: \(370\text{ điểm}\); Điểm 6C: \(350\text{ điểm}\).</p>
+                            <p>• <strong>Chi đội 6B đạt thành tích xuất sắc nhất</strong> nhờ thu gom được nhiều vỏ lon nhựa (hệ số 10đ/kg).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 26 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="px-2.5 py-1 rounded-lg text-xs font-bold bg-emerald-100 text-emerald-800">Bài 26</span>
+                        <span class="text-xs text-slate-400 font-medium">Kinh doanh hội chợ 26/3</span>
+                    </div>
+                    <p class="text-sm text-slate-700 mb-2">
+                        Trà đào & Nước cam bán qua 4 khung giờ:<br>
+                        8-10h: (35, 20) | 10-12h: (50, 45) | 12-14h: (20, 30) | 14-16h: (40, 25).
+                    </p>
+                    <p class="text-xs text-slate-600 mb-2">Khung giờ nào bán chạy nhất? Giải thích hiện tượng 12-14h.</p>
+                    <details class="group">
+                        <summary class="cursor-pointer text-xs font-semibold text-emerald-600 hover:text-emerald-700 flex items-center gap-1.5 select-none">
+                            <i class="fas fa-chevron-right text-xs transition-transform group-open:rotate-90"></i>
+                            <span>Xem gợi ý lời giải</span>
+                        </summary>
+                        <div class="mt-3 p-3 bg-emerald-50/70 border border-emerald-100 rounded-xl text-xs leading-relaxed text-slate-700 space-y-1">
+                            <p>• Khung giờ <strong>10:00 - 12:00</strong> bán chạy nhất (tổng \(95\text{ cốc}\)).</p>
+                            <p>• Khung giờ 12:00 - 14:00 là giờ ăn trưa, thực khách ưu tiên dùng nước ép cam bổ sung vitamin sau ăn, trong khi trà đào thường dùng giải khát lúc chơi hội.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 27 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="px-2.5 py-1 rounded-lg text-xs font-bold bg-emerald-100 text-emerald-800">Bài 27</span>
+                        <span class="text-xs text-slate-400 font-medium">Thể lực học sinh - Nhảy xa</span>
+                    </div>
+                    <p class="text-sm text-slate-700 mb-2">
+                        Nhảy xa Tổ 1 và Tổ 2:<br>
+                        Dưới 1.5m: T1(2), T2(4) | 1.5m - 2.0m: T1(8), T2(6) | Trên 2.0m: T1(4), T2(2).
+                    </p>
+                    <p class="text-xs text-slate-600 mb-2">a) Tổ nào thể lực tốt hơn? b) Tổng học sinh tham gia kiểm tra.</p>
+                    <details class="group">
+                        <summary class="cursor-pointer text-xs font-semibold text-emerald-600 hover:text-emerald-700 flex items-center gap-1.5 select-none">
+                            <i class="fas fa-chevron-right text-xs transition-transform group-open:rotate-90"></i>
+                            <span>Xem gợi ý lời giải</span>
+                        </summary>
+                        <div class="mt-3 p-3 bg-emerald-50/70 border border-emerald-100 rounded-xl text-xs leading-relaxed text-slate-700 space-y-1">
+                            <p>a) <strong>Tổ 1 có phong độ tốt hơn</strong> (có \(8 + 4 = 12\text{ bạn}\) nhảy từ 1.5m trở lên, chiếm \(85.7\%\), so với Tổ 2 chỉ có 8 bạn).</p>
+                            <p>b) Tổng học sinh cả 2 tổ: \((2+8+4) + (4+6+2) = 14 + 12 = 26\text{ (bạn)}\).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 28 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="px-2.5 py-1 rounded-lg text-xs font-bold bg-emerald-100 text-emerald-800">Bài 28</span>
+                        <span class="text-xs text-slate-400 font-medium">Khảo sát dịch vụ xe buýt</span>
+                    </div>
+                    <p class="text-sm text-slate-700 mb-2">
+                        Đánh giá (Hài lòng / Không hài lòng):<br>
+                        Thái độ tài xế: (180 / 20) | Độ an toàn: (195 / 5) | Đúng giờ: (130 / 70).
+                    </p>
+                    <p class="text-xs text-slate-600 mb-2">a) Tiêu chí nào cần chấn chỉnh ngay? b) Tính % không hài lòng về "Đúng giờ".</p>
+                    <details class="group">
+                        <summary class="cursor-pointer text-xs font-semibold text-emerald-600 hover:text-emerald-700 flex items-center gap-1.5 select-none">
+                            <i class="fas fa-chevron-right text-xs transition-transform group-open:rotate-90"></i>
+                            <span>Xem gợi ý lời giải</span>
+                        </summary>
+                        <div class="mt-3 p-3 bg-emerald-50/70 border border-emerald-100 rounded-xl text-xs leading-relaxed text-slate-700 space-y-1">
+                            <p>a) Tiêu chí <strong>"Đúng giờ"</strong> cần chấn chỉnh ngay lập tức (có tới 70 bạn không hài lòng).</p>
+                            <p>b) Tỉ lệ không hài lòng về đúng giờ: \(\frac{70}{130 + 70} \cdot 100\% = \frac{70}{200} \cdot 100\% = 35\%\).</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 29: JSXGraph 6 Nhiệt độ toàn cầu 2 thập kỷ -->
+                <div class="bg-white p-5 rounded-2xl border-2 border-emerald-300 shadow-sm md:col-span-2">
+                    <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+                        <div class="flex items-center gap-2">
+                            <span class="px-2.5 py-1 rounded-lg text-xs font-bold bg-emerald-600 text-white">Bài 29</span>
+                            <span class="px-2.5 py-1 rounded-lg text-xs font-semibold bg-rose-100 text-rose-900">
+                                <i class="fas fa-earth-americas mr-1"></i> Mô phỏng JSXGraph 6: Phân tích xu hướng biến đổi khí hậu toàn cầu
+                            </span>
+                        </div>
+                        <span class="text-xs text-slate-400 font-medium">Thập kỷ 2000-2010 vs 2010-2020</span>
+                    </div>
+
+                    <p class="text-sm font-medium text-slate-800 mb-3">
+                        Quan sát mô hình biểu đồ cột kép so sánh nhiệt độ mùa hè trung bình tại 4 thành phố qua 2 thập kỷ. Viết đoạn văn ngắn 5-7 dòng nhận xét về xu hướng nóng lên toàn cầu.
+                    </p>
+
+                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 my-4 flex flex-col md:flex-row items-center gap-6 justify-center">
+                        <div id="jxgbox-g6" class="jxgbox w-full max-w-[440px] h-[220px]"></div>
+                        <div class="space-y-2 text-xs sm:text-sm text-slate-700 max-w-sm">
+                            <div class="p-3 bg-white rounded-xl border border-slate-200 shadow-sm space-y-1">
+                                <p class="text-emerald-700 font-bold">• Thập kỷ 2000-2010 (Xanh lá)</p>
+                                <p class="text-rose-600 font-bold">• Thập kỷ 2010-2020 (Đỏ nhiệt)</p>
+                                <p class="text-slate-600 font-medium">Tất cả các thành phố đều ghi nhận mức tăng từ \(0.8^\circ\text{C} - 1.5^\circ\text{C}\).</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <details class="group">
+                        <summary class="cursor-pointer text-xs font-semibold text-emerald-600 hover:text-emerald-700 flex items-center gap-1.5 select-none">
+                            <i class="fas fa-chevron-right text-xs transition-transform group-open:rotate-90"></i>
+                            <span>Xem gợi ý lời giải</span>
+                        </summary>
+                        <div class="mt-3 p-3 bg-emerald-50/70 border border-emerald-100 rounded-xl text-xs leading-relaxed text-slate-700 space-y-1">
+                            <p><em>Bài luận mẫu:</em> "Dựa vào biểu đồ cột kép thống kê nhiệt độ mùa hè qua hai thập kỷ, ta thấy rõ xu hướng nhiệt độ tại tất cả các khu vực đều tăng cao rõ rệt từ $0.8^\circ\text{C}$ đến $1.5^\circ\text{C}$. Điều này minh chứng cho hiện tượng biến đổi khí hậu và hiệu ứng nhà kính đang diễn ra nhanh chóng trên quy mô toàn cầu. Mỗi chúng ta cần chung tay trồng cây xanh, tiết kiệm năng lượng và giảm thiểu rác thải nhựa để bảo vệ hành tinh xanh."</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Bài 30 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="px-2.5 py-1 rounded-lg text-xs font-bold bg-emerald-100 text-emerald-800">Bài 30</span>
+                        <span class="text-xs text-slate-400 font-medium">Dân số và Phát triển đô thị</span>
+                    </div>
+                    <p class="text-sm text-slate-700 mb-2">
+                        Dân số Phường A và B (nghìn người) 2021-2023:<br>
+                        Phường A: (12.5, 13.8, 15.2) | Phường B: (15.0, 14.8, 14.5).
+                    </p>
+                    <p class="text-xs text-slate-600 mb-2">Chỉ ra xu hướng biến động và nêu giả thuyết thực tế.</p>
+                    <details class="group">
+                        <summary class="cursor-pointer text-xs font-semibold text-emerald-600 hover:text-emerald-700 flex items-center gap-1.5 select-none">
+                            <i class="fas fa-chevron-right text-xs transition-transform group-open:rotate-90"></i>
+                            <span>Xem gợi ý lời giải</span>
+                        </summary>
+                        <div class="mt-3 p-3 bg-emerald-50/70 border border-emerald-100 rounded-xl text-xs leading-relaxed text-slate-700 space-y-1">
+                            <p>• <strong>Phường A:</strong> Dân số tăng cơ học nhanh chóng từ 12.5 lên 15.2 nghìn người (giả thuyết: có khu đô thị mới, chung cư cao tầng bàn giao).</p>
+                            <p>• <strong>Phường B:</strong> Dân số giảm nhẹ từ 15.0 xuống 14.5 nghìn người (giả thuyết: giải phóng mặt bằng, chỉnh trang đô thị hoặc di dời dân cư).</p>
+                        </div>
+                    </details>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- =================================================================== -->
+        <!-- BÀI TẬP ĐÁNH GIÁ NĂNG LỰC TẠI LỚP (TRẮC NGHIỆM & GỬI ĐIỂM APPS SCRIPT)-->
+        <!-- =================================================================== -->
+        <section id="section-quiz" class="bg-white rounded-3xl border-2 border-emerald-500/30 p-6 sm:p-8 shadow-xl relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-48 h-48 bg-emerald-500/10 rounded-full -mr-16 -mt-16 pointer-events-none"></div>
+
+            <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 border-b border-slate-200 pb-6 mb-6">
+                <div>
+                    <span class="px-3 py-1 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800 inline-block mb-2">
+                        Kiểm Tra Nhanh 15 Phút
+                    </span>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold font-display text-slate-900">
+                        BÀI TẬP ĐÁNH GIÁ NĂNG LỰC TẠI LỚP
+                    </h2>
+                    <p class="text-xs sm:text-sm text-slate-500">
+                        Hoàn thành 5 câu trắc nghiệm cốt lõi để đánh giá năng lực thu thập và phân tích biểu đồ cột kép.
+                    </p>
+                </div>
+
+                <!-- Thông Tin Học Sinh & Đồng Hồ -->
+                <div class="w-full md:w-auto bg-slate-50 p-4 rounded-2xl border border-slate-200 space-y-3">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 mb-1">Họ và tên học sinh:</label>
+                        <input type="text" id="student-name" placeholder="Nhập đầy đủ họ tên..." 
+                               class="w-full text-xs px-3 py-2 rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-white">
+                    </div>
+                    <div class="flex items-center justify-between gap-3 text-xs">
+                        <span class="text-slate-500">Mã đề: <strong class="text-emerald-600">khtn6-09</strong></span>
+                        <span id="quiz-timer" class="font-mono font-bold text-rose-600 bg-rose-50 px-2.5 py-1 rounded-md border border-rose-200">
+                            00:00
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quiz Form -->
+            <form id="online-quiz-form" class="space-y-6">
+
+                <!-- Q1 -->
+                <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
+                    <p class="font-bold text-sm text-slate-800 mb-3">
+                        Câu 1: Dãy dữ liệu nào sau đây là <strong class="text-emerald-600">dữ liệu là số (số liệu)</strong>?
+                    </p>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+                        <label class="flex items-center gap-2 p-2.5 rounded-lg bg-white border border-slate-200 cursor-pointer hover:bg-emerald-50 transition-colors">
+                            <input type="radio" name="q1" value="A" class="text-emerald-600"> A. Môn học yêu thích: Toán, Văn, Anh, KHTN
+                        </label>
+                        <label class="flex items-center gap-2 p-2.5 rounded-lg bg-white border border-slate-200 cursor-pointer hover:bg-emerald-50 transition-colors">
+                            <input type="radio" name="q1" value="B" class="text-emerald-600"> B. Chiều cao của 4 bạn (đơn vị cm): 145, 150, 148, 152
+                        </label>
+                        <label class="flex items-center gap-2 p-2.5 rounded-lg bg-white border border-slate-200 cursor-pointer hover:bg-emerald-50 transition-colors">
+                            <input type="radio" name="q1" value="C" class="text-emerald-600"> C. Nơi sinh của học sinh: Hà Nội, Huế, TP.HCM
+                        </label>
+                        <label class="flex items-center gap-2 p-2.5 rounded-lg bg-white border border-slate-200 cursor-pointer hover:bg-emerald-50 transition-colors">
+                            <input type="radio" name="q1" value="D" class="text-emerald-600"> D. Xếp loại học lực: Tốt, Khá, Đạt, Chưa đạt
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Q2 -->
+                <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
+                    <p class="font-bold text-sm text-slate-800 mb-3">
+                        Câu 2: Trong biểu đồ tranh, quy ước mỗi biểu tượng 🌟 đại diện cho \(20\) học sinh giỏi và 💫 đại diện cho \(10\) học sinh giỏi. Nếu lớp 6A có 🌟🌟🌟💫 thì lớp 6A có bao nhiêu học sinh giỏi?
+                    </p>
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs">
+                        <label class="flex items-center gap-2 p-2.5 rounded-lg bg-white border border-slate-200 cursor-pointer hover:bg-emerald-50 transition-colors">
+                            <input type="radio" name="q2" value="A" class="text-emerald-600"> A. 60 học sinh
+                        </label>
+                        <label class="flex items-center gap-2 p-2.5 rounded-lg bg-white border border-slate-200 cursor-pointer hover:bg-emerald-50 transition-colors">
+                            <input type="radio" name="q2" value="B" class="text-emerald-600"> B. 70 học sinh
+                        </label>
+                        <label class="flex items-center gap-2 p-2.5 rounded-lg bg-white border border-slate-200 cursor-pointer hover:bg-emerald-50 transition-colors">
+                            <input type="radio" name="q2" value="C" class="text-emerald-600"> C. 80 học sinh
+                        </label>
+                        <label class="flex items-center gap-2 p-2.5 rounded-lg bg-white border border-slate-200 cursor-pointer hover:bg-emerald-50 transition-colors">
+                            <input type="radio" name="q2" value="D" class="text-emerald-600"> D. 35 học sinh
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Q3 -->
+                <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
+                    <p class="font-bold text-sm text-slate-800 mb-3">
+                        Câu 3: Mục đích chính của việc sử dụng <strong class="text-emerald-600">biểu đồ cột kép</strong> là gì?
+                    </p>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+                        <label class="flex items-center gap-2 p-2.5 rounded-lg bg-white border border-slate-200 cursor-pointer hover:bg-emerald-50 transition-colors">
+                            <input type="radio" name="q3" value="A" class="text-emerald-600"> A. Để biểu diễn dữ liệu của duy nhất một đối tượng đơn lẻ
+                        </label>
+                        <label class="flex items-center gap-2 p-2.5 rounded-lg bg-white border border-slate-200 cursor-pointer hover:bg-emerald-50 transition-colors">
+                            <input type="radio" name="q3" value="B" class="text-emerald-600"> B. Để so sánh trực quan hai bộ dữ liệu cùng loại của các đối tượng
+                        </label>
+                        <label class="flex items-center gap-2 p-2.5 rounded-lg bg-white border border-slate-200 cursor-pointer hover:bg-emerald-50 transition-colors">
+                            <input type="radio" name="q3" value="C" class="text-emerald-600"> C. Để thay thế hoàn toàn bảng số liệu thống kê
+                        </label>
+                        <label class="flex items-center gap-2 p-2.5 rounded-lg bg-white border border-slate-200 cursor-pointer hover:bg-emerald-50 transition-colors">
+                            <input type="radio" name="q3" value="D" class="text-emerald-600"> D. Để biểu diễn tỉ lệ phần trăm hình quạt tròn
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Q4 -->
+                <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
+                    <p class="font-bold text-sm text-slate-800 mb-3">
+                        Câu 4: Điểm kiểm tra học kỳ của 5 bạn học sinh ghi lại là: \(8, 9, 7.5, 15, 8.5\). Số liệu nào là <strong class="text-rose-600">bất hợp lý</strong>?
+                    </p>
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs">
+                        <label class="flex items-center gap-2 p-2.5 rounded-lg bg-white border border-slate-200 cursor-pointer hover:bg-emerald-50 transition-colors">
+                            <input type="radio" name="q4" value="A" class="text-emerald-600"> A. 7.5
+                        </label>
+                        <label class="flex items-center gap-2 p-2.5 rounded-lg bg-white border border-slate-200 cursor-pointer hover:bg-emerald-50 transition-colors">
+                            <input type="radio" name="q4" value="B" class="text-emerald-600"> B. 8.5
+                        </label>
+                        <label class="flex items-center gap-2 p-2.5 rounded-lg bg-white border border-slate-200 cursor-pointer hover:bg-emerald-50 transition-colors">
+                            <input type="radio" name="q4" value="C" class="text-emerald-600"> C. 15
+                        </label>
+                        <label class="flex items-center gap-2 p-2.5 rounded-lg bg-white border border-slate-200 cursor-pointer hover:bg-emerald-50 transition-colors">
+                            <input type="radio" name="q4" value="D" class="text-emerald-600"> D. 9
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Q5 -->
+                <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
+                    <p class="font-bold text-sm text-slate-800 mb-3">
+                        Câu 5: Khảo sát 40 học sinh lớp 6A, có 16 bạn thích bơi lội. Tỉ số phần trăm số học sinh thích bơi lội so với cả lớp là:
+                    </p>
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs">
+                        <label class="flex items-center gap-2 p-2.5 rounded-lg bg-white border border-slate-200 cursor-pointer hover:bg-emerald-50 transition-colors">
+                            <input type="radio" name="q5" value="A" class="text-emerald-600"> A. \(35\%\)
+                        </label>
+                        <label class="flex items-center gap-2 p-2.5 rounded-lg bg-white border border-slate-200 cursor-pointer hover:bg-emerald-50 transition-colors">
+                            <input type="radio" name="q5" value="B" class="text-emerald-600"> B. \(40\%\)
+                        </label>
+                        <label class="flex items-center gap-2 p-2.5 rounded-lg bg-white border border-slate-200 cursor-pointer hover:bg-emerald-50 transition-colors">
+                            <input type="radio" name="q5" value="C" class="text-emerald-600"> C. \(45\%\)
+                        </label>
+                        <label class="flex items-center gap-2 p-2.5 rounded-lg bg-white border border-slate-200 cursor-pointer hover:bg-emerald-50 transition-colors">
+                            <input type="radio" name="q5" value="D" class="text-emerald-600"> D. \(50\%\)
+                        </label>
+                    </div>
+                </div>
+
+                <div class="pt-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+                    <button type="button" onclick="submitAssessmentQuiz()" id="btn-submit-quiz"
+                            class="w-full sm:w-auto px-8 py-3.5 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-bold rounded-xl shadow-lg shadow-emerald-500/30 flex items-center justify-center gap-2 transition-all">
+                        <i class="fas fa-paper-plane"></i> Nộp Bài & Nhận Điểm Số
+                    </button>
+                    <div id="quiz-result-feedback" class="text-xs font-semibold text-slate-600"></div>
+                </div>
+
+            </form>
+        </section>
+
+    </main>
+
+    <!-- ================= FOOTER ================= -->
+    <footer class="bg-white border-t border-slate-200 py-8 px-4 mt-16 text-center text-xs text-slate-600 space-y-2">
+        <div class="flex justify-center items-center gap-3 mb-2">
+            <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+            <span class="font-semibold text-slate-700">Tài liệu học tập Toán THCS & THPT</span>
+            <span class="w-2 h-2 rounded-full bg-teal-500"></span>
+        </div>
+        <p class="font-medium text-slate-700">
+            @ Bản quyền thuộc ThS. Đinh Quốc Tuấn - Mục đích phi lợi nhuận - Vì giáo dục.
+        </p>
+        <p class="text-slate-400">
+            Trang bài tập tích hợp thư viện thống kê tương tác JSXGraph & API Google Apps Script.
+        </p>
+    </footer>
+
+    <!-- ================= NÚT IN TÀI LIỆU ================= -->
+    <button id="btn-print-doc" onclick="safePrint()" class="fixed bottom-5 right-5 bg-gray-900 text-white px-4 py-2 rounded-lg shadow-lg hover:bg-gray-700 print:hidden z-50">
+        <i class="fas fa-print mr-2"></i> In Tài Liệu
+    </button>
+
+    <script>
+        function safePrint() {
+            const printBtn = document.getElementById('btn-print-doc');
+            printBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Đang chuẩn bị...';
+            
+            // Đảm bảo MathJax đã render xong mọi công thức trước khi gọi hộp thoại in
+            if (window.MathJax && window.MathJax.typesetPromise) {
+                MathJax.typesetPromise().then(() => {
+                    printBtn.innerHTML = '<i class="fas fa-print mr-2"></i> In Tài Liệu';
+                    window.print();
+                });
+            } else {
+                // Fallback nếu không có công thức toán
+                setTimeout(() => window.print(), 500); 
+            }
+        }
+    </script>
+
+    <!-- ================= JAVASCRIPT: JSXGRAPH BOARDS & APPS SCRIPT HANDLER ================= -->
+    <script>
+        let b4, anomalyPoint, normalLine;
+
+        function fixAnomaly() {
+            if (anomalyPoint) {
+                anomalyPoint.moveTo([7, 21], 600);
+                anomalyPoint.setAttribute({ color: '#10b981', name: 'T7 (21°C - Đã sửa)' });
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+
+            // --- 1. JSXGraph 1: Hộp phân loại dữ liệu ---
+            try {
+                const b1 = JXG.JSXGraph.initBoard('jxgbox-g1', {
+                    boundingbox: [0, 6, 12, 0],
+                    axis: false,
+                    showNavigation: false,
+                    showCopyright: false
+                });
+                // Box A: Số liệu
+                b1.create('polygon', [[0.5, 1], [5.5, 1], [5.5, 5], [0.5, 5]], {
+                    fillColor: '#dbeafe', fillOpacity: 0.6, borders: { strokeColor: '#2563eb', strokeWidth: 2 }
+                });
+                b1.create('text', [3, 4.5, 'HỘP A: SỐ LIỆU'], { fontSize: 11, bold: true, color: '#1d4ed8', anchorX: 'middle' });
+                b1.create('text', [3, 3.2, '• 145 cm, 150 cm'], { fontSize: 10, color: '#1e40af', anchorX: 'middle' });
+                b1.create('text', [3, 2.2, '• Điểm Toán: 8, 9, 10'], { fontSize: 10, color: '#1e40af', anchorX: 'middle' });
+
+                // Box B: Phi số liệu
+                b1.create('polygon', [[6.5, 1], [11.5, 1], [11.5, 5], [6.5, 5]], {
+                    fillColor: '#fef3c7', fillOpacity: 0.6, borders: { strokeColor: '#d97706', strokeWidth: 2 }
+                });
+                b1.create('text', [9, 4.5, 'HỘP B: PHI SỐ LIỆU'], { fontSize: 11, bold: true, color: '#b45309', anchorX: 'middle' });
+                b1.create('text', [9, 3.2, '• Xe đạp, Xe máy, Đi bộ'], { fontSize: 10, color: '#92400e', anchorX: 'middle' });
+                b1.create('text', [9, 2.2, '• Địa chỉ email'], { fontSize: 10, color: '#92400e', anchorX: 'middle' });
+            } catch (e) { console.error(e); }
+
+            // --- 2. JSXGraph 2: Biểu đồ cột trái cây ---
+            try {
+                const b2 = JXG.JSXGraph.initBoard('jxgbox-g2', {
+                    boundingbox: [-0.5, 55, 5.5, -5],
+                    axis: false,
+                    showNavigation: false,
+                    showCopyright: false
+                });
+                // Trục tọa độ
+                b2.create('axis', [[0, 0], [5, 0]], { strokeColor: '#334155', ticks: { visible: false } });
+                b2.create('axis', [[0, 0], [0, 50]], { strokeColor: '#334155' });
+
+                const fruits = [
+                    { name: 'Táo', val: 30, col: '#f87171' },
+                    { name: 'Cam', val: 45, col: '#fb923c' },
+                    { name: 'Xoài', val: 25, col: '#facc15' },
+                    { name: 'Dưa hấu', val: 40, col: '#4ade80' }
+                ];
+                fruits.forEach((f, i) => {
+                    const x = i + 1;
+                    b2.create('polygon', [[x - 0.35, 0], [x + 0.35, 0], [x + 0.35, f.val], [x - 0.35, f.val]], {
+                        fillColor: f.col, fillOpacity: 0.8, borders: { strokeColor: '#334155', strokeWidth: 1.5 }
+                    });
+                    b2.create('text', [x, f.val + 2.5, f.val + 'kg'], { fontSize: 10, bold: true, anchorX: 'middle' });
+                    b2.create('text', [x, -3, f.name], { fontSize: 10, bold: true, color: '#1e293b', anchorX: 'middle' });
+                });
+            } catch (e) { console.error(e); }
+
+            // --- 3. JSXGraph 3: Biểu đồ cột kép 2 năm ---
+            try {
+                const b3 = JXG.JSXGraph.initBoard('jxgbox-g3', {
+                    boundingbox: [-0.5, 500, 4.5, -50],
+                    axis: false,
+                    showNavigation: false,
+                    showCopyright: false
+                });
+                b3.create('axis', [[0, 0], [4, 0]], { strokeColor: '#334155', ticks: { visible: false } });
+                b3.create('axis', [[0, 0], [0, 450]], { strokeColor: '#334155' });
+
+                const branches = [
+                    { name: 'CN A', y24: 320, y25: 350 },
+                    { name: 'CN B', y24: 400, y25: 380 },
+                    { name: 'CN C', y24: 250, y25: 300 }
+                ];
+                branches.forEach((br, i) => {
+                    const x = i + 1;
+                    // 2024 (Red)
+                    b3.create('polygon', [[x - 0.32, 0], [x - 0.04, 0], [x - 0.04, br.y24], [x - 0.32, br.y24]], {
+                        fillColor: '#ef4444', fillOpacity: 0.8, borders: { strokeColor: '#b91c1c' }
+                    });
+                    b3.create('text', [x - 0.18, br.y24 + 18, br.y24], { fontSize: 9, bold: true, color: '#b91c1c', anchorX: 'middle' });
+
+                    // 2025 (Blue)
+                    b3.create('polygon', [[x + 0.04, 0], [x + 0.32, 0], [x + 0.32, br.y25], [x + 0.04, br.y25]], {
+                        fillColor: '#3b82f6', fillOpacity: 0.8, borders: { strokeColor: '#1d4ed8' }
+                    });
+                    b3.create('text', [x + 0.18, br.y25 + 18, br.y25], { fontSize: 9, bold: true, color: '#1d4ed8', anchorX: 'middle' });
+
+                    b3.create('text', [x, -30, br.name], { fontSize: 10, bold: true, anchorX: 'middle' });
+                });
+            } catch (e) { console.error(e); }
+
+            // --- 4. JSXGraph 4: Điểm dị biệt Sapa ---
+            try {
+                b4 = JXG.JSXGraph.initBoard('jxgbox-g4', {
+                    boundingbox: [0, 30, 13, -15],
+                    axis: true,
+                    showNavigation: false,
+                    showCopyright: false
+                });
+                const temps = [7, 8, 12, 16, 19, 21, -10, 20, 18, 14, 10, 6];
+                const pts = [];
+                for (let m = 1; m <= 12; m++) {
+                    const isOutlier = (m === 7);
+                    const p = b4.create('point', [m, temps[m - 1]], {
+                        name: isOutlier ? 'T7 (-10°C)' : 'T' + m,
+                        size: isOutlier ? 5 : 3,
+                        color: isOutlier ? '#ef4444' : '#0284c7',
+                        fixed: !isOutlier
+                    });
+                    if (isOutlier) anomalyPoint = p;
+                    pts.push(p);
+                }
+                b4.create('polygonalchain', pts, { strokeColor: '#0284c7', strokeWidth: 2 });
+            } catch (e) { console.error(e); }
+
+            // --- 5. JSXGraph 5: Rác tái chế 6A, 6B, 6C ---
+            try {
+                const b5 = JXG.JSXGraph.initBoard('jxgbox-g5', {
+                    boundingbox: [-0.5, 450, 4.5, -40],
+                    axis: false,
+                    showNavigation: false,
+                    showCopyright: false
+                });
+                b5.create('axis', [[0, 0], [4, 0]], { strokeColor: '#334155', ticks: { visible: false } });
+                b5.create('axis', [[0, 0], [0, 400]], { strokeColor: '#334155' });
+
+                const teams = [
+                    { name: '6A (345đ)', score: 345, col: '#60a5fa' },
+                    { name: '6B (370đ 🏆)', score: 370, col: '#10b981' },
+                    { name: '6C (350đ)', score: 350, col: '#f59e0b' }
+                ];
+                teams.forEach((t, i) => {
+                    const x = i + 1;
+                    b5.create('polygon', [[x - 0.35, 0], [x + 0.35, 0], [x + 0.35, t.score], [x - 0.35, t.score]], {
+                        fillColor: t.col, fillOpacity: 0.85, borders: { strokeColor: '#334155' }
+                    });
+                    b5.create('text', [x, t.score + 18, t.score + 'đ'], { fontSize: 10, bold: true, anchorX: 'middle' });
+                    b5.create('text', [x, -25, t.name], { fontSize: 9, bold: true, anchorX: 'middle' });
+                });
+            } catch (e) { console.error(e); }
+
+            // --- 6. JSXGraph 6: Nhiệt độ toàn cầu 2 thập kỷ ---
+            try {
+                const b6 = JXG.JSXGraph.initBoard('jxgbox-g6', {
+                    boundingbox: [-0.5, 40, 5.5, -5],
+                    axis: false,
+                    showNavigation: false,
+                    showCopyright: false
+                });
+                b6.create('axis', [[0, 0], [5, 0]], { strokeColor: '#334155', ticks: { visible: false } });
+                b6.create('axis', [[0, 0], [0, 35]], { strokeColor: '#334155' });
+
+                const cities = [
+                    { name: 'Hà Nội', d1: 29.2, d2: 30.5 },
+                    { name: 'Tokyo', d1: 26.5, d2: 27.8 },
+                    { name: 'Paris', d1: 20.1, d2: 21.6 },
+                    { name: 'New York', d1: 24.8, d2: 25.9 }
+                ];
+                cities.forEach((c, i) => {
+                    const x = i + 1;
+                    // Dec 1
+                    b6.create('polygon', [[x - 0.3, 0], [x - 0.03, 0], [x - 0.03, c.d1], [x - 0.3, c.d1]], {
+                        fillColor: '#10b981', fillOpacity: 0.8, borders: { strokeColor: '#047857' }
+                    });
+                    // Dec 2
+                    b6.create('polygon', [[x + 0.03, 0], [x + 0.3, 0], [x + 0.3, c.d2], [x + 0.03, c.d2]], {
+                        fillColor: '#ef4444', fillOpacity: 0.8, borders: { strokeColor: '#b91c1c' }
+                    });
+                    b6.create('text', [x, -3, c.name], { fontSize: 9, bold: true, anchorX: 'middle' });
+                });
+            } catch (e) { console.error(e); }
+
+            // Timer cho bài kiểm tra
+            let seconds = 0;
+            setInterval(() => {
+                seconds++;
+                const m = String(Math.floor(seconds / 60)).padStart(2, '0');
+                const s = String(seconds % 60).padStart(2, '0');
+                const timerEl = document.getElementById('quiz-timer');
+                if (timerEl) timerEl.textContent = `${m}:${s}`;
+            }, 1000);
+        });
+
+        // --- 2. Xử lý Trắc nghiệm & gửi dữ liệu về Google Apps Script ---
+        function submitAssessmentQuiz() {
+            const nameInput = document.getElementById('student-name');
+            const hoTen = nameInput.value.trim();
+
+            if (!hoTen) {
+                alert('Vui lòng nhập đầy đủ Họ và tên học sinh trước khi nộp bài!');
+                nameInput.focus();
+                return;
+            }
+
+            const answerKeys = { q1: 'B', q2: 'B', q3: 'B', q4: 'C', q5: 'B' };
+            const form = document.getElementById('online-quiz-form');
+            let correctCount = 0;
+            let wrongList = [];
+
+            for (let i = 1; i <= 5; i++) {
+                const qName = 'q' + i;
+                const selected = form.querySelector(`input[name="${qName}"]:checked`);
+                if (selected && selected.value === answerKeys[qName]) {
+                    correctCount++;
+                } else {
+                    const userVal = selected ? selected.value : 'Chưa chọn';
+                    wrongList.push(`Câu ${i} (Chọn: ${userVal}, Đúng: ${answerKeys[qName]})`);
+                }
+            }
+
+            const diem = (correctCount / 5) * 10;
+            const thoiGian = document.getElementById('quiz-timer').textContent;
+            const cauSai = wrongList.length > 0 ? wrongList.join('; ') : 'Không có (Đúng 100%)';
+
+            // Payload theo chuẩn doPost(e) của Apps Script
+            const postData = {
+                hoTen: hoTen,
+                maDe: 'khtn6-09',
+                diem: diem,
+                thoiGian: thoiGian,
+                cauSai: cauSai
+            };
+
+            const submitBtn = document.getElementById('btn-submit-quiz');
+            const feedback = document.getElementById('quiz-result-feedback');
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Đang lưu kết quả...';
+
+            const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzY7b7h4OwvhXuK5Vs6hl-aD88BPnAiAKbU5lfJobby0D4nzbIJVKT4n0AKCpAGoK0nZA/exec';
+
+            // Gửi POST tới Google Apps Script Web App
+            fetch(APPS_SCRIPT_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(postData)
+            })
+            .then(() => {
+                submitBtn.innerHTML = '<i class="fas fa-check-circle mr-2"></i> Đã Gửi Điểm Số Thành Công';
+                submitBtn.classList.remove('from-emerald-600', 'to-teal-600');
+                submitBtn.classList.add('from-emerald-600', 'to-emerald-700');
+                
+                feedback.innerHTML = `
+                    <div class="p-3 bg-emerald-50 border border-emerald-200 rounded-xl text-emerald-800">
+                        <p class="font-bold text-sm">🎉 Chúc mừng em ${hoTen}!</p>
+                        <p>Điểm số đạt được: <strong class="text-emerald-700 text-base">${diem}/10</strong> (${correctCount}/5 câu đúng)</p>
+                        <p class="text-xs text-slate-500 mt-1">Dữ liệu bài thi đã được lưu tự động vào Google Sheets.</p>
+                    </div>
+                `;
+            })
+            .catch(err => {
+                console.error(err);
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="fas fa-paper-plane mr-2"></i> Thử Gửi Lại';
+                feedback.innerHTML = `
+                    <div class="p-3 bg-amber-50 border border-amber-200 rounded-xl text-amber-800">
+                        <p class="font-bold">Điểm của em: ${diem}/10</p>
+                        <p class="text-xs">Kết quả đã ghi nhận trên giao diện.</p>
+                    </div>
+                `;
+            });
+        }
+    </script>
+</body>
+</html>
