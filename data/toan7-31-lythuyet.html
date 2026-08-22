@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buổi 31- Chuyên đề Hình học 7: Quan hệ Góc - Cạnh & Bất đẳng thức Tam giác</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome 6 CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- MathJax 3 CDN -->
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['\\(', '\\)'], ['$', '$']],
+                displayMath: [['\\[', '\\]'], ['$$', '$$']]
+            },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <!-- JSXGraph CDN -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraph.css" />
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraphcore.js"></script>
+
+    <style>
+        body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background-color: #f8fafc; color: #0f172a; }
+        .jxgbox { border-radius: 1rem; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); border: 1px solid #e2e8f0; background: #ffffff; }
+        details > summary { list-style: none; cursor: pointer; }
+        details > summary::-webkit-details-marker { display: none; }
+        details[open] summary ~ * { animation: fadeIn 0.3s ease-in-out; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @media print {
+            .print\:hidden { display: none !important; }
+            body { background: #ffffff !important; color: #000000 !important; }
+            .shadow-xl, .shadow-lg, .shadow-md, .shadow-sm { box-shadow: none !important; }
+            section { page-break-inside: avoid; }
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+
+    <!-- Header & Brand Logos -->
+    <header class="bg-white border-b border-slate-200 shadow-sm sticky top-0 z-40 print:relative print:border-none print:shadow-none">
+        <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
+            <img src="https://firebasestorage.googleapis.com/v0/b/link-anh-web.firebasestorage.app/o/ttbdvh.jpg?alt=media&token=f270aa9b-a2bc-48e8-8910-80742b542615" alt="Logo TTBDVH" class="h-14 sm:h-16 object-contain rounded-md shadow-sm">
+            <div class="text-center px-4">
+                <span class="inline-block px-3 py-0.5 bg-blue-100 text-blue-800 text-xs font-bold rounded-full uppercase tracking-wider mb-1">Hình học Lớp 7 • Buổi 31</span>
+                <h1 class="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">QUAN HỆ GÓC VÀ CẠNH ĐỐI DIỆN • BẤT ĐẲNG THỨC TAM GIÁC</h1>
+            </div>
+            <img src="https://firebasestorage.googleapis.com/v0/b/link-anh-web.firebasestorage.app/o/Logo-chinh-hcmus.png?alt=media&token=9cf3a1de-75f1-493b-8711-fd22c7b98738" alt="Logo HCMUS" class="h-14 sm:h-16 object-contain rounded-md">
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="max-w-6xl mx-auto px-4 py-8 space-y-10">
+
+        <!-- CẤP ĐỘ 1: CƠ BẢN -->
+        <section class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 sm:p-8 border-t-4 border-t-emerald-500">
+            <div class="flex items-center space-x-3 mb-4">
+                <span class="bg-emerald-100 text-emerald-800 text-sm font-bold px-3 py-1 rounded-full flex items-center">
+                    <i class="fas fa-seedling mr-1.5"></i> CẤP ĐỘ 1
+                </span>
+                <h2 class="text-xl sm:text-2xl font-bold text-slate-900">CƠ BẢN (BASIC)</h2>
+            </div>
+            
+            <div class="p-4 bg-emerald-50/60 rounded-xl border border-emerald-200 text-emerald-950 mb-6 text-sm sm:text-base">
+                <strong><i class="fas fa-bullseye text-emerald-600 mr-1.5"></i> Mục tiêu:</strong> Nhận biết mối quan hệ giữa góc và cạnh đối diện trong một tam giác, hiểu định lý Bất đẳng thức tam giác cơ bản và biết cách kiểm tra điều kiện tồn tại tam giác của ba độ dài đoạn thẳng.
+            </div>
+
+            <!-- 1. Quan hệ giữa góc và cạnh đối diện -->
+            <div class="space-y-4 text-slate-800">
+                <h3 class="text-lg font-bold text-slate-900 flex items-center">
+                    <i class="fas fa-shapes text-emerald-600 mr-2"></i> 1. Quan hệ giữa góc và cạnh đối diện trong một tam giác
+                </h3>
+                
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div class="p-4 bg-slate-50 rounded-xl border border-slate-200">
+                        <span class="inline-block font-bold text-blue-700 mb-1"><i class="fas fa-arrow-right-long mr-1"></i> Định lý 1 (Góc đối diện cạnh lớn hơn):</span>
+                        <p class="text-sm">Trong một tam giác, góc đối diện với cạnh lớn hơn là góc lớn hơn. Trong $\triangle ABC$, nếu $AC > AB$ thì $\widehat{B} > \widehat{C}$.</p>
+                    </div>
+                    <div class="p-4 bg-slate-50 rounded-xl border border-slate-200">
+                        <span class="inline-block font-bold text-purple-700 mb-1"><i class="fas fa-arrow-right-long mr-1"></i> Định lý 2 (Cạnh đối diện góc lớn hơn):</span>
+                        <p class="text-sm">Trong một tam giác, cạnh đối diện với góc lớn hơn là cạnh lớn hơn. Trong $\triangle ABC$, nếu $\widehat{B} > \widehat{C}$ thì $AC > AB$.</p>
+                    </div>
+                </div>
+
+                <div class="p-3.5 bg-amber-50 rounded-lg border border-amber-200 text-amber-900 text-sm font-medium">
+                    <i class="fas fa-circle-exclamation text-amber-600 mr-1"></i> <strong>Nhận xét:</strong> Trong tam giác vuông, cạnh huyền là cạnh lớn nhất. Trong tam giác tù, cạnh đối diện với góc tù là cạnh lớn nhất.
+                </div>
+
+                <!-- Ví dụ 1 & 2 -->
+                <div class="space-y-3 pt-2">
+                    <details class="bg-slate-50 border border-slate-200 rounded-xl p-4 transition">
+                        <summary class="font-bold text-slate-900 flex items-center justify-between">
+                            <span><i class="fas fa-circle-question text-emerald-600 mr-2"></i> Ví dụ 1.1: Cho $\triangle ABC$ có $AB = 3\text{ cm}, BC = 5\text{ cm}, AC = 6\text{ cm}$. Sắp xếp các góc từ bé đến lớn.</span>
+                            <span class="text-xs bg-emerald-100 text-emerald-800 px-2 py-1 rounded">Xem lời giải</span>
+                        </summary>
+                        <div class="mt-3 pt-3 border-t border-slate-200 text-sm space-y-1 text-slate-700">
+                            <p><strong>Giải:</strong> Ta có $AB < BC < AC$ ($3 < 5 < 6$).</p>
+                            <p>Theo định lý góc đối diện với cạnh lớn hơn, các góc đối diện tương ứng là: $\widehat{C} < \widehat{A} < \widehat{B}$.</p>
+                        </div>
+                    </details>
+
+                    <details class="bg-slate-50 border border-slate-200 rounded-xl p-4 transition">
+                        <summary class="font-bold text-slate-900 flex items-center justify-between">
+                            <span><i class="fas fa-circle-question text-emerald-600 mr-2"></i> Ví dụ 1.2: Cho $\triangle ABC$ có $\widehat{B} = 75^\circ, \widehat{C} = 42^\circ$. So sánh hai cạnh $AB$ và $AC$.</span>
+                            <span class="text-xs bg-emerald-100 text-emerald-800 px-2 py-1 rounded">Xem lời giải</span>
+                        </summary>
+                        <div class="mt-3 pt-3 border-t border-slate-200 text-sm space-y-1 text-slate-700">
+                            <p><strong>Giải:</strong> Vì $\widehat{B} > \widehat{C}$ ($75^\circ > 42^\circ$), theo định lý cạnh đối diện với góc lớn hơn ta có $AC > AB$.</p>
+                        </div>
+                    </details>
+                </div>
+            </div>
+
+            <!-- 2. Bất đẳng thức tam giác -->
+            <div class="space-y-4 text-slate-800 mt-8">
+                <h3 class="text-lg font-bold text-slate-900 flex items-center">
+                    <i class="fas fa-shield-halved text-emerald-600 mr-2"></i> 2. Định lý Bất đẳng thức tam giác
+                </h3>
+                <p class="text-sm">Trong một tam giác, độ dài một cạnh bất kì luôn nhỏ hơn tổng độ dài hai cạnh còn lại:</p>
+                <div class="grid grid-cols-3 gap-2 text-center font-bold text-sm bg-slate-100 py-3 rounded-xl border border-slate-200">
+                    <div>$AB < AC + BC$</div>
+                    <div>$AC < AB + BC$</div>
+                    <div>$BC < AB + AC$</div>
+                </div>
+                <p class="text-sm"><strong>Điều kiện tồn tại tam giác:</strong> Với $a \le b \le c$, ba đoạn thẳng tạo thành tam giác khi và chỉ khi $c < a + b$.</p>
+            </div>
+
+            <!-- JSXGraph 1: Interactive Triangle -->
+            <div class="mt-8 bg-slate-50 border border-slate-200 rounded-2xl p-5">
+                <div class="mb-3">
+                    <h4 class="font-bold text-slate-900 flex items-center">
+                        <i class="fas fa-play-circle text-emerald-600 mr-2"></i> Mô hình tương tác 1: Quan hệ Góc - Cạnh đối diện
+                    </h4>
+                    <p class="text-xs text-slate-600">Dùng chuột kéo thả tự do các đỉnh $A, B, C$. Quan sát màu sắc tương ứng giữa góc và cạnh đối diện cùng bảng số liệu thời gian thực bên dưới.</p>
+                </div>
+                <div id="jxgbox1" class="jxgbox w-full h-[380px]"></div>
+                <div id="box1-info" class="mt-3 grid grid-cols-3 gap-2 text-center text-xs sm:text-sm font-semibold p-3 bg-white rounded-xl border border-slate-200"></div>
+            </div>
+        </section>
+
+        <!-- CẤP ĐỘ 2: NÂNG CAO -->
+        <section class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 sm:p-8 border-t-4 border-t-sky-500">
+            <div class="flex items-center space-x-3 mb-4">
+                <span class="bg-sky-100 text-sky-800 text-sm font-bold px-3 py-1 rounded-full flex items-center">
+                    <i class="fas fa-layer-group mr-1.5"></i> CẤP ĐỘ 2
+                </span>
+                <h2 class="text-xl sm:text-2xl font-bold text-slate-900">NÂNG CAO (ADVANCED)</h2>
+            </div>
+            
+            <div class="p-4 bg-sky-50/60 rounded-xl border border-sky-200 text-sky-950 mb-6 text-sm sm:text-base">
+                <strong><i class="fas fa-bullseye text-sky-600 mr-1.5"></i> Mục tiêu:</strong> Học sinh nắm vững cách chứng minh Bất đẳng thức tam giác bằng phương pháp hạ đường cao, hiểu sâu cách dùng bất đẳng thức kép để chặn khoảng giá trị của một cạnh chưa biết.
+            </div>
+
+            <!-- Chứng minh BĐT tam giác -->
+            <div class="space-y-4 text-slate-800">
+                <h3 class="text-lg font-bold text-slate-900 flex items-center">
+                    <i class="fas fa-square-root-variable text-sky-600 mr-2"></i> 1. Chứng minh khoa học Định lý Bất đẳng thức tam giác
+                </h3>
+                <p class="text-sm font-semibold">Đề bài: Chứng minh trong tam giác $ABC$ bất kỳ, ta luôn có $BC < AB + AC$.</p>
+                
+                <div class="grid md:grid-cols-3 gap-4 text-sm">
+                    <div class="p-4 bg-slate-50 rounded-xl border border-slate-200">
+                        <span class="font-bold text-slate-900 block mb-1">Trường hợp 1: $\widehat{B} \ge 90^\circ$</span>
+                        <p class="text-slate-600">Khi đó góc $B$ lớn nhất nên $AC$ là cạnh lớn nhất: $BC < AC < AB + AC$ (luôn đúng do $AB > 0$).</p>
+                    </div>
+                    <div class="p-4 bg-slate-50 rounded-xl border border-slate-200">
+                        <span class="font-bold text-slate-900 block mb-1">Trường hợp 2: $\widehat{C} \ge 90^\circ$</span>
+                        <p class="text-slate-600">Tương tự, góc $C$ lớn nhất nên $AB$ là cạnh lớn nhất: $BC < AB < AB + AC$ (luôn đúng do $AC > 0$).</p>
+                    </div>
+                    <div class="p-4 bg-slate-50 rounded-xl border border-slate-200">
+                        <span class="font-bold text-slate-900 block mb-1">Trường hợp 3: $\widehat{B}, \widehat{C} < 90^\circ$</span>
+                        <p class="text-slate-600">Kẻ đường cao $AH \perp BC$ ($H \in BC$). Trong $\triangle ABH$ vuông tại $H \Rightarrow BH < AB$. Trong $\triangle ACH$ vuông tại $H \Rightarrow HC < AC$. Cộng lại: $BC = BH + HC < AB + AC$.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bất đẳng thức kép -->
+            <div class="space-y-4 text-slate-800 mt-6">
+                <h3 class="text-lg font-bold text-slate-900 flex items-center">
+                    <i class="fas fa-arrows-left-right-to-line text-sky-600 mr-2"></i> 2. Chặn khoảng giá trị của cạnh tam giác (Bất đẳng thức kép)
+                </h3>
+                <div class="p-4 bg-sky-50 rounded-xl border border-sky-200 text-center font-bold text-sky-950">
+                    $$|AB - AC| < BC < AB + AC$$
+                </div>
+
+                <details class="bg-slate-50 border border-slate-200 rounded-xl p-4 transition">
+                    <summary class="font-bold text-slate-900 flex items-center justify-between">
+                        <span><i class="fas fa-circle-question text-sky-600 mr-2"></i> Ví dụ 2.1: Cho $\triangle ABC$ có $AB = 8\text{ cm}, AC = 3\text{ cm}$. Tìm độ dài $BC$ biết $BC$ là số tự nhiên chẵn.</span>
+                        <span class="text-xs bg-sky-100 text-sky-800 px-2 py-1 rounded">Xem lời giải</span>
+                    </summary>
+                    <div class="mt-3 pt-3 border-t border-slate-200 text-sm space-y-1 text-slate-700">
+                        <p><strong>Giải:</strong> Áp dụng bất đẳng thức kép: $8 - 3 < BC < 8 + 3 \iff 5 < BC < 11\text{ (cm)}$.</p>
+                        <p>Vì $BC$ là số tự nhiên chẵn nên $BC \in \{6\text{ cm}, 8\text{ cm}, 10\text{ cm}\}$.</p>
+                    </div>
+                </details>
+            </div>
+
+            <!-- JSXGraph 2: Compass Triangle -->
+            <div class="mt-8 bg-slate-50 border border-slate-200 rounded-2xl p-5">
+                <div class="mb-3">
+                    <h4 class="font-bold text-slate-900 flex items-center">
+                        <i class="fas fa-compass-drafting text-sky-600 mr-2"></i> Mô hình tương tác 2: Dựng tam giác bằng compa - Điều kiện cắt nhau
+                    </h4>
+                    <p class="text-xs text-slate-600">Thay đổi độ dài 3 cạnh qua các thanh trượt bên dưới. Khi $a < b + c$, 2 cung tròn cắt nhau tạo thành tam giác. Khi $a \ge b + c$, 2 cung tròn rời nhau khiến việc dựng tam giác thất bại.</p>
+                </div>
+                <div id="jxgbox2" class="jxgbox w-full h-[400px]"></div>
+                <div id="box2-status" class="mt-3 text-center text-sm font-bold p-3 rounded-xl border"></div>
+            </div>
+        </section>
+
+        <!-- CẤP ĐỘ 3: VẬN DỤNG -->
+        <section class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 sm:p-8 border-t-4 border-t-amber-500">
+            <div class="flex items-center space-x-3 mb-4">
+                <span class="bg-amber-100 text-amber-800 text-sm font-bold px-3 py-1 rounded-full flex items-center">
+                    <i class="fas fa-lightbulb mr-1.5"></i> CẤP ĐỘ 3
+                </span>
+                <h2 class="text-xl sm:text-2xl font-bold text-slate-900">VẬN DỤNG (APPLIED)</h2>
+            </div>
+            
+            <div class="p-4 bg-amber-50/60 rounded-xl border border-amber-200 text-amber-950 mb-6 text-sm sm:text-base">
+                <strong><i class="fas fa-bullseye text-amber-600 mr-1.5"></i> Mục tiêu:</strong> Áp dụng bất đẳng thức tam giác vào các bài toán tối ưu hóa vị trí thực tế (kéo dây điện ngắn nhất) và giải các bài toán chứng minh hình học đa bước phức tạp.
+            </div>
+
+            <!-- 1. Tối ưu hóa vị trí cột điện -->
+            <div class="space-y-4 text-slate-800">
+                <h3 class="text-lg font-bold text-slate-900 flex items-center">
+                    <i class="fas fa-bolt text-amber-600 mr-2"></i> 1. Ứng dụng thực tế: Tối ưu hóa vị trí đặt cột điện bên bờ sông
+                </h3>
+                <p class="text-sm">Trạm biến áp $A$ và khu dân cư $B$ ở cùng một phía bờ sông $d$. Tìm vị trí đặt trạm trung chuyển $C$ trên $d$ sao cho tổng chiều dài đường dây $AC + CB$ là ngắn nhất.</p>
+                
+                <div class="p-4 bg-slate-50 rounded-xl border border-slate-200 text-sm space-y-2">
+                    <p><strong>Phương pháp giải bằng Điểm đối xứng:</strong></p>
+                    <ul class="list-disc pl-5 space-y-1 text-slate-700">
+                        <li>Lấy điểm $A'$ đối xứng với $A$ qua bờ sông $d$. Khi đó với mọi điểm $M \in d$, ta luôn có $MA = MA'$.</li>
+                        <li>Tổng chiều dài dây: $MA + MB = MA' + MB \ge A'B$ (bất đẳng thức tam giác trong $\triangle A'MB$).</li>
+                        <li>Dấu bằng xảy ra khi $A', M, B$ thẳng hàng, tức $M \equiv C = A'B \cap d$.</li>
+                    </ul>
+                </div>
+
+                <details class="bg-slate-50 border border-slate-200 rounded-xl p-4 transition">
+                    <summary class="font-bold text-slate-900 flex items-center justify-between">
+                        <span><i class="fas fa-circle-question text-amber-600 mr-2"></i> Bài toán đa bước: Cho $\triangle ABC$, $D \in BC$. Chứng minh $AD < \frac{AB + AC + BC}{2}$.</span>
+                        <span class="text-xs bg-amber-100 text-amber-800 px-2 py-1 rounded">Xem lời giải</span>
+                    </summary>
+                    <div class="mt-3 pt-3 border-t border-slate-200 text-sm space-y-2 text-slate-700">
+                        <p>Trong $\triangle ABD$: $AD < AB + BD$ (1)</p>
+                        <p>Trong $\triangle ACD$: $AD < AC + CD$ (2)</p>
+                        <p>Cộng (1) và (2) theo vế: $2AD < AB + AC + (BD + CD) = AB + AC + BC \Rightarrow AD < \frac{AB+AC+BC}{2}$ (đpcm).</p>
+                    </div>
+                </details>
+            </div>
+
+            <!-- JSXGraph 3: Shortest Path Cable -->
+            <div class="mt-8 bg-slate-50 border border-slate-200 rounded-2xl p-5">
+                <div class="mb-3">
+                    <h4 class="font-bold text-slate-900 flex items-center">
+                        <i class="fas fa-tower-broadcast text-amber-600 mr-2"></i> Mô hình tương tác 3: Tối ưu hóa đường dây điện (Đường đi ngắn nhất)
+                    </h4>
+                    <p class="text-xs text-slate-600">Dùng chuột kéo điểm $M$ chạy dọc theo bờ sông $d$. Quan sát độ dài dây điện $AM + MB$ so với độ dài tối thiểu $AC + BC = A'B$.</p>
+                </div>
+                <div id="jxgbox3" class="jxgbox w-full h-[420px]"></div>
+                <div id="box3-info" class="mt-3 text-center text-sm font-semibold p-3 bg-white rounded-xl border border-slate-200"></div>
+            </div>
+        </section>
+
+        <!-- BÀI TẬP ĐÁNH GIÁ NĂNG LỰC TẠI LỚP -->
+        <section class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 sm:p-8 border-t-4 border-t-indigo-600">
+            <div class="flex items-center space-x-3 mb-2">
+                <span class="bg-indigo-100 text-indigo-800 text-sm font-bold px-3 py-1 rounded-full flex items-center">
+                    <i class="fas fa-clipboard-check mr-1.5"></i> KIỂM TRA
+                </span>
+                <h2 class="text-xl sm:text-2xl font-bold text-slate-900">BÀI TẬP ĐÁNH GIÁ NĂNG LỰC TẠI LỚP</h2>
+            </div>
+            <p class="text-sm text-slate-600 mb-6">Làm bài trực tiếp và gửi kết quả về hệ thống để giáo viên đánh giá.</p>
+
+            <form id="quiz-form" class="space-y-6">
+                <!-- Câu 1 -->
+                <div class="p-4 bg-slate-50 rounded-xl border border-slate-200">
+                    <p class="font-bold text-slate-900 text-sm sm:text-base mb-3">Câu 1: Cho $\triangle ABC$ có $AB = 4\text{ cm}, BC = 7\text{ cm}, AC = 6\text{ cm}$. Khẳng định nào sau đây là ĐÚNG?</p>
+                    <div class="grid sm:grid-cols-2 gap-2 text-sm">
+                        <label class="flex items-center p-2.5 bg-white rounded-lg border border-slate-200 cursor-pointer hover:bg-indigo-50">
+                            <input type="radio" name="q1" value="A" class="text-indigo-600 focus:ring-indigo-500 mr-2" required>
+                            A. $\widehat{A} < \widehat{B} < \widehat{C}$
+                        </label>
+                        <label class="flex items-center p-2.5 bg-white rounded-lg border border-slate-200 cursor-pointer hover:bg-indigo-50">
+                            <input type="radio" name="q1" value="B" class="text-indigo-600 focus:ring-indigo-500 mr-2">
+                            B. $\widehat{C} < \widehat{B} < \widehat{A}$
+                        </label>
+                        <label class="flex items-center p-2.5 bg-white rounded-lg border border-slate-200 cursor-pointer hover:bg-indigo-50">
+                            <input type="radio" name="q1" value="C" class="text-indigo-600 focus:ring-indigo-500 mr-2">
+                            C. $\widehat{B} < \widehat{C} < \widehat{A}$
+                        </label>
+                        <label class="flex items-center p-2.5 bg-white rounded-lg border border-slate-200 cursor-pointer hover:bg-indigo-50">
+                            <input type="radio" name="q1" value="D" class="text-indigo-600 focus:ring-indigo-500 mr-2">
+                            D. $\widehat{A} > \widehat{C} > \widehat{B}$
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Câu 2 -->
+                <div class="p-4 bg-slate-50 rounded-xl border border-slate-200">
+                    <p class="font-bold text-slate-900 text-sm sm:text-base mb-3">Câu 2: Bộ ba đoạn thẳng nào sau đây CÓ THỂ tạo thành một tam giác?</p>
+                    <div class="grid sm:grid-cols-2 gap-2 text-sm">
+                        <label class="flex items-center p-2.5 bg-white rounded-lg border border-slate-200 cursor-pointer hover:bg-indigo-50">
+                            <input type="radio" name="q2" value="A" class="text-indigo-600 focus:ring-indigo-500 mr-2" required>
+                            A. $2\text{ cm}, 4\text{ cm}, 6\text{ cm}$
+                        </label>
+                        <label class="flex items-center p-2.5 bg-white rounded-lg border border-slate-200 cursor-pointer hover:bg-indigo-50">
+                            <input type="radio" name="q2" value="B" class="text-indigo-600 focus:ring-indigo-500 mr-2">
+                            B. $3\text{ cm}, 5\text{ cm}, 9\text{ cm}$
+                        </label>
+                        <label class="flex items-center p-2.5 bg-white rounded-lg border border-slate-200 cursor-pointer hover:bg-indigo-50">
+                            <input type="radio" name="q2" value="C" class="text-indigo-600 focus:ring-indigo-500 mr-2">
+                            C. $4\text{ cm}, 5\text{ cm}, 7\text{ cm}$
+                        </label>
+                        <label class="flex items-center p-2.5 bg-white rounded-lg border border-slate-200 cursor-pointer hover:bg-indigo-50">
+                            <input type="radio" name="q2" value="D" class="text-indigo-600 focus:ring-indigo-500 mr-2">
+                            D. $1\text{ cm}, 2\text{ cm}, 4\text{ cm}$
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Câu 3 -->
+                <div class="p-4 bg-slate-50 rounded-xl border border-slate-200">
+                    <p class="font-bold text-slate-900 text-sm sm:text-base mb-3">Câu 3: Trong một tam giác tù, cạnh đối diện với góc tù là:</p>
+                    <div class="grid sm:grid-cols-2 gap-2 text-sm">
+                        <label class="flex items-center p-2.5 bg-white rounded-lg border border-slate-200 cursor-pointer hover:bg-indigo-50">
+                            <input type="radio" name="q3" value="A" class="text-indigo-600 focus:ring-indigo-500 mr-2" required>
+                            A. Cạnh ngắn nhất
+                        </label>
+                        <label class="flex items-center p-2.5 bg-white rounded-lg border border-slate-200 cursor-pointer hover:bg-indigo-50">
+                            <input type="radio" name="q3" value="B" class="text-indigo-600 focus:ring-indigo-500 mr-2">
+                            B. Cạnh lớn nhất
+                        </label>
+                        <label class="flex items-center p-2.5 bg-white rounded-lg border border-slate-200 cursor-pointer hover:bg-indigo-50">
+                            <input type="radio" name="q3" value="C" class="text-indigo-600 focus:ring-indigo-500 mr-2">
+                            C. Có độ dài bằng tổng hai cạnh kia
+                        </label>
+                        <label class="flex items-center p-2.5 bg-white rounded-lg border border-slate-200 cursor-pointer hover:bg-indigo-50">
+                            <input type="radio" name="q3" value="D" class="text-indigo-600 focus:ring-indigo-500 mr-2">
+                            D. Luôn bằng $10\text{ cm}$
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Câu 4 -->
+                <div class="p-4 bg-slate-50 rounded-xl border border-slate-200">
+                    <p class="font-bold text-slate-900 text-sm sm:text-base mb-3">Câu 4: Cho tam giác có 2 cạnh dài $2\text{ cm}$ và $7\text{ cm}$. Độ dài cạnh thứ ba là một số nguyên lẻ thì độ dài đó bằng:</p>
+                    <div class="grid sm:grid-cols-2 gap-2 text-sm">
+                        <label class="flex items-center p-2.5 bg-white rounded-lg border border-slate-200 cursor-pointer hover:bg-indigo-50">
+                            <input type="radio" name="q4" value="A" class="text-indigo-600 focus:ring-indigo-500 mr-2" required>
+                            A. $5\text{ cm}$
+                        </label>
+                        <label class="flex items-center p-2.5 bg-white rounded-lg border border-slate-200 cursor-pointer hover:bg-indigo-50">
+                            <input type="radio" name="q4" value="B" class="text-indigo-600 focus:ring-indigo-500 mr-2">
+                            B. $7\text{ cm}$
+                        </label>
+                        <label class="flex items-center p-2.5 bg-white rounded-lg border border-slate-200 cursor-pointer hover:bg-indigo-50">
+                            <input type="radio" name="q4" value="C" class="text-indigo-600 focus:ring-indigo-500 mr-2">
+                            C. $9\text{ cm}$
+                        </label>
+                        <label class="flex items-center p-2.5 bg-white rounded-lg border border-slate-200 cursor-pointer hover:bg-indigo-50">
+                            <input type="radio" name="q4" value="D" class="text-indigo-600 focus:ring-indigo-500 mr-2">
+                            D. $8\text{ cm}$
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Câu 5 -->
+                <div class="p-4 bg-slate-50 rounded-xl border border-slate-200">
+                    <p class="font-bold text-slate-900 text-sm sm:text-base mb-3">Câu 5: Trong bài toán tối ưu kéo dây điện qua bờ sông $d$, tổng khoảng cách $MA + MB$ đạt giá trị nhỏ nhất khi điểm $M$ nằm ở vị trí nào?</p>
+                    <div class="grid sm:grid-cols-2 gap-2 text-sm">
+                        <label class="flex items-center p-2.5 bg-white rounded-lg border border-slate-200 cursor-pointer hover:bg-indigo-50">
+                            <input type="radio" name="q5" value="A" class="text-indigo-600 focus:ring-indigo-500 mr-2" required>
+                            A. Trung điểm đoạn $AB$
+                        </label>
+                        <label class="flex items-center p-2.5 bg-white rounded-lg border border-slate-200 cursor-pointer hover:bg-indigo-50">
+                            <input type="radio" name="q5" value="B" class="text-indigo-600 focus:ring-indigo-500 mr-2">
+                            B. Giao điểm của đường thẳng nối điểm đối xứng $A'$ với $B$ và bờ sông $d$
+                        </label>
+                        <label class="flex items-center p-2.5 bg-white rounded-lg border border-slate-200 cursor-pointer hover:bg-indigo-50">
+                            <input type="radio" name="q5" value="C" class="text-indigo-600 focus:ring-indigo-500 mr-2">
+                            C. Chân đường vuông góc kẻ từ $A$ xuống $d$
+                        </label>
+                        <label class="flex items-center p-2.5 bg-white rounded-lg border border-slate-200 cursor-pointer hover:bg-indigo-50">
+                            <input type="radio" name="q5" value="D" class="text-indigo-600 focus:ring-indigo-500 mr-2">
+                            D. Một điểm bất kì ở vô cực
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Student Info & Submission -->
+                <div class="p-4 bg-indigo-50 rounded-xl border border-indigo-200 flex flex-col sm:flex-row gap-4 items-center">
+                    <div class="w-full sm:flex-1">
+                        <label for="student-name" class="block text-xs font-bold text-slate-700 uppercase mb-1">Họ và tên học sinh:</label>
+                        <input type="text" id="student-name" class="w-full px-3 py-2 bg-white rounded-lg border border-slate-300 focus:ring-2 focus:ring-indigo-500 focus:outline-none text-sm font-medium" placeholder="Nhập đầy đủ họ và tên..." required>
+                    </div>
+                    <div class="w-full sm:w-auto self-end">
+                        <button type="submit" id="btn-submit-quiz" class="w-full sm:w-auto px-6 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-lg shadow-sm transition flex items-center justify-center">
+                            <i class="fas fa-paper-plane mr-2"></i> Nộp bài kiểm tra
+                        </button>
+                    </div>
+                </div>
+            </form>
+
+            <div id="quiz-result" class="mt-4 hidden p-4 rounded-xl border text-sm font-bold text-center"></div>
+        </section>
+
+    </main>
+
+    <!-- Footer Copyright -->
+    <footer class="bg-slate-900 text-slate-400 py-6 mt-12 text-center text-xs sm:text-sm print:hidden">
+        <div class="max-w-6xl mx-auto px-4">
+            <p>@ Bản quyền thuộc ThS. Đinh Quốc Tuấn - Mục đích phi lợi nhuận - Vì giáo dục.</p>
+        </div>
+    </footer>
+
+    <!-- Print Button (Required by prompt) -->
+    <button id="btn-print-doc" onclick="safePrint()" class="fixed bottom-5 right-5 bg-gray-900 text-white px-4 py-2 rounded-lg shadow-lg hover:bg-gray-700 print:hidden z-50">
+        <i class="fas fa-print mr-2"></i> In Tài Liệu
+    </button>
+
+    <script>
+        function safePrint() {
+            const printBtn = document.getElementById('btn-print-doc');
+            printBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Đang chuẩn bị...';
+            
+            // Đảm bảo MathJax đã render xong mọi công thức trước khi gọi hộp thoại in
+            if (window.MathJax && window.MathJax.typesetPromise) {
+                MathJax.typesetPromise().then(() => {
+                    printBtn.innerHTML = '<i class="fas fa-print mr-2"></i> In Tài Liệu';
+                    window.print();
+                });
+            } else {
+                // Fallback nếu không có công thức toán
+                setTimeout(() => window.print(), 500);
+            }
+        }
+    </script>
+
+    <!-- JSXGraph Scripts -->
+    <script>
+        // === JSXGraph 1: Dynamic Triangle Angle-Side relation ===
+        const brd1 = JXG.JSXGraph.initBoard('jxgbox1', {
+            boundingbox: [-2, 6, 8, -2],
+            axis: false,
+            showNavigation: false,
+            showCopyright: false
+        });
+
+        const pA = brd1.create('point', [2, 4], {name: 'A', color: '#ef4444', size: 4});
+        const pB = brd1.create('point', [0, 0], {name: 'B', color: '#3b82f6', size: 4});
+        const pC = brd1.create('point', [6, 0], {name: 'C', color: '#10b981', size: 4});
+
+        // Edges
+        const segBC = brd1.create('segment', [pB, pC], {strokeColor: '#ef4444', strokeWidth: 3, name: 'a (đối diện A)'});
+        const segAC = brd1.create('segment', [pA, pC], {strokeColor: '#3b82f6', strokeWidth: 3, name: 'b (đối diện B)'});
+        const segAB = brd1.create('segment', [pA, pB], {strokeColor: '#10b981', strokeWidth: 3, name: 'c (đối diện C)'});
+
+        // Angles
+        const angA = brd1.create('angle', [pB, pA, pC], {color: '#ef4444', fillOpacity: 0.2, radius: 0.8});
+        const angB = brd1.create('angle', [pC, pB, pA], {color: '#3b82f6', fillOpacity: 0.2, radius: 0.8});
+        const angC = brd1.create('angle', [pA, pC, pB], {color: '#10b981', fillOpacity: 0.2, radius: 0.8});
+
+        function updateBrd1Info() {
+            const a = pB.Dist(pC);
+            const b = pA.Dist(pC);
+            const c = pA.Dist(pB);
+
+            const degA = (angA.Value() * 180 / Math.PI);
+            const degB = (angB.Value() * 180 / Math.PI);
+            const degC = (angC.Value() * 180 / Math.PI);
+
+            const infoDiv = document.getElementById('box1-info');
+            infoDiv.innerHTML = `
+                <div class="text-red-600 bg-red-50 p-2 rounded">
+                    <strong>Đỉnh A / Cạnh BC:</strong><br>
+                    $BC = ${a.toFixed(2)}$ cm<br>
+                    $\\widehat{A} = ${degA.toFixed(1)}^\\circ$
+                </div>
+                <div class="text-blue-600 bg-blue-50 p-2 rounded">
+                    <strong>Đỉnh B / Cạnh AC:</strong><br>
+                    $AC = ${b.toFixed(2)}$ cm<br>
+                    $\\widehat{B} = ${degB.toFixed(1)}^\\circ$
+                </div>
+                <div class="text-emerald-600 bg-emerald-50 p-2 rounded">
+                    <strong>Đỉnh C / Cạnh AB:</strong><br>
+                    $AB = ${c.toFixed(2)}$ cm<br>
+                    $\\widehat{C} = ${degC.toFixed(1)}^\\circ$
+                </div>
+            `;
+            if (window.MathJax && window.MathJax.typesetPromise) {
+                MathJax.typesetPromise([infoDiv]);
+            }
+        }
+        brd1.on('update', updateBrd1Info);
+        updateBrd1Info();
+
+        // === JSXGraph 2: Compass Triangle Construction ===
+        const brd2 = JXG.JSXGraph.initBoard('jxgbox2', {
+            boundingbox: [-3, 7, 9, -5],
+            axis: true,
+            showNavigation: false,
+            showCopyright: false
+        });
+
+        const sA = brd2.create('slider', [[-2, 6], [5, 6], [2, 6, 8]], {name: 'Đáy a (BC)', snapWidth: 0.1});
+        const sB = brd2.create('slider', [[-2, 5.2], [5, 5.2], [1, 4, 6]], {name: 'Bán kính b (tâm C)', snapWidth: 0.1});
+        const sC = brd2.create('slider', [[-2, 4.4], [5, 4.4], [1, 5, 6]], {name: 'Bán kính c (tâm B)', snapWidth: 0.1});
+
+        const p2B = brd2.create('point', [0, 0], {name: 'B(0,0)', fixed: true, color: '#3b82f6', size: 3});
+        const p2C = brd2.create('point', [() => sA.Value(), 0], {name: 'C', color: '#10b981', size: 3});
+        const seg2BC = brd2.create('segment', [p2B, p2C], {strokeColor: '#0f172a', strokeWidth: 3});
+
+        const circB = brd2.create('circle', [p2B, () => sC.Value()], {dash: 2, strokeColor: '#10b981', strokeWidth: 1.5});
+        const circC = brd2.create('circle', [p2C, () => sB.Value()], {dash: 2, strokeColor: '#3b82f6', strokeWidth: 1.5});
+
+        const p2A = brd2.create('point', [
+            function() {
+                const a = sA.Value(), b = sB.Value(), c = sC.Value();
+                if (a >= b + c || b >= a + c || c >= a + b) return NaN;
+                const x = (a*a + c*c - b*b) / (2*a);
+                const y = Math.sqrt(Math.max(0, c*c - x*x));
+                return x;
+            },
+            function() {
+                const a = sA.Value(), b = sB.Value(), c = sC.Value();
+                if (a >= b + c || b >= a + c || c >= a + b) return NaN;
+                const x = (a*a + c*c - b*b) / (2*a);
+                return Math.sqrt(Math.max(0, c*c - x*x));
+            }
+        ], {name: 'A', color: '#ef4444', size: 4});
+
+        const poly2 = brd2.create('polygon', [p2A, p2B, p2C], {
+            fillColor: '#38bdf8',
+            fillOpacity: 0.25,
+            borders: {strokeColor: '#0284c7', strokeWidth: 2}
+        });
+
+        function updateBrd2Status() {
+            const a = sA.Value(), b = sB.Value(), c = sC.Value();
+            const statusDiv = document.getElementById('box2-status');
+            const isValid = (a < b + c) && (b < a + c) && (c < a + b);
+
+            if (isValid) {
+                statusDiv.className = 'mt-3 text-center text-sm font-bold p-3 rounded-xl border bg-emerald-50 text-emerald-800 border-emerald-300';
+                statusDiv.innerHTML = `<i class="fas fa-check-circle mr-1"></i> Thỏa mãn BĐT Tam Giác: a (${a.toFixed(1)}) < b + c (${(b+c).toFixed(1)}) ➜ Hai đường tròn cắt nhau tạo đỉnh A.`;
+            } else {
+                statusDiv.className = 'mt-3 text-center text-sm font-bold p-3 rounded-xl border bg-rose-50 text-rose-800 border-rose-300';
+                statusDiv.innerHTML = `<i class="fas fa-triangle-exclamation mr-1"></i> Vi phạm BĐT Tam Giác: a (${a.toFixed(1)}) ≥ b + c (${(b+c).toFixed(1)}) ➜ Hai cung tròn không giao nhau, KHÔNG THỂ DỰNG TAM GIÁC!`;
+            }
+        }
+        brd2.on('update', updateBrd2Status);
+        updateBrd2Status();
+
+        // === JSXGraph 3: Optimized Shortest Path Line ===
+        const brd3 = JXG.JSXGraph.initBoard('jxgbox3', {
+            boundingbox: [-1, 6, 9, -5],
+            axis: false,
+            showNavigation: false,
+            showCopyright: false
+        });
+
+        // River bank (Line y = 0)
+        const river = brd3.create('line', [[0, 0], [1, 0]], {strokeColor: '#0284c7', strokeWidth: 4, name: 'Bờ sông (d)'});
+        brd3.create('text', [0.2, 0.4, 'Bờ sông d'], {color: '#0284c7', fontStyle: 'bold'});
+
+        const ptA = brd3.create('point', [1, 3], {name: 'A (Trạm biến áp)', color: '#ef4444', size: 4, fixed: true});
+        const ptB = brd3.create('point', [7, 4], {name: 'B (Khu dân cư)', color: '#10b981', size: 4, fixed: true});
+        const ptA_prime = brd3.create('point', [1, -3], {name: "A' (Đối xứng A qua d)", color: '#f59e0b', size: 4, fixed: true});
+
+        // Segment A'B
+        const lineAprimeB = brd3.create('segment', [ptA_prime, ptB], {dash: 2, strokeColor: '#64748b', strokeWidth: 1.5});
+        
+        // Optimal Point C
+        const ptC = brd3.create('intersection', [river, lineAprimeB, 0], {name: 'C (Vị trí tối ưu)', color: '#8b5cf6', size: 4, fixed: true});
+
+        // Movable Point M on river
+        const ptM = brd3.create('glider', [3.5, 0, river], {name: 'M (Cột điện di động)', color: '#ec4899', size: 5});
+
+        // Cables
+        const wireAM = brd3.create('segment', [ptA, ptM], {strokeColor: '#ec4899', strokeWidth: 2});
+        const wireBM = brd3.create('segment', [ptB, ptM], {strokeColor: '#ec4899', strokeWidth: 2});
+        const wireAprimeM = brd3.create('segment', [ptA_prime, ptM], {dash: 1, strokeColor: '#f59e0b', strokeWidth: 1.5});
+
+        function updateBrd3Info() {
+            const curDist = ptA.Dist(ptM) + ptB.Dist(ptM);
+            const optDist = ptA_prime.Dist(ptB);
+            const infoDiv = document.getElementById('box3-info');
+            const isOptimal = Math.abs(curDist - optDist) < 0.05;
+
+            infoDiv.innerHTML = `
+                <div class="flex flex-col sm:flex-row justify-around items-center gap-2">
+                    <div>Tổng chiều dài dây hiện tại $(AM + MB)$: <span class="font-bold text-pink-600 text-base">${curDist.toFixed(2)} m</span></div>
+                    <div>Chiều dài ngắn nhất tối ưu $(AC + CB)$: <span class="font-bold text-indigo-700 text-base">${optDist.toFixed(2)} m</span></div>
+                    <div class="${isOptimal ? 'text-emerald-700 font-bold' : 'text-slate-500'}">
+                        ${isOptimal ? '<i class="fas fa-star text-amber-500"></i> ĐẠT ĐIỂM TỐI ƯU NHẤT!' : 'Kéo M về gần điểm C để tối ưu hóa'}
+                    </div>
+                </div>
+            `;
+        }
+        brd3.on('update', updateBrd3Info);
+        updateBrd3Info();
+
+        // === Quiz Submit Handler to Google Apps Script ===
+        const startTime = new Date();
+        const correctAnswers = {
+            q1: 'B', // C < B < A
+            q2: 'C', // 4, 5, 7
+            q3: 'B', // Cạnh lớn nhất
+            q4: 'B', // 7 cm (5 < x < 9, lẻ -> 7)
+            q5: 'B'  // Giao điểm A'B với d
+        };
+
+        document.getElementById('quiz-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const btn = document.getElementById('btn-submit-quiz');
+            const resultBox = document.getElementById('quiz-result');
+            const studentName = document.getElementById('student-name').value.trim();
+
+            if (!studentName) {
+                alert('Vui lòng nhập họ và tên!');
+                return;
+            }
+
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Đang gửi kết quả...';
+
+            const formData = new FormData(e.target);
+            let score = 0;
+            let wrongList = [];
+
+            for (let i = 1; i <= 5; i++) {
+                const ans = formData.get('q' + i);
+                if (ans === correctAnswers['q' + i]) {
+                    score += 2;
+                } else {
+                    wrongList.push('Câu ' + i);
+                }
+            }
+
+            const endTime = new Date();
+            const timeTaken = Math.round((endTime - startTime) / 1000) + ' giây';
+            const wrongDetail = wrongList.length > 0 ? wrongList.join(', ') : 'Không có (Đúng hết)';
+
+            // Payload matches Google Apps Script requirements[cite: 1, 2]
+            const payload = {
+                hoTen: studentName,
+                maDe: "HinhHoc7-Buoi31-BĐT-TamGiac",
+                diem: score,
+                thoiGian: timeTaken,
+                cauSai: wrongDetail
+            };
+
+            const endpoint = "https://script.google.com/macros/s/AKfycbzY7b7h4OwvhXuK5Vs6hl-aD88BPnAiAKbU5lfJobby0D4nzbIJVKT4n0AKCpAGoK0nZA/exec";
+
+            fetch(endpoint, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: {
+                    'Content-Type': 'text/plain;charset=utf-8'
+                },
+                body: JSON.stringify(payload)
+            }).then(() => {
+                resultBox.className = 'mt-4 p-4 rounded-xl border text-sm font-bold text-center bg-emerald-50 text-emerald-800 border-emerald-300 block';
+                resultBox.innerHTML = `
+                    <p class="text-base"><i class="fas fa-circle-check text-emerald-600 mr-2"></i> Nộp bài thành công!</p>
+                    <p class="mt-1 font-medium">Học sinh: <span class="text-slate-900">${studentName}</span> | Điểm số: <span class="text-emerald-700 text-lg">${score}/10</span></p>
+                    <p class="text-xs text-slate-600 mt-0.5">Các câu sai: ${wrongDetail}</p>
+                `;
+                btn.innerHTML = '<i class="fas fa-check mr-2"></i> Đã hoàn thành';
+            }).catch(err => {
+                resultBox.className = 'mt-4 p-4 rounded-xl border text-sm font-bold text-center bg-rose-50 text-rose-800 border-rose-300 block';
+                resultBox.innerHTML = `<i class="fas fa-circle-xmark mr-2"></i> Lỗi kết nối khi gửi dữ liệu. Điểm của bạn: ${score}/10. Vui lòng báo cho giáo viên!`;
+                btn.disabled = false;
+                btn.innerHTML = 'Thử lại';
+            });
+        });
+    </script>
+</body>
+</html>
