@@ -1,262 +1,492 @@
 <!DOCTYPE html>
-<html lang="vi" data-color-mode="auto" data-light-theme="light" data-dark-theme="dark">
+<html lang="vi">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Bài Giảng Buổi 1: Mệnh Đề Toán Học - Toán 10</title>
-  
-  <link crossorigin="anonymous" media="all" rel="stylesheet" href="https://github.githubassets.com/assets/light-4fded0090af0ad58.css" />
-  <link crossorigin="anonymous" media="all" rel="stylesheet" href="https://github.githubassets.com/assets/dark-06381ff23d863842.css" />
-  <link crossorigin="anonymous" media="all" rel="stylesheet" href="https://github.githubassets.com/assets/primer-primitives-b39ad27f3538ace3.css" />
-  <link crossorigin="anonymous" media="all" rel="stylesheet" href="https://github.githubassets.com/assets/primer-tailwind-compatible-b8351ad34be13af4.css" />
-  <link crossorigin="anonymous" media="all" rel="stylesheet" href="https://github.githubassets.com/assets/github-eab9c5888b163e42.css" />
-
-  <style>
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
-      background-color: var(--color-canvas-default);
-      color: var(--color-fg-default);
-      margin: 0;
-      padding: 0;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buổi 1: Mệnh đề toán học - Chuyên đề Học thuật</title>
     
-    /* KHẮC PHỤC LỖI PC: Giới hạn độ rộng nội dung và nâng font-size tiêu chuẩn cho PC */
-    .lecture-container {
-      max-width: 840px; /* Độ rộng tối ưu cho mắt đọc trên PC không bị mỏi */
-      margin: 0 auto;
-      padding: 32px 24px;
-    }
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraph.css" />
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraphcore.js"></script>
+    
+    <script>
+        MathJax = {
+            tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
-    /* Đảm bảo toàn bộ nội dung thừa hưởng tỷ lệ hiển thị bài viết chuẩn của GitHub */
-    .markdown-body {
-      font-size: 16px; /* Kích thước chữ cơ sở chuẩn trên PC */
-      line-height: 1.7;
-    }
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-    /* Tối ưu hiển thị responsive cho các thiết bị di động nhỏ hơn 767px */
-    @media (max-width: 767px) {
-      .lecture-container {
-        padding: 16px 12px;
-      }
-      .markdown-body {
-        font-size: 15px; /* Giảm nhẹ 1px trên mobile để giao diện gọn gàng */
-      }
-      .h1 { font-size: 24px !important; }
-      .h2 { font-size: 20px !important; }
-    }
-
-    /* Các thành phần bổ trợ cho bài giảng */
-    .timeline-badge {
-      display: inline-block;
-      padding: 4px 10px;
-      font-size: 13px;
-      font-weight: 600;
-      border-radius: 6px;
-      background-color: var(--color-accent-subtle);
-      color: var(--color-accent-fg);
-      margin-bottom: 12px;
-    }
-    .math {
-      font-family: "Times New Roman", Times, serif;
-      font-style: italic;
-      font-weight: bold;
-      color: var(--color-danger-fg);
-      padding: 0 4px;
-      font-size: 1.1em; /* Kích cỡ công thức toán lớn hơn chữ thường một chút */
-    }
-    .box-note {
-      border: 1px solid var(--color-border-default);
-      border-radius: 6px;
-      padding: 20px;
-      margin-bottom: 24px;
-      background-color: var(--color-canvas-subtle);
-    }
-    .box-core {
-      border-left: 5px solid var(--color-accent-purple);
-      background-color: var(--color-attention-subtle);
-    }
-    .box-break {
-      border: 2px dashed var(--color-success-border);
-      background-color: var(--color-success-subtle);
-      text-align: center;
-      padding: 24px;
-      border-radius: 8px;
-      margin: 32px 0;
-    }
-    .badge-status {
-      display: inline-block;
-      padding: 3px 8px;
-      font-size: 12px;
-      font-weight: 600;
-      border-radius: 4px;
-      margin-left: 6px;
-    }
-    .badge-true { background-color: var(--color-success-subtle); color: var(--color-success-fg); }
-    .badge-false { background-color: var(--color-danger-subtle); color: var(--color-danger-fg); }
-    .badge-none { background-color: var(--color-neutral-subtle); color: var(--color-fg-muted); }
-  </style>
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .jxgbox { border-radius: 0.75rem; border: 2px solid #e5e7eb; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); }
+        details > summary { list-style: none; }
+        details > summary::-webkit-details-marker { display: none; }
+        @media print {
+            .no-print { display: none !important; }
+            body { background: white; color: black; }
+            .jxgbox { border: 1px solid #000; break-inside: avoid; }
+        }
+    </style>
 </head>
+<body class="bg-gray-50 text-gray-900 leading-relaxed antialiased">
 
-<body>
-  <div class="lecture-container markdown-body">
-    
-    <header class="pb-3 mb-4 border-bottom text-center">
-      <h1 class="h1 color-fg-accent mb-2" style="font-size: 32px; font-weight: 800;">NỘI DUNG BÀI GIẢNG CHI TIẾT</h1>
-      <p class="color-fg-muted text-italic mb-0">Môn: Toán 10 — Chương I: Mệnh Đề và Tập Hợp</p>
+    <header class="bg-white shadow-sm sticky top-0 z-40 print:relative print:shadow-none">
+        <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
+            <img src="https://firebasestorage.googleapis.com/v0/b/link-anh-web.firebasestorage.app/o/ttbdvh.jpg?alt=media&token=f270aa9b-a2bc-48e8-8910-80742b542615" alt="Logo TTBDVH" class="h-14 object-contain">
+            <h1 class="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-700 to-indigo-700 text-center hidden md:block">
+                HỆ THỐNG HỌC TẬP TOÁN HỌC TRỰC TUYẾN
+            </h1>
+            <img src="https://firebasestorage.googleapis.com/v0/b/link-anh-web.firebasestorage.app/o/Logo-chinh-hcmus.png?alt=media&token=9cf3a1de-75f1-493b-8711-fd22c7b98738" alt="Logo HCMUS" class="h-14 object-contain">
+        </div>
     </header>
 
-    <main>
-      <section class="mb-5">
-        <div class="timeline-badge">18h00 - 18h40</div>
-        <h2 class="h2 color-fg-default mb-3 border-bottom pb-1">Phần 1: Mệnh đề toán học và Mệnh đề chứa biến</h2>
+    <main class="max-w-5xl mx-auto px-4 py-8">
         
-        <div class="box-note box-core">
-          <h3 class="h4 mb-2 color-fg-attention" style="margin-top: 0;">💡 Quy tắc cốt lõi:</h3>
-          <p class="mb-0" style="font-size: 17px;">Mỗi mệnh đề toán học phải <strong>hoặc đúng hoặc sai</strong>. Một mệnh đề toán học không thể vừa đúng, vừa sai.</p>
+        <div class="bg-gradient-to-br from-indigo-900 to-blue-800 rounded-2xl shadow-xl p-8 mb-10 text-white relative overflow-hidden">
+            <div class="absolute top-0 right-0 opacity-10 text-9xl transform translate-x-4 -translate-y-8">
+                <i class="fas fa-infinity"></i>
+            </div>
+            <span class="bg-blue-400 text-blue-900 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Đại số & Giải tích</span>
+            <h2 class="text-4xl font-extrabold mt-4 mb-2">Buổi 1: Mệnh đề toán học</h2>
+            <p class="text-blue-100 text-lg">Chào các em! Chào mừng các em đến với bài học nền tảng cốt lõi của tư duy logic, giúp chúng ta biết cách lập luận, chứng minh và diễn đạt toán học một cách chặt chẽ.</p>
         </div>
 
-        <h3 class="h4 mb-2">1. Khái niệm mệnh đề toán học là gì?</h3>
-        <p>Một khẳng định đúng gọi là <em>mệnh đề đúng</em>, một khẳng định sai gọi là <em>mệnh đề sai</em>.</p>
-        <p class="color-fg-muted text-italic">⚠️ Chú ý: Những câu cảm thán ("Trời ơi, nóng quá!"), câu hỏi hay câu mệnh lệnh sẽ không phải là mệnh đề vì chúng không xác định được tính đúng sai.</p>
+        <section class="mb-12">
+            <h3 class="text-2xl font-bold text-blue-800 border-b-2 border-blue-200 pb-2 mb-6 flex items-center">
+                <i class="fas fa-layer-group mr-3 text-blue-500"></i> PHẦN 1: MỨC ĐỘ CƠ BẢN - KHÁI NIỆM NỀN TẢNG
+            </h3>
 
-        <div class="box-note">
-          <h4 class="h5 mb-3 color-fg-success" style="margin-top: 0;">📌 Ví dụ trực quan cho học sinh:</h4>
-          <ul class="pl-3 mb-0" style="list-style-type: square;">
-            <li class="mb-2"><strong>Câu A:</strong> "Số 15 chia hết cho 2" <span class="badge-status badge-false">Mệnh đề SAI</span></li>
-            <li class="mb-2"><strong>Câu B:</strong> "Hà Nội là thủ đô của Việt Nam" <span class="badge-status badge-true">Mệnh đề ĐÚNG</span></li>
-            <li class="mb-0"><strong>Câu C:</strong> "Bạn đã làm bài tập chưa?" <span class="badge-status badge-none">KHÔNG PHẢI mệnh đề</span></li>
-          </ul>
-        </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                <div class="bg-white rounded-xl shadow-md p-6 border-l-4 border-green-500 hover:shadow-lg transition">
+                    <div class="flex items-center mb-3">
+                        <span class="bg-green-100 text-green-700 px-2 py-1 rounded text-sm font-bold mr-2">1</span>
+                        <h4 class="font-bold text-lg text-gray-800">Khái niệm Mệnh đề</h4>
+                    </div>
+                    <p class="mb-3 text-sm"><strong>Định nghĩa:</strong> Mệnh đề là một khẳng định đúng hoặc sai. Không thể vừa đúng vừa sai.</p>
+                    <ul class="list-disc pl-5 text-sm text-gray-600 mb-4 space-y-1">
+                        <li>"3 là số lẻ" <i class="fas fa-check text-green-500"></i> (Mệnh đề đúng)</li>
+                        <li>"1 + 2 > 3" <i class="fas fa-times text-red-500"></i> (Mệnh đề sai)</li>
+                        <li>"Trời đẹp quá!" <i class="fas fa-ban text-gray-400"></i> (Không phải mệnh đề)</li>
+                    </ul>
+                    <details class="bg-gray-50 rounded-lg p-3 cursor-pointer text-sm">
+                        <summary class="font-semibold text-indigo-600 flex items-center outline-none">
+                            <i class="fas fa-lightbulb text-yellow-500 mr-2"></i> Gợi ý giải thích nhanh
+                        </summary>
+                        <p class="mt-2 text-gray-600">Những câu cảm thán, câu hỏi, câu mệnh lệnh không có tính xác định đúng/sai, do đó không được gọi là mệnh đề toán học.</p>
+                    </details>
+                </div>
 
-        <h3 class="h4 mb-2">2. Mệnh đề chứa biến</h3>
-        <p>Đôi khi các em sẽ gặp những câu khẳng định mà tính đúng sai của nó phụ thuộc vào một biến số.</p>
-        <p><strong>Ví dụ:</strong> Xét câu "n chia hết cho 5" (với <span class="math">n</span> là số tự nhiên). Bản thân câu này chưa thể biết đúng hay sai.</p>
-        <ul class="pl-3 mb-3">
-          <li class="mb-1">Nếu thay <span class="math">n = 10</span>, ta được câu "10 chia hết cho 5" → <span class="badge-status badge-true">Mệnh đề ĐÚNG</span></li>
-          <li class="mb-0">Nếu thay <span class="math">n = 11</span>, ta được câu "11 chia hết cho 5" → <span class="badge-status badge-false">Mệnh đề SAI</span></li>
-        </ul>
-        <p class="Box-body border-left-3 color-border-accent pl-3 text-italic bg-canvas-subtle p-2" style="border-radius: 0 6px 6px 0;">
-          <strong>Kết luận:</strong> Mệnh đề chứa biến chưa phải là mệnh đề, nhưng khi thay biến bởi một giá trị cụ thể thì nó trở thành một mệnh đề.
-        </p>
-      </section>
+                <div class="bg-white rounded-xl shadow-md p-6 border-l-4 border-purple-500 hover:shadow-lg transition">
+                    <div class="flex items-center mb-3">
+                        <span class="bg-purple-100 text-purple-700 px-2 py-1 rounded text-sm font-bold mr-2">2</span>
+                        <h4 class="font-bold text-lg text-gray-800">Mệnh đề chứa biến</h4>
+                    </div>
+                    <p class="mb-3 text-sm"><strong>Định nghĩa:</strong> Khẳng định chứa biến, tính đúng sai phụ thuộc vào giá trị của biến số.</p>
+                    <p class="text-sm text-gray-600 mb-4">Ví dụ: \( P(n) \): "\( n \) chia hết cho 5".<br>
+                        Nếu \( n = 10 \Rightarrow \) Đúng. Nếu \( n = 14 \Rightarrow \) Sai.
+                    </p>
+                    
+                    <div class="bg-gray-50 p-3 rounded-lg text-center">
+                        <p class="text-xs font-semibold text-gray-500 mb-2"><i class="fas fa-mouse-pointer"></i> Kéo thanh trượt để xét tính đúng/sai của \(x > 5\)</p>
+                        <div id="box-bien" class="jxgbox w-full h-32 mx-auto bg-white"></div>
+                    </div>
+                </div>
+            </div>
 
-      <section class="mb-5">
-        <div class="timeline-badge">18h40 - 19h10</div>
-        <h2 class="h2 color-fg-default mb-3 border-bottom pb-1">Phần 2: Phủ định của một mệnh đề</h2>
-        <p>Để phủ định một mệnh đề <span class="math">P</span>, ta thường thêm (hoặc bớt) từ "không" hoặc "không phải" vào trước vị ngữ của mệnh đề đó. Mệnh đề phủ định của <span class="math">P</span> được kí hiệu là <span class="math">P̄</span>.</p>
-        
-        <div class="box-note box-core">
-          <h3 class="h4 mb-2 color-fg-severe" style="margin-top: 0;">⚖️ Tính đúng sai:</h3>
-          <p class="mb-0">Mệnh đề <span class="math">P̄</span> đúng khi <span class="math">P</span> sai, và <span class="math">P̄</span> sai khi <span class="math">P</span> đúng. Hai mệnh đề này có tính đúng sai trái ngược nhau.</p>
-        </div>
+            <div class="bg-white rounded-xl shadow-md p-6 border-l-4 border-orange-500 mb-6">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="flex items-center">
+                        <span class="bg-orange-100 text-orange-700 px-2 py-1 rounded text-sm font-bold mr-2">3 & 5</span>
+                        <h4 class="font-bold text-lg text-gray-800">Mệnh đề Kéo theo & Tương đương</h4>
+                    </div>
+                    <div class="flex gap-2">
+                        <span class="bg-pink-100 text-pink-700 text-xs font-bold px-2 py-1 rounded">\(P \Rightarrow Q\)</span>
+                        <span class="bg-cyan-100 text-cyan-700 text-xs font-bold px-2 py-1 rounded">\(P \Leftrightarrow Q\)</span>
+                    </div>
+                </div>
+                <p class="mb-4">
+                    <strong>Kéo theo (\( \Rightarrow \)):</strong> Chỉ sai khi P đúng và Q sai.<br>
+                    <strong>Tương đương (\( \Leftrightarrow \)):</strong> Đúng khi P và Q cùng đúng hoặc cùng sai.
+                </p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+                    <div>
+                        <p class="text-sm text-gray-700 italic mb-4 border-l-2 border-gray-300 pl-3">
+                            Ví dụ Tương đương: <br>
+                            \( P \): "Tam giác ABC vuông tại A" <br>
+                            \( Q \): "\( BC^2 = AB^2 + AC^2 \)"
+                        </p>
+                        <details class="bg-blue-50 rounded-lg p-3 cursor-pointer text-sm">
+                            <summary class="font-semibold text-blue-700 flex items-center outline-none">
+                                <i class="fas fa-search text-blue-500 mr-2"></i> Gợi ý thao tác hình học
+                            </summary>
+                            <p class="mt-2 text-gray-600">Kéo đỉnh A, B hoặc C ở hình bên. Hãy quan sát khi góc A đạt chính xác \(90^\circ\) (Mệnh đề P đúng), hệ thức Pythagore (Mệnh đề Q) sẽ lập tức cân bằng.</p>
+                        </details>
+                    </div>
+                    <div id="box-pythagore" class="jxgbox w-full h-64 mx-auto bg-white"></div>
+                </div>
+            </div>
+        </section>
 
-        <div class="box-note">
-          <h4 class="h5 mb-2" style="margin-top: 0;">📌 Ví dụ minh họa:</h4>
-          <p class="mb-2"><strong>Cặp ví dụ 1:</strong></p>
-          <ul class="pl-3 mb-3">
-            <li class="mb-1">Mệnh đề <span class="math">P</span>: "Trái Đất là trung tâm của hệ Mặt Trời" <span class="badge-status badge-false">Mệnh đề SAI</span></li>
-            <li>Mệnh đề phủ định <span class="math">P̄</span>: "Trái Đất không phải là trung tâm của hệ Mặt Trời" <span class="badge-status badge-true">Mệnh đề ĐÚNG</span></li>
-          </ul>
-          
-          <p class="mb-2"><strong>Cặp ví dụ 2:</strong></p>
-          <ul class="pl-3 mb-0">
-            <li class="mb-1">Mệnh đề <span class="math">Q</span>: "2<sup>2</sup> + 2<sup>3</sup> = 2<sup>2+3</sup>"</li>
-            <li>Mệnh đề phủ định <span class="math">Q̄</span>: "2<sup>2</sup> + 2<sup>3</sup> ≠ 2<sup>2+3</sup>"</li>
-          </ul>
-        </div>
-        <p class="text-italic color-fg-accent font-semibold bg-accent-subtle p-2 pl-3" style="border-radius: 6px;">👨‍🏫 [Lời thoại lớp học]: Lúc này thầy sẽ gọi 2-3 bạn đứng lên lấy ví dụ về mệnh đề phủ định để đảm bảo lớp hiểu bài trước khi nghỉ giải lao.</p>
-      </section>
+        <section class="mb-12">
+            <h3 class="text-2xl font-bold text-indigo-800 border-b-2 border-indigo-200 pb-2 mb-6 flex items-center">
+                <i class="fas fa-brain mr-3 text-indigo-500"></i> PHẦN 2: MỨC ĐỘ NÂNG CAO - BẢN CHẤT LẬP LUẬN LOGIC
+            </h3>
 
-      <div class="box-break">
-        <h3 class="h3 color-fg-success m-0" style="font-size: 22px; font-weight: 700;">🍉 19h10 - 19h25: NGHỈ GIẢI LAO 🍉</h3>
-        <p class="mb-0 text-small color-fg-muted mt-2">Các em thư giãn, uống nước rồi quay lại chiến đấu với phần quan trọng nhất nhé!</p>
-      </div>
+            <div class="bg-white rounded-xl shadow-md p-6 border-l-4 border-teal-500 mb-6">
+                <h4 class="font-bold text-lg text-gray-800 mb-3">1. Chân trị & Điều kiện Cần/Đủ</h4>
+                <p class="mb-4">Chân trị của mệnh đề nhận giá trị Đúng (1) hoặc Sai (0). 
+                    Khi \(P \Rightarrow Q\) luôn đúng: <strong>P là điều kiện đủ</strong> để có Q; <strong>Q là điều kiện cần</strong> để có P.</p>
+                
+                <div class="overflow-x-auto rounded-lg border border-gray-200 mb-4">
+                    <table class="min-w-full divide-y divide-gray-200 text-center text-sm">
+                        <thead class="bg-gray-100">
+                            <tr>
+                                <th class="px-4 py-3 font-bold text-gray-700">Mệnh đề \(P\)</th>
+                                <th class="px-4 py-3 font-bold text-gray-700">Mệnh đề \(Q\)</th>
+                                <th class="px-4 py-3 font-bold text-teal-700 bg-teal-50">\(P \Rightarrow Q\)</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-gray-200" id="truth-table">
+                            </tbody>
+                    </table>
+                </div>
+            </div>
 
-      <section class="mb-5">
-        <div class="timeline-badge">19h25 - 20h15</div>
-        <h2 class="h2 color-fg-default mb-3 border-bottom pb-1">Phần 3: Mệnh đề kéo theo và Mệnh đề tương đương</h2>
-        <p class="flash flash-error mb-3 p-2">🔥 <strong>Lưu ý từ thầy:</strong> Đây là phần lý thuyết xương sống của chương trình, các em tập trung cao độ nhé!</p>
+            <div class="bg-white rounded-xl shadow-md p-6 border-l-4 border-rose-500">
+                <h4 class="font-bold text-lg text-gray-800 mb-3">2. Mệnh đề đảo</h4>
+                <p class="mb-3 text-sm">Mệnh đề đảo của \(P \Rightarrow Q\) là \(Q \Rightarrow P\). <strong>Lưu ý:</strong> Mệnh đề đảo của một mệnh đề đúng không nhất thiết phải đúng!</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <p class="text-sm text-gray-600 mb-4">
+                            Xét hàm số \( y = x^2 \).<br>
+                            Mệnh đề \( P \): "\( x = 2 \)", Mệnh đề \( Q \): "\( y = 4 \)".<br>
+                            Ta thấy \( P \Rightarrow Q \) là ĐÚNG.<br>
+                            Nhưng mệnh đề đảo \( Q \Rightarrow P \) (Nếu \(y=4\) thì \(x=2\)) là SAI, vì \(x\) có thể bằng \(-2\).
+                        </p>
+                    </div>
+                    <div id="box-daoparabol" class="jxgbox w-full h-56 mx-auto bg-white"></div>
+                </div>
+            </div>
+        </section>
 
-        <h3 class="h4 mb-2">1. Mệnh đề kéo theo</h3>
-        <p>Mệnh đề có dạng "Nếu <span class="math">P</span> thì <span class="math">Q</span>" được gọi là mệnh đề kéo theo, kí hiệu là <span class="math">P ⇒ Q</span>.</p>
-        <p><strong>Tính đúng sai:</strong> Mệnh đề <span class="math">P ⇒ Q</span> chỉ <strong>SAI</strong> trong trường hợp duy nhất: <span class="math">P</span> đúng và <span class="math">Q</span> sai. Các trường hợp còn lại mệnh đề đều đúng.</p>
-        
-        <div class="box-note box-core">
-          <h4 class="h5 mb-2 color-fg-attention" style="margin-top: 0;">⚡ Thuật ngữ quan trọng khi làm bài tập (Định lí <span class="math">P ⇒ Q</span>):</h4>
-          <ul class="pl-3 mb-2">
-            <li class="mb-1"><span class="math">P</span> là <strong>giả thiết</strong>, <span class="math">Q</span> là <strong>kết luận</strong>.</li>
-            <li class="mb-1"><span class="math">P</span> là <strong>điều kiện đủ</strong> để có <span class="math">Q</span>.</li>
-            <li class="mb-0"><span class="math">Q</span> là <strong>điều kiện cần</strong> để có <span class="math">P</span>.</li>
-          </ul>
-          <p class="mb-0 text-italic color-fg-purple font-semibold mt-2 pt-2 border-top">💡 Mẹo nhớ nhanh: Nếu có P thì ĐỦ để suy ra Q; nhưng để có P thì trước hết CẦN phải thỏa mãn Q.</p>
-        </div>
+        <section class="mb-12">
+            <h3 class="text-2xl font-bold text-red-800 border-b-2 border-red-200 pb-2 mb-6 flex items-center">
+                <i class="fas fa-fire-flame-curved mr-3 text-red-500"></i> PHẦN 3: VẬN DỤNG - SUY LUẬN & CHỨNG MINH
+            </h3>
 
-        <h3 class="h4 mb-2">2. Mệnh đề đảo và Mệnh đề tương đương</h3>
-        <p>Mệnh đề <span class="math">Q ⇒ P</span> được gọi là <strong>mệnh đề đảo</strong> của mệnh đề <span class="math">P ⇒ Q</span>.</p>
-        <p>Nếu cả hai mệnh đề <span class="math">P ⇒ Q</span> và <span class="math">Q ⇒ P</span> đều đúng thì ta nói <span class="math">P</span> và <span class="math">Q</span> là hai <strong>mệnh đề tương đương</strong>, kí hiệu là <span class="math">P ⇔ Q</span>.</p>
-        <p><strong>Khi đó ta phát biểu:</strong> "P tương đương Q", hoặc "P khi và chỉ khi Q", hoặc "P là điều kiện cần và đủ để có Q".</p>
+            <div class="bg-white rounded-xl shadow-md p-6 border-l-4 border-yellow-400 mb-6">
+                <div class="flex items-center mb-3">
+                    <span class="bg-yellow-100 text-yellow-700 px-2 py-1 rounded text-sm font-bold mr-2">\(\forall\) & \(\exists\)</span>
+                    <h4 class="font-bold text-lg text-gray-800">Kí hiệu "Với mọi" và "Tồn tại"</h4>
+                </div>
+                <p class="mb-4">
+                    Kí hiệu \(\forall\) (với mọi): Mọi phần tử đều làm cho mệnh đề đúng.<br>
+                    Kí hiệu \(\exists\) (tồn tại): Có ít nhất một phần tử làm mệnh đề đúng.
+                </p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+                    <div>
+                        <div class="bg-gray-50 p-4 rounded-lg border border-gray-200 text-sm">
+                            <p class="font-bold text-gray-700 mb-2">Cách lập phủ định:</p>
+                            <p class="mb-1">Phủ định của "\(\forall x, P(x)\)" là "\(\exists x, \overline{P(x)}\)".</p>
+                            <p>Ví dụ: Mệnh đề \(A\): "\(\forall x \in \mathbb{R}, x^2 \ge 0\)" (Đúng).</p>
+                            <p>Phủ định \(\overline{A}\): "\(\exists x \in \mathbb{R}, x^2 < 0\)" (Sai).</p>
+                        </div>
+                    </div>
+                    <div id="box-voimoi" class="jxgbox w-full h-56 mx-auto bg-white"></div>
+                </div>
+            </div>
 
-        <div class="box-note">
-          <p class="mb-2"><strong>Ví dụ điển hình:</strong> Cho tam giác ABC.</p>
-          <ul class="pl-3 mb-0">
-            <li class="mb-1">Mệnh đề <span class="math">P</span>: "Tam giác ABC là tam giác đều".</li>
-            <li>Mệnh đề <span class="math">Q</span>: "Tam giác ABC có 3 góc bằng 60°".</li>
-          </ul>
-          <p class="mt-2 mb-0 text-success font-semibold border-top pt-2">Rõ ràng P ⇒ Q đúng và Q ⇒ P cũng đúng. Ta viết gọn: <span class="math">P ⇔ Q</span>.</p>
-        </div>
-      </section>
+            <div class="bg-white rounded-xl shadow-md p-6 border-l-4 border-blue-500">
+                <h4 class="font-bold text-lg text-gray-800 mb-3">Phương pháp Chứng minh phản chứng</h4>
+                <p class="text-sm mb-3">Để chứng minh \(P \Rightarrow Q\) đúng, ta giả sử \(P\) đúng và \(Q\) sai (Tức \(\overline{Q}\) đúng). Sau đó suy luận để tìm ra <strong>Mâu thuẫn</strong>.</p>
+                
+                <details class="bg-red-50 rounded-lg p-4 cursor-pointer text-sm mb-4 border border-red-100">
+                    <summary class="font-bold text-red-700 flex items-center outline-none">
+                        <i class="fas fa-shield-halved mr-2"></i> Ví dụ minh họa Phản chứng (Bấm để xem)
+                    </summary>
+                    <div class="mt-3 text-gray-700">
+                        <p><strong>Định lí:</strong> Cho \(a, b \ge 0\). Nếu \(a+b=0\) thì \(a=0\) và \(b=0\).</p>
+                        <p class="mt-2 font-semibold border-b pb-1">Chứng minh:</p>
+                        <ul class="list-disc pl-5 mt-2 space-y-1">
+                            <li>Giả sử \(a+b=0\) nhưng kết luận sai. Không mất tổng quát, giả sử \(a > 0\).</li>
+                            <li>Vì \(b \ge 0 \Rightarrow a+b > 0 + 0 = 0\).</li>
+                            <li>Tức là \(a+b > 0\). Điều này <strong>mâu thuẫn</strong> với giả thiết \(a+b=0\).</li>
+                            <li>Vậy điều giả sử là sai. Mệnh đề gốc đúng! <i class="fas fa-check-circle text-green-500"></i></li>
+                        </ul>
+                    </div>
+                </details>
+            </div>
+        </section>
 
-      <section class="mb-5">
-        <div class="timeline-badge">20h15 - 20h40</div>
-        <h2 class="h2 color-fg-default mb-3 border-bottom pb-1">Phần 4: Luyện tập tổng hợp</h2>
-        <p class="color-fg-muted text-italic mb-3">Thầy cho lớp làm nhanh các bài tập trắc nghiệm và tự luận ngắn để kiểm tra độ hiểu bài:</p>
+        <section class="bg-gray-900 text-white rounded-2xl shadow-2xl p-8 mb-10 relative overflow-hidden no-print">
+            <div class="absolute top-0 right-0 -mt-4 -mr-4 text-blue-500 opacity-20 text-9xl">
+                <i class="fas fa-laptop-code"></i>
+            </div>
+            <h3 class="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 to-yellow-500 mb-6 flex items-center">
+                <i class="fas fa-rocket text-yellow-400 mr-3"></i> BÀI TẬP ĐÁNH GIÁ NĂNG LỰC
+            </h3>
+            <p class="mb-6 text-gray-300">Hoàn thành 5 câu trắc nghiệm dưới đây để củng cố kiến thức. Điểm số sẽ được hệ thống lưu lại trực tuyến.</p>
+            
+            <form id="quiz-form" class="space-y-6 relative z-10">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-300 mb-1">Họ và Tên</label>
+                        <input type="text" id="hoTen" required class="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-yellow-400" placeholder="VD: Nguyễn Văn A">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-300 mb-1">Mã lớp/Mã đề</label>
+                        <input type="text" id="maDe" required class="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-yellow-400" placeholder="VD: KHTN6-01">
+                    </div>
+                </div>
 
-        <div class="Box mb-3 p-3">
-          <h4 class="h5 mb-2 color-fg-accent" style="margin-top: 0;">Bài 1: Câu nào sau đây là mệnh đề?</h4>
-          <p class="mb-1">a) <span class="math">2 + 2 = 5</span>.</p>
-          <p class="mb-2">b) "Bạn đã làm bài tập chưa?".</p>
-          <p class="mb-0 text-small color-fg-success font-semibold">🔑 Đáp án: Khẳng định a là mệnh đề (và là mệnh đề sai), câu b không phải mệnh đề.</p>
-        </div>
+                <div class="space-y-6 mt-6">
+                    <div class="bg-gray-800 p-5 rounded-xl border border-gray-700">
+                        <p class="font-bold mb-3 text-lg"><span class="text-yellow-400 mr-1">Câu 1:</span> Khẳng định nào sau đây LÀ một mệnh đề toán học?</p>
+                        <div class="space-y-2">
+                            <label class="flex items-center space-x-3 cursor-pointer"><input type="radio" name="q1" value="0" class="form-radio text-yellow-400 focus:ring-yellow-400 w-4 h-4"><span>A. Bức tranh này đẹp quá!</span></label>
+                            <label class="flex items-center space-x-3 cursor-pointer"><input type="radio" name="q1" value="1" class="form-radio text-yellow-400 focus:ring-yellow-400 w-4 h-4"><span>B. \(1 + 1 = 3\)</span></label>
+                            <label class="flex items-center space-x-3 cursor-pointer"><input type="radio" name="q1" value="0" class="form-radio text-yellow-400 focus:ring-yellow-400 w-4 h-4"><span>C. Hôm nay là thứ mấy?</span></label>
+                            <label class="flex items-center space-x-3 cursor-pointer"><input type="radio" name="q1" value="0" class="form-radio text-yellow-400 focus:ring-yellow-400 w-4 h-4"><span>D. Hãy làm bài tập đi!</span></label>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-gray-800 p-5 rounded-xl border border-gray-700">
+                        <p class="font-bold mb-3 text-lg"><span class="text-yellow-400 mr-1">Câu 2:</span> Mệnh đề phủ định của mệnh đề \(P\): "\(\forall x \in \mathbb{R}, x^2 + 1 > 0\)" là gì?</p>
+                        <div class="space-y-2">
+                            <label class="flex items-center space-x-3 cursor-pointer"><input type="radio" name="q2" value="0" class="form-radio w-4 h-4 text-yellow-400"><span>A. \(\forall x \in \mathbb{R}, x^2 + 1 \le 0\)</span></label>
+                            <label class="flex items-center space-x-3 cursor-pointer"><input type="radio" name="q2" value="1" class="form-radio w-4 h-4 text-yellow-400"><span>B. \(\exists x \in \mathbb{R}, x^2 + 1 \le 0\)</span></label>
+                            <label class="flex items-center space-x-3 cursor-pointer"><input type="radio" name="q2" value="0" class="form-radio w-4 h-4 text-yellow-400"><span>C. \(\exists x \in \mathbb{R}, x^2 + 1 < 0\)</span></label>
+                            <label class="flex items-center space-x-3 cursor-pointer"><input type="radio" name="q2" value="0" class="form-radio w-4 h-4 text-yellow-400"><span>D. Không có mệnh đề phủ định.</span></label>
+                        </div>
+                    </div>
 
-        <div class="Box mb-3 p-3">
-          <h4 class="h5 mb-2 color-fg-accent" style="margin-top: 0;">Bài 2: Xét tính đúng sai và lập mệnh đề phủ định của mệnh đề:</h4>
-          <p class="mb-2">Mệnh đề <span class="math">P</span>: "Số 2025 chia hết cho 15".</p>
-          <div class="p-2 text-left bg-canvas-subtle border-left-3 color-border-success" style="border-radius: 0 4px 4px 0;">
-            <p class="mb-1"><strong>Hướng dẫn học sinh làm:</strong></p>
-            <ul class="pl-3 mb-0 text-small">
-              <li><span class="math">P</span> là mệnh đề <span class="badge-status badge-true">ĐÚNG</span>.</li>
-              <li>Mệnh đề phủ định <span class="math">P̄</span>: "Số 2025 không chia hết cho 15" và <span class="math">P̄</span> là mệnh đề <span class="badge-status badge-false">SAI</span>.</li>
-            </ul>
-          </div>
-        </div>
+                    <div class="bg-gray-800 p-5 rounded-xl border border-gray-700">
+                        <p class="font-bold mb-3 text-lg"><span class="text-yellow-400 mr-1">Câu 3:</span> Mệnh đề kéo theo \(P \Rightarrow Q\) bị SAI trong trường hợp nào duy nhất dưới đây?</p>
+                        <div class="space-y-2">
+                            <label class="flex items-center space-x-3 cursor-pointer"><input type="radio" name="q3" value="0" class="form-radio w-4 h-4 text-yellow-400"><span>A. \(P\) đúng, \(Q\) đúng</span></label>
+                            <label class="flex items-center space-x-3 cursor-pointer"><input type="radio" name="q3" value="0" class="form-radio w-4 h-4 text-yellow-400"><span>B. \(P\) sai, \(Q\) đúng</span></label>
+                            <label class="flex items-center space-x-3 cursor-pointer"><input type="radio" name="q3" value="1" class="form-radio w-4 h-4 text-yellow-400"><span>C. \(P\) đúng, \(Q\) sai</span></label>
+                            <label class="flex items-center space-x-3 cursor-pointer"><input type="radio" name="q3" value="0" class="form-radio w-4 h-4 text-yellow-400"><span>D. \(P\) sai, \(Q\) sai</span></label>
+                        </div>
+                    </div>
 
-        <div class="Box mb-3 p-3">
-          <h4 class="h5 mb-2 color-fg-accent" style="margin-top: 0;">Bài 3: Sử dụng thuật ngữ "điều kiện cần" hoặc "điều kiện đủ" để phát biểu lại:</h4>
-          <p class="mb-2">"Nếu một tứ giác là hình vuông thì tứ giác đó có 4 góc vuông".</p>
-          <p class="mb-0 text-small color-fg-attention font-semibold">💡 Gợi ý làm bài: Tứ giác là hình vuông là điều kiện đủ để tứ giác đó có 4 góc vuông.</p>
-        </div>
-      </section>
+                    <div class="bg-gray-800 p-5 rounded-xl border border-gray-700">
+                        <p class="font-bold mb-3 text-lg"><span class="text-yellow-400 mr-1">Câu 4:</span> Trong định lí dạng \(P \Rightarrow Q\), phát biểu nào sau đây đúng?</p>
+                        <div class="space-y-2">
+                            <label class="flex items-center space-x-3 cursor-pointer"><input type="radio" name="q4" value="0" class="form-radio w-4 h-4 text-yellow-400"><span>A. \(P\) là điều kiện cần để có \(Q\).</span></label>
+                            <label class="flex items-center space-x-3 cursor-pointer"><input type="radio" name="q4" value="1" class="form-radio w-4 h-4 text-yellow-400"><span>B. \(P\) là điều kiện đủ để có \(Q\).</span></label>
+                            <label class="flex items-center space-x-3 cursor-pointer"><input type="radio" name="q4" value="0" class="form-radio w-4 h-4 text-yellow-400"><span>C. \(Q\) là điều kiện đủ để có \(P\).</span></label>
+                            <label class="flex items-center space-x-3 cursor-pointer"><input type="radio" name="q4" value="0" class="form-radio w-4 h-4 text-yellow-400"><span>D. \(P\) vừa là điều kiện cần, vừa là điều kiện đủ để có \(Q\).</span></label>
+                        </div>
+                    </div>
 
-      <section class="mb-5">
-        <div class="timeline-badge">20h40 - 20h50</div>
-        <h2 class="h2 color-fg-default mb-3 border-bottom pb-1">Phần 5: Tổng kết và giao bài tập</h2>
-        
-        <div class="Box p-3 bg-canvas-subtle mb-3">
-          <h4 class="h5 mb-2 text-uppercase color-fg-danger" style="margin-top: 0;">📌 Tổng kết lý thuyết:</h4>
-          <p class="mb-0 text-small">Hôm nay chúng ta đã bước một chân vào thế giới Toán 10. Các em cần ghi nhớ kĩ sự khác biệt giữa <strong>"điều kiện cần"</strong> và <strong>"điều kiện đủ"</strong>, cũng như cách xác định tính đúng sai của mệnh đề kéo theo.</p>
-        </div>
+                    <div class="bg-gray-800 p-5 rounded-xl border border-gray-700">
+                        <p class="font-bold mb-3 text-lg"><span class="text-yellow-400 mr-1">Câu 5:</span> Mệnh đề đảo của mệnh đề "Nếu tam giác ABC đều thì tam giác ABC cân" là:</p>
+                        <div class="space-y-2">
+                            <label class="flex items-center space-x-3 cursor-pointer"><input type="radio" name="q5" value="1" class="form-radio w-4 h-4 text-yellow-400"><span>A. Nếu tam giác ABC cân thì tam giác ABC đều.</span></label>
+                            <label class="flex items-center space-x-3 cursor-pointer"><input type="radio" name="q5" value="0" class="form-radio w-4 h-4 text-yellow-400"><span>B. Nếu tam giác ABC không đều thì tam giác ABC không cân.</span></label>
+                            <label class="flex items-center space-x-3 cursor-pointer"><input type="radio" name="q5" value="0" class="form-radio w-4 h-4 text-yellow-400"><span>C. Tam giác ABC đều khi và chỉ khi tam giác ABC cân.</span></label>
+                            <label class="flex items-center space-x-3 cursor-pointer"><input type="radio" name="q5" value="0" class="form-radio w-4 h-4 text-yellow-400"><span>D. Tam giác ABC không cân thì tam giác ABC đều.</span></label>
+                        </div>
+                    </div>
+                </div>
 
-        <div class="Box p-3 border-color-attention bg-attention-subtle">
-          <h4 class="h5 mb-2 color-fg-attention" style="margin-top: 0;">📝 Bài tập về nhà:</h4>
-          <p class="mb-0 text-small">Thầy sẽ phát phiếu bài tập, yêu cầu các em viết các mệnh đề phủ định, xét tính đúng sai và làm quen trước với kí hiệu <span class="math">∀</span> (với mọi), <span class="math">∃</span> (tồn tại) để chuẩn bị thật tốt cho buổi học số 2 nhé.</p>
-        </div>
-      </section>
+                <div class="text-center mt-8">
+                    <button type="submit" id="btn-submit" class="bg-gradient-to-r from-yellow-400 to-orange-500 hover:from-yellow-500 hover:to-orange-600 text-gray-900 font-bold py-3 px-8 rounded-full shadow-lg transform transition hover:scale-105">
+                        <i class="fas fa-paper-plane mr-2"></i> NỘP BÀI VÀ XEM ĐIỂM
+                    </button>
+                </div>
+            </form>
+        </section>
+
     </main>
 
-    <footer class="text-center pt-3 mt-5 border-top text-small color-fg-muted">
-      <p>© 2026 Lớp Toán Thầy Tuấn — Ho Chi Minh City University of Science (HCMUS)</p>
+    <footer class="bg-gray-100 py-6 border-t border-gray-200 mt-10">
+        <div class="max-w-5xl mx-auto px-4 text-center text-sm text-gray-600 font-medium">
+            <p>@ Bản quyền thuộc ThS. Đinh Quốc Tuấn - Mục đích phi lợi nhuận - Vì giáo dục.</p>
+        </div>
     </footer>
 
-  </div>
+    <button id="btn-print-doc" onclick="safePrint()" class="fixed bottom-5 right-5 bg-gray-900 text-white px-4 py-2 rounded-lg shadow-lg hover:bg-gray-700 print:hidden z-50 transition transform hover:scale-105">
+        <i class="fas fa-print mr-2"></i> In Tài Liệu
+    </button>
+
+    <script>
+        // --- 1. Tạo bảng Chân trị động ---
+        const truthTableData = [
+            {p: 1, q: 1},
+            {p: 1, q: 0},
+            {p: 0, q: 1},
+            {p: 0, q: 0}
+        ];
+        const tbody = document.getElementById('truth-table');
+        truthTableData.forEach(row => {
+            const pq = (row.p === 1 && row.q === 0) ? 0 : 1;
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td class="px-4 py-2 font-medium text-blue-600">${row.p === 1 ? 'Đúng (1)' : 'Sai (0)'}</td>
+                <td class="px-4 py-2 font-medium text-purple-600">${row.q === 1 ? 'Đúng (1)' : 'Sai (0)'}</td>
+                <td class="px-4 py-2 font-bold ${pq === 1 ? 'text-green-600' : 'text-red-500'} bg-teal-50/30">${pq === 1 ? 'Đúng (1)' : 'Sai (0)'}</td>
+            `;
+            tbody.appendChild(tr);
+        });
+
+        // --- 2. In tài liệu an toàn (Đợi MathJax) ---
+        function safePrint() {
+            const printBtn = document.getElementById('btn-print-doc');
+            printBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Đang chuẩn bị...';
+
+            if (window.MathJax && window.MathJax.typesetPromise) {
+                MathJax.typesetPromise().then(() => {
+                    printBtn.innerHTML = '<i class="fas fa-print mr-2"></i> In Tài Liệu';
+                    window.print();
+                });
+            } else {
+                setTimeout(() => {
+                    printBtn.innerHTML = '<i class="fas fa-print mr-2"></i> In Tài Liệu';
+                    window.print();
+                }, 500);
+            }
+        }
+
+        // --- 3. Xử lý form bài tập ---
+        document.getElementById('quiz-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const btn = document.getElementById('btn-submit');
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Đang chấm điểm...';
+            btn.disabled = true;
+
+            const hoTen = document.getElementById('hoTen').value.trim();
+            const maDe = document.getElementById('maDe').value.trim();
+            
+            // Tính điểm
+            let score = 0;
+            const numQuestions = 5;
+            for(let i=1; i<=numQuestions; i++) {
+                const selected = document.querySelector(`input[name="q${i}"]:checked`);
+                if(selected && selected.value === "1") {
+                    score += 2; // Mỗi câu 2 điểm (tổng 10)
+                }
+            }
+
+            // Dữ liệu Post tương thích AppScript (Theo cấu trúc bài tracnghiemonline.md)
+            const payload = {
+                hoTen: hoTen,
+                maDe: maDe,
+                diem: score,
+                thoiGian: new Date().toLocaleString('vi-VN')
+            };
+
+            const URL_APPSCRIPT = "https://script.google.com/macros/s/AKfycbzY7b7h4OwvhXuK5Vs6hl-aD88BPnAiAKbU5lfJobby0D4nzbIJVKT4n0AKCpAGoK0nZA/exec";
+
+            fetch(URL_APPSCRIPT, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: {
+                    'Content-Type': 'text/plain;charset=utf-8',
+                },
+                body: JSON.stringify(payload)
+            }).then(() => {
+                Swal.fire({
+                    title: 'Nộp bài thành công!',
+                    html: `Chúc mừng <b>${hoTen}</b>.<br>Điểm của bạn: <b>${score}/10</b>`,
+                    icon: score >= 8 ? 'success' : (score >= 5 ? 'info' : 'warning'),
+                    confirmButtonColor: '#3085d6',
+                });
+                btn.innerHTML = '<i class="fas fa-check mr-2"></i> ĐÃ NỘP BÀI';
+            }).catch(error => {
+                Swal.fire('Lỗi', 'Không thể kết nối đến máy chủ. Vui lòng thử lại!', 'error');
+                btn.innerHTML = '<i class="fas fa-paper-plane mr-2"></i> THỬ LẠI';
+                btn.disabled = false;
+            });
+        });
+    </script>
+
+    <script>
+        // Đợi DOM load xong để vẽ JSXGraph
+        window.onload = function() {
+            
+            // 1. Box Mệnh đề chứa biến x > 5
+            var boardBien = JXG.JSXGraph.initBoard('box-bien', {boundingbox: [-2, 3, 12, -1], axis: false, showNavigation: false, showCopyright: false});
+            var s = boardBien.create('slider', [[0, 1], [8, 1], [-5, 0, 10]], {name: 'x', snapWidth: 1, fillColor: '#3b82f6'});
+            
+            var textLogic = boardBien.create('text', [4, 2, function(){
+                var val = s.Value();
+                var isTrue = val > 5;
+                var color = isTrue ? 'green' : 'red';
+                var status = isTrue ? 'ĐÚNG' : 'SAI';
+                return `<span style="font-size: 18px; font-weight: bold; color: ${color};">x > 5 (x = ${val}) ➡ ${status}</span>`;
+            }], {anchorX: 'middle'});
+
+            // 2. Box Pythagore (Mệnh đề tương đương)
+            var bPythagore = JXG.JSXGraph.initBoard('box-pythagore', {boundingbox: [-1, 6, 7, -1], axis: false, showNavigation: false, showCopyright: false});
+            var pA = bPythagore.create('point', [0, 0], {name: 'A', size: 4, color: 'red'});
+            var pB = bPythagore.create('point', [4, 0], {name: 'B', size: 4, color: 'blue'});
+            var pC = bPythagore.create('point', [0, 3], {name: 'C', size: 4, color: 'blue'});
+            var pol = bPythagore.create('polygon', [pA, pB, pC], {fillColor: '#bfdbfe', borders: {strokeWidth: 2}});
+            
+            var angleA = bPythagore.create('angle', [pB, pA, pC], {radius: 0.8, name: function() {
+                return JXG.Math.Geometry.trueAngle(pB, pA, pC).toFixed(1) + '°';
+            }});
+
+            var textPythagore = bPythagore.create('text', [1, 5, function(){
+                var a = pB.Dist(pC);
+                var b = pA.Dist(pC);
+                var c = pA.Dist(pB);
+                var isRight = Math.abs(JXG.Math.Geometry.trueAngle(pB, pA, pC) - 90) < 0.5;
+                
+                var v1 = (a*a).toFixed(1);
+                var v2 = (b*b + c*c).toFixed(1);
+                var sign = isRight ? '=' : '≠';
+                var color = isRight ? 'green' : 'red';
+                
+                return `<span style="font-size: 14px; font-weight:bold; color:${color}">BC² ${sign} AB² + AC²<br>(${v1} ${sign} ${v2})</span>`;
+            }]);
+
+            // 3. Box Mệnh đề đảo (Parabol y = x^2)
+            var bDao = JXG.JSXGraph.initBoard('box-daoparabol', {boundingbox: [-4, 5, 4, -1], axis: true, showNavigation: false, showCopyright: false});
+            var graphDao = bDao.create('functiongraph', [function(x){return x*x;}, -3, 3], {strokeColor: '#ef4444', strokeWidth: 2});
+            var pDaoY = bDao.create('point', [0, 4], {name: 'y=4 (Q)', size: 4, color: 'blue', fixed: true});
+            var lDao = bDao.create('line', [[-1, 4], [1, 4]], {visible: false});
+            var i1 = bDao.create('intersection', [graphDao, lDao, 0], {visible: false});
+            var i2 = bDao.create('intersection', [graphDao, lDao, 1], {visible: false});
+            
+            // Các đường dóng (Mệnh đề đảo rẽ 2 nhánh)
+            bDao.create('segment', [pDaoY, i1], {dash: 2, strokeColor: 'gray'});
+            bDao.create('segment', [pDaoY, i2], {dash: 2, strokeColor: 'gray'});
+            bDao.create('arrow', [i1, [function(){return i1.X();}, 0]], {strokeColor: '#3b82f6', strokeWidth: 2});
+            bDao.create('arrow', [i2, [function(){return i2.X();}, 0]], {strokeColor: '#3b82f6', strokeWidth: 2});
+            
+            bDao.create('text', [0.5, 4.5, '<span style="color:blue;font-size:12px;">Q đúng kéo theo 2 trường hợp P</span>']);
+
+            // 4. Box Mọi / Tồn tại (Máy quét parabol luôn dương)
+            var bMoi = JXG.JSXGraph.initBoard('box-voimoi', {boundingbox: [-3, 5, 3, -1], axis: true, showNavigation: false, showCopyright: false});
+            var graphMoi = bMoi.create('functiongraph', [function(x){return x*x;}, -3, 3], {strokeColor: '#eab308', strokeWidth: 2});
+            
+            var sMoi = bMoi.create('slider', [[-2, -0.5], [2, -0.5], [-2.5, 0, 2.5]], {name: 'Quét x', snapWidth: 0.1});
+            var pMoi = bMoi.create('point', [
+                function(){return sMoi.Value();}, 
+                function(){return sMoi.Value() * sMoi.Value();}
+            ], {name: '', size: 5, color: '#ca8a04'});
+            
+            var segMoi = bMoi.create('segment', [
+                [function(){return sMoi.Value();}, -1],
+                [function(){return sMoi.Value();}, 5]
+            ], {strokeColor: 'gray', dash: 2, strokeWidth: 1});
+
+            bMoi.create('text', [function(){return sMoi.Value() + 0.2;}, function(){return pMoi.Y() + 0.2;}, function(){
+                return `<span style="background:white; padding:2px; border-radius:4px; font-weight:bold; color:green; font-size:11px;">y = ${pMoi.Y().toFixed(2)} ≥ 0 (Đúng)</span>`;
+            }]);
+        };
+    </script>
 </body>
 </html>
